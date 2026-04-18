@@ -1,0 +1,11 @@
+{
+  "cr917_recordid": "REC-10023",
+  "cr917_patienttoken": "PT-9941A",
+  "cr917_discipline": "PT",
+  "cr917_therapistname": "Jane Doe",
+  "cr917_reporttype": "Eval",
+  "cr917_isprocessed": false,
+  "cr917_rawjsonpayload": "{\"recordId\": \"REC-10023\", \"patientToken\": \"PT-9941A\", \"discipline\": \"PT\"}",
+  "cr917_medicalnecessity": "Requires skilled therapy for gait training.",
+  "cr917_clinicalsummary": "Baseline assessment completed."
+}

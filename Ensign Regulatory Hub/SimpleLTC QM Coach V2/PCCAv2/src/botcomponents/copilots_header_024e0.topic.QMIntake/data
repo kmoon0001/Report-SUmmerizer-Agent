@@ -1,0 +1,71 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - start qm intake
+      - begin quality management intake
+      - open qm intake form
+      - submit qm intake request
+      - quality management intake process
+      - qm case submission
+      - file a qm report
+      - initiate qm intake procedure
+      - report for quality management review
+
+  actions:
+    - kind: Question
+      id: Question_1ez7ZQ
+      variable: Topic.FacilityName
+      prompt: Please provide the facility name.
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_mbIWWJ
+      variable: Topic.LookbackPeriod
+      prompt: Select the lookback period.
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: LookbackPeriodOptions
+          items:
+            - id: 30days
+              displayName: 30 days
+
+            - id: 60days
+              displayName: 60 days
+
+            - id: 90days
+              displayName: 90 days
+
+    - kind: Question
+      id: Question_i8Zy1L
+      variable: Topic.QMDomain
+      prompt: Please specify the QM domain.
+      entity: StringPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: ConditionGroup_dgf1RK
+      conditions:
+        - id: ConditionItem_DHa9nY
+          condition: false
+          actions:
+            - kind: SendActivity
+              id: SendActivity_JjV3Ce
+              activity: |-
+                Summary of collected inputs:
+                - Facility Name: {Topic.FacilityName}
+                - Lookback Period: {Topic.LookbackPeriod}
+                - QM Domain: {Topic.QMDomain}
+
+                Ready to proceed to QM Analysis.
+
+      elseActions:
+        - kind: SendActivity
+          id: SendActivity_TE9LGA
+          activity: "Some required information is missing. Please ensure you provide Facility Name, Lookback Period, and QM Domain. Note: Do not include any resident identifiers. Only Facility Name is allowed as PHI."
+
+inputType: {}
+outputType: {}

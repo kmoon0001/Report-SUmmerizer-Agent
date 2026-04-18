@@ -1,0 +1,62 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: ClassifyAndRouteRehabRecord
+  actions:
+    # 1. Parse incoming Rehab Record JSON payload
+    - kind: ParseValue
+      id: parseRecord
+      variable: Topic.RehabRecord
+      value: =System.Activity.Text # Placeholder for the incoming generic activity text
+      valueType: Object
+
+    # 2. Invoke Generative Prompt Tool to classify the record
+    - kind: InvokePromptAction
+      id: invokeClassifier
+      actionId: cr917_SNFRehab.ClassifyRecordTool
+      inputs:
+        recordData: =Topic.RehabRecord
+      output: Topic.ClassificationResult
+
+    # 3. Route to specific logic based on Generative Evaluation Output
+    - kind: ConditionGroup
+      id: routeCondition
+      conditions:
+        - id: evalRoute
+          condition: =Topic.ClassificationResult.reportType = "Evaluation"
+          actions:
+            - kind: BeginDialog
+              id: triggerEval
+              dialog: cr917_SNFRehab.EvalAnalysis
+        - id: progressRoute
+          condition: =Topic.ClassificationResult.reportType = "Progress"
+          actions:
+            - kind: BeginDialog
+              id: triggerProgress
+              dialog: cr917_SNFRehab.ProgressAnalysis
+        - id: recertRoute
+          condition: =Topic.ClassificationResult.reportType = "Recertification"
+          actions:
+            - kind: BeginDialog
+              id: triggerRecert
+              dialog: cr917_SNFRehab.RecertAnalysis
+        - id: dcRoute
+          condition: =Topic.ClassificationResult.reportType = "Discharge"
+          actions:
+            - kind: BeginDialog
+              id: triggerDC
+              dialog: cr917_SNFRehab.DischargeAnalysis
+        - id: defaultRoute
+          actions:
+            # Stability: Safely handle unclassified JSON by pushing it into a manual queue
+            - kind: SendActivity
+              id: fallbackMsg
+              activity: System Warning. The Generative Router could not determine the classification of this record. This record has been flagged for manual DOR review in the dashboard.
+            - kind: PerformAction
+              id: flagManual
+              action: cr917_SNFRehab.RouteToManualQueue
+              inputs:
+                FailedPayload: =Topic.RehabRecord
+

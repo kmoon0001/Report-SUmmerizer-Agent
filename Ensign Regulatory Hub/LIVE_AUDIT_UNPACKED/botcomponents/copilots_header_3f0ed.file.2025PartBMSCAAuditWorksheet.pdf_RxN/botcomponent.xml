@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_3f0ed.file.2025PartBMSCAAuditWorksheet.pdf_RxN">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in 2025 Part B MSCA Audit Worksheet.pdf</description>
+  <filedata mimetype="application/pdf">2025%20Part%20B%20MSCA%20Audit%20Worksheet.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>2025 Part B MSCA Audit Worksheet.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

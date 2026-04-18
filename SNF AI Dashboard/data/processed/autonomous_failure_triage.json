@@ -1,0 +1,12 @@
+﻿{
+    "GeneratedAt":  "2026-04-06T02:38:56",
+    "FindingCount":  1,
+    "Findings":  [
+                     {
+                         "Severity":  "Medium",
+                         "Area":  "QA Sweep",
+                         "Summary":  "QA sweep found failures: 1",
+                         "Action":  "Review run log event and fix upstream script/input for this step."
+                     }
+                 ]
+}

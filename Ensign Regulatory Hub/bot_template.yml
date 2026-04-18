@@ -1,0 +1,2975 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Nutrition-Hydration.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Nutrition-Hydration.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforNutritionHydration.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMDriverAnalysis
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMDriverAnalysis
+    dialog:
+      modelDescription: Collects likely quality-measure decline drivers so downstream coaching can prioritize root causes and corrective actions.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: adaptiveCardPrompt_driverCategory
+            card: |-
+              ={
+                '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+                type: "AdaptiveCard",
+                version: "1.5",
+                body: [
+                  {
+                    type: "TextBlock",
+                    text: "Driver Category",
+                    wrap: true,
+                    weight: "Bolder",
+                    size: "Medium",
+                    style: "heading"
+                  },
+                  {
+                    type: "TextBlock",
+                    text: "Which root-cause category should we investigate first?",
+                    wrap: true,
+                    spacing: "Small"
+                  }
+                ],
+                actions: [
+                  { type: "Action.Submit", title: "ðŸ“ Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
+                  { type: "Action.Submit", title: "ðŸ‘¥ Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
+                  { type: "Action.Submit", title: "ðŸ¥ Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
+                  { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
+                ]
+              }
+            output:
+              binding:
+                driverCategory: Topic.driverCategory
+
+            outputType:
+              properties:
+                driverCategory: String
+
+          - kind: Question
+            id: question_Swypdb
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility should this QM driver analysis use?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_ti7dMJ
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.coachingOutput
+            prompt: "What coaching output do you need first: root cause summary, targeted interventions, or audit checklist?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Root cause summary
+                    displayName: Root cause summary
+
+                  - id: Targeted interventions
+                    displayName: Targeted interventions
+
+                  - id: Audit checklist
+                    displayName: Audit checklist
+
+              displayName: EmbeddedEntity-2M4sno
+
+          - kind: SendActivity
+            id: sendActivity_completion
+            activity: Analyzing QM drivers for {Topic.selectedFacility}. This analysis will help identify root causes and guide corrective actions.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QM Driver Analysis
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CertificationrecertMDSalignment
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.CertificationrecertMDSalignment
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - certification process
+            - how do I recertify
+            - MDS alignment help
+            - renew my certification
+            - recertification steps
+            - align MDS records
+            - update certification status
+            - MDS recertification requirements
+            - certification renewal information
+            - help with MDS alignment
+
+        actions:
+          - kind: SendActivity
+            id: SendActivity_ND6J7p
+            activity: Let's review your certification, recertification, and MDS/plan-of-care alignment.
+
+          - kind: Question
+            id: Question_jLI5Fw
+            variable: Topic.CertDate
+            prompt: "Please provide a clear response: Please provide the certification or recertification date."
+            entity: DatePrebuiltEntity
+
+          - kind: Question
+            id: Question_V5ktPO
+            variable: Topic.PartType
+            prompt: "Please provide a clear response: Is this for Part A or Part B?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: PartTypeOptions
+                items:
+                  - id: partA
+                    displayName: Part A
+
+                  - id: partB
+                    displayName: Part B
+
+          - kind: Question
+            id: Question_xPJgwO
+            variable: Topic.PlanOfCareDate
+            prompt: "Please provide a clear response: Please provide the date of the most recent plan of care."
+            entity: DatePrebuiltEntity
+
+          - kind: Question
+            id: Question_GvUqpC
+            variable: Topic.MDSDate
+            prompt: "Please provide a clear response: Please provide the date of the most recent MDS assessment."
+            entity: DatePrebuiltEntity
+
+          - kind: Question
+            id: Question_QcILT1
+            variable: Topic.PlanMDSConsistent
+            prompt: "Please provide a clear response: Is the therapy plan consistent with the MDS assessment? (Yes/No)"
+            entity: BooleanPrebuiltEntity
+
+          - kind: Question
+            id: Question_kOr3HX
+            variable: Topic.SignatureObtained
+            prompt: "Please provide a clear response: Has the required signature been obtained for the certification/recertification? (Yes/No)"
+            entity: BooleanPrebuiltEntity
+
+          - kind: SendActivity
+            id: SendActivity_wgwy3M
+            activity:
+              attachments:
+                - kind: AdaptiveCardTemplate
+                  cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Certification & Alignment Summary\" }, { type: \"FactSet\", facts: [ { title: \"Certification/Recert Date\", value: Text(Topic.CertDate) }, { title: \"Part Type\", value: Text(Topic.PartType) }, { title: \"Plan of Care Date\", value: Text(Topic.PlanOfCareDate) }, { title: \"MDS Date\", value: Text(Topic.MDSDate) }, { title: \"Plan Consistent with MDS\", value: Text(Topic.PlanMDSConsistent) }, { title: \"Signature Obtained\", value: Text(Topic.SignatureObtained) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+          - kind: SendActivity
+            id: SendActivity_vOlG88
+            activity: Please note above information or suggestions provided are for general educational purposes only and should not be considered as medical advice or used as a substitute for seeking the advice of a qualified healthcare provider. It is important to consult with a licensed healthcare professional if you have any questions or concerns about your health or well-being.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Certification Recert and MDS Alignment
+        description: |
+          Topic workflow for Certification Recert and MDS Alignment within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ACCOUNTABILITYMATRIX
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ACCOUNTABILITYMATRIX
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start ACCOUNTABILITYMATRIX
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (ACCOUNTABILITYMATRIX) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: ACCOUNTABILITYMATRIX
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Singlenotecomplianceaudit
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Singlenotecomplianceaudit
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - single-note compliance audit
+            - start a single-note compliance audit
+            - run compliance check for a single note
+            - audit one note for compliance
+            - check if this note is compliant
+            - compliance status of a single note
+            - verify compliance of this note
+            - single document compliance audit
+            - is this note compliant?
+            - perform an audit on one note
+
+        actions:
+          - kind: Question
+            id: Question_XjXqr6
+            variable: Topic.TherapyNote
+            prompt: "Please provide a clear response: Please paste your PT, OT, or SLP therapy note for a full compliance audit."
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: SendActivity_F8qd5V
+            activity: Thank you for sharing your therapy note. I will now run a full compliance audit and check for SEV-1 to SEV-3 issues, denial-risk indicators, and provide concrete remediation steps.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Single-Note Compliance Audit
+        description: |
+          Topic workflow for Single-Note Compliance Audit within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Oral-Hygiene.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Oral-Hygiene.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforOralHygiene.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversationalboosting
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: SendActivity
+                    id: DisplayAnswer
+                    activity: "{Topic.Answer}"
+
+                  - kind: Question
+                    id: CheckHelpfulness
+                    variable: Topic.IsHelpful
+                    prompt: Was this information helpful for your compliance review?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: FeedbackLogic
+                    conditions:
+                      - id: NotHelpful
+                        condition: =Topic.IsHelpful = false
+                        actions:
+                          - kind: SendActivity
+                            id: Apology
+                            activity: I apologize for not finding a precise answer. Would you like to escalate this to a human reviewer or try rephrasing?
+
+                          - kind: Question
+                            id: EscalateChoice
+                            variable: Topic.WantEscalate
+                            prompt: Escalate to human review?
+                            entity: BooleanPrebuiltEntity
+
+                          - kind: ConditionGroup
+                            id: EscalateRedirect
+                            conditions:
+                              - id: Escalate
+                                condition: =Topic.WantEscalate = true
+                                actions:
+                                  - kind: BeginDialog
+                                    id: CallEscalate
+                                    dialog: template-content.topic.Escalate
+
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+      mcs.metadata:
+        componentName: Conversational Boosting
+        description: |
+          Enhanced Conversational Boosting with integrated user feedback loop for AI quality tracking.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Decision Support QM-Domain-Logic.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Clinical Decision Support QM-Domain-Logic.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ClinicalDecisionSupportQMDomainLogic.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ValidateDocumentationCompleteness
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ValidateDocumentationCompleteness
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start ValidateDocumentationCompleteness
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (ValidateDocumentationCompleteness) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: ValidateDocumentationCompleteness
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting1
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+      mcs.metadata:
+        componentName: Conversational boosting
+        description: Create generative answers from knowledge sources.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Fall-Prevention.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Fall-Prevention.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforFallPrevention.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Low-Vision.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Low-Vision.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforLowVision.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMDATAUPLOADDECLINEDETECTION
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMDATAUPLOADDECLINEDETECTION
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start QMDATAUPLOADDECLINEDETECTION
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (QMDATAUPLOADDECLINEDETECTION) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QMDATAUPLOADDECLINEDETECTION
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: DoRSummary
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.DoRSummary
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start DoRSummary
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (DoRSummary) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: DoRSummary
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: HumanReviewGate
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.HumanReviewGate
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - request human review
+            - need manual approval
+            - send to human reviewer
+            - escalate for human check
+            - human intervention required
+            - flag for human review
+            - can a person look at this?
+            - submit for manual verification
+            - ask a real person to review
+
+        actions:
+          - kind: Question
+            id: Question_Cu6T2a
+            variable: Topic.reportSummary
+            prompt: "Please provide a clear response: Please provide a short narrative summary for the report."
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: Question_V3sn5I
+            variable: Topic.riskHighlights
+            prompt: "Please provide a clear response: List the top 3â€“5 risk highlights for this report."
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: Question_s5jiXf
+            variable: Topic.recommendedActions
+            prompt: "Please provide a clear response: Summarize the recommended actions for this report."
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: Question_M1tQRH
+            variable: Topic.approverEmail
+            prompt: "Please provide a clear response: Please provide the email address of the reviewer who will approve this report."
+            entity: EmailPrebuiltEntity
+
+          - kind: SendActivity
+            id: SendActivity_4SiN9P
+            activity:
+              attachments:
+                - kind: AdaptiveCardTemplate
+                  cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Human Review Gate: Approval Summary\" }, { type: \"FactSet\", facts: [ { title: \"Report Summary\", value: Text(Topic.reportSummary) }, { title: \"Risk Highlights\", value: Text(Topic.riskHighlights) }, { title: \"Recommended Actions\", value: Text(Topic.recommendedActions) }, { title: \"Approver Email\", value: Text(Topic.approverEmail) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+          - kind: SendActivity
+            id: SendActivity_T0B7r5
+            activity: Submitting the report for Human-in-the-Loop approval via Teams Approval Flow.
+
+          - kind: SendActivity
+            id: SendActivity_bx77Fb
+            activity: |-
+              Report Summary: {Topic.reportSummary}
+              Risk Highlights: {Topic.riskHighlights}
+              Recommended Actions: {Topic.recommendedActions}
+              Approver Email: {Topic.approverEmail}
+
+          - kind: SendActivity
+            id: SendActivity_E2eklT
+            activity:
+              attachments:
+                - kind: AdaptiveCardTemplate
+                  cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Human Review Gate: Approval Summary\" }, { type: \"FactSet\", facts: [ { title: \"Report Summary\", value: Text(Topic.reportSummary) }, { title: \"Risk Highlights\", value: Text(Topic.riskHighlights) }, { title: \"Recommended Actions\", value: Text(Topic.recommendedActions) }, { title: \"Approver Email\", value: Text(Topic.approverEmail) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Human Review Gate
+        description: |
+          Topic workflow for Human Review Gate within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: RESIDENTOUTLIERANALYSIS
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.RESIDENTOUTLIERANALYSIS
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start RESIDENTOUTLIERANALYSIS
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (RESIDENTOUTLIERANALYSIS) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: RESIDENTOUTLIERANALYSIS
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Medicare General
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information on the web found in https://www.cms.gov/medicare website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.CMSMedicareGeneral
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Explainmydenialrisk
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Explainmydenialrisk
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - explain my denial risk
+            - why was my claim denied
+            - help me understand denial risk
+            - what is the reason for my denial risk
+            - can you tell me about my denial risk
+            - details about claim denial risk
+            - risk of claim being denied
+            - why am I at risk of denial
+            - denial reasons for my claim
+
+        actions:
+          - kind: SendActivity
+            id: SendActivity_2qRrDM
+            activity: Welcome! I can help explain denial risk in plain language and provide coaching for therapists. Please paste your note or describe the situation you'd like help with.
+
+          - kind: Question
+            id: Question_U2fFon
+            variable: Topic.ClinicalNote
+            prompt: "Please provide a clear response: Please paste your clinical note or describe the audit findings you received."
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: SendActivity_nJmsJB
+            activity: |-
+              Thank you for sharing your note. Here are some therapist-friendly teaching points to help reduce denial risk:
+
+              1. **Clarity and Specificity:** Make sure your note clearly describes the clinical need and the interventions provided. Avoid vague language.
+              2. **Link to Medical Necessity:** Explain how the treatment addresses the patient's diagnosis and functional goals.
+              3. **Document Progress:** Show measurable progress or explain barriers to progress.
+              4. **Address Audit Findings:** If you received technical feedback, restate it in plain language and describe how to fix it in your documentation.
+
+              If you have specific audit findings, please share them and I can help translate them into practical steps.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Explain My Denial Risk
+        description: |
+          Topic workflow for Explain My Denial Risk within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Contracture-Mgmt.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Contracture-Mgmt.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforContractureMgmt.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Decision Support Power-Automate-Orchestration.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Clinical Decision Support Power-Automate-Orchestration.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ClinicalDecisionSupportPowerAutomateOrchestration.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Redflagprescreen
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Redflagprescreen
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start Redflagprescreen
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (Redflagprescreen) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Redflagprescreen
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Safetyandcriticalriskflags
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Safetyandcriticalriskflags
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start Safetyandcriticalriskflags
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (Safetyandcriticalriskflags) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Safetyandcriticalriskflags
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Please sign in so I can continue helping with your request.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Sign In Required
+            text: Please sign in to continue using this assistant.
+
+      mcs.metadata:
+        componentName: Sign In
+        description: |
+          Topic workflow for Sign In within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: Escalate
+
+      mcs.metadata:
+        componentName: Fallback
+        description: |
+          Topic workflow for Fallback within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: LATESTRESIDENTSUBMISSION
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.LATESTRESIDENTSUBMISSION
+    dialog:
+      modelDescription: Use this topic only when the user explicitly asks to use or load the latest resident insight submission. Its job is to confirm facility context and then hand off into RESIDENT OUTLIER ANALYSIS. Do not use this topic for facility-level QM analysis or for resident requests that already provide detailed resident data.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - use latest resident insight submission
+            - load latest resident qm submission
+            - use the latest resident submission
+            - load the latest resident insight submission
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_latestResidentSubmissionNotice
+            activity: I can use the latest approved resident insight submission once the facility is confirmed.
+
+          - kind: ConditionGroup
+            id: conditionGroup_prepareLatestResidentFacility
+            conditions:
+              - id: conditionItem_existingLatestResidentFacility
+                condition: =!IsBlank(Global.SelectedFacility)
+
+              - id: conditionItem_seacliffLatestResidentFacility
+                condition: ="sea cliff" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_seacliffLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Sea Cliff"
+
+              - id: conditionItem_palmterraceLatestResidentFacility
+                condition: ="palm terrace" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_palmterraceLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Palm Terrace"
+
+              - id: conditionItem_victoriaLatestResidentFacility
+                condition: ="victoria" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_victoriaLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Victoria"
+
+              - id: conditionItem_stcatherineLatestResidentFacility
+                condition: ="st. catherine" in Lower(System.Activity.Text) || "st catherine" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_stcatherineLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="St. Catherine"
+
+              - id: conditionItem_stelizabethLatestResidentFacility
+                condition: ="st. elizabeth" in Lower(System.Activity.Text) || "st elizabeth" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_stelizabethLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="St. Elizabeth"
+
+              - id: conditionItem_mainplaceLatestResidentFacility
+                condition: ="mainplace" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_mainplaceLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Mainplace"
+
+              - id: conditionItem_neworangehillsLatestResidentFacility
+                condition: ="new orange hills" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_neworangehillsLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="New Orange Hills"
+
+              - id: conditionItem_hillsLatestResidentFacility
+                condition: ="the hills" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_hillsLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="The Hills"
+
+              - id: conditionItem_beachsideLatestResidentFacility
+                condition: ="beachside" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_beachsideLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Beachside"
+
+              - id: conditionItem_alamitoswestLatestResidentFacility
+                condition: ="alamitos west" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_alamitoswestLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Alamitos West"
+
+              - id: conditionItem_coventryLatestResidentFacility
+                condition: ="coventry court" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_coventryLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Coventry Court"
+
+              - id: conditionItem_pacifichavenLatestResidentFacility
+                condition: ="pacific haven" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_pacifichavenLatestResidentFacility
+                    variable: Global.SelectedFacility
+                    value: ="Pacific Haven"
+
+            elseActions:
+              - kind: Question
+                id: question_latestResidentFacilityChoice
+                interruptionPolicy:
+                  allowInterruption: true
+
+                variable: Topic.ResidentFacilityChoiceOption
+                prompt: Please confirm the facility for this resident-specific QM review.
+                entity:
+                  kind: EmbeddedEntity
+                  definition:
+                    kind: ClosedListEntity
+                    optionSetName: ResidentFacilityOptions
+                    items:
+                      - id: Sea Cliff
+                        displayName: Sea Cliff
+
+                      - id: Palm Terrace
+                        displayName: Palm Terrace
+
+                      - id: Victoria
+                        displayName: Victoria
+
+                      - id: St. Catherine
+                        displayName: St. Catherine
+
+                      - id: St. Elizabeth
+                        displayName: St. Elizabeth
+
+                      - id: Mainplace
+                        displayName: Mainplace
+
+                      - id: New Orange Hills
+                        displayName: New Orange Hills
+
+                      - id: The Hills
+                        displayName: The Hills
+
+                      - id: Beachside
+                        displayName: Beachside
+
+                      - id: Alamitos West
+                        displayName: Alamitos West
+
+                      - id: Coventry Court
+                        displayName: Coventry Court
+
+                      - id: Pacific Haven
+                        displayName: Pacific Haven
+
+              - kind: SetVariable
+                id: setVariable_syncLatestResidentFacility
+                variable: Global.SelectedFacility
+                value: =Text(Topic.ResidentFacilityChoiceOption)
+
+              - kind: SetVariable
+                id: setVariable_syncLatestResidentFacilityName
+                variable: Topic.ResidentFacilityName
+                value: =Text(Topic.ResidentFacilityChoiceOption)
+
+              - kind: SetVariable
+                id: setVariable_syncLatestResidentFacilityChoice
+                variable: Topic.ResidentFacilityChoice
+                value: =Text(Topic.ResidentFacilityChoiceOption)
+
+          - kind: SetVariable
+            id: setVariable_syncLatestResidentFacilityNameFromGlobal
+            variable: Topic.ResidentFacilityName
+            value: =Text(Global.SelectedFacility)
+
+          - kind: ConditionGroup
+            id: conditionGroup_recoverLatestResidentFacilityFromTypedText
+            conditions:
+              - id: conditionItem_latestResidentFacilityAlreadySet
+                condition: =!IsBlank(Global.SelectedFacility)
+
+              - id: conditionItem_latestResidentChoiceHasValue
+                condition: =!IsBlank(Topic.ResidentFacilityChoice)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_syncLatestResidentFacilityFromChoice
+                    variable: Global.SelectedFacility
+                    value: =Text(Topic.ResidentFacilityChoice)
+
+                  - kind: SetVariable
+                    id: setVariable_syncLatestResidentFacilityNameFromChoice
+                    variable: Topic.ResidentFacilityName
+                    value: =Text(Topic.ResidentFacilityChoice)
+
+              - id: conditionItem_latestResidentTypedSeaCliff
+                condition: ="sea cliff" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedSeaCliff
+                    variable: Global.SelectedFacility
+                    value: ="Sea Cliff"
+
+              - id: conditionItem_latestResidentTypedPalmTerrace
+                condition: ="palm terrace" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedPalmTerrace
+                    variable: Global.SelectedFacility
+                    value: ="Palm Terrace"
+
+              - id: conditionItem_latestResidentTypedVictoria
+                condition: ="victoria" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedVictoria
+                    variable: Global.SelectedFacility
+                    value: ="Victoria"
+
+              - id: conditionItem_latestResidentTypedStCatherine
+                condition: ="st. catherine" in Lower(System.Activity.Text) || "st catherine" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedStCatherine
+                    variable: Global.SelectedFacility
+                    value: ="St. Catherine"
+
+              - id: conditionItem_latestResidentTypedStElizabeth
+                condition: ="st. elizabeth" in Lower(System.Activity.Text) || "st elizabeth" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedStElizabeth
+                    variable: Global.SelectedFacility
+                    value: ="St. Elizabeth"
+
+              - id: conditionItem_latestResidentTypedMainplace
+                condition: ="mainplace" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedMainplace
+                    variable: Global.SelectedFacility
+                    value: ="Mainplace"
+
+              - id: conditionItem_latestResidentTypedNewOrangeHills
+                condition: ="new orange hills" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedNewOrangeHills
+                    variable: Global.SelectedFacility
+                    value: ="New Orange Hills"
+
+              - id: conditionItem_latestResidentTypedTheHills
+                condition: ="the hills" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedTheHills
+                    variable: Global.SelectedFacility
+                    value: ="The Hills"
+
+              - id: conditionItem_latestResidentTypedBeachside
+                condition: ="beachside" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedBeachside
+                    variable: Global.SelectedFacility
+                    value: ="Beachside"
+
+              - id: conditionItem_latestResidentTypedAlamitosWest
+                condition: ="alamitos west" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedAlamitosWest
+                    variable: Global.SelectedFacility
+                    value: ="Alamitos West"
+
+              - id: conditionItem_latestResidentTypedCoventryCourt
+                condition: ="coventry court" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedCoventryCourt
+                    variable: Global.SelectedFacility
+                    value: ="Coventry Court"
+
+              - id: conditionItem_latestResidentTypedPacificHaven
+                condition: ="pacific haven" in Lower(System.Activity.Text)
+                actions:
+                  - kind: SetVariable
+                    id: setVariable_latestResidentTypedPacificHaven
+                    variable: Global.SelectedFacility
+                    value: ="Pacific Haven"
+
+          - kind: BeginDialog
+            id: beginDialog_routeLatestResidentSubmission
+            dialog: template-content.topic.RESIDENTOUTLIERANALYSIS
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: LATEST RESIDENT SUBMISSION ROUTER
+        description: Route exact latest-resident-submission requests into the resident review workflow after facility confirmation.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+      mcs.metadata:
+        componentName: On Error
+        description: |
+          Topic workflow for On Error within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Decision Support Risk-Confidence-Mapping.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Clinical Decision Support Risk-Confidence-Mapping.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ClinicalDecisionSupportRiskConfidenceMapping.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Goals and Progress Quality
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.GoalsandProgressQuality
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start GoalsandProgressQuality
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (GoalsandProgressQuality) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: GoalsandProgressQuality
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Thank you
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This topic triggers when the user says thank you.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Thankyou
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Thank you
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - thanks
+            - thank you
+            - thanks so much
+            - ty
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_9iz6v7
+            activity: You're welcome.
+
+      mcs.metadata:
+        componentName: Thank You
+        description: |
+          Topic workflow for Thank You within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: survey
+            variable: Topic.SurveyResponse
+            prompt: Did this support your documentation audit needs?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: SurveyCheck
+            conditions:
+              - id: Positive
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat
+
+                  - kind: SendActivity
+                    id: SuccessMsg
+                    activity: |
+                      Great! I'm glad I could help harden your documentation. 
+
+                      You can share another PT, OT, or SLP note anytime.
+
+          - kind: Question
+            id: ContinueChoice
+            variable: Topic.WantToContinue
+            prompt: Would you like to perform another analysis or go back to the Main Menu?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: ReEngagement
+            conditions:
+              - id: Continue
+                condition: =Topic.WantToContinue = true
+                actions:
+                  - kind: BeginDialog
+                    id: BackToMenu
+                    dialog: template-content.topic.Greeting
+
+            elseActions:
+              - kind: SendActivity
+                id: Farewell
+                activity: |
+                  Goodbye for now. 
+
+                  Remember: Your clinical judgment is the driver; my feedback is the navigator. Stay compliant!
+
+              - kind: EndConversation
+                id: end
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: End of Conversation
+        description: |
+          Improved End of Conversation topic with menu-driven re-engagement for better UX.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}. Please note that some responses are generated by AI and may require verification for accuracy. How may I help you today?
+
+      mcs.metadata:
+        componentName: Conversation Start
+        description: |
+          Topic workflow for Conversation Start within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Pain-Management.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Pain-Management.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforPainManagement.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PublishOutput
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.PublishOutput
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - publish output
+            - send results
+            - share my output
+            - export data
+            - make results public
+            - post the output
+            - output publishing options
+            - how do I publish my results?
+            - submit final output
+
+        actions:
+          - kind: Question
+            id: Question_9tv1DF
+            variable: Topic.ApprovalStatus
+            prompt: "Please provide a clear response: What is the approval status returned from the HITL approval flow?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: ApprovalStatusOptions
+                items:
+                  - id: approved
+                    displayName: Approved
+
+                  - id: rejected
+                    displayName: Rejected
+
+          - kind: Question
+            id: Question_DVfwLm
+            variable: Topic.ReviewerComments
+            prompt: "Please provide a clear response: Please enter any reviewer comments returned from the HITL approval flow."
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: ConditionGroup_ZCFsus
+            conditions:
+              - id: ConditionItem_9qgcqf
+                condition: =Topic.ApprovalStatus = ApprovalStatusOptions.approved
+                actions:
+                  - kind: SendActivity
+                    id: SendActivity_Vs0ssA
+                    activity: âœ… Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
+
+              - id: ConditionItem_DB9HpK
+                condition: =Topic.ApprovalStatus = ApprovalStatusOptions.rejected
+                actions:
+                  - kind: SendActivity
+                    id: SendActivity_Hp7Fh6
+                    activity: "âŒ Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
+
+                  - kind: Question
+                    id: Question_jFYbDy
+                    variable: Topic.ReviseAnalysis
+                    prompt: "Please provide a clear response: Would you like to revise and re-run the analysis?"
+                    entity: BooleanPrebuiltEntity
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Publish Output
+        description: |
+          Topic workflow for Publish Output within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+      mcs.metadata:
+        componentName: Reset Conversation
+        description: |
+          Topic workflow for Reset Conversation within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: HIPAAGuardrail
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.HIPAAGuardrail
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - hipaa guardrail
+            - hipaa compliance check
+            - is this hipaa compliant
+            - protect patient data
+            - secure health information
+            - hipaa privacy rules
+            - ensure hipaa standards
+            - health data security
+            - check for hipaa violations
+            - review hipaa guidelines
+
+        actions:
+          - kind: SendActivity
+            id: SendActivity_kdE6I0
+            activity: Welcome. I support healthcare workflow questions and quality-measure trends. Do not type personal or protected health information into free text. Resident-specific review is only allowed through the approved secure export workflow, and I will still use minimum necessary details. How can I help you today?
+
+          - kind: Question
+            id: Question_Kzkh2v
+            variable: Topic.GeneralHealthcareQuestion
+            prompt: What general healthcare question can I assist you with?
+            entity:
+              kind: StringPrebuiltEntity
+              sensitivityLevel: None
+
+          - kind: ConditionGroup
+            id: ConditionGroup_iO3CCA
+            conditions:
+              - id: ConditionItem_9wcBwd
+                condition: ="ssn" in Lower(Topic.GeneralHealthcareQuestion) || "dob" in Lower(Topic.GeneralHealthcareQuestion) || "birthdate" in Lower(Topic.GeneralHealthcareQuestion) || "date of birth" in Lower(Topic.GeneralHealthcareQuestion) || "mrn" in Lower(Topic.GeneralHealthcareQuestion) || "medical record" in Lower(Topic.GeneralHealthcareQuestion) || "medical record number" in Lower(Topic.GeneralHealthcareQuestion) || "social security" in Lower(Topic.GeneralHealthcareQuestion) || "member id" in Lower(Topic.GeneralHealthcareQuestion) || "patient id" in Lower(Topic.GeneralHealthcareQuestion) || "resident id" in Lower(Topic.GeneralHealthcareQuestion) || "patient name" in Lower(Topic.GeneralHealthcareQuestion) || "resident name" in Lower(Topic.GeneralHealthcareQuestion)
+                actions:
+                  - kind: SendActivity
+                    id: SendActivity_YPfxTE
+                    activity: It looks like you may be sharing personal or protected health information in free text. To protect privacy, please avoid typing names, dates of birth, medical record numbers, or other identifiers into chat. If resident-specific support is needed, use the approved secure export workflow instead.
+
+                  - kind: SetVariable
+                    id: setVariable_phiDetected
+                    variable: Global.PHIDetected
+                    value: =true
+
+                  - kind: SendActivity
+                    id: sendActivity_phiRedirect
+                    activity: If you need to discuss specific resident information, use your organization's approved secure export workflow or secure clinical systems. Otherwise, please rephrase your question without identifying information.
+
+            elseActions:
+              - kind: SendActivity
+                id: SendActivity_5MJX7k
+                activity: Thank you for your question. I can provide general information here, but do not include identifiers in free text. If you need resident-specific support, use the approved secure workflow and keep clinician oversight in place.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: HIPAA Guardrail
+        description: Enforces HIPAA compliance by screening user queries for protected health information (PHI). Intercepts and redirects requests that involve patient-identifiable data, ensuring all interactions remain compliant with healthcare privacy regulations.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMINTAKE
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMINTAKE
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_LRSzQ7
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility are we reviewing?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_EJ8okf
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.lookbackPeriod
+            prompt: What lookback period should we use (30 days, 60 days, 90 days, or current quarter)?
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_hVNZde
+            conditions:
+              - id: conditionItem_eVtbFG
+                condition: =Topic.lookbackPeriod = "Last 60 days"
+                actions:
+                  - kind: SendActivity
+                    id: sa1
+                    activity: 60 days selected.
+
+            elseActions:
+              - kind: SendActivity
+                id: sa2
+                activity: Default lookback selected.
+
+          - kind: Question
+            id: question_LpmWm6
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.qmDomain
+            prompt: Which QM domain should we focus on?
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: sa3
+            activity: Intake complete. Moving to orchestrator.
+
+          - kind: BeginDialog
+            id: MVvnKE
+            dialog: template-content.topic.QMOrchestrator
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QM Intake
+        description: Collects required QM intake context (facility, lookback period, QM domain) and prepares a concise intake summary.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: DoRSUMMARYEMAIL
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.DoRSUMMARYEMAIL
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start DoRSUMMARYEMAIL
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (DoRSUMMARYEMAIL) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: DoRSUMMARYEMAIL
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Seating-Positioning.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Seating-Positioning.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforSeatingPositioning.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: WORKFLOWMENU
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.WORKFLOWMENU
+    dialog:
+      modelDescription: Use this topic when the user explicitly asks for help choosing a workflow, wants a menu, asks what the agent can do, or requests button-guided navigation.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - show workflow menu
+            - workflow menu
+            - open workflow menu
+            - show me the workflow menu
+            - show workflow choices
+            - show workflow buttons
+            - menu
+            - start menu
+            - get started
+            - get started menu
+            - help me choose
+            - help me choose a workflow
+            - guide me
+            - what can you do
+            - show options
+            - show buttons
+            - guided menu
+            - guided setup
+            - guided workflow menu
+            - show qm workflows
+
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: adaptiveCardPrompt_workflowMenu
+            card: |-
+              ={
+                '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+                type: "AdaptiveCard",
+                version: "1.5",
+                body: [
+                  {
+                    type: "TextBlock",
+                    text: "Choose a QM workflow.",
+                    wrap: true,
+                    weight: "Bolder",
+                    size: "Medium"
+                  },
+                  {
+                    type: "TextBlock",
+                    text: "Resident outlier coaching is the primary guided path. Use the buttons on this card, or ask for the workflow you want in your own words.",
+                    wrap: true,
+                    spacing: "Small"
+                  }
+                ],
+                actions: [
+                  { type: "Action.Submit", title: "Review Resident Outliers", data: { workflowChoice: "Resident Review" } },
+                  { type: "Action.Submit", title: "Get QM for a Facility", data: { workflowChoice: "General Analysis" } },
+                  { type: "Action.Submit", title: "Compare Predicted vs Actual / Declines", data: { workflowChoice: "Decline Review" } },
+                  { type: "Action.Submit", title: "Find QM Drivers", data: { workflowChoice: "Drivers" } },
+                  { type: "Action.Submit", title: "Build QM Action Plan", data: { workflowChoice: "Action Plan" } },
+                  { type: "Action.Submit", title: "Send DoR Summary Email", data: { workflowChoice: "DoR Summary" } }
+                ]
+              }
+            output:
+              binding:
+                workflowChoice: Topic.WorkflowChoice
+
+            outputType:
+              properties:
+                workflowChoice: String
+
+          - kind: ConditionGroup
+            id: conditionGroup_routeWorkflowChoice
+            conditions:
+              - id: conditionItem_routeGeneralAnalysis
+                condition: =Text(Topic.WorkflowChoice) = "General Analysis"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeGeneralAnalysis
+                    dialog: template-content.topic.QMOrchestrator
+
+              - id: conditionItem_routeDeclineReview
+                condition: =Text(Topic.WorkflowChoice) = "Decline Review"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeDeclineReview
+                    dialog: template-content.topic.QMDATAUPLOADDECLINEDETECTION
+
+              - id: conditionItem_routeDrivers
+                condition: =Text(Topic.WorkflowChoice) = "Drivers"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeDrivers
+                    dialog: template-content.topic.QMDRIVERS
+
+              - id: conditionItem_routeActionPlan
+                condition: =Text(Topic.WorkflowChoice) = "Action Plan"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeActionPlan
+                    dialog: template-content.topic.QMACTIONPLAN
+
+              - id: conditionItem_routeDoRSummary
+                condition: =Text(Topic.WorkflowChoice) = "DoR Summary"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeDoRSummary
+                    dialog: template-content.topic.DoRSUMMARYEMAIL
+
+              - id: conditionItem_routeResidentReview
+                condition: =Text(Topic.WorkflowChoice) = "Resident Review"
+                actions:
+                  - kind: BeginDialog
+                    id: beginDialog_routeResidentReview
+                    dialog: template-content.topic.RESIDENTOUTLIERANALYSIS
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: WORKFLOW MENU
+        description: Shows a guided workflow menu on demand without blocking natural-language first turns.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Start Over
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.StartOver
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Start Over
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - let's begin again
+            - start over
+            - start again
+            - restart
+
+        actions:
+          - kind: Question
+            id: question_zguoVV
+            alwaysPrompt: false
+            variable: init:Topic.Confirm
+            prompt: "Please provide a clear response: Are you sure you want to restart the conversation?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_lvx2zV
+            conditions:
+              - id: conditionItem_sVQtHa
+                condition: =Topic.Confirm = true
+                actions:
+                  - kind: BeginDialog
+                    id: 0YKYsy
+                    dialog: template-content.topic.ResetConversation
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_lk2CyQ
+                activity: Ok. Let's carry on.
+
+      mcs.metadata:
+        componentName: Start Over
+        description: |
+          Topic workflow for Start Over within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMANALYSIS
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMANALYSIS
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start QMANALYSIS
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (QMANALYSIS) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QMANALYSIS
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Bladder-Health.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Bladder-Health.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforBladderHealth.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Lymphedema.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Lymphedema.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforLymphedema.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for wounds.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for wounds.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforwounds.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Falls-System-Review.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Falls-System-Review.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforFallsSystemReview.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "Please provide a clear response: To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+      mcs.metadata:
+        componentName: Multiple Topics Matched
+        description: |
+          Topic workflow for Multiple Topics Matched within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Quality & Safety Oversight
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information on the web found in https://www.cms.gov/medicare/quality-safety-oversight-general-information website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.CMSQualitySafetyOversight
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/quality-safety-oversight-general-information
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Orchestrator
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMOrchestrator
+    dialog:
+      mcs.metadata:
+        componentName: QM Orchestrator
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Decision Support CMS-Jimmo-Coverage.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Clinical Decision Support CMS-Jimmo-Coverage.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ClinicalDecisionSupportCMSJimmoCoverage.md
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: MDS 3.0 Users Manual (v18.0)
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information on the web found in https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/ website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.MDS3.0UsersManualv18.0
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Behavior-Management.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Behavior-Management.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforBehaviorManagement.md
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Quality Measures
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information on the web found in https://www.cms.gov/medicare/quality website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.CMSQualityMeasures
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/quality
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: FacilityQMAnalysis
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.FacilityQMAnalysis
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start FacilityQMAnalysis
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (FacilityQMAnalysis) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: FacilityQMAnalysis
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Skilled Need and Medical Necessity
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.SkilledNeedandMedicalNecessity
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start SkilledNeedandMedicalNecessity
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (SkilledNeedandMedicalNecessity) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: SkilledNeedandMedicalNecessity
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ExtractClincialElements
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ExtractClincialElements
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start ExtractClincialElements
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (ExtractClincialElements) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: ExtractClincialElements
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Greeting
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This topic is triggered when the user greets the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Greeting
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Greeting
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Good afternoon
+            - Good morning
+            - Hello
+            - Hey
+            - Hi
+            - start
+            - get started
+            - main menu
+
+        actions:
+          - kind: SendActivity
+            id: IntroMsg
+            activity: |
+              Hello! I'm the **Pacific Coast Compliance Analyzer**. 
+
+              I help rehab teams harden their documentation against audit risk. My feedback supports your clinical judgment by highlighting gaps in evidence, skilled need, and consistency.
+
+          - kind: Question
+            id: MainMenu
+            variable: Topic.UserSelection
+            prompt: How can I assist you today?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: MainMenuOptions
+                items:
+                  - id: classify
+                    displayName: ðŸ“‚ Classify & Route
+
+                  - id: extract
+                    displayName: ðŸ§¬ Extract Clinical Elements
+
+                  - id: skilled
+                    displayName: âš–ï¸ Check Skilled Need
+
+                  - id: goals
+                    displayName: ðŸŽ¯ Audit Goal Quality
+
+                  - id: redflag
+                    displayName: ðŸš© Red-Flag Prescreen
+
+          - kind: ConditionGroup
+            id: MenuRedirect
+            conditions:
+              - id: GoToClassify
+                condition: =Topic.UserSelection = MainMenuOptions.classify
+                actions:
+                  - kind: BeginDialog
+                    id: RunClassify
+                    dialog: template-content.topic.Classifyroutedocumentation
+
+              - id: GoToExtract
+                condition: =Topic.UserSelection = MainMenuOptions.extract
+                actions:
+                  - kind: BeginDialog
+                    id: RunExtract
+                    dialog: template-content.topic.ExtractClincialElements
+
+              - id: GoToSkilled
+                condition: =Topic.UserSelection = MainMenuOptions.skilled
+                actions:
+                  - kind: BeginDialog
+                    id: RunSkilled
+                    dialog: template-content.topic.SkilledNeedandMedicalNecessity
+
+              - id: GoToGoals
+                condition: =Topic.UserSelection = MainMenuOptions.goals
+                actions:
+                  - kind: BeginDialog
+                    id: RunGoals
+                    dialog: template-content.topic.GoalsandProgressQuality
+
+              - id: GoToRedFlag
+                condition: =Topic.UserSelection = MainMenuOptions.redflag
+                actions:
+                  - kind: BeginDialog
+                    id: RunRedFlag
+                    dialog: template-content.topic.Redflagprescreen
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Greeting
+        description: |
+          Enhanced Greeting topic with a quick-start main menu (buttons) for improved UX.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMACTIONPLAN
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMACTIONPLAN
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start QMACTIONPLAN
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (QMACTIONPLAN) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QMACTIONPLAN
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              Escalating to a representative is not currently configured for this agent, however this is where the agent could provide information about how to get in touch with someone another way.
+
+              Is there anything else I can help you with?
+
+      mcs.metadata:
+        componentName: Escalate
+        description: |
+          Topic workflow for Escalate within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Decision Support ONE-Clinical-Protocols.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Clinical Decision Support ONE-Clinical-Protocols.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ClinicalDecisionSupportONEClinicalProtocols.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: MultidisciplineIDTReview
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultidisciplineIDTReview
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - multi-discipline IDT audit
+            - start an IDT audit
+            - initiate interdisciplinary team audit
+            - begin multi-discipline audit process
+            - IDT compliance check
+            - audit for multiple disciplines in IDT
+            - review interdisciplinary team documentation
+            - conduct a multi-discipline IDT review
+            - IDT audit across departments
+
+        actions:
+          - kind: SendActivity
+            id: SendActivity_rqpek6
+            activity: Welcome to the IDT-focused compliance review. This topic is designed for cases involving multiple disciplines such as PT, OT, and/or SLP. We will review care-plan integration, shared safety factors, functional outcomes, and unified discharge planning.
+
+          - kind: Question
+            id: Question_JOl3QR
+            variable: Topic.DisciplinesInvolved
+            prompt: "Please provide a clear response: Which disciplines are involved in this case? (PT, OT, SLP)"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: DisciplineOptions_Multi
+                items:
+                  - id: pt
+                    displayName: PT
+
+                  - id: ot
+                    displayName: OT
+
+                  - id: slp
+                    displayName: SLP
+
+          - kind: Question
+            id: Question_4bGqlD
+            variable: Topic.DisciplineNotes
+            prompt: "Please provide a clear response: Please provide documentation or notes from each discipline involved."
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: Question_iijtrV
+            variable: Topic.SharedSafetyFactors
+            prompt: "Please provide a clear response: Are there shared safety factors identified across the disciplines?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: Question
+            id: Question_eHLdZM
+            variable: Topic.FunctionalOutcomesCoordinated
+            prompt: "Please provide a clear response: Are functional outcomes coordinated between the disciplines?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: Question
+            id: Question_0if2Hi
+            variable: Topic.UnifiedDischargePlan
+            prompt: "Please provide a clear response: Is there a unified discharge plan for the patient?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: SendActivity
+            id: SendActivity_Ep6q3O
+            activity:
+              attachments:
+                - kind: AdaptiveCardTemplate
+                  cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"IDT Compliance Review Summary\" }, { type: \"FactSet\", facts: [ { title: \"Disciplines Involved\", value: Text(Topic.DisciplinesInvolved) }, { title: \"Shared Safety Factors\", value: Text(Topic.SharedSafetyFactors) }, { title: \"Functional Outcomes Coordinated\", value: Text(Topic.FunctionalOutcomesCoordinated) }, { title: \"Unified Discharge Plan\", value: Text(Topic.UnifiedDischargePlan) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Multidisciplinary IDT Review
+        description: |
+          Topic workflow for Multidisciplinary IDT Review within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: HITLAPPROVAL
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.HITLAPPROVAL
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start HITLAPPROVAL
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (HITLAPPROVAL) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: HITLAPPROVAL
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Classifyroutedocumentation
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Classifyroutedocumentation
+    dialog:
+      modelDescription: Use this topic when the user needs classify and route documentation support in SNF therapy documentation workflows.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - classify this document
+            - route this documentation
+            - what type of therapy note is this
+            - route this therapy note for review
+            - identify the document type
+            - help classify this note
+            - send this to the right reviewer
+            - route this for compliance review
+            - categorize this documentation
+
+        actions:
+          - kind: Question
+            id: questionDocType
+            variable: Topic.DocType
+            prompt: "Please provide a clear response: What type of document is this?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: DocTypeRouteOptions
+                items:
+                  - id: evaluation
+                    displayName: Evaluation
+
+                  - id: dailynote
+                    displayName: Daily Note or TENS
+
+                  - id: progressreport
+                    displayName: Progress Report
+
+                  - id: summary
+                    displayName: Summary
+
+                  - id: other
+                    displayName: Other
+
+          - kind: Question
+            id: questionPayer
+            variable: Topic.Payer
+            prompt: "Please provide a clear response: Which payer is this documentation for?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: PayerRouteOptions
+                items:
+                  - id: medicare
+                    displayName: Medicare
+
+                  - id: medicaid
+                    displayName: Medicaid
+
+                  - id: private
+                    displayName: Private Insurance
+
+                  - id: other
+                    displayName: Other
+
+          - kind: Question
+            id: questionDiscipline
+            variable: Topic.PrimaryDiscipline
+            prompt: "Please provide a clear response: What is the primary discipline for this note?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: DisciplineRouteOptions
+                items:
+                  - id: PT
+                    displayName: PT
+
+                  - id: OT
+                    displayName: OT
+
+                  - id: SLP
+                    displayName: SLP
+
+          - kind: Question
+            id: questionRisk
+            variable: Topic.RiskFlags
+            prompt: "Please provide a clear response: Are known risk indicators present?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: docTypeAcknowledgement
+            conditions:
+              - id: isEvaluation
+                condition: =Topic.DocType = DocTypeRouteOptions.evaluation
+                actions:
+                  - kind: SendActivity
+                    id: sendEvaluation
+                    activity: Document classified as Evaluation.
+
+              - id: isDaily
+                condition: =Topic.DocType = DocTypeRouteOptions.dailynote
+                actions:
+                  - kind: SendActivity
+                    id: sendDaily
+                    activity: Document classified as Daily Note or TENS.
+
+              - id: isReport
+                condition: =Topic.DocType = DocTypeRouteOptions.progressreport
+                actions:
+                  - kind: SendActivity
+                    id: sendReport
+                    activity: Document classified as Progress Report.
+
+              - id: isSummary
+                condition: =Topic.DocType = DocTypeRouteOptions.summary
+                actions:
+                  - kind: SendActivity
+                    id: sendSummary
+                    activity: Document classified as Summary.
+
+            elseActions:
+              - kind: SendActivity
+                id: sendOther
+                activity: Document classified as Other.
+
+          - kind: SendActivity
+            id: sendClassificationSummary
+            activity: |-
+              Classification captured.
+              - Document type: {Topic.DocType}
+              - Payer: {Topic.Payer}
+              - Primary discipline: {Topic.PrimaryDiscipline}
+              - Risk indicators present: {Topic.RiskFlags}
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Classify and Route Documentation
+        description: |
+          Topic workflow for Classify and Route Documentation within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Sensory-Integration.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Sensory-Integration.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforSensoryIntegration.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: COACHINGCORNER
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.COACHINGCORNER
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - coaching corner
+            - need coaching advice
+            - help with coaching
+            - tips for coaches
+            - how to be a better coach
+            - coaching resources
+            - coach support
+            - improve my coaching skills
+            - coaching questions
+            - guidance for coaches
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (COACHING CORNER) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: COACHING CORNER
+        description: Generates clinical coaching scripts and accountability frameworks for therapy and nursing staff. Supports mentorship conversations, professional development planning, and clinical performance improvement through structured guidance.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: One Clincal Protocol for Respiratory.md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in One Clincal Protocol for Respiratory.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.OneClincalProtocolforRespiratory.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QMDRIVERS
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMDRIVERS
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - Start QMDRIVERS
+
+        actions:
+          - kind: SendActivity
+            id: sendActivity_stub
+            activity: This topic (QMDRIVERS) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: QMDRIVERS
+        description: Stubbed topic to clear compilation errors.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Part B & Maintenance Therapy Guidelines (Jimmo Standard).md
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This knowledge source searches information contained in Medicare Part B & Maintenance Therapy Guidelines (Jimmo Standard).md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicarePartBMaintenanceTherapyGuidelinesJimmoStandard.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Goodbye
+    parentBotId: a1133f91-9d37-f111-88b3-000d3a383a6c
+    description: This topic triggers when the user says goodbye. By default, it does not end the conversation. If you would like to end the conversation when the user says goodbye, you can add an "End of Conversation" action to this topic, or redirect to the "End of Conversation" system topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Goodbye
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Goodbye
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Bye
+            - Bye for now
+            - Bye now
+            - Good bye
+            - No thank you. Goodbye.
+            - See you later
+
+        actions:
+          - kind: Question
+            id: question_zf2HhP
+            variable: Topic.EndConversation
+            prompt: "Please provide a clear response: Would you like to end our conversation?"
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition_DGc1Wy
+            conditions:
+              - id: condition_DGc1Wy-item-0
+                condition: =Topic.EndConversation = true
+                actions:
+                  - kind: BeginDialog
+                    id: dn94DC
+                    dialog: template-content.topic.EndofConversation
+
+              - id: condition_DGc1Wy-item-1
+                condition: =Topic.EndConversation = false
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_LdLhmf
+                    activity: |
+                      Thank you for using the Pacific Coast Compliance Analyzer. This review is educational support for documentation quality and does not replace your clinical or billing judgment. If you have other therapy notes or compliance questions later, you can start a new session and Iâ€™ll be here to help.
+
+      mcs.metadata:
+        componentName: Goodbye
+        description: |
+          Topic workflow for Goodbye within Pacific Coast Compliance Analyzer.
+          Guides structured user input and consistent compliance-oriented responses.

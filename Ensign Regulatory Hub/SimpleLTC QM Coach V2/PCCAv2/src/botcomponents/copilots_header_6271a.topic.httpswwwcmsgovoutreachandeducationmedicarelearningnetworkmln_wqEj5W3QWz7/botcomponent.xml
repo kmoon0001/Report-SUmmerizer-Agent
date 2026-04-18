@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_6271a.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_wqEj5W3QWz7">
+  <componenttype>16</componenttype>
+  <description>CMS Medicare regulations, SNF requirements, therapy documentation standards, MDS Section O guidelines, 42 CFR 483.65 compliance, reimbursement criteria, and quality reporting requirements for speech-language pathology services in Medicare-certified facilities.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.cms.gov/outreach-and-education/medicare-learning-network-mln</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

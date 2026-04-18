@@ -1,0 +1,95 @@
+version: 1
+agentSchema: pcca_agent39xn69
+
+topics:
+  ClassifyAndRouteRehabRecord:
+    purpose: "Identify note type and route to discipline-specific analysis topic."
+    calls:
+      - CheckSystemHealth
+    outputs:
+      - recommendationType
+      - targetTopic
+      - riskTier
+
+  EvalAnalysis:
+    purpose: "Analyze evaluation notes and generate defensible recommendations."
+    calls:
+      - RunAutomatedTherapistDailyWorkflow
+      - CalculateConfidenceScore
+      - CalculateSHAPValues
+      - LogClinicalValidation
+    outputs:
+      - recommendation
+      - confidenceBreakdown
+      - explainabilitySummary
+
+  ProgressAnalysis:
+    purpose: "Assess progress notes for goal trajectory and compliance risk."
+    calls:
+      - CalculateConfidenceScore
+      - CalculateSHAPValues
+      - LogClinicalValidation
+    outputs:
+      - progressRisk
+      - recommendation
+      - confidenceBreakdown
+
+  RecertAnalysis:
+    purpose: "Recertification-focused analysis with coverage/medical necessity checks."
+    calls:
+      - CalculateConfidenceScore
+      - CalculateSHAPValues
+      - LogClinicalValidation
+    outputs:
+      - recertRecommendation
+      - denialRisk
+      - requiredEdits
+
+  DischargeAnalysis:
+    purpose: "Discharge appropriateness and documentation completeness checks."
+    calls:
+      - CalculateConfidenceScore
+      - CalculateSHAPValues
+      - LogClinicalValidation
+    outputs:
+      - dischargeRecommendation
+      - missingElements
+      - followUpQuestions
+
+  Escalate:
+    purpose: "Escalate high-risk or low-confidence outputs to human review."
+    calls:
+      - LogHITLDecision
+    outputs:
+      - escalationTicket
+      - auditId
+
+  OnError:
+    purpose: "Centralized runtime error handling and resilience patterns."
+    calls:
+      - EnhancedRetryLogic
+      - SharedUtilitiesCircuitBreaker
+      - SharedUtilitiesRetry
+      - SharedUtilitiesBulkhead
+    outputs:
+      - resolved
+      - fallbackUsed
+      - errorCode
+
+  ConversationStart:
+    purpose: "Initialize context and set grounding expectations."
+    calls: []
+
+  Search:
+    purpose: "Knowledge-grounded fallback for information retrieval."
+    calls: []
+    note: "Use configured knowledge sources and strict grounding settings."
+
+  SuggestedActions:
+    purpose: "Offer deterministic next steps by discipline and risk."
+    calls: []
+
+qaSmokePaths:
+  - "PT evaluation -> EvalAnalysis -> confidence/explainability generated"
+  - "OT progress note with missing data -> Escalate + HITL audit log"
+  - "SLP recert scenario -> RecertAnalysis -> denial risk + clarification prompts"

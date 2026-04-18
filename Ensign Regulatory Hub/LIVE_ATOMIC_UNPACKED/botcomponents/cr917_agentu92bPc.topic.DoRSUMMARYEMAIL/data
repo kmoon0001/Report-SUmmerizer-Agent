@@ -1,0 +1,295 @@
+mcs.metadata:
+  componentName: DoR SUMMARY EMAIL
+  description: Drafts a Director of Rehab or leadership-facing summary email after QM review work is completed. Compiles facility-level quality measure findings, trends, and actionable insights into a professional summary for regional or corporate stakeholders.
+kind: AdaptiveDialog
+modelDescription: Drafts a Director of Rehab or leadership-facing summary after QM review work is already available. Use this when the user explicitly wants an email, summary, wrap-up, or leadership communication. Do not use this for initial QM analysis, decline detection, or resident-specific coaching.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - summarize this for the dor
+      - draft a leadership summary
+      - write a qm email for leadership
+      - create a dor wrap up
+      - send a rehab director summary
+      - send DoR summary email
+      - send DoR summary email for multiple facilities
+      - send dor summary for multiple facilities
+      - email me the DoR summary
+      - multi facility dor summary
+      - multiple facility dor summary
+      - DoR report email
+      - get DoR summary by email
+      - share DoR summary via email
+      - can you send the DoR summary?
+      - request DoR summary email
+      - forward the DoR summary to my inbox
+      - DoR daily report email
+      - create a leadership wrap up from qm findings
+      - draft an executive qm summary
+      - draft a leadership email for multiple facilities
+      - director of rehab summary for multiple facilities
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_initDorPromptSuppression
+      variable: Global.SuppressGenericAnalysisPromptOnce
+      value: =false
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectDorScope
+      conditions:
+        - id: conditionItem_allFacilities
+          condition: ="all facilities" in Lower(System.Activity.Text) || "all dors" in Lower(System.Activity.Text) || Global.SelectedFacility = "All Facilities"
+          actions:
+            - kind: SetVariable
+              id: setVariable_allFacilitiesScope
+              variable: Topic.DorScopeText
+              value: All Facilities
+
+        - id: conditionItem_multipleFacilities
+          condition: ="multiple facilities" in Lower(System.Activity.Text) || "," in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_multipleFacilitiesScope
+              variable: Topic.DorScopeText
+              value: Multiple Facilities
+
+        - id: conditionItem_singleFacility
+          condition: =!IsBlank(Global.SelectedFacility)
+          actions:
+            - kind: SetVariable
+              id: setVariable_singleFacilityScope
+              variable: Topic.DorScopeText
+              value: Individual Facility
+
+      elseActions:
+        - kind: AdaptiveCardPrompt
+          id: adaptiveCardPrompt_dorScopeChoice
+          card: |-
+            ={
+              '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+              type: "AdaptiveCard",
+              version: "1.5",
+              body: [
+                {
+                  type: "TextBlock",
+                  text: "What kind of DoR summary do you need?",
+                  wrap: true,
+                  weight: "Bolder",
+                  size: "Medium"
+                },
+                {
+                  type: "TextBlock",
+                  text: "If the card does not render correctly, type one of these exactly: Individual Facility, Multiple Facilities, All Facilities.",
+                  wrap: true,
+                  spacing: "Small"
+                }
+              ],
+              actions: [
+                { type: "Action.Submit", title: "Individual Facility", data: { dorScopeChoice: "Individual Facility" } },
+                { type: "Action.Submit", title: "Multiple Facilities", data: { dorScopeChoice: "Multiple Facilities" } },
+                { type: "Action.Submit", title: "All Facilities", data: { dorScopeChoice: "All Facilities" } }
+              ]
+            }
+          output:
+            binding:
+              dorScopeChoice: Topic.IndividualOrAllDORsNewChoice
+
+          outputType:
+            properties:
+              dorScopeChoice: String
+
+        - kind: SetVariable
+          id: setVariable_syncDorScopeChoice
+          variable: Topic.DorScopeText
+          value: =Text(Topic.IndividualOrAllDORsNewChoice)
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectFacility
+      conditions:
+        - id: conditionItem_allFacilities
+          condition: =Text(Topic.DorScopeText) = "All Facilities"
+          actions:
+            - kind: SetVariable
+              id: setVariable_allFacilities
+              variable: Global.SelectedFacility
+              value: All Facilities
+
+            - kind: SetVariable
+              id: setVariable_clearPendingDorFacility_allFacilities
+              variable: Global.PendingDurFacilitySelection
+              value: =false
+
+        - id: conditionItem_existingFacility
+          condition: =!IsBlank(Global.SelectedFacility)
+          actions:
+            - kind: SetVariable
+              id: setVariable_clearPendingDorFacility_existing
+              variable: Global.PendingDorFacilitySelection
+              value: =false
+
+      elseActions:
+        - kind: ConditionGroup
+          id: conditionGroup_routeFacilityPrompt
+          conditions:
+            - id: conditionItem_multipleFacilityCard
+              condition: =Text(Topic.DorScopeText) = "Multiple Facilities"
+              actions:
+                - kind: AdaptiveCardPrompt
+                  id: adaptiveCardPrompt_multiFacilityDor
+                  card: |-
+                    ={
+                      '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+                      type: "AdaptiveCard",
+                      version: "1.5",
+                      body: [
+                        {
+                          type: "TextBlock",
+                          text: "Select one or more facilities for this DoR summary.",
+                          wrap: true,
+                          weight: "Bolder",
+                          size: "Medium"
+                        },
+                        {
+                          type: "Input.ChoiceSet",
+                          id: "selectedFacilities",
+                          isMultiSelect: true,
+                          style: "expanded",
+                          choices: [
+                            { title: "Sea Cliff", value: "Sea Cliff" },
+                            { title: "Palm Terrace", value: "Palm Terrace" },
+                            { title: "Victoria", value: "Victoria" },
+                            { title: "St. Catherine", value: "St. Catherine" },
+                            { title: "St. Elizabeth", value: "St. Elizabeth" },
+                            { title: "Mainplace", value: "Mainplace" },
+                            { title: "New Orange Hills", value: "New Orange Hills" },
+                            { title: "The Hills", value: "The Hills" },
+                            { title: "Beachside", value: "Beachside" },
+                            { title: "Alamitos West", value: "Alamitos West" },
+                            { title: "Coventry Court", value: "Coventry Court" },
+                            { title: "Pacific Haven", value: "Pacific Haven" }
+                          ]
+                        }
+                      ],
+                      actions: [
+                        { type: "Action.Submit", title: "Use selected facilities", data: { id: "dorFacilityMultiSelect" } }
+                      ]
+                    }
+                  output:
+                    binding:
+                      selectedFacilities: Topic.DorSelectedFacilitiesRaw
+
+                - kind: SetVariable
+                  id: setVariable_selectedMultiFacilities
+                  variable: Global.SelectedFacility
+                  value: =Substitute(Text(Topic.DorSelectedFacilitiesRaw), ",", ", ")
+
+            - id: conditionItem_singleFacilityPrompt
+              condition: =true
+              actions:
+                - kind: Question
+                  id: question_singleFacilityDor
+                  variable: Topic.FacilityChoiceNew
+                  entity: StringPrebuiltEntity
+                  prompt:
+                    attachments:
+                      - kind: AdaptiveCard
+                        card: |-
+                          {
+                            "type": "AdaptiveCard",
+                            "version": "1.3",
+                            "body": [
+                              { "type": "TextBlock", "text": "Which facility is this for?", "weight": "bolder", "size": "medium" },
+                              {
+                                "type": "Input.ChoiceSet",
+                                "id": "facilitySelector",
+                                "choices": [
+                                  { "title": "Sea Cliff", "value": "Sea Cliff" },
+                                  { "title": "Palm Terrace", "value": "Palm Terrace" },
+                                  { "title": "Victoria", "value": "Victoria" },
+                                  { "title": "St. Catherine", "value": "St. Catherine" }
+                                ]
+                              }
+                            ],
+                            "actions": [ { "type": "Action.Submit", "title": "Set Facility" } ]
+                          }
+
+                - kind: SetVariable
+                  id: setVariable_manualFacility
+                  variable: Global.SelectedFacility
+                  value: =Topic.FacilityChoiceNew
+
+    - kind: Question
+      id: question_uploadFile
+      variable: Topic.UploadEntireFile
+      prompt: Please upload the facility QM data file or summary document now.
+      entity: FilePrebuiltEntity
+
+    - kind: BeginDialog
+      id: callOrchestrator
+      input:
+        binding:
+          InboundFacility: =Global.SelectedFacility
+      dialog: cr917_agentu92bPc.topic.QMORCHESTRATOR
+      output:
+        binding:
+          ProcessingStatus: Topic.ProcessingStatus
+
+    - kind: ConditionGroup
+      id: conditionGroup_checkHITL
+      conditions:
+        - id: conditionItem_needApproval
+          condition: =Global.HITL_Approval = false || IsBlank(Global.HITL_Approval)
+          actions:
+            - kind: SendActivity
+              activity: "Clinical Hardening: This wrap-up requires Human-in-the-Loop review."
+            - kind: BeginDialog
+              dialog: cr917_agentu92bPc.topic.HITLAPPROVAL
+
+    - kind: ConditionGroup
+      id: finalCheck
+      conditions:
+        - id: okToSend
+          condition: =Global.HITL_Approval = true
+          actions:
+            - kind: SendActivity
+              id: sendActivity_sbarDraft
+              activity: |-
+                **HITL APPROVED.** Generating SBAR-structured Clinical Briefing...
+
+                **SUBJECT: QM Clinical Strategy Briefing (SBAR) Ã¢â‚¬â€ =Global.SelectedFacility**
+
+                **SITUATION:** Updated Quality Measure risks identified for =Global.SelectedFacility.
+                
+                **BACKGROUND:** Based on the latest SimpleLTC clinical data and protocol grounding.
+                
+                **ASSESSMENT:** [AI-Generated Analysis of QM Trends and Outliers]
+                
+                **RECOMMENDATION:** Proposed interventions and root cause analysis priorities for therapy leadership review.
+
+
+inputType:
+  properties:
+    QMAccountabilityMatrix:
+      displayName: QMAccountabilityMatrix
+      type: String
+
+    QMActionPlan:
+      displayName: QMActionPlan
+      type: String
+
+    QMDomain:
+      displayName: QMDomain
+      type: String
+
+    UploadEntireFile:
+      displayName: UploadEntireFile
+      type: File
+
+outputType:
+  properties:
+    QMDomain:
+      displayName: QMDomain
+      type: String

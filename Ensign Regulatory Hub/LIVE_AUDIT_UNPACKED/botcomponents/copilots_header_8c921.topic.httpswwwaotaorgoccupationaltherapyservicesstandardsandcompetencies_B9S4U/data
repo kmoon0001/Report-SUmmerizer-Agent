@@ -1,0 +1,4 @@
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://www.aota.org/occupational-therapy-services/standards-and-competencies

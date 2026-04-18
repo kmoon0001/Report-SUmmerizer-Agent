@@ -1,0 +1,244 @@
+version: 1
+agent:
+  schemaName: pcca_agent39xn69
+  displayName: Therapy_Report_Prep_Assistant
+
+actionRules:
+  - "Each action flow must use 'When an agent calls the flow' trigger."
+  - "Each action flow must include 'Respond to the agent' with stable output schema."
+  - "Target synchronous completion under 100 seconds."
+  - "Flows must be in the same environment and solution as the agent."
+
+actions:
+  - actionName: RunAutomatedTherapistDailyWorkflow
+    sourceFile: SNF Rehab Agent/workflows/AutomatedTherapistDailyWorkflow.json
+    triggerType: manual
+    inputs:
+      therapistId: string
+      discipline: string
+      date: string
+      autoValidateData: boolean
+      autoGenerateRecommendations: boolean
+      includeHighRiskOnly: boolean
+    expectedOutputs:
+      success: boolean
+      briefingId: string
+      recommendationsGenerated: number
+      avgConfidence: number
+      highPriorityCount: number
+    dependencies:
+      dataverseEntities: [snf_patient_assignment, snf_rehab_recommendation, snf_daily_briefing]
+      httpEndpoints:
+        - "@parameters('dataAggregationEndpoint')/patient-rehab-data"
+        - "@parameters('flowEndpoint')/calculate-data-completeness"
+        - "@parameters('flowEndpoint')/enhanced-retry-logic"
+        - "@parameters('flowEndpoint')/calculate-shap-values"
+        - "@parameters('flowEndpoint')/calculate-confidence-score"
+
+  - actionName: CalculateClinicalAccuracyMetrics
+    sourceFile: SNF Rehab Agent/workflows/CalculateClinicalAccuracyMetrics.json
+    triggerType: recurrence
+    recommendedAgentWrapper: true
+    wrapperInput: {}
+    expectedOutputs:
+      success: boolean
+      overallAccuracy: number
+      totalValidations: number
+      timestamp: string
+    dependencies:
+      dataverseEntities: [snf_clinical_validation, snf_clinical_accuracy_metric]
+      httpEndpoints: ["@parameters('alertEndpoint')/clinical-accuracy-warning"]
+
+  - actionName: CalculateConfidenceScore
+    sourceFile: SNF Rehab Agent/workflows/CalculateConfidenceScore.json
+    triggerType: manual
+    inputs:
+      recommendationId: string
+      modelOutput: object
+      sourceData: object
+    expectedOutputs:
+      overallConfidence: number
+      confidenceLevel: string
+      confidenceColor: string
+      breakdown: object
+      uncertaintyFactors: array
+      calibration: object
+      metadata: object
+    dependencies:
+      dataverseEntities: [snf_confidence_metric]
+      httpEndpoints: ["@parameters('analyticsEndpoint')/historical-accuracy"]
+
+  - actionName: CalculateSHAPValues
+    sourceFile: SNF Rehab Agent/workflows/CalculateSHAPValues.json
+    triggerType: manual
+    inputs:
+      recommendationId: string
+      patientFeatures: object
+      modelOutput: object
+    expectedOutputs:
+      recommendationId: string
+      shapValues: array
+      topPositive: array
+      topNegative: array
+      summary: string
+      dataverseRecordId: string
+    dependencies:
+      dataverseEntities: [snf_xai_explanation]
+      httpEndpoints: ["@parameters('azureMLEndpoint')"]
+
+  - actionName: CheckSystemHealth
+    sourceFile: SNF Rehab Agent/workflows/CheckSystemHealth.json
+    triggerType: manual
+    inputs:
+      checkAll: boolean
+    expectedOutputs:
+      allHealthy: boolean
+      dataverseHealthy: boolean
+      azureMLHealthy: boolean
+      teamsHealthy: boolean
+      searchHealthy: boolean
+      lastCheckTime: string
+    dependencies:
+      dataverseEntities: [snf_rehab_recommendation, snf_system_health_log]
+      httpEndpoints:
+        - "@parameters('loggingEndpoint')/health-check-failure"
+        - "@parameters('azureMLEndpoint')/health"
+        - "@parameters('circuitBreakerEndpoint')/status/azureml"
+        - "@parameters('circuitBreakerEndpoint')/failure/azureml"
+        - "@parameters('teamsWebhookUrl')"
+        - "@parameters('analyticsEndpoint')/outage-history"
+
+  - actionName: LogClinicalValidation
+    sourceFile: SNF Rehab Agent/workflows/LogClinicalValidation.json
+    triggerType: manual
+    inputs:
+      recommendationId: string
+      validation: string
+      inaccuracyReason: string
+      validatorId: string
+      validatorName: string
+      confidence: number
+      timestamp: datetime
+      correlationId: string
+    expectedOutputs:
+      success: boolean
+      validationRecordId: string
+    dependencies:
+      dataverseEntities: [snf_clinical_validation, snf_rehab_recommendation, snf_accuracy_issue]
+
+  - actionName: LogHITLDecision
+    sourceFile: SNF Rehab Agent/workflows/LogHITLDecision.json
+    triggerType: manual
+    inputs:
+      interactionId: string
+      hitlTier: string
+      decisionPoint: string
+      action: string
+      clinicianId: string
+      clinicianName: string
+      timestamp: string
+      context: object
+    expectedOutputs:
+      success: boolean
+      auditId: string
+      learningQueued: boolean
+    dependencies:
+      dataverseEntities: [snf_hitl_audit, snf_learning_event]
+      httpEndpoints:
+        - "@parameters('mlOpsEndpoint')/learning-queue"
+        - "@parameters('teamsWebhookUrl')"
+        - "@parameters('dashboardEndpoint')/hitl-metrics"
+
+  - actionName: EnhancedRetryLogic
+    sourceFile: SNF Rehab Agent/workflows/EnhancedRetryLogic.json
+    triggerType: manual
+    inputs:
+      operation: string
+      operationData: object
+      maxRetries: number
+      initialDelaySeconds: number
+    expectedOutputs:
+      success: boolean
+      attempts: number
+      result: object
+      fallbackUsed: boolean
+    dependencies:
+      dataverseEntities: [snf_retry_log]
+
+  - actionName: SharedUtilitiesCircuitBreaker
+    sourceFile: SNF Rehab Agent/workflows/SharedUtilities_WithCircuitBreaker.json
+    triggerType: manual
+    inputs:
+      action: string
+      operation: string
+      errorDetails: object
+    expectedOutputs:
+      state: string
+      allowed: boolean
+      nextRetryAt: string
+    dependencies:
+      dataverseEntities: [snf_circuit_breaker_state, snf_circuit_breaker_log]
+
+  - actionName: SharedUtilitiesRetry
+    sourceFile: SNF Rehab Agent/workflows/SharedUtilities_WithRetry.json
+    triggerType: manual
+    inputs:
+      operation: string
+      operationType: string
+      operationConfig: object
+      retryConfig: object
+      correlationId: string
+    expectedOutputs:
+      success: boolean
+      attempts: number
+      result: object
+      error: object
+    dependencies:
+      dataverseEntities: [snf_operation_log, snf_dead_letter_queue]
+
+  - actionName: SharedUtilitiesBulkhead
+    sourceFile: SNF Rehab Agent/workflows/SharedUtilities_WithBulkhead.json
+    triggerType: manual
+    inputs:
+      operation: string
+      action: string
+      requestId: string
+      timeoutSeconds: number
+    expectedOutputs:
+      acquired: boolean
+      slotId: string
+      queueDepth: number
+    dependencies:
+      dataverseEntities: [snf_bulkhead_state, snf_bulkhead_request, snf_bulkhead_log]
+
+  - actionName: NotificationQueueProcessor
+    sourceFile: SNF Rehab Agent/workflows/NotificationQueueProcessor.json
+    triggerType: recurrence
+    recommendedAgentWrapper: true
+    wrapperInput: {}
+    expectedOutputs:
+      processed: number
+      failed: number
+      abandoned: number
+    dependencies:
+      dataverseEntities: [snf_notification_queue, snf_operation_log]
+      httpEndpoints:
+        - "@parameters('teamsWebhookEndpoint')"
+        - "@parameters('emailServiceEndpoint')/send"
+        - "@parameters('smsServiceEndpoint')/send"
+
+  - actionName: DeadLetterQueueProcessor
+    sourceFile: SNF Rehab Agent/workflows/DeadLetterQueueProcessor.json
+    triggerType: recurrence
+    recommendedAgentWrapper: true
+    wrapperInput: {}
+    expectedOutputs:
+      recovered: number
+      abandoned: number
+      pending: number
+    dependencies:
+      dataverseEntities: [snf_dead_letter_queue, snf_operation_log]
+      httpEndpoints:
+        - "@parameters('alertEndpoint')/dlq-recovery"
+        - "@parameters('alertEndpoint')/dlq-abandoned"
+        - "@parameters('alertEndpoint')/high-abandonment-rate"

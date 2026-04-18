@@ -1,0 +1,55 @@
+mcs.metadata:
+  componentName: Goodbye
+  description: |
+    Topic workflow for Goodbye within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Goodbye
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Bye
+      - Bye for now
+      - Bye now
+      - Good bye
+      - No thank you. Goodbye.
+      - See you later
+
+  actions:
+    - kind: Question
+      id: question_zf2HhP
+      variable: Topic.EndConversation
+      prompt: 'Please provide a clear response: Would you like to end our conversation?'
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: condition_DGc1Wy
+      conditions:
+        - id: condition_DGc1Wy-item-0
+          condition: =Topic.EndConversation = true
+          actions:
+            - kind: BeginDialog
+              id: dn94DC
+              dialog: cr917_agentu92bPc.topic.EndofConversation
+
+        - id: condition_DGc1Wy-item-1
+          condition: =Topic.EndConversation = false
+          actions:
+            - kind: SendActivity
+              id: sendMessage_LdLhmf
+              activity: |
+                Thank you for using the Pacific Coast Compliance Analyzer. This review is educational support for documentation quality and does not replace your clinical or billing judgment. If you have other therapy notes or compliance questions later, you can start a new session and Iâ€™ll be here to help.
+
+
+
+
+
+
+
+
+
+
+

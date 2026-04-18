@@ -1,0 +1,100 @@
+kind: AdaptiveDialog
+modelDescription: Use this topic when the caller provides a finalized compliance narrative and JSON summaries and explicitly wants a structured report layout and plain-text report for PDF export or storage.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - generate pdf report
+      - create a pdf report
+      - make a pdf file
+      - download report as pdf
+      - export to pdf
+      - get my report in pdf format
+      - save this as a pdf
+      - produce a pdf document
+      - print report to pdf
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_2EUwuk
+      variable: Topic.Var2
+      value: narrative_report
+
+    - kind: Question
+      id: Question_LJ1epL
+      variable: Topic.ReportTitle
+      prompt: Please enter the report title.
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_uMWyZJ
+      variable: Topic.StartDate
+      prompt: Please enter the start date for the report.
+      entity: DatePrebuiltEntity
+
+    - kind: Question
+      id: Question_lpDsPl
+      variable: Topic.EndDate
+      prompt: Please enter the end date for the report.
+      entity: DatePrebuiltEntity
+
+    - kind: ConditionGroup
+      id: ConditionGroup_UUvUPH
+      conditions:
+        - id: ConditionItem_E1pozy
+          condition: =Topic.StartDate > Topic.EndDate
+          actions:
+            - kind: SendActivity
+              id: SendActivity_7nOKrV
+              activity: The start date cannot be after the end date. Please enter valid dates.
+
+      elseActions:
+        - kind: Question
+          id: Question_1HN2Cf
+          variable: Topic.ReportFormat
+          prompt:
+            text:
+              - Which format do you prefer for your report?
+              - Please select your preferred report format.
+
+          entity:
+            kind: EmbeddedEntity
+            definition:
+              kind: ClosedListEntity
+              optionSetName: ReportFormatOptions
+              items:
+                - id: pdf
+                  displayName: PDF
+
+                - id: excel
+                  displayName: Excel
+
+                - id: csv
+                  displayName: CSV
+
+        - kind: ConditionGroup
+          id: ConditionGroup_6tmirE
+          conditions:
+            - id: ConditionItem_6AbgZy
+              condition: =Topic.ReportFormat = ReportFormatOptions.pdf
+              actions:
+                - kind: SendActivity
+                  id: SendActivity_BKQm14
+                  activity: Your PDF report is being generated with charts and data tables. Please wait...
+
+                - kind: SendActivity
+                  id: SendActivity_5kRdFt
+                  activity: Your comprehensive PDF report is ready. [Download PDF](https://example.com/download/report.pdf)
+
+                - kind: SendActivity
+                  id: SendActivity_KjUAa3
+                  activity: Report generation successful! If you need another report, please let me know.
+
+          elseActions:
+            - kind: SendActivity
+              id: SendActivity_gFWh7S
+              activity: Currently, only PDF format is supported for comprehensive reports with charts and data tables.
+
+inputType: {}
+outputType: {}

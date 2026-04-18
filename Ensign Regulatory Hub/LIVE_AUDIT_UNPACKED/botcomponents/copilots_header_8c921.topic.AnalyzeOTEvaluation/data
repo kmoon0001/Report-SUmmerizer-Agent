@@ -1,0 +1,15 @@
+kind: AdaptiveDialog
+modelDescription: This topic audits OT evaluation notes for comprehensive assessment documentation, skilled need justification, and compliance with CMS guidelines.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_AnalyzeOTEvaluation
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+inputType: {}
+outputType: {}
+

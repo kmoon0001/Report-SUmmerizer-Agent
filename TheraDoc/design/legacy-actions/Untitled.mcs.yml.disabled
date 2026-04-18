@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: TheraDoc - Audit Note Legacy Alias
+kind: TaskDialog
+modelDisplayName: TheraDoc - Audit Note Legacy Alias
+modelDescription: Legacy alias retained for compatibility. Routes to the active TheraDoc audit flow.
+outputs:
+  - propertyName: auditresult
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 347faa50-782c-4ad7-a313-ee501e0de3fe
+
+outputMode: All

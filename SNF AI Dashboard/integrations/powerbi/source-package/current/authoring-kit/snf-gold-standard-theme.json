@@ -1,0 +1,16 @@
+﻿{
+  "name": "SNF Gold Standard Command Center",
+  "background": "#f6f8fb",
+  "foreground": "#0f172a",
+  "tableAccent": "#22c55e",
+  "dataColors": [
+    "#22c55e",
+    "#3b82f6",
+    "#14b8a6",
+    "#f59e0b",
+    "#ef4444",
+    "#8b5cf6",
+    "#0f172a",
+    "#94a3b8"
+  ]
+}

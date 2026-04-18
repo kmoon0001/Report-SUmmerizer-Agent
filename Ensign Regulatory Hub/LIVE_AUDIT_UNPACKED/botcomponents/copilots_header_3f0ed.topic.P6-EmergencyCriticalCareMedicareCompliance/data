@@ -1,0 +1,25 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName:
+    triggerQueries:
+      - emergency medicare compliance
+      - critical care medicare rules
+      - medicare requirements for emergency care
+      - is this emergency visit covered by medicare
+      - medicare compliance in critical situations
+      - urgent care medicare regulations
+      - does medicare cover emergency treatment
+      - critical care billing and medicare compliance
+      - how to comply with medicare in emergencies
+      - emergency room visit and medicare coverage
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_eYp4MD
+      activity: As an AI language model, I cannot provide medical advice. I don't have the necessary qualifications, training, or expertise to provide medical advice. I suggest consulting with a qualified healthcare provider, such as a doctor, nurse, or other medical professional. They can provide you with accurate information, diagnosis, and treatment options based on your specific needs and medical history.
+
+inputType: {}
+outputType: {}

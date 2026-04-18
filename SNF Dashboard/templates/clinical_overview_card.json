@@ -1,0 +1,61 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "📊 PATIENT CLINICAL OVERVIEW",
+          "weight": "Bolder",
+          "size": "Large"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Grounded AI Insight: Automated Handoff Mode",
+          "isSubtle": true,
+          "spacing": "None"
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            { "type": "TextBlock", "text": "**Focus**", "isSubtle": true },
+            { "type": "TextBlock", "text": "${FocusChoice}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            { "type": "TextBlock", "text": "**Timeframe**", "isSubtle": true },
+            { "type": "TextBlock", "text": "${TimeframeChoice}", "size": "Medium", "weight": "Bolder", "spacing": "None" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "⚠️ This is a structured intake summary. The automated backend is currently in validation mode.",
+      "wrap": true,
+      "fontType": "Monospace",
+      "size": "Small",
+      "color": "Warning",
+      "spacing": "Medium"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "View Full Dashboard",
+      "data": { "action": "open_dashboard" }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.3"
+}

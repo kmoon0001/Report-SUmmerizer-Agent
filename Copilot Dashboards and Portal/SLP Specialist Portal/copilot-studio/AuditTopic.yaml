@@ -1,0 +1,37 @@
+kind: Topic
+name: Clinical Documentation Audit
+description: Audits a therapy note for Medicare compliance and clinical safety.
+triggers:
+  - intent: audit a note
+  - intent: check my documentation
+  - intent: medicare compliance
+
+nodes:
+  - kind: Question
+    id: ask_for_note
+    text: "Please paste the clinical note you would like me to audit for SLP, PT, or OT compliance."
+    variable: Topic.UserNote
+  
+  - kind: Action
+    id: run_validation
+    action: "Call Power Automate / Logic App: UniversalComplianceValidator"
+    inputs:
+      note: Topic.UserNote
+    outputs:
+      issues: Topic.AuditIssues
+      risk_score: Topic.RiskScore
+      shap_explanation: Topic.ShapExplanation
+
+  - kind: Message
+    id: display_results
+    text: |
+      ### Audit Report
+      **Risk Score:** {Topic.RiskScore}%
+      
+      **Top Findings:**
+      {Topic.AuditIssues}
+      
+      **Explainability (SHAP):**
+      {Topic.ShapExplanation}
+      
+      **Recommendation:** Update documentation to reflect skilled necessity.

@@ -1,0 +1,73 @@
+mcs.metadata:
+  componentName: QM Intake
+  description: Elite clinical intelligence module specialized in [QMINTAKE]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_LRSzQ7
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selectedFacility
+      prompt: Which facility are we reviewing?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_EJ8okf
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.lookbackPeriod
+      prompt: What lookback period should we use (30 days, 60 days, 90 days, or current quarter)?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Last 30 days
+              displayName: Last 30 days
+
+            - id: Last 60 days
+              displayName: Last 60 days
+
+            - id: Last 90 days
+              displayName: Last 90 days
+
+            - id: Current quarter
+              displayName: Current quarter
+
+        displayName: EmbeddedEntity-5b6QBG
+
+    - kind: ConditionGroup
+      id: conditionGroup_hVNZde
+      conditions:
+        - id: conditionItem_eVtbFG
+          condition: =Topic.lookbackPeriod = 'cr917_agentu92bPc.topic.QMIntake.main.question_EJ8okf'.'Last 60 days'
+
+        - id: conditionItem_xmovok
+          condition: =Topic.lookbackPeriod = 'cr917_agentu92bPc.topic.QMIntake.main.question_EJ8okf'.'Last 90 days'
+
+        - id: conditionItem_ljzzO7
+          condition: =Topic.lookbackPeriod = 'cr917_agentu92bPc.topic.QMIntake.main.question_EJ8okf'.'Current quarter'
+
+    - kind: Question
+      id: question_LpmWm6
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.qmDomain
+      prompt: Which QM domain should we focus on first (falls, mobility decline, ADL function, rehospitalization, or antipsychotic use)?
+      entity: StringPrebuiltEntity
+
+    - kind: BeginDialog
+      id: MVvnKE
+      dialog: cr917_agentu92bPc.topic.QMOrchestrator
+
+inputType: {}
+outputType: {}
+
+

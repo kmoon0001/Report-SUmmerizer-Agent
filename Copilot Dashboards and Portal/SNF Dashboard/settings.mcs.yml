@@ -1,0 +1,15 @@
+displayName: SNF AI Dashboard
+schemaName: snf_ai_dashboard
+accessControlPolicy: GroupMembership
+authenticationMode: Integrated
+authenticationTrigger: Always
+configuration:
+  settings:
+    GenerativeActionsEnabled: true
+
+  recognizer:
+    kind: GenerativeAIRecognizer
+
+# publishedOn is managed by the Copilot Studio extension on publish. Do not set manually.
+template: kickStartTemplate-1.0.0
+language: 1033

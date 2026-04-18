@@ -1,0 +1,23 @@
+Title: Strong SLP Documentation Patterns (Qualitative Reference)
+
+Examples of “strong” SLP documentation patterns in SNF/post-acute settings:
+
+- Evaluation:
+  - Describes prior and current communication and/or swallowing status with objective measures (e.g., intelligibility %, naming scores, comprehension levels, FOIS, diet/liquid level, instrumental study results when available).
+  - Identifies key safety and participation concerns (aspiration risk, ability to follow medical instructions, communicate needs, manage meds, or participate in decisions).
+
+- Goals:
+  - Specific, measurable, and time-bound (e.g., “In 2 weeks, patient will safely consume mechanical-soft solids and nectar-thick liquids with no overt signs of aspiration during meals with supervision.”).
+  - Link deficits to real-life communication or swallowing participation (family conversations, phone calls, medical discussions, mealtime safety).
+
+- Daily/progress notes:
+  - Show skilled SLP work (strategy training, cueing hierarchy, compensatory techniques, AAC setup and coaching, dysphagia management decisions).
+  - Use objective/standardized or structured observations to show change (score shifts, diet upgrades, fewer aspiration signs, more effective communication in specific contexts).
+  - Document caregiver/staff education for safe feeding, supported communication, and monitoring for red-flag signs.
+
+- Discharge:
+  - Compare baseline vs discharge communication/swallowing using similar measures.
+  - Clearly state goal status and rationale (met, partially met, not met).
+  - Provide specific recommendations for ongoing support, diet level, strategies, and safety precautions.
+
+Use these patterns as qualitative “good examples” when judging SLP strengths, gaps, and suggested improvements. Do not copy exact wording; keep examples paraphrased and illustrative only.

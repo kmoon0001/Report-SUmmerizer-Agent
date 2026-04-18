@@ -1,0 +1,20 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: ProgressAnalysis
+  actions:
+    - kind: InvokePromptAction
+      id: runProgressTool
+      actionId: cr917_SNFRehab.Rehab_ProgressNote_Insight
+      inputs:
+        patientToken: =Topic.ClassificationResult.patientToken
+        sessionCount: =Topic.ClassificationResult.sessionCount
+        goalProgress: =Topic.ClassificationResult.goalProgress
+        certEndDate: =Topic.ClassificationResult.certEndDate
+      output: Topic.ProgressInsightResponse
+
+    - kind: EndDialog
+      id: exit
+

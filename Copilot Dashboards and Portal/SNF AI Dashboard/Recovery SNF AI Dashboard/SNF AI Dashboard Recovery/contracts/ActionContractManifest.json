@@ -1,0 +1,105 @@
+{
+  "sharedOutputs": [],
+  "project": "SNF AI Dashboard",
+  "actions": [
+    {
+      "inputs": [
+        "patientid",
+        "unit",
+        "risktype",
+        "timeframe",
+        "requestedbyrole",
+        "requestcontext"
+      ],
+      "outputs": [],
+      "name": "GenerateOnDemandPatientInsight",
+      "primarySystems": [
+        "Fabric",
+        "Power BI",
+        "Dataverse",
+        "FHIR"
+      ],
+      "flowId": "f96d43dd-fd24-f111-8341-6045bd061151"
+    },
+    {
+      "inputs": [
+        "severity",
+        "messagetext",
+        "patientid",
+        "unit",
+        "requestedbyrole"
+      ],
+      "outputs": [],
+      "name": "SendClinicalAlert",
+      "primarySystems": [
+        "Power Automate",
+        "Teams",
+        "Dataverse",
+        "FHIR"
+      ],
+      "flowId": "52df51b9-5a31-f111-88b3-00224805b033"
+    },
+    {
+      "inputs": [
+        "measuregroup",
+        "unit",
+        "daterange",
+        "requestedbyrole"
+      ],
+      "outputs": [
+        "confirmationmessage",
+        "facility_submission_status",
+        "facility_data_text",
+        "declining_metrics_text"
+      ],
+      "name": "GenerateQualityMeasureReport",
+      "primarySystems": [
+        "Fabric",
+        "Power BI",
+        "Dataverse"
+      ],
+      "flowId": "0b930a15-2516-f111-8341-0022480b6bd9"
+    },
+    {
+      "inputs": [
+        "documenttype",
+        "intendeduse",
+        "minimumnecessary",
+        "sourcefilename"
+      ],
+      "outputs": [
+        "normalization_status",
+        "normalized_document_type",
+        "normalized_text"
+      ],
+      "name": "ProcessClinicalFileIntake",
+      "primarySystems": [
+        "SharePoint",
+        "OneDrive",
+        "FHIR",
+        "Power Automate"
+      ],
+      "flowId": "db104008-d226-f111-8341-000d3a5b88c6"
+    },
+    {
+      "inputs": [
+        "imagetype",
+        "imageuse",
+        "approvalstatus",
+        "sourcefilename"
+      ],
+      "outputs": [
+        "accepted",
+        "runId"
+      ],
+      "name": "ProcessClinicalImageReview",
+      "primarySystems": [
+        "Azure AI",
+        "SharePoint",
+        "OneDrive",
+        "Power Automate"
+      ],
+      "flowId": "384ef424-2726-f111-8341-000d3a36320f"
+    }
+  ]
+}

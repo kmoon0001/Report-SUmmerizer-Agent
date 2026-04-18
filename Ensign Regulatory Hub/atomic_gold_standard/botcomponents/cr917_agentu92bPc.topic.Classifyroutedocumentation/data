@@ -1,0 +1,151 @@
+mcs.metadata:
+  componentName: Classify and Route Documentation
+  description: |
+    Topic workflow for Classify and Route Documentation within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+modelDescription: 'Use this topic when the user needs classify and route documentation support in SNF therapy documentation workflows.'
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - classify this document
+      - route this documentation
+      - what type of therapy note is this
+      - route this therapy note for review
+      - identify the document type
+      - help classify this note
+      - send this to the right reviewer
+      - route this for compliance review
+      - categorize this documentation
+
+  actions:
+    - kind: Question
+      id: questionDocType
+      variable: Topic.DocType
+      prompt: 'Please provide a clear response: What type of document is this?'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: DocTypeRouteOptions
+          items:
+            - id: evaluation
+              displayName: Evaluation
+
+            - id: dailynote
+              displayName: Daily Note or TENS
+
+            - id: progressreport
+              displayName: Progress Report
+
+            - id: summary
+              displayName: Summary
+
+            - id: other
+              displayName: Other
+
+    - kind: Question
+      id: questionPayer
+      variable: Topic.Payer
+      prompt: 'Please provide a clear response: Which payer is this documentation for?'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: PayerRouteOptions
+          items:
+            - id: medicare
+              displayName: Medicare
+
+            - id: medicaid
+              displayName: Medicaid
+
+            - id: private
+              displayName: Private Insurance
+
+            - id: other
+              displayName: Other
+
+    - kind: Question
+      id: questionDiscipline
+      variable: Topic.PrimaryDiscipline
+      prompt: 'Please provide a clear response: What is the primary discipline for this note?'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: DisciplineRouteOptions
+          items:
+            - id: PT
+              displayName: PT
+
+            - id: OT
+              displayName: OT
+
+            - id: SLP
+              displayName: SLP
+
+    - kind: Question
+      id: questionRisk
+      variable: Topic.RiskFlags
+      prompt: 'Please provide a clear response: Are known risk indicators present?'
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: docTypeAcknowledgement
+      conditions:
+        - id: isEvaluation
+          condition: =Topic.DocType = DocTypeRouteOptions.evaluation
+          actions:
+            - kind: SendActivity
+              id: sendEvaluation
+              activity: Document classified as Evaluation.
+
+        - id: isDaily
+          condition: =Topic.DocType = DocTypeRouteOptions.dailynote
+          actions:
+            - kind: SendActivity
+              id: sendDaily
+              activity: Document classified as Daily Note or TENS.
+
+        - id: isReport
+          condition: =Topic.DocType = DocTypeRouteOptions.progressreport
+          actions:
+            - kind: SendActivity
+              id: sendReport
+              activity: Document classified as Progress Report.
+
+        - id: isSummary
+          condition: =Topic.DocType = DocTypeRouteOptions.summary
+          actions:
+            - kind: SendActivity
+              id: sendSummary
+              activity: Document classified as Summary.
+
+      elseActions:
+        - kind: SendActivity
+          id: sendOther
+          activity: Document classified as Other.
+
+    - kind: SendActivity
+      id: sendClassificationSummary
+      activity: |-
+        Classification captured.
+        - Document type: {Topic.DocType}
+        - Payer: {Topic.Payer}
+        - Primary discipline: {Topic.PrimaryDiscipline}
+        - Risk indicators present: {Topic.RiskFlags}
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+

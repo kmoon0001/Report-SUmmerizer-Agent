@@ -1,0 +1,363 @@
+- generic [ref=e10]:
+  - banner [ref=e12]:
+    - button "Skip to main content" [ref=e13]
+    - banner [ref=e15]:
+      - button "App launcher" [ref=e18] [cursor=pointer]: 
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - img "Copilot studio brand Logo" [ref=e28] [cursor=pointer]
+          - generic [ref=e31]: Copilot Studio
+        - 'button "Environment: Therapy AI Agents Dev" [ref=e39] [cursor=pointer]':
+          - img [ref=e41]
+        - button "Access additional features" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]: 
+      - generic [ref=e48]:
+        - button "Account manager for Moon, Kevin" [ref=e50] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]: Moon, Kevin
+            - generic [ref=e59]: KM
+        - generic: 
+  - generic [ref=e62]:
+    - navigation [ref=e63]:
+      - tablist [ref=e64]:
+        - tab "Home" [ref=e66] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e70]: Home
+        - tab "Agents" [selected] [ref=e71] [cursor=pointer]:
+          - generic [ref=e74]: Agents
+        - tab "Flows" [ref=e75] [cursor=pointer]:
+          - img [ref=e77]
+          - generic [ref=e82]: Flows
+        - tab "Tools" [ref=e83] [cursor=pointer]:
+          - img [ref=e85]
+          - generic [ref=e87]: Tools
+        - tab "Explore Power Platform" [ref=e89] [cursor=pointer]:
+          - img [ref=e91]
+    - main "Page content" [ref=e95]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - img "Icon for your agent" [ref=e107]
+            - heading "SimpleLTC QM Coach V2" [level=1] [ref=e108]
+            - button "open agent protection shield popover" [ref=e109]:
+              - img [ref=e111]
+            - tablist [ref=e113]:
+              - tab "Overview" [selected] [ref=e115] [cursor=pointer]:
+                - generic [ref=e116]: Overview
+              - tab "8 more options" [ref=e117]: "+8"
+          - generic [ref=e119]:
+            - generic [ref=e121]:
+              - generic [ref=e122]: Published 4/11/2026
+              - button "Publish" [disabled] [ref=e124]
+            - button "Test" [ref=e126]:
+              - generic [ref=e127]:
+                - img [ref=e128]
+                - text: Test
+            - tab "4 more options" [ref=e130]:
+              - img [ref=e132]
+        - generic [ref=e144]:
+          - group [ref=e145]:
+            - generic [ref=e146]:
+              - generic [ref=e147]:
+                - heading "Details" [level=2] [ref=e150]
+                - button "Edit" [ref=e152]:
+                  - img [ref=e154]
+                  - text: Edit
+              - generic [ref=e156]:
+                - img "Icon" [ref=e159]
+                - generic [ref=e162]:
+                  - generic [ref=e165]: Name
+                  - generic [ref=e167]: SimpleLTC QM Coach V2
+              - separator [ref=e168]
+              - generic [ref=e169]:
+                - generic [ref=e171]:
+                  - generic [ref=e172]: Description
+                  - generic [ref=e173]: 628/1024
+                - generic [ref=e176]: The SimpleLTC Clinical Strategy Copilot helps Therapy Resources and facility leadership interpret Quality Measures and translate QM signals into regulatory-aligned clinical action plans. It uses ONE Clinical protocols, CMS Ch.15 s220.2, and Jimmo v. Sebelius maintenance therapy standards to identify risks, uncover drivers, and guide Therapy-Nursing-IDT collaboration. By default it works on de-identified or aggregate facility data. In the approved secure resident workflow, it may also review resident-specific SimpleLTC exports using minimum necessary details. Every output is advisory until reviewed by licensed clinicians.
+          - group [ref=e553]:
+            - generic [ref=e556]:
+              - heading "Select your agent's model" [level=2] [ref=e557]
+              - generic [ref=e558]:
+                - text: Your agent will primarily use the model for reasoning and responding. Experimental models are subject to
+                - link "preview terms" [ref=e559] [cursor=pointer]:
+                  - /url: https://go.microsoft.com/fwlink/?linkid=2321468
+                - text: .
+                - link "Learn more about agent's model selection" [ref=e560] [cursor=pointer]:
+                  - /url: https://go.microsoft.com/fwlink/?linkid=2328608
+                  - text: Learn more
+            - combobox [ref=e562] [cursor=pointer]:
+              - text: GPT-5 Chat
+              - img [ref=e564]
+          - group [ref=e184]:
+            - generic [ref=e186]:
+              - generic [ref=e187]:
+                - heading "Analytics" [level=2] [ref=e188]
+                - generic [ref=e189]: Check your agent's key performance info from the last 7 days.
+              - button "Open Analytics" [ref=e191]:
+                - generic [ref=e192]: Open Analytics
+            - generic [ref=e567]:
+              - generic [ref=e569]:
+                - generic [ref=e571]:
+                  - generic [ref=e572]: Conversation sessions
+                  - button "Conversation sessions information" [ref=e573]:
+                    - img [ref=e574]
+                - generic [ref=e576]: "5"
+              - generic [ref=e578]:
+                - generic [ref=e580]:
+                  - generic [ref=e581]: Engagement
+                  - button "Engagement information" [ref=e582]:
+                    - img [ref=e583]
+                - generic [ref=e585]: 80%
+              - generic [ref=e587]:
+                - generic [ref=e589]:
+                  - generic [ref=e590]: Satisfaction score
+                  - button "Satisfaction score information" [ref=e591]:
+                    - img [ref=e592]
+                - generic [ref=e594]: "--"
+          - group [ref=e205]:
+            - generic [ref=e206]:
+              - generic [ref=e208]:
+                - heading "Instructions" [level=2] [ref=e211]
+                - button "Edit" [disabled] [ref=e214]:
+                  - img [ref=e216]
+                  - text: Edit
+              - progressbar "Loading Instructions..." [ref=e219]
+          - group [ref=e224]:
+            - generic [ref=e226]:
+              - generic [ref=e227]:
+                - heading "Knowledge" [level=2] [ref=e228]
+                - generic [ref=e229]: Add data, files, and other resources to inform and improve AI-generated responses.
+              - button "Add knowledge" [ref=e231]:
+                - img [ref=e233]
+                - generic [ref=e235]: Add knowledge
+            - generic [ref=e236]:
+              - generic [ref=e237]:
+                - link "CMS quality safety oversight general information" [ref=e240] [cursor=pointer]:
+                  - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/knowledge/9e712020-354b-45bb-91ef-21c4a8fb7d5f/details
+                - generic [ref=e242]:
+                  - img [ref=e243]
+                  - status "Ready" [ref=e245]:
+                    - generic [ref=e246]: "CMS quality safety oversight general information Status: Ready"
+                    - text: Ready
+                - button "More" [ref=e248]:
+                  - img [ref=e250]
+              - generic [ref=e252]:
+                - link "CMS nursing home quality measures" [ref=e255] [cursor=pointer]:
+                  - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/knowledge/0774f057-9d24-4812-b7ab-c795b9ecdd37/details
+                - generic [ref=e257]:
+                  - img [ref=e258]
+                  - status "Ready" [ref=e260]:
+                    - generic [ref=e261]: "CMS nursing home quality measures Status: Ready"
+                    - text: Ready
+                - button "More" [ref=e263]:
+                  - img [ref=e265]
+              - generic [ref=e267]:
+                - generic [ref=e268]:
+                  - img "PDF document" [ref=e270]
+                  - link "CMS Nursing Home Data Dictionary" [ref=e276] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/knowledge/03402754-addc-4d5d-bdfc-fe8e6d10ddda/details
+                - generic [ref=e278]:
+                  - img [ref=e279]
+                  - status "Ready" [ref=e281]:
+                    - generic [ref=e282]: "CMS Nursing Home Data Dictionary Status: Ready"
+                    - text: Ready
+                - button "More" [ref=e284]:
+                  - img [ref=e286]
+              - generic [ref=e288]:
+                - generic [ref=e289]:
+                  - img "PDF document" [ref=e291]
+                  - link "CMS MDS 3.0 Quality Measures Users Manual v18" [ref=e297] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/knowledge/ce636c8c-07ef-48c4-ba64-99ddbb3b6d8b/details
+                - generic [ref=e299]:
+                  - img [ref=e300]
+                  - status "Ready" [ref=e302]:
+                    - generic [ref=e303]: "CMS MDS 3.0 Quality Measures Users Manual v18 Status: Ready"
+                    - text: Ready
+                - button "More" [ref=e305]:
+                  - img [ref=e307]
+              - generic [ref=e309]:
+                - generic [ref=e310]:
+                  - img "PDF document" [ref=e312]
+                  - link "CMS SNF QM Calculations and Reporting Manual v7" [ref=e318] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/knowledge/e1cbeab8-2ca8-4705-bf7a-8e6def220ef6/details
+                - generic [ref=e320]:
+                  - img [ref=e321]
+                  - status "Ready" [ref=e323]:
+                    - generic [ref=e324]: "CMS SNF QM Calculations and Reporting Manual v7 Status: Ready"
+                    - text: Ready
+                - button "More" [ref=e326]:
+                  - img [ref=e328]
+            - button "See all" [ref=e330]
+            - generic [ref=e331]:
+              - separator [ref=e332]
+              - generic [ref=e333]:
+                - heading "Web Search" [level=3] [ref=e334]
+                - generic [ref=e335]:
+                  - generic [ref=e336]:
+                    - text: Enable your agent to search all public websites.
+                    - link "Learn more about knowledge sources" [ref=e337] [cursor=pointer]:
+                      - /url: https://go.microsoft.com/fwlink/?linkid=2270017
+                      - text: Learn more
+                  - generic [ref=e338]:
+                    - switch "Web Search Enabled" [checked] [ref=e339] [cursor=pointer]
+                    - generic:
+                      - img
+                    - generic [ref=e340] [cursor=pointer]: Enabled
+          - group [ref=e342]:
+            - generic [ref=e344]:
+              - generic [ref=e345]:
+                - heading "Tools" [level=2] [ref=e346]
+                - generic [ref=e347]:
+                  - text: Add tools to empower the AI to complete specific tasks for improved engagement.
+                  - link "Learn more about tools" [ref=e348] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2319940
+                    - text: Learn more
+                  - text: .
+              - button "Add tool" [ref=e350]:
+                - img [ref=e352]
+                - generic [ref=e354]: Add tool
+            - generic [ref=e355]:
+              - generic [ref=e356]:
+                - generic [ref=e357]:
+                  - generic [ref=e358]: Work IQ
+                  - generic [ref=e359]:
+                    - text: The intelligence layer that personalizes this agent to you and your organization.
+                    - link "Learn more about Work IQ" [ref=e360] [cursor=pointer]:
+                      - /url: https://go.microsoft.com/fwlink/?linkid=2353544
+                      - text: Learn more
+                - generic [ref=e362]:
+                  - switch "Disabled" [ref=e363] [cursor=pointer]
+                  - generic:
+                    - img
+                  - generic [ref=e364] [cursor=pointer]: Disabled
+              - generic [ref=e365]:
+                - img "Copilot" [ref=e366]
+                - img "Outlook" [ref=e367]
+                - img "SharePoint" [ref=e368]
+                - img "OneDrive" [ref=e369]
+                - img "Teams" [ref=e370]
+                - img "Word" [ref=e371]
+                - img "Excel" [ref=e372]
+            - generic [ref=e373]:
+              - generic [ref=e374]:
+                - generic [ref=e375]:
+                  - generic [ref=e380]:
+                    - img [ref=e381]
+                    - img [ref=e383]
+                    - img [ref=e385]
+                    - img [ref=e387]
+                  - link "Normalize and Standardize Manual Quality Measure Files" [ref=e389] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/actions-adaptive/90ab8769-f196-4983-9a87-be584f953c85/details
+                - button "Use this for topic tools" [ref=e391]:
+                  - img [ref=e393]
+              - generic [ref=e395]:
+                - generic [ref=e396]:
+                  - generic [ref=e401]:
+                    - img [ref=e402]
+                    - img [ref=e404]
+                    - img [ref=e406]
+                    - img [ref=e408]
+                  - link "Route Clinical Intake and Handoff Data" [ref=e410] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/actions-adaptive/07db3025-5bfe-4e3a-ac28-0e891c0fad36/details
+                - button "Use this for topic tools" [ref=e412]:
+                  - img [ref=e414]
+              - generic [ref=e416]:
+                - generic [ref=e417]:
+                  - generic [ref=e422]:
+                    - img [ref=e423]
+                    - img [ref=e425]
+                    - img [ref=e427]
+                    - img [ref=e429]
+                  - link "Detect and Report Quality Measure Declines" [ref=e431] [cursor=pointer]:
+                    - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/actions-adaptive/06dc93b4-64f0-47ae-a7ad-fa4fbc8b49f1/details
+                - button "Use this for topic tools" [ref=e433]:
+                  - img [ref=e435]
+            - button "See all" [ref=e437]
+          - group [ref=e439]:
+            - generic [ref=e441]:
+              - generic [ref=e442]:
+                - heading "Triggers" [level=2] [ref=e443]
+                - generic [ref=e444]:
+                  - text: Set up your agent to activate when certain events happen.
+                  - link "Learn more about triggers and channels" [ref=e445] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2339488
+                    - text: Learn more
+                  - text: .
+              - button "Add trigger" [ref=e447]:
+                - img [ref=e449]
+                - generic [ref=e451]: Add trigger
+            - button "No triggers added. Add trigger" [ref=e453]:
+              - img "No triggers added." [ref=e454] [cursor=pointer]
+              - generic [ref=e455]: Add trigger
+          - group [ref=e456]:
+            - generic [ref=e458]:
+              - generic [ref=e459]:
+                - heading "Agents" [level=2] [ref=e460]
+                - generic [ref=e461]:
+                  - text: Connect your agent with another agent, dedicated to handling steps of your workflow.
+                  - link "Learn more about connected agents" [ref=e462] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2317908
+                    - text: Learn more
+              - button "Add agent" [ref=e464]:
+                - img [ref=e466]
+                - generic [ref=e468]: Add agent
+            - button "No agents Add agent" [ref=e470]:
+              - img "No agents" [ref=e471] [cursor=pointer]
+              - generic [ref=e472]: Add agent
+          - group [ref=e473]:
+            - generic [ref=e475]:
+              - generic [ref=e476]:
+                - heading "Topics" [level=2] [ref=e477]
+                - generic [ref=e478]: Add conversation topics to focus and guide the way your agent answers.
+              - button "Add topic" [ref=e480]:
+                - img [ref=e482]
+                - generic [ref=e484]: Add topic
+            - generic [ref=e485]:
+              - generic [ref=e486]:
+                - link "DoR Summary" [ref=e490] [cursor=pointer]:
+                  - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/adaptive/bd0a8d0d-a9ea-4c6d-8cc1-008dc26f104e
+                - button "Use this for topic tools" [ref=e492]:
+                  - img [ref=e494]
+              - generic [ref=e496]:
+                - link "Facility QM Analysis" [ref=e500] [cursor=pointer]:
+                  - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/adaptive/0aa9279d-ea83-4055-af7c-e7137d34c4c4
+                - button "Use this for topic tools" [ref=e502]:
+                  - img [ref=e504]
+              - generic [ref=e506]:
+                - link "Goodbye" [ref=e510] [cursor=pointer]:
+                  - /url: /environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/bots/ea52ad9c-8233-f111-88b3-6045bd09a824/adaptive/18ffb097-6bce-4685-93e4-4482c8edfbea
+                - button "Use this for topic tools" [ref=e512]:
+                  - img [ref=e514]
+            - button "See all" [ref=e516]
+          - group [ref=e517]:
+            - generic [ref=e518]:
+              - generic [ref=e519]:
+                - generic [ref=e520]:
+                  - heading "Suggested prompts" [level=2] [ref=e522]
+                  - button "Edit" [ref=e523]:
+                    - img [ref=e525]
+                    - text: Edit
+                - generic [ref=e527]:
+                  - text: Suggest ways of starting conversations for Teams and Microsoft 365 channels.
+                  - link "Learn more about suggested prompts" [ref=e528] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2299940
+                    - text: Learn more.
+              - generic [ref=e530]:
+                - generic [ref=e531]:
+                  - generic [ref=e532]: Facility QM risk review
+                  - generic [ref=e533]: Review this facility's top Quality Measure risks from our latest SimpleLTC data and explain the likely clinical, process, and documentation drivers from a therapy perspective.
+                - generic [ref=e534]:
+                  - generic [ref=e535]: Worsening QMs – therapy plan
+                  - generic [ref=e536]: Analyze worsening QMs from my SimpleLTC export and recommend 7-, 30-, and 90-day therapy actions, including program focus, caseload mix, and coordination with nursing and MDS.
+                - generic [ref=e537]:
+                  - generic [ref=e538]: Therapy QM action plan
+                  - generic [ref=e539]: Build a regulatory-aligned QM action plan for therapy services that includes specific resident cohorts to target, recommended interventions, and how to partner with nursing and IDT.
+                - generic [ref=e540]:
+                  - generic [ref=e541]: Predicted vs actual QMs
+                  - generic [ref=e542]: Compare predicted versus actual QM performance and highlight where therapy should prioritize interventions first, including suggestions for intensity, frequency, and discipline mix.
+                - generic [ref=e543]:
+                  - generic [ref=e544]: Resident outlier workflow
+                  - generic [ref=e545]: Guide me through the approved secure workflow to review resident outliers that may be impacting QMs, and suggest how therapy should address each pattern you find.
+                - generic [ref=e546]:
+                  - generic [ref=e547]: DoR QM briefing
+                  - generic [ref=e548]: Draft a Director of Rehab summary of this facility's top QM concerns, likely drivers related to therapy, and recommended next steps to discuss with nursing and IDT leadership.

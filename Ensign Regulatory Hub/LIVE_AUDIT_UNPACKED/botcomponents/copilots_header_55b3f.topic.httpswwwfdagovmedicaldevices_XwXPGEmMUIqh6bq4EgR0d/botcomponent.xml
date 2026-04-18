@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_55b3f.topic.httpswwwfdagovmedicaldevices_XwXPGEmMUIqh6bq4EgR0d">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.fda.gov/medical-devices/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.fda.gov/medical-devices/</name>
+  <parentbotid>
+    <schemaname>copilots_header_55b3f</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

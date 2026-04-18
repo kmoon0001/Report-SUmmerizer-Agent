@@ -1,0 +1,2 @@
+kind: ContentModerationSettings
+moderatedCustomResponse: I am unable to process this specific clinical request due to safety or moderation constraints. Please rephrase or consult official ASHA/CMS guidelines.

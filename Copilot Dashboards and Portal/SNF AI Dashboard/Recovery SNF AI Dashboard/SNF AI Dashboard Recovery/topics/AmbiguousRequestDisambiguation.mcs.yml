@@ -1,0 +1,126 @@
+mcs.metadata:
+  componentName: Ambiguous Request Disambiguation
+  description: Elite clinical intelligence module specialized in [AmbiguousRequestDisambiguation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [AmbiguousRequestDisambiguation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Ambiguous Request Disambiguation
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - I need help
+      - show me something
+      - I need a review
+      - what should I do
+      - not sure where to start
+      - help me choose
+      - I'm not sure
+      - guide me
+      - which one should I pick
+      - confused about options
+      - need assistance
+      - show options
+      - what are my choices
+      - help with selection
+      - unsure
+      - not sure what to select
+      - pick an option
+      - which area
+      - help me decide
+
+  actions:
+    - kind: Question
+      id: question_ambiguous_menu
+      alwaysPrompt: true
+      variable: init:Topic.AmbiguousChoice
+      prompt: Which area best matches what you need?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Clinical insights
+            Value: "ClinicalInsights"
+          - DisplayName: Safety and surveillance
+            Value: "SafetySurveillance"
+          - DisplayName: Quality and operations
+            Value: "QualityOperations"
+          - DisplayName: Communication and transitions
+            Value: "CommunicationTransitions"
+          - DisplayName: Data or metric explanation
+            Value: "DataHelp"
+          - DisplayName: File or image upload guidance
+            Value: "FileHelp"
+          - DisplayName: Urgent clinical concern
+            Value: "Urgent"
+          - DisplayName: Help
+            Value: "Help"
+
+    - kind: ConditionGroup
+      id: condition_ambiguous_route
+      conditions:
+        - id: route_clinical
+          condition: =Text(Topic.AmbiguousChoice) = "ClinicalInsights"
+          actions:
+            - kind: BeginDialog
+              id: begin_clinical
+              dialog: snf_ai_dashboard_recovery.topic.ClinicalInsightsMenu
+
+        - id: route_safety
+          condition: =Text(Topic.AmbiguousChoice) = "SafetySurveillance"
+          actions:
+            - kind: BeginDialog
+              id: begin_safety
+              dialog: snf_ai_dashboard_recovery.topic.SafetyAndSurveillanceMenu
+
+        - id: route_quality
+          condition: =Text(Topic.AmbiguousChoice) = "QualityOperations"
+          actions:
+            - kind: BeginDialog
+              id: begin_quality
+              dialog: snf_ai_dashboard_recovery.topic.QualityAndOperationsMenu
+
+        - id: route_transitions
+          condition: =Text(Topic.AmbiguousChoice) = "CommunicationTransitions"
+          actions:
+            - kind: BeginDialog
+              id: begin_transitions
+              dialog: snf_ai_dashboard_recovery.topic.CommunicationAndTransitionsMenu
+
+        - id: route_data_help
+          condition: =Text(Topic.AmbiguousChoice) = "DataHelp"
+          actions:
+            - kind: BeginDialog
+              id: begin_data_help
+              dialog: snf_ai_dashboard_recovery.topic.DataQualityAndMetricExplanation
+
+        - id: route_file_help
+          condition: =Text(Topic.AmbiguousChoice) = "FileHelp"
+          actions:
+            - kind: BeginDialog
+              id: begin_file_help
+              dialog: snf_ai_dashboard_recovery.topic.FileAndImageUploadGuidance
+
+        - id: route_urgent
+          condition: =Text(Topic.AmbiguousChoice) = "Urgent"
+          actions:
+            - kind: BeginDialog
+              id: begin_urgent
+              dialog: snf_ai_dashboard_recovery.topic.EscalateUrgentClinicalConcern
+
+        - id: route_help
+          condition: =Text(Topic.AmbiguousChoice) = "Help"
+          actions:
+            - kind: BeginDialog
+              id: begin_help
+              dialog: snf_ai_dashboard_recovery.topic.HelpAndQuickStart
+
+      elseActions:
+        - kind: BeginDialog
+          id: begin_menu
+          dialog: snf_ai_dashboard_recovery.topic.WelcomeStart
+
+inputType: {}
+outputType: {}
+
+

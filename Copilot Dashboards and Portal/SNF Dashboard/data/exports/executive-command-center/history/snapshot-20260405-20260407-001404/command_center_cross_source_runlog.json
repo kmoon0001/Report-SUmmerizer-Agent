@@ -1,0 +1,118 @@
+﻿{
+    "GeneratedAt":  "2026-04-07T00:13:46",
+    "EventCount":  16,
+    "Events":  [
+                   {
+                       "Timestamp":  "2026-04-07T00:13:45",
+                       "Step":  "Run Lock",
+                       "Status":  "PASS",
+                       "Message":  "Run lock acquired.",
+                       "ArtifactPath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_cross_source.lock"
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:45",
+                       "Step":  "Checkpoint",
+                       "Status":  "INFO",
+                       "Message":  "Checkpoint initialized.",
+                       "ArtifactPath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_cross_source.checkpoint.json"
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:45",
+                       "Step":  "Checkpoint Cleanup",
+                       "Status":  "INFO",
+                       "Message":  "Corrupt backup cleanup complete. Removed 0 file(s).",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Source Schema Validation",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Secret Hygiene Scan",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "PCC Census",
+                       "Status":  "PASS",
+                       "Message":  "PCC active census file found.",
+                       "ArtifactPath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\pcc_resident_list_current.active-only.csv"
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Documentation Queue Build",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Therapy Pipeline",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Vitals Normalize",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Priority Queue Build",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Patient Insights",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Automated Handoff Queue",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Automated Handoff Dispatch",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Automated Handoff Lifecycle",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Executive Unit Snapshot",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-07T00:13:46",
+                       "Step":  "Operational Summary",
+                       "Status":  "INFO",
+                       "Message":  "Skipped because checkpoint marks this step complete.",
+                       "ArtifactPath":  ""
+                   }
+               ]
+}

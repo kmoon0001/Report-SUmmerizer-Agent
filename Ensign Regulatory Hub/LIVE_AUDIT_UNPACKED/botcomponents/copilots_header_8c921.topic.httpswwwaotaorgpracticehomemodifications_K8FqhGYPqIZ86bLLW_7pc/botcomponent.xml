@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_8c921.topic.httpswwwaotaorgpracticehomemodifications_K8FqhGYPqIZ86bLLW_7pc">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.aota.org/practice/home-modifications website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.aota.org/practice/home-modifications</name>
+  <parentbotid>
+    <schemaname>copilots_header_8c921</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,10 @@
+<botcomponent schemaname="copilots_header_55b3f.topic.P5-High-RiskComplianceViolations">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>P5 - High-Risk Compliance Violations</name>
+  <parentbotid>
+    <schemaname>copilots_header_55b3f</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

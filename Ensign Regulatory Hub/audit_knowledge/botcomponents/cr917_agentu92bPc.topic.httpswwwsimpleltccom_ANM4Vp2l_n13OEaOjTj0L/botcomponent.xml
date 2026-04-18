@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr917_agentu92bPc.topic.httpswwwsimpleltccom_ANM4Vp2l_n13OEaOjTj0L">
+  <componenttype>16</componenttype>
+  <description>Primary documentation for SimpleLTC quality measure platforms, clinical dashboards, and the Power BI predictive analytics engine. Use for understanding SimpleLTC export formats and standard therapy workflow integration.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>SimpleLTC - Quality Measure Platform &amp; Workflow Overview</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

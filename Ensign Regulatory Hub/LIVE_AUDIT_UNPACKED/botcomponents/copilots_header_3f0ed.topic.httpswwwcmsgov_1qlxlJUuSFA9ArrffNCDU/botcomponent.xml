@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_3f0ed.topic.httpswwwcmsgov_1qlxlJUuSFA9ArrffNCDU">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.cms.gov/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.cms.gov/</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

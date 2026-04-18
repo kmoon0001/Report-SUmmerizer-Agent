@@ -1,0 +1,91 @@
+// ==============================================================================
+// Microsoft Fabric: SNF Command Center Semantic Model (Power BI)
+// Architecture: Direct Lake / Premium Per Capacity
+// Status: Production Blueprint
+// ==============================================================================
+
+// ---------------------------------------------------------
+// 1. PATIENT SAFETY & RISK INTELLIGENCE
+// ---------------------------------------------------------
+
+Rolling_30D_Fall_Rate = 
+    VAR CurrentDate = MAX(Dim_Date[Date])
+    VAR Incidents = 
+        CALCULATE(
+            COUNTROWS(Fact_ClinicalIncident),
+            Fact_ClinicalIncident[IncidentType] = "Fall",
+            DATESINPERIOD(Dim_Date[Date], CurrentDate, -30, DAY)
+        )
+    VAR CensusDays = 
+        CALCULATE(
+            SUM(Dim_Facility[CurrentCensus]),
+            DATESINPERIOD(Dim_Date[Date], CurrentDate, -30, DAY)
+        )
+    RETURN 
+        DIVIDE(Incidents * 1000, CensusDays, 0) 
+        // Expressed as falls per 1,000 patient days
+
+Active_Critical_Alerts = 
+    CALCULATE(
+        COUNTROWS(Fact_ClinicalIncident),
+        Fact_ClinicalIncident[SeverityLevel] IN {"Urgent", "Emergency"},
+        Fact_ClinicalIncident[IsResolved] = FALSE
+    )
+
+// ---------------------------------------------------------
+// 2. THERAPY OPERATIONS & RECERTS (NetHealth / PCC)
+// ---------------------------------------------------------
+
+Recert_Reports_Due_Today = 
+    CALCULATE(
+        COUNTROWS(Fact_TherapyRecertification),
+        Fact_TherapyRecertification[DueDate] = TODAY(),
+        Fact_TherapyRecertification[Status] = "Pending"
+    )
+
+Average_Progress_Current_Period = 
+    AVERAGE(Fact_TherapyRecertification[AverageProgressScore])
+
+Patients_Out_For_Appointments_Today = 
+    CALCULATE(
+        COUNTROWS(Fact_PatientAppointments),
+        Fact_PatientAppointments[AppointmentDate] = TODAY(),
+        Fact_PatientAppointments[Status] = "Out of Facility"
+    )
+
+// ---------------------------------------------------------
+// 3. THERAPY & REVENUE CYCLE OPTIMIZATION
+// ---------------------------------------------------------
+
+Missed_Therapy_Opportunity_Minutes = 
+    CALCULATE(
+        SUM(Fact_TherapySession[MinutesDelivered]),
+        Fact_TherapySession[TherapyPickupOpportunity] = TRUE
+    )
+
+// ---------------------------------------------------------
+// 3. STAFFING & PPD (Per Patient Day) METRICS
+// ---------------------------------------------------------
+
+Nursing_PPD_Ratio = 
+    VAR TotalHours = SUM(Fact_StaffingCoverage[StaffCount]) * 8 // Assuming 8 hr shifts
+    VAR TotalPatients = SUM(Dim_Facility[CurrentCensus])
+    RETURN 
+        DIVIDE(TotalHours, TotalPatients, 0)
+
+Risk_of_ShortStaffing_Flag = 
+    IF(
+        [Nursing_PPD_Ratio] < 3.2, // Minimum mandate example threshold
+        "🚨 Critical Shortage",
+        "✅ Safe Staffing"
+    )
+
+// ---------------------------------------------------------
+// 4. PREDICTIVE COPILOT AI INDICATORS
+// ---------------------------------------------------------
+// This measure feeds directly back into Copilot Studio as a dynamic Fact
+Copilot_Unit_Stress_Score = 
+    VAR AlertWeight = [Active_Critical_Alerts] * 1.5
+    VAR StaffingWeight = IF([Nursing_PPD_Ratio] < 3.2, 50, 0)
+    RETURN
+       AlertWeight + StaffingWeight

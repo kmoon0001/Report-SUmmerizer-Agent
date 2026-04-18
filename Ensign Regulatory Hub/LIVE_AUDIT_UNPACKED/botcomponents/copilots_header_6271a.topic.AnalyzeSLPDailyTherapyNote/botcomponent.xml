@@ -1,0 +1,21 @@
+<botcomponent schemaname="copilots_header_6271a.topic.AnalyzeSLPDailyTherapyNote">
+  <componenttype>9</componenttype>
+  <description>Analyze an existing SLP daily treatment note (SOAP or similar). Verify that skilled interventions, patient response, objective data, and plan for the next session are documented and that the note supports medical necessity. Flag vague or non‑skilled language and provide concrete examples of stronger wording.
+
+Trigger words: analyze slp daily note
+
+analyze slp daily therapy note
+
+check this slp treatment note
+
+is this slp daily note complete
+
+daily slp note quality check</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Analyze SLP Daily Therapy Note</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

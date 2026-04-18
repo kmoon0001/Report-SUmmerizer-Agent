@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_70a50.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Non‑conversational backend processor that normalizes, de‑identifies, and structures raw PT/OT/SLP documentation into JSON sections and metadata for PCA routing. Performs parsing only—no analysis. First hub step in the Pacific Coast Compliance Analyzer.
+</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Documentation_Processor</name>
+  <parentbotid>
+    <schemaname>copilots_header_70a50</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

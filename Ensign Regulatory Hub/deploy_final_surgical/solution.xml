@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2" SolutionPackageVersion="9.2" languagecode="1033" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>PacificCoast_Atomic</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Pacific Coast Compliance Atomic" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.1</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EnsignServices</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="EnsignServices" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="EnsignServices" languagecode="1033" />
+      </Descriptions>
+      <CustomizationPrefix>cr917</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>53079</CustomizationOptionValuePrefix>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="91" schemaName="cr917_agentu92bPc" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

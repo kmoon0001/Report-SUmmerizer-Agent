@@ -1,0 +1,97 @@
+version: 1
+agent:
+  displayName: Therapy_Report_Prep_Assistant
+  schemaName: pcca_agent39xn69
+
+knowledgeStrategy:
+  mode: grounded-first
+  guidance:
+    - "Use trusted sources for compliance-critical answers."
+    - "Prefer explicit source descriptions and discipline tags."
+    - "Keep regulated references separate from internal SOP content."
+
+sources:
+  - id: cms-medicare-benefits-policy-manual-ch15
+    priority: 1
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: regulatory
+    suggestedTitle: "CMS Medicare Benefits Policy Manual, Chapter 15"
+    rationale: "Primary medical necessity and therapy coverage reference."
+
+  - id: cms-claims-processing-manual-ch5
+    priority: 1
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: regulatory
+    suggestedTitle: "CMS Claims Processing Manual, Chapter 5"
+    rationale: "Billing/process constraints directly impact documentation guidance."
+
+  - id: cms-program-integrity-manual-ch3
+    priority: 1
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: regulatory
+    suggestedTitle: "CMS Program Integrity Manual, Chapter 3"
+    rationale: "Audit and integrity controls for defensible recommendations."
+
+  - id: medicare-secondary-payer-therapy
+    priority: 1
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: regulatory
+    suggestedTitle: "Medicare Secondary Payer Manual (therapy sections)"
+    rationale: "Payer context and exceptions used in risk flags."
+
+  - id: lcd-and-local-policy-pack
+    priority: 1
+    type: website
+    discipline: [PT, OT, SLP]
+    trust: regulatory
+    suggestedTitle: "MAC LCD/NCD policy pages (region-specific)"
+    rationale: "Region-dependent medical necessity constraints."
+
+  - id: icd10-reference-pack
+    priority: 2
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: coding
+    suggestedTitle: "ICD-10-CM index and tabular references"
+    rationale: "Coding validation and diagnosis support for note defensibility."
+
+  - id: discipline-consensus-standards
+    priority: 2
+    type: document
+    discipline: [PT, OT, SLP]
+    trust: professional
+    suggestedTitle: "AOTA/APTA/ASHA consensus and scope statements"
+    rationale: "Professional standards support for intervention rationale."
+
+  - id: internal-sop-doc-standards
+    priority: 2
+    type: sharepoint
+    discipline: [PT, OT, SLP]
+    trust: internal
+    suggestedTitle: "Internal clinical documentation SOPs and QA rubrics"
+    rationale: "Facility-specific style and escalation expectations."
+
+  - id: internal-denial-appeal-patterns
+    priority: 2
+    type: dataverse
+    discipline: [PT, OT, SLP]
+    trust: internal
+    suggestedTitle: "Historical denial reasons and successful correction patterns"
+    rationale: "Improves denial-risk prompts using observed outcomes."
+
+  - id: internal-hitl-audit-logs
+    priority: 3
+    type: dataverse
+    discipline: [PT, OT, SLP]
+    trust: internal
+    suggestedTitle: "HITL decision logs and validation outcomes"
+    rationale: "Continuous improvement and confidence calibration context."
+
+configurationNotes:
+  - "Use strict grounding for compliance and coverage answers."
+  - "Annotate each source description with intended question classes."
+  - "Keep source ownership and refresh cadence documented outside this file."

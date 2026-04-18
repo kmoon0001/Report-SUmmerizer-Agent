@@ -1,0 +1,16 @@
+mcs.metadata:
+  componentName: SNF Command Center - Process Clinical File Intake
+kind: TaskDialog
+modelDisplayName: SNF Command Center - Process Clinical File Intake
+modeldescription: Elite clinical intelligence module specialized in [ProcessClinicalFileIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+outputs:
+  - propertyName: normalization_status
+  - propertyName: normalized_document_type
+  - propertyName: normalized_text
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: db104008-d226-f111-8341-000d3a5b88c6
+
+outputMode: All
+

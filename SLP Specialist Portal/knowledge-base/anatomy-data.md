@@ -1,0 +1,28 @@
+# Anatomy
+
+- Severe pain with loss of motion
+- Modified hinge joint for weight-bearing and locomotion
+- Complex articulation with core muscle support for stability
+- Upper and lower subscapular nerves
+- Hip abduction and internal rotation
+- The primary valve for airway protection during swallowing. Dysfunction leads to aspiration risk and dysphonia.
+- The muscular tube connecting the oral cavity to the esophagus.
+- The site of the pharyngeal swallow reflex. Residue indicates pharyngeal phase deficits.
+- The control center for communication and swallowing.
+- CN V, VII, IX, X, XII
+- Lesion location determines the deficit (e.g., Left MCA -> Aphasia).
+- The most mobile joint in the body, sacrifices stability for mobility.
+- Scapular positioning is critical for optimal shoulder mechanics.
+- Interactive 3D model of the shoulder joint
+- A stable joint designed for weight-bearing and locomotion.
+- Gluteal strength is essential for pelvic stability.
+- Patellofemoral tracking is critical for pain-free function.
+- Provides structural support and protects the spinal cord.
+- Segmental stability is essential for pain-free function.
+- Complex system of bones and small muscles for fine motor tasks.
+- Dexterity depends on median and ulnar nerve integrity.
+- Severe pain with loss of motion
+- Neurological symptoms radiating down arm
+- Swelling and warmth suggesting infection
+- Modified hinge joint. Primary function is weight-bearing and locomotion.
+- Complex articulation providing stability and mobility. Core muscle support is essential for spinal stability and protection of spinal cord.

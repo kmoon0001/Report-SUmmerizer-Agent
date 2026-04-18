@@ -1,0 +1,73 @@
+mcs.metadata:
+  componentName: Red-Flag Prescreen
+  description: |
+    Topic workflow for Red-Flag Prescreen within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - red flag pre-screen
+      - start red flag screening
+      - pre-screen for red flags
+      - check for red flags
+      - do a red flag assessment
+      - initiate red flag pre-screening
+      - run a red flag check
+      - begin red flag evaluation
+      - screen for warning signs
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_viT28B
+      activity: Welcome to the Quick Risk Screen! Please paste your notes or case abstracts below. I will help you identify which ones may be at highest risk for denial and recommend next steps.
+
+    - kind: Question
+      id: Question_uWDV7c
+      variable: Topic.NotesList
+      prompt: 'Please provide a clear response: Please enter your notes or case abstracts, each separated by a new line.'
+      entity: StringPrebuiltEntity
+
+    - kind: SendActivity
+      id: SendActivity_da6JJV
+      activity: Thank you. I will now review your notes for denial risk indicators and safety flags.
+
+    - kind: BeginDialog
+      id: Prl3DL
+      input:
+        binding:
+          documentation: =Topic.NotesList
+          mode: risk_score
+          specialist_findings:
+
+      dialog: cr917_agentu92bPc.agent.Compliance_Risk_Engine
+      output:
+        binding:
+          QuickRiskResult: Topic.QuickRiskResult
+
+    - kind: SendActivity
+      id: SendActivity_Lq8bJy
+      activity:
+        channelData: "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+        value: =Topic.QuickRiskResult
+        text:
+          - |-
+            - Here is your preliminary redâ€‘flag risk summary:
+
+
+            {Topic.QuickRiskResult}
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+
+

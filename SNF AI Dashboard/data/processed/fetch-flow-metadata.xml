@@ -1,0 +1,18 @@
+<fetch count="20">
+  <entity name="workflow">
+    <attribute name="workflowid"/>
+    <attribute name="name"/>
+    <attribute name="uniquename"/>
+    <attribute name="description"/>
+    <attribute name="category"/>
+    <attribute name="statecode"/>
+    <attribute name="statuscode"/>
+    <attribute name="ondemand"/>
+    <attribute name="clientdata"/>
+    <filter type="or">
+      <condition attribute="name" operator="like" value="%Resident Insight%"/>
+      <condition attribute="name" operator="like" value="%Facility Insight%"/>
+      <condition attribute="name" operator="like" value="%Webhook%"/>
+    </filter>
+  </entity>
+</fetch>

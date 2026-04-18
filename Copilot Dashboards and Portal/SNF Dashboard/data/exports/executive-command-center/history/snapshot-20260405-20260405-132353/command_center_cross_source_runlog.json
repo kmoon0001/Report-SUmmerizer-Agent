@@ -1,0 +1,13 @@
+﻿{
+    "GeneratedAt":  "2026-04-05T13:23:50",
+    "EventCount":  1,
+    "Events":  [
+                   {
+                       "Timestamp":  "2026-04-05T13:23:50",
+                       "Step":  "Run Lock",
+                       "Status":  "PASS",
+                       "Message":  "Run lock acquired.",
+                       "ArtifactPath":  "D:\\SNF AI Dashboard\\data\\processed\\command_center_cross_source.lock"
+                   }
+               ]
+}

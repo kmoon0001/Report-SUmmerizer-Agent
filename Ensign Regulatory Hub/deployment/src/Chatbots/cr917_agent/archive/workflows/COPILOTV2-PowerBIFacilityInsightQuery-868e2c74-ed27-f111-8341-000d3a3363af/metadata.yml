@@ -1,0 +1,30 @@
+﻿jsonFileName: workflows/COPILOTV2-PowerBIFacilityInsightQuery-868e2c74-ed27-f111-8341-000d3a3363af/workflow.json
+workflowId: 868e2c74-ed27-f111-8341-000d3a3363af
+name: COPILOT V2 - Power BI Facility Insight Query
+type: 1
+description: Queries a configured Power BI semantic model for resident-level QM data and returns a constrained payload for Copilot Studio analysis.
+subprocess: false
+category: 5
+mode: 0
+scope: 4
+onDemand: false
+triggerOnCreate: false
+triggerOnDelete: false
+asyncAutodelete: false
+syncWorkflowLogOnFailure: false
+stateCode: 0
+statusCode: 1
+runAs: 1
+isTransacted: true
+introducedVersion: 1.0
+isCustomizable:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: iscustomizableanddeletable
+businessProcessType: 0
+isCustomProcessingStepAllowedForOtherPublishers:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: canbedeleted
+modernFlowType: 1
+primaryEntity: none

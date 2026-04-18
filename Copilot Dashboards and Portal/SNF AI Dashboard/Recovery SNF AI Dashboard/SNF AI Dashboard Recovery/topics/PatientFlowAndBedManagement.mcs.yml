@@ -1,0 +1,80 @@
+mcs.metadata:
+  componentName: Patient Flow And Bed Management
+  description: Elite clinical intelligence module specialized in [PatientFlowAndBedManagement]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [PatientFlowAndBedManagement]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Patient Flow And Bed Management
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - patient flow
+      - bed management
+      - discharge delays
+      - admissions and transfers
+      - bed constraints
+
+  actions:
+    - kind: Question
+      id: question_flow_stage
+      alwaysPrompt: true
+      variable: init:Topic.FlowStageChoice
+      prompt: Which part of patient flow do you want to review?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Admission and intake
+            Value: Admission
+          - DisplayName: Transfer and bed placement
+            Value: TransferPlacement
+          - DisplayName: Discharge readiness
+            Value: DischargeReadiness
+          - DisplayName: Overall bed flow
+            Value: OverallFlow
+
+    - kind: Question
+      id: question_scope
+      alwaysPrompt: true
+      variable: init:Topic.ScopeChoice
+      prompt: What scope should I use?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: One patient
+            Value: Patient
+          - DisplayName: One unit
+            Value: Unit
+          - DisplayName: Facility-wide
+            Value: Facility
+
+    - kind: Question
+      id: question_timeframe
+      alwaysPrompt: true
+      variable: init:Topic.TimeframeChoice
+      prompt: What timeframe should I use?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Right now
+            Value: Current
+          - DisplayName: Current shift
+            Value: CurrentShift
+          - DisplayName: Last 24 hours
+            Value: Last24Hours
+          - DisplayName: Last 7 days
+            Value: Last7Days
+
+    - kind: SendActivity
+      id: send_flow_summary
+      activity: =Concatenate("I have the intake for ", Topic.FlowStageChoice.DisplayName, ", ", Topic.ScopeChoice.DisplayName, ", and ", Topic.TimeframeChoice.DisplayName, ".")
+
+    - kind: SendActivity
+      id: send_manual_reporting_next_step
+      activity: Use the intake above to guide manual patient-flow review with operations or case management leadership. This topic stays in structured intake mode until a validated live reporting backend is connected.
+
+inputType: {}
+outputType: {}
+
+

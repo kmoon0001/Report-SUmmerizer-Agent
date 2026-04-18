@@ -1,0 +1,69 @@
+kind: AdaptiveDialog
+modelDescription: Analyze an existing SLP discharge summary to ensure it clearly documents course of care, progress on each goal, current functional communication or swallowing status, remaining limitations, and follow‑up recommendations. Identify gaps or vague language and propose improved, defensible phrasing.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - analyze slp discharge summary
+      - review speech therapy discharge report
+      - summarize slp discharge findings
+      - interpret speech language pathology discharge summary
+      - evaluate slp patient outcomes
+      - assess speech therapy progress at discharge
+      - break down slp discharge documentation
+      - what does the slp discharge summary say?
+      - help me understand this speech therapy report
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: A5eKGy
+      latencyMessageSettings:
+        allowLatencyMessage: true
+        latencyMessage:
+          text:
+            - |-
+              results to appear, you can fix the error by unchecking the box.
+              - **Action:** Uncheck the **Send a message** box in the right-hand panel.
+              - **Result:** The red error will disappear, and the bot will remain silent until the full audit is ready to display.
+
+              ### **Final Configuration Check**
+              To ensure the audit is as accurate as possible before you save, verify these two settings in your panel:
+              - **Knowledge Sources:** Ensure **[Strong SLP Documentation Patterns.txt](https://copilotstudio.microsoft.com/environments/Default-03cc92c3-986c-4cf4-ae27-1478cf99d17f/bots/7f715404-f5fc-f011-8406-000d3a37eba2/adaptive/3a12de51-288c-40dd-8d7e-4762c194c94c/triggers/main/actions/A5eKGy)** and your **[ICD-10 codes](https://copilotstudio.microsoft.com/environments/Default-03cc92c3-986c-4cf4-ae27-1478cf99d17f/bots/7f715404-f5fc-f011-8406-000d3a37eba2/adaptive/3a12de51-288c-40dd-8d7e-4762c194c94c/triggers/main/actions/A5eKGy)** are selected.
+              - **Data Sources:** Click the **Edit** link in the center node to ensure "Search only selected sources" is active so the AI doesn't use random internet data.
+
+              **Would you like me to provide a "perfect" discharge summary example for you to paste into the Test window once you hit Save?**
+            - One moment while I audit this discharge summary against Medicare Chapter 15 and ASHA standards..
+
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided SLP documentation as a backend connected agent. Return exactly one valid JSON object using the SLP_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - copilots_header_6271a.file.Ch15MedicareBenefitsPolicyManual.pdf_fv6
+            - copilots_header_6271a.file.ScopeofPracticeinSpeech8-26-09.pdf_6hn
+            - copilots_header_6271a.file.dysphagia-competency-verification-tool-users-guide.pdf_sQX
+            - copilots_header_6271a.file.CodingforSLPs.pdf_x7i
+            - copilots_header_6271a.file.ICD-10codesforSLPs.pdf_bFR
+            - copilots_header_6271a.file.StrongSLPDocumentationPatterns.txt_xjA
+            - copilots_header_6271a.file.7.LevelsofSupervisionforDysphagiaEvals.pdf_Siw
+            - copilots_header_6271a.file.aota-apta-asha-consensus-statement.pdf_uWx
+
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - copilots_header_6271a.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_wqEj5W3QWz7
+          - copilots_header_6271a.topic.httpswwwashaorgslpclinical_OELZZf7AFpEWkm1BhulkJ
+
+      applyModelKnowledgeSetting: false
+
+inputType:
+  properties:
+    Var1:
+      displayName: Var1
+      type: String
+
+outputType: {}
+

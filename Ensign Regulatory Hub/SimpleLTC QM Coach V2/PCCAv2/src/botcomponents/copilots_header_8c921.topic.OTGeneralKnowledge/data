@@ -1,0 +1,17 @@
+mcs.metadata:
+  componentName: OT General Knowledge
+kind: AdaptiveDialog
+modelDescription: This topic provides general occupational therapy knowledge resources including functional anatomy, ADL assessment and training methods, adaptive equipment guidance, energy conservation techniques, occupational performance domains, and fall prevention strategies. It serves as a reference knowledge base for OT specialists in SNF settings.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: ot_general_audit
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT clinical inquiry as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If the information is not in the provided evidence, return a JSON error object instead of guessing.
+
+inputType: {}
+outputType: {}

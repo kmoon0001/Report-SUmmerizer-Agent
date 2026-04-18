@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_6271a.file.dysphagia-competency-verification-tool-users-guide.pdf_sQX">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in dysphagia-competency-verification-tool-users-guide.pdf</description>
+  <filedata mimetype="application/pdf">dysphagia-competency-verification-tool-users-guide.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>dysphagia-competency-verification-tool-users-guide.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,78 @@
+mcs.metadata:
+  componentName: Infection Outbreak Detection And Response
+  description: Elite clinical intelligence module specialized in [InfectionOutbreakDetectionAndResponse]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [InfectionOutbreakDetectionAndResponse]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Infection Outbreak Detection And Response
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - infection outbreak
+      - outbreak response
+      - cluster detection
+      - isolation escalation
+      - infection event cluster
+
+  actions:
+    - kind: Question
+      id: question_event_type
+      alwaysPrompt: true
+      variable: init:Topic.EventTypeChoice
+      prompt: What kind of event are you reviewing?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Possible cluster
+            Value: PossibleCluster
+          - DisplayName: Confirmed outbreak
+            Value: ConfirmedOutbreak
+          - DisplayName: Isolation workflow gap
+            Value: IsolationGap
+          - DisplayName: Environmental response gap
+            Value: EnvironmentalGap
+
+    - kind: Question
+      id: question_scope
+      alwaysPrompt: true
+      variable: init:Topic.ScopeChoice
+      prompt: What scope should I use?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: One patient
+            Value: Patient
+          - DisplayName: One unit
+            Value: Unit
+          - DisplayName: Facility-wide
+            Value: Facility
+
+    - kind: Question
+      id: question_urgency
+      alwaysPrompt: true
+      variable: init:Topic.UrgencyChoice
+      prompt: How urgent is the response need?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Same shift review
+            Value: SameShift
+          - DisplayName: High priority
+            Value: HighPriority
+          - DisplayName: Immediate escalation
+            Value: Immediate
+
+    - kind: SendActivity
+      id: send_outbreak_summary
+      activity: =Concatenate("I have the intake for ", Topic.EventTypeChoice.DisplayName, " with ", Topic.ScopeChoice.DisplayName, " scope and ", Topic.UrgencyChoice.DisplayName, " urgency.")
+
+    - kind: SendActivity
+      id: send_manual_escalation_next_step
+      activity: Escalate this through infection control and nursing leadership now. This topic stays in structured intake mode until validated live alert routing is connected.
+
+inputType: {}
+outputType: {}
+
+

@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: QM Input Mode Options
+kind: ClosedListEntity
+items:
+  - id: Use Scheduled SimpleLTC Data
+    displayName: Use Scheduled SimpleLTC Data
+
+  - id: Upload SimpleLTC Export
+    displayName: Upload SimpleLTC Export
+
+  - id: Paste QM Summary Text
+    displayName: Paste QM Summary Text
+
+  - id: Choose Another Workflow
+    displayName: Choose Another Workflow

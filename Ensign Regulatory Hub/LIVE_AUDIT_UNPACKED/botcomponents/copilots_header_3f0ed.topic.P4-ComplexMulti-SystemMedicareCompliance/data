@@ -1,0 +1,24 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName:
+    triggerQueries:
+      - medicare compliance help
+      - multi-system medicare rules
+      - complex medicare regulations
+      - how to comply with medicare across systems
+      - medicare compliance for multiple systems
+      - guidance on complex medicare compliance
+      - multi-system healthcare compliance questions
+      - assistance with complex medicare requirements
+      - navigating multi-system medicare policies
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_YUmtSx
+      activity: As an AI language model, I cannot provide medical advice. I don't have the necessary qualifications, training, or expertise to provide medical advice. I suggest consulting with a qualified healthcare provider, such as a doctor, nurse, or other medical professional. They can provide you with accurate information, diagnosis, and treatment options based on your specific needs and medical history.
+
+inputType: {}
+outputType: {}

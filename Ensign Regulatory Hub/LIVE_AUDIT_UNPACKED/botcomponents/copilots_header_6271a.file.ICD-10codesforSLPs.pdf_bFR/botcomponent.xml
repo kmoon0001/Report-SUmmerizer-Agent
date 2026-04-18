@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_6271a.file.ICD-10codesforSLPs.pdf_bFR">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in ICD-10 codes for SLPs.pdf</description>
+  <filedata mimetype="application/pdf">ICD-10%20codes%20for%20SLPs.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>ICD-10 codes for SLPs.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

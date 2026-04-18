@@ -1,0 +1,10 @@
+<botcomponent schemaname="copilots_header_8c921.topic.OTClinicalDocumentationStandards">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>OT Clinical Documentation Standards</name>
+  <parentbotid>
+    <schemaname>copilots_header_8c921</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

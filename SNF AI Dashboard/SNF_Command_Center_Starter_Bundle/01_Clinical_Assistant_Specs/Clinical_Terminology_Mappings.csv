@@ -1,0 +1,5 @@
+SourceSystem,SourceCode,SourceDisplay,StandardSystem,StandardCode,StandardDisplay,LocalCode,Status
+FHIR,ExampleObservation,Example Observation,LOINC,AssignBeforeUse,AssignBeforeUse,AssignBeforeUse,StarterTemplate
+FHIR,ExampleCondition,Example Condition,SNOMED_CT,AssignBeforeUse,AssignBeforeUse,AssignBeforeUse,StarterTemplate
+Medication,ExampleMedication,Example Medication,RxNorm,AssignBeforeUse,AssignBeforeUse,AssignBeforeUse,StarterTemplate
+

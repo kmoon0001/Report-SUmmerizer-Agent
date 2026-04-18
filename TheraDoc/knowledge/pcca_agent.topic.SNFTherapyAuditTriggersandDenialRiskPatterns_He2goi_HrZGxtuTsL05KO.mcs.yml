@@ -1,0 +1,8 @@
+mcs.metadata:
+  componentName: SNF Therapy Audit Triggers and Denial Risk Patterns
+  description: Elite clinical intelligence module specialized in [pcca_agent.SNFTherapyAuditTriggersandDenialRiskPatterns_He2goi_HrZGxtuTsL05KO]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  triggerCondition: true
+  site: https://oig.hhs.gov/reports

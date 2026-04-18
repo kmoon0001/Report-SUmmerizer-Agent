@@ -1,0 +1,9 @@
+mcs.metadata:
+  componentName: LookbackPeriod
+kind: Variable
+name: LookbackPeriod
+scope: User
+isExternalInitializationAllowed: false
+isOutputToExternalCallers: false
+initializationTimeoutInMilliseconds: 0
+

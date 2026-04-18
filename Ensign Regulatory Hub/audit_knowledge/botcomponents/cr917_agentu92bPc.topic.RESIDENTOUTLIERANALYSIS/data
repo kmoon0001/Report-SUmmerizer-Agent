@@ -1,0 +1,17 @@
+mcs.metadata:
+  componentName: RESIDENTOUTLIERANALYSIS
+  description: Stubbed topic to clear compilation errors.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Start RESIDENTOUTLIERANALYSIS
+  actions:
+    - kind: SendActivity
+      id: sendActivity_stub
+      activity: "This topic (RESIDENTOUTLIERANALYSIS) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI."
+
+inputType: {}
+outputType: {}

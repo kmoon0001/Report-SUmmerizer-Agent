@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_6271a.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Non‑conversational backend SLP documentation auditor that evaluates skilled service requirements, safety elements, coding accuracy, and regulatory alignment (CMS/ASHA/ICD‑10/MDS), returning strict JSON findings for PCA orchestration.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>SLP_Specialist</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

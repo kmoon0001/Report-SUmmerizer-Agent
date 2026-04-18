@@ -1,0 +1,151 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "disabled": false,
+      "autoApprove": [],
+      "description": "Browser automation and web scraping"
+    },
+    "chrome_devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--isolated"],
+      "disabled": false,
+      "autoApprove": [],
+      "description": "Chrome DevTools MCP for browser debugging and low-level DevTools actions"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${WORKSPACE_ROOT}"],
+      "disabled": false,
+      "autoApprove": [],
+      "description": "File operations - REPLACE ${WORKSPACE_ROOT} with your project path"
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "disabled": false,
+      "autoApprove": [],
+      "description": "Persistent memory across sessions"
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "disabled": false,
+      "autoApprove": [],
+      "description": "Web content fetching"
+    },
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "${WORKSPACE_ROOT}"],
+      "disabled": true,
+      "autoApprove": [],
+      "description": "Git operations - REPLACE ${WORKSPACE_ROOT} with your project path"
+    },
+    "github": {
+      "command": "uvx",
+      "args": ["mcp-server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      },
+      "disabled": true,
+      "autoApprove": [],
+      "description": "GitHub API - Add your token to enable"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "${WORKSPACE_ROOT}"],
+      "disabled": true,
+      "autoApprove": [],
+      "description": "SQLite database - REPLACE ${WORKSPACE_ROOT} with your project path"
+    }
+  },
+  "microsoft_workiq_servers": {
+    "workiq_mail": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_MailTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ Mail - Create, update, delete messages, reply, semantic search"
+    },
+    "workiq_calendar": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_CalendarTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ Calendar - Create, list, update, delete events"
+    },
+    "workiq_teams": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_TeamsTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ Teams - Manage chats, channels, messages"
+    },
+    "workiq_sharepoint": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_SharePointTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ SharePoint - Upload files, manage lists, search"
+    },
+    "workiq_onedrive": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_OneDriveTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ OneDrive - Manage files and folders"
+    },
+    "workiq_word": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_WordTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ Word - Create and read documents, add comments"
+    },
+    "workiq_copilot": {
+      "type": "http",
+      "url": "https://agent365.svc.cloud.microsoft/agents/tenants/${TENANT_ID}/servers/mcp_CopilotTools",
+      "oauth": {
+        "clientId": "${CLIENT_ID}",
+        "callbackPort": 8080
+      },
+      "disabled": true,
+      "description": "Work IQ Copilot - Chat with M365 Copilot, ground responses"
+    }
+  },
+  "notes": {
+    "usage": "Copy this to .kiro/settings/mcp.json in each project",
+    "variables": {
+      "${WORKSPACE_ROOT}": "Replace with your project's absolute path, e.g., D:\\my projects\\project-name",
+      "${TENANT_ID}": "Your Microsoft Entra tenant ID (from Azure Portal)",
+      "${CLIENT_ID}": "Your registered app client ID (from Azure Portal)"
+    },
+    "enable_servers": "Set 'disabled: false' for servers you want to use",
+    "github_token": "Get token from https://github.com/settings/tokens",
+    "microsoft_setup": {
+      "requires": "Microsoft 365 Copilot license",
+      "setup_guide": "https://learn.microsoft.com/en-us/microsoft-agent-365/tooling-servers-overview",
+      "register_app": "Create enterprise app in Microsoft Entra admin center",
+      "permissions": "Add WorkIQ permissions (e.g., WorkIQ-MailServer) and consent"
+    }
+  }
+}

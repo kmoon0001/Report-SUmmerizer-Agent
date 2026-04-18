@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_024e0.topic.httpswwwaptaorg_Ua1eZG9EzwHOOBk2J1idM">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.apta.org/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.apta.org/</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

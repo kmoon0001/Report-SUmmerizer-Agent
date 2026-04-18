@@ -1,0 +1,67 @@
+mcs.metadata:
+  componentName: Escalate Urgent Clinical Concern
+description: Elite clinical intelligence module specialized in [EscalateUrgentClinicalConcern]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [EscalateUrgentClinicalConcern]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Escalate Urgent Clinical Concern
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - urgent clinical concern
+      - change in condition
+      - this is urgent
+      - high risk situation
+      - patient needs immediate attention
+
+  actions:
+    - kind: Question
+      id: question_urgent_focus
+      alwaysPrompt: true
+      variable: init:Topic.UrgentFocusChoice
+      prompt: What is the closest match?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Change in condition
+            Value: ChangeInCondition
+          - DisplayName: Medication-related concern
+            Value: MedicationConcern
+          - DisplayName: Possible infection or sepsis concern
+            Value: InfectionConcern
+          - DisplayName: Safety event or immediate hazard
+            Value: SafetyEvent
+
+    - kind: Question
+      id: question_urgency
+      alwaysPrompt: true
+      variable: init:Topic.UrgencyChoice
+      prompt: How urgent is it?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Same shift response needed
+            Value: SameShift
+          - DisplayName: Immediate clinician review needed
+            Value: ImmediateReview
+          - DisplayName: Emergency response process
+            Value: Emergency
+
+    - kind: SendActivity
+      id: send_urgent_notice
+      activity: This assistant supports escalation and coordination. It does not replace clinician judgment, emergency response, or facility protocol.
+
+    - kind: SendActivity
+      id: send_urgent_summary
+      activity: =Concatenate("I have the intake for ", Topic.UrgentFocusChoice.DisplayName, " with ", Topic.UrgencyChoice.DisplayName, " urgency.")
+
+    - kind: SendActivity
+      id: send_manual_escalation_next_step
+      activity: Use the intake above to notify the correct clinician, supervisor, or emergency process now. This topic stays in structured intake mode until validated live alert routing is connected.
+
+inputType: {}
+outputType: {}
+
+

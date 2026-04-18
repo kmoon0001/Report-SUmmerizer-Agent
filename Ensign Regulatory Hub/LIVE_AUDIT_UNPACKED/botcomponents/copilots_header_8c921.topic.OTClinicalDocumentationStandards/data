@@ -1,0 +1,25 @@
+kind: AdaptiveDialog
+modelDescription: This topic outlines occupational therapy clinical documentation standards including evaluation components, functional assessment documentation, treatment plan requirements, progress note standards, goal specificity, outcome measures integration, and regulatory compliance (CMS, OIG). It ensures all OT documentation meets SNF and Medicare requirements.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SendActivity
+      id: sendActivity_ET5mhI
+      activity: |
+        Please submit the documentation section you need reviewed for compliance standards.
+
+        Analyze OT clinical documentation for PLATINUM standard compliance. Validate:
+        OT  clinical documenation standards 
+        -
+         FIM (Functional Independence Measure) Motor/Cognitive baselines documented
+        - Standardized outcome measures present (NHPT, Jamar, MoCA, MMSE)
+        - CPT code alignment (97166/97167/97168 complexity)
+        - Insurance-specific denials and red flags
+        - Caregiver competency documentation
+        Return: Compliance score (0-100), missing elements, and remediation actions.
+        Input: /clinical_note
+
+inputType: {}
+outputType: {}

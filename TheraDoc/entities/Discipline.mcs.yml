@@ -1,0 +1,26 @@
+mcs.metadata:
+  componentName: Discipline
+kind: ClosedListEntity
+items:
+  - id: dxugsW
+    displayName: PT (Physical Therapy)
+    synonyms:
+      - phys therapy
+      - PT
+      - physical therapy
+
+  - id: iNfx28
+    displayName: OT (Occupational Therapy)
+    synonyms:
+      - occ therapy
+      - OT
+      - occupational therapy
+
+  - id: DuzBe7
+    displayName: SLP (Speech-Language Pathology)
+    synonyms:
+      - speech-language pathology
+      - SLP
+      - ST
+      - speech therapy
+      - speech

@@ -1,0 +1,18 @@
+{
+  "recordId": "REC-10156",
+  "patientToken": "PT-3321B",
+  "discipline": "OT",
+  "therapistName": "John Smith",
+  "reportType": "Progress",
+  "dcFlag": false,
+  "sessionCount": 10,
+  "avgMinutes": 45,
+  "daysSinceLastPN": 12,
+  "certEndDate": "2026-04-20",
+  "payer": "Medicare Part A",
+  "goals": "Improve upper body dressing to Mod I.",
+  "goalProgress": "Patient dressing upper body with SBA. Making functional gains.",
+  "functionalMeasures": {
+    "fimSelfCare": "4"
+  }
+}

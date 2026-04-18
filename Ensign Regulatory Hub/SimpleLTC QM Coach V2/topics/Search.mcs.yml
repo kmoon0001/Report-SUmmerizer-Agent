@@ -1,0 +1,24 @@
+mcs.metadata:
+  componentName: Conversational boosting
+  description: Elite clinical intelligence module specialized in [Search]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search-content
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+
+    - kind: ConditionGroup
+      id: has-answer-conditions
+      conditions:
+        - id: has-answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: EndDialog
+              id: end-topic
+              clearTopicQueue: true
+

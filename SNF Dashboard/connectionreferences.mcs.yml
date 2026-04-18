@@ -1,0 +1,23 @@
+# Connection References — SNF AI Dashboard
+
+# IMPORTANT: This file is managed by the Copilot Studio extension.
+# Do not manually edit connection reference IDs.
+# After publishing each Power Automate flow, use "Get changes" in the VS Code extension
+# to pull the updated connection references from the tenant into this file.
+#
+# Required connection references for the 6 agent actions:
+#   - SNF-Command-Center-GenerateOnDemandPatientInsight (flow: c147cf4b-777b-43b5-8d4a-e00e0c233b49)
+#   - SNF-Command-Center-SendClinicalAlert (flow: 18c14215-a5d0-4570-be82-3047d5fd0b22)
+#   - SNF-Command-Center-GenerateQualityMeasureReport (flow: c2ed03e7-6fe4-44b3-a219-25d20cc36548)
+#   - SNF-Command-Center-ExportCareSummary (flow: ae053d82-b043-4b7d-92bb-902dba031aa7)
+#   - SNF-Command-Center-ProcessClinicalFileIntake (flow: bc1d9296-6ea5-4112-8e67-3a901196252c)
+#   - SNF-Command-Center-ProcessClinicalImageReview (flow: 5e616864-234a-44c7-adb6-748cf1f146df)
+#
+# Run "Get changes" in the Copilot Studio VS Code extension after each flow is published
+# and approved in the tenant to populate this file with real connection reference values.
+#
+# Until live connection references are present, action calls from topics will fail
+# with a connection error. Keep actions in structured intake mode until this file is populated.
+
+connectionReferences: []
+

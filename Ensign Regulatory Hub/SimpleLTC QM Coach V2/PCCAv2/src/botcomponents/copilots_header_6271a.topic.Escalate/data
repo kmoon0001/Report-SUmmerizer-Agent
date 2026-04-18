@@ -1,0 +1,93 @@
+kind: AdaptiveDialog
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnEscalate
+  id: main
+  intent:
+    displayName: Escalate
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Talk to agent
+      - Talk to a person
+      - Talk to someone
+      - Call back
+      - Call customer service
+      - Call me please
+      - Call support
+      - Call technical support
+      - Can an agent call me
+      - Can I call
+      - Can I get in touch with someone else
+      - Can I get real agent support
+      - Can I get transferred to a person to call
+      - Can I have a call in number Or can I be called
+      - Can I have a representative call me
+      - Can I schedule a call
+      - Can I speak to a representative
+      - Can I talk to a human
+      - Can I talk to a human assistant
+      - Can someone call me
+      - Chat with a human
+      - Chat with a representative
+      - Chat with agent
+      - Chat with someone please
+      - Connect me to a live agent
+      - Connect me to a person
+      - Could some one contact me by phone
+      - Customer agent
+      - Customer representative
+      - Customer service
+      - I need a manager to contact me
+      - I need customer service
+      - I need help from a person
+      - I need to speak with a live argent
+      - I need to talk to a specialist please
+      - I want to talk to customer service
+      - I want to proceed with live support
+      - I want to speak with a consultant
+      - I want to speak with a live tech
+      - I would like to speak with an associate
+      - I would like to talk to a technician
+      - Talk with tech support member
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_s39DCt
+      conversationOutcome: Escalated
+      activity: |-
+        **ESCALATION PROTOCOL (AHRQ SBAR Framework)**
+
+        I cannot provide a complete response for this request. Here's the structured escalation per clinical safety protocols:
+
+        **SITUATION:**
+        I am the SLP documentation specialist and have reached the limits of my configured assistance. This requires escalation to appropriate resources.
+
+        **BACKGROUND:**
+        - Request type: [EHR/technical issue | Clinical question beyond my scope | SLP-R professional review needed | PHI/sensitive data concern]
+        - What I was able to determine: [State any partial findings or clarifications]
+        - Limitation encountered: [Missing information | System access issue | Scope boundary | Content filter]
+
+        **ASSESSMENT:**
+        Based on VA HFMEA and AHRQ patient safety escalation guidelines:
+        - If EHR connector failure or technical error: Contact IT Help Desk immediately
+        - If clinical SLP question requiring professional judgment: Consult licensed SLP-R supervisor  
+        - If scope/ethics question: Reference ASHA Code of Ethics or ASHA Practice Portal
+        - If PHI concern: Follow facility HIPAA protocols for de-identification
+
+        **RECOMMENDATION:**
+        **For EHR/Technical Issues:**
+        • Contact IT Help Desk or EHR support team
+        • Document error codes and workflow steps where failure occurred
+        • Include timestamp and specific module/screen
+
+        **For Clinical SLP Questions:**
+        • Consult facility's licensed SLP-R supervisor
+        • Review ASHA Practice Portal: https://www.asha.org/practice-portal
+        • Reference CMS Chapter 15 guidelines for therapy documentation
+        • Review facility-specific SLP protocols
+
+        **For Professional/Ethics Questions:**
+        • ASHA Code of Ethics: https://www.asha.org/code-of-ethics
+        • State licensing board for scope of practice questions
+
+        Can I help you document this issue or identify the specific type of escalation needed?

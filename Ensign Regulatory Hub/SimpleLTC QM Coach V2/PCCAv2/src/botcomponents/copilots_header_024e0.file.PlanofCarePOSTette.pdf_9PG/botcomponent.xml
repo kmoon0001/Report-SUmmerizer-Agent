@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_024e0.file.PlanofCarePOSTette.pdf_9PG">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Plan of Care POSTette.pdf</description>
+  <filedata mimetype="application/pdf">Plan%20of%20Care%20POSTette.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Plan of Care POSTette.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

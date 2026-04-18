@@ -1,0 +1,51 @@
+mcs.metadata:
+  componentName: Assist Level
+kind: ClosedListEntity
+items:
+  - id: 90Yyf8
+    displayName: Independent
+
+  - id: VHCSkQ
+    displayName: Supervision
+
+  - id: 3hHM6w
+    displayName: SBA (Standby Assist)
+    synonyms:
+      - SBA
+      - stand by assist
+      - standby
+
+  - id: gF1vLi
+    displayName: CGA (Contact Guard Assist)
+    synonyms:
+      - contact guard
+      - CGA
+
+  - id: Drg0JR
+    displayName: Min A (Minimal Assist 25%)
+    synonyms:
+      - Min A
+      - minimal assist
+      - min assist
+
+  - id: e9azvE
+    displayName: Mod A (Moderate Assist 50%)
+    synonyms:
+      - Mod A
+      - mod
+      - moderate assist
+      - mod assist
+
+  - id: vmhnX2
+    displayName: Max A (Maximum Assist 75%)
+    synonyms:
+      - Max A
+      - maximum assist
+      - max assist
+
+  - id: eiZwWv
+    displayName: Total Assist (Dependent)
+    synonyms:
+      - 100% assist
+      - dependent
+      - total assist

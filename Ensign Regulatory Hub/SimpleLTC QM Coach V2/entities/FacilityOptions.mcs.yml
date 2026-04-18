@@ -1,0 +1,40 @@
+mcs.metadata:
+  componentName: Facility Options
+kind: ClosedListEntity
+items:
+  - id: Sea Cliff
+    displayName: Sea Cliff
+
+  - id: Palm Terrace
+    displayName: Palm Terrace
+
+  - id: Victoria
+    displayName: Victoria
+
+  - id: St. Catherine
+    displayName: St. Catherine
+
+  - id: St. Elizabeth
+    displayName: St. Elizabeth
+
+  - id: Mainplace
+    displayName: Mainplace
+
+  - id: New Orange Hills
+    displayName: New Orange Hills
+
+  - id: The Hills
+    displayName: The Hills
+
+  - id: Beachside
+    displayName: Beachside
+
+  - id: Alamitos West
+    displayName: Alamitos West
+
+  - id: Coventry Court
+    displayName: Coventry Court
+
+  - id: Pacific Haven
+    displayName: Pacific Haven
+

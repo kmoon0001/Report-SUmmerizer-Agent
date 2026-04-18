@@ -1,0 +1,4 @@
+connectionReferences:
+  - connectionReferenceLogicalName: new_sharedcommondataserviceforapps_af899
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+

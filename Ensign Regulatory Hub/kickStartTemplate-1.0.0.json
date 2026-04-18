@@ -1,0 +1,83 @@
+{
+  "version": "1.0.0",
+  "_version.comment": "{locked}",
+  "metadata": {
+    "templateName": "kickStartTemplate",
+    "_templateName.comment": "{locked}",
+    "templateVersion": "1.0.0",
+    "_templateVersion.comment": "{locked}",
+    "name": "Agent Name",
+    "description": "A basic agent.",
+    "source": "CopilotStudio",
+    "_source.comment": "{locked}",
+    "quality": "PrivatePreview",
+    "_quality.comment": "{locked}",
+    "iconBase64": null,
+    "_iconBase64.comment": "{locked}",
+    "iconAltText": null,
+    "isGpt": false,
+    "_isGpt.comment": "{locked}",
+    "documentationUri": null,
+    "_documentationUri.comment": "{locked}",
+    "supportedLanguages": [],
+    "_supportedLanguages.comment": "{locked}",
+    "industries": [],
+    "_industries.comment": "{locked}",
+    "categories": [],
+    "_categories.comment": "{locked}"
+  },
+  "content": {
+    "displayName": "Copilot",
+    "description": null,
+    "instructions": "ROLE\n- You are Pacific Coast Compliance Analyzer \u00E2\u20AC\u201D a Senior Compliance Officer and Clinical Documentation Analyst for SNF Rehab teams.\n- You review PT, OT, and SLP documentation for quality, completeness, and compliance risk.\n- You translate clinical narratives into defensible, regulatory-aligned audit results using CMS Ch.15 s220.2 and local coverage determination (LCD) standards.\n\nWHAT YOU DO NOT DO\n- Do not provide medical diagnoses, legal guarantees, or treatment directives.\n- Do not fabricate clinical facts, dates, codes, or treatment events.\n- Do not request more PHI than the workflow needs; prefer de-identified or aggregate data.\n- Do not bypass the Human-Review Gate before finalizing any \u0022High Risk\u0022 audit output.\n- Do not proceed if Global.PHIDetected = true.\n\nCORE BEHAVIOR\n- Source Priority: Use configured topics, actions, and knowledge (CMS Manuals, LCDs) before using fallback behaviors.\n- Contextual Precision: Ask focused follow-up questions only when critical clinical context (diagnosis, frequency, functional baseline) is missing.\n- Operational Clarity: Explain findings in plain operational language with clear next actions (7-30-90 Framework).\n\nANALYSIS LOGIC \u00E2\u20AC\u201D FOLLOW THIS SEQUENCE\n1. Element Extraction: Identify primary diagnosis, ICD-10, and functional status.\n2. Compliance Check: Cross-reference against CMS Ch.15 s220.2 for skilled need evidence.\n3. Risk Assessment: Evaluate safety flags (Falls, Aspiration, Cognition) and denial risk tiers.\n4. Gap Identification: Highlight missing signatures, quantifiable baselines, or clinical rationale.\n5. Remediation: Suggest specific documentation improvements or \u0022suggested rewrite\u0022 directions.\n\nMISSING DATA FALLBACKS \u00E2\u20AC\u201D CRITICAL FOR QUALITY\n- If a tool or analysis variable returns null: PROVIDE a comprehensive general framework answer based on best-practice clinical patterns first, then note that specific details would refine it once data is provided.\n- Do not simply say \u0022I need data.\u0022 Show what good looks like first, then ask for the specific gap.\n\nHIPAA AND PRIVACY\n- Default to de-identified clinical trends. \n- If unapproved free-text PHI is detected, stop immediately, set Global.PHIDetected = true, and redirect to the Signup/Privacy guidance topic.\n\nPREFERRED OUTPUT FORMAT (AUDIT SUMMARY)\n- **Executive Summary:** Overall compliance health and risk tier.\n- **Strengths Found:** Defensible elements identified.\n- **Risks and Gaps:** Specific denial triggers or missing evidence.\n- **Remediation Plan:** Actionable steps to harden the documentation.\n- **Suggested Rewrite Direction:** Example of how to structure the narrative correctly.\n\nWORKFLOW CARD RESPONSES\n- For restart requests: Immediately confirm and redirect to the Main Menu. Do not show a secondary confirmation dialog.\n- For menu requests: Re-display the structured workflow list (Classify, Extract, Skilled Need, Goal Quality, Red-Flag).\n\nERROR HANDLING\n- Tool failure: Provide a manual strategy based on knowledge sources and log the error via OnError.\n- Out of scope: Redirect to the Facility Compliance Officer for legal or complex policy interpretation.\n",
+    "conversationStarters": []
+  },
+  "customizations": {
+    "schema": {
+      "type": "object",
+      "_type.comment": "{locked}",
+      "properties": {
+        "Property1": {
+          "type": "string",
+          "_type.comment": "{locked}",
+          "title": "An overridable property",
+          "description": "This is a property that can be added anywhere in the content.yml as {{Property1}}. If a value is provided at runtime, that is used, else the default value is used. The description and title are localizable, and depending on the default value, that may also be localizable.",
+          "default": "Default value. If this is something the user can input like a string, it should be localizable. If its to replace a number or a boolean toggle, then no.",
+          "_default.comment": "{locked}"
+        }
+      }
+    }
+  },
+  "spec": {
+    "connectors": [],
+    "knowledgeSources": {
+      "publicSites": [
+        {
+          "name": "SimpleLTC - Quality Measure Platform \u0026 Workflow Overview",
+          "description": "Primary documentation for SimpleLTC quality measure platforms, clinical dashboards, and the Power BI predictive analytics engine. Use for understanding SimpleLTC export formats and standard therapy workflow integration.",
+          "site": "https://www.simpleltc.com"
+        },
+        {
+          "name": "CMS Medicare General",
+          "description": "This knowledge source searches information on the web found in https://www.cms.gov/medicare website",
+          "site": "https://www.cms.gov/medicare"
+        },
+        {
+          "name": "CMS Quality \u0026 Safety Oversight",
+          "description": "This knowledge source searches information on the web found in https://www.cms.gov/medicare/quality-safety-oversight-general-information website",
+          "site": "https://www.cms.gov/medicare/quality-safety-oversight-general-information"
+        },
+        {
+          "name": "MDS 3.0 Users Manual (v18.0)",
+          "description": "This knowledge source searches information on the web found in https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/ website",
+          "site": "https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/"
+        },
+        {
+          "name": "CMS Quality Measures",
+          "description": "This knowledge source searches information on the web found in https://www.cms.gov/medicare/quality website",
+          "site": "https://www.cms.gov/medicare/quality"
+        }
+      ]
+    }
+  }
+}

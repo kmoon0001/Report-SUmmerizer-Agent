@@ -1,0 +1,10 @@
+<botcomponent schemaname="copilots_header_6271a.action.SLPDOCUMENTATIONSTANDARDSPROMPT">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>SLP DOCUMENTATION STANDARDS PROMPT</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>1</statecode>
+  <statuscode>2</statuscode>
+</botcomponent>

@@ -1,0 +1,211 @@
+# Scripts
+
+Utility scripts for Copilot Studio workflows and validation.
+
+Current scripts:
+- `Bootstrap-Environment.ps1`
+- `CommandCenterRuntime.ps1`
+- `Convert-NetHealthDocumentationDueDatesToNormalizedCsv.ps1`
+- `Convert-NetHealthTherapyPdfToCsv.ps1`
+- `Convert-NetHealthTherapyCensusToNormalizedCsv.ps1`
+- `Compare-NetHealthTherapySources.ps1`
+- `Convert-PccResidentListToNormalizedCsv.ps1`
+- `Convert-PccResidentVitalsToNormalizedCsv.ps1`
+- `Enable-HealthcareMcpProfile.ps1`
+- `Export-CrossIdeMcpConfigs.ps1`
+- `Finalize-When-CredsReady.ps1`
+- `Generate-StarterBundleArtifacts.ps1`
+- `Get-CopilotStatus.ps1`
+- `Get-LocalPowerBiMetadata.ps1`
+- `Get-LocalFabricMetadata.ps1`
+- `Get-NetHealthTherapySourceProfile.ps1`
+- `Get-NormalizedCsvLoadBatchId.ps1`
+- `Get-PccResidentCensusLoadBatchId.ps1`
+- `Import-NetHealthNormalizedCsvToSqlStage.ps1`
+- `Import-PccResidentCensusToSqlStage.ps1`
+- `Import-SnfSecureEnv.ps1`
+- `Initialize-SnfSecretStore.ps1`
+- `Invoke-NetHealthSqlLoad.ps1`
+- `Invoke-NetHealthTherapyPipeline.ps1`
+- `Invoke-PesterHardeningSuite.ps1`
+- `Invoke-NoFabricOperationsRun.ps1`
+- `Invoke-PowerBiExecutivePrep.ps1`
+- `Invoke-PowerBiPublishChecklist.ps1`
+- `Invoke-PowerBiManualAssistPrep.ps1`
+- `Invoke-PowerBiPublishedSmoke.ps1`
+- `Test-PowerBiPublishedSmokeNonInteractive.ps1`
+- `Invoke-PowerAutomateFlowAudit.ps1`
+- `Invoke-PowerAutomateHardeningChecklist.ps1`
+- `Invoke-ButtonOnlyEnforcement.ps1`
+- `Invoke-FabricOneTimeConnectionPrep.ps1`
+- `Invoke-CommandCenterSqlDeployment.ps1`
+- `Invoke-CommandCenterAutomatedHandoffDispatch.ps1`
+- `Invoke-CommandCenterAutomatedHandoffLifecycle.ps1`
+- `Invoke-CommandCenterFailureTriage.ps1`
+- `Invoke-HandoffGoLive.ps1`
+- `Invoke-AutonomousWorkspaceBuild.ps1`
+- `Invoke-SafeWorkspaceCleanup.ps1`
+- `Test-HandoffWebhookReadiness.ps1`
+- `Invoke-ExecutiveCommandCenterRefresh.ps1`
+- `Invoke-CopilotStudioSyncWithFallback.ps1`
+- `Invoke-SnfAiDashboardQaSweep.ps1`
+- `Invoke-SnfAiDashboardPreflight.ps1`
+- `Invoke-PccResidentCensusSqlLoad.ps1`
+- `New-SnfAiDashboardProject.ps1`
+- `Open-Workspace.ps1`
+- `Publish-Copilot.ps1`
+- `Register-ExecutiveCommandCenterRefreshScheduledTask.ps1`
+- `Reset-CopilotStudioWorkspaceCache.ps1`
+- `Reset-PlaywrightMcp.ps1`
+- `Resolve-NetHealthDocumentationResidentsAgainstPcc.ps1`
+- `Resolve-NetHealthTherapyResidentsAgainstPcc.ps1`
+- `New-PccResidentCensusDataQualityReport.ps1`
+- `New-CommandCenterDocumentationQueue.ps1`
+- `New-CommandCenterExecutiveUnitSnapshot.ps1`
+- `New-ExecutiveCommandCenterReportBundle.ps1`
+- `New-ExecutiveCommandCenterSharePackage.ps1`
+- `New-CommandCenterOperationalSummaryJson.ps1`
+- `New-CommandCenterOperationalHistory.ps1`
+- `New-CommandCenterPatientInsights.ps1`
+- `New-CommandCenterShapExplanations.ps1`
+- `New-CommandCenterAutomatedHandoffQueue.ps1`
+- `New-CommandCenterTherapyDocumentationPriority.ps1`
+- `New-CommandCenterTherapyCoverage.ps1`
+- `New-PowerBiExecutiveModelTables.ps1`
+- `New-PowerBiExecutiveAuthoringKit.ps1`
+- `New-PowerBiExecutiveSourcePackage.ps1`
+- `Save-ExecutiveCommandCenterSnapshot.ps1`
+- `Set-PlaywrightMcpMode.ps1`
+- `Set-SnfCredentialSecrets.ps1`
+- `Set-CommandCenterLastKnownGood.ps1`
+- `Restore-CommandCenterLastKnownGood.ps1`
+- `Select-PccCurrentResidentCensus.ps1`
+- `Test-NetHealthDocumentationDueDatesNormalizedCsv.ps1`
+- `Test-NetHealthTherapyCensusNormalizedCsv.ps1`
+- `Test-CommandCenterShapExplanations.ps1`
+- `Test-CommandCenterGuardedResponseEvidence.ps1`
+- `Test-CommandCenterGroundednessEvaluation.ps1`
+- `Test-CommandCenterOperationalHistory.ps1`
+- `Test-CommandCenterDataDrift.ps1`
+- `Test-ButtonOnlyQuestionRouting.ps1`
+- `Test-CopilotAuthoringCompliance.ps1`
+- `Test-ActionContractSync.ps1`
+- `Test-CommandCenterSourceSchemas.ps1`
+- `Test-PccResidentCensusNormalizedCsv.ps1`
+- `Test-PccResidentVitalsNormalizedCsv.ps1`
+- `Test-PowerBiExecutivePackage.ps1`
+- `Test-RepositorySecretHygiene.ps1`
+- `Test-PowerAutomateFlowNamingStandard.ps1`
+- `Test-ExecutiveCommandCenterReportBundle.ps1`
+- `Invoke-SnfAiDashboardPlaywrightSmoke.ps1`
+- `Test-SnfAiDashboardEnvironment.ps1`
+- `Validate-SnfAiDashboardProject.ps1`
+- `Add-CommandCenterHumanActionItem.ps1`
+
+Recommended use:
+- run `Generate-StarterBundleArtifacts.ps1` when you need source-controlled equivalents for missing starter-bundle governed artifacts
+- run `Convert-NetHealthTherapyCensusToNormalizedCsv.ps1` after landing a Net Health Daily Treatment Summary extract as `nethealth_therapy_census.csv` to produce the normalized therapy enrichment file
+- `Convert-NetHealthTherapyCensusToNormalizedCsv.ps1` supports both a flat Daily Treatment Summary CSV and the report-style CSV that begins with `Daily Treatment Summary` plus `Patient:` section rows
+- run `Convert-NetHealthTherapyPdfToCsv.ps1` when Net Health Daily Treatment Summary was saved from the browser print/export path as a PDF rather than a true CSV
+- run `Get-NetHealthTherapySourceProfile.ps1` when you need to confirm whether a landed therapy file is a native CSV or a PDF saved with the wrong extension
+- run `Compare-NetHealthTherapySources.ps1` when a future native CSV arrives and you want to compare it against the current normalized baseline derived from PDF fallback input
+- run `Convert-NetHealthDocumentationDueDatesToNormalizedCsv.ps1` after landing `nethealth_documentation_due_dates.csv` to produce the normalized documentation enrichment file
+- run `Convert-PccResidentListToNormalizedCsv.ps1` after landing `pcc_resident_list_current.csv` to produce the first normalized census source file
+- run `Convert-PccResidentVitalsToNormalizedCsv.ps1` after landing `pcc_resident_vitals.csv` to produce current-resident vitals for patient insight enrichment
+- run `Get-NormalizedCsvLoadBatchId.ps1` to capture the `LoadBatchId` from any normalized enrichment file before executing SQL load procedures
+- run `Get-PccResidentCensusLoadBatchId.ps1` to capture the `LoadBatchId` from the processed PCC census file before executing the SQL load procedure
+- run `Import-NetHealthNormalizedCsvToSqlStage.ps1` to bulk-load normalized Net Health files into the appropriate `stg` table
+- run `Import-PccResidentCensusToSqlStage.ps1` to bulk-load the active-only PCC census file into `stg.PccResidentListNormalized`
+- run `Invoke-NetHealthSqlLoad.ps1` to execute the mart load procedure for a normalized Net Health batch
+- run `Invoke-NetHealthTherapyPipeline.ps1` after landing the therapy extract when you want one command to normalize, validate, resolve, quality-check, and publish current-resident therapy coverage files
+- run `Invoke-NoFabricOperationsRun.ps1` when Fabric is blocked and you want one command to refresh outputs, validate the project, and print the latest stakeholder share ZIP path
+- run `Invoke-CommandCenterSqlDeployment.ps1` when you want one command to import and load the current PCC and landed Net Health normalized files into SQL
+- run `Invoke-ExecutiveCommandCenterRefresh.ps1` when you want the full current-state executive refresh: processed outputs, Power BI package, JSON summary, HTML bundle, bundle validation, and QA sweep
+- run `Export-CrossIdeMcpConfigs.ps1 -WriteProjectFiles` when you want Cursor/Kiro/Antigravity/Claude/Continue/Cline MCP config files generated from `.vscode/mcp.json`
+- run `Finalize-When-CredsReady.ps1` when credentials are populated and you want a strict final gate that fails if groundedness or non-interactive Power BI smoke still report `SKIP`
+- run `Invoke-PowerBiPublishChecklist.ps1` before manual Desktop publish to verify package readiness and produce a publish checklist report
+- run `Invoke-ButtonOnlyEnforcement.ps1` before preview/apply when you want one command that executes preflight, button-only routing gate, and QA sweep
+- run `Initialize-SnfSecretStore.ps1 -InstallModules` once to bootstrap secure local secret storage for automation credentials
+- run `Set-SnfCredentialSecrets.ps1` to store required Azure/Power BI/Copilot IDs and secrets in SecretStore without plaintext files
+- run `Import-SnfSecureEnv.ps1` before gated automation runs to load secure secrets into process environment
+- run `Invoke-CopilotStudioSyncWithFallback.ps1` when extension sync/apply is unavailable and you need extension-first automation with PAC fallback modes plus a documented run report
+- run `Invoke-PesterHardeningSuite.ps1` to execute runtime hardening tests for lock/checkpoint/cleanup safety behavior
+- `Invoke-CommandCenterCrossSourcePipeline.ps1` now uses a run lock and checkpoint file under `data\processed` to prevent overlapping runs and support safe resume behavior
+- `Invoke-CommandCenterCrossSourcePipeline.ps1` now auto-cleans old `command_center_cross_source.checkpoint.json.corrupt.*` backups (default keep latest 5 and anything from last 14 days)
+- `Invoke-ExecutiveCommandCenterRefresh.ps1` now uses a run lock under `data\processed` to prevent concurrent refresh collisions
+- run `New-CommandCenterOperationalHistory.ps1` after the structured JSON summary when you want a durable daily metric history for trending and auditability
+- run `Invoke-PowerBiExecutivePrep.ps1` to regenerate the executive processed outputs, Power BI source package, model tables, and package validation in one step
+- run `Invoke-PowerBiManualAssistPrep.ps1` before opening Power BI Desktop to generate a concise manual handoff checklist with current row counts and exact file targets
+- run `Invoke-PowerBiPublishedSmoke.ps1` after publish when you have a Power BI report URL and want browser-level smoke validation on the published report
+- run `Test-PowerBiPublishedSmokeNonInteractive.ps1` when you want deterministic CI-safe published smoke validation using Power BI REST API and service principal credentials
+- run `Invoke-FabricOneTimeConnectionPrep.ps1` to generate a one-time Fabric/Power BI permission and machine-readiness report so you can connect once and then stay on the normal automated path
+- run `Invoke-SnfAiDashboardQaSweep.ps1` when you want a comprehensive implemented-path QA pass with a markdown report
+- run `Invoke-PccResidentCensusSqlLoad.ps1` to execute the mart load procedure for the current PCC census batch
+- run `New-NetHealthDataQualityReport.ps1` after normalized Net Health intake to generate a markdown quality summary for review
+- run `Resolve-NetHealthDocumentationResidentsAgainstPcc.ps1` after Net Health documentation normalization to convert name-based resident rows into PCC-governed resident IDs wherever current census matches exist
+- run `Resolve-NetHealthTherapyResidentsAgainstPcc.ps1` after Net Health therapy normalization to convert Daily Treatment Summary resident rows into PCC-governed resident IDs wherever current census matches exist
+- run `New-CommandCenterDocumentationQueue.ps1` after resident resolution to produce the first current-resident documentation queue and unit summary files for operational review
+- run `New-CommandCenterExecutiveUnitSnapshot.ps1` after census and unit-level rollups exist to produce the current executive unit snapshot used by the Power BI package
+- run `New-CommandCenterOperationalSummaryJson.ps1` when you want a machine-readable executive summary for downstream tools or apps
+- run `Save-ExecutiveCommandCenterSnapshot.ps1` after bundle generation when you want a timestamped archive of the current executive outputs rather than overwrite-only current-state files
+- run `New-ExecutiveCommandCenterReportBundle.ps1` when you want a portable HTML and CSV handoff bundle from the current operational outputs
+- run `New-ExecutiveCommandCenterSharePackage.ps1` when you want a timestamped zip archive of the current executive bundle for easy stakeholder sharing
+- run `New-CommandCenterTherapyDocumentationPriority.ps1` after both therapy coverage and documentation queue files exist to produce a combined resident-priority queue for command-center follow-up
+- run `New-CommandCenterPatientInsights.ps1` after documentation queue and therapy coverage refresh to produce a resident-level cross-source insight table for the executive bundle
+- `New-CommandCenterPatientInsights.ps1` will auto-ingest vitals when `data\processed\pcc_resident_vitals_current.csv` is present and otherwise marks vitals as not available without failing the run
+- run `New-CommandCenterShapExplanations.ps1` after patient insights refresh to generate SHAP explanations and feature-importance outputs for explainable resident prioritization
+- run `New-CommandCenterAutomatedHandoffQueue.ps1` after patient insights refresh to auto-generate severity-based handoff tickets, source-backed citations, and derived groundedness/verification statuses for command-center follow-up
+- run `Invoke-CommandCenterAutomatedHandoffDispatch.ps1` after queue generation to dispatch tickets using the configured delivery mode (`CopilotNative` by default, or webhook modes when configured)
+- run `Invoke-CommandCenterAutomatedHandoffLifecycle.ps1` after dispatch to auto-update queue lifecycle state (dispatched, escalated on SLA breach, resolved from signal file)
+- run `Invoke-HandoffGoLive.ps1` after setting delivery mode in `.env` to execute one-command full refresh, dispatch attempt, lifecycle update, validation, and QA
+- run `Test-HandoffWebhookReadiness.ps1` before go-live to validate delivery readiness (`CopilotNative` workflow-manifest readiness or webhook URL readiness)
+- run `Invoke-AutonomousWorkspaceBuild.ps1` as the default one-command path for toolchain checks, preflight gates, operations run, QA, last-known-good pointer update, and auto-triage on failure
+- run `Invoke-CommandCenterFailureTriage.ps1` after any failed run to produce a ranked failure summary and suggested next actions
+- run `Add-CommandCenterHumanActionItem.ps1` to record required manual tasks in `data\processed\human_action_queue.csv` when automation cannot complete a step
+- run `Set-CommandCenterLastKnownGood.ps1` after successful refresh/package to keep rollback pointers current
+- run `Restore-CommandCenterLastKnownGood.ps1` to restore the current executive bundle from the latest known-good share package quickly
+- run `Invoke-SafeWorkspaceCleanup.ps1` to enforce safe retention cleanup for temp/cache and old generated artifacts (without touching source files)
+- run `New-CommandCenterTherapyCoverage.ps1` after therapy resident resolution to produce the first current-resident therapy coverage queue and unit summary files for operational review
+- run `New-PccResidentCensusDataQualityReport.ps1` after raw or normalized PCC intake to generate a markdown quality summary for review
+- run `New-PowerBiExecutiveSourcePackage.ps1` and `New-PowerBiExecutiveModelTables.ps1` when you want a source-controlled Power BI handoff package from the current processed files
+- run `New-PowerBiExecutiveAuthoringKit.ps1` when you want a Power BI Desktop authoring helper set including theme, measure script, relationship contract copy, and visual layout guidance
+- run `Select-PccCurrentResidentCensus.ps1` after normalization when you want the current-state resident snapshot separated from discharged and unknown-status rows
+- run `Test-NetHealthDocumentationDueDatesNormalizedCsv.ps1` and `Test-NetHealthTherapyCensusNormalizedCsv.ps1` to enforce enrichment file contracts before database load
+- run `Test-CommandCenterShapExplanations.ps1` to enforce SHAP explanation output contract before bundle packaging
+- run `Test-CommandCenterGuardedResponseEvidence.ps1` to enforce required citations and verification-status evidence fields for guarded handoff responses
+- run `Test-CommandCenterGroundednessEvaluation.ps1` to build a groundedness evaluation dataset from the current queue and execute Azure AI Evaluation groundedness scoring when `azure-ai-evaluation` and Azure OpenAI config are available; otherwise it writes a `SKIP` report instead of failing the default QA path
+- `Test-CommandCenterGroundednessEvaluation.ps1` auto-prefers `.venv-codex-yaml\Scripts\python.exe` (or `SNF_PYTHON_PATH`) before falling back to `python`
+- run `Test-CommandCenterOperationalHistory.ps1` after refresh or QA when you want to confirm the latest summary, history row, and archived snapshot all reconcile
+- run `Test-CommandCenterSourceSchemas.ps1` before or during refresh to enforce required input/output CSV schemas and fail fast on drift
+- run `Test-CommandCenterDataDrift.ps1` after summary/history refresh to catch sudden metric or null-rate anomalies against configured thresholds
+- run `Test-ButtonOnlyQuestionRouting.ps1` to enforce button-only question entities (closed list or yes/no) across topic YAML before sync
+- run `Test-CopilotAuthoringCompliance.ps1` to enforce Microsoft Learn-aligned authoring rules for topic/action naming text, model-description phrasing, and trigger-phrase quality
+- run `Test-ActionContractSync.ps1` to enforce synchronization across action YAML outputs, workflow response schema/body fields, and contract manifest/matrix records
+- run `Test-RepositorySecretHygiene.ps1` to scan the repository for likely credential leakage patterns before sharing or publishing artifacts
+- run `Test-PccResidentVitalsNormalizedCsv.ps1` to enforce normalized vitals contract before using vitals in patient insights
+- run `Register-ExecutiveCommandCenterRefreshScheduledTask.ps1` to create/update a safe daily Task Scheduler job for automated refresh
+- run `Test-PccResidentCensusNormalizedCsv.ps1` to enforce the normalized census contract before loading downstream models
+- run `Test-PowerBiExecutivePackage.ps1` after packaging to confirm model tables and source-package row counts still align
+- run `Test-ExecutiveCommandCenterReportBundle.ps1` after bundle generation to confirm the HTML/report bundle still reconciles to the current processed outputs
+- run `Invoke-SnfAiDashboardPreflight.ps1` before preview/apply
+- run `Set-PlaywrightMcpMode.ps1 -Mode Headless|Headed` to switch Playwright MCP execution mode in `.vscode/mcp.json`
+- run `Invoke-PowerAutomateFlowAudit.ps1` to inventory and sanity-check key resident/facility insight flows in the current environment
+- run `Invoke-PowerAutomateHardeningChecklist.ps1` after the flow audit to generate prioritized corrective/preventative flow hardening actions and untitled-flow cleanup targets
+- run `Test-PowerAutomateFlowNamingStandard.ps1` as a release gate so untitled/nonstandard flow names are caught before go-live
+- run `Bootstrap-Environment.ps1` to create a local `.env` from `.env.example`
+- use `Get-LocalPowerBiMetadata.ps1` to recover recent Power BI workspace/report IDs from local Chrome history when a report is already open in the browser
+- use `Get-LocalFabricMetadata.ps1` to recover recent Fabric workspace/item IDs (lakehouse, eventhouse, KQL database) from local Chrome history when those items are already open in the browser
+- use `Validate-SnfAiDashboardProject.ps1` for fast local integrity checks during editing
+- use `Test-SnfAiDashboardEnvironment.ps1` before wiring live backend integrations
+- use `Invoke-SnfAiDashboardPlaywrightSmoke.ps1` after preview/apply/publish when you want browser-level regression checks against the menu-first experience
+- use `Reset-CopilotStudioWorkspaceCache.ps1` only when Copilot Studio cache corruption is blocking the extension-first workflow
+- use `Reset-PlaywrightMcp.ps1` when the Playwright MCP browser transport has closed or become unstable, then reload VS Code so the MCP server restarts with the persisted profile
+- use status and publish helpers after apply
+- use `CommandCenterRuntime.ps1` as the shared error-boundary and run-log helper for top-level command-center orchestration scripts
+- for new multi-step automation, follow the same pattern:
+  - define required and optional steps explicitly
+  - record step-level pass/warn/fail state
+  - clean stale derived outputs when optional sources are missing or optional steps fail
+  - persist run logs even on failure
+  - re-run the full normal path after hardening changes
+- keep validation green before live Copilot Studio import checks

@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_024e0.file.UnderstandingJustificationofSkilledServicesPOSTette.pdf_s2-">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Understanding Justification of Skilled Services POSTette.pdf</description>
+  <filedata mimetype="application/pdf">Understanding%20Justification%20of%20Skilled%20Services%20POSTette.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Understanding Justification of Skilled Services POSTette.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

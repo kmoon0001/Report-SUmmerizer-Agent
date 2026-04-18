@@ -1,0 +1,8 @@
+<botcomponent schemaname="cr917_agentu92bPc.action.INTERNAL-NormalizeManualQMFileV2">
+  <componenttype>11</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>INTERNAL-NormalizeManualQMFileV2</name>
+  <parentbotid><schemaname>cr917_agentu92bPc</schemaname></parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

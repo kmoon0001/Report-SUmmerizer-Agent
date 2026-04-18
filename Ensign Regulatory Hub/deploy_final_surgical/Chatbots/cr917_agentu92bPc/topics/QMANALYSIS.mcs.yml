@@ -1,0 +1,457 @@
+mcs.metadata:
+  componentName: QM ANALYSIS
+  description: Elite clinical intelligence module specialized in [QMANALYSIS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [QMANALYSIS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - analyze this qm data
+      - analyze this qm summary
+      - interpret these quality measure rows
+      - review the qm data i pasted
+      - review this simpleltc data
+      - explain these qm results
+      - analyze the csv rows i pasted
+      - interpret this pasted qm summary
+      - explain this pasted simpleltc output
+
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_suppressUnexpectedGenericPrompt
+      conditions:
+        - id: conditionItem_suppressUnexpectedGenericPromptOnce
+          condition: =Global.SuppressGenericAnalysisPromptOnce = true && IsBlank(Global.TopicVar1)
+          actions:
+            - kind: SetVariable
+              id: setVariable_clearSuppressUnexpectedGenericPromptOnce
+              variable: Global.SuppressGenericAnalysisPromptOnce
+              value: =false
+
+            - kind: EndDialog
+              id: endDialog_suppressUnexpectedGenericPromptOnce
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectAnalysisInput
+      conditions:
+        - id: conditionItem_existingTopicVar1
+          condition: =!IsBlank(Global.TopicVar1)
+          actions:
+            - kind: SetVariable
+              id: setVariable_useTopicVar1
+              variable: Global.TopicQMAnalysisResulttext
+              value: =Global.TopicVar1
+
+            - kind: SendActivity
+              id: sendActivity_useTopicVar1
+              activity: Using the extracted QM data already in context.
+
+      elseActions:
+        - kind: Question
+          id: FPvIfc
+          interruptionPolicy:
+            allowInterruption: true
+
+          variable: Global.TopicQMAnalysisResulttext
+          prompt: Please paste or share the Quality Measure (QM) data from your facility report.
+          entity:
+            kind: StringPrebuiltEntity
+            sensitivityLevel: None
+
+    - kind: SetVariable
+      id: setVariable_initFallback
+      variable: Global.FallbackCount
+      value: =0
+
+    - kind: SetVariable
+      id: setVariable_initAnalysis
+      variable: Global.QMAnalysisResult
+      value:
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectAnalysisFacility
+      conditions:
+        - id: conditionItem_existingAnalysisFacility
+          condition: =!IsBlank(Global.SelectedFacility)
+          actions:
+            - kind: SendActivity
+              id: sendActivity_useAnalysisFacility
+              activity: Using the current facility context already in place.
+
+        - id: conditionItem_analysisSeaCliff
+          condition: ="sea cliff" in Lower(Global.TopicQMAnalysisResulttext) || "sea cliff" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisSeaCliff
+              variable: Global.SelectedFacility
+              value: Sea Cliff
+
+        - id: conditionItem_analysisPalmTerrace
+          condition: ="palm terrace" in Lower(Global.TopicQMAnalysisResulttext) || "palm terrace" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisPalmTerrace
+              variable: Global.SelectedFacility
+              value: Palm Terrace
+
+        - id: conditionItem_analysisVictoria
+          condition: ="victoria" in Lower(Global.TopicQMAnalysisResulttext) || "victoria" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisVictoria
+              variable: Global.SelectedFacility
+              value: Victoria
+
+        - id: conditionItem_analysisStCatherine
+          condition: ="st. catherine" in Lower(Global.TopicQMAnalysisResulttext) || "st catherine" in Lower(Global.TopicQMAnalysisResulttext) || "st. catherine" in Lower(System.Activity.Text) || "st catherine" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisStCatherine
+              variable: Global.SelectedFacility
+              value: St. Catherine
+
+        - id: conditionItem_analysisStElizabeth
+          condition: ="st. elizabeth" in Lower(Global.TopicQMAnalysisResulttext) || "st elizabeth" in Lower(Global.TopicQMAnalysisResulttext) || "st. elizabeth" in Lower(System.Activity.Text) || "st elizabeth" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisStElizabeth
+              variable: Global.SelectedFacility
+              value: St. Elizabeth
+
+        - id: conditionItem_analysisMainplace
+          condition: ="mainplace" in Lower(Global.TopicQMAnalysisResulttext) || "mainplace" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisMainplace
+              variable: Global.SelectedFacility
+              value: Mainplace
+
+        - id: conditionItem_analysisNewOrangeHills
+          condition: ="new orange hills" in Lower(Global.TopicQMAnalysisResulttext) || "new orange hills" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisNewOrangeHills
+              variable: Global.SelectedFacility
+              value: New Orange Hills
+
+        - id: conditionItem_analysisTheHills
+          condition: ="the hills" in Lower(Global.TopicQMAnalysisResulttext) || "the hills" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisTheHills
+              variable: Global.SelectedFacility
+              value: The Hills
+
+        - id: conditionItem_analysisBeachside
+          condition: ="beachside" in Lower(Global.TopicQMAnalysisResulttext) || "beachside" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisBeachside
+              variable: Global.SelectedFacility
+              value: Beachside
+
+        - id: conditionItem_analysisAlamitosWest
+          condition: ="alamitos west" in Lower(Global.TopicQMAnalysisResulttext) || "alamitos west" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisAlamitosWest
+              variable: Global.SelectedFacility
+              value: Alamitos West
+
+        - id: conditionItem_analysisCoventryCourt
+          condition: ="coventry court" in Lower(Global.TopicQMAnalysisResulttext) || "coventry court" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisCoventryCourt
+              variable: Global.SelectedFacility
+              value: Coventry Court
+
+        - id: conditionItem_analysisPacificHaven
+          condition: ="pacific haven" in Lower(Global.TopicQMAnalysisResulttext) || "pacific haven" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_analysisPacificHaven
+              variable: Global.SelectedFacility
+              value: Pacific Haven
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectLookback
+      conditions:
+        - id: conditionItem_existingLookback
+          condition: =!IsBlank(Global.LookbackPeriod)
+          actions:
+            - kind: SendActivity
+              id: sendActivity_existingLookback
+              activity: Using the current lookback period already in place.
+
+        - id: conditionItem_defaultStructuredLookback
+          condition: =!IsBlank(Global.TopicQMAnalysisResulttext)
+          actions:
+            - kind: SetVariable
+              id: setVariable_defaultStructuredLookback
+              variable: Global.LookbackPeriod
+              value: Current quarter
+
+        - id: conditionItem_last30
+          condition: ="30 day" in Lower(Global.TopicQMAnalysisResulttext) || "30 day" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_last30
+              variable: Global.LookbackPeriod
+              value: Last 30 days
+
+        - id: conditionItem_last60
+          condition: ="60 day" in Lower(Global.TopicQMAnalysisResulttext) || "60 day" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_last60
+              variable: Global.LookbackPeriod
+              value: Last 60 days
+
+        - id: conditionItem_last90
+          condition: ="90 day" in Lower(Global.TopicQMAnalysisResulttext) || "90 day" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_last90
+              variable: Global.LookbackPeriod
+              value: Last 90 days
+
+        - id: conditionItem_currentQuarter
+          condition: ="current quarter" in Lower(Global.TopicQMAnalysisResulttext) || "current quarter" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_currentQuarter
+              variable: Global.LookbackPeriod
+              value: Current quarter
+
+        - id: conditionItem_quarterToken
+          condition: ="q1" in Lower(Global.TopicQMAnalysisResulttext) || "q2" in Lower(Global.TopicQMAnalysisResulttext) || "q3" in Lower(Global.TopicQMAnalysisResulttext) || "q4" in Lower(Global.TopicQMAnalysisResulttext)
+          actions:
+            - kind: SetVariable
+              id: setVariable_quarterToken
+              variable: Global.LookbackPeriod
+              value: Current quarter
+
+        - id: conditionItem_monthRange
+          condition: ="jan" in Lower(Global.TopicQMAnalysisResulttext) || "feb" in Lower(Global.TopicQMAnalysisResulttext) || "mar" in Lower(Global.TopicQMAnalysisResulttext) || "apr" in Lower(Global.TopicQMAnalysisResulttext) || "may" in Lower(Global.TopicQMAnalysisResulttext) || "jun" in Lower(Global.TopicQMAnalysisResulttext) || "jul" in Lower(Global.TopicQMAnalysisResulttext) || "aug" in Lower(Global.TopicQMAnalysisResulttext) || "sep" in Lower(Global.TopicQMAnalysisResulttext) || "oct" in Lower(Global.TopicQMAnalysisResulttext) || "nov" in Lower(Global.TopicQMAnalysisResulttext) || "dec" in Lower(Global.TopicQMAnalysisResulttext)
+          actions:
+            - kind: SetVariable
+              id: setVariable_monthRange
+              variable: Global.LookbackPeriod
+              value: Custom
+
+            - kind: SetVariable
+              id: setVariable_monthRangeCustom
+              variable: Global.CustomDateRange
+              value: =Global.TopicQMAnalysisResulttext
+
+      elseActions:
+        - kind: AdaptiveCardPrompt
+          id: adaptiveCardPrompt_analysisLookbackChoice
+          card: |-
+            ={
+              '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+              type: "AdaptiveCard",
+              version: "1.5",
+              body: [
+                {
+                  type: "TextBlock",
+                  text: "Please specify the lookback period.",
+                  wrap: true,
+                  weight: "Bolder",
+                  size: "Medium"
+                },
+                {
+                  type: "TextBlock",
+                  text: "If the card does not render correctly, type one of these exactly: Last 30 days, Last 60 days, Last 90 days, Current quarter, Custom.",
+                  wrap: true,
+                  spacing: "Small"
+                }
+              ],
+              actions: [
+                { type: "Action.Submit", title: "Last 30 days", data: { lookbackPeriodChoice: "Last 30 days" } },
+                { type: "Action.Submit", title: "Last 60 days", data: { lookbackPeriodChoice: "Last 60 days" } },
+                { type: "Action.Submit", title: "Last 90 days", data: { lookbackPeriodChoice: "Last 90 days" } },
+                { type: "Action.Submit", title: "Current quarter", data: { lookbackPeriodChoice: "Current quarter" } },
+                { type: "Action.Submit", title: "Custom", data: { lookbackPeriodChoice: "Custom" } }
+              ]
+            }
+          output:
+            binding:
+              lookbackPeriodChoice: Topic.LookbackPeriodChoice
+          outputType:
+            properties:
+              lookbackPeriodChoice: String
+
+        - kind: SetVariable
+          id: setVariable_syncLookbackChoice
+          variable: Global.LookbackPeriod
+          value: =Text(Topic.LookbackPeriodChoice)
+
+    - kind: ConditionGroup
+      id: conditionGroup_RoOvf7
+      conditions:
+        - id: conditionItem_FXKXLV
+          condition: =Text(Global.LookbackPeriod) = "Custom"
+          actions:
+            - kind: Question
+              id: question_szc6En
+              interruptionPolicy:
+                allowInterruption: true
+
+              variable: Global.CustomDateRange
+              prompt: "Please specify your custom date range (e.g., \"Jan 1 - Mar 31, 2026\"). "
+              entity:
+                kind: StringPrebuiltEntity
+                sensitivityLevel: None
+
+    - kind: ConditionGroup
+      id: conditionGroup_detectDomain
+      conditions:
+        - id: conditionItem_existingDomain
+          condition: =!IsBlank(Global.QMDomain)
+          actions:
+            - kind: SendActivity
+              id: sendActivity_existingDomain
+              activity: Using the current QM domain already in place.
+
+        - id: conditionItem_domainPressureUlcers
+          condition: ="pressure ulcer" in Lower(Global.TopicQMAnalysisResulttext) || "wound" in Lower(Global.TopicQMAnalysisResulttext) || "pressure ulcer" in Lower(System.Activity.Text) || "wound" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_domainPressureUlcers
+              variable: Global.QMDomain
+              value: Pressure Ulcers / Wounds
+
+        - id: conditionItem_domainFalls
+          condition: ="fall" in Lower(Global.TopicQMAnalysisResulttext) || "fall" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_domainFalls
+              variable: Global.QMDomain
+              value: Falls
+
+        - id: conditionItem_domainAntipsychotic
+          condition: ="antipsych" in Lower(Global.TopicQMAnalysisResulttext) || "antipsych" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_domainAntipsychotic
+              variable: Global.QMDomain
+              value: Antipsychotic Use
+
+        - id: conditionItem_domainAdl
+          condition: ="adl" in Lower(Global.TopicQMAnalysisResulttext) || "adl" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_domainAdl
+              variable: Global.QMDomain
+              value: ADL Decline
+
+        - id: conditionItem_domainRestraint
+          condition: ="restraint" in Lower(Global.TopicQMAnalysisResulttext) || "restraint" in Lower(System.Activity.Text)
+          actions:
+            - kind: SetVariable
+              id: setVariable_domainRestraint
+              variable: Global.QMDomain
+              value: Restraint Use
+
+        - id: conditionItem_defaultStructuredDomain
+          condition: =!IsBlank(Global.TopicQMAnalysisResulttext)
+          actions:
+            - kind: SetVariable
+              id: setVariable_defaultStructuredDomain
+              variable: Global.QMDomain
+              value: Other
+
+      elseActions:
+        - kind: AdaptiveCardPrompt
+          id: adaptiveCardPrompt_analysisDomainChoice
+          card: |-
+            ={
+              '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+              type: "AdaptiveCard",
+              version: "1.5",
+              body: [
+                {
+                  type: "TextBlock",
+                  text: "Please specify the QM domain.",
+                  wrap: true,
+                  weight: "Bolder",
+                  size: "Medium"
+                },
+                {
+                  type: "TextBlock",
+                  text: "If the card does not render correctly, type one of these exactly: Pressure Ulcers / Wounds, Falls, Antipsychotic Use, ADL Decline, Restraint Use, Other.",
+                  wrap: true,
+                  spacing: "Small"
+                }
+              ],
+              actions: [
+                { type: "Action.Submit", title: "Pressure Ulcers / Wounds", data: { qmDomainChoice: "Pressure Ulcers / Wounds" } },
+                { type: "Action.Submit", title: "Falls", data: { qmDomainChoice: "Falls" } },
+                { type: "Action.Submit", title: "Antipsychotic Use", data: { qmDomainChoice: "Antipsychotic Use" } },
+                { type: "Action.Submit", title: "ADL Decline", data: { qmDomainChoice: "ADL Decline" } },
+                { type: "Action.Submit", title: "Restraint Use", data: { qmDomainChoice: "Restraint Use" } },
+                { type: "Action.Submit", title: "Other", data: { qmDomainChoice: "Other" } }
+              ]
+            }
+          output:
+            binding:
+              qmDomainChoice: Topic.QMDomainChoice
+          outputType:
+            properties:
+              qmDomainChoice: String
+
+        - kind: SetVariable
+          id: setVariable_syncDomainChoice
+          variable: Global.QMDomain
+          value: =Text(Topic.QMDomainChoice)
+
+    - kind: ConditionGroup
+      id: ConditionGroup_T3c5gY
+      conditions:
+        - id: ConditionItem_jvLXe3
+          condition: =IsBlank(Global.TopicQMAnalysisResulttext) || IsBlank(Global.LookbackPeriod) || IsBlank(Global.QMDomain)
+          actions:
+            - kind: SendActivity
+              id: SendActivity_FLPt3E
+              activity: I need QM data, a lookback period, and a QM domain before I can continue.
+
+            - kind: EndConversation
+              id: 8566bT
+
+    - kind: SearchAndSummarizeContent
+      id: 7C1At8
+      userInput: "=Concatenate(\"Facility: \", Global.SelectedFacility, \". QM Domain: \", Text(Global.QMDomain), \". Lookback: \", Text(Global.LookbackPeriod), \". Data: \", Global.TopicQMAnalysisResulttext)"
+      additionalInstructions: "You are a clinical coach and Senior QM Analyst. Review the Quality Measures data provided and deliver: 1) Trend assessment (Improving/Stable/Worsening), 2) Concern Level (High/Moderate/Low) with clinical justification, 3) Top 3-5 root cause drivers (Clinical, Process, or Documentation gaps), 4) Regulatory mapping to CMS Ch.15 and Jimmo standard, 5) Immediate 7-day quick wins. Reference ONE Clinical protocols where applicable. Do NOT include PHI or resident identifiers."
+    - kind: SetVariable
+      id: setVariable_FumPr4
+      variable: Global.TopicQMAnalysisResulttext
+      value: =Global.TopicQMAnalysisResulttext
+
+    - kind: ConditionGroup
+      id: fhBWHS
+      conditions:
+        - id: IKF0E1
+          condition: =!IsBlank(Global.TopicQMAnalysisResulttext)
+
+    - kind: BeginDialog
+      id: GA9Lv1
+      input: {}
+      dialog: cr917_agentu92bPc.topic.HITLAPPROVAL
+      output:
+        binding:
+          ApprovalDecision: Topic.ApprovalDecision
+          ApproverName: Topic.ApproverName
+          ApproverTimestamp: Topic.ApproverTimestamp
+          hitl_approval: Topic.hitl_approval
+
+    - kind: EndConversation
+      id: sPdX6A
+
+inputType: {}
+outputType: {}
+
+

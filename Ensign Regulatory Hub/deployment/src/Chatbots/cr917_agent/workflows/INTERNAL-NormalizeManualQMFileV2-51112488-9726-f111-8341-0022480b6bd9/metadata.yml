@@ -1,0 +1,30 @@
+﻿jsonFileName: workflows/INTERNAL-NormalizeManualQMFileV2-51112488-9726-f111-8341-0022480b6bd9/workflow.json
+workflowId: 51112488-9726-f111-8341-0022480b6bd9
+name: INTERNAL - Normalize Manual QM File V2
+type: 1
+description: When an agent calls the flow and sends back a normalized response.
+subprocess: false
+category: 5
+mode: 0
+scope: 4
+onDemand: false
+triggerOnCreate: false
+triggerOnDelete: false
+asyncAutodelete: false
+syncWorkflowLogOnFailure: false
+stateCode: 1
+statusCode: 2
+runAs: 1
+isTransacted: true
+introducedVersion: 1.0
+isCustomizable:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: iscustomizableanddeletable
+businessProcessType: 0
+isCustomProcessingStepAllowedForOtherPublishers:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: canbedeleted
+modernFlowType: 1
+primaryEntity: none

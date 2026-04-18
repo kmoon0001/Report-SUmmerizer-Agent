@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_3f0ed.file.MedicareSecondaryPayerManual-therapy.pdf_FWq">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Medicare Secondary Payer Manual - therapy.pdf</description>
+  <filedata mimetype="application/pdf">Medicare%20Secondary%20Payer%20Manual%20-%20therapy.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Medicare Secondary Payer Manual - therapy.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,57 @@
+# Medicare Language Library
+
+- therapeutic exercise requiring skilled monitoring for safety and progression
+- Therapeutic exercise with complex patient presentation
+- CMS Chapter 15, Section 220.2(A)
+- skilled physical therapist required to monitor patient response and adjust exercise parameters
+- Exercise progression requiring clinical judgment
+- CMS Chapter 15, Section 220.2(A)
+- therapeutic exercise necessitating clinical decision-making to prevent adverse events
+- CMS Chapter 15, Section 220.2(A)
+- manual therapy techniques requiring professional skill and clinical judgment
+- Joint mobilization or soft tissue mobilization
+- CMS Chapter 15, Section 220.2(B)
+- skilled joint mobilization to restore articular mobility and reduce pain
+- CMS Chapter 15, Section 220.2(B)
+- CMS Chapter 15, Section 220.2(C)
+- CMS Chapter 15, Section 220.2(C)
+- gait training requiring skilled assessment and real-time cueing for safety
+- Ambulation training with fall risk
+- CMS Chapter 15, Section 220.2(D)
+- skilled gait training to improve functional ambulation and reduce fall risk
+- CMS Chapter 15, Section 220.2(D)
+- skilled maintenance therapy required to prevent decline in functional status
+- Maintenance therapy per Jimmo settlement
+- Jimmo v. Sebelius Settlement Agreement (2013)
+- skilled PT services necessary to maintain current level of function and prevent deterioration
+- complexity of patient presentation requires skilled physical therapist assessment and intervention
+- CMS Chapter 15, Section 220.1
+- clinical judgment of licensed physical therapist required to safely progress treatment
+- CMS Chapter 15, Section 220.1
+- Medicare Benefit Policy Manual Chapter 15, Section 220.1
+- General requirements for skilled physical therapy services
+- Medicare Benefit Policy Manual Chapter 15, Section 220.2
+- Skilled physical therapy services — specific service requirements
+- Medicare Benefit Policy Manual Chapter 15, Section 220.3
+- Documentation requirements for PT services
+- Jimmo v. Sebelius Settlement Agreement (2013)
+- Medicare Benefit Policy Manual Chapter 15, Section 40.2
+- Specify what will continue, current status, and measurable goal
+- CMS Chapter 15, Section 220.3
+- Document specific patient response with measurable data
+- CMS Chapter 15, Section 220.3
+- Provide specific parameters for activity modification
+- CMS Chapter 15, Section 220.3
+- Describe measurable performance with objective data
+- CMS Chapter 15, Section 220.3
+- Document specific achievements with outcome measures
+- CMS Chapter 15, Section 220.3
+- Quantify progress with specific measurements
+- CMS Chapter 15, Section 220.3
+- Specify what improved and by how much with numeric values
+- CMS Chapter 15, Section 220.3
+- Explain why maintenance is skilled and cite Jimmo settlement
+- Document current objective status with measurements
+- CMS Chapter 15, Section 220.3
+- Document objective findings and specific patient report
+- CMS Chapter 15, Section 220.3

@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_024e0.file.MedicareClaimsProcessingManualCh5.pdf_7DZ">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Medicare Claims Processing Manual Ch 5.pdf</description>
+  <filedata mimetype="application/pdf">Medicare%20Claims%20Processing%20Manual%20Ch%205.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Medicare Claims Processing Manual Ch 5.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_3f0ed.file.2025PartBLCRForm.xlsx_Mdh">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in 2025 Part B LCR Form.xlsx</description>
+  <filedata mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">2025%20Part%20B%20LCR%20Form.xlsx</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>2025 Part B LCR Form.xlsx</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="pcca_agent39xn69.topic.DischargeAnalysis">
+  <componenttype>9</componenttype>
+  <description>Auto-migrated custom code topic: DischargeAnalysis.</description>
+  <iscustomizable>1</iscustomizable>
+  <name>DischargeAnalysis</name>
+  <parentbotid>
+    <schemaname>pcca_agent39xn69</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: TheraDoc - PT Generate Note Legacy Alias
+kind: TaskDialog
+modelDisplayName: TheraDoc - PT Generate Note Legacy Alias
+modelDescription: Legacy alias retained for compatibility. Routes to the active TheraDoc note-generation flow.
+outputs:
+  - propertyName: generatednote
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 58fc66ed-762f-f111-88b4-000d3a37eba2
+
+outputMode: All

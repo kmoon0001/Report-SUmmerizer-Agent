@@ -1,0 +1,3 @@
+﻿connectionReferences:
+  - connectionReferenceLogicalName: cua_agent_U805x.shared_computeroperator.632bb295c8d04c1ca2c2b4fae9e4158c
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_computeroperator

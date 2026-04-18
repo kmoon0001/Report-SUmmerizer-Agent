@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "definition": {
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": ["7", "19"],
+              "minutes": ["0"]
+            }
+          }
+        }
+      },
+      "actions": {
+        "RetrieveShiftKPIs": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "connection": { "name": "@json(decodeBase64(parameters('$connections'))).shared_commondataserviceforapps.connectionId" } },
+            "method": "get",
+            "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('ShiftMetrics'))}/items"
+          },
+          "runAfter": {}
+        },
+        "PostShiftKickoffToTeams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "connection": { "name": "@json(decodeBase64(parameters('$connections'))).shared_teams.connectionId" } },
+            "method": "post",
+            "path": "/v2/teams/conversation/message/poster",
+            "body": {
+              "recipient": { "groupId": "CLINICAL_TEAMS_GROUP_ID", "channelId": "NURSING_STATION_CHANNEL_ID" },
+              "message": {
+                "content": "<div style='background-color:#EFEFEF; padding:15px;'><h2>🚀 SHIFT KICKOFF: TOP PRIORITIES</h2><p><b>Unit:</b> Wing 1 | <b>Time:</b> @{utcNow()}</p><p><b>Sepsis Watch:</b> Patient 204B</p><p><b>High Fall Risk:</b> Patient 207A</p><p><b>Compliance Note:</b> 3 missed therapy mins yesterday.</p></div>",
+                "contentType": "html"
+              }
+            }
+          },
+          "runAfter": { "RetrieveShiftKPIs": ["Succeeded"] }
+        }
+      }
+    }
+  }
+}

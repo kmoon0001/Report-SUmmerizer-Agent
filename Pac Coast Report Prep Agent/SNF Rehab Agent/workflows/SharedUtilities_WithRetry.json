@@ -1,0 +1,513 @@
+{
+  "name": "Shared Utility - With Retry",
+  "description": "Reusable retry wrapper for any operation with exponential backoff, circuit breaker integration, and comprehensive error handling",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "operation": {
+        "type": "string",
+        "description": "Operation identifier for circuit breaker tracking"
+      },
+      "operationType": {
+        "type": "string",
+        "description": "Type: http, dataverse_query, dataverse_write, flow_invoke",
+        "enum": ["http", "dataverse_query", "dataverse_write", "flow_invoke"]
+      },
+      "operationConfig": {
+        "type": "object",
+        "description": "Configuration specific to operation type"
+      },
+      "retryConfig": {
+        "type": "object",
+        "description": "Optional retry configuration overrides",
+        "properties": {
+          "maxRetries": "number",
+          "initialDelaySeconds": "number",
+          "maxDelaySeconds": "number",
+          "timeoutSeconds": "number"
+        }
+      },
+      "correlationId": {
+        "type": "string",
+        "description": "Correlation ID for distributed tracing"
+      }
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Correlation_Context",
+      "inputs": {
+        "variables": [
+          {
+            "name": "correlationContext",
+            "type": "object",
+            "value": {
+              "correlationId": "@coalesce(triggerBody()?['correlationId'], guid())",
+              "parentOperationId": "@workflow()['run']['name']",
+              "startTime": "@utcNow()",
+              "operation": "@triggerBody()?['operation']",
+              "operationType": "@triggerBody()?['operationType']"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Retry_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "retryState",
+            "type": "object",
+            "value": {
+              "currentAttempt": 0,
+              "maxRetries": "@coalesce(triggerBody()?['retryConfig']?['maxRetries'], 4)",
+              "initialDelaySeconds": "@coalesce(triggerBody()?['retryConfig']?['initialDelaySeconds'], 2)",
+              "maxDelaySeconds": "@coalesce(triggerBody()?['retryConfig']?['maxDelaySeconds'], 45)",
+              "timeoutSeconds": "@coalesce(triggerBody()?['retryConfig']?['timeoutSeconds'], 30)",
+              "success": false,
+              "lastError": null,
+              "attempts": []
+            }
+          }
+        ]
+      },
+      "runAfter": {
+        "Initialize_Correlation_Context": ["Succeeded"]
+      }
+    },
+    {
+      "type": "HTTP",
+      "name": "Check_Circuit_Breaker",
+      "inputs": {
+        "method": "GET",
+        "uri": "@parameters('circuitBreakerEndpoint')/status/@{triggerBody()?['operation']}",
+        "headers": {
+          "X-Correlation-ID": "@variables('correlationContext')['correlationId']"
+        },
+        "retryPolicy": {
+          "type": "none"
+        }
+      },
+      "runAfter": {
+        "Initialize_Retry_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Circuit_Open",
+      "expression": {
+        "equals": ["@body('Check_Circuit_Breaker')?['isOpen']", true]
+      },
+      "actions": {
+        "Return_Circuit_Open_Error": {
+          "type": "Response",
+          "inputs": {
+            "statusCode": 503,
+            "body": {
+              "success": false,
+              "error": "CircuitBreakerOpen",
+              "message": "Service temporarily unavailable due to repeated failures",
+              "correlationId": "@variables('correlationContext')['correlationId']",
+              "retryAfterSeconds": "@body('Check_Circuit_Breaker')?['resetTimeoutSeconds']"
+            }
+          }
+        },
+        "Terminate_Circuit_Open": {
+          "type": "Terminate",
+          "inputs": {
+            "runStatus": "Failed",
+            "runError": {
+              "code": "CircuitBreakerOpen",
+              "message": "Circuit breaker is open for operation: @{triggerBody()?['operation']}"
+            }
+          },
+          "runAfter": {
+            "Return_Circuit_Open_Error": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Check_Circuit_Breaker": ["Succeeded", "Failed"]
+      }
+    },
+    {
+      "type": "Until",
+      "name": "Retry_Loop",
+      "expression": "@or(variables('retryState')['success'], greaterOrEquals(variables('retryState')['currentAttempt'], variables('retryState')['maxRetries']))",
+      "limit": {
+        "count": "@variables('retryState')['maxRetries']",
+        "timeout": "PT5M"
+      },
+      "actions": {
+        "Increment_Attempt": {
+          "type": "Compose",
+          "inputs": {
+            "attemptNumber": "@add(variables('retryState')['currentAttempt'], 1)",
+            "attemptStartTime": "@utcNow()"
+          }
+        },
+        "Update_Retry_State_Attempt": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "retryState",
+            "value": "@setProperty(variables('retryState'), 'currentAttempt', outputs('Increment_Attempt')['attemptNumber'])"
+          },
+          "runAfter": {
+            "Increment_Attempt": ["Succeeded"]
+          }
+        },
+        "Calculate_Backoff": {
+          "type": "Compose",
+          "inputs": {
+            "baseDelay": "@mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1)))",
+            "cappedDelay": "@min(mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1))), variables('retryState')['maxDelaySeconds'])",
+            "jitter": "@div(rand(0, 1000), 1000)",
+            "finalDelay": "@add(min(mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1))), variables('retryState')['maxDelaySeconds']), div(rand(0, 1000), 1000))"
+          },
+          "runAfter": {
+            "Update_Retry_State_Attempt": ["Succeeded"]
+          }
+        },
+        "Wait_Backoff": {
+          "type": "Wait",
+          "inputs": {
+            "interval": {
+              "count": "@if(greater(variables('retryState')['currentAttempt'], 1), int(mul(outputs('Calculate_Backoff')['finalDelay'], 1000)), 0)",
+              "unit": "Millisecond"
+            }
+          },
+          "runAfter": {
+            "Calculate_Backoff": ["Succeeded"]
+          }
+        },
+        "Execute_Operation": {
+          "type": "Scope",
+          "actions": {
+            "Route_By_Operation_Type": {
+              "type": "Switch",
+              "expression": "@triggerBody()?['operationType']",
+              "cases": {
+                "HTTP": {
+                  "case": "http",
+                  "actions": {
+                    "Execute_HTTP": {
+                      "type": "HTTP",
+                      "inputs": {
+                        "method": "@triggerBody()?['operationConfig']?['method']",
+                        "uri": "@triggerBody()?['operationConfig']?['uri']",
+                        "headers": "@union(coalesce(triggerBody()?['operationConfig']?['headers'], json('{}')), json(concat('{\"X-Correlation-ID\":\"', variables('correlationContext')['correlationId'], '\"}')))",
+                        "body": "@triggerBody()?['operationConfig']?['body']",
+                        "timeout": "@concat('PT', string(variables('retryState')['timeoutSeconds']), 'S')"
+                      },
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                },
+                "Dataverse_Query": {
+                  "case": "dataverse_query",
+                  "actions": {
+                    "Execute_Dataverse_Query": {
+                      "type": "Microsoft.Dataverse/ListRecords",
+                      "inputs": {
+                        "entityName": "@triggerBody()?['operationConfig']?['entityName']",
+                        "fetchXml": "@triggerBody()?['operationConfig']?['fetchXml']"
+                      },
+                      "timeout": "@concat('PT', string(variables('retryState')['timeoutSeconds']), 'S')",
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                },
+                "Dataverse_Write": {
+                  "case": "dataverse_write",
+                  "actions": {
+                    "Check_Idempotency_Key": {
+                      "type": "Microsoft.Dataverse/ListRecords",
+                      "inputs": {
+                        "entityName": "@triggerBody()?['operationConfig']?['entityName']",
+                        "fetchXml": "@concat('<fetch top=\"1\"><entity name=\"', triggerBody()?['operationConfig']?['entityName'], '\"><filter><condition attribute=\"snf_idempotency_key\" operator=\"eq\" value=\"', triggerBody()?['operationConfig']?['item']?['snf_idempotency_key'], '\"/></filter></entity></fetch>')"
+                      }
+                    },
+                    "Check_If_Already_Exists": {
+                      "type": "ConditionGroup",
+                      "expression": {
+                        "greater": ["@length(outputs('Check_Idempotency_Key')?['body']?['value'])", 0]
+                      },
+                      "actions": {
+                        "Return_Existing_Record": {
+                          "type": "Compose",
+                          "inputs": {
+                            "idempotent": true,
+                            "existingRecord": "@first(outputs('Check_Idempotency_Key')?['body']?['value'])"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Execute_Dataverse_Write": {
+                            "type": "Microsoft.Dataverse/CreateRecord",
+                            "inputs": {
+                              "entityName": "@triggerBody()?['operationConfig']?['entityName']",
+                              "item": "@triggerBody()?['operationConfig']?['item']"
+                            },
+                            "timeout": "@concat('PT', string(variables('retryState')['timeoutSeconds']), 'S')",
+                            "retryPolicy": {
+                              "type": "none"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Check_Idempotency_Key": ["Succeeded"]
+                      }
+                    }
+                  }
+                },
+                "Flow_Invoke": {
+                  "case": "flow_invoke",
+                  "actions": {
+                    "Execute_Flow_Invoke": {
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "@triggerBody()?['operationConfig']?['flowName']"
+                        },
+                        "body": "@triggerBody()?['operationConfig']?['input']"
+                      },
+                      "timeout": "@concat('PT', string(variables('retryState')['timeoutSeconds']), 'S')",
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Unknown_Operation_Type": {
+                    "type": "Terminate",
+                    "inputs": {
+                      "runStatus": "Failed",
+                      "runError": {
+                        "code": "UnknownOperationType",
+                        "message": "Operation type not supported: @{triggerBody()?['operationType']}"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Wait_Backoff": ["Succeeded"]
+          }
+        },
+        "Handle_Operation_Result": {
+          "type": "ConditionGroup",
+          "expression": {
+            "equals": ["@result('Execute_Operation')[0]['status']", "Succeeded"]
+          },
+          "actions": {
+            "Mark_Success": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "retryState",
+                "value": "@setProperty(variables('retryState'), 'success', true)"
+              }
+            },
+            "Notify_Circuit_Breaker_Success": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('circuitBreakerEndpoint')/success/@{triggerBody()?['operation']}",
+                "headers": {
+                  "X-Correlation-ID": "@variables('correlationContext')['correlationId']"
+                },
+                "body": {
+                  "timestamp": "@utcNow()",
+                  "attemptNumber": "@variables('retryState')['currentAttempt']",
+                  "correlationId": "@variables('correlationContext')['correlationId']"
+                }
+              },
+              "runAfter": {
+                "Mark_Success": ["Succeeded"]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Capture_Error": {
+                "type": "Compose",
+                "inputs": {
+                  "attemptNumber": "@variables('retryState')['currentAttempt']",
+                  "timestamp": "@utcNow()",
+                  "error": "@result('Execute_Operation')[0]['error']",
+                  "errorCode": "@result('Execute_Operation')[0]['error']?['code']",
+                  "isRetryable": "@or(or(contains(string(result('Execute_Operation')[0]['error']?['code']), 'Timeout'), contains(string(result('Execute_Operation')[0]['error']?['code']), 'ServiceUnavailable')), contains(string(result('Execute_Operation')[0]['error']?['code']), 'TooManyRequests'))"
+                }
+              },
+              "Update_Last_Error": {
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "retryState",
+                  "value": "@setProperty(variables('retryState'), 'lastError', outputs('Capture_Error'))"
+                },
+                "runAfter": {
+                  "Capture_Error": ["Succeeded"]
+                }
+              },
+              "Check_If_Should_Stop_Retrying": {
+                "type": "ConditionGroup",
+                "expression": {
+                  "equals": ["@outputs('Capture_Error')['isRetryable']", false]
+                },
+                "actions": {
+                  "Force_Exit_Loop": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "retryState",
+                      "value": "@setProperty(variables('retryState'), 'currentAttempt', variables('retryState')['maxRetries'])"
+                    }
+                  }
+                },
+                "runAfter": {
+                  "Update_Last_Error": ["Succeeded"]
+                }
+              },
+              "Notify_Circuit_Breaker_Failure": {
+                "type": "HTTP",
+                "inputs": {
+                  "method": "POST",
+                  "uri": "@parameters('circuitBreakerEndpoint')/failure/@{triggerBody()?['operation']}",
+                  "headers": {
+                    "X-Correlation-ID": "@variables('correlationContext')['correlationId']"
+                  },
+                  "body": {
+                    "timestamp": "@utcNow()",
+                    "attemptNumber": "@variables('retryState')['currentAttempt']",
+                    "error": "@outputs('Capture_Error')",
+                    "correlationId": "@variables('correlationContext')['correlationId']"
+                  }
+                },
+                "runAfter": {
+                  "Check_If_Should_Stop_Retrying": ["Succeeded"]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Execute_Operation": ["Succeeded", "Failed", "TimedOut"]
+          }
+        }
+      },
+      "runAfter": {
+        "Check_If_Circuit_Open": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_Final_Result",
+      "expression": {
+        "equals": ["@variables('retryState')['success']", true]
+      },
+      "actions": {
+        "Log_Success": {
+          "type": "Microsoft.Dataverse/CreateRecord",
+          "inputs": {
+            "entityName": "snf_operation_log",
+            "item": {
+              "snf_operation": "@triggerBody()?['operation']",
+              "snf_operation_type": "@triggerBody()?['operationType']",
+              "snf_success": true,
+              "snf_attempts": "@variables('retryState')['currentAttempt']",
+              "snf_correlation_id": "@variables('correlationContext')['correlationId']",
+              "snf_timestamp": "@utcNow()",
+              "snf_duration_ms": "@div(sub(ticks(utcNow()), ticks(variables('correlationContext')['startTime'])), 10000)"
+            }
+          }
+        },
+        "Return_Success": {
+          "type": "Response",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "success": true,
+              "attempts": "@variables('retryState')['currentAttempt']",
+              "correlationId": "@variables('correlationContext')['correlationId']",
+              "result": "@result('Execute_Operation')[0]['outputs']"
+            }
+          },
+          "runAfter": {
+            "Log_Success": ["Succeeded"]
+          }
+        }
+      },
+      "else": {
+        "actions": {
+          "Log_Failure": {
+            "type": "Microsoft.Dataverse/CreateRecord",
+            "inputs": {
+              "entityName": "snf_operation_log",
+              "item": {
+                "snf_operation": "@triggerBody()?['operation']",
+                "snf_operation_type": "@triggerBody()?['operationType']",
+                "snf_success": false,
+                "snf_attempts": "@variables('retryState')['currentAttempt']",
+                "snf_correlation_id": "@variables('correlationContext')['correlationId']",
+                "snf_last_error": "@string(variables('retryState')['lastError'])",
+                "snf_timestamp": "@utcNow()",
+                "snf_duration_ms": "@div(sub(ticks(utcNow()), ticks(variables('correlationContext')['startTime'])), 10000)"
+              }
+            }
+          },
+          "Queue_To_Dead_Letter": {
+            "type": "Microsoft.Dataverse/CreateRecord",
+            "inputs": {
+              "entityName": "snf_dead_letter_queue",
+              "item": {
+                "snf_operation": "@triggerBody()?['operation']",
+                "snf_operation_type": "@triggerBody()?['operationType']",
+                "snf_payload": "@string(triggerBody()?['operationConfig'])",
+                "snf_error": "@string(variables('retryState')['lastError'])",
+                "snf_correlation_id": "@variables('correlationContext')['correlationId']",
+                "snf_timestamp": "@utcNow()",
+                "snf_retry_count": 0,
+                "snf_max_retries": 5,
+                "snf_next_retry": "@addMinutes(utcNow(), 15)"
+              }
+            },
+            "runAfter": {
+              "Log_Failure": ["Succeeded"]
+            }
+          },
+          "Return_Failure": {
+            "type": "Response",
+            "inputs": {
+              "statusCode": 503,
+              "body": {
+                "success": false,
+                "attempts": "@variables('retryState')['currentAttempt']",
+                "lastError": "@variables('retryState')['lastError']",
+                "correlationId": "@variables('correlationContext')['correlationId']",
+                "deadLetterQueueId": "@outputs('Queue_To_Dead_Letter')?['body']?['snf_dead_letter_queueid']"
+              }
+            },
+            "runAfter": {
+              "Queue_To_Dead_Letter": ["Succeeded"]
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Retry_Loop": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

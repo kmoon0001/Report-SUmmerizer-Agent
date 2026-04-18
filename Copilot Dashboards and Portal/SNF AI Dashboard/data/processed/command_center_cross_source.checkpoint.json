@@ -1,0 +1,19 @@
+﻿{
+    "CompletedSteps":  {
+                           "Patient Insights":  true,
+                           "Automated Handoff Queue":  true,
+                           "Operational Summary":  true,
+                           "Secret Hygiene Scan":  true,
+                           "Source Schema Validation":  true,
+                           "Vitals Normalize":  true,
+                           "Automated Handoff Dispatch":  true,
+                           "Automated Handoff Lifecycle":  true,
+                           "SHAP Explanations":  true,
+                           "Documentation Queue Build":  true,
+                           "Executive Unit Snapshot":  true,
+                           "Therapy Pipeline":  true,
+                           "Priority Queue Build":  true
+                       },
+    "LastUpdatedAt":  "2026-04-06T14:50:18",
+    "CreatedAt":  "2026-04-05T14:40:47"
+}

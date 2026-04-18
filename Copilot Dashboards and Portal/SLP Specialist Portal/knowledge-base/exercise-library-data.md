@@ -1,0 +1,208 @@
+# Exercise Library
+
+- Lean forward, let arm hang. Gently swing arm in small circles using body momentum. Do not use shoulder muscles.
+- Acute rotator cuff tear (full thickness)
+- Increase circle diameter when pain-free at current size
+- Hold wand with both hands. Use uninvolved arm to lift involved arm overhead. Keep elbow straight.
+- Progress to active ROM when able to achieve 120° without assistance
+- Shoulder External Rotation Strengthening (Side-lying)
+- Isolated infraspinatus and teres minor strengthening in side-lying position.
+- Lie on uninvolved side. Elbow bent 90°. Rotate forearm upward keeping elbow at side. Lower slowly.
+- Acute rotator cuff tear (full thickness)
+- Use light resistance initially (1-2 lbs)
+- Avoid shoulder elevation during movement
+- Progress resistance when 3 sets of 15 reps completed without fatigue
+- Prone scapular stabilization exercises targeting lower trapezius and serratus anterior.
+- Lie face down. Lift arms in Y, T, and W positions. Squeeze shoulder blades together and down.
+- Subscapularis strengthening using elastic resistance band.
+- Stand with band anchored at elbow height. Elbow bent 90°. Rotate forearm toward body. Control return.
+- Increase band resistance when 3x15 completed without fatigue
+- Shoulder elevation in scapular plane (30° anterior to frontal plane) for supraspinatus activation.
+- Stand with thumbs up. Raise arms to 90° in scapular plane (30° forward of side). Lower slowly.
+- Do not elevate above 90° initially
+- Progress to full elevation when pain-free at 90°
+- Posterior glenohumeral capsule stretch to improve internal rotation ROM.
+- Lie on involved side. Arm at 90° flexion. Use other hand to gently push forearm toward floor.
+- Discontinue when internal rotation equals contralateral side
+- Cools AM et al. JOSPT 2007
+- Posterior deltoid and middle trapezius strengthening in prone position.
+- Lie face down, arm hanging off table. Lift arm out to side to shoulder height. Lower slowly.
+- Active hip abduction in supine to strengthen gluteus medius.
+- Lie on back. Slide leg out to side keeping toes pointing up. Return to start.
+- Avoid hip flexion during movement
+- Lie on side, hips bent 45°, knees bent 90°. Keep feet together. Lift top knee like a clamshell. Lower slowly.
+- Add resistance band above knees when 3x20 completed without compensation
+- Bilateral hip extension in supine to strengthen gluteus maximus and hamstrings.
+- Lie on back, knees bent, feet flat. Squeeze glutes and lift hips until body is straight. Hold 2 seconds. Lower slowly.
+- Acute lumbar disc herniation with radiculopathy
+- Unilateral hip extension to challenge gluteus maximus and pelvic stability.
+- Lie on back, one knee bent. Extend other leg. Lift hips using bent leg. Keep pelvis level.
+- Severe hip OA with pain >7/10
+- Progress to hip thrust with weight when 3x12 completed without pelvic drop
+- Supine hip flexor stretch targeting iliopsoas and rectus femoris.
+- Lie at edge of table. Pull one knee to chest. Let other leg hang off edge. Feel stretch in front of hanging hip.
+- Discontinue when hip extension ROM normalizes
+- Progressive hip abduction strengthening with elastic resistance.
+- Lie on side with band above ankles. Lift top leg to 45°. Lower slowly. Keep toes pointing forward.
+- Avoid hip flexion during lift
+- Increase band resistance when 3x15 completed without compensation
+- Supine piriformis and deep hip rotator stretch.
+- Lie on back. Cross ankle over opposite knee. Pull both legs toward chest until stretch felt in buttock.
+- Avoid if hip flexion restricted post-op
+- Discontinue when piriformis flexibility normalizes
+- Boren K et al. JOSPT 2011
+- Standing hip abduction for functional gluteus medius strengthening.
+- Stand on one leg (hold support if needed). Lift other leg out to side. Keep trunk upright. Lower slowly.
+- Severe balance impairment without support
+- Progress to unsupported when balance allows
+- Isometric quadriceps contraction in supine for early post-op or acute knee conditions.
+- Lie on back, leg straight. Tighten thigh muscle by pushing knee down. Hold 5 seconds. Relax.
+- Avoid if patellar tendon repair (check surgeon protocol)
+- Progress to SLR when quad contraction is strong and pain-free
+- Hip flexion with knee extended to strengthen quadriceps and hip flexors.
+- Lie on back. Bend uninvolved knee. Tighten thigh of straight leg. Lift to 45°. Hold 2 seconds. Lower slowly.
+- Lumbar radiculopathy aggravated by hip flexion
+- Progress to terminal knee extension when SLR is pain-free x3 sets
+- Resisted terminal knee extension targeting VMO for patellofemoral tracking.
+- Stand with band behind knee. Slightly bend knee. Straighten knee fully. Hold 2 seconds. Bend slowly.
+- Keep knees aligned over 2nd toe
+- Progress to full squat (0-90°) when pain-free at 45°
+- Prone knee flexion to strengthen hamstrings.
+- Lie face down. Bend knee to 90°. Hold 2 seconds. Lower slowly.
+- Avoid hip flexion during movement
+- Add ankle weight when 3x15 completed without fatigue
+- Stand in front of step (4-8 inches). Step up with involved leg. Bring other foot up. Step down slowly.
+- Severe knee OA with pain >7/10
+- Keep knee aligned over 2nd toe
+- Increase step height when 3x12 completed without compensation
+- Lie on back. Lift leg with knee slightly bent. Gently straighten knee until stretch felt in back of thigh.
+- Lumbar radiculopathy aggravated by SLR
+- Discontinue when hamstring flexibility normalizes
+- Standing iliotibial band stretch for IT band syndrome and lateral knee pain.
+- Stand near wall. Cross involved leg behind other. Lean hip toward wall. Feel stretch on outside of hip/thigh.
+- Severe balance impairment without support
+- Lumbar stabilization exercise activating transverse abdominis and multifidus.
+- Lie on back, knees bent. Gently flatten low back against floor by tightening abdominals. Hold 5 seconds.
+- Progress to dead bug when pelvic tilt is consistent
+- Lumbar flexion stretch for facet joint and paraspinal muscle flexibility.
+- Lie on back. Pull one or both knees to chest. Hold. Feel stretch in low back.
+- Acute lumbar disc herniation with centralization (extension preferred)
+- Discontinue when lumbar flexion ROM normalizes
+- Lumbar extension exercise for disc herniation with centralization phenomenon.
+- Lie face down. Place hands under shoulders. Push upper body up keeping hips on floor. Hold 2 seconds.
+- Progress to standing extension when prone extension is pain-free
+- On hands and knees. Extend opposite arm and leg simultaneously. Keep back flat. Hold 5 seconds.
+- Add resistance band when form is consistent
+- McGill SM. Low Back Disorders (2007)
+- Supine core stabilization exercise with contralateral arm/leg lowering.
+- Lie on back, arms up, knees bent 90°. Lower opposite arm and leg toward floor. Keep low back flat. Return.
+- Add resistance when form is consistent
+- Lateral core stabilization exercise targeting quadratus lumborum and obliques.
+- Lie on side. Support on forearm and feet. Lift hips off floor. Keep body straight. Hold.
+- Start with knees bent (modified)
+- Increase hold time to 60 seconds before adding difficulty
+- On hands and knees. Arch back up (cat). Then let back sag down (cow). Move slowly and rhythmically.
+- Discontinue when lumbar mobility normalizes
+- Prone core stabilization exercise for anterior core and lumbar stabilizers.
+- Support on forearms and toes. Keep body straight. Tighten abdominals. Hold.
+- Start with knees down (modified)
+- Increase hold time to 60 seconds before adding difficulty
+- Active ankle ROM exercise tracing alphabet letters.
+- Sit with leg elevated. Move foot to trace each letter of the alphabet. Move only ankle, not leg.
+- Elevate limb to reduce swelling
+- Progress to standing balance when ROM is pain-free
+- Bilateral heel raises for gastrocnemius and soleus strengthening.
+- Avoid if Achilles tendinopathy is acute
+- Stand on one leg. Keep slight knee bend. Hold balance. Use support if needed.
+- Severe balance impairment without support
+- Stand near wall or chair
+- Progress to unstable surface (foam pad) when 30 seconds achieved
+- Specific plantar fascia stretch shown to be superior to Achilles stretch for plantar fasciitis.
+- Sit and cross affected foot over knee. Pull toes back toward shin. Feel stretch in arch. Hold.
+- Perform before first steps in morning
+- Discontinue when morning pain resolves
+- Peroneal strengthening with elastic resistance for lateral ankle stability.
+- Sit with band around foot. Turn foot outward against resistance. Control return.
+- Move only ankle, not leg
+- Avoid if acute lateral ankle sprain (first 48h)
+- Increase band resistance when 3x20 completed without fatigue
+- Deep cervical flexor activation and forward head posture correction.
+- Sit tall. Gently pull chin straight back (not down). Feel stretch at base of skull. Hold 5 seconds.
+- Progress to cervical flexion strengthening when retraction is pain-free
+- Cervical lateral flexion stretch for upper trapezius and scalene flexibility.
+- Sit tall. Tilt ear toward shoulder. Use hand to gently increase stretch. Hold.
+- Cervical radiculopathy aggravated by lateral flexion
+- Discontinue when cervical lateral flexion ROM normalizes
+- Isometric cervical strengthening in all planes for deep cervical stabilizers.
+- Place hand on forehead. Push head into hand without moving. Hold 5 seconds. Repeat for sides and back.
+- Avoid if dizziness or radiating pain
+- Progress to dynamic strengthening when isometrics are pain-free
+- Narrow base of support balance challenge for fall prevention.
+- Stand with one foot directly in front of other (heel to toe). Hold balance. Use support if needed.
+- Stand near wall or chair
+- Progress to tandem walk when 30 seconds achieved
+- Stand on foam pad on one leg. Keep slight knee bend. Hold balance. Use support if needed.
+- Progress to eyes closed when 30 seconds achieved with eyes open
+- Sit in chair. Cross arms over chest. Stand up fully. Sit back down slowly. Repeat.
+- Treadmill walking for gait speed, endurance, and pattern improvement.
+- Walk on treadmill at comfortable pace. Maintain upright posture. Swing arms naturally.
+- Use safety harness if fall risk
+- Increase speed by 0.1 mph when current speed is comfortable for full duration
+- Functional gait training with obstacles for fall prevention and dual-task training.
+- Walk through course with cones, steps, and turns. Focus on foot clearance and balance.
+- Use assistive device if needed
+- Modified Tai Chi for fall prevention in older adults. Evidence Level 1 for fall reduction.
+- Perform slow, controlled weight shifts and movements. Focus on balance and breathing.
+- Severe balance impairment without supervision
+- Modify movements for individual ability
+- Progress to more complex sequences as balance improves
+- Lateral step training for reactive balance and fall prevention.
+- Step sideways over a line or low obstacle. Maintain balance. Step back. Repeat.
+- Increase step height when lateral steps are safe and controlled
+- Richardson CA et al. Therapeutic Exercise for Spinal Segmental Stabilization (1999)
+- Isolated transverse abdominis activation for lumbar stabilization.
+- Lie on back. Gently draw navel toward spine without moving pelvis. Hold 10 seconds. Breathe normally.
+- Progress to functional positions (sitting, standing) when supine is consistent
+- McGill SM. Low Back Disorders (2007)
+- Lie on back, one knee bent. Place hands under low back. Lift head and shoulders slightly. Hold 8 seconds.
+- Acute lumbar disc herniation (flexion-biased)
+- Do not flex lumbar spine
+- Increase hold time when form is consistent
+- McGill SM. Low Back Disorders (2007)
+- Stand sideways to band anchor. Hold band at chest. Press arms straight out. Hold 2 seconds. Return.
+- Increase band resistance when form is consistent
+- Standing weight shift for symmetrical weight-bearing and balance after neurological injury.
+- Severe balance impairment without support
+- Use parallel bars or support initially
+- Reach for objects at various heights and distances using affected arm. Perform 100+ repetitions per session.
+- Increase task complexity and distance as motor control improves
+- Gait Training with Assistive Device
+- Supervised gait training with appropriate assistive device for neurological conditions.
+- Progress to less restrictive device as gait improves
+- Graded walking program for cardiovascular conditioning and functional endurance.
+- Walk at comfortable pace. Monitor exertion (Borg RPE 11-13). Gradually increase duration.
+- Stop if chest pain, dizziness, or severe dyspnea
+- Increase duration by 5 minutes per week when RPE remains 11-13
+- Diaphragmatic breathing technique for COPD and post-cardiac surgery patients.
+- Place hand on belly. Breathe in through nose, belly rises. Breathe out through pursed lips, belly falls.
+- Wrist Extensor Eccentric Exercise (Tyler Twist)
+- Eccentric wrist extensor exercise for lateral epicondylalgia (tennis elbow).
+- Hold flexible bar with both hands. Twist to pronate. Use uninvolved hand to return. Repeat eccentric phase.
+- Pain during exercise is acceptable (≤5/10)
+- Progress to heavier resistance when pain-free at current level
+- Median nerve mobilization for carpal tunnel syndrome.
+- Extend wrist and fingers. Extend thumb. Tilt head away. Hold 5 seconds. Return. Repeat.
+- Acute carpal tunnel with severe neurological deficit
+- Thoracic Extension over Foam Roller
+- Thoracic extension mobilization using foam roller for kyphosis and thoracic stiffness.
+- Sit in front of foam roller. Lean back over roller at mid-back. Support head. Extend over roller.
+- Progress to thoracic rotation when extension is pain-free
+- Seated thoracic rotation for mobility and pain relief.
+- Sit in chair. Cross arms over chest. Rotate trunk to one side. Hold 3 seconds. Return. Repeat other side.
+- Increase rotation range as mobility improves
+- Relax shoulder completely. Therapist will move your arm in specific directions to improve motion.
+- Progress to Grade IV when Grade III is well-tolerated
+- Lie on side as positioned by therapist. Relax completely. Quick movement will be applied.
+- Acute low back pain relief
+- Relax the area being treated. Therapist will apply sustained pressure to tight areas.
+- Progress to active exercise when tissue mobility improves

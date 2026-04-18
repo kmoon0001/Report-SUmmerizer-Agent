@@ -1,0 +1,4 @@
+mcs.metadata:
+  componentName: Pain Scale
+kind: RegexEntity
+pattern: \b([0-9]|10)(\/10)?\b|\b([0-9]|10)\s?(out\s?of\s?10)\b|pain\s?(level|scale|rating)?\s?([0-9]|10)\b|rates?\s?pain\s?(at|of)?\s?([0-9]|10)\b

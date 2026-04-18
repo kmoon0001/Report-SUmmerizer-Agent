@@ -1,0 +1,15 @@
+kind: AdaptiveDialog
+modelDescription: This topic audits OT discharge notes for discharge summary completeness, discharge disposition accuracy, carryover instructions clarity, equipment and supplies recommendations, and community reintegration safety. It verifies compliance with facility discharge documentation standards and ensures proper handoff to community providers.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_AnalyzeOTDischarge
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+inputType: {}
+outputType: {}
+

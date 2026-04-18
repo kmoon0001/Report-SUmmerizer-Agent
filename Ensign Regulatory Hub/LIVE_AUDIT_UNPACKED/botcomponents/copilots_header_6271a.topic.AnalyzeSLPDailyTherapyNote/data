@@ -1,0 +1,39 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnActivity
+  id: main
+  type: Message
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: hvLaZn
+      latencyMessageSettings:
+        allowLatencyMessage: true
+        latencyMessage: Please wait while I audit this daily note against Medicare Chapter 15 and ASHA standards...
+
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided SLP documentation as a backend connected agent. Return exactly one valid JSON object using the SLP_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - copilots_header_6271a.file.Ch15MedicareBenefitsPolicyManual.pdf_fv6
+            - copilots_header_6271a.file.ScopeofPracticeinSpeech8-26-09.pdf_6hn
+            - copilots_header_6271a.file.dysphagia-competency-verification-tool-users-guide.pdf_sQX
+            - copilots_header_6271a.file.CodingforSLPs.pdf_x7i
+            - copilots_header_6271a.file.ICD-10codesforSLPs.pdf_bFR
+            - copilots_header_6271a.file.StrongSLPDocumentationPatterns.txt_xjA
+            - copilots_header_6271a.file.7.LevelsofSupervisionforDysphagiaEvals.pdf_Siw
+            - copilots_header_6271a.file.aota-apta-asha-consensus-statement.pdf_uWx
+
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - copilots_header_6271a.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_wqEj5W3QWz7
+          - copilots_header_6271a.topic.httpswwwashaorgslpclinical_OELZZf7AFpEWkm1BhulkJ
+
+      applyModelKnowledgeSetting: false
+
+inputType: {}
+outputType: {}
+

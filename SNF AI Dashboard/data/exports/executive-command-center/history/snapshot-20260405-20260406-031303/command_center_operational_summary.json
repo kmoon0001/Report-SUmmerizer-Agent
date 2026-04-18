@@ -1,0 +1,103 @@
+﻿{
+    "generatedAt":  "2026-04-06T03:13:00",
+    "snapshotDateKey":  "20260405",
+    "metrics":  {
+                    "currentResidents":  162,
+                    "residentsWithDocumentationItems":  59,
+                    "outstandingDocumentationItems":  121,
+                    "overdueDocumentationItems":  0,
+                    "residentsWithTherapy":  67,
+                    "totalTherapyMinutes":  7663,
+                    "residentsInPriorityQueue":  82
+                },
+    "censusByUnit":  [
+                         {
+                             "unitCode":  "A",
+                             "residentCount":  41
+                         },
+                         {
+                             "unitCode":  "B",
+                             "residentCount":  34
+                         },
+                         {
+                             "unitCode":  "C",
+                             "residentCount":  33
+                         },
+                         {
+                             "unitCode":  "D",
+                             "residentCount":  54
+                         }
+                     ],
+    "documentationByUnit":  [
+                                {
+                                    "unitCode":  "A",
+                                    "currentResidentDocItems":  54,
+                                    "outstandingDocItems":  52,
+                                    "dueTodayOrEarlier":  6,
+                                    "uniqueResidents":  24
+                                },
+                                {
+                                    "unitCode":  "B",
+                                    "currentResidentDocItems":  23,
+                                    "outstandingDocItems":  20,
+                                    "dueTodayOrEarlier":  8,
+                                    "uniqueResidents":  10
+                                },
+                                {
+                                    "unitCode":  "C",
+                                    "currentResidentDocItems":  22,
+                                    "outstandingDocItems":  20,
+                                    "dueTodayOrEarlier":  2,
+                                    "uniqueResidents":  9
+                                },
+                                {
+                                    "unitCode":  "D",
+                                    "currentResidentDocItems":  30,
+                                    "outstandingDocItems":  29,
+                                    "dueTodayOrEarlier":  2,
+                                    "uniqueResidents":  16
+                                }
+                            ],
+    "executiveUnitSnapshot":  [
+                                  {
+                                      "unitCode":  "A",
+                                      "currentResidents":  41,
+                                      "outstandingDocs":  52,
+                                      "dueTodayOrEarlier":  6,
+                                      "therapyMinutes":  4526,
+                                      "priorityHighestScore":  15,
+                                      "hasTherapyData":  true,
+                                      "hasPriorityData":  true
+                                  },
+                                  {
+                                      "unitCode":  "B",
+                                      "currentResidents":  34,
+                                      "outstandingDocs":  20,
+                                      "dueTodayOrEarlier":  8,
+                                      "therapyMinutes":  918,
+                                      "priorityHighestScore":  14,
+                                      "hasTherapyData":  true,
+                                      "hasPriorityData":  true
+                                  },
+                                  {
+                                      "unitCode":  "C",
+                                      "currentResidents":  33,
+                                      "outstandingDocs":  20,
+                                      "dueTodayOrEarlier":  2,
+                                      "therapyMinutes":  417,
+                                      "priorityHighestScore":  12,
+                                      "hasTherapyData":  true,
+                                      "hasPriorityData":  true
+                                  },
+                                  {
+                                      "unitCode":  "D",
+                                      "currentResidents":  54,
+                                      "outstandingDocs":  29,
+                                      "dueTodayOrEarlier":  2,
+                                      "therapyMinutes":  1802,
+                                      "priorityHighestScore":  13,
+                                      "hasTherapyData":  true,
+                                      "hasPriorityData":  true
+                                  }
+                              ]
+}

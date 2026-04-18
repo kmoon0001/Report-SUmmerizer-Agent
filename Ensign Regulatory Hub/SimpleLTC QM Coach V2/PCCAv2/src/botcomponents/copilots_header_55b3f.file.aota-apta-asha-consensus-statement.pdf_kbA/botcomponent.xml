@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_55b3f.file.aota-apta-asha-consensus-statement.pdf_kbA">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in aota-apta-asha-consensus-statement.pdf</description>
+  <filedata mimetype="application/pdf">aota-apta-asha-consensus-statement.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>aota-apta-asha-consensus-statement.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_55b3f</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

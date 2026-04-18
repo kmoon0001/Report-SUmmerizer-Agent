@@ -1,0 +1,51 @@
+kind: AdaptiveDialog
+modelDescription: Analyze an existing SLP progress or recertification note for requirements such as current status versus baseline, progress toward goals with objective measures, updated goals or plan of care, and justification for continued skilled SLP services. Point out missing elements and suggest concise wording changes to improve defensibility.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - analyze SLP recertification note
+      - review SLP recertification documentation
+      - check SLP recertification note details
+      - evaluate SLP recertification notes
+      - SLP recertification note analysis
+      - interpret SLP recertification note
+      - assess the SLP recertification note
+      - look at the SLP recertification documentation
+      - examine the SLP's recertification notes
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: Z6Pxvx
+      latencyMessageSettings:
+        allowLatencyMessage: true
+        latencyMessage: Please wait while I audit this daily note against Medicare Chapter 15 and ASHA standards...
+
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided SLP documentation as a backend connected agent. Return exactly one valid JSON object using the SLP_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - copilots_header_6271a.file.Ch15MedicareBenefitsPolicyManual.pdf_fv6
+            - copilots_header_6271a.file.ScopeofPracticeinSpeech8-26-09.pdf_6hn
+            - copilots_header_6271a.file.dysphagia-competency-verification-tool-users-guide.pdf_sQX
+            - copilots_header_6271a.file.CodingforSLPs.pdf_x7i
+            - copilots_header_6271a.file.ICD-10codesforSLPs.pdf_bFR
+            - copilots_header_6271a.file.StrongSLPDocumentationPatterns.txt_xjA
+            - copilots_header_6271a.file.7.LevelsofSupervisionforDysphagiaEvals.pdf_Siw
+            - copilots_header_6271a.file.aota-apta-asha-consensus-statement.pdf_uWx
+
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - copilots_header_6271a.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_wqEj5W3QWz7
+          - copilots_header_6271a.topic.httpswwwashaorgslpclinical_OELZZf7AFpEWkm1BhulkJ
+
+      applyModelKnowledgeSetting: false
+
+inputType: {}
+outputType: {}
+

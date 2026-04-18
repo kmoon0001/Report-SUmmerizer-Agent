@@ -1,0 +1,135 @@
+﻿{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_a3ae0"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          },
+          "type": "Request",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "description": "Upload the QM file to analyze",
+                  "title": "ManualUploadFile",
+                  "type": "object",
+                  "properties": {
+                    "contentBytes": {
+                      "type": "string",
+                      "format": "byte"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "x-ms-content-hint": "FILE",
+                  "x-ms-dynamically-added": true
+                },
+                "text": {
+                  "description": "Optional facility, quarter, or report context",
+                  "title": "AnalysisContext",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "file"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Run_a_prompt": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "recordId": "82bca3b1-f1c1-4a0c-9d43-1ab32b757b8e",
+              "item/requestv2/Document_20input/base64Encoded": "@triggerBody()?[\u0027file\u0027]?[\u0027contentBytes\u0027]"
+            },
+            "host": {
+              "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+              "operationId": "aibuilderpredict_customprompt",
+              "connectionName": "shared_commondataserviceforapps-1",
+              "connectionReferenceName": "shared_commondataserviceforapps-1"
+            }
+          }
+        },
+        "Respond_to_the_agent": {
+          "runAfter": {
+            "Run_a_prompt": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          },
+          "type": "Response",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "normalization_status": {
+                  "title": "normalization_status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "normalized_document_type": {
+                  "title": "normalized_document_type",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "normalized_text": {
+                  "title": "normalized_text",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "normalization_status": "@if(empty(outputs(\u0027Run_a_prompt\u0027)?[\u0027body/responsev2/predictionOutput/text\u0027]), \u0027failed\u0027, \u0027success\u0027)",
+              "normalized_document_type": "@if(endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.csv\u0027), \u0027CSV\u0027, if(or(endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.xlsx\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.xls\u0027)), \u0027Excel\u0027, if(endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.pdf\u0027), \u0027PDF\u0027, if(or(endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.png\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.jpg\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.jpeg\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.tif\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.tiff\u0027)), \u0027Image\u0027, if(or(endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.eml\u0027), endsWith(toLower(triggerBody()?[\u0027file\u0027]?[\u0027name\u0027]), \u0027.msg\u0027)), \u0027Email\u0027, \u0027Written Summary\u0027)))))",
+              "normalized_text": "@outputs(\u0027Run_a_prompt\u0027)?[\u0027body/responsev2/predictionOutput/text\u0027]"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

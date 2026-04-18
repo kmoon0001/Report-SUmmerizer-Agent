@@ -1,0 +1,5 @@
+KnowledgeSourceName,Category,Owner,EvidenceLevel,Version,LastReviewed,Notes
+CMS_SNF_Guidance,Regulatory,AssignBeforeUse,Primary,0.1,AssignBeforeUse,Starter entry
+CDC_Infection_Control,Clinical,AssignBeforeUse,Primary,0.1,AssignBeforeUse,Starter entry
+Facility_Policies,Local,AssignBeforeUse,Primary,0.1,AssignBeforeUse,Starter entry
+

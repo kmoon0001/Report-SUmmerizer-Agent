@@ -1,0 +1,4 @@
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/

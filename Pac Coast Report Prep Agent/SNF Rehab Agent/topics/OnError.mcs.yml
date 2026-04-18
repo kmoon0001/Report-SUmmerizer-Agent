@@ -1,0 +1,73 @@
+mcs.metadata:
+  componentName: On Error
+  description: Elite clinical intelligence module specialized in [OnError]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+beginDialog:
+  kind: OnError
+  id: main
+  actions:
+    - kind: SetVariable
+      id: setVariable_errorTimeUtc
+      variable: init:Topic.ErrorTimeUtc
+      value: =Text(Now(), DateTimeFormat.UTC)
+
+    - kind: SetVariable
+      id: setVariable_errorCode
+      variable: init:Topic.ErrorCode
+      value: =System.Error.Code
+
+    - kind: SetVariable
+      id: setVariable_errorMessage
+      variable: init:Topic.ErrorMessage
+      value: =System.Error.Message
+
+    - kind: LogCustomTelemetryEvent
+      id: logTelemetry_onError
+      eventName: AgentRuntimeError
+      properties: "={ConversationId: System.Conversation.Id, ErrorCode: Topic.ErrorCode, ErrorMessage: Topic.ErrorMessage, TimeUTC: Topic.ErrorTimeUtc}"
+
+    - kind: ConditionGroup
+      id: conditionGroup_testModeVerboseError
+      conditions:
+        - id: conditionItem_isTestMode
+          condition: =System.Conversation.InTestMode = true
+          actions:
+            - kind: SendActivity
+              id: sendMessage_verboseError
+              activity: |-
+                Error Message: {Topic.ErrorMessage}
+                Error Code: {Topic.ErrorCode}
+                Conversation Id: {System.Conversation.Id}
+                Time (UTC): {Topic.ErrorTimeUtc}
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_safeError
+          activity: |-
+            I hit a runtime error and switched to a safe mode response.
+            Reference ID: {System.Conversation.Id}
+            Please continue with note type + structured findings, or request escalation.
+
+    - kind: Question
+      id: question_retryOrEscalate
+      alwaysPrompt: true
+      variable: Topic.RetryAfterError
+      prompt: Would you like me to retry with graceful degradation?
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_retryOrEscalate
+      conditions:
+        - id: conditionItem_retry
+          condition: =Topic.RetryAfterError = true
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_retryFallback
+              dialog: pcca_agent39xn69.topic.Fallback
+
+      elseActions:
+        - kind: BeginDialog
+          id: beginDialog_errorEscalate
+          dialog: pcca_agent39xn69.topic.Escalate
+

@@ -1,0 +1,117 @@
+mcs.metadata:
+  componentName: WORKFLOW MENU
+  description: Shows a guided workflow menu on demand without blocking natural-language first turns.
+kind: AdaptiveDialog
+modelDescription: Use this topic when the user explicitly asks for help choosing a workflow, wants a menu, asks what the agent can do, or requests button-guided navigation.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - show workflow menu
+      - workflow menu
+      - open workflow menu
+      - show me the workflow menu
+      - show workflow choices
+      - show workflow buttons
+      - menu
+      - start menu
+      - get started
+      - get started menu
+      - help me choose
+      - help me choose a workflow
+      - guide me
+      - what can you do
+      - show options
+      - show buttons
+      - guided menu
+      - guided setup
+      - guided workflow menu
+      - show qm workflows
+
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: adaptiveCardPrompt_workflowMenu
+      card: |-
+        ={
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "TextBlock",
+              text: "Choose a QM workflow.",
+              wrap: true,
+              weight: "Bolder",
+              size: "Medium"
+            },
+            {
+              type: "TextBlock",
+              text: "Resident outlier coaching is the primary guided path. Use the buttons on this card, or ask for the workflow you want in your own words.",
+              wrap: true,
+              spacing: "Small"
+            }
+          ],
+          actions: [
+            { type: "Action.Submit", title: "Review Resident Outliers", data: { workflowChoice: "Resident Review" } },
+            { type: "Action.Submit", title: "Get QM for a Facility", data: { workflowChoice: "General Analysis" } },
+            { type: "Action.Submit", title: "Compare Predicted vs Actual / Declines", data: { workflowChoice: "Decline Review" } },
+            { type: "Action.Submit", title: "Find QM Drivers", data: { workflowChoice: "Drivers" } },
+            { type: "Action.Submit", title: "Build QM Action Plan", data: { workflowChoice: "Action Plan" } },
+            { type: "Action.Submit", title: "Send DoR Summary Email", data: { workflowChoice: "DoR Summary" } }
+          ]
+        }
+      output:
+        binding:
+          workflowChoice: Topic.WorkflowChoice
+      outputType:
+        properties:
+          workflowChoice: String
+
+    - kind: ConditionGroup
+      id: conditionGroup_routeWorkflowChoice
+      conditions:
+        - id: conditionItem_routeGeneralAnalysis
+          condition: =Text(Topic.WorkflowChoice) = "General Analysis"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeGeneralAnalysis
+              dialog: cr917_agentu92bPc.topic.QMOrchestrator
+
+        - id: conditionItem_routeDeclineReview
+          condition: =Text(Topic.WorkflowChoice) = "Decline Review"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeDeclineReview
+              dialog: cr917_agentu92bPc.topic.QMDATAUPLOADDECLINEDETECTION
+
+        - id: conditionItem_routeDrivers
+          condition: =Text(Topic.WorkflowChoice) = "Drivers"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeDrivers
+              dialog: cr917_agentu92bPc.topic.QMDRIVERS
+
+        - id: conditionItem_routeActionPlan
+          condition: =Text(Topic.WorkflowChoice) = "Action Plan"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeActionPlan
+              dialog: cr917_agentu92bPc.topic.QMACTIONPLAN
+
+        - id: conditionItem_routeDoRSummary
+          condition: =Text(Topic.WorkflowChoice) = "DoR Summary"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeDoRSummary
+              dialog: cr917_agentu92bPc.topic.DoRSUMMARYEMAIL
+
+        - id: conditionItem_routeResidentReview
+          condition: =Text(Topic.WorkflowChoice) = "Resident Review"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeResidentReview
+              dialog: cr917_agentu92bPc.topic.RESIDENTOUTLIERANALYSIS
+
+inputType: {}
+outputType: {}

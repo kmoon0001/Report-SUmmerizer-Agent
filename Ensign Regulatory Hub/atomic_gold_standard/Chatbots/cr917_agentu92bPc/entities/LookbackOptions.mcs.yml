@@ -1,0 +1,12 @@
+mcs.metadata:
+  componentName: Lookback Options
+kind: ClosedListEntity
+items:
+  - id: hE8w44
+    displayName: 30 days
+
+  - id: UpstJY
+    displayName: 60 days
+
+  - id: Lfati2
+    displayName: 90 days

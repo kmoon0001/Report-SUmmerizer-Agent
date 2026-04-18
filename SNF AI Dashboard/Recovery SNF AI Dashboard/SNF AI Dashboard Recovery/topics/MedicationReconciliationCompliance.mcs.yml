@@ -1,0 +1,84 @@
+mcs.metadata:
+  componentName: Medication Reconciliation Compliance
+  description: Elite clinical intelligence module specialized in [MedicationReconciliationCompliance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [MedicationReconciliationCompliance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Medication Reconciliation Compliance
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - medication reconciliation
+      - med rec compliance
+      - reconciliation compliance
+      - med list discrepancy
+      - transition med review
+
+  actions:
+    - kind: Question
+      id: question_scope
+      alwaysPrompt: true
+      variable: init:Topic.ScopeChoice
+      prompt: Is this for one patient or a broader reconciliation review?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: One patient
+            Value: Patient
+          - DisplayName: One unit
+            Value: Unit
+          - DisplayName: Facility-wide
+            Value: Facility
+
+    - kind: Question
+      id: question_phase
+      alwaysPrompt: true
+      variable: init:Topic.PhaseChoice
+      prompt: Which transition point should I focus on?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Admission
+            Value: Admission
+          - DisplayName: Internal transfer
+            Value: Transfer
+          - DisplayName: Discharge
+            Value: Discharge
+          - DisplayName: All transitions
+            Value: AllTransitions
+
+    - kind: Question
+      id: question_issue
+      alwaysPrompt: true
+      variable: init:Topic.IssueChoice
+      prompt: What is the main concern?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Missing completion
+            Value: MissingCompletion
+          - DisplayName: Unresolved discrepancy
+            Value: Discrepancy
+          - DisplayName: High-risk medication carryover
+            Value: HighRiskMed
+          - DisplayName: Overall compliance trend
+            Value: ComplianceTrend
+
+    - kind: SendActivity
+      id: send_advisory
+      activity: Medication reconciliation review should support, not replace, pharmacist and clinician review.
+
+    - kind: SendActivity
+      id: send_reconciliation_summary
+      activity: =Concatenate("I have the intake for ", Topic.ScopeChoice.DisplayName, ", ", Topic.PhaseChoice.DisplayName, ", and ", Topic.IssueChoice.DisplayName, ".")
+
+    - kind: SendActivity
+      id: send_manual_review_next_step
+      activity: Use the intake above to guide manual reconciliation review with pharmacy or the assigned clinician. This topic stays in structured intake mode until a validated live insight backend is connected.
+
+inputType: {}
+outputType: {}
+
+

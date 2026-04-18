@@ -1,0 +1,346 @@
+{
+  "name": "Dead Letter Queue Processor",
+  "description": "Background job that retries failed operations from the dead-letter queue (scheduled every 15 minutes)",
+  "trigger": {
+    "type": "recurrence",
+    "recurrence": {
+      "frequency": "Minute",
+      "interval": 15
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Processing_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "processingState",
+            "type": "object",
+            "value": {
+              "batchSize": 10,
+              "processedCount": 0,
+              "successCount": 0,
+              "failureCount": 0,
+              "abandonedCount": 0,
+              "startTime": "@utcNow()"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Pending_DLQ_Items",
+      "inputs": {
+        "entityName": "snf_dead_letter_queue",
+        "fetchXml": "<fetch top='10'><entity name='snf_dead_letter_queue'><filter type='and'><condition attribute='snf_status' operator='eq' value='pending'/><condition attribute='snf_next_retry' operator='le' value='@{utcNow()}'/><condition attribute='snf_retry_count' operator='lt' attribute='snf_max_retries'/></filter><order attribute='snf_next_retry'/></entity></fetch>"
+      },
+      "runAfter": {
+        "Initialize_Processing_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_DLQ_Items_Found",
+      "expression": {
+        "greater": ["@length(outputs('Get_Pending_DLQ_Items')?['body']?['value'])", 0]
+      },
+      "actions": {
+        "For_Each_DLQ_Item": {
+          "type": "For_Each",
+          "foreach": "@outputs('Get_Pending_DLQ_Items')?['body']?['value']",
+          "actions": {
+            "Mark_As_Processing": {
+              "type": "Microsoft.Dataverse/UpdateRecord",
+              "inputs": {
+                "entityName": "snf_dead_letter_queue",
+                "recordId": "@items('For_Each_DLQ_Item')?['snf_dead_letter_queueid']",
+                "item": {
+                  "snf_status": "processing"
+                }
+              }
+            },
+            "Parse_Operation_Payload": {
+              "type": "Compose",
+              "inputs": "@json(items('For_Each_DLQ_Item')?['snf_payload'])",
+              "runAfter": {
+                "Mark_As_Processing": ["Succeeded"]
+              }
+            },
+            "Retry_Operation_Via_Shared_Utility": {
+              "type": "Scope",
+              "actions": {
+                "Call_Shared_Retry_Utility": {
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "SharedUtilities_WithRetry"
+                    },
+                    "body": {
+                      "operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                      "operationType": "@items('For_Each_DLQ_Item')?['snf_operation_type']",
+                      "operationConfig": "@outputs('Parse_Operation_Payload')",
+                      "retryConfig": {
+                        "maxRetries": 3,
+                        "initialDelaySeconds": 2,
+                        "maxDelaySeconds": 30,
+                        "timeoutSeconds": 30
+                      },
+                      "correlationId": "@items('For_Each_DLQ_Item')?['snf_correlation_id']"
+                    }
+                  },
+                  "timeout": "PT2M"
+                }
+              },
+              "runAfter": {
+                "Parse_Operation_Payload": ["Succeeded"]
+              }
+            },
+            "Handle_Retry_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": ["@result('Retry_Operation_Via_Shared_Utility')[0]['status']", "Succeeded"]
+              },
+              "actions": {
+                "Mark_As_Succeeded": {
+                  "type": "Microsoft.Dataverse/UpdateRecord",
+                  "inputs": {
+                    "entityName": "snf_dead_letter_queue",
+                    "recordId": "@items('For_Each_DLQ_Item')?['snf_dead_letter_queueid']",
+                    "item": {
+                      "snf_status": "succeeded",
+                      "snf_retry_count": "@add(items('For_Each_DLQ_Item')?['snf_retry_count'], 1)"
+                    }
+                  }
+                },
+                "Log_DLQ_Success": {
+                  "type": "Microsoft.Dataverse/CreateRecord",
+                  "inputs": {
+                    "entityName": "snf_operation_log",
+                    "item": {
+                      "snf_operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                      "snf_operation_type": "@items('For_Each_DLQ_Item')?['snf_operation_type']",
+                      "snf_success": true,
+                      "snf_attempts": "@add(items('For_Each_DLQ_Item')?['snf_retry_count'], 1)",
+                      "snf_correlation_id": "@items('For_Each_DLQ_Item')?['snf_correlation_id']",
+                      "snf_timestamp": "@utcNow()"
+                    }
+                  },
+                  "runAfter": {
+                    "Mark_As_Succeeded": ["Succeeded"]
+                  }
+                },
+                "Send_Recovery_Alert": {
+                  "type": "HTTP",
+                  "inputs": {
+                    "method": "POST",
+                    "uri": "@parameters('alertEndpoint')/dlq-recovery",
+                    "body": {
+                      "operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                      "correlationId": "@items('For_Each_DLQ_Item')?['snf_correlation_id']",
+                      "retriesRequired": "@add(items('For_Each_DLQ_Item')?['snf_retry_count'], 1)",
+                      "timestamp": "@utcNow()",
+                      "severity": "Info"
+                    }
+                  },
+                  "runAfter": {
+                    "Log_DLQ_Success": ["Succeeded"]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Calculate_Next_Retry": {
+                    "type": "Compose",
+                    "inputs": {
+                      "currentRetryCount": "@items('For_Each_DLQ_Item')?['snf_retry_count']",
+                      "nextRetryCount": "@add(items('For_Each_DLQ_Item')?['snf_retry_count'], 1)",
+                      "backoffMinutes": "@mul(power(2, items('For_Each_DLQ_Item')?['snf_retry_count']), 15)",
+                      "nextRetryTime": "@addMinutes(utcNow(), mul(power(2, items('For_Each_DLQ_Item')?['snf_retry_count']), 15))",
+                      "maxRetries": "@items('For_Each_DLQ_Item')?['snf_max_retries']"
+                    }
+                  },
+                  "Check_If_Should_Abandon": {
+                    "type": "ConditionGroup",
+                    "expression": {
+                      "greaterOrEquals": [
+                        "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                        "@outputs('Calculate_Next_Retry')?['maxRetries']"
+                      ]
+                    },
+                    "actions": {
+                      "Mark_As_Abandoned": {
+                        "type": "Microsoft.Dataverse/UpdateRecord",
+                        "inputs": {
+                          "entityName": "snf_dead_letter_queue",
+                          "recordId": "@items('For_Each_DLQ_Item')?['snf_dead_letter_queueid']",
+                          "item": {
+                            "snf_status": "abandoned",
+                            "snf_retry_count": "@outputs('Calculate_Next_Retry')?['nextRetryCount']"
+                          }
+                        }
+                      },
+                      "Log_Abandonment": {
+                        "type": "Microsoft.Dataverse/CreateRecord",
+                        "inputs": {
+                          "entityName": "snf_operation_log",
+                          "item": {
+                            "snf_operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                            "snf_operation_type": "@items('For_Each_DLQ_Item')?['snf_operation_type']",
+                            "snf_success": false,
+                            "snf_attempts": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                            "snf_correlation_id": "@items('For_Each_DLQ_Item')?['snf_correlation_id']",
+                            "snf_last_error": "@string(result('Retry_Operation_Via_Shared_Utility')[0]['error'])",
+                            "snf_timestamp": "@utcNow()"
+                          }
+                        },
+                        "runAfter": {
+                          "Mark_As_Abandoned": ["Succeeded"]
+                        }
+                      },
+                      "Send_Abandonment_Alert": {
+                        "type": "HTTP",
+                        "inputs": {
+                          "method": "POST",
+                          "uri": "@parameters('alertEndpoint')/dlq-abandoned",
+                          "body": {
+                            "operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                            "correlationId": "@items('For_Each_DLQ_Item')?['snf_correlation_id']",
+                            "totalRetries": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                            "lastError": "@result('Retry_Operation_Via_Shared_Utility')[0]['error']",
+                            "timestamp": "@utcNow()",
+                            "severity": "High",
+                            "requiresManualIntervention": true
+                          }
+                        },
+                        "runAfter": {
+                          "Log_Abandonment": ["Succeeded"]
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {
+                        "Schedule_Next_Retry": {
+                          "type": "Microsoft.Dataverse/UpdateRecord",
+                          "inputs": {
+                            "entityName": "snf_dead_letter_queue",
+                            "recordId": "@items('For_Each_DLQ_Item')?['snf_dead_letter_queueid']",
+                            "item": {
+                              "snf_status": "pending",
+                              "snf_retry_count": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                              "snf_next_retry": "@outputs('Calculate_Next_Retry')?['nextRetryTime']",
+                              "snf_error": "@string(result('Retry_Operation_Via_Shared_Utility')[0]['error'])"
+                            }
+                          }
+                        },
+                        "Log_Retry_Scheduled": {
+                          "type": "Microsoft.Dataverse/CreateRecord",
+                          "inputs": {
+                            "entityName": "snf_operation_log",
+                            "item": {
+                              "snf_operation": "@items('For_Each_DLQ_Item')?['snf_operation']",
+                              "snf_operation_type": "@items('For_Each_DLQ_Item')?['snf_operation_type']",
+                              "snf_success": false,
+                              "snf_attempts": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                              "snf_correlation_id": "@items('For_Each_DLQ_Item')?['snf_correlation_id']",
+                              "snf_last_error": "@concat('Retry scheduled for ', string(outputs('Calculate_Next_Retry')?['nextRetryTime']))",
+                              "snf_timestamp": "@utcNow()"
+                            }
+                          },
+                          "runAfter": {
+                            "Schedule_Next_Retry": ["Succeeded"]
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Calculate_Next_Retry": ["Succeeded"]
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Retry_Operation_Via_Shared_Utility": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Get_Pending_DLQ_Items": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Processing_Summary",
+      "inputs": {
+        "processedCount": "@length(outputs('Get_Pending_DLQ_Items')?['body']?['value'])",
+        "successCount": "@length(filter(outputs('Get_Pending_DLQ_Items')?['body']?['value'], equals(item()?['snf_status'], 'succeeded')))",
+        "abandonedCount": "@length(filter(outputs('Get_Pending_DLQ_Items')?['body']?['value'], equals(item()?['snf_status'], 'abandoned')))",
+        "pendingCount": "@length(filter(outputs('Get_Pending_DLQ_Items')?['body']?['value'], equals(item()?['snf_status'], 'pending')))",
+        "duration": "@div(sub(ticks(utcNow()), ticks(variables('processingState')['startTime'])), 10000000)"
+      },
+      "runAfter": {
+        "Check_If_DLQ_Items_Found": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_High_Abandonment_Rate",
+      "expression": {
+        "and": [
+          {
+            "greater": ["@outputs('Calculate_Processing_Summary')?['processedCount']", 0]
+          },
+          {
+            "greaterOrEquals": [
+              "@div(outputs('Calculate_Processing_Summary')?['abandonedCount'], outputs('Calculate_Processing_Summary')?['processedCount'])",
+              0.5
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Send_High_Abandonment_Alert": {
+          "type": "HTTP",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('alertEndpoint')/high-abandonment-rate",
+            "body": {
+              "processedCount": "@outputs('Calculate_Processing_Summary')?['processedCount']",
+              "abandonedCount": "@outputs('Calculate_Processing_Summary')?['abandonedCount']",
+              "abandonmentRate": "@div(outputs('Calculate_Processing_Summary')?['abandonedCount'], outputs('Calculate_Processing_Summary')?['processedCount'])",
+              "timestamp": "@utcNow()",
+              "severity": "Critical",
+              "message": "DLQ abandonment rate exceeds 50% - investigate system health"
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Calculate_Processing_Summary": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Processing_Summary",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "processedCount": "@outputs('Calculate_Processing_Summary')?['processedCount']",
+          "successCount": "@outputs('Calculate_Processing_Summary')?['successCount']",
+          "abandonedCount": "@outputs('Calculate_Processing_Summary')?['abandonedCount']",
+          "pendingCount": "@outputs('Calculate_Processing_Summary')?['pendingCount']",
+          "durationSeconds": "@outputs('Calculate_Processing_Summary')?['duration']",
+          "timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Check_If_High_Abandonment_Rate": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

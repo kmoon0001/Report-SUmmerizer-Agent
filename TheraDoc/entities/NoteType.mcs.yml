@@ -1,0 +1,24 @@
+mcs.metadata:
+  componentName: Note Type
+kind: ClosedListEntity
+items:
+  - id: WJLq4T
+    displayName: Daily Note
+
+  - id: XycGvP
+    displayName: Progress Note
+
+  - id: Q3dKFh
+    displayName: Evaluation
+
+  - id: WZiRKI
+    displayName: Recertification
+
+  - id: jjKvnx
+    displayName: Discharge Summary
+
+  - id: RkoqYE
+    displayName: Nursing Handoff
+
+  - id: V9np4h
+    displayName: SBAR

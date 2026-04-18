@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_3f0ed.file.MedicareProgramIntegrityManualCh3.pdf_jtj">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Medicare Program Integrity Manual Ch3.pdf</description>
+  <filedata mimetype="application/pdf">Medicare%20Program%20Integrity%20Manual%20Ch3.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Medicare Program Integrity Manual Ch3.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

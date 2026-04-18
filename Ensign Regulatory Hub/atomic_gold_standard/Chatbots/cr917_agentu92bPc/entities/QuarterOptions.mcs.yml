@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: Quarter Options
+kind: ClosedListEntity
+items:
+  - id: Q1
+    displayName: Q1
+
+  - id: Q2
+    displayName: Q2
+
+  - id: Q3
+    displayName: Q3
+
+  - id: Q4
+    displayName: Q4

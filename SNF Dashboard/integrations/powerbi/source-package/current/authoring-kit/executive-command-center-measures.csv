@@ -1,0 +1,16 @@
+MeasureName,DisplayFolder,DaxExpression,Definition,DependsOn
+Current Resident Census,Executive KPI,"COUNTROWS ( FactCurrentResidentCensus )",Current active resident count,FactCurrentResidentCensus
+Residents With Documentation Items,Executive KPI,"DISTINCTCOUNT ( FactDocumentationQueue[ResidentSourceId] )",Residents currently represented in the documentation queue,FactDocumentationQueue
+Outstanding Documentation Items,Executive KPI,"CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[IsOutstanding] = ""True"" )",Outstanding documentation queue items,FactDocumentationQueue
+Overdue Documentation Items,Executive KPI,"CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[DocumentationStatus] = ""Overdue"" )",Overdue documentation queue items,FactDocumentationQueue
+Documentation Due Today Or Earlier,Executive KPI,"CALCULATE ( COUNTROWS ( FactDocumentationQueue ), USERELATIONSHIP ( FactDocumentationQueue[DueDateKey], DimDate[DateKey] ), DimDate[Date] <= TODAY () )",Documentation items due today or earlier,FactDocumentationQueue;DimDate
+Current Residents By Unit Snapshot,Executive KPI,"SUM ( FactExecutiveUnitSnapshot[CurrentResidentCount] )",Current residents from the executive unit snapshot,FactExecutiveUnitSnapshot
+Residents With Therapy,Executive KPI,"DISTINCTCOUNT ( FactTherapyCoverage[ResidentSourceId] )",Residents with therapy coverage rows,FactTherapyCoverage
+Total Therapy Minutes,Executive KPI,"SUM ( FactTherapyCoverage[Minutes] )",Total therapy minutes in the current therapy coverage file,FactTherapyCoverage
+Residents In Priority Queue,Executive KPI,"COUNTROWS ( FactResidentPriority )",Residents in the combined priority queue,FactResidentPriority
+Priority Score Max,Executive KPI,"MAX ( FactResidentPriority[PriorityScore] )",Highest resident priority score in current selection,FactResidentPriority
+Outstanding Docs By Unit,Operations,"CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[IsOutstanding] = ""True"" )",Outstanding documentation items in current filter context,FactDocumentationQueue
+Therapy Minutes By Unit,Operations,"SUM ( FactTherapyCoverage[Minutes] )",Therapy minutes in current filter context,FactTherapyCoverage
+Residents Treated By Unit,Operations,"DISTINCTCOUNT ( FactTherapyCoverage[ResidentSourceId] )",Residents with therapy rows in current filter context,FactTherapyCoverage
+Executive Unit Outstanding Docs,Operations,"SUM ( FactExecutiveUnitSnapshot[OutstandingDocumentationItemCount] )",Outstanding documentation items from the executive unit snapshot,FactExecutiveUnitSnapshot
+Executive Unit Therapy Minutes,Operations,"SUM ( FactExecutiveUnitSnapshot[TherapyMinutes] )",Therapy minutes from the executive unit snapshot,FactExecutiveUnitSnapshot

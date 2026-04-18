@@ -1,0 +1,13 @@
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: DocumentationStandards
+    value: "{{conversation.lastUserMessage.text}}"
+
+modelDisplayName: PT DOCUMENATION STANDARDS PROMPT
+modelDescription: PT DOCUMENATION STANDARDS PROMPT
+action:
+  kind: InvokeAIBuilderModelTaskAction
+  aIModelId: 08a6d787-e9b9-4929-8ffd-3953c81a863c
+
+outputMode: All

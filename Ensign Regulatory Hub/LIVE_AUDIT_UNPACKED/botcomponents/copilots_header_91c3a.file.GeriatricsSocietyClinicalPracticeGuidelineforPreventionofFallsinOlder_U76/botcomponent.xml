@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_91c3a.file.GeriatricsSocietyClinicalPracticeGuidelineforPreventionofFallsinOlder_U76">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Geriatrics Society Clinical Practice Guideline for Prevention of Falls in Older Person.pdf</description>
+  <filedata mimetype="application/pdf">Geriatrics%20Society%20Clinical%20Practice%20Guideline%20for%20Prevention%20of%20Falls%20in%20Older%20Person.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Geriatrics Society Clinical Practice Guideline for Prevention of Falls in Older Person.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_91c3a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

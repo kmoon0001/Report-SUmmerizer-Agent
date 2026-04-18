@@ -1,0 +1,62 @@
+mcs.metadata:
+  componentName: Conversational Boosting
+  description: Elite clinical intelligence module specialized in [Conversationalboosting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Enhanced Conversational Boosting with integrated user feedback loop for AI quality tracking.
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search-content
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+
+    - kind: ConditionGroup
+      id: has-answer-conditions
+      conditions:
+        - id: has-answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: SendActivity
+              id: DisplayAnswer
+              activity: "{Topic.Answer}"
+
+            - kind: Question
+              id: CheckHelpfulness
+              variable: Topic.IsHelpful
+              prompt: "Was this information helpful for your compliance review?"
+              entity: BooleanPrebuiltEntity
+
+            - kind: ConditionGroup
+              id: FeedbackLogic
+              conditions:
+                - id: NotHelpful
+                  condition: =Topic.IsHelpful = false
+                  actions:
+                    - kind: SendActivity
+                      id: Apology
+                      activity: I apologize for not finding a precise answer. Would you like to escalate this to a human reviewer or try rephrasing?
+                    
+                    - kind: Question
+                      id: EscalateChoice
+                      variable: Topic.WantEscalate
+                      prompt: "Escalate to human review?"
+                      entity: BooleanPrebuiltEntity
+
+                    - kind: ConditionGroup
+                      id: EscalateRedirect
+                      conditions:
+                        - id: Escalate
+                          condition: =Topic.WantEscalate = true
+                          actions:
+                            - kind: BeginDialog
+                              id: CallEscalate
+                              dialog: cr917_agentu92bPc.topic.Escalate
+
+            - kind: EndDialog
+              id: end-topic
+              clearTopicQueue: true
+
+
+

@@ -1,0 +1,35 @@
+mcs.metadata:
+  componentName: SNF Command Center - Process Clinical Image Review
+kind: TaskDialog
+modelDisplayName: SNF Command Center - Process Clinical Image Review
+modeldescription: Elite clinical intelligence module specialized in [ProcessClinicalImageReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+inputs:
+  - propertyName: imagetype
+    required: false
+  - propertyName: imageuse
+    required: false
+  - propertyName: approvalstatus
+    required: false
+  - propertyName: sourcefilename
+    required: false
+outputs:
+  - propertyName: status
+  - propertyName: summary
+  - propertyName: confidence
+  - propertyName: requireshumanreview
+  - propertyName: datasource
+  - propertyName: warnings
+  - propertyName: citations
+  - propertyName: groundedness_status
+  - propertyName: verification_status
+  - propertyName: uncertainty_reason
+  - propertyName: observedconcern
+  - propertyName: recommendedroute
+  - propertyName: nextstep
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 5e616864-234a-44c7-adb6-748cf1f146df
+
+outputMode: All
+

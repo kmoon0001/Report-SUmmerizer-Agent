@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_70a50.file.icd10cm_tabular_2026.pdf_wXI">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in icd10cm_tabular_2026.pdf</description>
+  <filedata mimetype="application/pdf">icd10cm_tabular_2026.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>icd10cm_tabular_2026.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_70a50</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

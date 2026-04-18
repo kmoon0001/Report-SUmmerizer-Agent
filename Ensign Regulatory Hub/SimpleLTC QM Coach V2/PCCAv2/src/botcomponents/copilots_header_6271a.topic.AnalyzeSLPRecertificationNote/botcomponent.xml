@@ -1,0 +1,22 @@
+<botcomponent schemaname="copilots_header_6271a.topic.AnalyzeSLPRecertificationNote">
+  <componenttype>9</componenttype>
+  <description>Analyze an existing SLP progress or recertification note for requirements such as current status versus baseline, progress toward goals with objective measures, updated goals or plan of care, and justification for continued skilled SLP services. Point out missing elements and suggest concise wording changes to improve defensibility.
+
+Trigger words: 
+analyze slp recert note
+
+analyze slp progress / recert note
+
+check this slp recertification
+
+is this slp recert note complete
+
+slp recert documentation check</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Analyze SLP Recertification Note</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

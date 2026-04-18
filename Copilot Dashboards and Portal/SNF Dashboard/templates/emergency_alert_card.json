@@ -1,0 +1,42 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "style": "attention",
+      "bleed": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "🚨 URGENT CLINICAL ESCALATION",
+          "weight": "Bolder",
+          "size": "Medium",
+          "color": "Attention"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            { "title": "Priority:", "value": "${UrgencyLevel}" },
+            { "title": "Concern:", "value": "${ConcernText}" },
+            { "title": "Patient Context:", "value": "${PatientID}" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "PROHIBITED: Do not wait for an automated response. Follow facility protocol immediately.",
+      "wrap": true,
+      "color": "Attention",
+      "weight": "Bolder",
+      "spacing": "Medium"
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.3"
+}

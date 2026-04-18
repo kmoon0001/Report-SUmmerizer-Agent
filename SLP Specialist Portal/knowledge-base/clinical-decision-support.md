@@ -1,0 +1,23 @@
+# Clinical Decision Support
+
+- Decision rule for determining need for ankle radiography after injury
+- Inability to bear weight immediately after injury
+- Inability to bear weight for 4 steps
+- Tenderness at posterior edge of lateral malleolus
+- Tenderness at posterior edge of medial malleolus
+- Tenderness at base of 5th metatarsal
+- Proceed with clinical examination and treatment
+- Stiell, I. G., et al. (1992). Ottawa Ankle Rules.
+- Knee Ligament Injury Decision Rule
+- Decision rule for assessing knee ligament injury severity and need for imaging
+- Decision rule for predicting stroke rehabilitation outcomes and recovery potential
+- Comprehensive decision rule for assessing fall risk and prevention strategies
+- Consider home modification, assistive devices, balance training
+- Decision rule for assessing aspiration risk and diet modification needs
+- Decision rule for classifying cognitive impairment severity and intervention intensity
+- Adjust intervention intensity and complexity accordingly
+- Decision rule for determining appropriate discharge setting and follow-up care
+- Decision rule for determining appropriate treatment frequency and intensity
+- Adjust based on progress and response
+- Decision rule for assessing rehabilitation potential and expected outcomes
+- Decision rule for monitoring intervention effectiveness and adjusting treatment

@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.ResidentOutlierReviewProtocolHIPAACompliant.md_Ipb">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Resident Outlier Review Protocol HIPAA Compliant.md</description>
+  <filedata mimetype="application/octet-stream">Resident%20Outlier%20Review%20Protocol%20HIPAA%20Compliant.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Resident Outlier Review Protocol HIPAA Compliant.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

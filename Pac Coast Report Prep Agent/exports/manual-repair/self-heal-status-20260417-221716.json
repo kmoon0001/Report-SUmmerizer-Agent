@@ -1,0 +1,65 @@
+﻿{
+    "generatedAtUtc":  "2026-04-18T05:17:16.8995900Z",
+    "projectRoot":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent",
+    "environmentId":  "Default-03cc92c3-986c-4cf4-ae27-1478cf99d17f",
+    "environmentUrl":  "https://org3353a370.crm.dynamics.com/",
+    "agentId":  "c030a53a-4839-f111-88b4-000d3a37eba2",
+    "repairPlanFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\runtime-repair-plan-20260417-221716.json",
+    "driftCount":  6,
+    "driftTopics":  [
+                        {
+                            "topic":  "ClassifyAndRouteRehabRecord",
+                            "driftStatus":  "MissingDialog",
+                            "runtimeComponentId":  "42766d20-8fbe-4a36-a104-6f2edab84ae5",
+                            "runtimeSchema":  "template-content.topic.ClassifyAndRouteRehabRecord",
+                            "localSchema":  "pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ClassifyAndRouteRehabRecord.dialog.yml",
+                            "repairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content."
+                        },
+                        {
+                            "topic":  "EvalAnalysis",
+                            "driftStatus":  "MissingDialog",
+                            "runtimeComponentId":  "2df0e006-0aee-4b34-84e6-53e96c8037aa",
+                            "runtimeSchema":  "template-content.topic.EvalAnalysis",
+                            "localSchema":  "pcca_agent39xn69.topic.EvalAnalysis",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\EvalAnalysis.dialog.yml",
+                            "repairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content."
+                        },
+                        {
+                            "topic":  "ProgressAnalysis",
+                            "driftStatus":  "MissingDialog",
+                            "runtimeComponentId":  "a508c0ba-9c8d-490e-a3b7-77f299823336",
+                            "runtimeSchema":  "template-content.topic.ProgressAnalysis",
+                            "localSchema":  "pcca_agent39xn69.topic.ProgressAnalysis",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ProgressAnalysis.dialog.yml",
+                            "repairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content."
+                        },
+                        {
+                            "topic":  "RecertAnalysis",
+                            "driftStatus":  "MissingDialog",
+                            "runtimeComponentId":  "fb80ea18-8e91-4405-80c1-1dbfd9446faa",
+                            "runtimeSchema":  "template-content.topic.RecertAnalysis",
+                            "localSchema":  "pcca_agent39xn69.topic.RecertAnalysis",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\RecertAnalysis.dialog.yml",
+                            "repairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content."
+                        },
+                        {
+                            "topic":  "DischargeAnalysis",
+                            "driftStatus":  "MissingDialog",
+                            "runtimeComponentId":  "b770245b-4798-4671-963b-2892fd3953e5",
+                            "runtimeSchema":  "template-content.topic.DischargeAnalysis",
+                            "localSchema":  "pcca_agent39xn69.topic.DischargeAnalysis",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\DischargeAnalysis.dialog.yml",
+                            "repairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content."
+                        },
+                        {
+                            "topic":  "Search",
+                            "driftStatus":  "MissingComponent",
+                            "runtimeComponentId":  "7e802649-3401-4000-bdf2-2685f14e5309",
+                            "runtimeSchema":  null,
+                            "localSchema":  "pcca_agent39xn69.topic.Search",
+                            "dialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\Search.dialog.yml",
+                            "repairAction":  "Create topic component, then paste dialog YAML from DialogFile."
+                        }
+                    ]
+}

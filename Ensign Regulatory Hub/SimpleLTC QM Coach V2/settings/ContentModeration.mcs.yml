@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: ContentModeration
+kind: ContentModerationSettings
+moderatedCustomResponse: That request falls outside my clinical decision-support scope. I can help with facility QM analysis, action planning, decline detection, resident outlier coaching, and DoR summaries. Please choose a workflow from the menu or rephrase your request using clinical QM terminology.
+

@@ -1,0 +1,23 @@
+<botcomponent schemaname="copilots_header_6271a.topic.SLPEvaluationNoteAnalyzer">
+  <componenttype>9</componenttype>
+  <description>Analyze an existing SLP evaluation report for completeness, clarity, and defensible documentation. Check that history, current communication or swallowing status, standardized and informal test results, functional impact on daily communication, diagnosis/impressions, prognosis, and plan of care are clearly documented. Identify what is missing or vague and suggest concise, SLP‑appropriate improvements.
+
+Trigger phrases: 
+
+analyze slp eval note
+
+analyze slp evaluation note
+
+check this slp eval
+
+is this slp eval complete
+
+review my slp evaluation report</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Analyze SLP Evaluation Report</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

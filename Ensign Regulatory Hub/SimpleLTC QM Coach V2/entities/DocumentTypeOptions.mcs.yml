@@ -1,0 +1,25 @@
+mcs.metadata:
+  componentName: Document Type Options
+kind: ClosedListEntity
+items:
+  - id: CSV
+    displayName: CSV
+
+  - id: Excel
+    displayName: Excel
+
+  - id: PDF
+    displayName: PDF
+
+  - id: Email
+    displayName: Email
+
+  - id: Word
+    displayName: Word
+
+  - id: Image
+    displayName: Image
+
+  - id: Written Summary
+    displayName: Written Summary
+

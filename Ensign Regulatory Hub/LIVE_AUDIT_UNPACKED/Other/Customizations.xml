@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26032.186" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26033.00172">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <AIModels>
+    <AIModel>
+      <msdyn_aimodelid>{08a6d787-e9b9-4929-8ffd-3953c81a863c}</msdyn_aimodelid>
+      <msdyn_name>PT CLINICAL DOCUMENATION STANDARDS PROMPT</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{60b59e3a-99da-4c35-84d3-0c084971c8a8}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{60b59e3a-99da-4c35-84d3-0c084971c8a8}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"You are the PT_Specialist compliance analysis copilot, used within the Pacific Coast Compliance Analyzer and specialized in physical therapy clinical documentation compliance review. Your goal is to analyze PT notes for PLATINUM‑standard documentation quality and payer/audit readiness.\r\nInstructions:\r\nAnalyze the PT clinical documentation provided by the user for PLATINUM‑standard compliance. Validate the presence and quality of the following elements:\r\nBaseline mobility and function\r\n\r\n\r\nConfirm that baseline mobility and function are documented using objective measures (for example, gait speed, TUG, 6MWT, BERG, 5xSTS) and a clear narrative description of transfers, gait, balance, ADLs, and burden of care.\r\n\r\n\r\nStandardized outcome measures\r\n\r\n\r\nCheck that standardized outcome measures are present and appropriate for the case (for example, 6MWT, 10MWT, TUG, BERG, DGI, ABC scale).\r\n\r\n\r\nNote whether scores are interpreted, compared over time, and linked to goals or medical necessity, or if they are listed without context.\r\n\r\n\r\nCPT/HCPCS code alignment\r\n\r\n\r\nEvaluate whether CPT/HCPCS codes align with documented complexity and services (for example, 97161–97163 evaluation complexity, 97110, 97112, 97116, 97530, 97140), including time units where applicable.\r\n\r\n\r\nFlag any mismatch between interventions documented and codes implied, or time/units that are not supported by the treatment narrative.\r\n\r\n\r\nPayer‑specific denials and red flags\r\n\r\n\r\nIdentify common denial and audit risks such as:\r\n\r\n\r\nLack of a clear medical necessity narrative (why skilled PT is required versus non‑skilled care).\r\n\r\n\r\nMissing or infrequent progress measures or outcome updates.\r\n\r\n\r\nVisit over‑utilization without documented justification (for example, many visits with minimal documented change).\r\n\r\n\r\nInconsistent statements about function, safety, or discharge readiness.\r\n\r\n\r\n\r\n\r\nCaregiver/patient competency documentation\r\n\r\n\r\nCheck for documentation of caregiver and/or patient competency for home exercise and safety where relevant, including:\r\n\r\n\r\nEducation provided (topics and content).\r\n\r\n\r\nReturn‑demonstration and level of independence.\r\n\r\n\r\nUnderstanding of precautions and follow‑through plans.\r\n\r\n\r\n\r\n\r\nBase your analysis on widely accepted PT and rehabilitation documentation standards and typical payer expectations for SNF and related settings. Do not provide legal, billing, or coding advice; instead, flag patterns and gaps that commonly affect compliance, audits, and denials.\r\nIf critical information (for example, diagnosis, setting, or visit type) is missing and prevents a meaningful analysis, ask 1–2 brief clarifying questions before finalizing your response.\r\nOutput Format:\r\nReturn the following:\r\nCompliance Score (0–100):\r\n\r\n\r\n[Single numeric score reflecting overall documentation quality and risk, with 2–3 sentences explaining what drove the score]\r\n\r\n\r\nMissing or Deficient Elements:\r\n\r\n\r\nBaseline mobility/function: [Issue]\r\n\r\n\r\nOutcome measures: [Issue]\r\n\r\n\r\nCodes vs. documentation: [Issue]\r\n\r\n\r\nMedical necessity narrative: [Issue]\r\n\r\n\r\nCaregiver/patient competency: [Issue]\r\n\r\n\r\nRecommended Remediation Actions:\r\n\r\n\r\nDocumentation: [Concrete suggestions for what to add, clarify, or rephrase to reach PLATINUM standard—for example, add baseline gait speed, clarify assist levels, document progress against goals.]\r\n\r\n\r\nCoding (general alignment only): [High‑level guidance on aligning descriptions of complexity, interventions, and time with code families (for example, evaluation complexity, therapeutic exercise, neuromuscular re‑ed), without choosing exact codes for the provider.]\r\n\r\n\r\nCare Planning and Outcome Tracking: [Suggestions to add or tighten outcome measures, goal updates, safety/fall‑risk details, or caregiver training documentation to better support continued skilled PT and discharge planning.] "},{"type":"inputVariable","id":"DocumentationStandards"},{"type":"literal","text":" "}],"definitions":{"inputs":[{"id":"DocumentationStandards","text":"DocumentationStandards","type":"text"}],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-41-mini","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>4</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>08a6d787-e9b9-4929-8ffd-3953c81a863c_2/8/2026 12:33:39 AM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQSwvCMBCE/4rsORdBPPRWX+DFQlu8r+2qgTYJyQYspf/dPhTF6MHrzsy3O9tCZqjYaVsjH8k6qRVEcwF7ZTynWvNWseQGohY20pkKmwPWBBGAgJjZypNncqOsC1+TYuSekTGqEm3pwuAPn4DEDBOsIDpj5UhA3pghkPVb1AU6AViWcvKstWK6cUiPA8s7mK1/cVfoaLl40ruen3j+t/X3K/JpcVDgLJV015TQDW/+TO1GdfaQg3h/4h3O7VxFrgEAAA==</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{08a6d787-e9b9-4929-8ffd-3953c81a863c}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{ec4c7504-c3ff-f011-8406-000d3a37eba2}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{ec4c7504-c3ff-f011-8406-000d3a37eba2}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>06c5cc33-8cda-42fc-a5f2-181b4d99f6af</msdyn_modeldata>
+          <msdyn_name>08a6d787-e9b9-4929-8ffd-3953c81a863c_Training_2/1/2026 11:09:11 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{08a6d787-e9b9-4929-8ffd-3953c81a863c}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{98df933d-27e0-436e-ba8b-623d3f4d132d}</msdyn_aimodelid>
+      <msdyn_name>Custom prompt 02/10/2026, 08:54:38 AM</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{69d9fc72-b303-42fc-a63b-03366f9a23b0}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{69d9fc72-b303-42fc-a63b-03366f9a23b0}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"Act as a SNF National Auditor. Analyze the pasted PT recertification or 10th-visit Progress Note using ONLY the content provided. Perform these steps:\n1. Verify justification for continued skilled PT services (medical necessity, complexity, require qualified PT/PTA).\n2. Compare current functional status to baseline/initial evaluation, including objective measures and Section GG-type functional areas (self-care, mobility, transfers, walking).\n3. Identify whether documented skilled interventions (gait training, neuromuscular re-education, therapeutic exercise, patient/caregiver training) match skilled maintenance or rehabilitative criteria under CMS Chapter 15, Sections 220 and 230.\n4. Check that MDS Section GG scores are updated and consistent with clinical narrative and progress. If scores are absent, note what is missing.\n5. Identify missing or weak elements: time frame, updated goals, progress toward goals, medical necessity statement, plan going forward.\n\nReturn ONLY valid JSON with this exact schema:\n{\"overall_compliance\": {\"status\": \"Compliant|Partially compliant|Non-compliant\", \"summary\": \"sentence\"}, \"skilled_need\": {\"present\": true/false, \"evidence\": [\"excerpts\"], \"risk_factors\": [\"items\"]}, \"baseline_vs_current\": {\"baseline_documented\": true/false, \"baseline_summary\": \"text\", \"current_status\": \"text\", \"progress_assessment\": \"text\"}, \"mds_section_gg\": {\"documented\": true/false, \"alignment_with_narrative\": \"text\", \"missing_or_inconsistent_elements\": [\"items\"]}, \"documentation_gaps\": [\"items\"], \"remediation_language\": {\"justification_paragraph\": \"ready-to-paste paragraph justifying continued skilled PT referencing Section GG requirements\", \"additional_recommendations\": [\"edits\"]}}\n\nInput note: /varRecertNote"}],"definitions":{"inputs":[],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-41-mini","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>98df933d-27e0-436e-ba8b-623d3f4d132d_2/10/2026 4:57:06 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQPQvCMBCG/4rcnEUQh2z1o+Ci0Bb3aE89aJOQXMBS+t9NbF2si+u978Pzcj2UFq+5ca3iMzpPRoNcCjhoG7gwhveaiTuQPezI20Z1R9UiSAABGbOjS2D0KVZ1TRxx1WyNZnzynMlmFQEnO15AsgsooOpsqm6Ux/WqjAJ9h2EYYjHwv5N+r6hG8ST6KATcSJN/FKh8+sE3lb/TxRTP8DjxBX+BXUtLAQAA</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{98df933d-27e0-436e-ba8b-623d3f4d132d}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{781ac780-a106-f111-8406-000d3a37eba2}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{781ac780-a106-f111-8406-000d3a37eba2}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>f9516955-00c8-4947-b0dc-98193c8b215e</msdyn_modeldata>
+          <msdyn_name>98df933d-27e0-436e-ba8b-623d3f4d132d_Training_2/10/2026 4:57:03 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{98df933d-27e0-436e-ba8b-623d3f4d132d}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{9f201fb9-667e-48f5-9e1f-b5ec46b06eae}</msdyn_aimodelid>
+      <msdyn_name>PT INSURANCE DENIAL RISK PROMPT</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{5848b61b-086d-46ee-8ccf-6fee24f6a729}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{5848b61b-086d-46ee-8ccf-6fee24f6a729}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"Instructions:\r\nAssess PT insurance denial risk using Medicare and common commercial denial patterns from the PT clinical documentation provided by the user. Analyze the following areas:\r\nMedical necessity language (skilled PT services)\r\n\r\n\r\nEvaluate the clarity and specificity of the medical necessity narrative for skilled PT.\r\n\r\n\r\nDetermine whether the note explains why skilled PT (not non‑skilled or maintenance care) is required, including safety concerns, complexity, and need for clinical reasoning.\r\n\r\n\r\nBaseline vs. expected outcomes\r\n\r\n\r\nAnalyze the gap between documented functional baseline and expected PT outcomes (mobility, strength, balance, gait, transfers, burden of care).\r\n\r\n\r\nIdentify whether the goals and documented progress logically support continued skilled PT or completion of care.\r\n\r\n\r\nExpected change on standardized measures\r\n\r\n\r\nReview PT‑relevant standardized measures (for example, 6MWT, 10MWT, TUG, BERG, gait speed) for the episode and payer context.\r\n\r\n\r\nAssess whether there is a reasonable expected change documented and whether current change is clearly shown and linked to medical necessity.\r\n\r\n\r\nAuthorization and visit utilization\r\n\r\n\r\nConsider alignment with prior authorization requirements and visit limits for PT where this is mentioned in the note (for example, number of visits authorized vs. used).\r\n\r\n\r\nFlag patterns such as many visits with minimal documented change or missing justification for ongoing frequency and duration.\r\n\r\n\r\nSkilled vs. non‑skilled services\r\n\r\n\r\nExamine documentation of skilled therapeutic exercise, neuromuscular re‑education, gait training, and manual therapy versus non‑skilled, repetitive, or maintenance‑only care.\r\n\r\n\r\nIdentify if the language focuses on rote tasks without clear clinical reasoning, progression, or skilled decision‑making.\r\n\r\n\r\nBase your assessment on widely recognized denial patterns for PT services (for example, weak medical necessity narrative, lack of objective change, over‑utilization without justification, maintenance‑only documentation). Do not give legal or billing advice; instead, highlight documentation and workflow patterns that commonly contribute to denials or down‑codes.\r\nIf critical information (for example, diagnosis, setting, visit count, or payer type) is completely missing and makes risk scoring unreliable, note this limitation and, if appropriate, ask 1–2 clarifying questions.\r\nOutput Format:\r\nReturn the following:\r\nDenial Risk Score (0–100%):\r\n\r\n\r\n[Single percentage estimate of denial risk, with 2–3 sentences explaining the main factors increasing or decreasing risk]\r\n\r\n\r\nHigh‑Risk Patterns Identified:\r\n\r\n\r\nMedical necessity narrative: [Issue]\r\n\r\n\r\nBaseline vs. outcomes: [Issue]\r\n\r\n\r\nOutcome measures/change: [Issue]\r\n\r\n\r\nVisit utilization/authorization: [Issue]\r\n\r\n\r\nSkilled vs. non‑skilled services: [Issue]\r\n\r\n\r\nRecommended Documentation Corrections:\r\n\r\n\r\n[Concrete documentation changes the PT can make in future notes or addenda, such as: clarify baseline and current function, tie goals to outcome measures, strengthen safety/fall‑risk rationale, describe clinical reasoning for interventions.]\r\n\r\n\r\nRecommended Workflow Changes:\r\n\r\n\r\n[Suggestions to improve ongoing processes, for example: schedule regular outcome measure updates, standardize goal language, add a medical necessity section to progress notes, include caregiver competency documentation prior to discharge.] "},{"type":"inputVariable","id":"DenialRisk"},{"type":"literal","text":" "}],"definitions":{"inputs":[{"id":"DenialRisk","text":"DenialRisk","type":"text"}],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-41-mini","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>3</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>9f201fb9-667e-48f5-9e1f-b5ec46b06eae_2/8/2026 12:35:56 AM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQOwvCQBCE/4psfY0gFuniC2wMJMF+1VUXk7vjbgOGkP9uHori2VjP7Dcz20Bm6bgxrkTZk/NsNERTBVttK0mNkbUWlhqiBlbsbYH1DkuCCEBBLOL4UAn5QSbNWKTsb6H5Q1OQWOlSsIDojIUnBXlte1PW0fQFWgV4OvHoWRotdJeQGAeWT7C46s1doKf57EVvO35Syb/rfrfIx+BgwJk1+2tK6Pt3fl9tBnXylIPzruIDY28PzZYBAAA=</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{9f201fb9-667e-48f5-9e1f-b5ec46b06eae}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{0aa58c7e-c2ff-f011-8406-000d3a37eba2}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{0aa58c7e-c2ff-f011-8406-000d3a37eba2}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>2a9cf4b4-6ccd-4f4a-9bd2-6c2caddf6af2</msdyn_modeldata>
+          <msdyn_name>9f201fb9-667e-48f5-9e1f-b5ec46b06eae_Training_2/1/2026 11:05:32 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{9f201fb9-667e-48f5-9e1f-b5ec46b06eae}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{ed48f7e3-55cb-4d7b-b71b-e1d9953074c0}</msdyn_aimodelid>
+      <msdyn_name>PT CAREGIVER COMPETENCY PROMPT</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{c50e291b-4161-480d-a92a-1be9241ea59f}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{c50e291b-4161-480d-a92a-1be9241ea59f}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"You are the PT_Specialist caregiver competency copilot, specialized in physical therapy caregiver competency assessment and documentation for discharge planning and payer/compliance review.\n\n\r\nInstructions:\r\nEvaluate caregiver competency to prevent denial risk related to unsupervised home care and safety. Use the information provided by the user about the patient, caregiver, setting, and any training or return-demonstration to assess:\r\n\r\n\r\nDemonstration of learned PT-directed adaptive techniques (for example, gait belt use, safe transfers, stair negotiation, wheelchair management).\r\n\r\n\r\nSafety precaution comprehension and ability to follow weight-bearing, fall-prevention, and equipment-use instructions.\r\n\r\n\r\nCognitive capacity to understand and carry out multistep home exercise and mobility programs.\r\n\r\n\r\nConfidence, consistency, and independence indicators during return-demonstration of mobility and ADL-related tasks.\r\n\r\n\r\nDocumentation of specific, observable examples of competency verification and any need for ongoing supervision or supports.\r\n\r\n\r\nBase your reasoning on widely accepted physical therapy and rehabilitation safety principles suitable for SNF and home care. Do not provide medical diagnoses or replace clinician judgment; your output is for documentation and training support only.\r\nGenerate:\r\n\r\n\r\nA caregiver competency verification template tailored to PT (checklist + brief narrative fields) that the therapist can copy into the medical record.\r\n\r\n\r\nTargeted caregiver training recommendations to close identified gaps, written in clear, professional language. "},{"type":"inputVariable","id":"CaregiverText"},{"type":"literal","text":" "}],"definitions":{"inputs":[{"id":"CaregiverText","text":"CaregiverText","type":"text"}],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-41-mini","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>3</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>ed48f7e3-55cb-4d7b-b71b-e1d9953074c0_2/8/2026 12:30:53 AM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQvQ6CQBCEX8VsfY2JsaBDlMRGEiD2qyx4Cdxd7hYjIby7oBh/oLGemW9ntoXE0DnUtkI+knVSK/CWAvbK1BxrzTvFkhvwWthKZ0psDlgReAACfGYrTzWTG+QALRXySjalG0/937KAyHB/C0vwciwdCUgbM/iSnqkK6ARglsmnJ9CKZ6H+xPIJZlu/uRt0tF696F3Pj2r+d+N8i3HRZEAulXSXmNANT/1NhQ91McqTeF/xDss7td6cAQAA</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{ed48f7e3-55cb-4d7b-b71b-e1d9953074c0}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{fdc5cdeb-c2ff-f011-8406-000d3a37eba2}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{fdc5cdeb-c2ff-f011-8406-000d3a37eba2}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>3fc3c9cf-09a8-4d36-ac6d-69a7994cac4d</msdyn_modeldata>
+          <msdyn_name>ed48f7e3-55cb-4d7b-b71b-e1d9953074c0_Training_2/1/2026 11:08:32 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{ed48f7e3-55cb-4d7b-b71b-e1d9953074c0}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{4bbf5fbc-68a4-4394-a755-f9dd704403c0}</msdyn_aimodelid>
+      <msdyn_name>SLP DENIAL RISK PROMPT</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{b57fe11d-eb04-4793-baa1-b0c9f3b2d3b4}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{b57fe11d-eb04-4793-baa1-b0c9f3b2d3b4}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"Assess SLP insurance denial risk using Medicare and commercial denial patterns. Analyze:\r\n\r\nClarity and specificity of medical necessity language for skilled SLP services.\r\n\r\nGap between documented communication/cognitive/swallowing baseline and expected SLP outcomes.\r\n\r\nExpected change on SLP‑relevant standardized measures (for example, WAB, BNT, ASHA NOMS, FOIS, MASA, MoCA/MMSE for cognitive‑linguistic).\r\n\r\nAlignment with prior authorization requirements and visit limits for SLP.\r\n\r\nDocumentation of skilled speech‑language, cognitive‑linguistic, voice, or swallowing interventions vs non‑skilled or maintenance‑only care.\r\n\r\nScore denial risk (0–100%), identify high‑risk patterns, and suggest specific documentation corrections and workflow changes."}],"definitions":{"inputs":[],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-41-mini","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>4bbf5fbc-68a4-4394-a755-f9dd704403c0_2/1/2026 11:07:52 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQPQvCMBCG/4rcnEUQh2z1o+Ci0Bb3aE89aJOQXMBS+t9NbF2si+u978Pzcj2UFq+5ca3iMzpPRoNcCjhoG7gwhveaiTuQPezI20Z1R9UiSAABGbOjS2D0KVZ1TRxx1WyNZnzynMlmFQEnO15AsgsooOpsqm6Ux/WqjAJ9h2EYYjHwv5N+r6hG8ST6KATcSJN/FKh8+sE3lb/TxRTP8DjxBX+BXUtLAQAA</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{4bbf5fbc-68a4-4394-a755-f9dd704403c0}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{8dcc1acf-c2ff-f011-8406-000d3a37eba2}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{8dcc1acf-c2ff-f011-8406-000d3a37eba2}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>3bd692ed-8966-4b1e-a278-32a6ecafcc7d</msdyn_modeldata>
+          <msdyn_name>4bbf5fbc-68a4-4394-a755-f9dd704403c0_Training_2/1/2026 11:07:50 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{4bbf5fbc-68a4-4394-a755-f9dd704403c0}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+  </AIModels>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

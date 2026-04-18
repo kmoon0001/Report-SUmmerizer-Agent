@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_024e0.file.8.RehabScreenConsultationOverviewPOSTette.pdf_NGX">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in 8. Rehab Screen Consultation Overview  POSTette.pdf</description>
+  <filedata mimetype="application/pdf">8.%20Rehab%20Screen%20Consultation%20Overview%20%20POSTette.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>8. Rehab Screen Consultation Overview  POSTette.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

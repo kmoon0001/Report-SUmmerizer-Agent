@@ -1,0 +1,100 @@
+mcs.metadata:
+  componentName: ACCOUNTABILITY MATRIX
+  description: Routes user requests about the SNF quality measure accountability matrix. Identifies which staff roles are responsible for specific QM tasks, displays the responsibility chart, and clarifies task ownership across the interdisciplinary team.
+kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: QMRisks
+    name: QMRisks
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: QMDrivers
+    name: QMDrivers
+    shouldPromptUser: true
+
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - accountability matrix
+      - show accountability matrix
+      - who is responsible for this task
+      - responsibility chart
+      - task ownership list
+      - who owns this process
+      - display RACI matrix
+      - team responsibilities overview
+      - project accountability details
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_mXq1c8
+      activity: Welcome to the Accountability Matrix generator. This tool will help you create a structured, role-based accountability matrix aligned with CMS/ONE Clinical expectations. No PHI, resident identifiers, numeric QM values, or clinical advice will be included.
+
+    - kind: ConditionGroup
+      id: conditionGroup_inputGuard
+      conditions:
+        - id: conditionItem_inputsPresent
+          condition: =!IsBlank(Topic.QMRisks) && !IsBlank(Topic.QMDrivers)
+          actions:
+            - kind: SendActivity
+              id: SendActivity_o870oy
+              activity: "Generating accountability items for Therapy, Nursing, and IDT categories. Each item will include: KPI, Role Owner, Cadence, Evidence Required."
+
+            - kind: SearchAndSummarizeContent
+              id: A6WR50
+              latencyMessageSettings:
+                allowLatencyMessage: false
+
+              userInput: "=Concatenate(\"Based on QM Risks: \", Topic.QMRisks, \" and clinical drivers: \", Topic.QMDrivers, \", generate a role-based accountability matrix for the QM team. The output should be a clear, concise matrix format with columns: KPI, Role Owner, Cadence, Evidence Required.\")"
+              additionalInstructions: "=Concatenate(\"QM Risks context: \", Topic.QMRisks, \". Generate a RACI matrix aligned with CMS Ch.15 and ONE Clinical protocols.\")"
+
+            - kind: SendActivity
+              id: SendActivity_q7FZsD
+              activity: "Here is your Accountability Matrix:"
+
+            - kind: BeginDialog
+              id: ta49aR
+              input:
+                binding:
+                  QMDomain: Topic.QMDomain
+
+              dialog: cr917_agentu92bPc.topic.DoRSUMMARYEMAIL
+              output:
+                binding:
+                  QMDomain: Topic.QMDomain
+
+      elseActions:
+        - kind: SendActivity
+          id: sendActivity_missingInputs
+          activity: I need both QM Risks and QM Drivers to generate the accountability matrix. Please provide these first by running QM Analysis or QM Drivers.
+
+    - kind: SendActivity
+      id: sendActivity_Y7B90n
+      activity: Is there anything else I can help you with today?
+
+    - kind: BeginDialog
+      id: irvCo4
+      input:
+        binding:
+          InboundFacility: Global.SelectedFacility
+
+      dialog: cr917_agentu92bPc.topic.QMORCHESTRATOR
+
+inputType:
+  properties:
+    QMDrivers:
+      displayName: QMDrivers
+      type: String
+
+    QMRisks:
+      displayName: QMRisks
+      type: String
+
+outputType:
+  properties:
+    QMDomain:
+      displayName: QMDomain
+      type: String

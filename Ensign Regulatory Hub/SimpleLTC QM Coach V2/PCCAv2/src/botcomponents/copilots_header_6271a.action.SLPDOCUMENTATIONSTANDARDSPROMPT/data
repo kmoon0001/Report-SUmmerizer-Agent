@@ -1,0 +1,8 @@
+kind: TaskDialog
+modelDisplayName: SLP DOCUMENTATION STANDARDS PROMPT  (convert to topic)
+modelDescription: SLP DOCUMENTATION STANDARDS PROMPT
+action:
+  kind: InvokeAIBuilderModelTaskAction
+  aIModelId: 4bbf5fbc-68a4-4394-a755-f9dd704403c0
+
+outputMode: All

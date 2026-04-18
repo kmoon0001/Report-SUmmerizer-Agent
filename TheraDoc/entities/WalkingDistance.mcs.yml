@@ -1,0 +1,4 @@
+mcs.metadata:
+  componentName: Walking Distance
+kind: RegexEntity
+pattern: \b\d+\.?\d*\s?(feet|foot|ft|meters?|m)\b

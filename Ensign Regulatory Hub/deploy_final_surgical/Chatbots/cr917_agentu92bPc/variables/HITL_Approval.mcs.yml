@@ -1,0 +1,9 @@
+mcs.metadata:
+  componentName: HITL_Approval
+kind: Variable
+name: HITL_Approval
+scope: User
+isExternalInitializationAllowed: false
+isOutputToExternalCallers: true
+initializationTimeoutInMilliseconds: 0
+

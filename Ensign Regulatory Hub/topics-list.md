@@ -1,0 +1,54 @@
+- generic [ref=e10]:
+  - banner [ref=e12]:
+    - button "Skip to main content" [ref=e13]
+    - banner [ref=e15]:
+      - button "App launcher" [ref=e18] [cursor=pointer]: 
+      - generic [ref=e24]:
+        - generic [ref=e29]: Copilot Studio
+        - 'button "Environment: Therapy AI Agents Dev" [ref=e37] [cursor=pointer]':
+          - img [ref=e39]
+        - button "Access additional features" [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: 
+      - generic [ref=e46]:
+        - button "Account manager for Moon, Kevin" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: Moon, Kevin
+            - generic [ref=e57]: KM
+        - generic: 
+  - generic [ref=e60]:
+    - navigation [ref=e61]:
+      - tablist [ref=e62]:
+        - tab "Home" [ref=e64] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e68]: Home
+        - tab "Agents" [selected] [ref=e69] [cursor=pointer]:
+          - generic [ref=e72]: Agents
+        - tab "Flows" [ref=e73] [cursor=pointer]:
+          - img [ref=e75]
+          - generic [ref=e80]: Flows
+        - tab "Tools" [ref=e81] [cursor=pointer]:
+          - img [ref=e83]
+          - generic [ref=e85]: Tools
+        - tab "Explore Power Platform" [ref=e87] [cursor=pointer]:
+          - img [ref=e89]
+    - main "Page content" [ref=e93]:
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - img "Icon for your agent" [ref=e105]
+          - heading "SimpleLTC QM Coach V2" [level=1] [ref=e106]
+          - button "open agent protection shield popover" [ref=e107]:
+            - img [ref=e109]
+          - tablist [ref=e111]:
+            - tab "Topics" [selected] [ref=e113] [cursor=pointer]:
+              - generic [ref=e114]: Topics
+            - tab "8 more options" [ref=e115]: "+8"
+        - generic [ref=e117]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: Published 4/11/2026
+            - button "Publish" [disabled] [ref=e122]
+          - button "Test" [ref=e124]:
+            - generic [ref=e125]:
+              - img [ref=e126]
+              - text: Test
+          - tab "4 more options" [ref=e128]:
+            - img [ref=e130]

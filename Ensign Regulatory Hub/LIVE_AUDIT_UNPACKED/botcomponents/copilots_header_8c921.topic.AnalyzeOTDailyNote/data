@@ -1,0 +1,15 @@
+kind: AdaptiveDialog
+modelDescription: This topic audits OT daily therapy notes for CMS compliance, clinical necessity documentation, and skilled need justification per Medicare guidelines.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_AnalyzeOTDailyNote
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+inputType: {}
+outputType: {}
+

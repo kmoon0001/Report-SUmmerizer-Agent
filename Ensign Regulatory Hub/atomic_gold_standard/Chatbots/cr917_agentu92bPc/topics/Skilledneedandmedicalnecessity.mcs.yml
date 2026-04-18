@@ -1,0 +1,85 @@
+mcs.metadata:
+  componentName: Skilled Need and Medical Necessity
+  description: Elite clinical intelligence module specialized in [Skilledneedandmedicalnecessity]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Enhanced topic for evaluating Skilled Need and Medical Necessity.
+    Connects to specialist agents for deep clinical documentation audit.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - skilled need
+      - medical necessity
+      - do I qualify for skilled care
+      - is skilled nursing needed
+      - what is medical necessity
+      - criteria for skilled services
+      - how do I prove medical necessity
+      - requirements for skilled need
+      - does my condition require skilled care
+      - explain medical necessity
+
+  actions:
+    - kind: SendActivity
+      id: IntroMessage
+      activity: Welcome! I can help you evaluate if your documentation supports **Skilled Need** and **Medical Necessity** according to CMS guidelines.
+
+    - kind: Question
+      id: GetDiscipline
+      variable: Topic.Discipline
+      prompt: "Which discipline are we reviewing?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: DisciplineOptions
+          items:
+            - id: PT
+              displayName: Physical Therapy (PT)
+            - id: OT
+              displayName: Occupational Therapy (OT)
+            - id: SLP
+              displayName: Speech-Language Pathology (SLP)
+
+    - kind: Question
+      id: GetDocumentation
+      variable: Topic.Documentation
+      prompt: "Please paste the therapy note or plan of care below:"
+      entity: StringPrebuiltEntity
+
+    - kind: SendActivity
+      id: AnalyzingMessage
+      activity: "⏳ **Analyzing {Topic.Discipline} documentation...** reviewing for clinician intervention, complexity, and specific patient safety factors."
+
+    - kind: ConditionGroup
+      id: RouteToSpecialist
+      conditions:
+        - id: RoutePT
+          condition: =Topic.Discipline = DisciplineOptions.PT
+          actions:
+            - kind: BeginDialog
+              id: CallPT
+              dialog: cr917_agentu92bPc.agent.PT_Specialist
+        
+        - id: RouteOT
+          condition: =Topic.Discipline = DisciplineOptions.OT
+          actions:
+            - kind: BeginDialog
+              id: CallOT
+              dialog: cr917_agentu92bPc.agent.OT_Specialist
+
+        - id: RouteSLP
+          condition: =Topic.Discipline = DisciplineOptions.SLP
+          actions:
+            - kind: BeginDialog
+              id: CallSLP
+              dialog: cr917_agentu92bPc.agent.SLP_Specialist
+
+    - kind: SendActivity
+      id: EducationalDisclaimer
+      activity: "⚠️ **Disclaimer:** This analysis is for educational and administrative audit support. Always refer to your facility's specific policies and licensed clinician judgment."
+
+inputType: {}
+outputType: {}
+
+

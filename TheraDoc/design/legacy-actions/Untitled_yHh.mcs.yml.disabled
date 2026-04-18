@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: TheraDoc - Parse Brain Dump Legacy Alias
+kind: TaskDialog
+modelDisplayName: TheraDoc - Parse Brain Dump Legacy Alias
+modelDescription: Legacy alias retained for compatibility. Routes to the active TheraDoc brain-dump parsing flow.
+outputs:
+  - propertyName: parseddata
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: e0feb36e-8d2f-f111-88b4-000d3a37eba2
+
+outputMode: All

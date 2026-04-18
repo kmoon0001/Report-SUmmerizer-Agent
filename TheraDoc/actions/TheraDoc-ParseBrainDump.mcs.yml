@@ -1,0 +1,20 @@
+mcs.metadata:
+  componentName: TheraDoc - Parse Brain Dump
+kind: TaskDialog
+modelDisplayName: TheraDoc - Parse Brain Dump
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-ParseBrainDump]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+outputs:
+  - propertyName: parseddata
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: e0feb36e-8d2f-f111-88b4-000d3a37eba2
+  inputs:
+    binding:
+      text: Topic.brainDumpText
+      text_1: Topic.discipline
+      text_2: Topic.documentType
+  inputMode: Prompt
+
+outputMode: All
+

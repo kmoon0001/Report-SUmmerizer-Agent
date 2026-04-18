@@ -1,0 +1,15 @@
+displayName: SNF AI Dashboard Recovery
+schemaName: snf_ai_dashboard_recovery
+accessControlPolicy: GroupMembership
+authenticationMode: Integrated
+authenticationTrigger: Always
+configuration:
+  settings:
+    GenerativeActionsEnabled: true
+
+  recognizer:
+    kind: GenerativeAIRecognizer
+
+publishedOn: 2026-04-07T21:16:00.0000000Z
+template: kickStartTemplate-1.0.0
+language: 1033

@@ -1,0 +1,1 @@
+<fetch><entity name='workflow'><all-attributes /><filter><condition attribute='workflowid' operator='eq' value='9d834a1f-1a18-f111-8341-000d3a5a5d47' /></filter></entity></fetch>

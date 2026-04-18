@@ -1,0 +1,48 @@
+﻿// Executive Command Center measures
+// Generated from executive-command-center-measures.csv
+
+// Executive KPI | Current active resident count
+Current Resident Census = COUNTROWS ( FactCurrentResidentCensus )
+
+// Executive KPI | Residents currently represented in the documentation queue
+Residents With Documentation Items = DISTINCTCOUNT ( FactDocumentationQueue[ResidentSourceId] )
+
+// Executive KPI | Outstanding documentation queue items
+Outstanding Documentation Items = CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[IsOutstanding] = "True" )
+
+// Executive KPI | Overdue documentation queue items
+Overdue Documentation Items = CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[DocumentationStatus] = "Overdue" )
+
+// Executive KPI | Documentation items due today or earlier
+Documentation Due Today Or Earlier = CALCULATE ( COUNTROWS ( FactDocumentationQueue ), USERELATIONSHIP ( FactDocumentationQueue[DueDateKey], DimDate[DateKey] ), DimDate[Date] <= TODAY () )
+
+// Executive KPI | Current residents from the executive unit snapshot
+Current Residents By Unit Snapshot = SUM ( FactExecutiveUnitSnapshot[CurrentResidentCount] )
+
+// Executive KPI | Residents with therapy coverage rows
+Residents With Therapy = DISTINCTCOUNT ( FactTherapyCoverage[ResidentSourceId] )
+
+// Executive KPI | Total therapy minutes in the current therapy coverage file
+Total Therapy Minutes = SUM ( FactTherapyCoverage[Minutes] )
+
+// Executive KPI | Residents in the combined priority queue
+Residents In Priority Queue = COUNTROWS ( FactResidentPriority )
+
+// Executive KPI | Highest resident priority score in current selection
+Priority Score Max = MAX ( FactResidentPriority[PriorityScore] )
+
+// Operations | Outstanding documentation items in current filter context
+Outstanding Docs By Unit = CALCULATE ( COUNTROWS ( FactDocumentationQueue ), FactDocumentationQueue[IsOutstanding] = "True" )
+
+// Operations | Therapy minutes in current filter context
+Therapy Minutes By Unit = SUM ( FactTherapyCoverage[Minutes] )
+
+// Operations | Residents with therapy rows in current filter context
+Residents Treated By Unit = DISTINCTCOUNT ( FactTherapyCoverage[ResidentSourceId] )
+
+// Operations | Outstanding documentation items from the executive unit snapshot
+Executive Unit Outstanding Docs = SUM ( FactExecutiveUnitSnapshot[OutstandingDocumentationItemCount] )
+
+// Operations | Therapy minutes from the executive unit snapshot
+Executive Unit Therapy Minutes = SUM ( FactExecutiveUnitSnapshot[TherapyMinutes] )
+

@@ -1,0 +1,322 @@
+{
+  "name": "Notification Queue Processor",
+  "description": "Background job that processes queued notifications with retry logic (scheduled every 5 minutes)",
+  "trigger": {
+    "type": "recurrence",
+    "recurrence": {
+      "frequency": "Minute",
+      "interval": 5
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Processing_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "processingState",
+            "type": "object",
+            "value": {
+              "batchSize": 10,
+              "processedCount": 0,
+              "successCount": 0,
+              "failureCount": 0,
+              "abandonedCount": 0,
+              "startTime": "@utcNow()"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Pending_Notifications",
+      "inputs": {
+        "entityName": "snf_notification_queue",
+        "fetchXml": "<fetch top='10'><entity name='snf_notification_queue'><filter type='and'><condition attribute='snf_status' operator='eq' value='pending'/><condition attribute='snf_next_retry' operator='le' value='@{utcNow()}'/><condition attribute='snf_retry_count' operator='lt' attribute='snf_max_retries'/></filter><order attribute='snf_next_retry'/></entity></fetch>"
+      },
+      "runAfter": {
+        "Initialize_Processing_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Notifications_Found",
+      "expression": {
+        "greater": ["@length(outputs('Get_Pending_Notifications')?['body']?['value'])", 0]
+      },
+      "actions": {
+        "For_Each_Notification": {
+          "type": "For_Each",
+          "foreach": "@outputs('Get_Pending_Notifications')?['body']?['value']",
+          "actions": {
+            "Mark_As_Processing": {
+              "type": "Microsoft.Dataverse/UpdateRecord",
+              "inputs": {
+                "entityName": "snf_notification_queue",
+                "recordId": "@items('For_Each_Notification')?['snf_notification_queueid']",
+                "item": {
+                  "snf_status": "processing"
+                }
+              }
+            },
+            "Parse_Notification_Payload": {
+              "type": "Compose",
+              "inputs": "@json(items('For_Each_Notification')?['snf_payload'])",
+              "runAfter": {
+                "Mark_As_Processing": ["Succeeded"]
+              }
+            },
+            "Send_Notification": {
+              "type": "Scope",
+              "actions": {
+                "Route_By_Channel": {
+                  "type": "Switch",
+                  "expression": "@items('For_Each_Notification')?['snf_channel']",
+                  "cases": {
+                    "Teams": {
+                      "case": "teams",
+                      "actions": {
+                        "Send_Teams_Message": {
+                          "type": "HTTP",
+                          "inputs": {
+                            "method": "POST",
+                            "uri": "@parameters('teamsWebhookEndpoint')",
+                            "headers": {
+                              "Content-Type": "application/json",
+                              "X-Correlation-ID": "@items('For_Each_Notification')?['snf_correlation_id']"
+                            },
+                            "body": {
+                              "type": "message",
+                              "attachments": [
+                                {
+                                  "contentType": "application/vnd.microsoft.card.adaptive",
+                                  "content": "@outputs('Parse_Notification_Payload')?['adaptiveCard']"
+                                }
+                              ]
+                            },
+                            "timeout": "PT15S"
+                          }
+                        }
+                      }
+                    },
+                    "Email": {
+                      "case": "email",
+                      "actions": {
+                        "Send_Email": {
+                          "type": "HTTP",
+                          "inputs": {
+                            "method": "POST",
+                            "uri": "@parameters('emailServiceEndpoint')/send",
+                            "headers": {
+                              "Content-Type": "application/json",
+                              "X-Correlation-ID": "@items('For_Each_Notification')?['snf_correlation_id']"
+                            },
+                            "body": {
+                              "to": "@items('For_Each_Notification')?['snf_recipient']",
+                              "subject": "@outputs('Parse_Notification_Payload')?['subject']",
+                              "body": "@outputs('Parse_Notification_Payload')?['body']",
+                              "isHtml": true
+                            },
+                            "timeout": "PT15S"
+                          }
+                        }
+                      }
+                    },
+                    "SMS": {
+                      "case": "sms",
+                      "actions": {
+                        "Send_SMS": {
+                          "type": "HTTP",
+                          "inputs": {
+                            "method": "POST",
+                            "uri": "@parameters('smsServiceEndpoint')/send",
+                            "headers": {
+                              "Content-Type": "application/json",
+                              "X-Correlation-ID": "@items('For_Each_Notification')?['snf_correlation_id']"
+                            },
+                            "body": {
+                              "to": "@items('For_Each_Notification')?['snf_recipient']",
+                              "message": "@outputs('Parse_Notification_Payload')?['message']"
+                            },
+                            "timeout": "PT10S"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "default": {
+                    "actions": {
+                      "Unknown_Channel_Error": {
+                        "type": "Terminate",
+                        "inputs": {
+                          "runStatus": "Failed",
+                          "runError": {
+                            "code": "UnknownChannel",
+                            "message": "Notification channel not supported: @{items('For_Each_Notification')?['snf_channel']}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Parse_Notification_Payload": ["Succeeded"]
+              }
+            },
+            "Handle_Notification_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": ["@result('Send_Notification')[0]['status']", "Succeeded"]
+              },
+              "actions": {
+                "Mark_As_Succeeded": {
+                  "type": "Microsoft.Dataverse/UpdateRecord",
+                  "inputs": {
+                    "entityName": "snf_notification_queue",
+                    "recordId": "@items('For_Each_Notification')?['snf_notification_queueid']",
+                    "item": {
+                      "snf_status": "succeeded"
+                    }
+                  }
+                },
+                "Log_Success": {
+                  "type": "Microsoft.Dataverse/CreateRecord",
+                  "inputs": {
+                    "entityName": "snf_operation_log",
+                    "item": {
+                      "snf_operation": "notification_delivery",
+                      "snf_operation_type": "notification",
+                      "snf_success": true,
+                      "snf_attempts": "@add(items('For_Each_Notification')?['snf_retry_count'], 1)",
+                      "snf_correlation_id": "@items('For_Each_Notification')?['snf_correlation_id']",
+                      "snf_timestamp": "@utcNow()"
+                    }
+                  },
+                  "runAfter": {
+                    "Mark_As_Succeeded": ["Succeeded"]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Calculate_Next_Retry": {
+                    "type": "Compose",
+                    "inputs": {
+                      "currentRetryCount": "@items('For_Each_Notification')?['snf_retry_count']",
+                      "nextRetryCount": "@add(items('For_Each_Notification')?['snf_retry_count'], 1)",
+                      "backoffMinutes": "@mul(power(2, items('For_Each_Notification')?['snf_retry_count']), 5)",
+                      "nextRetryTime": "@addMinutes(utcNow(), mul(power(2, items('For_Each_Notification')?['snf_retry_count']), 5))",
+                      "maxRetries": "@items('For_Each_Notification')?['snf_max_retries']"
+                    }
+                  },
+                  "Check_If_Should_Abandon": {
+                    "type": "ConditionGroup",
+                    "expression": {
+                      "greaterOrEquals": [
+                        "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                        "@outputs('Calculate_Next_Retry')?['maxRetries']"
+                      ]
+                    },
+                    "actions": {
+                      "Mark_As_Failed": {
+                        "type": "Microsoft.Dataverse/UpdateRecord",
+                        "inputs": {
+                          "entityName": "snf_notification_queue",
+                          "recordId": "@items('For_Each_Notification')?['snf_notification_queueid']",
+                          "item": {
+                            "snf_status": "failed",
+                            "snf_retry_count": "@outputs('Calculate_Next_Retry')?['nextRetryCount']"
+                          }
+                        }
+                      },
+                      "Log_Abandonment": {
+                        "type": "Microsoft.Dataverse/CreateRecord",
+                        "inputs": {
+                          "entityName": "snf_operation_log",
+                          "item": {
+                            "snf_operation": "notification_delivery",
+                            "snf_operation_type": "notification",
+                            "snf_success": false,
+                            "snf_attempts": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                            "snf_correlation_id": "@items('For_Each_Notification')?['snf_correlation_id']",
+                            "snf_last_error": "@string(result('Send_Notification')[0]['error'])",
+                            "snf_timestamp": "@utcNow()"
+                          }
+                        },
+                        "runAfter": {
+                          "Mark_As_Failed": ["Succeeded"]
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {
+                        "Schedule_Retry": {
+                          "type": "Microsoft.Dataverse/UpdateRecord",
+                          "inputs": {
+                            "entityName": "snf_notification_queue",
+                            "recordId": "@items('For_Each_Notification')?['snf_notification_queueid']",
+                            "item": {
+                              "snf_status": "pending",
+                              "snf_retry_count": "@outputs('Calculate_Next_Retry')?['nextRetryCount']",
+                              "snf_next_retry": "@outputs('Calculate_Next_Retry')?['nextRetryTime']"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Calculate_Next_Retry": ["Succeeded"]
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Send_Notification": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Get_Pending_Notifications": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Processing_Summary",
+      "inputs": {
+        "processedCount": "@length(outputs('Get_Pending_Notifications')?['body']?['value'])",
+        "successCount": "@length(filter(outputs('Get_Pending_Notifications')?['body']?['value'], equals(item()?['snf_status'], 'succeeded')))",
+        "failureCount": "@length(filter(outputs('Get_Pending_Notifications')?['body']?['value'], equals(item()?['snf_status'], 'failed')))",
+        "pendingCount": "@length(filter(outputs('Get_Pending_Notifications')?['body']?['value'], equals(item()?['snf_status'], 'pending')))",
+        "duration": "@div(sub(ticks(utcNow()), ticks(variables('processingState')['startTime'])), 10000000)"
+      },
+      "runAfter": {
+        "Check_If_Notifications_Found": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Processing_Summary",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "processedCount": "@outputs('Calculate_Processing_Summary')?['processedCount']",
+          "successCount": "@outputs('Calculate_Processing_Summary')?['successCount']",
+          "failureCount": "@outputs('Calculate_Processing_Summary')?['failureCount']",
+          "pendingCount": "@outputs('Calculate_Processing_Summary')?['pendingCount']",
+          "durationSeconds": "@outputs('Calculate_Processing_Summary')?['duration']",
+          "timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Calculate_Processing_Summary": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

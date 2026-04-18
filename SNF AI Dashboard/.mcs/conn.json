@@ -1,0 +1,20 @@
+{
+  "DataverseEndpoint": "https://orgbd048f00.crm.dynamics.com/",
+  "EnvironmentId": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+  "AccountInfo": {
+    "AccountId": "700a4462-830f-4df4-96f2-2627f16fbc86.a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+    "TenantId": "03cc92c3-986c-4cf4-ae27-1478cf99d17f",
+    "AccountEmail": "123713644@ensignservices.net",
+    "clusterCategory": 5
+  },
+  "AgentId": "9e93bb85-97a2-4d5d-bbfe-0748a1dafbbb",
+  "ComponentCollectionId": null,
+  "SolutionVersions": {
+    "SolutionVersions": {
+      "msft_AIPlatformExtensionsComponents": "1.0.0.300",
+      "msdyn_RelevanceSearch": "1.0.0.618"
+    },
+    "CopilotStudioSolutionVersion": "2026.2.3.19372848"
+  },
+  "AgentManagementEndpoint": "https://powervamg.us-il106.gateway.prod.island.powerapps.com"
+}

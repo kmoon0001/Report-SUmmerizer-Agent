@@ -1,0 +1,522 @@
+{
+  "name": "Enhanced Retry Logic with Exponential Backoff",
+  "description": "Implements sophisticated retry patterns with exponential backoff, jitter, circuit breaker, and fallback strategies per Microsoft best practices",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "operation": "string",
+      "operationData": "object",
+      "maxRetries": "number",
+      "initialDelaySeconds": "number"
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Retry_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "retryState",
+            "type": "object",
+            "value": {
+              "currentAttempt": 0,
+              "maxRetries": "@coalesce(triggerBody()?['maxRetries'], 4)",
+              "initialDelaySeconds": "@coalesce(triggerBody()?['initialDelaySeconds'], 2)",
+              "success": false,
+              "lastError": null,
+              "totalDelaySeconds": 0,
+              "attempts": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Circuit_Breaker_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "circuitBreakerState",
+            "type": "object",
+            "value": {
+              "isOpen": false,
+              "failureCount": 0,
+              "lastFailureTime": null,
+              "resetTimeoutSeconds": 60
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "HTTP",
+      "name": "Check_Circuit_Breaker_Status",
+      "inputs": {
+        "method": "GET",
+        "uri": "@parameters('circuitBreakerEndpoint')/status/@{triggerBody()?['operation']}",
+        "retryPolicy": {
+          "type": "none"
+        }
+      },
+      "runAfter": {
+        "Initialize_Circuit_Breaker_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "SetVariable",
+      "name": "Update_Circuit_Breaker_From_Service",
+      "inputs": {
+        "name": "circuitBreakerState",
+        "value": "@body('Check_Circuit_Breaker_Status')"
+      },
+      "runAfter": {
+        "Check_Circuit_Breaker_Status": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Circuit_Open",
+      "expression": {
+        "equals": [
+          "@variables('circuitBreakerState')['isOpen']",
+          true
+        ]
+      },
+      "actions": {
+        "Calculate_Time_Since_Last_Failure": {
+          "type": "Compose",
+          "inputs": {
+            "secondsSinceFailure": "@div(sub(ticks(utcNow()), ticks(variables('circuitBreakerState')['lastFailureTime'])), 10000000)"
+          }
+        },
+        "Check_If_Should_Reset": {
+          "type": "ConditionGroup",
+          "expression": {
+            "greaterOrEquals": [
+              "@outputs('Calculate_Time_Since_Last_Failure')['secondsSinceFailure']",
+              "@variables('circuitBreakerState')['resetTimeoutSeconds']"
+            ]
+          },
+          "actions": {
+            "Reset_Circuit_Breaker": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('circuitBreakerEndpoint')/reset/@{triggerBody()?['operation']}"
+              }
+            },
+            "Update_Circuit_State_To_Closed": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "circuitBreakerState",
+                "value": "@setProperty(variables('circuitBreakerState'), 'isOpen', false)"
+              },
+              "runAfter": {
+                "Reset_Circuit_Breaker": ["Succeeded"]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Return_Circuit_Open_Error": {
+                "type": "Response",
+                "inputs": {
+                  "statusCode": 503,
+                  "body": {
+                    "success": false,
+                    "error": "Circuit breaker is open",
+                    "message": "Service is temporarily unavailable due to repeated failures",
+                    "retryAfterSeconds": "@sub(variables('circuitBreakerState')['resetTimeoutSeconds'], outputs('Calculate_Time_Since_Last_Failure')['secondsSinceFailure'])",
+                    "fallbackAvailable": true
+                  }
+                }
+              },
+              "Terminate_Circuit_Open": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Failed",
+                  "runError": {
+                    "code": "CircuitBreakerOpen",
+                    "message": "Circuit breaker is open for operation: @{triggerBody()?['operation']}"
+                  }
+                },
+                "runAfter": {
+                  "Return_Circuit_Open_Error": ["Succeeded"]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Calculate_Time_Since_Last_Failure": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Update_Circuit_Breaker_From_Service": ["Succeeded", "Failed"]
+      }
+    },
+    {
+      "type": "Until",
+      "name": "Retry_Loop_With_Exponential_Backoff",
+      "expression": "@or(variables('retryState')['success'], greaterOrEquals(variables('retryState')['currentAttempt'], variables('retryState')['maxRetries']))",
+      "limit": {
+        "count": "@variables('retryState')['maxRetries']",
+        "timeout": "PT5M"
+      },
+      "actions": {
+        "Increment_Attempt_Counter": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "retryState",
+            "value": "@setProperty(variables('retryState'), 'currentAttempt', add(variables('retryState')['currentAttempt'], 1))"
+          }
+        },
+        "Calculate_Backoff_Delay": {
+          "type": "Compose",
+          "inputs": {
+            "baseDelay": "@mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1)))",
+            "jitter": "@rand(0, 1000)",
+            "cappedDelay": "@min(mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1))), 45)",
+            "finalDelay": "@add(min(mul(variables('retryState')['initialDelaySeconds'], power(2, sub(variables('retryState')['currentAttempt'], 1))), 45), div(rand(0, 1000), 1000))"
+          },
+          "runAfter": {
+            "Increment_Attempt_Counter": ["Succeeded"]
+          }
+        },
+        "Wait_With_Exponential_Backoff": {
+          "type": "Wait",
+          "inputs": {
+            "interval": {
+              "count": "@int(mul(outputs('Calculate_Backoff_Delay')['finalDelay'], 1000))",
+              "unit": "Millisecond"
+            }
+          },
+          "runAfter": {
+            "Calculate_Backoff_Delay": ["Succeeded"]
+          }
+        },
+        "Try_Operation": {
+          "type": "Scope",
+          "actions": {
+            "Execute_Operation": {
+              "type": "Switch",
+              "expression": "@triggerBody()?['operation']",
+              "cases": {
+                "AzureML_Prediction": {
+                  "case": "azureml_prediction",
+                  "actions": {
+                    "Call_Azure_ML": {
+                      "type": "HTTP",
+                      "inputs": {
+                        "method": "POST",
+                        "uri": "@parameters('azureMLEndpoint')/predict",
+                        "headers": {
+                          "Content-Type": "application/json",
+                          "Authorization": "Bearer @{parameters('azureMLKey')}"
+                        },
+                        "body": "@triggerBody()?['operationData']",
+                        "timeout": "PT30S"
+                      },
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                },
+                "Dataverse_Query": {
+                  "case": "dataverse_query",
+                  "actions": {
+                    "Query_Dataverse": {
+                      "type": "Microsoft.Dataverse/ListRecords",
+                      "inputs": {
+                        "entityName": "@triggerBody()?['operationData']?['entityName']",
+                        "fetchXml": "@triggerBody()?['operationData']?['fetchXml']"
+                      },
+                      "timeout": "PT30S",
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                },
+                "Dataverse_Create": {
+                  "case": "dataverse_create",
+                  "actions": {
+                    "Create_Dataverse_Record": {
+                      "type": "Microsoft.Dataverse/CreateRecord",
+                      "inputs": {
+                        "entityName": "@triggerBody()?['operationData']?['entityName']",
+                        "item": "@triggerBody()?['operationData']?['item']"
+                      },
+                      "timeout": "PT30S",
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                },
+                "Teams_Notification": {
+                  "case": "teams_notification",
+                  "actions": {
+                    "Send_Teams_Message": {
+                      "type": "HTTP",
+                      "inputs": {
+                        "method": "POST",
+                        "uri": "@parameters('teamsWebhookUrl')",
+                        "headers": {
+                          "Content-Type": "application/json"
+                        },
+                        "body": "@triggerBody()?['operationData']",
+                        "timeout": "PT15S"
+                      },
+                      "retryPolicy": {
+                        "type": "none"
+                      }
+                    }
+                  }
+                }
+              },
+              "default": {
+                "actions": {
+                  "Unknown_Operation_Error": {
+                    "type": "Terminate",
+                    "inputs": {
+                      "runStatus": "Failed",
+                      "runError": {
+                        "code": "UnknownOperation",
+                        "message": "Operation type not supported: @{triggerBody()?['operation']}"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Wait_With_Exponential_Backoff": ["Succeeded"]
+          }
+        },
+        "Handle_Operation_Result": {
+          "type": "ConditionGroup",
+          "expression": {
+            "equals": [
+              "@result('Try_Operation')[0]['status']",
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Mark_Success": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "retryState",
+                "value": "@setProperty(variables('retryState'), 'success', true)"
+              }
+            },
+            "Record_Successful_Attempt": {
+              "type": "Compose",
+              "inputs": {
+                "attemptNumber": "@variables('retryState')['currentAttempt']",
+                "timestamp": "@utcNow()",
+                "status": "Succeeded",
+                "delaySeconds": "@outputs('Calculate_Backoff_Delay')['finalDelay']"
+              },
+              "runAfter": {
+                "Mark_Success": ["Succeeded"]
+              }
+            },
+            "Notify_Circuit_Breaker_Success": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('circuitBreakerEndpoint')/success/@{triggerBody()?['operation']}",
+                "body": {
+                  "timestamp": "@utcNow()",
+                  "attemptNumber": "@variables('retryState')['currentAttempt']"
+                }
+              },
+              "runAfter": {
+                "Record_Successful_Attempt": ["Succeeded"]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Capture_Error_Details": {
+                "type": "Compose",
+                "inputs": {
+                  "attemptNumber": "@variables('retryState')['currentAttempt']",
+                  "timestamp": "@utcNow()",
+                  "status": "Failed",
+                  "error": "@result('Try_Operation')[0]['error']",
+                  "errorCode": "@result('Try_Operation')[0]['error']?['code']",
+                  "errorMessage": "@result('Try_Operation')[0]['error']?['message']",
+                  "delaySeconds": "@outputs('Calculate_Backoff_Delay')['finalDelay']",
+                  "isRetryable": "@or(or(contains(string(result('Try_Operation')[0]['error']?['code']), 'Timeout'), contains(string(result('Try_Operation')[0]['error']?['code']), 'ServiceUnavailable')), contains(string(result('Try_Operation')[0]['error']?['code']), 'TooManyRequests'))"
+                }
+              },
+              "Update_Last_Error": {
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "retryState",
+                  "value": "@setProperty(variables('retryState'), 'lastError', outputs('Capture_Error_Details'))"
+                },
+                "runAfter": {
+                  "Capture_Error_Details": ["Succeeded"]
+                }
+              },
+              "Check_If_Retryable": {
+                "type": "ConditionGroup",
+                "expression": {
+                  "equals": [
+                    "@outputs('Capture_Error_Details')['isRetryable']",
+                    false
+                  ]
+                },
+                "actions": {
+                  "Mark_Non_Retryable_Failure": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "retryState",
+                      "value": "@setProperty(variables('retryState'), 'currentAttempt', variables('retryState')['maxRetries'])"
+                    }
+                  }
+                },
+                "runAfter": {
+                  "Update_Last_Error": ["Succeeded"]
+                }
+              },
+              "Notify_Circuit_Breaker_Failure": {
+                "type": "HTTP",
+                "inputs": {
+                  "method": "POST",
+                  "uri": "@parameters('circuitBreakerEndpoint')/failure/@{triggerBody()?['operation']}",
+                  "body": {
+                    "timestamp": "@utcNow()",
+                    "attemptNumber": "@variables('retryState')['currentAttempt']",
+                    "error": "@outputs('Capture_Error_Details')"
+                  }
+                },
+                "runAfter": {
+                  "Check_If_Retryable": ["Succeeded"]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try_Operation": ["Succeeded", "Failed", "TimedOut"]
+          }
+        },
+        "Append_Attempt_To_History": {
+          "type": "Append_to_array_variable",
+          "inputs": {
+            "name": "retryState",
+            "value": "@if(equals(result('Try_Operation')[0]['status'], 'Succeeded'), outputs('Record_Successful_Attempt'), outputs('Capture_Error_Details'))"
+          },
+          "runAfter": {
+            "Handle_Operation_Result": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Check_If_Circuit_Open": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_Final_Result",
+      "expression": {
+        "equals": [
+          "@variables('retryState')['success']",
+          true
+        ]
+      },
+      "actions": {
+        "Log_Success": {
+          "type": "Microsoft.Dataverse/CreateRecord",
+          "inputs": {
+            "entityName": "snf_retry_log",
+            "item": {
+              "snf_operation": "@triggerBody()?['operation']",
+              "snf_success": true,
+              "snf_attempts": "@variables('retryState')['currentAttempt']",
+              "snf_total_delay_seconds": "@variables('retryState')['totalDelaySeconds']",
+              "snf_timestamp": "@utcNow()",
+              "snf_attempt_history": "@string(variables('retryState')['attempts'])"
+            }
+          }
+        },
+        "Return_Success_Response": {
+          "type": "Response",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "success": true,
+              "attempts": "@variables('retryState')['currentAttempt']",
+              "totalDelaySeconds": "@variables('retryState')['totalDelaySeconds']",
+              "result": "@result('Try_Operation')[0]['outputs']"
+            }
+          },
+          "runAfter": {
+            "Log_Success": ["Succeeded"]
+          }
+        }
+      },
+      "else": {
+        "actions": {
+          "Log_Failure": {
+            "type": "Microsoft.Dataverse/CreateRecord",
+            "inputs": {
+              "entityName": "snf_retry_log",
+              "item": {
+                "snf_operation": "@triggerBody()?['operation']",
+                "snf_success": false,
+                "snf_attempts": "@variables('retryState')['currentAttempt']",
+                "snf_total_delay_seconds": "@variables('retryState')['totalDelaySeconds']",
+                "snf_timestamp": "@utcNow()",
+                "snf_last_error": "@string(variables('retryState')['lastError'])",
+                "snf_attempt_history": "@string(variables('retryState')['attempts'])"
+              }
+            }
+          },
+          "Invoke_Fallback_Strategy": {
+            "type": "HTTP",
+            "inputs": {
+              "method": "POST",
+              "uri": "@parameters('fallbackEndpoint')/execute",
+              "body": {
+                "operation": "@triggerBody()?['operation']",
+                "operationData": "@triggerBody()?['operationData']",
+                "failureReason": "@variables('retryState')['lastError']"
+              }
+            },
+            "runAfter": {
+              "Log_Failure": ["Succeeded"]
+            }
+          },
+          "Return_Failure_With_Fallback": {
+            "type": "Response",
+            "inputs": {
+              "statusCode": 503,
+              "body": {
+                "success": false,
+                "attempts": "@variables('retryState')['currentAttempt']",
+                "lastError": "@variables('retryState')['lastError']",
+                "fallbackResult": "@body('Invoke_Fallback_Strategy')",
+                "message": "Primary operation failed after @{variables('retryState')['currentAttempt']} attempts. Fallback strategy executed."
+              }
+            },
+            "runAfter": {
+              "Invoke_Fallback_Strategy": ["Succeeded", "Failed"]
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Retry_Loop_With_Exponential_Backoff": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

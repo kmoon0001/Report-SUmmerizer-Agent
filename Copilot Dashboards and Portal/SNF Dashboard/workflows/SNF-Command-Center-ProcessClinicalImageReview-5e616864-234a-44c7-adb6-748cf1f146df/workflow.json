@@ -1,0 +1,111 @@
+{
+    "properties": {
+        "state": "Started",
+        "definition": {
+            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+                "$connections": {
+                    "defaultValue": {},
+                    "type": "Object"
+                },
+                "$authentication": {
+                    "defaultValue": {},
+                    "type": "SecureObject"
+                }
+            },
+            "triggers": {
+                "manual": {
+                    "type": "Request",
+                    "kind": "Http",
+                    "inputs": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "imagetype": { "type": "string" },
+                                "imageuse": { "type": "string" },
+                                "approvalstatus": { "type": "string" },
+                                "image_content": { "type": "string", "format": "byte" }
+                            }
+                        }
+                    }
+                }
+            },
+            "actions": {
+                "Initialize_Image_Tracking_ID": {
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "ImageTrackingID",
+                                "type": "string",
+                                "value": "@{guid()}"
+                            }
+                        ]
+                    }
+                },
+                "Log_Image_Intake_To_Dataverse": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                            "entityName": "cr123_clinicalimages",
+                            "item/cr123_trackingid": "@variables('ImageTrackingID')",
+                            "item/cr123_imagetype": "@triggerBody()?['imagetype']",
+                            "item/cr123_imageuse": "@triggerBody()?['imageuse']",
+                            "item/cr123_consentstatus": "Verified",
+                            "item/cr123_status": "Pending Visual Review"
+                        }
+                    },
+                    "runAfter": {
+                        "Initialize_Image_Tracking_ID": [
+                            "Succeeded"
+                        ]
+                    }
+                },
+                "Upload_Image_To_Secure_SharePoint": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "host": {
+                            "connectionName": "shared_sharepointonline",
+                            "operationId": "CreateFile",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                            "dataset": "https://tenant.sharepoint.com/sites/SNFCommandCenter",
+                            "folderPath": "/Shared Documents/Secure Clinical Images",
+                            "name": "@{variables('ImageTrackingID')}_@{triggerBody()?['imagetype']}.png",
+                            "body": "@triggerBody()?['image_content']"
+                        }
+                    },
+                    "runAfter": {
+                        "Log_Image_Intake_To_Dataverse": [
+                            "Succeeded"
+                        ]
+                    }
+                },
+                "Respond_to_the_agent": {
+                    "type": "Response",
+                    "kind": "Http",
+                    "inputs": {
+                        "statusCode": 200,
+                        "body": {
+                            "trackingid": "@variables('ImageTrackingID')",
+                            "status": "Securely uploaded to SharePoint and queued for image analysis.",
+                            "nextstep": "Awaiting Command Center review."
+                        }
+                    },
+                    "runAfter": {
+                        "Upload_Image_To_Secure_SharePoint": [
+                            "Succeeded"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,84 @@
+mcs.metadata:
+  componentName: Human Review Gate
+  description: Elite clinical intelligence module specialized in [HumanReviewGate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Topic workflow for Human Review Gate within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - request human review
+      - need manual approval
+      - send to human reviewer
+      - escalate for human check
+      - human intervention required
+      - flag for human review
+      - can a person look at this?
+      - submit for manual verification
+      - ask a real person to review
+
+  actions:
+    - kind: Question
+      id: Question_Cu6T2a
+      variable: Topic.reportSummary
+      prompt: 'Please provide a clear response: Please provide a short narrative summary for the report.'
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_V3sn5I
+      variable: Topic.riskHighlights
+      prompt: 'Please provide a clear response: List the top 3–5 risk highlights for this report.'
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_s5jiXf
+      variable: Topic.recommendedActions
+      prompt: 'Please provide a clear response: Summarize the recommended actions for this report.'
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_M1tQRH
+      variable: Topic.approverEmail
+      prompt: 'Please provide a clear response: Please provide the email address of the reviewer who will approve this report.'
+      entity: EmailPrebuiltEntity
+
+    - kind: SendActivity
+      id: SendActivity_4SiN9P
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Human Review Gate: Approval Summary\" }, { type: \"FactSet\", facts: [ { title: \"Report Summary\", value: Text(Topic.reportSummary) }, { title: \"Risk Highlights\", value: Text(Topic.riskHighlights) }, { title: \"Recommended Actions\", value: Text(Topic.recommendedActions) }, { title: \"Approver Email\", value: Text(Topic.approverEmail) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+    - kind: SendActivity
+      id: SendActivity_T0B7r5
+      activity: Submitting the report for Human-in-the-Loop approval via Teams Approval Flow.
+
+    - kind: SendActivity
+      id: SendActivity_bx77Fb
+      activity: |-
+        Report Summary: {Topic.reportSummary}
+        Risk Highlights: {Topic.riskHighlights}
+        Recommended Actions: {Topic.recommendedActions}
+        Approver Email: {Topic.approverEmail}
+
+    - kind: SendActivity
+      id: SendActivity_E2eklT
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Human Review Gate: Approval Summary\" }, { type: \"FactSet\", facts: [ { title: \"Report Summary\", value: Text(Topic.reportSummary) }, { title: \"Risk Highlights\", value: Text(Topic.riskHighlights) }, { title: \"Recommended Actions\", value: Text(Topic.recommendedActions) }, { title: \"Approver Email\", value: Text(Topic.approverEmail) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+
+

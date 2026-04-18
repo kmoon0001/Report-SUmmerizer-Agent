@@ -1,0 +1,8 @@
+mcs.metadata:
+  componentName: CMS nursing home quality measures
+  description: Elite clinical intelligence module specialized in [cr917_agent.httpswwwcmsgovmedicarequality_clRb5U6XJFERQDYp7BQu1]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  triggerCondition: true
+  site: https://www.cms.gov/medicare/quality

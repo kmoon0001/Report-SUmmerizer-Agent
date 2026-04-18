@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_6271a.file.CodingforSLPs.pdf_x7i">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Coding for SLPs.pdf</description>
+  <filedata mimetype="application/pdf">Coding%20for%20SLPs.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Coding for SLPs.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

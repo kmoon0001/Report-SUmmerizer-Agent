@@ -1,0 +1,208 @@
+{
+  "project": "SNF AI Dashboard",
+  "sharedOutputs": [
+    "status",
+    "summary",
+    "confidence",
+    "requireshumanreview",
+    "datasource",
+    "warnings",
+    "citations",
+    "groundedness_status",
+    "verification_status",
+    "uncertainty_reason"
+  ],
+  "actions": [
+    {
+      "name": "GenerateOnDemandPatientInsight",
+      "flowId": "c147cf4b-777b-43b5-8d4a-e00e0c233b49",
+      "inputs": [
+        "patientid",
+        "unit",
+        "risktype",
+        "timeframe",
+        "requestedbyrole",
+        "requestcontext"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "risklevel",
+        "clinicalrecommendation",
+        "actionitems",
+        "responsibleparty",
+        "timeline"
+      ],
+      "primarySystems": [
+        "Fabric",
+        "Power BI",
+        "Dataverse",
+        "FHIR"
+      ]
+    },
+    {
+      "name": "SendClinicalAlert",
+      "flowId": "18c14215-a5d0-4570-be82-3047d5fd0b22",
+      "inputs": [
+        "severity",
+        "messagetext",
+        "patientid",
+        "unit",
+        "requestedbyrole"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "alertid",
+        "sentat",
+        "responsibleparty",
+        "escalationpath",
+        "nextstep"
+      ],
+      "primarySystems": [
+        "Power Automate",
+        "Teams",
+        "Dataverse",
+        "FHIR"
+      ]
+    },
+    {
+      "name": "GenerateQualityMeasureReport",
+      "flowId": "c2ed03e7-6fe4-44b3-a219-25d20cc36548",
+      "inputs": [
+        "measuregroup",
+        "unit",
+        "daterange",
+        "requestedbyrole"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "fileurl",
+        "recordcount",
+        "refreshedat"
+      ],
+      "primarySystems": [
+        "Fabric",
+        "Power BI",
+        "Dataverse"
+      ]
+    },
+    {
+      "name": "ExportCareSummary",
+      "flowId": "ae053d82-b043-4b7d-92bb-902dba031aa7",
+      "inputs": [
+        "patientid",
+        "summarytype",
+        "exportformat",
+        "requestedbyrole"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "fileurl",
+        "pdfurl",
+        "recordkey"
+      ],
+      "primarySystems": [
+        "Dataverse",
+        "SharePoint",
+        "OneDrive"
+      ]
+    },
+    {
+      "name": "ProcessClinicalFileIntake",
+      "flowId": "bc1d9296-6ea5-4112-8e67-3a901196252c",
+      "inputs": [
+        "documenttype",
+        "intendeduse",
+        "minimumnecessary",
+        "sourcefilename"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "extractedsignal",
+        "recommendedroute",
+        "nextstep"
+      ],
+      "primarySystems": [
+        "SharePoint",
+        "OneDrive",
+        "FHIR",
+        "Power Automate"
+      ]
+    },
+    {
+      "name": "ProcessClinicalImageReview",
+      "flowId": "5e616864-234a-44c7-adb6-748cf1f146df",
+      "inputs": [
+        "imagetype",
+        "imageuse",
+        "approvalstatus",
+        "sourcefilename"
+      ],
+      "outputs": [
+        "status",
+        "summary",
+        "confidence",
+        "requireshumanreview",
+        "datasource",
+        "warnings",
+        "citations",
+        "groundedness_status",
+        "verification_status",
+        "uncertainty_reason",
+        "observedconcern",
+        "recommendedroute",
+        "nextstep"
+      ],
+      "primarySystems": [
+        "Azure AI",
+        "SharePoint",
+        "OneDrive",
+        "Power Automate"
+      ]
+    }
+  ]
+}

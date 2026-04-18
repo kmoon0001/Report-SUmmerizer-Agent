@@ -1,0 +1,6 @@
+ActionName,ActionFile,WorkflowFolder,FlowId,SharedFields,SpecializedFields,Readiness
+GenerateOnDemandPatientInsight,GenerateOnDemandPatientInsight.mcs.yml,SNF-Command-Center-GenerateOnDemandPatientInsight-c147cf4b-777b-43b5-8d4a-e00e0c233b49,f96d43dd-fd24-f111-8341-6045bd061151,"","",automated handoff backend
+SendClinicalAlert,SendClinicalAlert.mcs.yml,SNF-Command-Center-SendClinicalAlert-18c14215-a5d0-4570-be82-3047d5fd0b22,52df51b9-5a31-f111-88b3-00224805b033,"","",automated handoff backend
+GenerateQualityMeasureReport,GenerateQualityMeasureReport.mcs.yml,SNF-Command-Center-GenerateQualityMeasureReport-c2ed03e7-6fe4-44b3-a219-25d20cc36548,0b930a15-2516-f111-8341-0022480b6bd9,"","confirmationmessage;facility_submission_status;facility_data_text;declining_metrics_text",automated handoff backend
+ProcessClinicalFileIntake,ProcessClinicalFileIntake.mcs.yml,SNF-Command-Center-ProcessClinicalFileIntake-bc1d9296-6ea5-4112-8e67-3a901196252c,db104008-d226-f111-8341-000d3a5b88c6,"","normalization_status;normalized_document_type;normalized_text",automated handoff backend
+ProcessClinicalImageReview,ProcessClinicalImageReview.mcs.yml,SNF-Command-Center-ProcessClinicalImageReview-5e616864-234a-44c7-adb6-748cf1f146df,384ef424-2726-f111-8341-000d3a36320f,"","accepted;runId",automated handoff backend

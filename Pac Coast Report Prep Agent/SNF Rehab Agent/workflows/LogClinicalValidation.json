@@ -1,0 +1,94 @@
+{
+  "name": "Log Clinical Validation",
+  "description": "Logs clinical validation feedback for accuracy tracking and inter-rater reliability calculation",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "recommendationId": "string",
+      "validation": "string",
+      "inaccuracyReason": "string",
+      "validatorId": "string",
+      "validatorName": "string",
+      "confidence": "number",
+      "timestamp": "datetime",
+      "correlationId": "string"
+    }
+  },
+  "actions": [
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Log_Validation_Record",
+      "inputs": {
+        "entityName": "snf_clinical_validation",
+        "item": {
+          "snf_recommendation_id": "@triggerBody()['recommendationId']",
+          "snf_validation_result": "@triggerBody()['validation']",
+          "snf_inaccuracy_reason": "@triggerBody()['inaccuracyReason']",
+          "snf_validator_id": "@triggerBody()['validatorId']",
+          "snf_validator_name": "@triggerBody()['validatorName']",
+          "snf_confidence_at_validation": "@triggerBody()['confidence']",
+          "snf_validation_timestamp": "@triggerBody()['timestamp']",
+          "snf_correlation_id": "@triggerBody()['correlationId']"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/UpdateRecord",
+      "name": "Update_Recommendation_Validation",
+      "inputs": {
+        "entityName": "snf_rehab_recommendation",
+        "recordId": "@triggerBody()['recommendationId']",
+        "item": {
+          "snf_clinical_validation": "@triggerBody()['validation']",
+          "snf_validation_timestamp": "@triggerBody()['timestamp']"
+        }
+      },
+      "runAfter": {
+        "Log_Validation_Record": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Inaccurate",
+      "expression": {
+        "equals": ["@triggerBody()['validation']", "inaccurate"]
+      },
+      "actions": {
+        "Microsoft.Dataverse/CreateRecord": {
+          "type": "Microsoft.Dataverse/CreateRecord",
+          "inputs": {
+            "entityName": "snf_accuracy_issue",
+            "item": {
+              "snf_recommendation_id": "@triggerBody()['recommendationId']",
+              "snf_issue_type": "@triggerBody()['inaccuracyReason']",
+              "snf_reported_by": "@triggerBody()['validatorName']",
+              "snf_confidence_at_issue": "@triggerBody()['confidence']",
+              "snf_reported_timestamp": "@triggerBody()['timestamp']",
+              "snf_status": "open",
+              "snf_priority": "high"
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Update_Recommendation_Validation": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Success",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "validationId": "@outputs('Log_Validation_Record')['body']['snf_clinical_validationid']",
+          "message": "Clinical validation logged successfully"
+        }
+      },
+      "runAfter": {
+        "Check_If_Inaccurate": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

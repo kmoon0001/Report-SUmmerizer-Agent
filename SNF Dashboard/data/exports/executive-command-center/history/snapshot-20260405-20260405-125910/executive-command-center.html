@@ -1,0 +1,587 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SNF Executive Command Center</title>
+  <style>
+    :root {
+      --bg: #f3efe7;
+      --ink: #1d2830;
+      --muted: #6a747b;
+      --line: #d7d1c6;
+      --panel: #fffdf8;
+      --deep: #163a49;
+      --teal: #0a6b61;
+      --gold: #c88b2a;
+      --rose: #ba5f57;
+      --shadow: 0 18px 45px rgba(13, 34, 41, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(200, 139, 42, 0.16), transparent 28%),
+        linear-gradient(180deg, #f7f3eb 0%, #efe7db 100%);
+      padding: 28px;
+    }
+    .shell { max-width: 1380px; margin: 0 auto; }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      padding: 28px;
+      margin-bottom: 22px;
+      background:
+        linear-gradient(135deg, rgba(10, 107, 97, 0.08), rgba(22, 58, 73, 0.03)),
+        var(--panel);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 34px; letter-spacing: -0.02em; }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+    .hero p { color: var(--muted); margin-top: 8px; max-width: 860px; line-height: 1.45; }
+    .status-stack { display: grid; gap: 8px; min-width: 260px; }
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.72);
+    }
+    .status-card strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: rgba(255,255,255,0.78);
+    }
+    .label, .metric-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .kpi .value {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--deep);
+    }
+    .kpi .sub {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .panel { padding: 22px; margin-bottom: 20px; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+    .section-head p { color: var(--muted); line-height: 1.4; max-width: 760px; }
+    .unit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .unit-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(249,246,239,0.92));
+    }
+    .unit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .pill {
+      font-size: 12px;
+      color: var(--deep);
+      background: rgba(10, 107, 97, 0.10);
+      border: 1px solid rgba(10, 107, 97, 0.20);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+    .unit-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .unit-metrics strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 22px;
+      color: var(--deep);
+    }
+    .bar-block { margin-top: 12px; }
+    .bar-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #e7dfd3;
+      overflow: hidden;
+    }
+    .bar-fill { height: 100%; border-radius: 999px; }
+    .bar-fill.doc { background: linear-gradient(90deg, var(--gold), #e6b150); }
+    .bar-fill.therapy { background: linear-gradient(90deg, var(--teal), #35a097); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fffdfa;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f4ede1;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .change-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .change-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.72);
+    }
+    .change-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 22px;
+      color: var(--deep);
+    }
+    @media (max-width: 1120px) {
+      .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .unit-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      body { padding: 16px; }
+      .hero-top, .section-head { flex-direction: column; align-items: start; }
+      .kpi-grid, .unit-metrics, .change-grid { grid-template-columns: 1fr 1fr; }
+      .status-stack { min-width: 0; width: 100%; }
+    }
+    @media (max-width: 560px) {
+      .kpi-grid, .unit-metrics, .change-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>SNF Executive Command Center</h1>
+          <p>Current-state executive dashboard built from live PCC census, Net Health documentation, and landed therapy workload sources. This bundle is self-contained and reconciles to the processed operational outputs in the repo.</p>
+        </div>
+        <div class="status-stack">
+          <div class="status-card">
+            <strong>Generated</strong>
+            <span>2026-04-05T12:59:08</span>
+          </div>
+          <div class="status-card">
+            <strong>Therapy Source</strong>
+            <span>Active (ReportStyleDailyTreatmentSummaryCsv)</span>
+          </div>
+          <div class="status-card">
+            <strong>Priority Queue</strong>
+            <span>Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><span class="label">Current Residents</span><span class="value">162</span><span class="sub">No change vs prior</span></div>
+        <div class="kpi"><span class="label">Residents With Docs</span><span class="value">59</span><span class="sub">Current residents in documentation queue</span></div>
+        <div class="kpi"><span class="label">Outstanding Docs</span><span class="value">121</span><span class="sub">No change vs prior</span></div>
+        <div class="kpi"><span class="label">Overdue Docs</span><span class="value">0</span><span class="sub">Due date already passed</span></div>
+        <div class="kpi"><span class="label">Residents With Therapy</span><span class="value">67</span><span class="sub">Current resident treatment coverage</span></div>
+        <div class="kpi"><span class="label">Therapy Minutes</span><span class="value">7663</span><span class="sub">No change vs prior</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2>Unit Operations</h2>
+        <p>Resident census, documentation pressure, therapy workload, and maximum priority score by unit.</p>
+      </div>
+      <div class="unit-grid">
+    <article class="unit-card">
+      <div class="unit-head">
+        <h3>Unit A</h3>
+        <span class="pill">Priority Max 15</span>
+      </div>
+      <div class="unit-metrics">
+        <div><span class="metric-label">Residents</span><strong>41</strong></div>
+        <div><span class="metric-label">Outstanding Docs</span><strong>52</strong></div>
+        <div><span class="metric-label">Due Today+</span><strong>6</strong></div>
+        <div><span class="metric-label">Therapy Minutes</span><strong>4526</strong></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Documentation Pressure</div>
+        <div class="bar-track"><div class="bar-fill doc" style="width:100%"></div></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Therapy Workload</div>
+        <div class="bar-track"><div class="bar-fill therapy" style="width:100%"></div></div>
+      </div>
+    </article>
+    <article class="unit-card">
+      <div class="unit-head">
+        <h3>Unit B</h3>
+        <span class="pill">Priority Max 14</span>
+      </div>
+      <div class="unit-metrics">
+        <div><span class="metric-label">Residents</span><strong>34</strong></div>
+        <div><span class="metric-label">Outstanding Docs</span><strong>20</strong></div>
+        <div><span class="metric-label">Due Today+</span><strong>8</strong></div>
+        <div><span class="metric-label">Therapy Minutes</span><strong>918</strong></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Documentation Pressure</div>
+        <div class="bar-track"><div class="bar-fill doc" style="width:38.5%"></div></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Therapy Workload</div>
+        <div class="bar-track"><div class="bar-fill therapy" style="width:20.3%"></div></div>
+      </div>
+    </article>
+    <article class="unit-card">
+      <div class="unit-head">
+        <h3>Unit C</h3>
+        <span class="pill">Priority Max 12</span>
+      </div>
+      <div class="unit-metrics">
+        <div><span class="metric-label">Residents</span><strong>33</strong></div>
+        <div><span class="metric-label">Outstanding Docs</span><strong>20</strong></div>
+        <div><span class="metric-label">Due Today+</span><strong>2</strong></div>
+        <div><span class="metric-label">Therapy Minutes</span><strong>417</strong></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Documentation Pressure</div>
+        <div class="bar-track"><div class="bar-fill doc" style="width:38.5%"></div></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Therapy Workload</div>
+        <div class="bar-track"><div class="bar-fill therapy" style="width:9.2%"></div></div>
+      </div>
+    </article>
+    <article class="unit-card">
+      <div class="unit-head">
+        <h3>Unit D</h3>
+        <span class="pill">Priority Max 13</span>
+      </div>
+      <div class="unit-metrics">
+        <div><span class="metric-label">Residents</span><strong>54</strong></div>
+        <div><span class="metric-label">Outstanding Docs</span><strong>29</strong></div>
+        <div><span class="metric-label">Due Today+</span><strong>2</strong></div>
+        <div><span class="metric-label">Therapy Minutes</span><strong>1802</strong></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Documentation Pressure</div>
+        <div class="bar-track"><div class="bar-fill doc" style="width:55.8%"></div></div>
+      </div>
+      <div class="bar-block">
+        <div class="bar-label">Therapy Workload</div>
+        <div class="bar-track"><div class="bar-fill therapy" style="width:39.8%"></div></div>
+      </div>
+    </article>
+      </div>
+    </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Therapy Workload</h2>
+      <p>Current therapy workload from the landed Net Health Daily Treatment Summary source.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Unit</th>
+          <th>Residents Treated</th>
+          <th>Treatment Lines</th>
+          <th>Minutes</th>
+          <th>Parse Method</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>A</td>
+        <td>36</td>
+        <td>84</td>
+        <td>4526</td>
+        <td>ReportStyleDailyTreatmentSummaryCsv</td>
+      </tr>
+      <tr>
+        <td>B</td>
+        <td>9</td>
+        <td>15</td>
+        <td>918</td>
+        <td>ReportStyleDailyTreatmentSummaryCsv</td>
+      </tr>
+      <tr>
+        <td>C</td>
+        <td>5</td>
+        <td>8</td>
+        <td>417</td>
+        <td>ReportStyleDailyTreatmentSummaryCsv</td>
+      </tr>
+      <tr>
+        <td>D</td>
+        <td>17</td>
+        <td>32</td>
+        <td>1802</td>
+        <td>ReportStyleDailyTreatmentSummaryCsv</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Top Priority Residents</h2>
+      <p>Highest combined therapy and documentation follow-up need in the current snapshot.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Resident</th>
+          <th>Unit</th>
+          <th>Therapy Lines</th>
+          <th>Therapy Minutes</th>
+          <th>Outstanding Docs</th>
+          <th>Overdue Docs</th>
+          <th>Priority Score</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>HILLIARD, LINDA</td>
+        <td>A</td>
+        <td>4</td>
+        <td>236</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>15</strong></td>
+      </tr>
+      <tr>
+        <td>STEWARD, EDGAR</td>
+        <td>A</td>
+        <td>4</td>
+        <td>233</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>15</strong></td>
+      </tr>
+      <tr>
+        <td>NICASSIO, LISA</td>
+        <td>A</td>
+        <td>4</td>
+        <td>232</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>15</strong></td>
+      </tr>
+      <tr>
+        <td>MURRAY-BURCHFIELD, ELIZABETH</td>
+        <td>B</td>
+        <td>2</td>
+        <td>254</td>
+        <td>2</td>
+        <td>0</td>
+        <td><strong>14</strong></td>
+      </tr>
+      <tr>
+        <td>BURNS, BARBARA</td>
+        <td>D</td>
+        <td>4</td>
+        <td>131</td>
+        <td>1</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>YEH, DANIEL</td>
+        <td>A</td>
+        <td>3</td>
+        <td>237</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>LUHMANN, GAIL</td>
+        <td>D</td>
+        <td>3</td>
+        <td>236</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>HOFF, JUDITH</td>
+        <td>A</td>
+        <td>3</td>
+        <td>234</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>SOTELO-PADILLA, ABRAHAM</td>
+        <td>A</td>
+        <td>3</td>
+        <td>231</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>HARGROVE, VERNA</td>
+        <td>A</td>
+        <td>3</td>
+        <td>230</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>WILSON, LINDA</td>
+        <td>A</td>
+        <td>4</td>
+        <td>150</td>
+        <td>0</td>
+        <td>0</td>
+        <td><strong>13</strong></td>
+      </tr>
+      <tr>
+        <td>NGUYEN, CHI</td>
+        <td>C</td>
+        <td>2</td>
+        <td>141</td>
+        <td>4</td>
+        <td>0</td>
+        <td><strong>12</strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Documentation by Discipline</h2>
+      <p>Current documentation queue distribution by discipline.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Discipline</th>
+          <th>Items</th>
+          <th>Outstanding</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>OT</td>
+        <td>61</td>
+        <td>57</td>
+      </tr>
+      <tr>
+        <td>PT</td>
+        <td>55</td>
+        <td>53</td>
+      </tr>
+      <tr>
+        <td>ST</td>
+        <td>13</td>
+        <td>11</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Therapy by Discipline</h2>
+      <p>Current therapy distribution by discipline.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Discipline</th>
+          <th>Treatment Lines</th>
+          <th>Minutes</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Discipline</td>
+        <td>7</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>OT</td>
+        <td>45</td>
+        <td>2627</td>
+      </tr>
+      <tr>
+        <td>PT</td>
+        <td>69</td>
+        <td>3938</td>
+      </tr>
+      <tr>
+        <td>ST</td>
+        <td>18</td>
+        <td>1098</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <h2>Snapshot Change</h2>
+      <p>Only one recorded snapshot is available, so change tracking starts with this refresh.</p>
+    </div>
+  </section>
+  </div>
+</body>
+</html>

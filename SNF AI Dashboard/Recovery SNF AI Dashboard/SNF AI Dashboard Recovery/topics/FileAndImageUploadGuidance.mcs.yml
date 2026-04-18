@@ -1,0 +1,56 @@
+mcs.metadata:
+  componentName: File And Image Upload Guidance
+  description: Elite clinical intelligence module specialized in [FileAndImageUploadGuidance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [FileAndImageUploadGuidance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: File And Image Upload Guidance
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - upload a file
+      - upload an image
+      - what file should I upload
+      - wound photo guidance
+      - csv or pdf upload
+
+  actions:
+    - kind: Question
+      id: question_file_type
+      alwaysPrompt: true
+      variable: init:Topic.FileTypeChoice
+      prompt: What kind of upload are you preparing?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: CSV or export file
+            Value: CsvExport
+          - DisplayName: PDF or policy document
+            Value: PdfDocument
+          - DisplayName: Clinical image or photo
+            Value: ClinicalImage
+          - DisplayName: Not sure yet
+            Value: NotSure
+
+    - kind: SendActivity
+      id: send_file_guidance
+      activity: |
+        Upload guidance:
+        - Use the smallest file that answers the question.
+        - Remove anything not needed for the current task.
+        - For images, use only approved clinical photos with consent and follow facility policy.
+        - Supported file types are CSV, PDF, TXT, JPG, PNG, WebP, and nonanimated GIF.
+        - Images should stay under 15 MB, PDF files under 40 pages, and TXT or CSV files under 180 KB.
+        - For CSV or PDF uploads, make sure the file is current and clearly named.
+        - If the file includes sensitive content outside the current need, stop and use the minimum-necessary version instead.
+
+    - kind: BeginDialog
+      id: begin_file_menu
+      dialog: snf_ai_dashboard_recovery.topic.FileAndImageProcessingMenu
+
+inputType: {}
+outputType: {}
+
+

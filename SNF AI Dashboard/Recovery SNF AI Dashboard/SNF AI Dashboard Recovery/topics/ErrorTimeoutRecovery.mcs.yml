@@ -1,0 +1,78 @@
+mcs.metadata:
+  componentName: Error Timeout Recovery
+  description: Elite clinical intelligence module specialized in [ErrorTimeoutRecovery]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [ErrorTimeoutRecovery]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Error Timeout Recovery
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - timed out
+      - it failed
+      - retry step
+      - continue manually
+
+  actions:
+    - kind: Question
+      id: question_recovery
+      alwaysPrompt: true
+      variable: init:Topic.RecoveryChoice
+      prompt: That step failed or timed out. What do you want to do next?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Retry from the menu
+            Value: Retry
+          - DisplayName: Continue with another task
+            Value: Continue
+          - DisplayName: Escalate an urgent concern
+            Value: Urgent
+          - DisplayName: Start over
+            Value: StartOver
+
+    - kind: ConditionGroup
+      id: condition_recovery
+      conditions:
+        - id: route_retry
+          condition: =Text(Topic.RecoveryChoice) = "Retry"
+          actions:
+            - kind: SendActivity
+              id: send_retry
+              activity: I kept the current context where possible. Choose the task you want to retry.
+            - kind: BeginDialog
+              id: begin_retry_menu
+              dialog: snf_ai_dashboard_recovery.topic.WelcomeStart
+
+        - id: route_continue
+          condition: =Text(Topic.RecoveryChoice) = "Continue"
+          actions:
+            - kind: BeginDialog
+              id: begin_continue_menu
+              dialog: snf_ai_dashboard_recovery.topic.WelcomeStart
+
+        - id: route_urgent
+          condition: =Text(Topic.RecoveryChoice) = "Urgent"
+          actions:
+            - kind: BeginDialog
+              id: begin_urgent
+              dialog: snf_ai_dashboard_recovery.topic.EscalateUrgentClinicalConcern
+
+        - id: route_start_over
+          condition: =Text(Topic.RecoveryChoice) = "StartOver"
+          actions:
+            - kind: BeginDialog
+              id: begin_start_over
+              dialog: snf_ai_dashboard_recovery.topic.StartOver
+
+      elseActions:
+        - kind: BeginDialog
+          id: begin_default_menu
+          dialog: snf_ai_dashboard_recovery.topic.WelcomeStart
+
+inputType: {}
+outputType: {}
+
+

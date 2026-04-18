@@ -1,0 +1,34 @@
+mcs.metadata:
+  componentName: Fallback
+  description: Elite clinical intelligence module specialized in [Fallback]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Topic workflow for Fallback within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_LktzXw
+      conditions:
+        - id: conditionItem_tlGIVo
+          condition: =System.FallbackCount < 3
+          actions:
+            - kind: SendActivity
+              id: sendMessage_QZreqo
+              activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+      elseActions:
+        - kind: BeginDialog
+          id: 5aXj5M
+          dialog: Escalate
+
+
+
+
+
+
+
+
+
+
+

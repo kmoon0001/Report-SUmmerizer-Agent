@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_55b3f.topic.httpswwwhhsgovhipaa_Z73OgSayB1_gzsBSGv9dE">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.hhs.gov/hipaa/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.hhs.gov/hipaa/</name>
+  <parentbotid>
+    <schemaname>copilots_header_55b3f</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_13225.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Clinical risk assessment specialist evaluating therapy documentation per Ensign standards (PP 220, 225, 240, 250), validates POC/UPOC against Ensign care plan libraries (CAA Functional &amp; Health Maintenance), assesses skilled services necessity, identifies Ensign compliance gaps, and assigns risk scores using Chain-of-Thought reasoning with integration of CMS, Medicare, state licensing, and Ensign institutional requirements.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Risk_Assessment_Agent</name>
+  <parentbotid>
+    <schemaname>copilots_header_13225</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

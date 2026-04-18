@@ -1,0 +1,79 @@
+mcs.metadata:
+  componentName: Publish Output
+  description: Elite clinical intelligence module specialized in [PublishOutput]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Topic workflow for Publish Output within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - publish output
+      - send results
+      - share my output
+      - export data
+      - make results public
+      - post the output
+      - output publishing options
+      - how do I publish my results?
+      - submit final output
+
+  actions:
+    - kind: Question
+      id: Question_9tv1DF
+      variable: Topic.ApprovalStatus
+      prompt: 'Please provide a clear response: What is the approval status returned from the HITL approval flow?'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: ApprovalStatusOptions
+          items:
+            - id: approved
+              displayName: Approved
+
+            - id: rejected
+              displayName: Rejected
+
+    - kind: Question
+      id: Question_DVfwLm
+      variable: Topic.ReviewerComments
+      prompt: 'Please provide a clear response: Please enter any reviewer comments returned from the HITL approval flow.'
+      entity: StringPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: ConditionGroup_ZCFsus
+      conditions:
+        - id: ConditionItem_9qgcqf
+          condition: =Topic.ApprovalStatus = ApprovalStatusOptions.approved
+          actions:
+            - kind: SendActivity
+              id: SendActivity_Vs0ssA
+              activity: ✅ Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
+
+        - id: ConditionItem_DB9HpK
+          condition: =Topic.ApprovalStatus = ApprovalStatusOptions.rejected
+          actions:
+            - kind: SendActivity
+              id: SendActivity_Hp7Fh6
+              activity: "❌ Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
+
+            - kind: Question
+              id: Question_jFYbDy
+              variable: Topic.ReviseAnalysis
+              prompt: 'Please provide a clear response: Would you like to revise and re-run the analysis?'
+              entity: BooleanPrebuiltEntity
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+
+

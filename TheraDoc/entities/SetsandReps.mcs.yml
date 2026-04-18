@@ -1,0 +1,4 @@
+mcs.metadata:
+  componentName: Sets and Reps
+kind: RegexEntity
+pattern: \b(\d+)\s?sets?\b|\b(\d+)\s?(reps?|repetitions?)\b

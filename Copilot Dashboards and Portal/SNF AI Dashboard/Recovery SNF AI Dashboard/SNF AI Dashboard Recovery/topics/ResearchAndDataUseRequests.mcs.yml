@@ -1,0 +1,65 @@
+mcs.metadata:
+  componentName: Research And Data Use Requests
+  description: Elite clinical intelligence module specialized in [ResearchAndDataUseRequests]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [ResearchAndDataUseRequests]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Research And Data Use Requests
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - research request
+      - irb request
+      - data use request
+      - external data sharing
+      - de identified dataset
+
+  actions:
+    - kind: Question
+      id: question_request_type
+      alwaysPrompt: true
+      variable: init:Topic.RequestTypeChoice
+      prompt: What kind of request is this?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Internal quality improvement
+            Value: InternalQI
+          - DisplayName: Formal research or IRB-related
+            Value: FormalResearch
+          - DisplayName: External sharing request
+            Value: ExternalSharing
+          - DisplayName: De-identified dataset request
+            Value: DeidentifiedData
+
+    - kind: Question
+      id: question_approval_status
+      alwaysPrompt: true
+      variable: init:Topic.ApprovalChoice
+      prompt: What is the current approval status?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Approved by the required owner
+            Value: Approved
+          - DisplayName: Approval pending
+            Value: Pending
+          - DisplayName: Not approved yet
+            Value: NotApproved
+          - DisplayName: Not sure
+            Value: NotSure
+
+    - kind: SendActivity
+      id: send_research_notice
+      activity: Research and data-use requests should route through the privacy, compliance, and IRB or governance process before any data extract or external sharing is attempted.
+
+    - kind: BeginDialog
+      id: begin_metric_help
+      dialog: snf_ai_dashboard_recovery.topic.DataQualityAndMetricExplanation
+
+inputType: {}
+outputType: {}
+
+

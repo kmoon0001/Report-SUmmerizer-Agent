@@ -1,0 +1,33 @@
+mcs.metadata:
+  componentName: Diet Texture
+kind: ClosedListEntity
+items:
+  - id: pdIwce
+    displayName: Regular
+
+  - id: UQTfPr
+    displayName: Soft & Bite-Sized (Level 6)
+
+  - id: U0MHG8
+    displayName: Minced & Moist (Level 5)
+
+  - id: n3Rngo
+    displayName: Pureed (Level 4)
+
+  - id: EG5WPN
+    displayName: Liquidized (Level 3)
+
+  - id: xHfPo0
+    displayName: Thin (Level 0)
+
+  - id: RD1nQL
+    displayName: Slightly Thick (Level 1)
+
+  - id: cpTVHz
+    displayName: Mildly Thick (Level 2)
+
+  - id: vcnirf
+    displayName: Moderately Thick (Level 3)
+
+  - id: uTGSPB
+    displayName: Extremely Thick (Level 4)

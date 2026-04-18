@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_70a50.file.DischargeSummaryPOSTette.pdf_A7Q">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Discharge Summary POSTette.pdf</description>
+  <filedata mimetype="application/pdf">Discharge%20Summary%20POSTette.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Discharge Summary POSTette.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_70a50</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

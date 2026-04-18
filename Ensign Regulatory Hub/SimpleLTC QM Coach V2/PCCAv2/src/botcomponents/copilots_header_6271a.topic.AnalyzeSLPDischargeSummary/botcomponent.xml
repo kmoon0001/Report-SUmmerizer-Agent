@@ -1,0 +1,32 @@
+<botcomponent schemaname="copilots_header_6271a.topic.AnalyzeSLPDischargeSummary">
+  <componenttype>9</componenttype>
+  <description>Analyze an existing SLP discharge summary to ensure it clearly documents course of care, progress on each goal, current functional communication or swallowing status, remaining limitations, and follow‑up recommendations. Identify gaps or vague language and propose improved, defensible phrasing.
+
+analyze slp discharge summary
+
+analyze slp dc note
+
+check this slp discharge note
+
+is this slp discharge summary complete
+
+
+Trigger phrases: 
+slp discharge note quality check
+analyze slp discharge summary
+
+analyze slp dc note
+
+check this slp discharge note
+
+is this slp discharge summary complete
+
+slp discharge note quality check</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Analyze SLP Discharge Summary</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

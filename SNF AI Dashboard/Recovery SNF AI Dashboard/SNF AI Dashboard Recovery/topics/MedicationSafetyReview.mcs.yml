@@ -1,0 +1,65 @@
+mcs.metadata:
+  componentName: Medication Safety Review
+  description: Elite clinical intelligence module specialized in [MedicationSafetyReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [MedicationSafetyReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Medication Safety Review
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - medication safety
+      - med review
+      - medication concern
+      - med reconciliation
+      - possible interaction
+
+  actions:
+    - kind: Question
+      id: question_scope
+      alwaysPrompt: true
+      variable: init:Topic.ScopeChoice
+      prompt: Is this for one patient or a broader medication review?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: One patient
+            Value: Patient
+          - DisplayName: Broader review
+            Value: Broader
+
+    - kind: Question
+      id: question_issue
+      alwaysPrompt: true
+      variable: init:Topic.IssueChoice
+      prompt: What kind of medication issue are you reviewing?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Interaction concern
+            Value: Interaction
+          - DisplayName: Duplicate therapy or duplication
+            Value: Duplication
+          - DisplayName: Reconciliation gap
+            Value: Reconciliation
+          - DisplayName: Dose or timing concern
+            Value: DoseTiming
+
+    - kind: SendActivity
+      id: send_med_notice
+      activity: Medication review output must stay advisory. High-risk, unclear, or patient-specific medication issues should route to pharmacist or clinician review.
+
+    - kind: SendActivity
+      id: send_med_summary
+      activity: =Concatenate("I have the intake for a ", Topic.IssueChoice.DisplayName, " medication review with ", Topic.ScopeChoice.DisplayName, " scope.")
+
+    - kind: SendActivity
+      id: send_manual_escalation_next_step
+      activity: Use the intake above to route the concern to pharmacy or the assigned clinician now. This topic stays in structured intake mode until validated live alert routing is connected.
+
+inputType: {}
+outputType: {}
+
+

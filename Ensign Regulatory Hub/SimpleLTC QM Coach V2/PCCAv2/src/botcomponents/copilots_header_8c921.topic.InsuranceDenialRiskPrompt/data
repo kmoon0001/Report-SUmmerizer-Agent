@@ -1,0 +1,34 @@
+kind: AdaptiveDialog
+modelDescription: This prompt helps identify documentation elements that pose insurance denial risks, including missing skilled nursing justification, inadequate functional limitation documentation, lack of medical necessity, insufficient specificity in goals, and absence of frequency justification. It guides OT specialists to strengthen documentation to prevent claim denials and ensure Medicare coverage.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: ot_denial_audit
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or denial-risk gaps.
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - copilots_header_8c921.file.2025PartBMSCAAuditWorksheet.pdf_cjR
+            - copilots_header_8c921.file.aota-apta-asha-consensus-statement.pdf_Cb1
+            - copilots_header_8c921.file.CFR-2022-title42-vol3-sec424-24.pdf_dmk
+            - copilots_header_8c921.file.Ch15MedicareBenefitsPolicyManual.pdf_0tl
+            - copilots_header_8c921.file.MedicareClaimsProcessingManualCh5.pdf_gFz
+            - copilots_header_8c921.file.MedicareProgramIntegrityManualCh3.pdf_I1_
+            - copilots_header_8c921.file.MedicareSecondaryPayerManual-therapy.pdf_VZO
+            - copilots_header_8c921.file.MedicareTherapyLearningNetwork.pdf_Uzt
+            - copilots_header_8c921.file.StrongOTDocumentationPatterns.txt_zb6
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - copilots_header_8c921.topic.httpswwwaotaorgpracticedocumentation_iVC0hJVKaTikLhyPw84FZ
+          - copilots_header_8c921.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_u9vhVBCkizr
+      applyModelKnowledgeSetting: false
+
+inputType: {}
+outputType: {}

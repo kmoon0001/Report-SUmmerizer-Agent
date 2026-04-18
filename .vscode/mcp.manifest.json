@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "global-default": {
+      "description": "Shared Microsoft-first MCP profile for this workspace and future Copilot Studio projects.",
+      "servers": [
+        "pac-cli",
+        "filesystem",
+        "git",
+        "github",
+        "learn-docs",
+        "azure-mcp",
+        "powerbi-remote",
+        "playwright"
+      ]
+    }
+  }
+}

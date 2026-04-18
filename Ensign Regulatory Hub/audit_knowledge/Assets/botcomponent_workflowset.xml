@@ -1,0 +1,14 @@
+<botcomponent_workflowset>
+  <botcomponent_workflow botcomponentid.schemaname="cr917_agentu92bPc.topic.FacilityQMAnalysis" workflowid.workflowid="0b930a15-2516-f111-8341-0022480b6bd9">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+  <botcomponent_workflow botcomponentid.schemaname="cr917_agentu92bPc.topic.QMACTIONPLAN" workflowid.workflowid="fcf035ad-af0c-f111-8406-0022480b6bd9">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+  <botcomponent_workflow botcomponentid.schemaname="cr917_agentu92bPc.topic.QMDATAUPLOADDECLINEDETECTION" workflowid.workflowid="0b930a15-2516-f111-8341-0022480b6bd9">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+  <botcomponent_workflow botcomponentid.schemaname="cr917_agentu92bPc.topic.RESIDENTOUTLIERANALYSIS" workflowid.workflowid="88ce03b7-6b25-f111-8341-000d3a33801d">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_workflow>
+</botcomponent_workflowset>

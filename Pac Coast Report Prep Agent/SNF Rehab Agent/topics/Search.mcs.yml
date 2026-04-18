@@ -1,0 +1,49 @@
+mcs.metadata:
+  componentName: Conversational boosting
+  description: Elite clinical intelligence module specialized in [Search]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  priority: -1
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search-content
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      moderationLevel: Medium
+      additionalInstructions: |-
+        Ground answers only in provided knowledge sources.
+        Focus on SNF PT/OT/SLP documentation quality, medical necessity justification, and compliance risk detection.
+        If information is insufficient or conflicting, explicitly say "Requires therapist review".
+        Keep response concise and structured with: Clinical summary, Skilled justification, Risk flags, Clarification questions.
+      publicDataSource:
+        sites:
+          - "www.cms.gov"
+          - "www.ecfr.gov"
+
+      sharePointSearchDataSource: {}
+
+    - kind: ConditionGroup
+      id: has-answer-conditions
+      conditions:
+        - id: has-answer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: SendActivity
+              id: sendMessage_grounded_answer
+              activity: "{Topic.Answer}"
+
+            - kind: EndDialog
+              id: end-topic
+              clearTopicQueue: true
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_noGroundedAnswer
+          activity: I couldn't generate a grounded answer from available sources. Please provide more specific clinical context or request escalation.
+
+        - kind: BeginDialog
+          id: beginDialog_searchEscalate
+          dialog: pcca_agent39xn69.topic.Escalate
+

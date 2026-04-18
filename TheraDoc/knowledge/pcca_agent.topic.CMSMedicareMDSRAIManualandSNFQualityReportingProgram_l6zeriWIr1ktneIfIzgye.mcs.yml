@@ -1,0 +1,8 @@
+mcs.metadata:
+  componentName: CMS Medicare MDS RAI Manual and SNF Quality Reporting Program
+  description: Elite clinical intelligence module specialized in [pcca_agent.CMSMedicareMDSRAIManualandSNFQualityReportingProgram_l6zeriWIr1ktneIfIzgye]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  triggerCondition: true
+  site: https://www.cms.gov/medicare

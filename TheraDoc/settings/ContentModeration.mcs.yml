@@ -1,0 +1,2 @@
+kind: ContentModerationSettings
+moderatedCustomResponse: I'm unable to respond to that request. Please rephrase your clinical question without including patient identifiers or sensitive data. For urgent clinical concerns, consult your supervising clinician or refer to your facility's clinical protocols.

@@ -1,0 +1,82 @@
+﻿[
+    {
+        "FileName":  "pcc_resident_list_current.active-only.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\pcc_resident_list_current.active-only.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\pcc_resident_list_current.active-only.csv",
+        "RowCount":  162,
+        "SizeBytes":  43971,
+        "LastWriteTime":  "2026-04-05T03:15:31"
+    },
+    {
+        "FileName":  "command_center_documentation_queue.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_documentation_queue.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_documentation_queue.csv",
+        "RowCount":  129,
+        "SizeBytes":  16061,
+        "LastWriteTime":  "2026-04-05T14:40:56"
+    },
+    {
+        "FileName":  "command_center_documentation_queue.by-unit.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_documentation_queue.by-unit.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_documentation_queue.by-unit.csv",
+        "RowCount":  4,
+        "SizeBytes":  196,
+        "LastWriteTime":  "2026-04-05T14:40:56"
+    },
+    {
+        "FileName":  "command_center_executive_unit_snapshot.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_executive_unit_snapshot.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_executive_unit_snapshot.csv",
+        "RowCount":  4,
+        "SizeBytes":  644,
+        "LastWriteTime":  "2026-04-05T14:40:59"
+    },
+    {
+        "FileName":  "command_center_therapy_coverage.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_therapy_coverage.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_therapy_coverage.csv",
+        "RowCount":  139,
+        "SizeBytes":  24949,
+        "LastWriteTime":  "2026-04-05T14:40:58"
+    },
+    {
+        "FileName":  "command_center_therapy_coverage.by-unit.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_therapy_coverage.by-unit.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_therapy_coverage.by-unit.csv",
+        "RowCount":  4,
+        "SizeBytes":  429,
+        "LastWriteTime":  "2026-04-05T14:40:58"
+    },
+    {
+        "FileName":  "command_center_therapy_documentation_priority.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_therapy_documentation_priority.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_therapy_documentation_priority.csv",
+        "RowCount":  82,
+        "SizeBytes":  6517,
+        "LastWriteTime":  "2026-04-05T14:40:58"
+    },
+    {
+        "FileName":  "command_center_therapy_documentation_priority.by-unit.csv",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_therapy_documentation_priority.by-unit.csv",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_therapy_documentation_priority.by-unit.csv",
+        "RowCount":  4,
+        "SizeBytes":  331,
+        "LastWriteTime":  "2026-04-05T14:40:58"
+    },
+    {
+        "FileName":  "command_center_operational_summary.md",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_operational_summary.md",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_operational_summary.md",
+        "RowCount":  null,
+        "SizeBytes":  2560,
+        "LastWriteTime":  "2026-04-05T14:41:00"
+    },
+    {
+        "FileName":  "command_center_operational_summary.json",
+        "SourcePath":  "D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\command_center_operational_summary.json",
+        "PackagedPath":  "D:\\my agents copilot studio\\SNF Dashboard\\integrations\\powerbi\\source-package\\current\\command_center_operational_summary.json",
+        "RowCount":  null,
+        "SizeBytes":  5161,
+        "LastWriteTime":  "2026-04-07T01:37:58"
+    }
+]

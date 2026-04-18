@@ -1,0 +1,147 @@
+mcs.metadata:
+  componentName: QM Orchestrator
+  description: Elite clinical intelligence module specialized in [QMORCHESTRATOR]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_extractInitialContext
+      conditions:
+        - id: conditionItem_foundFacilityInTrigger
+          condition: =!IsBlank(System.Trigger.Entities.Facility)
+          actions:
+            - kind: SetVariable
+              id: setVariable_saveTriggerFacility
+              variable: Global.SelectedFacility
+              value: =System.Trigger.Entities.Facility
+    - kind: ConditionGroup
+      id: conditionGroup_contextCheck
+      conditions:
+        - id: conditionItem_hasContext
+          condition: =!IsBlank(Global.SelectedFacility)
+          actions:
+            - kind: SendActivity
+              id: sendActivity_contextResume
+              activity: "Clinical Context: Active for **=Global.SelectedFacility**. Use the menu below to pull site-specific metrics."
+
+    - kind: Question
+      id: question_V6zkac
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.routeChoice
+      prompt: Choose a QM workflow to continue.
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Facility QM Review
+              displayName: Facility QM Review
+
+            - id: QM Driver Analysis
+              displayName: QM Driver Analysis
+
+            - id: Resident Outlier Analysis
+              displayName: Resident Outlier Analysis
+
+            - id: QM Decline Detection
+              displayName: QM Decline Detection
+
+            - id: QM Action Plan
+              displayName: QM Action Plan
+
+            - id: DoR Summary Email
+              displayName: DoR Summary Email
+
+            - id: QM Intake
+              displayName: QM Intake
+
+            - id: Switch Facility
+              displayName: Switch Facility
+
+        displayName: EmbeddedEntity-X0yGRB
+
+    - kind: ConditionGroup
+      id: conditionGroup_imoZbs
+      conditions:
+        - id: conditionItem_du1Pbq
+          condition: =Topic.routeChoice = 'Facility QM Review'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_FacilityQM
+              dialog: cr917_agentu92bPc.topic.FacilityQMAnalysis
+
+        - id: conditionItem_GnZ8zv
+          condition: =Topic.routeChoice = 'QM Driver Analysis'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_QMDrivers
+              dialog: cr917_agentu92bPc.topic.QMDriverAnalysis
+
+        - id: conditionItem_7qkYQo
+          condition: =Topic.routeChoice = 'Resident Outlier Analysis'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_ResidentOutlier
+              dialog: cr917_agentu92bPc.topic.ResidentOutlierAnalysis
+
+        - id: conditionItem_7g7Fbw
+          condition: =Topic.routeChoice = 'QM Decline Detection'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_DeclineDetection
+              dialog: cr917_agentu92bPc.topic.QMDataUploadDeclineDetection
+
+        - id: conditionItem_GXwrUu
+          condition: =Topic.routeChoice = 'QM Action Plan'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_ActionPlan
+              dialog: cr917_agentu92bPc.topic.QMActionPlan
+
+        - id: conditionItem_irYU4n
+          condition: =Topic.routeChoice = 'DoR Summary Email'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_DoRSummary
+              dialog: cr917_agentu92bPc.topic.DoRSUMMARYEMAIL
+
+        - id: conditionItem_QMIntake
+          condition: =Topic.routeChoice = 'QM Intake'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_QMIntake
+              dialog: cr917_agentu92bPc.topic.QMIntake
+
+        - id: conditionItem_SwitchFacility
+          condition: =Topic.routeChoice = 'Switch Facility'
+          actions:
+            - kind: SetVariable
+              id: setVariable_clearGlobalFacility
+              variable: Global.SelectedFacility
+              value: =Blank()
+
+            - kind: SendActivity
+              id: sendActivity_confirmSwitch
+              activity: "Clinical Context cleared. You can now select a new facility for your next audit."
+
+      elseActions:
+        - kind: SendActivity
+          id: sendActivity_invalidChoice
+          activity: I didn't recognize that choice. Please select one of the available QM workflows.
+
+inputType:
+  properties:
+    InboundFacility:
+      type: String
+      title: InboundFacility
+outputType:
+  properties:
+    ProcessingStatus:
+      type: String
+      title: ProcessingStatus
+

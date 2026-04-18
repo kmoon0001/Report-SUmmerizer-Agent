@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_8c921.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_u9vhVBCkizr">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.cms.gov/outreach-and-education/medicare-learning-network-mln website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.cms.gov/outreach-and-education/medicare-learning-network-mln</name>
+  <parentbotid>
+    <schemaname>copilots_header_8c921</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

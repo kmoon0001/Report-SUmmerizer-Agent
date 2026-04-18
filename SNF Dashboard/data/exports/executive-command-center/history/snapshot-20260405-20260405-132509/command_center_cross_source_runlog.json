@@ -1,0 +1,83 @@
+﻿{
+    "GeneratedAt":  "2026-04-05T13:25:05",
+    "EventCount":  11,
+    "Events":  [
+                   {
+                       "Timestamp":  "2026-04-05T13:24:58",
+                       "Step":  "Run Lock",
+                       "Status":  "PASS",
+                       "Message":  "Run lock acquired.",
+                       "ArtifactPath":  "D:\\SNF AI Dashboard\\data\\processed\\command_center_cross_source.lock"
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:24:58",
+                       "Step":  "Checkpoint",
+                       "Status":  "INFO",
+                       "Message":  "Checkpoint initialized.",
+                       "ArtifactPath":  "D:\\SNF AI Dashboard\\data\\processed\\command_center_cross_source.checkpoint.json"
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:24:58",
+                       "Step":  "Source Schema Validation",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:02",
+                       "Step":  "Secret Hygiene Scan",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:02",
+                       "Step":  "PCC Census",
+                       "Status":  "PASS",
+                       "Message":  "PCC active census file found.",
+                       "ArtifactPath":  "D:\\SNF AI Dashboard\\data\\processed\\pcc_resident_list_current.active-only.csv"
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:02",
+                       "Step":  "Documentation Queue Build",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:04",
+                       "Step":  "Therapy Pipeline",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:04",
+                       "Step":  "Priority Queue Build",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:04",
+                       "Step":  "Patient Insights",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:04",
+                       "Step":  "Executive Unit Snapshot",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T13:25:05",
+                       "Step":  "Operational Summary",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   }
+               ]
+}

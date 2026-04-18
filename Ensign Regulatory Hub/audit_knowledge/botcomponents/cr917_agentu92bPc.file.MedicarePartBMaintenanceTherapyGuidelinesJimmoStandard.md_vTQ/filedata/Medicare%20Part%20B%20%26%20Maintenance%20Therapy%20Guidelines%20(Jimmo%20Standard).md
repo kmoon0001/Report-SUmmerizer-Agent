@@ -1,0 +1,16 @@
+Document Title: Medicare Part B & Maintenance Therapy Guidelines (Jimmo Standard)
+
+Core Logic and General
+
+Important Message About the Jimmo Settlement
+The Centers for Medicare & Medicaid Services (CMS) reminds the Medicare community of the Jimmo Settlement Agreement (January 2013), which clarified that the Medicare program covers skilled nursing care and skilled therapy services under Medicare’s skilled nursing facility, home health, and outpatient therapy benefits when a beneficiary needs skilled care in order to maintain function or to prevent or slow decline or deterioration (provided all other coverage criteria are met).  Specifically, the Jimmo Settlement Agreement required manual revisions to restate a “maintenance coverage standard” for both skilled nursing and therapy services under these benefits:
+
+Skilled nursing services would be covered where such skilled nursing services are necessary to maintain the patient's current condition or prevent or slow further deterioration so long as the beneficiary requires skilled care for the services to be safely and effectively provided.
+
+Skilled therapy services are covered when an individualized assessment of the patient's clinical condition demonstrates that the specialized judgment, knowledge, and skills of a qualified therapist (“skilled care”) are necessary for the performance of a safe and effective maintenance program.  Such a maintenance program to maintain the patient's current condition or to prevent or slow further deterioration is covered so long as the beneficiary requires skilled care for the safe and effective performance of the program.
+
+The Jimmo Settlement Agreement may reflect a change in practice for those providers, adjudicators, and contractors who may have erroneously believed that the Medicare program covers nursing and therapy services under these benefits only when a beneficiary is expected to improve.  The Jimmo Settlement Agreement is consistent with the Medicare program’s regulations governing maintenance nursing and therapy in skilled nursing facilities, home health services, and outpatient therapy (physical, occupational, and speech) and nursing and therapy in inpatient rehabilitation hospitals for beneficiaries who need the level of care that such hospitals provide.
+
+In essence, the Jimmo Settlement Agreement clarifies Medicare’s longstanding policy that coverage of skilled nursing and skilled therapy services in the Skilled Nursing Facility (SNF), Home Health (HH), and Outpatient Therapy (OPT) settings does not turn on the presence or absence of a beneficiary’s potential for improvement, but rather on the beneficiary’s need for skilled care.
+
+For ready reference, this CMS web page serves to provide access, in one location, to various public documents related to the Jimmo Settlement Agreement. Included in those public documents is an FAQ document for easy access. The Jimmo Settlement Agreement does not alter or supersede any other applicable coverage requirements beyond those involving the need for skilled care, such as Medicare’s overall requirement that covered services must be reasonable and necessary to diagnose or treat the beneficiary’s condition, or existing statutory limitations on the amount or duration of Medicare benefits.

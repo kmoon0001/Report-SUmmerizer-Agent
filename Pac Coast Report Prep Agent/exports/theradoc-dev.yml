@@ -1,0 +1,4117 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Pain Scale
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.PainScale
+    entity:
+      kind: RegexEntity
+      pattern: \b([0-9]|10)(\/10)?\b|\b([0-9]|10)\s?(out\s?of\s?10)\b|pain\s?(level|scale|rating)?\s?([0-9]|10)\b|rates?\s?pain\s?(at|of)?\s?([0-9]|10)\b
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Speech Therapy Documentation Standards for SNF Practice
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for SLP-specific documentation standards, skilled speech-language pathology reasoning, and medically necessary ST service support. Covers speech, swallowing, cognition, communication, and AAC documentation terminology for SNF practice. Prioritize this source for all ST-specific note drafting, rewriting, and audit requests. Do not use this source for PT or OT documentation. | Version: 2026.1 | Specialty: ST | Category: Documentation Standards"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.SpeechTherapyDocumentationStandardsforSNFPractice
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Audit Existing Note
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.AuditExistingNote
+    dialog:
+      modelDescription: Use this topic when a therapist wants an existing PT, OT, or ST note reviewed for skilled language, clarity, completeness, measurable function, and compliance risk. This topic should collect the note text and only the minimum missing context, such as discipline if needed, then hand off to the configured Audit Note tool. Keep intake concise and do not ask redundant questions.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_QXTtJv
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.incomingDiscipline
+            prompt: What therapy discipline wrote this note? (Select one)
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_4WLBs7
+            conditions:
+              - id: conditionItem_3ne3za
+                condition: =Topic.incomingDiscipline = "PT"
+
+              - id: conditionItem_AxMk7H
+                condition: =Topic.incomingDiscipline = "OT"
+
+              - id: conditionItem_TYoRes
+                condition: =Topic.incomingDiscipline = "SLP"
+
+              - id: conditionItem_mWFwXl
+                condition: =Topic.incomingDiscipline = "PT"
+
+          - kind: Question
+            id: question_fqTOVO
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.incomingDocumentType
+            prompt: What type of note is this? (Select one)
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_iwM7Fj
+            conditions:
+              - id: conditionItem_Gzoq18
+                condition: =Topic.incomingDocumentType = "Daily Note"
+
+              - id: conditionItem_dRxQsb
+                condition: =Topic.incomingDocumentType = "Progress Note"
+
+              - id: conditionItem_IWRW7l
+                condition: =Topic.incomingDocumentType = "Evaluation"
+
+              - id: conditionItem_7tty11
+                condition: =Topic.incomingDocumentType = "Recertification"
+
+              - id: conditionItem_qk5OS3
+                condition: =Topic.incomingDocumentType = "Discharge Summary"
+
+          - kind: Question
+            id: question_TUFd0X
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.existingNoteText
+            prompt: "Please paste the SNF therapy note you would like audited for compliance risk. Note: Do not include patient names, MRNs, or other PHI. Use placeholders like [Patient] if needed."
+            entity:
+              kind: StringPrebuiltEntity
+              sensitivityLevel: None
+
+          - kind: BeginDialog
+            id: DAT0JQ
+            input:
+              binding:
+                text: =Text(Topic.existingNoteText)
+                text_1: =Topic.incomingDocumentType
+                text_2: =Topic.incomingDiscipline
+
+            dialog: template-content.action.Untitled
+            output:
+              binding:
+                auditresult: Topic.auditresult
+
+          - kind: SendActivity
+            id: sendActivity_xasWpa
+            activity: |-
+              {Topic.auditresult}
+              This is an AI-generated compliance audit. Review all flagged items carefully. Final compliance determination must be made by a qualified clinician or compliance officer.
+
+      inputType:
+        properties:
+          incomingDiscipline:
+            displayName: incomingDiscipline
+            type: String
+
+          incomingDocumentType:
+            displayName: incomingDocumentType
+            type: String
+
+      outputType:
+        properties:
+          existingNoteText:
+            displayName: existingNoteText
+            type:
+              kind: String
+              sensitivityLevel: Sensitive
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Documentation Guidance
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.DocumentationGuidance
+    dialog:
+      modelDescription: Use this topic when a therapist asks what information is needed for a PT, OT, or ST note, how to write skilled SNF documentation, what makes a note compliant, what format to use, or how to document specific therapy situations. Answer using the agent's configured knowledge sources for documentation standards, compliance guidance, formatting conventions, and approved examples. Keep answers concise, direct, and clinician-friendly. Prefer knowledge-based guidance over tool use unless the user explicitly wants an actual note, audit, parse, or handoff generated.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_QVdjkP
+            activity: |-
+              Here are SNF therapy documentation standards to guide your clinical notes:
+
+              **Cueing Levels** — Document the level of verbal or tactile cues provided:
+              • Independent (I): No cues needed
+              • Supervision (S): Stand-by, no hands-on
+              • Modified Independent (ModI): Uses device/compensation, no assist
+              • Contact Guard Assist (CGA): Therapist hand contact, no force
+              • Minimal Assist (MinA): Patient performs 75%+ of task
+              • Moderate Assist (ModA): Patient performs 50–74% of task
+              • Maximum Assist (MaxA): Patient performs 25–49% of task
+              • Total Assist (TA): Patient performs less than 25%
+
+              **Skilled Language Requirements** — Every note must include:
+              • Clinical reason skilled therapy is required (not maintenance)
+              • Patient response to treatment and measurable progress
+              • Functional goals with objective baselines and targets
+              • Safety considerations or precautions addressed
+              • Plan and frequency of continued treatment
+
+              **What to avoid:** Unskilled language (e.g., "patient tolerated well"), non-measurable progress, missing assist levels, or absent functional connection.
+
+              Would you like me to draft, revise, or audit a specific note using these standards?
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Occupational Therapy Documentation Standards for SNF Practice
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for OT-specific documentation standards, functional performance and participation language, clinical reasoning, baseline deficit framing, progress reporting, and rationale for skilled occupational therapy services in SNF settings. Prioritize this source for all OT-specific note drafting, rewriting, and audit requests. Do not use this source for PT or ST documentation. | Version: 2026.1 | Specialty: OT | Category: Documentation Standards"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.OccupationalTherapyDocumentationStandardsforSNFPractice
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Thank you
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This topic triggers when the user says thank you.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Thankyou
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Thank you
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - thanks
+            - thank you
+            - thanks so much
+            - ty
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_9iz6v7
+            activity: You're welcome.
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Diet Texture
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.DietTexture
+    entity:
+      kind: ClosedListEntity
+      items:
+        - id: pdIwce
+          displayName: Regular
+
+        - id: UQTfPr
+          displayName: Soft & Bite-Sized (Level 6)
+
+        - id: U0MHG8
+          displayName: Minced & Moist (Level 5)
+
+        - id: n3Rngo
+          displayName: Pureed (Level 4)
+
+        - id: EG5WPN
+          displayName: Liquidized (Level 3)
+
+        - id: xHfPo0
+          displayName: Thin (Level 0)
+
+        - id: RD1nQL
+          displayName: Slightly Thick (Level 1)
+
+        - id: cpTVHz
+          displayName: Mildly Thick (Level 2)
+
+        - id: vcnirf
+          displayName: Moderately Thick (Level 3)
+
+        - id: uTGSPB
+          displayName: Extremely Thick (Level 4)
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Discharge Note Intake
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: Collects therapy discharge note information including discipline, reason for discharge, functional outcomes, and recommendations for the discharge summary.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.DischargeNoteIntake
+    dialog:
+      modelDescription: Use this topic to collect the information needed for a therapy discharge note. Focus on discipline, reason for discharge, functional status at discharge, goal status, caregiver or patient education, remaining limitations, equipment or safety recommendations, and discharge disposition. Ask only the minimum follow-up needed for a complete discharge summary.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_7xIA7j
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.patientName
+            prompt: What is the patient's name?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_GL8u45
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.therapyDiscipline
+            prompt: What therapy discipline is performing this discharge?
+            entity:
+              kind: ClosedListEntityReference
+              entityId: template-content.entity.Discipline
+
+          - kind: ConditionGroup
+            id: conditionGroup_foPwWg
+            conditions:
+              - id: conditionItem_byPNaG
+                condition: =Topic.therapyDiscipline = 'template-content.entity.Discipline'.DuzBe7
+                displayName: disciplineIsSLP
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_vIkRlN
+                    activity: Understood — generating your SLP Discharge Note. Please provide the following details.
+
+              - id: conditionItem_6mR6sA
+                condition: =Topic.therapyDiscipline = 'template-content.entity.Discipline'.iNfx28
+                displayName: disciplineIsOT
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_almObs
+                    activity: Understood — generating your OT Discharge Note. Please provide the following details.
+
+              - id: conditionItem_4EpbHC
+                condition: =Topic.therapyDiscipline = 'template-content.entity.Discipline'.dxugsW
+                displayName: disciplineIsPT
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_kw4FOB
+                    activity: Understood — generating your PT Discharge Note. Please provide the following details.
+
+          - kind: Question
+            id: question_bP6AK7
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.dischargeReason
+            prompt: What is the reason for discharge?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_KPNB3i
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.functionalStatus
+            prompt: What is the patient's functional status at discharge?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_Y5jUVJ
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.goalStatus
+            prompt: What is the patient's goal status at discharge?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Met
+                    displayName: Met
+
+                  - id: Partially Met
+                    displayName: Partially Met
+
+                  - id: Not Met
+                    displayName: Not Met
+
+          - kind: ConditionGroup
+            id: conditionGroup_dMeutZ
+            conditions:
+              - id: conditionItem_1tc7b2
+                condition: =Topic.goalStatus = 'template-content.topic.DischargeNoteIntake.main.question_Y5jUVJ'.Met
+                displayName: goalMet
+
+              - id: conditionItem_wI1oRU
+                condition: =Topic.goalStatus = 'template-content.topic.DischargeNoteIntake.main.question_Y5jUVJ'.'Partially Met'
+                displayName: goalPartiallyMet
+
+              - id: conditionItem_9kgXLF
+                condition: =Topic.goalStatus = 'template-content.topic.DischargeNoteIntake.main.question_Y5jUVJ'.'Not Met'
+                displayName: goalNotMet
+
+          - kind: Question
+            id: question_ov87Ow
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.educationProvided
+            prompt: Was caregiver or patient education provided at discharge?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Yes
+                    displayName: Yes
+
+                  - id: No
+                    displayName: No
+
+          - kind: ConditionGroup
+            id: conditionGroup_XBtyJX
+            conditions:
+              - id: conditionItem_uj4p6X
+                condition: =Topic.educationProvided = 'template-content.topic.DischargeNoteIntake.main.question_ov87Ow'.Yes
+                displayName: educationWasProvided
+
+              - id: conditionItem_1410OR
+                condition: =Topic.educationProvided = 'template-content.topic.DischargeNoteIntake.main.question_ov87Ow'.No
+                displayName: educationNotProvided
+
+          - kind: Question
+            id: question_iQyf35
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.remainingLimitations
+            prompt: What are the patient's remaining limitations or precautions?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_jT1OkR
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.equipmentSafetyRecs
+            prompt: Are there any equipment or safety recommendations for the patient?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_gYxePS
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.dischargeDisposition
+            prompt: What is the patient's discharge disposition?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Home
+                    displayName: Home
+
+                  - id: Skilled Nursing Facility (SNF)
+                    displayName: Skilled Nursing Facility (SNF)
+
+                  - id: Acute Hospital
+                    displayName: Acute Hospital
+
+                  - id: Assisted Living Facility
+                    displayName: Assisted Living Facility
+
+                  - id: Outpatient Therapy
+                    displayName: Outpatient Therapy
+
+                  - id: Hospice
+                    displayName: Hospice
+
+                  - id: Other
+                    displayName: Other
+
+              displayName: EmbeddedEntity-FoaSl6
+
+          - kind: ConditionGroup
+            id: conditionGroup_7WuW0U
+            conditions:
+              - id: conditionItem_RDKa5n
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.'Skilled Nursing Facility (SNF)'
+
+              - id: conditionItem_vkdj8A
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.'Acute Hospital'
+
+              - id: conditionItem_lvHi1x
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.'Assisted Living Facility'
+
+              - id: conditionItem_YUcl2p
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.'Outpatient Therapy'
+
+              - id: conditionItem_NHxsJo
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.Hospice
+
+              - id: conditionItem_UGWxgM
+                condition: =Topic.dischargeDisposition = 'template-content.topic.DischargeNoteIntake.main.question_gYxePS'.Other
+
+          - kind: BeginDialog
+            id: 5lalG2
+            input:
+              binding:
+                text: "=\"Generate a Medicare-compliant SNF therapy discharge note.\\nPatient: \" & Topic.patientName & \"\\nDiscipline: \" & Text(Topic.therapyDiscipline) & \"\\nDischarge Disposition: \" & Text(Topic.dischargeDisposition) & \"\\nDischarge Reason: \" & Topic.dischargeReason & \"\\nFunctional Status at Discharge: \" & Topic.functionalStatus & \"\\nEducation Provided: \" & Text(Topic.educationProvided) & \"\\nEquipment/Safety Recs: \" & Topic.equipmentSafetyRecs"
+
+            dialog: template-content.action.TheraDocPTGenerateNote
+            output:
+              binding:
+                generatednote: Topic.generatednote
+
+          - kind: SendActivity
+            id: sendActivity_COfDKa
+            activity: Thank you. The discharge note intake is complete. Your responses have been recorded and will be used to generate the discharge documentation.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Goodbye
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This topic triggers when the user says goodbye. By default, it does not end the conversation. If you would like to end the conversation when the user says goodbye, you can add an "End of Conversation" action to this topic, or redirect to the "End of Conversation" system topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Goodbye
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Goodbye
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Bye
+            - Bye for now
+            - Bye now
+            - Good bye
+            - No thank you. Goodbye.
+            - See you later
+
+        actions:
+          - kind: Question
+            id: question_zf2HhP
+            variable: Topic.EndConversation
+            prompt: Would you like to end our conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition_DGc1Wy
+            conditions:
+              - id: condition_DGc1Wy-item-0
+                condition: =Topic.EndConversation = true
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_VJc0kw
+                    activity: Thank you for using TheraDoc. Your documentation efforts support excellent patient care. Have a productive clinical day — goodbye!
+
+                  - kind: BeginDialog
+                    id: dn94DC
+                    dialog: template-content.topic.EndofConversation
+
+              - id: condition_DGc1Wy-item-1
+                condition: =Topic.EndConversation = false
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_LdLhmf
+                    activity: Of course. How else may I assist you with your clinical documentation today?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Progress Note Intake
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ProgressNoteIntake
+    dialog:
+      modelDescription: Collects patient information for progress note documentation across PT, OT, and ST disciplines. Gathers patient name, therapy goals, session activities, and response to treatment, then calls the Generate Progress Note tool.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_3NJBJg
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.patientName
+            prompt: What is the patient's name?
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: sendActivity_iziDCA
+            activity: Thank you. I'll help you create the progress note documentation.
+
+          - kind: Question
+            id: question_lQ6JdB
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.therapyGoals
+            prompt: What are the patient's current therapy goals?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_PlEWtD
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.sessionActivities
+            prompt: What activities or interventions were performed during this session?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_MpmsBZ
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.patientResponse
+            prompt: How did the patient respond to the session?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Tolerated well
+                    displayName: Tolerated well
+
+                  - id: Cooperative
+                    displayName: Cooperative
+
+                  - id: Fatigued
+                    displayName: Fatigued
+
+                  - id: Resistant
+                    displayName: Resistant
+
+                  - id: Other
+                    displayName: Other
+
+              displayName: EmbeddedEntity-YYrnLW
+
+          - kind: ConditionGroup
+            id: conditionGroup_tc5c3U
+            conditions:
+              - id: conditionItem_swQ3xM
+                condition: =Topic.patientResponse = 'template-content.topic.ProgressNoteIntake.main.question_MpmsBZ'.Other
+                actions:
+                  - kind: Question
+                    id: question_AlcjNX
+                    interruptionPolicy:
+                      allowInterruption: true
+
+                    variable: Topic.patientResponseOtherDetail
+                    prompt: Please briefly describe the patient's response.
+                    entity:
+                      kind: StringPrebuiltEntity
+                      sensitivityLevel: None
+
+          - kind: Question
+            id: question_q9VPT0
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.progressUpdateStatus
+            prompt: How is the patient progressing toward therapy goals?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Progressing
+                    displayName: Progressing
+
+                  - id: Maintained
+                    displayName: Maintained
+
+                  - id: Regressed
+                    displayName: Regressed
+
+                  - id: Other
+                    displayName: Other
+
+              displayName: EmbeddedEntity-i5fXd8
+
+          - kind: ConditionGroup
+            id: conditionGroup_AhecFG
+            conditions:
+              - id: conditionItem_fIQgVA
+                condition: =Topic.progressUpdateStatus = 'template-content.topic.ProgressNoteIntake.main.question_q9VPT0'.Regressed
+                actions:
+                  - kind: Question
+                    id: question_UCls0U
+                    interruptionPolicy:
+                      allowInterruption: true
+
+                    variable: init:Topic.progressUpdateDetail
+                    prompt: Briefly describe the regression or barriers noted.
+                    entity: StringPrebuiltEntity
+
+              - id: conditionItem_x3w1FJ
+                condition: =Topic.progressUpdateStatus = 'template-content.topic.ProgressNoteIntake.main.question_q9VPT0'.Other
+                actions:
+                  - kind: Question
+                    id: question_SprxeG
+                    interruptionPolicy:
+                      allowInterruption: true
+
+                    variable: init:Topic.progressUpdateDetailOther
+                    prompt: Briefly describe the patient's progress.
+                    entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_niNfTR
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.clinicianPlan
+            prompt: What is your plan or recommendation for the next session?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_pB7H6z
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.additionalNotes
+            prompt: Are there any additional notes or comments you'd like to include in the progress note?
+            entity: StringPrebuiltEntity
+
+          - kind: BeginDialog
+            id: znUtHz
+            input:
+              binding:
+                text: "=Concatenate(\"Patient: \", Topic.patientName, \" | Therapy Goals: \", Topic.therapyGoals, \" | Session Activities: \", Topic.sessionActivities, \" | Clinician Plan: \", Topic.clinicianPlan, \" | Additional Notes: \", Topic.additionalNotes)"
+
+            dialog: template-content.action.TheraDocPTGenerateNote
+            output:
+              binding:
+                generatednote: Topic.generatednote
+
+          - kind: SendActivity
+            id: sendActivity_1ywoow
+            activity: "{Topic.generatednote}"
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Error Timeout Recovery
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ErrorTimeoutRecovery
+    dialog:
+      modelDescription: Use this topic when the agent encounters an error, timeout, or unexpected failure. Provide a graceful error message and guide the therapist to retry or contact support.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_FTkL32
+            activity: |-
+              I'm sorry, it looks like something went wrong or the request timed out. This can happen with longer documentation requests.
+
+              Here's what you can do:
+              • Try rephrasing your request with less detail and submit again.
+              • Break your request into smaller steps (e.g., complete one discipline at a time).
+              • Refresh and start a new session if the issue persists.
+
+              All AI-generated content requires clinical review before EHR entry. Your previous input was not saved — please re-enter when ready.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SLP Evaluation Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.SLPEvaluationCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: l010Eq
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "SLP Evaluation",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfEvaluation",
+                    "label": "Date of Evaluation",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "reasonForReferral",
+                    "label": "Reason for Referral",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "chartReviewFindings",
+                    "label": "Chart Review Findings",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "cranialNerveExam",
+                    "label": "Cranial Nerve Exam - CN V, VII, X, XII",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "oralMechanismExam",
+                    "label": "Oral Mechanism Exam",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "dietTextureBaseline",
+                    "label": "Diet Texture at Baseline",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "Regular",
+                        "value": "Regular"
+                      },
+                      {
+                        "title": "Soft Bite-Sized Level 6",
+                        "value": "Soft"
+                      },
+                      {
+                        "title": "Minced Moist Level 5",
+                        "value": "Minced"
+                      },
+                      {
+                        "title": "Pureed Level 4",
+                        "value": "Pureed"
+                      },
+                      {
+                        "title": "Liquidized Level 3",
+                        "value": "Liquidized"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "liquidViscosityBaseline",
+                    "label": "Liquid Viscosity at Baseline",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "Thin Level 0",
+                        "value": "Thin"
+                      },
+                      {
+                        "title": "Slightly Thick Level 1",
+                        "value": "Slightly Thick"
+                      },
+                      {
+                        "title": "Mildly Thick Level 2",
+                        "value": "Mildly Thick"
+                      },
+                      {
+                        "title": "Moderately Thick Level 3",
+                        "value": "Moderately Thick"
+                      },
+                      {
+                        "title": "Extremely Thick Level 4",
+                        "value": "Extremely Thick"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "cognitiveCommBaseline",
+                    "label": "Cognitive-Communication Baseline",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "aspirationRisk",
+                    "label": "Aspiration Risk Assessment",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "Low",
+                        "value": "Low"
+                      },
+                      {
+                        "title": "Moderate",
+                        "value": "Moderate"
+                      },
+                      {
+                        "title": "High",
+                        "value": "High"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "instrumentalAssessmentRecommended",
+                    "title": "Instrumental Assessment Recommended (MBSS/FEES)",
+                    "valueOn": "Yes",
+                    "valueOff": "No"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "measurableGoals",
+                    "label": "Measurable Goals with Documented Baseline",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "frequencyDuration",
+                    "label": "Frequency and Duration of POC",
+                    "placeholder": "5x/week x 4 weeks"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, MS CCC-SLP",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate SLP Evaluation"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                aspirationRisk: Topic.aspirationRisk
+                chartReviewFindings: Topic.chartReviewFindings
+                cognitiveCommBaseline: Topic.cognitiveCommBaseline
+                cranialNerveExam: Topic.cranialNerveExam
+                dateOfEvaluation: Topic.dateOfEvaluation
+                dietTextureBaseline: Topic.dietTextureBaseline
+                frequencyDuration: Topic.frequencyDuration
+                instrumentalAssessmentRecommended: Topic.instrumentalAssessmentRecommended
+                liquidViscosityBaseline: Topic.liquidViscosityBaseline
+                measurableGoals: Topic.measurableGoals
+                oralMechanismExam: Topic.oralMechanismExam
+                reasonForReferral: Topic.reasonForReferral
+                therapistName: Topic.therapistName
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                aspirationRisk: String
+                chartReviewFindings: String
+                cognitiveCommBaseline: String
+                cranialNerveExam: String
+                dateOfEvaluation: Date
+                dietTextureBaseline: String
+                frequencyDuration: String
+                instrumentalAssessmentRecommended: String
+                liquidViscosityBaseline: String
+                measurableGoals: String
+                oralMechanismExam: String
+                reasonForReferral: String
+                therapistName: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}, powered by generative AI. How may I help you today?
+
+          - kind: BeginDialog
+            id: D6l3cb
+            dialog: template-content.topic.WelcomeStart
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT Evaluation Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.PTEvaluationCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: aspeMq
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "PT Evaluation",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfEvaluation",
+                    "label": "Date of Evaluation",
+                    "isRequired": true,
+                    "errorMessage": "Date of evaluation is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "diagnosisIcd10",
+                    "label": "Diagnosis & ICD-10 Code",
+                    "placeholder": "Hip Fracture S72.001A",
+                    "isRequired": true,
+                    "errorMessage": "Diagnosis is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "plof",
+                    "label": "Prior Level of Function (PLOF)",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "PLOF is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "painBaseline",
+                    "label": "Pain Baseline — Location, Intensity, Quality",
+                    "isMultiline": true,
+                    "placeholder": "Right hip 6/10, aching, constant"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "aromProm",
+                    "label": "AROM / PROM Measurements",
+                    "isMultiline": true,
+                    "placeholder": "Hip flex 0-85 degrees..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "mmtGrades",
+                    "label": "MMT Grades",
+                    "isMultiline": true,
+                    "placeholder": "Hip flex R: 3+/5, L: 4/5..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "gaitDgi",
+                    "label": "Gait Analysis / DGI Score",
+                    "placeholder": "DGI: 14/24, antalgic gait"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "balanceAssessment",
+                    "label": "Balance Assessment",
+                    "placeholder": "Berg Balance Scale score"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "functionalMobilityBaseline",
+                    "label": "Functional Mobility Baseline — Section GG",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "rehabPotential",
+                    "label": "Rehab Potential",
+                    "isRequired": true,
+                    "errorMessage": "Rehab potential is required",
+                    "choices": [
+                      {
+                        "title": "Good",
+                        "value": "Good"
+                      },
+                      {
+                        "title": "Fair",
+                        "value": "Fair"
+                      },
+                      {
+                        "title": "Poor",
+                        "value": "Poor"
+                      },
+                      {
+                        "title": "Guarded",
+                        "value": "Guarded"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "longTermGoals",
+                    "label": "Long-Term Goals",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Long-term goals are required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "shortTermGoals",
+                    "label": "Short-Term Goals",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "frequencyDuration",
+                    "label": "Frequency and Duration of POC",
+                    "placeholder": "5x/week x 4 weeks"
+                  },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "physicianOrderOnFile",
+                    "title": "Physician Order / Referral on File",
+                    "valueOn": "Yes",
+                    "valueOff": "No"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, PT, DPT",
+                    "isRequired": true,
+                    "errorMessage": "Therapist name is required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate PT Evaluation"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                aromProm: Topic.aromProm
+                balanceAssessment: Topic.balanceAssessment
+                dateOfEvaluation: Topic.dateOfEvaluation
+                diagnosisIcd10: Topic.diagnosisIcd10
+                frequencyDuration: Topic.frequencyDuration
+                functionalMobilityBaseline: Topic.functionalMobilityBaseline
+                gaitDgi: Topic.gaitDgi
+                longTermGoals: Topic.longTermGoals
+                mmtGrades: Topic.mmtGrades
+                painBaseline: Topic.painBaseline
+                physicianOrderOnFile: Topic.physicianOrderOnFile
+                plof: Topic.plof
+                rehabPotential: Topic.rehabPotential
+                shortTermGoals: Topic.shortTermGoals
+                therapistName: Topic.therapistName
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                aromProm: String
+                balanceAssessment: String
+                dateOfEvaluation: Date
+                diagnosisIcd10: String
+                frequencyDuration: String
+                functionalMobilityBaseline: String
+                gaitDgi: String
+                longTermGoals: String
+                mmtGrades: String
+                painBaseline: String
+                physicianOrderOnFile: String
+                plof: String
+                rehabPotential: String
+                shortTermGoals: String
+                therapistName: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Format Preference
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.FormatPreference
+    dialog:
+      modelDescription: Use this topic when a therapist asks for concise narrative format, lightly labeled SOAP-style format, Net Health or Rehab Optima-style wording, or wants the agent to adjust how output is structured. Explain the available documentation styles briefly and help the user choose the best fit for SNF therapy documentation. Keep answers concise and practical. Do not generate the final note here unless the user clearly shifts into a note-generation request.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_v9f9BN
+            activity: |-
+              TheraDoc supports the following documentation formats:
+
+              • Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
+              • SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
+              • DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
+              • Bullet summary: Concise bullet points for quick review or MDS support documentation.
+
+              To request a specific format, simply include it in your request. For example: "Write this as a SOAP note" or "Give me a bullet summary."
+
+              All formats are AI-generated drafts. Always review and modify before EHR entry.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Evaluation Assessment Intake
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.EvaluationAssessmentIntake
+    dialog:
+      modelDescription: Collects patient information for evaluation and assessment intake across SLP, OT, and PT disciplines. Gathers patient name, evaluation date, and therapy type to initiate the assessment workflow.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_h4NpWb
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.patientName
+            prompt: What is the patient's name?
+            entity:
+              kind: StringPrebuiltEntity
+              sensitivityLevel: None
+
+          - kind: Question
+            id: question_RvOsHM
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.evaluationDate
+            prompt: What is the evaluation date?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_ayZy0o
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.therapyType
+            prompt: What type of therapy evaluation is this?
+            entity:
+              kind: ClosedListEntityReference
+              entityId: template-content.entity.Discipline
+
+          - kind: ConditionGroup
+            id: conditionGroup_Dwnhog
+            conditions:
+              - id: conditionItem_bQEUFl
+                condition: =Topic.therapyType = 'template-content.entity.Discipline'.iNfx28
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_5jICPJ
+                    activity: "Understood — generating your OT Evaluation note. Using the information provided, here is the structured evaluation:"
+
+                  - kind: BeginDialog
+                    id: q5V5pZ
+                    input:
+                      binding:
+                        text: "=\"Generate a Medicare-compliant SNF therapy evaluation/assessment note.\\nPatient: \" & Topic.patientName & \"\\nEvaluation Date: \" & Topic.evaluationDate & \"\\nTherapy Discipline: \" & Text(Topic.therapyType)"
+
+                    dialog: template-content.action.TheraDocPTGenerateNote
+                    output:
+                      binding:
+                        generatednote: Topic.generatednote
+
+              - id: conditionItem_JtwKhe
+                condition: =Topic.therapyType = 'template-content.entity.Discipline'.DuzBe7
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_4AwdhG
+                    activity: |-
+                      Understood — generating your SLP Evaluation note. Using the information provided, here is the structured SLP Evaluation documentation:
+
+                      ⚠️ CLINICAL REVIEW REQUIRED – Review and verify all content before entering into the EHR.
+
+                  - kind: BeginDialog
+                    id: bxwRTT
+                    input:
+                      binding:
+                        text: |-
+                          =Concatenate("You are a Medicare-compliant SLP (Speech-Language Pathology) documentation specialist for skilled nursing facilities. Generate a gold-standard ST Evaluation using ONLY the clinical data provided. Do NOT invent, assume, or hallucinate any clinical details.
+
+                          PATIENT INFORMATION:
+                          Patient Name: ", Topic.patientName, "
+                          Evaluation Date: ", Topic.evaluationDate, "
+                          Therapy Type: Speech-Language Pathology
+
+                          GENERATE THE ST EVALUATION WITH THESE EXACT SECTIONS:
+
+                          1. REASON FOR REFERRAL / DIAGNOSIS: Primary diagnosis (dysphagia, aphasia, cognitive-communication, dysarthria, etc.) and reason ST was ordered.
+
+                          2. PRIOR LEVEL OF FUNCTION (PLOF): Patient's communication, swallowing, and cognitive-communication status prior to current illness.
+
+                          3. SUBJECTIVE: Patient/caregiver report of current communication, swallowing difficulties, goals, and concerns.
+
+                          4. ORAL MECHANISM EXAM:
+                             - Oral Structure/Function: [lips, tongue, palate, dentition]
+                             - Vocal Quality: [WNL, hoarse, wet, breathy]
+                             - Resonance: [WNL, hypo/hypernasal]
+
+                          5. COMMUNICATION ASSESSMENT:
+                             - Language (Receptive): [comprehension of commands, yes/no reliability]
+                             - Language (Expressive): [naming, sentence production, word retrieval]
+                             - Speech Intelligibility: [percentage, contextual factors]
+                             - Voice: [pitch, loudness, quality]
+                             - Fluency: [WNL or describe disfluencies]
+                             - Cognitive-Communication: [orientation, memory, attention, executive function]
+
+                          6. DYSPHAGIA ASSESSMENT:
+                             - Current Diet Level (IDDSI): [level 0-7]
+                             - Current Liquid Level (IDDSI): [level 0-4]
+                             - Clinical Swallow Evaluation Findings: [oral, pharyngeal, esophageal phases]
+                             - Signs/Symptoms of Aspiration: [present/absent]
+                             - Compensatory Strategies Trialed: [list]
+
+                          7. STANDARDIZED TESTING: [e.g., BDAE, SLUMS, MoCA, FEES/MBS results — include scores]
+
+                          8. ASSESSMENT: Skilled ST justification — safety risks, rehab potential, barriers, and medical necessity for continued ST.
+
+                          9. PLAN OF CARE:
+                             - Frequency and Duration: [e.g., 5x/week x 4 weeks]
+                             - Short-Term Goals (2 weeks): [measurable, functional goals]
+                             - Long-Term Goals (4-6 weeks): [discharge-level goals]
+                             - Interventions: [list planned ST interventions]
+
+                          STRICT RULES:
+                          - Use only data from the patient information above
+                          - Where clinical data is not provided, indicate [To be assessed]
+                          - Every section must be clinically meaningful and support Medicare skilled level of care
+                          - Do not include any preamble or explanation — output the evaluation only")
+
+                    dialog: template-content.action.TheraDocPTGenerateNote
+                    output:
+                      binding:
+                        generatednote: Topic.generatednote
+
+              - id: conditionItem_izoBxC
+                condition: =Topic.therapyType = 'template-content.entity.Discipline'.dxugsW
+                actions:
+                  - kind: SendActivity
+                    id: sendActivity_Dr9Kfk
+                    activity: |-
+                      Understood — generating your PT Evaluation note. Using the information provided, here is the structured PT Evaluation documentation:
+
+                      ⚠️ CLINICAL REVIEW REQUIRED – Review and verify all content before entering into the EHR.
+
+                  - kind: BeginDialog
+                    id: y7igjG
+                    input:
+                      binding:
+                        text: |-
+                          =Concatenate("You are a Medicare-compliant PT (Physical Therapy) documentation specialist for skilled nursing facilities. Generate a gold-standard PT Evaluation using ONLY the clinical data provided. Do NOT invent, assume, or hallucinate any clinical details.
+
+                          PATIENT INFORMATION:
+                          Patient Name: ", Topic.patientName, "
+                          Evaluation Date: ", Topic.evaluationDate, "
+                          Therapy Type: Physical Therapy
+
+                          GENERATE THE PT EVALUATION WITH THESE EXACT SECTIONS:
+
+                          1. REASON FOR REFERRAL / DIAGNOSIS: Primary diagnosis, relevant comorbidities, and reason PT was ordered.
+
+                          2. PRIOR LEVEL OF FUNCTION (PLOF): Patient's functional status before the current illness/injury.
+
+                          3. SUBJECTIVE: Patient/caregiver report of current complaints, pain, goals, and concerns.
+
+                          4. OBJECTIVE:
+                             - Cognition/Cooperation: [orientation, ability to follow commands]
+                             - Pain: [location, intensity 0-10, behavior]
+                             - ROM: [active/passive ROM for relevant joints]
+                             - Strength (MMT): [relevant muscle groups and grades]
+                             - Sensation: [intact/impaired, areas affected]
+                             - Bed Mobility: [performance level with assist level]
+                             - Transfers: [supine-sit, sit-stand, level with assist]
+                             - Gait: [distance, device, assist level, gait deviations]
+                             - Balance: [static/dynamic sitting/standing]
+                             - Functional Mobility: [stairs, community ambulation if applicable]
+
+                          5. STANDARDIZED TESTING: [e.g., TUG, Berg Balance Scale, 10MWT, 30-sec STS — include scores if available]
+
+                          6. ASSESSMENT: Skilled PT justification — patient's rehab potential, barriers to progress, medical necessity, and why skilled PT is required.
+
+                          7. PLAN OF CARE:
+                             - Frequency and Duration: [e.g., 5x/week x 4 weeks]
+                             - Short-Term Goals (2 weeks): [measurable, functional goals]
+                             - Long-Term Goals (4-6 weeks): [discharge-level functional goals]
+                             - Interventions: [list planned PT interventions]
+
+                          STRICT RULES:
+                          - Use only data from the patient information above
+                          - Where clinical data is not provided, indicate [To be assessed]
+                          - Every section must be clinically meaningful and support Medicare skilled level of care
+                          - Do not include any preamble or explanation — output the evaluation only")
+
+                    dialog: template-content.action.TheraDocPTGenerateNote
+                    output:
+                      binding:
+                        generatednote: Topic.generatednote
+
+            elseActions:
+              - kind: SendActivity
+                id: sendActivity_320n0N
+                activity: |-
+                  Understood — generating your OT Evaluation note. Using the information provided, here is the structured OT Evaluation documentation:
+
+                  ⚠️ CLINICAL REVIEW REQUIRED – Review and verify all content before entering into the EHR.
+
+          - kind: SendActivity
+            id: sendActivity_OqAVYX
+            activity: |-
+              Thank you for providing the evaluation information. I'll help you create your evaluation assessment documentation.
+              ⚠️ DRAFT ONLY — Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS SNF Certification Compliance and Coverage Standards
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for CMS-published SNF certification requirements, Medicare coverage conditions, nursing home compliance standards, and health and safety regulations governing skilled nursing facilities. Prioritize this source for questions about SNF qualification criteria, coverage conditions, and regulatory compliance standards. Do not use this source for billing-specific PDPM classification or clinical note formatting. | Version: 2026.1 | Specialty: PT, OT, ST | Category: CMS/Certification"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.CMSSNFCertificationComplianceandCoverageStandards
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/health-safety-standards
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Functional Outcome Measures and Standardized Assessment Reference
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for standardized functional outcome measures used in PT, OT, and ST SNF documentation, including assessment tool names, scoring ranges, clinical interpretation, and appropriate notation in therapy notes. Published by the American Physical Therapy Association. Prioritize this source when drafting evaluation, progress, or recertification notes that require measurable functional baselines or change documentation. Do not use this source for compliance requirements or note formatting. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Functional Outcomes"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.FunctionalOutcomeMeasuresandStandardizedAssessmentReference
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.apta.org/your-practice
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Nursing Handoff
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.NursingHandoff
+    dialog:
+      modelDescription: Use this topic when a therapist wants a concise nurse-facing summary or SBAR handoff based on therapy findings. This topic should gather or confirm only the minimum missing context needed for safety, status, care implications, and recommendations, then hand off to the configured Nursing Handoff tool. Keep it focused on nursing-relevant information and avoid unnecessary rehab detail.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_MHKs0V
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.therapySummary
+            prompt: "Please provide the patient's therapy summary for the handoff: include the discipline (PT/OT/ST), functional status, recent progress, active precautions, and any nursing communication needs."
+            entity: StringPrebuiltEntity
+
+          - kind: BeginDialog
+            id: VUAsvW
+            input:
+              binding:
+                text: =Topic.therapySummary
+
+            dialog: template-content.action.TheraDocPTGenerateNote
+            output:
+              binding:
+                generatednote: Topic.generatednote
+
+          - kind: SendActivity
+            id: sendActivity_BbohBM
+            activity: "{Topic.generatednote}"
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Recertification Discharge Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.RecertificationDischargeCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: 9dlp31
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "Recertification / Discharge Note",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "date",
+                    "label": "Date",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "discipline",
+                    "label": "Discipline",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "PT (Physical Therapy)",
+                        "value": "PT"
+                      },
+                      {
+                        "title": "OT (Occupational Therapy)",
+                        "value": "OT"
+                      },
+                      {
+                        "title": "SLP (Speech-Language Pathology)",
+                        "value": "SLP"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "noteType",
+                    "label": "Note Type",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "Recertification",
+                        "value": "Recertification"
+                      },
+                      {
+                        "title": "Discharge Summary",
+                        "value": "Discharge Summary"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "reasonsContinuedSkilledNeed",
+                    "label": "Reasons for Continued Skilled Need",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "estimatedRemainingTime",
+                    "label": "Estimated Remaining Time in SNF",
+                    "placeholder": "2 weeks"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "updatedGoalsProgress",
+                    "label": "Updated Goals with Progress Toward Each",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "planForHomeCare",
+                    "label": "Plan for Home Care if Applicable",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Toggle",
+                    "id": "physicianSignatureObtained",
+                    "title": "Physician / NPP Signature Obtained",
+                    "valueOn": "Yes",
+                    "valueOff": "No"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "modifiedPoc",
+                    "label": "Modified POC if Applicable",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate Recert/Discharge Note"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                date: Topic.date
+                discipline: Topic.discipline
+                estimatedRemainingTime: Topic.estimatedRemainingTime
+                modifiedPoc: Topic.modifiedPoc
+                noteType: Topic.noteType
+                physicianSignatureObtained: Topic.physicianSignatureObtained
+                planForHomeCare: Topic.planForHomeCare
+                reasonsContinuedSkilledNeed: Topic.reasonsContinuedSkilledNeed
+                therapistName: Topic.therapistName
+                updatedGoalsProgress: Topic.updatedGoalsProgress
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                date: Date
+                discipline: String
+                estimatedRemainingTime: String
+                modifiedPoc: String
+                noteType: String
+                physicianSignatureObtained: String
+                planForHomeCare: String
+                reasonsContinuedSkilledNeed: String
+                therapistName: String
+                updatedGoalsProgress: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Walking Distance
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.WalkingDistance
+    entity:
+      kind: RegexEntity
+      pattern: \b\d+\.?\d*\s?(feet|foot|ft|meters?|m)\b
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OT Daily Note Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.OTDailyNoteCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: kbtIMb
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "OT Daily / Progress Note",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfService",
+                    "label": "Date of Service",
+                    "isRequired": true,
+                    "errorMessage": "Date of service is required"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "treatmentDuration",
+                    "label": "Treatment Duration (minutes)",
+                    "isRequired": true,
+                    "errorMessage": "Treatment duration is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "adlTasks",
+                    "label": "ADL Task(s) Performed",
+                    "placeholder": "Dressing, bathing, grooming",
+                    "isRequired": true,
+                    "errorMessage": "ADL tasks are required"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "assistLevel",
+                    "label": "Assist Level per Task",
+                    "isRequired": true,
+                    "errorMessage": "Assist level is required",
+                    "choices": [
+                      {
+                        "title": "Independent",
+                        "value": "Independent"
+                      },
+                      {
+                        "title": "Supervision",
+                        "value": "Supervision"
+                      },
+                      {
+                        "title": "SBA (Standby Assist)",
+                        "value": "SBA"
+                      },
+                      {
+                        "title": "CGA (Contact Guard Assist)",
+                        "value": "CGA"
+                      },
+                      {
+                        "title": "Min A (Minimal Assist 25%)",
+                        "value": "Min A"
+                      },
+                      {
+                        "title": "Mod A (Moderate Assist 50%)",
+                        "value": "Mod A"
+                      },
+                      {
+                        "title": "Max A (Maximum Assist 75%)",
+                        "value": "Max A"
+                      },
+                      {
+                        "title": "Total Assist (Dependent)",
+                        "value": "Total Assist"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "fimScore",
+                    "label": "FIM / Section GG Score",
+                    "placeholder": "FIM: 4/7 for dressing"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "setsTrials",
+                    "label": "Sets / Trials",
+                    "isRequired": true,
+                    "errorMessage": "Sets/trials count is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "safetyAwareness",
+                    "label": "Safety Awareness Observations",
+                    "isMultiline": true,
+                    "placeholder": "Patient demonstrates..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "cognitivePerceptual",
+                    "label": "Cognitive / Perceptual Observations",
+                    "isMultiline": true,
+                    "placeholder": "BIMS score, attention, sequencing..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "responseToTreatment",
+                    "label": "Response to Treatment",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Response to treatment is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "progressTowardGoals",
+                    "label": "Progress Toward Goals",
+                    "isMultiline": true,
+                    "placeholder": "Patient is progressing toward LTG..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "planForNextSession",
+                    "label": "Plan for Next Session",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, OTR/L",
+                    "isRequired": true,
+                    "errorMessage": "Therapist name is required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate OT Note"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                adlTasks: Topic.adlTasks
+                assistLevel: Topic.assistLevel
+                cognitivePerceptual: Topic.cognitivePerceptual
+                dateOfService: Topic.dateOfService
+                fimScore: Topic.fimScore
+                planForNextSession: Topic.planForNextSession
+                progressTowardGoals: Topic.progressTowardGoals
+                responseToTreatment: Topic.responseToTreatment
+                safetyAwareness: Topic.safetyAwareness
+                setsTrials: Topic.setsTrials
+                therapistName: Topic.therapistName
+                treatmentDuration: Topic.treatmentDuration
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                adlTasks: String
+                assistLevel: String
+                cognitivePerceptual: String
+                dateOfService: Date
+                fimScore: String
+                planForNextSession: String
+                progressTowardGoals: String
+                responseToTreatment: String
+                safetyAwareness: String
+                setsTrials: Number
+                therapistName: String
+                treatmentDuration: Number
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Parse Brain Dump
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ParseBrainDump
+    dialog:
+      modelDescription: Use this topic when a therapist provides messy, shorthand, or free-text session notes and wants them normalized into structured clinical fields. This topic should collect or confirm only the minimum missing context, such as discipline if needed, and then hand off to the configured Parse Brain Dump tool. The goal is to preserve clinical meaning, flag uncertainty, and reduce therapist typing. Keep follow-up questions focused and one at a time.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_0AYgig
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.var_rawNote
+            prompt: |-
+              Please paste your full unstructured therapy note below. I will extract key clinical information and structure it into a defensible SNF therapy documentation format.
+
+              Note: Do not include patient names, MRNs, or other PHI. Use placeholders like [Patient] if needed.
+            entity:
+              kind: StringPrebuiltEntity
+              sensitivityLevel: None
+
+          - kind: BeginDialog
+            id: cryAx3
+            input:
+              binding:
+                text: =Topic.var_rawNote
+
+            dialog: template-content.action.Untitled1
+            output:
+              binding:
+                parseddata: Topic.parseddata
+
+          - kind: SendActivity
+            id: sendActivity_PM4QPH
+            activity: "{Topic.parseddata}This is an AI-generated draft. Please review all extracted information carefully before entering into the EHR. Verify: patient functional status, treatment interventions, goals, and plan. Modify as needed to accurately reflect your clinical reasoning and skilled care."
+
+      inputType: {}
+      outputType: {}
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Rest Period
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.RestPeriod
+    entity:
+      kind: RegexEntity
+      pattern: \b(\d+)\s?(sec(ond)?s?|min(ute)?s?)\b\s?(rest|break|between\s?sets?)?|\b(\d+)[\s-]?(sec(ond)?|min(ute)?)\s?(rest|break)
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Physical Therapy Documentation Standards for SNF Practice
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for PT-specific documentation standards, skilled mobility and transfer language, therapeutic exercise and neuromuscular intervention terminology, functional measurement framing, and continued-therapy justification in SNF practice. Prioritize this source for all PT-specific note drafting, rewriting, and audit requests. Do not use this source for OT or ST documentation. | Version: 2026.1 | Specialty: PT | Category: Documentation Standards"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.PhysicalTherapyDocumentationStandardsforSNFPractice
+    metadata:
+      triggerCondition: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OIG Healthcare Fraud Alerts and Compliance News
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use this source to retrieve OIG fraud alerts, enforcement actions, corporate integrity agreement updates, and compliance news relevant to SNF therapy billing and documentation. Reference when answering questions about recent OIG investigations, exclusions, or emerging compliance risks in post-acute care. Do not use for clinical documentation standards or therapy technique guidance. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Compliance/OIG"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.OIGHealthcareFraudAlertsandComplianceNews
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://oig.hhs.gov/newsroom
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Redo Revise Note
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.RedoReviseNote
+    dialog:
+      modelDescription: Use this topic when the user wants to redo, revise, rewrite, fix, or improve an existing SNF therapy note (PT, OT, or ST) that was rejected, flagged for compliance issues, or needs clinical refinement. This topic collects the original note content and revision instructions, then passes them to the draft/rewrite flow to produce an improved, EHR-ready version.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_CCMaEt
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.Var1
+            prompt: Please paste the original therapy note and describe what needs to be revised or improved. Include the reason for revision (e.g., compliance flag, unclear reasoning, missing data) and any specific corrections needed.
+            entity: StringPrebuiltEntity
+
+          - kind: BeginDialog
+            id: kek5qX
+            input:
+              binding:
+                text: =Topic.Var1
+
+            dialog: template-content.action.TheraDocPTGenerateNote
+            output:
+              binding:
+                generatednote: Topic.generatednote
+
+          - kind: SendActivity
+            id: sendActivity_6DCQxU
+            activity: |-
+              {Topic.generatednote}
+              This is an AI-generated revised draft. Please review carefully before entering into the EHR.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: MedPAC Medicare Payment Policy Reports for Post-Acute Care
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use this source for MedPAC annual Medicare payment policy reports, SNF payment rate analyses, post-acute care reform recommendations, and PDPM payment trend data. Reference when answering questions about Medicare reimbursement policy changes, SNF market trends, and post-acute payment reform. Do not use for clinical documentation standards or therapy technique guidance. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Policy/Payment"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.MedPACMedicarePaymentPolicyReportsforPostAcuteCare
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.medpac.gov/reports
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OT Evaluation Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.OTEvaluationCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: KIyOJA
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "OT Evaluation",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfEvaluation",
+                    "label": "Date of Evaluation",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "adlIadlBaseline",
+                    "label": "ADL/IADL Baseline - Section GG Items",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "bimsScore",
+                    "label": "BIMS Score (0-15)",
+                    "min": 0,
+                    "max": 15
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "phq2Score",
+                    "label": "PHQ-2 / PHQ-9 Score",
+                    "placeholder": "PHQ-2: 3"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "hearingSpeechVisionScreen",
+                    "label": "Hearing / Speech / Vision Screen Results",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "motorSkills",
+                    "label": "Motor Skills - MMT, ROM, Coordination",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "sensoryPerceptual",
+                    "label": "Sensory / Perceptual Assessment",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "fallRisk",
+                    "label": "Fall Risk / Fear of Falling Assessment",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "plof",
+                    "label": "Prior Level of Function (PLOF)",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "rehabPotential",
+                    "label": "Rehab Potential",
+                    "isRequired": true,
+                    "errorMessage": "Required",
+                    "choices": [
+                      {
+                        "title": "Good",
+                        "value": "Good"
+                      },
+                      {
+                        "title": "Fair",
+                        "value": "Fair"
+                      },
+                      {
+                        "title": "Poor",
+                        "value": "Poor"
+                      },
+                      {
+                        "title": "Guarded",
+                        "value": "Guarded"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "measurableGoals",
+                    "label": "Measurable Goals",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "frequencyDuration",
+                    "label": "Frequency and Duration of POC",
+                    "placeholder": "5x/week x 4 weeks"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, OTR/L",
+                    "isRequired": true,
+                    "errorMessage": "Required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate OT Evaluation"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                adlIadlBaseline: Topic.adlIadlBaseline
+                bimsScore: Topic.bimsScore
+                dateOfEvaluation: Topic.dateOfEvaluation
+                fallRisk: Topic.fallRisk
+                frequencyDuration: Topic.frequencyDuration
+                hearingSpeechVisionScreen: Topic.hearingSpeechVisionScreen
+                measurableGoals: Topic.measurableGoals
+                motorSkills: Topic.motorSkills
+                phq2Score: Topic.phq2Score
+                plof: Topic.plof
+                rehabPotential: Topic.rehabPotential
+                sensoryPerceptual: Topic.sensoryPerceptual
+                therapistName: Topic.therapistName
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                adlIadlBaseline: String
+                bimsScore: Number
+                dateOfEvaluation: Date
+                fallRisk: String
+                frequencyDuration: String
+                hearingSpeechVisionScreen: String
+                measurableGoals: String
+                motorSkills: String
+                phq2Score: String
+                plof: String
+                rehabPotential: String
+                sensoryPerceptual: String
+                therapistName: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Skilled Necessity and Therapy Documentation Compliance Guide
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for CMS-aligned skilled necessity standards, documentation support for medical necessity, defensible skilled language, therapy minute justification, and compliance risk reduction for SNF therapy services. Prioritize this source for audit, rationale, compliance review, and any request involving medical necessity or denial risk. Do not use this source for formatting style or approved abbreviations. | Version: 2026.1 | Specialty: PT, OT, ST | Category: CMS/Skilled Necessity"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.CMSSkilledNecessityandTherapyDocumentationComplianceGuide
+    metadata:
+      triggerCondition: true
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Discipline
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.Discipline
+    entity:
+      kind: ClosedListEntity
+      items:
+        - id: dxugsW
+          displayName: PT (Physical Therapy)
+          synonyms:
+            - phys therapy
+            - PT
+            - physical therapy
+
+        - id: iNfx28
+          displayName: OT (Occupational Therapy)
+          synonyms:
+            - occ therapy
+            - OT
+            - occupational therapy
+
+        - id: DuzBe7
+          displayName: SLP (Speech-Language Pathology)
+          synonyms:
+            - speech-language pathology
+            - SLP
+            - ST
+            - speech therapy
+            - speech
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Untitled
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.action.Untitled1
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Structure Unstructured Therapy Brain Dump
+      modelDescription: Use when the user provides messy free text, bullets, dictation, or fragmented session details that should be converted into structured documentation inputs for later note drafting or review. Do not use this tool to draft a final note or to audit an existing note.
+      outputs:
+        - propertyName: parseddata
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: e0feb36e-8d2f-f111-88b4-000d3a37eba2
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: TheraDoc - PT Generate Note
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.action.TheraDocPTGenerateNote
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: AutomaticTaskInput
+          propertyName: text
+          name: Clinical Session Details
+          description: "Provide all structured clinical details needed to draft or rewrite the therapy note: discipline (PT/OT/ST), note type (daily/progress/eval/recert/discharge), patient presentation, interventions performed, assist level, cueing required, measurable performance, patient response to treatment, precautions or barriers, and plan for next session. Include any existing note text if this is a rewrite request."
+
+      modelDisplayName: Draft or Rewrite SNF Therapy Documentation
+      modelDescription: Use when the user wants a PT, OT, or ST note drafted or rewritten from structured clinical details. Outputs concise, skilled, EHR-ready SNF therapy documentation aligned to approved formatting, CMS skilled necessity standards, and discipline-specific documentation requirements. Do not use this tool to answer guidance questions or audit existing notes.
+      outputs:
+        - propertyName: generatednote
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: 58fc66ed-762f-f111-88b4-000d3a37eba2
+
+      outputMode: All
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Note Type
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.NoteType
+    entity:
+      kind: ClosedListEntity
+      items:
+        - id: WJLq4T
+          displayName: Daily Note
+
+        - id: XycGvP
+          displayName: Progress Note
+
+        - id: Q3dKFh
+          displayName: Evaluation
+
+        - id: WZiRKI
+          displayName: Recertification
+
+        - id: jjKvnx
+          displayName: Discharge Summary
+
+        - id: RkoqYE
+          displayName: Nursing Handoff
+
+        - id: V9np4h
+          displayName: SBAR
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Start Over
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.StartOver
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Start Over
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - let's begin again
+            - start over
+            - start again
+            - restart
+
+        actions:
+          - kind: Question
+            id: question_zguoVV
+            alwaysPrompt: false
+            variable: init:Topic.Confirm
+            prompt: Are you sure you want to restart the conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_lvx2zV
+            conditions:
+              - id: conditionItem_sVQtHa
+                condition: =Topic.Confirm = true
+                actions:
+                  - kind: BeginDialog
+                    id: 0YKYsy
+                    dialog: template-content.topic.ResetConversation
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_lk2CyQ
+                activity: Ok. Let's carry on.
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF Therapy Audit Triggers and Denial Risk Patterns
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for known SNF therapy audit triggers, OIG and RAC audit findings, denial risk patterns, documentation weaknesses that result in claim downcoding or denial, and OIG oversight priorities for skilled nursing facilities. Published by the HHS Office of Inspector General. Prioritize this source when auditing a note, assessing denial risk, or answering questions about compliance red flags. Do not use this source for note formatting or discipline-specific clinical standards. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Compliance/Audit"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.SNFTherapyAuditTriggersandDenialRiskPatterns
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://oig.hhs.gov/reports
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF Medicare Part A and PDPM Documentation Requirements
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for Medicare Part A SNF billing requirements, PDPM therapy classification support, MDS linkage, therapy minute documentation, ARD windows, and medical record requirements to support the SNF claim. Prioritize this source when the user asks about billing support, therapy minutes, PDPM classification, or payer-specific documentation requirements. Do not use this source for clinical note formatting or discipline-specific terminology. | Version: 2026.1 | Specialty: PT, OT, ST | Category: CMS/PDPM/Billing"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.SNFMedicarePartAandPDPMDocumentationRequirements
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/payment
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT Daily Note Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.PTDailyNoteCard
+    dialog:
+      modelDescription: Collects all required PT daily or progress note fields via an Adaptive Card form when slot filling is incomplete. Called when PT discipline note requires structured input for daily treatment, exercise parameters, and functional mobility data.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: M39foN
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "PT Daily / Progress Note",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfService",
+                    "label": "Date of Service",
+                    "isRequired": true,
+                    "errorMessage": "Date of service is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "cptCodes",
+                    "label": "CPT Code(s)",
+                    "placeholder": "97110, 97530"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "treatmentDuration",
+                    "label": "Treatment Duration (minutes)",
+                    "placeholder": "45",
+                    "isRequired": true,
+                    "errorMessage": "Treatment duration is required"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "painScale",
+                    "label": "Pain Scale 0-10",
+                    "min": 0,
+                    "max": 10,
+                    "placeholder": "0-10",
+                    "isRequired": true,
+                    "errorMessage": "Pain scale is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "walkingDistance",
+                    "label": "Walking Distance",
+                    "placeholder": "150 feet",
+                    "isRequired": true,
+                    "errorMessage": "Walking distance is required"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "sets",
+                    "label": "Number of Sets",
+                    "placeholder": "3",
+                    "isRequired": true,
+                    "errorMessage": "Number of sets is required"
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "reps",
+                    "label": "Number of Reps",
+                    "placeholder": "10",
+                    "isRequired": true,
+                    "errorMessage": "Number of reps is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "restPeriod",
+                    "label": "Rest Period Between Sets",
+                    "placeholder": "2 minutes",
+                    "isRequired": true,
+                    "errorMessage": "Rest period is required"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "assistLevel",
+                    "label": "Assist Level",
+                    "isRequired": true,
+                    "errorMessage": "Assist level is required",
+                    "choices": [
+                      {
+                        "title": "Independent",
+                        "value": "Independent"
+                      },
+                      {
+                        "title": "Supervision",
+                        "value": "Supervision"
+                      },
+                      {
+                        "title": "SBA (Standby Assist)",
+                        "value": "SBA"
+                      },
+                      {
+                        "title": "CGA (Contact Guard Assist)",
+                        "value": "CGA"
+                      },
+                      {
+                        "title": "Min A (Minimal Assist 25%)",
+                        "value": "Min A"
+                      },
+                      {
+                        "title": "Mod A (Moderate Assist 50%)",
+                        "value": "Mod A"
+                      },
+                      {
+                        "title": "Max A (Maximum Assist 75%)",
+                        "value": "Max A"
+                      },
+                      {
+                        "title": "Total Assist (Dependent)",
+                        "value": "Total Assist"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "verbalCuePercentage",
+                    "label": "Verbal Cue Percentage",
+                    "placeholder": "25%"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "spo2",
+                    "label": "SpO2 at Rest / Exertion",
+                    "placeholder": "98% / 94%"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "heartRate",
+                    "label": "Heart Rate at Rest / Exertion",
+                    "placeholder": "72 / 98 bpm"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "responseToTreatment",
+                    "label": "Response to Treatment",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Response to treatment is required",
+                    "placeholder": "Patient tolerated treatment well..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "skilledJustification",
+                    "label": "Skilled Justification",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Skilled justification is required",
+                    "placeholder": "Skilled PT is medically necessary to..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "planForNextVisit",
+                    "label": "Plan for Next Visit",
+                    "isMultiline": true,
+                    "placeholder": "Continue therapeutic exercises..."
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, PT, DPT",
+                    "isRequired": true,
+                    "errorMessage": "Therapist name is required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate PT Note"
+                  }
+                ]
+              }
+            output:
+              binding:
+                actionSubmitId: Topic.actionSubmitId
+                assistLevel: Topic.assistLevel
+                cptCodes: Topic.cptCodes
+                dateOfService: Topic.dateOfService
+                heartRate: Topic.heartRate
+                painScale: Topic.painScale
+                planForNextVisit: Topic.planForNextVisit
+                reps: Topic.reps
+                responseToTreatment: Topic.responseToTreatment
+                restPeriod: Topic.restPeriod
+                sets: Topic.sets
+                skilledJustification: Topic.skilledJustification
+                spo2: Topic.spo2
+                therapistName: Topic.therapistName
+                treatmentDuration: Topic.treatmentDuration
+                verbalCuePercentage: Topic.verbalCuePercentage
+                walkingDistance: Topic.walkingDistance
+
+            outputType:
+              properties:
+                actionSubmitId: String
+                assistLevel: String
+                cptCodes: String
+                dateOfService: Date
+                heartRate: String
+                painScale: Number
+                planForNextVisit: String
+                reps: Number
+                responseToTreatment: String
+                restPeriod: String
+                sets: Number
+                skilledJustification: String
+                spo2: String
+                therapistName: String
+                treatmentDuration: Number
+                verbalCuePercentage: String
+                walkingDistance: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.settings.pcca_agent.BotSettingsComponent.ContentModeration
+    settings:
+      kind: ContentModerationSettings
+      moderatedCustomResponse: I'm unable to respond to that request. Please rephrase your clinical question without including patient identifiers or sensitive data. For urgent clinical concerns, consult your supervising clinician or refer to your facility's clinical protocols.
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ASHA Speech-Language Pathology Practice Standards and Guidelines
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use this source for ASHA speech-language pathology clinical practice guidelines, dysphagia management standards, cognitive-communication frameworks, and AAC resources applicable to SNF settings. Reference when answering questions about SLP documentation, swallowing assessments, voice disorders, and skilled speech therapy justification. Do not use for PT or OT clinical standards. | Version: 2026.1 | Specialty: ST | Category: Clinical Practice Guidelines"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.ASHASpeechLanguagePathologyPracticeStandardsandGuidelines
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.asha.org/practice
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Assist Level
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.AssistLevel
+    entity:
+      kind: ClosedListEntity
+      items:
+        - id: 90Yyf8
+          displayName: Independent
+
+        - id: VHCSkQ
+          displayName: Supervision
+
+        - id: 3hHM6w
+          displayName: SBA (Standby Assist)
+          synonyms:
+            - SBA
+            - stand by assist
+            - standby
+
+        - id: gF1vLi
+          displayName: CGA (Contact Guard Assist)
+          synonyms:
+            - contact guard
+            - CGA
+
+        - id: Drg0JR
+          displayName: Min A (Minimal Assist 25%)
+          synonyms:
+            - Min A
+            - minimal assist
+            - min assist
+
+        - id: e9azvE
+          displayName: Mod A (Moderate Assist 50%)
+          synonyms:
+            - Mod A
+            - mod
+            - moderate assist
+            - mod assist
+
+        - id: vmhnX2
+          displayName: Max A (Maximum Assist 75%)
+          synonyms:
+            - Max A
+            - maximum assist
+            - max assist
+
+        - id: eiZwWv
+          displayName: Total Assist (Dependent)
+          synonyms:
+            - 100% assist
+            - dependent
+            - total assist
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Untitled
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.action.Untitled
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: AutomaticTaskInput
+          propertyName: text
+          description: The complete SNF therapy note text to audit for compliance and skilled justification.
+          displayName: noteText
+
+        - kind: AutomaticTaskInput
+          propertyName: text_1
+          description: The type of therapy document (e.g., Daily Note, Evaluation, Progress Note, Discharge Note).
+          displayName: documentType
+
+        - kind: AutomaticTaskInput
+          propertyName: text_2
+          description: The therapy discipline (e.g., PT, OT, SLP).
+          displayName: discipline
+
+      modelDisplayName: Audit SNF Therapy Note for Compliance Risk
+      modelDescription: Use when the user wants an existing PT, OT, or ST therapy note reviewed for skilled language, medical necessity support, completeness, defensibility, and documentation compliance risk. Identifies missing elements, weak skilled language, and compliance gaps per SNF Medicare guidelines.
+      outputs:
+        - propertyName: auditresult
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: 347faa50-782c-4ad7-a313-ee501e0de3fe
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Welcome / Start
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.WelcomeStart
+    dialog:
+      modelDescription: Greeting message that welcomes users and presents available note types and capabilities
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_mDSpVD
+            activity: |-
+              👋 Welcome to TheraDoc!
+
+              I can help you generate Medicare-compliant therapy notes fast.
+
+              What would you like to do?
+              • Daily Note — quick session note
+              • Progress Note — goal progress update
+              • Assessment / Eval — full evaluation
+              • Recertification — continued care justification
+              • Discharge Summary — end of episode
+              • Nursing Handoff — SBAR summary
+
+              Just tell me what you need, or pick from the list above.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: |-
+                      I'm not confident I can answer that safely.
+
+                      I can help with SNF rehab documentation, therapy workflows, compliance and audit support, and discipline-specific clinical questions for PT, OT, and ST.
+
+                      Please rephrase your request with more clinical detail, or contact your facility's clinical leader, rehab director, or compliance team if this is about legal, billing, or diagnosis decisions.
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Approved SNF Therapy Note Examples by Discipline and Note Type
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for approved examples of PT, OT, and ST documentation across daily, progress, evaluation, recertification, and discharge note types. Use as a pattern reference for structure and wording only. Do not use this source as a basis for patient-specific facts, compliance conclusions, or medical necessity determinations. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Note Examples/Templates"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.ApprovedSNFTherapyNoteExamplesbyDisciplineandNoteType
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Compliance Help
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ComplianceHelp
+    dialog:
+      modelDescription: Use this topic when a therapist asks why wording may not be skilled, what is missing for medical necessity, what compliance risks exist in a therapy note, or how to strengthen measurable function and therapist skill in SNF documentation. Answer using the configured compliance and documentation knowledge sources first. Explain the practical risk and the missing skilled elements clearly and concisely. If the user provides an actual note and wants a structured review, the agent should prefer the Audit Note tool instead of answering only with guidance.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_lhfeLK
+            activity: |-
+              SNF therapy documentation must meet Medicare Part A and MDS compliance standards. Key requirements include:
+
+              • Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
+              • Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
+              • Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
+              • Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
+              • Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
+
+              For note-specific auditing, use the Audit Existing Note feature. For drafting compliant notes, use the appropriate Daily Note or Evaluation topic.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Ambiguous Request Disambiguation
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.AmbiguousRequestDisambiguation
+    dialog:
+      modelDescription: Triggered when the user's request is ambiguous or unclear. Helps clarify what type of documentation or action the user needs. Presents menu of options including Daily Note, Progress Note, Evaluation, Discharge Summary, Nursing Handoff, or other documentation types.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_MuC7rY
+            activity: I'm sorry, I didn't quite understand that. Let me show you the available options so I can direct you appropriately.
+
+          - kind: Question
+            id: question_LknoA0
+            displayName: Recertification
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.mainMenuSelection
+            prompt: "What would you like to do? Please select one of the following options:"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: PT Daily Note
+                    displayName: PT Daily Note
+
+                  - id: OT Daily Note
+                    displayName: OT Daily Note
+
+                  - id: ST Daily Note
+                    displayName: ST Daily Note
+
+                  - id: Progress Note
+                    displayName: Progress Note
+
+                  - id: Evaluation/Assessment
+                    displayName: Evaluation/Assessment
+
+                  - id: Discharge Note
+                    displayName: Discharge Note
+
+                  - id: Recertification
+                    displayName: Recertification
+
+                  - id: Nursing Handoff
+                    displayName: Nursing Handoff
+
+                  - id: Audit Existing Note
+                    displayName: Audit Existing Note
+
+          - kind: ConditionGroup
+            id: conditionGroup_XfaihB
+            conditions:
+              - id: conditionItem_DHOqLe
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'PT Daily Note'
+                actions:
+                  - kind: BeginDialog
+                    id: wmGfrg
+                    dialog: template-content.topic.PTDailyNoteCard
+
+              - id: conditionItem_VRCgib
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'OT Daily Note'
+                actions:
+                  - kind: BeginDialog
+                    id: dkd9hK
+                    dialog: template-content.topic.OTDailyNoteCard
+
+              - id: conditionItem_hwlTdN
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'ST Daily Note'
+                actions:
+                  - kind: BeginDialog
+                    id: 9EBzgO
+                    dialog: template-content.topic.SLPDailyNoteCard
+
+              - id: conditionItem_pijeh4
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'Progress Note'
+                actions:
+                  - kind: BeginDialog
+                    id: oGnA3p
+                    dialog: template-content.topic.ProgressNoteIntake
+
+              - id: conditionItem_ERIMSG
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'Evaluation/Assessment'
+                actions:
+                  - kind: BeginDialog
+                    id: SCBGZL
+                    dialog: template-content.topic.EvaluationAssessmentIntake
+
+              - id: conditionItem_JSPoXh
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'Discharge Note'
+                actions:
+                  - kind: BeginDialog
+                    id: ZHV8Ze
+                    dialog: template-content.topic.DischargeNoteIntake
+
+              - id: conditionItem_WmYnJ5
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.Recertification
+                actions:
+                  - kind: BeginDialog
+                    id: DVe38i
+                    dialog: template-content.topic.RecertificationDischargeCard
+
+              - id: conditionItem_VJhrM1
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'Nursing Handoff'
+                actions:
+                  - kind: BeginDialog
+                    id: OYeNBC
+                    dialog: template-content.topic.NursingHandoff
+
+              - id: conditionItem_bUa8iR
+                condition: =Topic.mainMenuSelection = 'template-content.topic.AmbiguousRequestDisambiguation.main.question_LknoA0'.'Audit Existing Note'
+                actions:
+                  - kind: BeginDialog
+                    id: SHxoj9
+                    input: {}
+                    dialog: template-content.topic.AuditExistingNote
+                    output:
+                      binding:
+                        existingNoteText: Topic.existingNoteText
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Generate Documentation
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.GenerateDocumentation
+    dialog:
+      modelDescription: Routes therapy documentation requests by collecting discipline (PT, OT, ST) and document type (Daily Note, Progress Note, Evaluation Note, Discharge Note, Recertification Note), then redirects to the matching discipline-specific intake topic using named variables disciplineSelection and documentTypeSelection.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_BjBCKR
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.disciplineSelection
+            prompt: Which therapy discipline are you documenting for?
+            entity:
+              kind: EmbeddedEntity
+              sensitivityLevel: None
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: PT
+                    displayName: PT
+
+                  - id: OT
+                    displayName: OT
+
+                  - id: ST
+                    displayName: ST
+
+              displayName: EmbeddedEntity-tyOIfT
+
+          - kind: Question
+            id: question_Lg9zAA
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.documentTypeSelection
+            prompt: What type of documentation do you need?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Daily Note
+                    displayName: Daily Note
+
+                  - id: Progress Note
+                    displayName: Progress Note
+
+                  - id: Evaluation Note
+                    displayName: Evaluation Note
+
+                  - id: Discharge Note
+                    displayName: Discharge Note
+
+                  - id: Recertification Note
+                    displayName: Recertification Note
+
+          - kind: ConditionGroup
+            id: conditionGroup_2R6zi5
+            conditions:
+              - id: conditionItem_8niqXF
+                condition: =Topic.documentTypeSelection = 'template-content.topic.GenerateDocumentation.main.question_Lg9zAA'.'Daily Note'
+                actions:
+                  - kind: ConditionGroup
+                    id: conditionGroup_wxMcBS
+                    conditions:
+                      - id: conditionItem_iLXhv2
+                        condition: =Topic.disciplineSelection = 'template-content.topic.GenerateDocumentation.main.question_BjBCKR'.PT
+                        actions:
+                          - kind: BeginDialog
+                            id: QboQD9
+                            dialog: template-content.topic.PTDailyNoteCard
+
+                    elseActions:
+                      - kind: ConditionGroup
+                        id: conditionGroup_DZ2DkO
+                        conditions:
+                          - id: conditionItem_21oV9Q
+                            condition: =Topic.disciplineSelection = 'template-content.topic.GenerateDocumentation.main.question_BjBCKR'.OT
+                            actions:
+                              - kind: BeginDialog
+                                id: 0rIyKU
+                                dialog: template-content.topic.OTDailyNoteCard
+
+                        elseActions:
+                          - kind: BeginDialog
+                            id: sPR4BF
+                            dialog: template-content.topic.SLPDailyNoteCard
+
+              - id: conditionItem_n1u2en
+                condition: =Topic.documentTypeSelection = 'template-content.topic.GenerateDocumentation.main.question_Lg9zAA'.'Progress Note'
+                actions:
+                  - kind: ConditionGroup
+                    id: conditionGroup_RYVmjG
+                    conditions:
+                      - id: conditionItem_vNT1DO
+                        condition: =Topic.disciplineSelection = 'template-content.topic.GenerateDocumentation.main.question_BjBCKR'.PT
+                        actions:
+                          - kind: BeginDialog
+                            id: YIxUhX
+                            dialog: template-content.topic.ProgressNoteIntake
+
+                    elseActions:
+                      - kind: ConditionGroup
+                        id: conditionGroup_IshxYf
+                        conditions:
+                          - id: conditionItem_KMQ0Es
+                            condition: =Topic.disciplineSelection = 'template-content.topic.GenerateDocumentation.main.question_BjBCKR'.OT
+                            actions:
+                              - kind: BeginDialog
+                                id: JdJmli
+                                dialog: template-content.topic.ProgressNoteIntake
+
+                        elseActions:
+                          - kind: BeginDialog
+                            id: 2Ghc7M
+                            dialog: template-content.topic.ProgressNoteIntake
+
+              - id: conditionItem_d4YboC
+                condition: =Topic.documentTypeSelection = 'template-content.topic.GenerateDocumentation.main.question_Lg9zAA'.'Evaluation Note'
+                actions:
+                  - kind: BeginDialog
+                    id: opDV3i
+                    dialog: template-content.topic.EvaluationAssessmentIntake
+
+              - id: conditionItem_KoTdpj
+                condition: =Topic.documentTypeSelection = 'template-content.topic.GenerateDocumentation.main.question_Lg9zAA'.'Discharge Note'
+                actions:
+                  - kind: BeginDialog
+                    id: Hpc9sJ
+                    dialog: template-content.topic.DischargeNoteIntake
+
+              - id: conditionItem_PySttg
+                condition: =Topic.documentTypeSelection = 'template-content.topic.GenerateDocumentation.main.question_Lg9zAA'.'Recertification Note'
+                actions:
+                  - kind: BeginDialog
+                    id: wYz3wZ
+                    dialog: template-content.topic.RecertificationDischargeCard
+
+            elseActions:
+              - kind: SendActivity
+                id: sendActivity_EKjGkP
+                activity: "I'm sorry, I didn't recognize that document type. Please choose from: Daily Note, Progress Note, Evaluation Note, Discharge Note, or Recertification Note."
+
+          - kind: Question
+            id: Question_ctGpzW
+            variable: Topic.discipline
+            prompt: Which therapy discipline do you need documentation for?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: DisciplineOptions
+                items:
+                  - id: PT
+                    displayName: PT (Physical Therapy)
+
+                  - id: OT
+                    displayName: OT (Occupational Therapy)
+
+                  - id: ST
+                    displayName: ST (Speech Therapy)
+
+          - kind: Question
+            id: Question_PRS9Yk
+            variable: Topic.noteType
+            prompt: Which note type do you need?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: NoteTypeOptions
+                items:
+                  - id: DailyNote
+                    displayName: Daily Note
+
+                  - id: ProgressNote
+                    displayName: Progress Note
+
+                  - id: EvaluationAssessment
+                    displayName: Evaluation/Assessment
+
+                  - id: Recertification
+                    displayName: Recertification
+
+                  - id: DischargeSummary
+                    displayName: Discharge Summary
+
+                  - id: NursingHandoff
+                    displayName: Nursing Handoff
+
+          - kind: SendActivity
+            id: SendActivity_X5eRQO
+            activity: Got it! Routing you to the right workflow for {Topic.discipline} {Topic.noteType}. Please follow the prompts.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Approved Rehab Abbreviations and Clinical Terminology
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for approved rehab abbreviations, discipline-specific terminology, and preferred PT, OT, and ST clinical wording. Do not use this source alone to determine compliance requirements, medical necessity, or formatting rules. Prioritize this source when reviewing or correcting shorthand and clinical language in therapy notes. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Terminology/Reference"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.ApprovedRehabAbbreviationsandClinicalTerminology
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalation Rules and Data Accuracy Standards
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for agent limitations, escalation conditions, uncertainty handling, prohibited assumptions, and data accuracy rules. Prioritize this source when facts are missing, unclear, contradictory, or outside the agent's supported scope. Do not use this source for formatting, terminology, or discipline-specific clinical standards. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Escalation/Safety/Accuracy"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.EscalationRulesandDataAccuracyStandards
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Net Health Narrative Format and Documentation Style Guide
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use for preferred narrative structure, concise EHR-ready wording, formatting conventions, and Net Health and Rehab Optima-style note construction. Prioritize this source when drafting, rewriting, or standardizing note format and output style. Do not use this source alone for compliance, medical necessity, or discipline-specific clinical standards. | Version: 2026.1 | Specialty: PT, OT, ST | Category: EHR Style/Formatting"
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.file.NetHealthNarrativeFormatandDocumentationStyleGuide
+    metadata:
+      triggerCondition: true
+
+  - kind: CustomEntityComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Sets and Reps
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.entity.SetsandReps
+    entity:
+      kind: RegexEntity
+      pattern: \b(\d+)\s?sets?\b|\b(\d+)\s?(reps?|repetitions?)\b
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: APTA Physical Therapy Clinical Practice Guidelines and Evidence
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use this source for APTA evidence-based clinical practice guidelines for physical therapy in SNF and post-acute settings. Reference for PT intervention standards, outcome measures, functional mobility benchmarks, and skilled PT care justification criteria. Do not use for billing codes or OT/SLP-specific clinical standards. | Version: 2026.1 | Specialty: PT | Category: Clinical Practice Guidelines"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.APTAPhysicalTherapyClinicalPracticeGuidelinesandEvidence
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.apta.org/patient-care
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              Escalating to a representative is not currently configured for this agent, however this is where the agent could provide information about how to get in touch with someone another way.
+
+              Is there anything else I can help you with?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SLP Daily Note Card
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.topic.SLPDailyNoteCard
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: AdaptiveCardPrompt
+            id: dJJW2q
+            card: |-
+              {
+                "type": "AdaptiveCard",
+                "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+                "version": "1.5",
+                "body": [
+                  {
+                    "type": "TextBlock",
+                    "text": "SLP Daily / Progress Note",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "wrap": true
+                  },
+                  {
+                    "type": "Input.Date",
+                    "id": "dateOfService",
+                    "label": "Date of Service",
+                    "isRequired": true,
+                    "errorMessage": "Date of service is required"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "dietTexture",
+                    "label": "Diet Texture",
+                    "isRequired": true,
+                    "errorMessage": "Diet texture is required",
+                    "choices": [
+                      {
+                        "title": "Regular",
+                        "value": "Regular"
+                      },
+                      {
+                        "title": "Soft & Bite-Sized (Level 6)",
+                        "value": "Soft & Bite-Sized"
+                      },
+                      {
+                        "title": "Minced & Moist (Level 5)",
+                        "value": "Minced & Moist"
+                      },
+                      {
+                        "title": "Pureed (Level 4)",
+                        "value": "Pureed"
+                      },
+                      {
+                        "title": "Liquidized (Level 3)",
+                        "value": "Liquidized"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "liquidViscosity",
+                    "label": "Liquid Viscosity Level",
+                    "isRequired": true,
+                    "errorMessage": "Liquid viscosity is required",
+                    "choices": [
+                      {
+                        "title": "Thin (Level 0)",
+                        "value": "Thin"
+                      },
+                      {
+                        "title": "Slightly Thick (Level 1)",
+                        "value": "Slightly Thick"
+                      },
+                      {
+                        "title": "Mildly Thick (Level 2)",
+                        "value": "Mildly Thick"
+                      },
+                      {
+                        "title": "Moderately Thick (Level 3)",
+                        "value": "Moderately Thick"
+                      },
+                      {
+                        "title": "Extremely Thick (Level 4)",
+                        "value": "Extremely Thick"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Number",
+                    "id": "numberOfTrials",
+                    "label": "Number of Trials",
+                    "isRequired": true,
+                    "errorMessage": "Number of trials is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "accuracyRate",
+                    "label": "Accuracy Rate",
+                    "placeholder": "7/10 trials"
+                  },
+                  {
+                    "type": "Input.ChoiceSet",
+                    "id": "cueingType",
+                    "label": "Cueing Type",
+                    "choices": [
+                      {
+                        "title": "Verbal",
+                        "value": "Verbal"
+                      },
+                      {
+                        "title": "Tactile",
+                        "value": "Tactile"
+                      },
+                      {
+                        "title": "Visual",
+                        "value": "Visual"
+                      },
+                      {
+                        "title": "Gestural",
+                        "value": "Gestural"
+                      },
+                      {
+                        "title": "Minimal",
+                        "value": "Minimal"
+                      },
+                      {
+                        "title": "Moderate",
+                        "value": "Moderate"
+                      },
+                      {
+                        "title": "Maximal",
+                        "value": "Maximal"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "bolusSize",
+                    "label": "Bolus Size Presented",
+                    "placeholder": "5mL teaspoon"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "observedSwallowBehaviors",
+                    "label": "Observed Swallow Behaviors",
+                    "isMultiline": true,
+                    "placeholder": "stasis, residue, coughing"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "cognitiveCommunication",
+                    "label": "Cognitive-Communication Observations",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "staffFamilyEducation",
+                    "label": "Staff / Family Education Provided",
+                    "isMultiline": true
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "responseToTreatment",
+                    "label": "Response to Treatment",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Response to treatment is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "skilledJustification",
+                    "label": "Skilled Justification",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Skilled justification is required"
+                  },
+                  {
+                    "type": "Input.Text",
+                    "id": "therapistName",
+                    "label": "Therapist Name & Credentials",
+                    "placeholder": "Jane Smith, MS CCC-SLP",
+                    "isRequired": true,
+                    "errorMessage": "Therapist name is required"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Generate SLP Note"
+                  }
+                ]
+              }
+            output:
+              binding:
+                accuracyRate: Topic.accuracyRate
+                actionSubmitId: Topic.actionSubmitId
+                bolusSize: Topic.bolusSize
+                cognitiveCommunication: Topic.cognitiveCommunication
+                cueingType: Topic.cueingType
+                dateOfService: Topic.dateOfService
+                dietTexture: Topic.dietTexture
+                liquidViscosity: Topic.liquidViscosity
+                numberOfTrials: Topic.numberOfTrials
+                observedSwallowBehaviors: Topic.observedSwallowBehaviors
+                responseToTreatment: Topic.responseToTreatment
+                skilledJustification: Topic.skilledJustification
+                staffFamilyEducation: Topic.staffFamilyEducation
+                therapistName: Topic.therapistName
+
+            outputType:
+              properties:
+                accuracyRate: String
+                actionSubmitId: String
+                bolusSize: String
+                cognitiveCommunication: String
+                cueingType: String
+                dateOfService: Date
+                dietTexture: String
+                liquidViscosity: String
+                numberOfTrials: Number
+                observedSwallowBehaviors: String
+                responseToTreatment: String
+                skilledJustification: String
+                staffFamilyEducation: String
+                therapistName: String
+
+      inputType: {}
+      outputType: {}
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.settings.pcca_agent.BotSettingsComponent.Feedback
+    settings:
+      kind: DefaultFeedbackCollection
+      disclaimer: Your feedback helps improve TheraDoc. Please do not include PHI (Protected Health Information), patient names, identifiers, or sensitive clinical data. Feedback is used only for quality improvement and is reviewed by our organization. By submitting, you consent to this use.
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: AOTA Occupational Therapy Practice Standards and Evidence
+    parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
+    description: "Use this source for AOTA occupational therapy standards, ADL assessment frameworks, and evidence-based OT practice guidelines applicable to SNF settings. Reference when answering questions about OT documentation requirements, ADL coding, functional performance goals, and skilled OT justification. Do not use for PT or SLP clinical standards or billing code references. | Version: 2026.1 | Specialty: OT | Category: Clinical Practice Guidelines"
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorg3353a370
+    schemaName: template-content.knowledge.AOTAOccupationalTherapyPracticeStandardsandEvidence
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.aota.org/practice

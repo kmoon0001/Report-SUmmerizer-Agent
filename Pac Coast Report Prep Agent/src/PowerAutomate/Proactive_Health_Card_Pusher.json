@@ -1,0 +1,30 @@
+{
+  "name": "cr917_SNF_Proactive_Review_Pusher",
+  "trigger": {
+    "type": "Dataverse",
+    "inputs": {
+      "table": "cr917_snf_daily_briefings",
+      "event": "Update",
+      "filter": "cr917_isprocessed eq true"
+    }
+  },
+  "actions": {
+    "Fetch_Platinum_Template": {
+      "type": "File",
+      "inputs": { "path": "src/AdaptiveCards/DOR_Platinum_Inline_Editor.json" }
+    },
+    "Send_Teams_Interactive_Card": {
+      "type": "Teams",
+      "inputs": {
+        "recipient": "@triggerBody()?['env_SNF_Teams_DOR_ChannelId']",
+        "card": "@outputs('Fetch_Platinum_Template')",
+        "dynamicData": {
+          "recordId": "@triggerBody()?['cr917_recordid']",
+          "patientToken": "@triggerBody()?['cr917_patienttoken']",
+          "clinicalSummary": "@triggerBody()?['cr917_clinicalsummary']",
+          "medicalNecessity": "@triggerBody()?['cr917_medicalnecessity']"
+        }
+      }
+    }
+  }
+}

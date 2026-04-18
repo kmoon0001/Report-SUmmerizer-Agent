@@ -1,0 +1,96 @@
+﻿{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "brainDumpText",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "discipline",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Please enter your input",
+                  "title": "documentType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764",
+            "flowSystemMetadata": {
+              "flowKind": "Stateless"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "parseddata": {
+                  "title": "parsedData",
+                  "description": "Deterministic structured handoff text built from supplied brain dump inputs.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "parseddata": "@{concat(\u0027Discipline: \u0027, triggerBody()?[\u0027text_1\u0027], \u0027\nNote Type: \u0027, triggerBody()?[\u0027text_2\u0027], \u0027\n\nSource Brain Dump:\n\u0027, triggerBody()?[\u0027text\u0027], \u0027\n\nParsed Guidance:\n- Extract interventions performed\n- Extract measurable performance\n- Extract response/tolerance\n- Extract skilled rationale\n- Extract precautions/barriers\n- Extract plan/recommendations\n\nMissing critical fields should be requested before final note generation.\u0027)}"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          }
+        }
+      },
+      "outputs": {},
+      "description": "When an agent calls the flow and send back a response."
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

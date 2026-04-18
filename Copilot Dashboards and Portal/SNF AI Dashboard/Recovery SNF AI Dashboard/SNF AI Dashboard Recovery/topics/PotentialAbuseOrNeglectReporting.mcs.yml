@@ -1,0 +1,82 @@
+mcs.metadata:
+  componentName: Potential Abuse Or Neglect Reporting
+  description: Elite clinical intelligence module specialized in [PotentialAbuseOrNeglectReporting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [PotentialAbuseOrNeglectReporting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Potential Abuse Or Neglect Reporting
+    includeInOnSelectIntent: true
+    triggerQueries:
+      - abuse concern
+      - neglect concern
+      - possible exploitation
+      - mandatory reporting
+      - unexplained injury
+
+  actions:
+    - kind: Question
+      id: question_scope
+      alwaysPrompt: true
+      variable: init:Topic.ScopeChoice
+      prompt: What is the closest scope?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: One patient
+            Value: Patient
+          - DisplayName: One staff interaction or event
+            Value: StaffEvent
+          - DisplayName: Not sure yet
+            Value: NotSureYet
+
+    - kind: Question
+      id: question_concern_type
+      alwaysPrompt: true
+      variable: init:Topic.ConcernTypeChoice
+      prompt: What is the closest concern type?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Possible neglect
+            Value: Neglect
+          - DisplayName: Possible physical or verbal abuse
+            Value: Abuse
+          - DisplayName: Possible exploitation
+            Value: Exploitation
+          - DisplayName: Unexplained injury or concerning change
+            Value: UnexplainedInjury
+
+    - kind: Question
+      id: question_urgency
+      alwaysPrompt: true
+      variable: init:Topic.UrgencyChoice
+      prompt: How urgent is the response need?
+      entity:
+        kind: DynamicClosedListEntity
+        items:
+          - DisplayName: Same shift review
+            Value: SameShift
+          - DisplayName: Immediate supervisor or clinician review
+            Value: ImmediateReview
+          - DisplayName: Immediate emergency response
+            Value: Emergency
+
+    - kind: SendActivity
+      id: send_reporting_notice
+      activity: Possible abuse or neglect concerns should follow facility policy, mandatory-reporting requirements, and immediate human review. This assistant supports escalation and documentation routing only.
+
+    - kind: SendActivity
+      id: send_reporting_summary
+      activity: =Concatenate("I have the intake for ", Topic.ConcernTypeChoice.DisplayName, " with ", Topic.ScopeChoice.DisplayName, " scope and ", Topic.UrgencyChoice.DisplayName, " urgency.")
+
+    - kind: SendActivity
+      id: send_manual_escalation_next_step
+      activity: Follow facility policy, mandatory-reporting requirements, and immediate human review now. This topic stays in structured intake mode until validated live alert routing is connected.
+
+inputType: {}
+outputType: {}
+
+

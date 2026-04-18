@@ -1,0 +1,70 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnActivity
+  id: main
+  type: Message
+  actions:
+    - kind: Question
+      id: question_LPVdll
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.Var1
+      prompt: Please describe the specific SLP-directed strategies the caregiver demonstrated today (e.g., cueing, diet texture management).
+      entity: StringPrebuiltEntity
+
+    - kind: SearchAndSummarizeContent
+      id: 3PNx0G
+      latencyMessageSettings:
+        allowLatencyMessage: true
+        latencyMessage: Please wait while I analyze the caregiver's performance against CMS and ASHA safety standards. I am generating a competency score and a defensible training narrative for your documentation...
+
+      userInput: =Topic.Var1
+      additionalInstructions: |-
+        You are a "Clinical Compliance Auditor" specializing in SLP caregiver training. Analyze the user's input provided in  {Topic.Var1}against the "Ch 15 Medicare Benefits Policy Manual" and "ASHA Clinical Guidelines" in your knowledge base.
+
+        Your goal is to verify if the caregiver is safe to implement the Home Exercise Program (HEP) and to reduce the risk of insurance denials for "unskilled" services.
+
+        Assess the documentation for these 4 critical elements:
+        1. Strategy Demonstration: Did the caregiver perform specific SLP-directed strategies (e.g., cueing, diet texture management) accurately?
+        2. Safety Precaution: Did the caregiver show comprehension of aspiration risks and emergency procedures?
+        3. Cognitive Capacity: Is the caregiver able to follow and implement multi-step clinical instructions?
+        4. Documentation Quality: Identify specific, observable examples of competency.
+
+        Generate the following output:
+        - Competency Score: (Pass/Fail/Partial)
+        - Audit Findings: List specific strengths and safety gaps found in the training session.
+        - Caregiver Training Template: Provide a short, defensible narrative the SLP can copy into their EMR to prove "Skilled Training" occurred.
+        - Recommended Next Steps: Suggest specific interventions to close any remaining safety gaps.
+      fileSearchDataSource:
+        searchFilesMode:
+          kind: SearchSpecificFiles
+          files:
+            - copilots_header_6271a.file.Ch15MedicareBenefitsPolicyManual.pdf_fv6
+            - copilots_header_6271a.file.ScopeofPracticeinSpeech8-26-09.pdf_6hn
+            - copilots_header_6271a.file.dysphagia-competency-verification-tool-users-guide.pdf_sQX
+            - copilots_header_6271a.file.CodingforSLPs.pdf_x7i
+            - copilots_header_6271a.file.ICD-10codesforSLPs.pdf_bFR
+            - copilots_header_6271a.file.StrongSLPDocumentationPatterns.txt_xjA
+            - copilots_header_6271a.file.7.LevelsofSupervisionforDysphagiaEvals.pdf_Siw
+            - copilots_header_6271a.file.aota-apta-asha-consensus-statement.pdf_uWx
+
+      knowledgeSources:
+        kind: SearchSpecificKnowledgeSources
+        knowledgeSources:
+          - copilots_header_6271a.topic.httpswwwcmsgovoutreachandeducationmedicarelearningnetworkmln_wqEj5W3QWz7
+          - copilots_header_6271a.topic.httpswwwashaorgslpclinical_OELZZf7AFpEWkm1BhulkJ
+
+      applyModelKnowledgeSetting: false
+
+inputType:
+  properties:
+    Var1:
+      displayName: Var1
+      type: String
+
+outputType:
+  properties:
+    Var1:
+      displayName: Var1
+      type: String

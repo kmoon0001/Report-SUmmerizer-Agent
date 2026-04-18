@@ -1,0 +1,2812 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: DoR Summary
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.DoRSummary
+    dialog:
+      modelDescription: Collects executive summary preferences for Director of Rehab style reporting, including audience and priority focus areas.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_eM11Kq
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility should this DoR summary cover?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_f7sOmg
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.summaryAudience
+            prompt: "Who is the primary audience for this summary: DoR only, interdisciplinary team, or executive leadership?"
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_wLeVr8
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.summaryFocus
+            prompt: "Which focus should lead the summary: top risks, wins, or action priorities?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Top risks
+                    displayName: Top risks
+
+                  - id: Wins
+                    displayName: Wins
+
+                  - id: Action priorities
+                    displayName: Action priorities
+
+                  - id: Interdisciplinary team
+                    displayName: Interdisciplinary team
+
+                  - id: Executive leadership
+                    displayName: Executive leadership
+
+                  - id: Palm Terrace
+                    displayName: Palm Terrace
+
+              displayName: EmbeddedEntity-ksxjkh
+
+          - kind: ConditionGroup
+            id: conditionGroup_LR1OWO
+            conditions:
+              - id: conditionItem_MWm4PG
+                condition: =Topic.summaryFocus = 'template-content.topic.DoRSummary.main.question_wLeVr8'.Wins
+
+              - id: conditionItem_LiY9IC
+                condition: =Topic.summaryFocus = 'template-content.topic.DoRSummary.main.question_wLeVr8'.'Action priorities'
+
+              - id: conditionItem_etr69m
+                condition: =Topic.summaryFocus = 'template-content.topic.DoRSummary.main.question_wLeVr8'.'Interdisciplinary team'
+
+              - id: conditionItem_Il0Gh7
+                condition: =Topic.summaryFocus = 'template-content.topic.DoRSummary.main.question_wLeVr8'.'Executive leadership'
+
+              - id: conditionItem_VkJy27
+                condition: =Topic.summaryFocus = 'template-content.topic.DoRSummary.main.question_wLeVr8'.'Palm Terrace'
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 03-Action-Plan-SOP.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 03-Action-Plan-SOP.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.03ActionPlanSOP.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Oral Hygiene.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Oral Hygiene.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolOralHygiene.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Jimmo v Sebelius Settlement FAQs
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Official CMS frequently asked questions about the Jimmo v. Sebelius settlement agreement clarifying that Medicare coverage for skilled therapy and nursing services is based on need for skilled care, not improvement potential. Use when the agent needs authoritative Jimmo guidance for maintenance therapy justification.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSJimmovSebeliusSettlementFAQs
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Seating and Positioning
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for wheelchair seating assessments, positioning interventions, and pressure redistribution strategies in skilled nursing facilities. Use when the agent needs to recommend seating evaluations, cushion selection, tilt-in-space positioning, or postural support for residents with pressure ulcer risk, contractures, or functional decline. Supports QM domains including pressure ulcers, ADL decline, and falls prevention.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolSeatingandPositioning
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 04-Decline-Detection-Rules.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 04-Decline-Detection-Rules.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.04DeclineDetectionRules.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Action Plan SOP 7-30-90 Framework.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Action Plan SOP 7-30-90 Framework.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMActionPlanSOP73090Framework.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Action Plan
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMActionPlan
+    dialog:
+      modelDescription: Collects action-planning parameters so the agent can generate a practical quality-improvement plan with owners and timelines.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_MdF0YE
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility does this action plan apply to?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_I26cBZ
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.targetMetric
+            prompt: Which QM metric is the primary target for this action plan?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_DuVSAg
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.planTimeline
+            prompt: What timeline should the first action cycle use (for example 14, 30, or 60 days)?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: 7-30-90 days
+                    displayName: 7-30-90 days
+
+                  - id: 14 days
+                    displayName: 14 days
+
+                  - id: 30 days
+                    displayName: 30 days
+
+                  - id: 60 days
+                    displayName: 60 days
+
+              displayName: EmbeddedEntity-NkC5XE
+
+          - kind: ConditionGroup
+            id: conditionGroup_LabKPu
+            conditions:
+              - id: conditionItem_OfcRmu
+                condition: =Topic.planTimeline = 'template-content.topic.QMActionPlan.main.question_DuVSAg'.'14 days'
+
+              - id: conditionItem_Y3Gix9
+                condition: =Topic.planTimeline = 'template-content.topic.QMActionPlan.main.question_DuVSAg'.'30 days'
+
+              - id: conditionItem_uY5sXT
+                condition: =Topic.planTimeline = 'template-content.topic.QMActionPlan.main.question_DuVSAg'.'60 days'
+
+          - kind: InvokeFlowAction
+            id: invokeFlowAction_IgRCDO
+            input:
+              binding:
+                text: =Topic.targetMetric
+
+            output:
+              binding:
+                hitl_approval: Topic.hitl_approval
+
+            flowId: fcf035ad-af0c-f111-8406-0022480b6bd9
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Respiratory
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for respiratory assessment, breathing exercises, airway clearance techniques, and pulmonary rehabilitation in skilled nursing facilities. Use when the agent needs to recommend respiratory interventions, oxygen management strategies, or pulmonary function monitoring for residents with COPD, pneumonia, or other respiratory conditions.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolRespiratory
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Jimmo Settlement Program Manual Clarifications.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Jimmo Settlement Program Manual Clarifications.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSJimmoSettlementProgramManualClarifications.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Five Star Quality Rating System Overview.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Five Star Quality Rating System Overview.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSFiveStarQualityRatingSystemOverview.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Start Over
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.StartOver
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Start Over
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - let's begin again
+            - start over
+            - start again
+            - restart
+
+        actions:
+          - kind: Question
+            id: question_zguoVV
+            alwaysPrompt: false
+            variable: init:Topic.Confirm
+            prompt: Are you sure you want to restart the conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_lvx2zV
+            conditions:
+              - id: conditionItem_sVQtHa
+                condition: =Topic.Confirm = true
+                actions:
+                  - kind: BeginDialog
+                    id: 0YKYsy
+                    dialog: template-content.topic.ResetConversation
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_lk2CyQ
+                activity: Ok. Let's carry on.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF - Clinical Intake Handoff Router
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.SNFClinicalIntakeHandoffRouter
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Route Clinical Intake and Handoff Data
+      modelDescription: Routes clinical intake and handoff data between therapy disciplines and compliance systems. Parses admission assessments, identifies required therapy evaluations, and routes documentation to appropriate providers.
+      outputs:
+        - propertyName: normalization_status
+
+        - propertyName: normalized_document_type
+
+        - propertyName: normalized_text
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: db104008-d226-f111-8341-000d3a5b88c6
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Section GG Self Care and Mobility Decision Tree.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Section GG Self Care and Mobility Decision Tree.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSSectionGGSelfCareandMobilityDecisionTree.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS SNF QM Calculations and Reporting Manual v7.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS SNF QM Calculations and Reporting Manual v7.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSSNFQMCalculationsandReportingManualv7.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Section GG Self Care and Mobility Decision Tree
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS decision tree for coding MDS Section GG self-care and mobility functional assessment items. Use when the agent needs to interpret functional status scores, explain Section GG coding rules, or validate ADL and mobility data used in quality measure calculations and therapy outcome tracking.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSSectionGGSelfCareandMobilityDecisionTree
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Governance and Operational Runbook
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Governance framework, validation checklists, exception handling rules, HIPAA and CMS compliance requirements, incident response procedures, and maintenance schedule for the SimpleLTC QM Coach agent. Use when the agent needs to apply governance principles, handle data exceptions, follow compliance requirements, or guide users to escalation paths.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.GovernanceandOperationalRunbook
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Jimmo Settlement Program Manual Clarifications.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Jimmo Settlement Program Manual Clarifications.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSJimmoSettlementProgramManualClarifications.pdf1
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Driver Analysis
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMDriverAnalysis
+    dialog:
+      modelDescription: Collects likely quality-measure decline drivers so downstream coaching can prioritize root causes and corrective actions.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_GmIBvi
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.driverCategory
+            prompt: "Which driver category should we test first: documentation, staffing, clinical process, or resident complexity?"
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_Swypdb
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility should this QM driver analysis use?
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_kCDnTe
+            conditions:
+              - id: conditionItem_L6Kce5
+                condition: =Topic.coachingOutput = 'template-content.topic.QMDriverAnalysis.main.question_ti7dMJ'.'Targeted interventions'
+
+              - id: conditionItem_6UXG1T
+                condition: =Topic.coachingOutput = 'template-content.topic.QMDriverAnalysis.main.question_ti7dMJ'.'Audit checklist'
+
+          - kind: InvokeFlowAction
+            id: invokeFlowAction_Jue0XX
+            input: {}
+            output:
+              binding:
+                adl_score: Topic.adl_score
+                antipsychotic: Topic.antipsychotic
+                bims: Topic.bims
+                braden: Topic.braden
+                facility: Topic.Facility
+                facility_data_text: Topic.facility_data_text
+                facility_submission_status: Topic.facility_submission_status
+                falls_risk: Topic.falls_risk
+                had_antipsychotic_30_days: Topic.had_antipsychotic_30_days
+                had_behavior_30_days: Topic.had_behavior_30_days
+                had_fall_30_days: Topic.had_fall_30_days
+                had_injury_30_days: Topic.had_injury_30_days
+                had_skin_injury_30_days: Topic.had_skin_injury_30_days
+                last_refresh_utc: Topic.last_refresh_utc
+                new_skin_injury: Topic.new_skin_injury
+                "outputs('run_a_query_against_a_dataset_1')['body']['firsttablerows'][0]['outlier_score']": Topic.outputsRun_a_query_against_a_dataset_1bodyfirstTableRows0outlier_score
+                patient_full_name: Topic.PatientFullName
+                patient_id: Topic.PatientID
+                power_bi_data_source: Topic.power_bi_data_source
+                resident_data_text: Topic.resident_data_text
+                resident_submission_status: Topic.resident_submission_status
+                rls_mode: Topic.rls_mode
+                semantic_model_name: Topic.semantic_model_name
+                total_behaviors: Topic.total_behaviors
+                total_falls: Topic.total_falls
+                total_injuries: Topic.total_injuries
+
+            flowId: 868e2c74-ed27-f111-8341-000d3a3363af
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 07-DoR-Summary-Template.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 07-DoR-Summary-Template.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.07DoRSummaryTemplate.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CFRs Medicare Part B Skilled Maintenance Therapy
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Code of Federal Regulations sections applicable to Medicare Part B skilled maintenance therapy coverage in skilled nursing facilities. Use when the agent needs to cite specific federal regulations supporting maintenance therapy coverage, Jimmo v. Sebelius compliance, or Medicare Part B therapy billing requirements.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CFRsMedicarePartBSkilledMaintenanceTherapy
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Greeting
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This topic is triggered when the user greets the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Greeting
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Greeting
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Good afternoon
+            - Good morning
+            - Hello
+            - Hey
+            - Hi
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_abmysR
+            activity:
+              text:
+                - Hello, how can I help you today?
+              speak:
+                - Hello, <break strength="medium" /> how can I help?
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_01At22
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 01-QM-Measure-Definitions.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 01-QM-Measure-Definitions.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.01QMMeasureDefinitions.md
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS quality safety oversight general information
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS quality and safety oversight information for nursing homes including survey and certification guidance, enforcement actions, and regulatory compliance resources. Use when the agent needs to reference survey-related quality standards, F-tag guidance context, or CMS oversight and enforcement information for skilled nursing facilities.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.CMSqualitysafetyoversightgeneralinformation
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/quality-safety-oversight-general-information
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Nutrition and Hydration.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Nutrition and Hydration.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolNutritionandHydration.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: DoR Summary Email Template and Examples.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in DoR Summary Email Template and Examples.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.DoRSummaryEmailTemplateandExamples.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Falls System Review
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for systematic facility-wide fall prevention program review, post-fall analysis, and environmental safety assessment in skilled nursing facilities. Use when the agent needs to recommend system-level fall prevention strategies, post-fall huddle protocols, or facility-wide environmental safety audits. Complements the individual Fall Prevention protocol.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolFallsSystemReview
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Target Benchmarks CMS National and Internal
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Reference document containing CMS national average benchmarks, internal organizational targets, and concern level classification rules for all long-stay and short-stay nursing home quality measures. Use when the agent needs to compare a facility QM rate against national averages, assign concern levels (High, Moderate, Low), evaluate Five-Star QM rating impact, or determine whether a facility is above or below target on any specific measure.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMTargetBenchmarksCMSNationalandInternal
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 06-Resident-Outlier-Protocol.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 06-Resident-Outlier-Protocol.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.06ResidentOutlierProtocol.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Jimmo v Sebelius Settlement FAQs.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Jimmo v Sebelius Settlement FAQs.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSJimmovSebeliusSettlementFAQs.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Decline Detection Rules and Thresholds.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Decline Detection Rules and Thresholds.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDeclineDetectionRulesandThresholds.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Wound Prevention and Care
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for wound prevention, pressure injury staging, treatment interventions, and healing monitoring in skilled nursing facilities. Use when the agent needs to recommend wound care strategies, support surface selection, repositioning schedules, nutrition interventions for wound healing, or pressure ulcer prevention programs. Supports QM domains including new or worsened pressure ulcers and skin integrity.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolWoundPreventionandCare
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Bladder Health
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for bladder health assessment, toileting programs, pelvic floor strengthening, and continence management in skilled nursing facilities. Use when the agent needs to recommend bladder retraining, catheter reduction strategies, or incontinence interventions. Supports the low-risk incontinence QM domain.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolBladderHealth
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Goodbye
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This topic triggers when the user says goodbye. By default, it does not end the conversation. If you would like to end the conversation when the user says goodbye, you can add an "End of Conversation" action to this topic, or redirect to the "End of Conversation" system topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Goodbye
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Goodbye
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Bye
+            - Bye for now
+            - Bye now
+            - Good bye
+            - No thank you. Goodbye.
+            - See you later
+
+        actions:
+          - kind: Question
+            id: question_zf2HhP
+            variable: Topic.EndConversation
+            prompt: Would you like to end our conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition_DGc1Wy
+            conditions:
+              - id: condition_DGc1Wy-item-0
+                condition: =Topic.EndConversation = true
+                actions:
+                  - kind: BeginDialog
+                    id: dn94DC
+                    dialog: template-content.topic.EndofConversation
+
+              - id: condition_DGc1Wy-item-1
+                condition: =Topic.EndConversation = false
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_LdLhmf
+                    activity: Go ahead. I'm listening.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Five Star Quality Rating System Overview
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS official overview of the Five-Star Quality Rating System for nursing homes including health inspection, staffing, and quality measure rating components. Use when the agent needs to explain how QM rates affect star ratings, interpret Five-Star scoring methodology, or assess the impact of QM changes on a facility overall rating.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSFiveStarQualityRatingSystemOverview
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 03-Action-Plan-SOP.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 03-Action-Plan-SOP.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.03ActionPlanSOP.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Data Dictionary for Upload and Query Workflows.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in Data Dictionary for Upload and Query Workflows.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.DataDictionaryforUploadandQueryWorkflows.md
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.settings.cr917_agentu92bPc.BotSettingsComponent.Feedback
+    settings:
+      kind: DefaultFeedbackCollection
+      disclaimer: Your feedback helps improve TheraDoc QM Coach. Please do not include PHI (Protected Health Information), patient names, identifiers, or sensitive clinical data in your feedback. Feedback is used only for quality improvement and is reviewed by our organization. By submitting, you consent to this use. All agent outputs are AI-generated decision support requiring licensed clinician review before implementation.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Target Benchmarks CMS National and Internal.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Target Benchmarks CMS National and Internal.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMTargetBenchmarksCMSNationalandInternal.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              I understand you need to speak with someone directly. Here is how to reach the right person:
+
+              - For QM or clinical workflow questions, contact your Regional Therapy Consultant or email therapy.support@ensignservices.net
+              - For technical issues with this agent, contact your IT help desk
+              - For urgent clinical concerns, contact the facility Director of Nursing or Administrator directly
+
+              Is there anything else I can help with before you go?
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Fall Prevention
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for fall risk assessment, individualized fall prevention plans, balance and gait training, environmental modification, and post-fall management in skilled nursing facilities. Use when the agent needs to recommend fall prevention interventions, assistive device evaluations, medication review for fall risk, or post-fall investigation protocols. Supports the falls with major injury QM domain which carries the highest Five-Star weight.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolFallPrevention
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 04-Decline-Detection-Rules.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 04-Decline-Detection-Rules.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.04DeclineDetectionRules.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 02-Target-Benchmarks.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 02-Target-Benchmarks.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.02TargetBenchmarks.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Driver Taxonomy and Root Cause Library.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Driver Taxonomy and Root Cause Library.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDriverTaxonomyandRootCauseLibrary.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Falls System Review.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Falls System Review.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolFallsSystemReview.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Sensory Integration.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Sensory Integration.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolSensoryIntegration.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 09-Governance-Runbook.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 09-Governance-Runbook.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.09GovernanceRunbook.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Behavior Management
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for behavioral assessment, non-pharmacological intervention strategies, sensory approaches, and interdisciplinary behavioral management in skilled nursing facilities. Use when the agent needs to recommend behavioral alternatives to antipsychotic medications, gradual dose reduction support, or structured activity programs. Supports the antipsychotic use QM domain.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolBehaviorManagement
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Orchestrator
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMOrchestrator
+    dialog:
+      modelDescription: "Primary router for QM workflows. Deterministic command map: intake -> QM Intake, facility -> Facility QM Analysis, upload -> QM Data Upload & Decline Detection, driver -> QM Driver Analysis, action -> QM Action Plan, outlier -> Resident Outlier Analysis, dor -> DoR Summary. Use this topic whenever user asks to route, select, or start a QM workflow."
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_V6zkac
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.routeChoice
+            prompt: Choose a QM workflow to continue.
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Facility QM Review
+                    displayName: Facility QM Review
+
+                  - id: QM Driver Analysis
+                    displayName: QM Driver Analysis
+
+                  - id: Resident Outlier Analysis
+                    displayName: Resident Outlier Analysis
+
+                  - id: QM Decline Detection
+                    displayName: QM Decline Detection
+
+                  - id: QM Action Plan
+                    displayName: QM Action Plan
+
+                  - id: DoR Summary Email
+                    displayName: DoR Summary Email
+
+                  - id: QM Intake
+                    displayName: QM Intake
+
+              displayName: EmbeddedEntity-X0yGRB
+
+          - kind: ConditionGroup
+            id: conditionGroup_imoZbs
+            conditions:
+              - id: conditionItem_du1Pbq
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'Facility QM Review'
+
+              - id: conditionItem_GnZ8zv
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Driver Analysis'
+
+              - id: conditionItem_7qkYQo
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'Resident Outlier Analysis'
+
+              - id: conditionItem_7g7Fbw
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Decline Detection'
+
+              - id: conditionItem_GXwrUu
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Action Plan'
+
+              - id: conditionItem_irYU4n
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'DoR Summary Email'
+
+              - id: conditionItem_I1YmEg
+                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Intake'
+
+            elseActions:
+              - kind: ConditionGroup
+                id: conditionGroup_uG5CC1
+                conditions:
+                  - id: conditionItem_Z71QWO
+                    condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'Facility QM Review'
+                    actions:
+                      - kind: BeginDialog
+                        id: z5JiPn
+                        dialog: template-content.topic.FacilityQMAnalysis
+
+                elseActions:
+                  - kind: ConditionGroup
+                    id: conditionGroup_sufTPN
+                    conditions:
+                      - id: conditionItem_AQDGkp
+                        condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Decline Detection'
+                        actions:
+                          - kind: BeginDialog
+                            id: hT1Q1S
+                            dialog: template-content.topic.QMDataUploadDeclineDetection
+
+                    elseActions:
+                      - kind: ConditionGroup
+                        id: conditionGroup_AtPObd
+                        conditions:
+                          - id: conditionItem_RccMHT
+                            condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Driver Analysis'
+                            actions:
+                              - kind: BeginDialog
+                                id: g9rIOh
+                                dialog: template-content.topic.QMDriverAnalysis
+
+                        elseActions:
+                          - kind: ConditionGroup
+                            id: conditionGroup_emEdSJ
+                            conditions:
+                              - id: conditionItem_eCsusS
+                                condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'QM Action Plan'
+                                actions:
+                                  - kind: BeginDialog
+                                    id: REjWhy
+                                    dialog: template-content.topic.QMActionPlan
+
+                            elseActions:
+                              - kind: ConditionGroup
+                                id: conditionGroup_1KeTz2
+                                conditions:
+                                  - id: conditionItem_rZnGxU
+                                    condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'Resident Outlier Analysis'
+                                    actions:
+                                      - kind: BeginDialog
+                                        id: hHjGHX
+                                        dialog: template-content.topic.ResidentOutlierAnalysis
+
+                                elseActions:
+                                  - kind: ConditionGroup
+                                    id: conditionGroup_sZ8SpX
+                                    conditions:
+                                      - id: conditionItem_0FA3Dh
+                                        condition: =Topic.routeChoice = 'template-content.topic.QMOrchestrator.main.question_V6zkac'.'DoR Summary Email'
+                                        actions:
+                                          - kind: BeginDialog
+                                            id: boZDL7
+                                            dialog: template-content.topic.DoRSummary
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Action Plan SOP 7-30-90 Framework
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Standard operating procedure defining the 7-30-90 day action plan framework for quality measure improvement in skilled nursing facilities. Use when the agent generates action plans, assigns owners and due dates, applies escalation rules, or structures clinical interventions into immediate quick wins (7-day), workflow redesign (30-day), and stabilization (90-day) phases. Includes HITL approval requirements and role assignments.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMActionPlanSOP73090Framework
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Measure Definitions and Calculation Rules
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Complete definitions of all CMS nursing home quality measures including numerator and denominator rules, exclusion criteria, and clinical relevance for therapy teams. Use when the agent needs to explain what a specific QM measures, how it is calculated, which MDS items drive it, or why a facility rate is high. Covers all long-stay measures LS-01 through LS-15 and short-stay measures SS-01 through SS-05.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMMeasureDefinitionsandCalculationRules
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Thank you
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This topic triggers when the user says thank you.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Thankyou
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Thank you
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - thanks
+            - thank you
+            - thanks so much
+            - ty
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_9iz6v7
+            activity: You're welcome.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 08-Data-Dictionary.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 08-Data-Dictionary.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.08DataDictionary.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Part B Maintenance Therapy Guidelines Jimmo Standard.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in Medicare Part B Maintenance Therapy Guidelines Jimmo Standard.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicarePartBMaintenanceTherapyGuidelinesJimmoStandard.md
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Lymphedema.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Lymphedema.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolLymphedema.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Nutrition and Hydration
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for nutrition screening, hydration monitoring, weight management, and dietary interventions in skilled nursing facilities. Use when the agent needs to recommend nutrition-related interventions for residents with weight loss, malnutrition risk, wound healing needs, or dehydration concerns. Supports the weight loss QM domain.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolNutritionandHydration
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Action Plan SOP 7-30-90 Framework.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Action Plan SOP 7-30-90 Framework.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMActionPlanSOP73090Framework.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Nursing Home Data Dictionary.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS Nursing Home Data Dictionary.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSNursingHomeDataDictionary.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Contracture Management.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Contracture Management.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolContractureManagement.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Low Vision.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Low Vision.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolLowVision.pdf
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.settings.cr917_agentu92bPc.BotSettingsComponent.ContentModeration
+    settings:
+      kind: ContentModerationSettings
+      moderatedCustomResponse: That request falls outside my clinical decision-support scope. I can help with facility QM analysis, action planning, decline detection, resident outlier coaching, and DoR summaries. Please choose a workflow from the menu or rephrase your request using clinical QM terminology.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS SNF QM Calculations and Reporting Manual v7
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS SNF quality measure calculations and reporting users manual version 7.0 with detailed measure calculation logic, data submission requirements, and reporting timelines. Use when the agent needs technical calculation procedures, data submission deadlines, or reporting cycle details for skilled nursing facility quality measures.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSSNFQMCalculationsandReportingManualv7
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Respiratory.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Respiratory.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolRespiratory.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF - Quality Measure Email Generator
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.SNFQualityMeasureEmailGenerator
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Generate Quality Measure Compliance Emails
+      modelDescription: Generates compliance notification emails from quality measure data for skilled nursing facility therapy teams. Formats decline alerts, care gap summaries, and risk reports for stakeholder communication.
+      outputs:
+        - propertyName: hitl_approval
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: fcf035ad-af0c-f111-8406-0022480b6bd9
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Data Upload & Decline Detection
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMDataUploadDeclineDetection
+    dialog:
+      modelDescription: Collects facility and file inputs, captures analysis scope, and stages data for decline detection and predicted-vs-actual review workflows.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_GmVw74
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility does this upload belong to?
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: sendActivity_d2t632
+            activity: I'll check if stored SimpleLTC data is available for this facility. If recent data exists from the API feed, I'll use it automatically. Otherwise, please upload your latest SimpleLTC export (CSV preferred, PDF accepted).
+
+          - kind: Question
+            id: question_7pwjHM
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.uploadedQmFile
+            prompt: Please upload the SimpleLTC export file now (CSV preferred, PDF accepted).
+            entity: FilePrebuiltEntity
+
+          - kind: Question
+            id: question_wHOmOj
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.analysisScope
+            prompt: "What analysis scope do you want: worsening-QM detection, predicted-vs-actual comparison, or both?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Worsening-QM detection
+                    displayName: Worsening-QM detection
+
+                  - id: Predicted-vs-actual comparison
+                    displayName: Predicted-vs-actual comparison
+
+                  - id: Both
+                    displayName: Both
+
+              displayName: EmbeddedEntity-KmLK0u
+
+          - kind: ConditionGroup
+            id: conditionGroup_USVVUR
+            conditions:
+              - id: conditionItem_FP3tlL
+                condition: =Topic.analysisScope = 'template-content.topic.QMDataUploadDeclineDetection.main.question_wHOmOj'.'Predicted-vs-actual comparison'
+
+              - id: conditionItem_GDBiZg
+                condition: =Topic.analysisScope = 'template-content.topic.QMDataUploadDeclineDetection.main.question_wHOmOj'.Both
+
+          - kind: InvokeFlowAction
+            id: invokeFlowAction_kykoSD
+            input:
+              binding:
+                text: =Topic.selectedFacility
+
+            output:
+              binding:
+                confirmationmessage: Topic.ConfirmationMessage
+                declining_metrics_text: Topic.DecliningMetricsText
+                facility_data_text: Topic.FacilityDataText
+                facility_submission_status: Topic.FacilitySubmissionStatus
+
+            flowId: 0b930a15-2516-f111-8341-0022480b6bd9
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Pain Management
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for pain assessment, multimodal pain management, and functional outcome tracking in skilled nursing facilities. Use when the agent needs to recommend pain interventions, non-pharmacological strategies, therapy-based pain management, or pain reassessment schedules. Supports the moderate to severe pain QM domain.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolPainManagement
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Lymphedema
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for lymphedema assessment, compression therapy, manual lymphatic drainage, and exercise programs in skilled nursing facilities. Use when the agent needs to recommend lymphedema management strategies, edema reduction interventions, or skin integrity monitoring for residents with lymphatic conditions.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolLymphedema
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Oral Hygiene
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for oral health assessment, hygiene interventions, and dysphagia-related oral care in skilled nursing facilities. Use when the agent needs to recommend oral hygiene programs, dental screening referrals, or oral care interventions for residents with swallowing difficulties or aspiration risk.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolOralHygiene
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Part B Maintenance Therapy Guidelines Jimmo Standard.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in Medicare Part B Maintenance Therapy Guidelines Jimmo Standard.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicarePartBMaintenanceTherapyGuidelinesJimmoStandard.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS MDS 3.0 Quality Measures Users Manual v18
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Official CMS MDS 3.0 Quality Measures Users Manual version 18.0 containing detailed specifications for all nursing home quality measure calculations, risk adjustment models, and reporting rules. Use when the agent needs authoritative calculation details, measure specifications, or technical documentation for any QM numerator, denominator, exclusion, or risk adjustment question.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSMDS3.0QualityMeasuresUsersManualv18
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Resident Outlier Review Protocol HIPAA Compliant.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in Resident Outlier Review Protocol HIPAA Compliant.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ResidentOutlierReviewProtocolHIPAACompliant.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Fall Prevention.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Fall Prevention.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolFallPrevention.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Seating and Positioning.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Seating and Positioning.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolSeatingandPositioning.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS SNF QM Calculations and Reporting Manual v7.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS SNF QM Calculations and Reporting Manual v7.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSSNFQMCalculationsandReportingManualv7.pdf1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Sensory Integration
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for sensory processing assessment, sensory diet development, environmental adaptation, and therapeutic sensory interventions in skilled nursing facilities. Use when the agent needs to recommend sensory-based approaches for residents with dementia, behavioral challenges, or sensory processing difficulties.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolSensoryIntegration
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CFRs Medicare Part B Skilled Maintenance Therapy.docx
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CFRs Medicare Part B Skilled Maintenance Therapy.docx
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CFRsMedicarePartBSkilledMaintenanceTherapy.docx
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Contracture Management
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for contracture prevention, range of motion programs, splinting protocols, and positioning strategies in skilled nursing facilities. Use when the agent needs to recommend contracture management interventions, maintenance therapy programs per Jimmo v. Sebelius, or ADL preservation strategies. Supports the ADL decline QM domain.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolContractureManagement
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}, powered by generative AI. How may I help you today?
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: DoR Summary Email Template and Examples
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Templates and audience-specific formatting rules for Director of Rehab summary emails covering single-facility and multi-facility QM performance. Use when the agent generates DoR summary communications, needs to format facility performance tables, assign priority actions, or adapt output for different audiences.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.DoRSummaryEmailTemplateandExamples
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Decline Detection Rules and Thresholds.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Decline Detection Rules and Thresholds.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDeclineDetectionRulesandThresholds.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Pain Management.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Pain Management.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolPainManagement.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 05-Driver-Taxonomy.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 05-Driver-Taxonomy.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.05DriverTaxonomy.md
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 07-DoR-Summary-Template.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 07-DoR-Summary-Template.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.07DoRSummaryTemplate.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 02-Target-Benchmarks.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 02-Target-Benchmarks.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.02TargetBenchmarks.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Driver Taxonomy and Root Cause Library.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in QM Driver Taxonomy and Root Cause Library.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDriverTaxonomyandRootCauseLibrary.md1
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Intake
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMIntake
+    dialog:
+      modelDescription: "Collects required QM intake context: selectedFacility, lookbackPeriod, and qmDomain. Returns a concise intake summary and prepares handoff to QM Orchestrator."
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_LRSzQ7
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility are we reviewing?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_EJ8okf
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.lookbackPeriod
+            prompt: What lookback period should we use (30 days, 60 days, 90 days, or current quarter)?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Last 30 days
+                    displayName: Last 30 days
+
+                  - id: Last 60 days
+                    displayName: Last 60 days
+
+                  - id: Last 90 days
+                    displayName: Last 90 days
+
+                  - id: Current quarter
+                    displayName: Current quarter
+
+              displayName: EmbeddedEntity-5b6QBG
+
+          - kind: ConditionGroup
+            id: conditionGroup_hVNZde
+            conditions:
+              - id: conditionItem_eVtbFG
+                condition: =Topic.lookbackPeriod = 'template-content.topic.QMIntake.main.question_EJ8okf'.'Last 60 days'
+
+              - id: conditionItem_xmovok
+                condition: =Topic.lookbackPeriod = 'template-content.topic.QMIntake.main.question_EJ8okf'.'Last 90 days'
+
+              - id: conditionItem_ljzzO7
+                condition: =Topic.lookbackPeriod = 'template-content.topic.QMIntake.main.question_EJ8okf'.'Current quarter'
+
+          - kind: Question
+            id: question_LpmWm6
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.qmDomain
+            prompt: Which QM domain should we focus on first (falls, mobility decline, ADL function, rehospitalization, or antipsychotic use)?
+            entity: StringPrebuiltEntity
+
+          - kind: BeginDialog
+            id: MVvnKE
+            dialog: template-content.topic.QMOrchestrator
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF - Therapy AI Resident Insight Intake
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.SNFTherapyAIResidentInsightIntake
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Collect and Process Therapy Resident Insights
+      modelDescription: Collects and processes therapy resident data from source systems to generate AI-powered compliance insights for skilled nursing facilities. Analyzes resident assessments and produces actionable intelligence for care teams.
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: f96d43dd-fd24-f111-8341-6045bd061151
+
+      outputMode: All
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Resident Outlier Review Protocol HIPAA Compliant
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: HIPAA-compliant protocol for conducting resident-specific quality measure outlier analysis in skilled nursing facilities. Use when the agent performs resident-level reviews, needs to validate required data fields, apply HIPAA minimum necessary standards, generate therapy and nursing coaching recommendations, or structure resident outlier reports. Defines prohibited PHI fields and approved data sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ResidentOutlierReviewProtocolHIPAACompliant
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: INTERNAL - Normalize Manual QM File V2
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.INTERNALNormalizeManualQMFileV2
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Normalize and Standardize Manual Quality Measure Files
+      modelDescription: Normalizes and standardizes manually uploaded quality measure files. Cleans, formats, and structures raw therapy compliance data for agent analysis and quality reporting.
+      outputs:
+        - propertyName: normalization_status
+
+        - propertyName: normalized_document_type
+
+        - propertyName: normalized_text
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: 51112488-9726-f111-8341-0022480b6bd9
+
+      outputMode: All
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Decline Detection Rules and Thresholds
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Rules, thresholds, and lookback logic for detecting quality measure declines in skilled nursing facility performance data. Use when the agent needs to determine if a QM rate constitutes a decline, calculate severity scores, compare predicted versus actual rates, or route users to appropriate intervention workflows based on decline severity. Defines acute spike, sustained worsening, and threshold breach criteria.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDeclineDetectionRulesandThresholds
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Low Vision
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Evidence-based clinical protocol for low vision assessment, environmental modification, adaptive equipment, and functional training in skilled nursing facilities. Use when the agent needs to recommend vision-related interventions, lighting modifications, magnification aids, or safety adaptations for residents with visual impairment. Supports fall prevention and ADL independence.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolLowVision
+    metadata:
+      triggerCondition: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS nursing home quality measures
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS nursing home quality measure definitions and calculation rules used with SimpleLTC exports and Power BI dashboards to identify declining resident and facility outcomes. Use when the agent needs current CMS quality measure specifications, reporting requirements, or measure update announcements for skilled nursing facilities.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.CMSnursinghomequalitymeasures
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        triggerCondition: true
+        site: https://www.cms.gov/medicare/quality
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Resident Outlier Analysis
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResidentOutlierAnalysis
+    dialog:
+      modelDescription: Collects resident-outlier analysis context for secure workflow execution and coaching recommendations while avoiding unnecessary PHI capture.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_tODM2n
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility should this resident outlier review use?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_oLugIE
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.coachingOutput
+            prompt: "What coaching output do you want first: intervention ideas, documentation checkpoints, or escalation triggers?"
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_vOiqE9
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.outlierPattern
+            prompt: Which resident outlier pattern should we analyze first?
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Repeated QM trigger
+                    displayName: Repeated QM trigger
+
+                  - id: Multi-QM trigger
+                    displayName: Multi-QM trigger
+
+                  - id: Functional decline
+                    displayName: Functional decline
+
+                  - id: Post-hospital return
+                    displayName: Post-hospital return
+
+                  - id: New admission risk
+                    displayName: New admission risk
+
+                  - id: Documentation checkpoints
+                    displayName: Documentation checkpoints
+
+                  - id: Escalation triggers
+                    displayName: Escalation triggers
+
+              displayName: EmbeddedEntity-1l5CgD
+
+          - kind: ConditionGroup
+            id: conditionGroup_MuLWQT
+            conditions:
+              - id: conditionItem_BxXlSy
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Multi-QM trigger'
+
+              - id: conditionItem_2c2iAG
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Functional decline'
+
+              - id: conditionItem_aaPKuW
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Post-hospital return'
+
+              - id: conditionItem_6dNO3K
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'New admission risk'
+
+              - id: conditionItem_PMsuPA
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Documentation checkpoints'
+
+              - id: conditionItem_9TrmWg
+                condition: =Topic.outlierPattern = 'template-content.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Escalation triggers'
+
+          - kind: InvokeFlowAction
+            id: invokeFlowAction_sItQNY
+            input: {}
+            output:
+              binding:
+                resident_data_text: Topic.resident_data_text
+
+            flowId: 88ce03b7-6b25-f111-8341-000d3a33801d
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Pain Management.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Pain Management.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolPainManagement.pdf1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Jimmo Settlement Program Manual Clarifications
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS fact sheet clarifying Medicare Benefit Policy Manual revisions resulting from the Jimmo v. Sebelius settlement. Use when the agent needs to explain how CMS updated coverage criteria to remove the improvement standard for skilled therapy and nursing services in SNF, home health, and outpatient settings.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSJimmoSettlementProgramManualClarifications
+    metadata:
+      triggerCondition: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare regulations and guidance (CMS.gov)
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS Medicare regulations and guidance pages that define policy context for interpreting SimpleLTC exports and Power BI quality measure results in skilled nursing facilities.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.MedicareregulationsandguidanceCMS.gov
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.cms.gov
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS MDS 3.0 Quality Measures Users Manual v18.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in CMS MDS 3.0 Quality Measures Users Manual v18.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSMDS3.0QualityMeasuresUsersManualv18.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 09-Governance-Runbook.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 09-Governance-Runbook.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.09GovernanceRunbook.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 01-QM-Measure-Definitions.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 01-QM-Measure-Definitions.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.01QMMeasureDefinitions.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 06-Resident-Outlier-Protocol.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 06-Resident-Outlier-Protocol.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.06ResidentOutlierProtocol.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Driver Taxonomy and Root Cause Library
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Structured library of root-cause drivers categorized as Clinical, Process, and Documentation for each quality measure domain including Falls, Pressure Ulcers, ADL Decline, Antipsychotic Use, and Incontinence. Use when the agent performs driver analysis, needs to identify likely root causes for high or worsening QMs, map drivers to CMS F-tags, or recommend validation audits.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.QMDriverTaxonomyandRootCauseLibrary
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Facility QM Analysis
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.FacilityQMAnalysis
+    dialog:
+      modelDescription: Collects facility-level QM analysis context, including measure focus and analysis objective, so downstream workflows can generate trend, benchmark, and risk insights.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_kRoz7l
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.selectedFacility
+            prompt: Which facility should we analyze at the QM performance level?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_XKquGz
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.qmMeasureFocus
+            prompt: Which QM measure or metric should be the focus?
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: question_rmNzwr
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.analysisGoal
+            prompt: "What analysis outcome do you need first: trend, benchmark, risk flag, or summary?"
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                items:
+                  - id: Trend
+                    displayName: Trend
+
+                  - id: Benchmark
+                    displayName: Benchmark
+
+                  - id: Risk flag
+                    displayName: Risk flag
+
+                  - id: Summary
+                    displayName: Summary
+
+                  - id: ADL Decline
+                    displayName: ADL Decline
+
+                  - id: Pressure Ulcers
+                    displayName: Pressure Ulcers
+
+                  - id: Antipsychotic Use
+                    displayName: Antipsychotic Use
+
+                  - id: Pain
+                    displayName: Pain
+
+                  - id: All QMs
+                    displayName: All QMs
+
+              displayName: EmbeddedEntity-BgDsI7
+
+          - kind: ConditionGroup
+            id: conditionGroup_FuNS1n
+            conditions:
+              - id: conditionItem_H7t5ex
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.Benchmark
+
+              - id: conditionItem_9tNZ7x
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.'Risk flag'
+
+              - id: conditionItem_Lcfoz3
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.Summary
+
+              - id: conditionItem_0fA27v
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.'ADL Decline'
+
+              - id: conditionItem_U6vaN4
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.'Pressure Ulcers'
+
+              - id: conditionItem_vEMlc9
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.'Antipsychotic Use'
+
+              - id: conditionItem_a5TC51
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.Pain
+
+              - id: conditionItem_iMjHmC
+                condition: =Topic.analysisGoal = 'template-content.topic.FacilityQMAnalysis.main.question_rmNzwr'.'All QMs'
+
+          - kind: InvokeFlowAction
+            id: invokeFlowAction_dejUVb
+            input: {}
+            output:
+              binding:
+                adl_score: Topic.adl_score
+                antipsychotic: Topic.antipsychotic
+                bims: Topic.bims
+                braden: Topic.braden
+                facility: Topic.Facility
+                facility_data_text: Topic.facility_data_text
+                facility_submission_status: Topic.facility_submission_status
+                falls_risk: Topic.falls_risk
+                had_antipsychotic_30_days: Topic.had_antipsychotic_30_days
+                had_behavior_30_days: Topic.had_behavior_30_days
+                had_fall_30_days: Topic.had_fall_30_days
+                had_injury_30_days: Topic.had_injury_30_days
+                had_skin_injury_30_days: Topic.had_skin_injury_30_days
+                last_refresh_utc: Topic.last_refresh_utc
+                new_skin_injury: Topic.new_skin_injury
+                "outputs('run_a_query_against_a_dataset_1')['body']['firsttablerows'][0]['outlier_score']": Topic.outputsRun_a_query_against_a_dataset_1bodyfirstTableRows0outlier_score
+                patient_full_name: Topic.PatientFullName
+                patient_id: Topic.PatientID
+                power_bi_data_source: Topic.power_bi_data_source
+                resident_data_text: Topic.resident_data_text
+                resident_submission_status: Topic.resident_submission_status
+                rls_mode: Topic.rls_mode
+                semantic_model_name: Topic.semantic_model_name
+                total_behaviors: Topic.total_behaviors
+                total_falls: Topic.total_falls
+                total_injuries: Topic.total_injuries
+
+            flowId: 868e2c74-ed27-f111-8341-000d3a3363af
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Resident Outlier Review Protocol HIPAA Compliant.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in Resident Outlier Review Protocol HIPAA Compliant.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ResidentOutlierReviewProtocolHIPAACompliant.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: ONE Clinical Protocol Respiratory.pdf
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in ONE Clinical Protocol Respiratory.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ONEClinicalProtocolRespiratory.pdf1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 08-Data-Dictionary.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 08-Data-Dictionary.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.08DataDictionary.md1
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SimpleLTC quality measures and workflow overview
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: SimpleLTC website content describing quality measure tools, exports, dashboards, and workflows that support Power BI analysis of skilled nursing facility quality performance.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.SimpleLTCqualitymeasuresandworkflowoverview
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.simpleltc.com
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Data Dictionary for Upload and Query Workflows
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Column definitions and validation rules for SimpleLTC CSV exports, resident exports, Power BI query responses, and Dataverse entity fields. Use when the agent validates uploaded files, maps data columns, screens for prohibited PHI fields, or interprets query response fields during upload and analysis workflows.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.DataDictionaryforUploadandQueryWorkflows
+    metadata:
+      triggerCondition: true
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Part B Maintenance Therapy Guidelines Jimmo Standard
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: Medicare Part B maintenance therapy coverage guidelines based on the Jimmo v. Sebelius settlement. Use when the agent needs to justify skilled maintenance therapy coverage, explain that Medicare coverage is based on need for skilled care not improvement potential, or cite Jimmo standards for therapy documentation.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicarePartBMaintenanceTherapyGuidelinesJimmoStandard
+    metadata:
+      triggerCondition: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF - Quality Measure Decline Detection And Reporting
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.SNFQualityMeasureDeclineDetectionAndReporting
+    dialog:
+      kind: TaskDialog
+      modelDisplayName: Detect and Report Quality Measure Declines
+      modelDescription: Analyzes therapy quality measure data to detect performance declines, care gaps, and compliance risks. Identifies trending quality issues and generates actionable reports for facility teams.
+      outputs:
+        - propertyName: confirmationmessage
+
+        - propertyName: facility_submission_status
+
+        - propertyName: facility_data_text
+
+        - propertyName: declining_metrics_text
+
+      action:
+        kind: InvokeFlowTaskAction
+        flowId: 0b930a15-2516-f111-8341-0022480b6bd9
+
+      outputMode: All
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 05-Driver-Taxonomy.md
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: This knowledge source searches information contained in 05-Driver-Taxonomy.md
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.05DriverTaxonomy.md1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CMS Nursing Home Data Dictionary
+    parentBotId: ea52ad9c-8233-f111-88b3-6045bd09a824
+    description: CMS official data dictionary for nursing home datasets including field definitions, data types, and coding conventions used in MDS assessments and quality measure reporting. Use when the agent needs to interpret data fields, validate upload column mappings, or explain CMS data element definitions.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CMSNursingHomeDataDictionary
+    metadata:
+      triggerCondition: true

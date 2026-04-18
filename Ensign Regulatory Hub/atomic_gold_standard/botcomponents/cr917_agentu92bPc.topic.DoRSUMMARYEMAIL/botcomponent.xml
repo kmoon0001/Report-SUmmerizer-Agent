@@ -1,0 +1,8 @@
+<botcomponent schemaname="cr917_agentu92bPc.topic.DoRSUMMARYEMAIL">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>DoRSUMMARYEMAIL</name>
+  <parentbotid><schemaname>cr917_agentu92bPc</schemaname></parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

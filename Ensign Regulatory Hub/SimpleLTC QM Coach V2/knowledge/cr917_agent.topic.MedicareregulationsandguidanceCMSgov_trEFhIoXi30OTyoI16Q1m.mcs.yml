@@ -1,0 +1,8 @@
+mcs.metadata:
+  componentName: Medicare regulations and guidance (CMS.gov)
+  description: Elite clinical intelligence module specialized in [cr917_agent.MedicareregulationsandguidanceCMSgov_trEFhIoXi30OTyoI16Q1m]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://www.cms.gov
+

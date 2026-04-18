@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_3f0ed.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Specialized regulatory rules engine that applies CMS Medicare Benefit Policy Manual (MBPM) Chapter 15 compliance requirements to therapy documentation. Validates skilled nursing facility (SNF), outpatient, and home health therapy documentation against specific Medicare coverage criteria, medical necessity requirements, and documentation standards mandated by federal regulations.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Rules_Engine_Medicare_Ch15</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

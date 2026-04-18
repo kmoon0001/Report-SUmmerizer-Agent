@@ -1,0 +1,8 @@
+<botcomponent schemaname="cr917_agentu92bPc.action.COPILOTV2-ResidentInsightDataverseLookupNative">
+  <componenttype>11</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>COPILOTV2-ResidentInsightDataverseLookupNative</name>
+  <parentbotid><schemaname>cr917_agentu92bPc</schemaname></parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,1 @@
+<fetch><entity name='workflow'><attribute name='name'/><attribute name='workflowid'/><attribute name='workflowidunique'/><attribute name='statecode'/><attribute name='statuscode'/><attribute name='componentstate'/><attribute name='category'/><filter><condition attribute='workflowidunique' operator='eq' value='166d23b2-679e-40c1-b46d-cb4559a7b118' /></filter></entity></fetch>

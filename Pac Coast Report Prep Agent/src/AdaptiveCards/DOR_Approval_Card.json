@@ -1,0 +1,83 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "fallbackText": "Your device does not support Adaptive Cards. Please log into the Power Apps Dashboard.",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Pac Coast Rehab Briefing Approval",
+          "weight": "Bolder",
+          "size": "ExtraLarge",
+          "wrap": true
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            { "title": "Therapist:", "value": "${therapistName}" },
+            { "title": "Discipline:", "value": "${discipline}" },
+            { "title": "Total Patients:", "value": "${patientCount}" },
+            { "title": "Pending Issues:", "value": "${complianceIssuesFlag}" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Patient Roster (Select to Approve)",
+          "weight": "Bolder",
+          "size": "Medium"
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "approvedPatients",
+          "style": "expanded",
+          "isMultiSelect": true,
+          "wrap": true,
+          "choices": [
+            {
+              "title": "Patient ${patientToken_1} | ${reportType_1} | Urgency: ${urgency_1} \nSummary: ${clinicalSummary_1}",
+              "value": "${patientToken_1}"
+            },
+            {
+              "title": "Patient ${patientToken_2} | ${reportType_2} | Urgency: ${urgency_2} \nSummary: ${clinicalSummary_2}",
+              "value": "${patientToken_2}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Approve Selected & Send",
+      "data": {
+        "actionType": "approveSelected"
+      },
+      "style": "positive",
+      "tooltip": "Sends 1:1 chat to treating therapist"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "Edit in Dashboard",
+      "url": "https://make.powerapps.com/environments/env-id/apps/app-id",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Microsoft_Power_Apps_Icon.svg"
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Reject All",
+      "data": {
+        "actionType": "rejectAll"
+      },
+      "style": "destructive"
+    }
+  ]
+}

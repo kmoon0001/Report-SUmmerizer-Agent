@@ -1,0 +1,30 @@
+﻿jsonFileName: workflows/SNF-QualityMeasureDeclineDetectionAndReporting-0b930a15-2516-f111-8341-0022480b6bd9/workflow.json
+workflowId: 0b930a15-2516-f111-8341-0022480b6bd9
+name: SNF - Quality Measure Decline Detection And Reporting
+type: 1
+description: 
+subprocess: false
+category: 5
+mode: 0
+scope: 4
+onDemand: false
+triggerOnCreate: false
+triggerOnDelete: false
+asyncAutodelete: false
+syncWorkflowLogOnFailure: false
+stateCode: 1
+statusCode: 2
+runAs: 1
+isTransacted: true
+introducedVersion: 1.0
+isCustomizable:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: iscustomizableanddeletable
+businessProcessType: 0
+isCustomProcessingStepAllowedForOtherPublishers:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: canbedeleted
+modernFlowType: 0
+primaryEntity: none

@@ -1,0 +1,144 @@
+- generic [ref=e1]:
+  - generic [ref=e10]:
+    - banner [ref=e12]:
+      - button "Skip to main content" [ref=e13]
+      - banner [ref=e15]:
+        - button "App launcher" [ref=e18] [cursor=pointer]: 
+        - generic [ref=e24]:
+          - generic [ref=e29]: Copilot Studio
+          - generic [ref=e32]:
+            - 'button "Environment: Therapy AI Agents Dev" [ref=e37] [cursor=pointer]':
+              - img [ref=e39]
+              - generic [ref=e276]:
+                - generic [ref=e277]: Environment
+                - generic [ref=e279]: Therapy AI Agents Dev
+            - button "Settings" [ref=e282] [cursor=pointer]:
+              - generic [ref=e283]: 
+            - button "Help" [ref=e286] [cursor=pointer]:
+              - generic [ref=e287]: 
+        - generic [ref=e46]:
+          - button "Account manager for Moon, Kevin" [ref=e48] [cursor=pointer]:
+            - generic [ref=e49]:
+              - generic [ref=e50]: Moon, Kevin
+              - generic [ref=e57]: KM
+          - generic: 
+    - generic [ref=e60]:
+      - navigation [ref=e61]:
+        - tablist [ref=e62]:
+          - tab "Home" [ref=e64] [cursor=pointer]:
+            - img [ref=e66]
+            - generic [ref=e68]: Home
+          - tab "Agents" [selected] [ref=e69] [cursor=pointer]:
+            - generic [ref=e72]: Agents
+          - tab "Flows" [ref=e73] [cursor=pointer]:
+            - img [ref=e75]
+            - generic [ref=e80]: Flows
+          - tab "Tools" [ref=e81] [cursor=pointer]:
+            - img [ref=e83]
+            - generic [ref=e85]: Tools
+          - tab "Explore Power Platform" [ref=e87] [cursor=pointer]:
+            - img [ref=e89]
+      - main "Page content" [ref=e93]:
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - img "Icon for your agent" [ref=e105]
+              - heading "SimpleLTC QM Coach V2" [level=1] [ref=e106]
+              - button "open agent protection shield popover" [ref=e107]:
+                - img [ref=e109]
+              - tablist [ref=e111]:
+                - tab "Overview" [ref=e146] [cursor=pointer]:
+                  - generic [ref=e147]: Overview
+                - tab "Knowledge" [ref=e148] [cursor=pointer]:
+                  - generic [ref=e149]: Knowledge
+                - tab "Tools" [ref=e150] [cursor=pointer]:
+                  - generic [ref=e151]: Tools
+                - tab "Agents" [ref=e152] [cursor=pointer]:
+                  - generic [ref=e153]: Agents
+                - tab "Topics" [selected] [ref=e113] [cursor=pointer]:
+                  - generic [ref=e114]: Topics
+                - tab "Activity" [ref=e154] [cursor=pointer]:
+                  - generic [ref=e155]: Activity
+                - tab "Evaluation" [ref=e156] [cursor=pointer]:
+                  - generic [ref=e157]: Evaluation
+                - tab "Analytics" [ref=e158] [cursor=pointer]:
+                  - generic [ref=e159]: Analytics
+                - tab "Channels" [ref=e160] [cursor=pointer]:
+                  - generic [ref=e161]: Channels
+            - generic [ref=e117]:
+              - button "Search your agent" [ref=e163]:
+                - img [ref=e165]
+              - generic [ref=e119]:
+                - generic [ref=e120]: Published 4/11/2026
+                - button "Publish" [ref=e122]
+              - button "Settings" [ref=e168]
+              - button "Options" [ref=e170]:
+                - img [ref=e172]
+              - separator [ref=e175]
+              - button "Test" [ref=e124]:
+                - generic [ref=e125]:
+                  - img [ref=e176]
+                  - text: Test
+          - generic [ref=e132]:
+            - separator
+            - generic [ref=e179]:
+              - generic [ref=e181]:
+                - generic [ref=e182]: Test your agent
+                - generic [ref=e183]:
+                  - button "Start new test session" [active] [ref=e184]:
+                    - img [ref=e186]
+                  - button "Evaluate SimpleLTC QM Coach V2" [ref=e188]:
+                    - img [ref=e190]
+                  - button "Variables" [ref=e192]:
+                    - img [ref=e194]
+                  - button "More" [ref=e196]:
+                    - img [ref=e198]
+                  - button "Expand test pane" [ref=e201]:
+                    - img [ref=e203]
+                  - button "Close test pane" [ref=e205]:
+                    - img [ref=e207]
+              - generic [ref=e218]:
+                - generic:
+                  - log
+                - group "Chat history, press arrow keys to navigate." [ref=e221]:
+                  - generic [ref=e222]:
+                    - feed [ref=e225]:
+                      - article [ref=e227]:
+                        - 'generic "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help? Like Like Dislike Dislike" [ref=e230]':
+                          - group [ref=e233]:
+                            - generic [ref=e234]: "Bot said:"
+                            - generic [ref=e239]:
+                              - paragraph [ref=e242]: Hello, I'm SimpleLTC QM Coach V2. How can I help?
+                              - generic [ref=e245]:
+                                - generic [ref=e246]:
+                                  - radio "Like" [ref=e247]
+                                  - tooltip "Like"
+                                - generic [ref=e248]:
+                                  - radio "Dislike" [ref=e249]
+                                  - tooltip "Dislike"
+                          - generic [ref=e252]:
+                            - generic [ref=e253]: Sent at April 11 at 8:43 PM
+                            - generic [ref=e254]: Just now
+                        - generic:
+                          - 'article "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help?"':
+                            - generic: "Bot said: Hello, I'm SimpleLTC QM Coach V2. How can I help?"
+                    - note "End of chat history"
+                - generic [ref=e255]: "Connectivity Status: Connected"
+                - generic [ref=e257]:
+                  - toolbar "Suggested actions"
+                  - generic [ref=e258]:
+                    - textbox "Ask a question or describe what you need" [ref=e260]
+                    - generic [ref=e261]:
+                      - generic [ref=e262]: 0/2000
+                      - generic [ref=e263]:
+                        - button "Upload file" [ref=e265] [cursor=pointer]
+                        - separator [ref=e267]
+                        - button "Send" [ref=e268] [cursor=pointer]
+                - generic [ref=e271]:
+                  - text: You're testing your agent's real responses and capabilities.
+                  - link "Find troubleshooting help here." [ref=e272] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2345957
+                  - text: Make sure AI-generated content is accurate and appropriate before using.
+                  - link "See terms" [ref=e273] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2182773
+  - tooltip "Start new test session" [ref=e288]

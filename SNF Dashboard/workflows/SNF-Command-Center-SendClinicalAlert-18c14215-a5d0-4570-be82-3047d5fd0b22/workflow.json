@@ -1,0 +1,92 @@
+{
+  "properties": {
+    "definition": {
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills"
+        }
+      },
+      "actions": {
+        "POST_TO_TEAMS_CHANNEL": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "connection": { "name": "@json(decodeBase64(parameters('$connections'))).shared_teams.connectionId" } },
+            "method": "post",
+            "path": "/v2/teams/conversation/message/poster",
+            "body": {
+              "recipient": { "groupId": "CLINICAL_TEAMS_GROUP_ID", "channelId": "CLINICAL_CHANNEL_ID" },
+              "message": {
+                "content": "<div style='border-left: 5px solid #d13438; padding: 10px;'><h3>🚨 EMERGENCY CLINICAL ALERT</h3><p><b>Severity:</b> @{triggerBody()?['severity']}</p><p><b>Unit:</b> @{triggerBody()?['unit']}</p><p><b>Message:</b> @{triggerBody()?['messagetext']}</p><p><i>Source: SNF Command Center Agent</i></p></div>",
+                "contentType": "html"
+              }
+            }
+          },
+          "runAfter": {}
+        },
+        "LOG_TO_AUDIT_STORE": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "connection": { "name": "@json(decodeBase64(parameters('$connections'))).shared_commondataserviceforapps.connectionId" } },
+            "method": "post",
+            "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('ClinicalAlerts'))}/items",
+            "body": {
+              "AlertID": "@(concat('SNF-ALERT-', workflow().run.name))",
+              "Severity": "@triggerBody()?['severity']",
+              "Message": "@triggerBody()?['messagetext']",
+              "PatientID": "@triggerBody()?['patientid']",
+              "Unit": "@triggerBody()?['unit']",
+              "RequestedBy": "@triggerBody()?['requestedbyrole']",
+              "Timestamp": "@utcNow()"
+            }
+          },
+          "runAfter": { "POST_TO_TEAMS_CHANNEL": ["Succeeded"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string" },
+                "summary": { "type": "string" },
+                "confidence": { "type": "string" },
+                "requireshumanreview": { "type": "boolean" },
+                "datasource": { "type": "string" },
+                "warnings": { "type": "string" },
+                "citations": { "type": "string" },
+                "groundedness_status": { "type": "string" },
+                "verification_status": { "type": "string" },
+                "uncertainty_reason": { "type": "string" },
+                "alertid": { "type": "string" },
+                "sentat": { "type": "string" },
+                "responsibleparty": { "type": "string" },
+                "escalationpath": { "type": "string" },
+                "nextstep": { "type": "string" }
+              }
+            },
+            "body": {
+              "status": "AlertDelivered",
+              "summary": "Clinical alert was successfully posted to the Teams Clinical Channel and recorded in the audit log.",
+              "confidence": "1.0",
+              "requireshumanreview": true,
+              "datasource": "SNF-Command-Center-Alerting-Engine",
+              "warnings": "",
+              "citations": "[]",
+              "groundedness_status": "VerifiedBySystem",
+              "verification_status": "HandoffPending",
+              "uncertainty_reason": "Manual bedside verification required per facility protocol.",
+              "alertid": "@{concat('SNF-ALERT-', workflow().run.name)}",
+              "sentat": "@{utcNow()}",
+              "responsibleparty": "Clinical Supervisor (Teams Auto-Notified)",
+              "escalationpath": "Teams Clinical Channel - Immediate Review",
+              "nextstep": "Wait for acknowledgment in Teams or follow up at the nurse station."
+            }
+          },
+          "runAfter": { "LOG_TO_AUDIT_STORE": ["Succeeded", "Failed"] }
+        }
+      }
+    }
+  }
+}

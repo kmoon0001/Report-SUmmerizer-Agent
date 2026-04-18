@@ -1,0 +1,15 @@
+kind: AdaptiveDialog
+modelDescription: This prompt assesses caregiver readiness and competency in implementing OT recommendations, including supervision requirements, training needs, safety awareness, equipment operation, ADL assistance techniques, behavioral management strategies, and communication with therapy team. It ensures caregivers can safely carry forward OT interventions.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: otc_competency_audit
+      userInput: =System.Activity.Text
+      additionalInstructions: |-
+        Analyze the provided OT caregiver competency text as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing competency evidence or documentation gaps.
+
+inputType: {}
+outputType: {}

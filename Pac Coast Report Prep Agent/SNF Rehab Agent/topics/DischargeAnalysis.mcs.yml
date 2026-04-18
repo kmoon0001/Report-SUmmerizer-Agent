@@ -1,0 +1,75 @@
+mcs.metadata:
+  componentName: DischargeAnalysis
+  description: Elite clinical intelligence module specialized in [DischargeAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Discharge Analysis
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze discharge note
+      - review discharge documentation
+      - check discharge summary quality
+      - validate discharge planning note
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_discharge_guidance
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      moderationLevel: Medium
+      additionalInstructions: |-
+        Provide a structured discharge-note review for SNF rehab.
+        Include:
+        1) objective discharge status summary
+        2) skilled episode closure rationale
+        3) continuity-of-care and follow-up risk flags
+        4) missing elements that could create audit exposure
+        If uncertain due to data gaps, state "Requires therapist review".
+      publicDataSource:
+        sites:
+          - "www.cms.gov"
+          - "www.ecfr.gov"
+
+      sharePointSearchDataSource: {}
+
+    - kind: ConditionGroup
+      id: conditionGroup_dischargeAnswer
+      conditions:
+        - id: conditionItem_hasAnswer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: ConditionGroup
+              id: conditionGroup_dischargeLowConfidence
+              conditions:
+                - id: conditionItem_dischargeRequiresReview
+                  condition: ="requires therapist review" in Lower(Topic.Answer)
+                  actions:
+                    - kind: SendActivity
+                      id: sendMessage_dischargeRequiresReview
+                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+
+                    - kind: BeginDialog
+                      id: beginDialog_dischargeEscalateLowConfidence
+                      dialog: pcca_agent39xn69.topic.Escalate
+
+              elseActions:
+                - kind: SendActivity
+                  id: sendMessage_dischargeAnswer
+                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+
+                - kind: BeginDialog
+                  id: beginDialog_dischargeSuggestedActions
+                  dialog: pcca_agent39xn69.topic.SuggestedActions
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_dischargeNeedsInput
+          activity: I need discharge inputs (status at discharge, outcomes vs goals, safety considerations, and follow-up plan) to complete this review.
+
+        - kind: BeginDialog
+          id: beginDialog_dischargeEscalate
+          dialog: pcca_agent39xn69.topic.Escalate
+

@@ -1,0 +1,24 @@
+Strong OT Documentation Patterns (Qualitative Reference)
+
+Examples of “strong” OT documentation patterns in SNF/post-acute settings:
+
+- Evaluation:
+  - Describes prior and current independence for ADLs/IADLs (bathing, dressing, toileting, grooming, meal prep, meds, housekeeping, money management).
+  - Uses clear assistance levels (dependent/max/mod/min/supervision/independent) tied to specific tasks.
+  - Identifies cognitive, sensory, visual-perceptual, and environmental factors that affect safety and performance.
+
+- Goals:
+  - Functional, measurable, and time-bound (e.g., “In 3 weeks, patient will complete upper-body dressing with setup only, seated, using adaptive techniques, to increase self-care independence.”).
+  - Connect impairments and environmental barriers to meaningful roles (home management, caregiving, community participation).
+
+- Daily/progress notes:
+  - Describe skilled OT reasoning (why specific activities, strategies, or environmental modifications were chosen and progressed).
+  - Show objective change in ADL/IADL performance or efficiency (less assist, fewer cues, better safety, improved tolerance).
+  - Document caregiver/staff training on techniques, equipment, and safety routines when needed.
+
+- Discharge:
+  - Compare baseline vs discharge ADL/IADL status using similar scales.
+  - Clarify which goals were met/partially met/not met, and why.
+  - Outline carryover recommendations (home program, equipment, supervision level) aligned with safety.
+
+Use these patterns as qualitative “good examples” when judging OT strengths, gaps, and suggested improvements. Do not copy exact wording; keep examples paraphrased and illustrative only.

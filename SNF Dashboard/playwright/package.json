@@ -1,0 +1,13 @@
+{
+  "name": "snf-ai-dashboard-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:list": "playwright test --list"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "name": "Calculate Confidence Score",
+  "description": "Calculates multi-dimensional confidence score for AI recommendations using statistical methods",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "recommendationId": "string",
+      "modelOutput": "object",
+      "sourceData": "object"
+    }
+  },
+  "actions": [
+    {
+      "type": "Compose",
+      "name": "Calculate_Data_Completeness",
+      "inputs": {
+        "requiredFields": [
+          "sessionCount",
+          "goalProgress",
+          "certEndDate",
+          "payer",
+          "discipline",
+          "lastEvalDate"
+        ],
+        "providedFields": "@keys(triggerBody()?['sourceData'])",
+        "completenessScore": "@div(mul(length(intersection(variables('requiredFields'), keys(triggerBody()?['sourceData']))), 100), length(variables('requiredFields')))"
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Model_Certainty",
+      "inputs": {
+        "probability": "@triggerBody()?['modelOutput']?['probability']",
+        "entropy": "@triggerBody()?['modelOutput']?['entropy']",
+        "certaintyScore": "@if(lessOrEquals(triggerBody()?['modelOutput']?['entropy'], 0.5), mul(triggerBody()?['modelOutput']?['probability'], 100), mul(sub(1, triggerBody()?['modelOutput']?['entropy']), 100))"
+      }
+    },
+    {
+      "type": "HTTP",
+      "name": "Get_Historical_Accuracy",
+      "inputs": {
+        "method": "POST",
+        "uri": "@parameters('analyticsEndpoint')/historical-accuracy",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "recommendationType": "@triggerBody()?['modelOutput']?['recommendationType']",
+          "discipline": "@triggerBody()?['sourceData']?['discipline']",
+          "payer": "@triggerBody()?['sourceData']?['payer']",
+          "timeWindow": "last_90_days"
+        }
+      },
+      "runAfter": {
+        "Calculate_Model_Certainty": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Weighted_Confidence",
+      "inputs": {
+        "dataCompletenessWeight": 0.3,
+        "modelCertaintyWeight": 0.4,
+        "historicalAccuracyWeight": 0.3,
+        "dataCompletenessScore": "@outputs('Calculate_Data_Completeness')?['completenessScore']",
+        "modelCertaintyScore": "@outputs('Calculate_Model_Certainty')?['certaintyScore']",
+        "historicalAccuracyScore": "@mul(body('Get_Historical_Accuracy')?['accuracyRate'], 100)",
+        "overallConfidence": "@add(add(mul(outputs('Calculate_Data_Completeness')?['completenessScore'], 0.3), mul(outputs('Calculate_Model_Certainty')?['certaintyScore'], 0.4)), mul(mul(body('Get_Historical_Accuracy')?['accuracyRate'], 100), 0.3))"
+      },
+      "runAfter": {
+        "Get_Historical_Accuracy": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Determine_Confidence_Level",
+      "inputs": {
+        "confidence": "@outputs('Calculate_Weighted_Confidence')?['overallConfidence']",
+        "level": "@if(greaterOrEquals(outputs('Calculate_Weighted_Confidence')?['overallConfidence'], 85), 'High', if(greaterOrEquals(outputs('Calculate_Weighted_Confidence')?['overallConfidence'], 70), 'Medium', 'Low'))",
+        "color": "@if(greaterOrEquals(outputs('Calculate_Weighted_Confidence')?['overallConfidence'], 85), 'Good', if(greaterOrEquals(outputs('Calculate_Weighted_Confidence')?['overallConfidence'], 70), 'Warning', 'Attention'))"
+      },
+      "runAfter": {
+        "Calculate_Weighted_Confidence": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Identify_Uncertainty_Factors",
+      "inputs": {
+        "factors": "@createArray(if(less(outputs('Calculate_Data_Completeness')?['completenessScore'], 80), concat('Data completeness: ', string(outputs('Calculate_Data_Completeness')?['completenessScore']), '%'), null), if(greater(triggerBody()?['modelOutput']?['entropy'], 0.7), 'High model uncertainty (entropy > 0.7)', null), if(less(body('Get_Historical_Accuracy')?['accuracyRate'], 0.8), concat('Historical accuracy below 80% (', string(mul(body('Get_Historical_Accuracy')?['accuracyRate'], 100)), '%)'), null), if(less(body('Get_Historical_Accuracy')?['sampleSize'], 10), 'Limited historical data for this scenario', null))",
+        "filteredFactors": "@filter(variables('factors'), not(equals(item(), null)))"
+      },
+      "runAfter": {
+        "Determine_Confidence_Level": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Calibration_Metrics",
+      "inputs": {
+        "expectedCalibration": "@triggerBody()?['modelOutput']?['probability']",
+        "observedAccuracy": "@body('Get_Historical_Accuracy')?['accuracyRate']",
+        "calibrationError": "@abs(sub(triggerBody()?['modelOutput']?['probability'], body('Get_Historical_Accuracy')?['accuracyRate']))",
+        "isWellCalibrated": "@lessOrEquals(abs(sub(triggerBody()?['modelOutput']?['probability'], body('Get_Historical_Accuracy')?['accuracyRate'])), 0.1)"
+      },
+      "runAfter": {
+        "Identify_Uncertainty_Factors": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Format_Confidence_Breakdown",
+      "inputs": {
+        "overallConfidence": "@round(outputs('Calculate_Weighted_Confidence')?['overallConfidence'])",
+        "confidenceLevel": "@outputs('Determine_Confidence_Level')?['level']",
+        "confidenceColor": "@outputs('Determine_Confidence_Level')?['color']",
+        "breakdown": {
+          "dataCompleteness": "@round(outputs('Calculate_Data_Completeness')?['completenessScore'])",
+          "modelCertainty": "@round(outputs('Calculate_Model_Certainty')?['certaintyScore'])",
+          "historicalAccuracy": "@round(mul(body('Get_Historical_Accuracy')?['accuracyRate'], 100))"
+        },
+        "uncertaintyFactors": "@outputs('Identify_Uncertainty_Factors')?['filteredFactors']",
+        "calibration": {
+          "error": "@round(mul(outputs('Calculate_Calibration_Metrics')?['calibrationError'], 100))",
+          "isWellCalibrated": "@outputs('Calculate_Calibration_Metrics')?['isWellCalibrated']"
+        },
+        "metadata": {
+          "historicalSampleSize": "@body('Get_Historical_Accuracy')?['sampleSize']",
+          "modelVersion": "@parameters('modelVersion')",
+          "calculationTimestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Calculate_Calibration_Metrics": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Store_Confidence_Metrics",
+      "inputs": {
+        "entityName": "snf_confidence_metric",
+        "item": {
+          "snf_recommendation_id": "@triggerBody()?['recommendationId']",
+          "snf_overall_confidence": "@outputs('Format_Confidence_Breakdown')?['overallConfidence']",
+          "snf_confidence_level": "@outputs('Format_Confidence_Breakdown')?['confidenceLevel']",
+          "snf_data_completeness": "@outputs('Format_Confidence_Breakdown')?['breakdown']?['dataCompleteness']",
+          "snf_model_certainty": "@outputs('Format_Confidence_Breakdown')?['breakdown']?['modelCertainty']",
+          "snf_historical_accuracy": "@outputs('Format_Confidence_Breakdown')?['breakdown']?['historicalAccuracy']",
+          "snf_uncertainty_factors": "@string(outputs('Format_Confidence_Breakdown')?['uncertaintyFactors'])",
+          "snf_calibration_error": "@outputs('Format_Confidence_Breakdown')?['calibration']?['error']",
+          "snf_is_well_calibrated": "@outputs('Format_Confidence_Breakdown')?['calibration']?['isWellCalibrated']",
+          "snf_model_version": "@parameters('modelVersion')",
+          "snf_calculation_timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Format_Confidence_Breakdown": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Confidence_Score",
+      "inputs": {
+        "statusCode": 200,
+        "body": "@outputs('Format_Confidence_Breakdown')"
+      },
+      "runAfter": {
+        "Store_Confidence_Metrics": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

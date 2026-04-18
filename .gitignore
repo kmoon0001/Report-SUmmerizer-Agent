@@ -1,0 +1,84 @@
+# PLATINUM STANDARD GITIGNORE
+# Prevents bloat and keeps the clinical repo focused on source truth.
+# IMPORTANT: This file prevents tracking of build artifacts and temp files.
+# It does NOT delete any files - they remain on disk but are ignored by Git.
+
+# System & Environment
+node_modules/
+.env
+.env.local
+.env.*.local
+dist/
+build/
+out/
+.next/
+.cache/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# VS Code & AI Tools (team-shared settings can be tracked, local-only ignored)
+.vscode/local*
+.qodo/
+.kiro/
+.cursor/
+.playwright-mcp/
+.playwright-cli/
+.github/instructions/codacy.instructions.md
+
+# Copilot Studio & PAC CLI Artifacts
+*.zip
+*.log
+*.tmp
+*.bak
+_tmp_zip_check*/
+solution-clone/
+unpacked_*/
+extracted_*/
+solution_unpacked*/
+*.mcs.zip
+
+# Test Reports
+playwright-report/
+test-results/
+coverage/
+*.cov*
+
+# Archived & Deprecrated Agents (kept on disk, not tracked in git)
+archived_agents/
+deprecated/
+artifacts/
+
+# Junk & Diagnostic Files
+scripts/legacy/
+*screenshot*.png
+after-*.png
+before-*.png
+canvas-*.png
+scratch_*.txt
+tall-viewport.md
+[Qq][Mm]-orchestrator-error-view.png
+[Qq][Mm]-orchestrator-full-view.png
+[Pp]ublish-result.md
+[Rr]eady-to-publish.md
+
+# Build Outputs & Compiled Code
+*.pyc
+__pycache__/
+.mypy_cache/
+*.class
+*.o
+*.so
+
+# Python Virtual Environments
+.venv*/
+venv*/
+env*/
+.venv-codex-yaml/
+
+# Lock Files
+package-lock.json
+poetry.lock
+yarn.lock

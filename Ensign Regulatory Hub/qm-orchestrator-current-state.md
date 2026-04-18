@@ -1,0 +1,476 @@
+- generic [ref=e1]:
+  - generic [ref=e10]:
+    - banner [ref=e12]:
+      - button "Skip to main content" [ref=e1644]
+      - banner [ref=e15]:
+        - button "App launcher" [ref=e1645] [cursor=pointer]: 
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - img "Copilot studio brand Logo" [ref=e1646] [cursor=pointer]
+            - generic [ref=e31]: Copilot Studio
+          - 'button "Environment: Therapy AI Agents Dev" [ref=e1647] [cursor=pointer]':
+            - img [ref=e41]
+          - button "Access additional features" [ref=e1648] [cursor=pointer]:
+            - generic [ref=e47]: 
+        - generic [ref=e48]:
+          - button "Account manager for Moon, Kevin" [ref=e1649] [cursor=pointer]:
+            - generic [ref=e51]:
+              - generic [ref=e52]: Moon, Kevin
+              - generic [ref=e59]: KM
+          - generic: 
+    - generic [ref=e62]:
+      - navigation [ref=e63]:
+        - tablist [ref=e64]:
+          - tab "Home" [ref=e1650] [cursor=pointer]:
+            - img [ref=e68]
+            - generic [ref=e70]: Home
+          - tab "Agents" [selected] [ref=e1651] [cursor=pointer]:
+            - generic [ref=e74]: Agents
+          - tab "Flows" [ref=e1652] [cursor=pointer]:
+            - img [ref=e77]
+            - generic [ref=e82]: Flows
+          - tab "Tools" [ref=e1653] [cursor=pointer]:
+            - img [ref=e85]
+            - generic [ref=e87]: Tools
+          - tab "Explore Power Platform" [ref=e1654] [cursor=pointer]:
+            - img [ref=e1792]
+      - main "Page content" [ref=e1655]:
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img "Icon for your agent" [ref=e1656]
+              - heading "SimpleLTC QM Coach V2" [level=1] [ref=e1657]
+              - button "open agent protection shield popover" [ref=e1658]:
+                - img [ref=e111]
+              - tablist [ref=e113]:
+                - tab "Topics" [selected] [ref=e1659] [cursor=pointer]:
+                  - generic [ref=e116]: Topics
+                - tab "8 more options" [ref=e1660]: "+8"
+            - generic [ref=e119]:
+              - generic [ref=e121]:
+                - generic [ref=e122]: Published 4/11/2026
+                - button "Publish" [ref=e1661]
+              - button "Test" [ref=e1662]:
+                - generic [ref=e127]:
+                  - img [ref=e128]
+                  - text: Test
+              - tab "4 more options" [ref=e1663]:
+                - img [ref=e132]
+          - generic [ref=e1806]:
+            - generic [ref=e1807]:
+              - generic [ref=e1808]:
+                - generic [ref=e1809]:
+                  - button "Back" [ref=e1810]:
+                    - img [ref=e1812]
+                  - navigation "breadcrumb" [ref=e1814]:
+                    - list [ref=e1815]:
+                      - listitem [ref=e1816]:
+                        - generic [ref=e1817]:
+                          - heading "QM Orchestrator" [level=2] [ref=e1818]:
+                            - generic [ref=e1819]: QM Orchestrator
+                            - textbox "Topic name" [ref=e1823]: QM Orchestrator
+                          - group [ref=e1824]:
+                            - button "Select a topic" [ref=e1826] [cursor=pointer]:
+                              - generic [ref=e1828]: 
+                - generic [ref=e1829]:
+                  - toolbar [ref=e1830]:
+                    - generic [ref=e1833]:
+                      - generic [ref=e1834]: To move through users currently editing this topic use left and right arrow keys
+                      - list "List of users currently editing this topic" [ref=e1836]:
+                        - listitem [ref=e1837]:
+                          - generic "Moon, Kevin" [ref=e1838]:
+                            - button "User 700a4462-830f-4df4-96f2-2627f16fbc86 icon button" [ref=e1840] [cursor=pointer]:
+                              - generic [ref=e1841]:
+                                - generic [ref=e1842]: User 700a4462-830f-4df4-96f2-2627f16fbc86 icon button
+                                - generic [ref=e1844]: MK
+                    - button "More" [ref=e1845]:
+                      - img [ref=e1847]
+                      - generic [ref=e1849]: More
+                  - separator [ref=e1851]
+                  - button "Save" [disabled] [ref=e1853]
+              - toolbar [ref=e1855]:
+                - button "Undo Show More Options" [ref=e1857]:
+                  - generic [ref=e1858]:
+                    - img [ref=e1859]
+                    - img [ref=e1861]
+                - separator [ref=e1863]
+                - button "Cut" [ref=e1864]:
+                  - img [ref=e1866]
+                - button "Copy" [ref=e1868]:
+                  - img [ref=e1870]
+                - button "Paste" [disabled] [ref=e1872]:
+                  - img [ref=e1874]
+                - button "Delete node" [ref=e1876]:
+                  - img [ref=e1878]
+                - generic [ref=e1881]: Optimized Canvas
+            - figure "main authoring canvas" [active] [ref=e1885]:
+              - generic [ref=e1889]:
+                - img [ref=e1890]
+                - generic:
+                  - generic:
+                    - img [ref=e1895]
+                    - button "Add node" [ref=e1899] [cursor=pointer]:
+                      - img [ref=e1902]
+                    - button "Add node" [ref=e1909] [cursor=pointer]:
+                      - img [ref=e1912]
+                    - generic:
+                      - generic:
+                        - img [ref=e1914]
+                        - generic:
+                          - generic:
+                            - img [ref=e1953]
+                            - generic:
+                              - generic:
+                                - img [ref=e1957]
+                                - button "Add node" [ref=e1961] [cursor=pointer]:
+                                  - img [ref=e1964]
+                                - button "Add node" [ref=e1971] [cursor=pointer]:
+                                  - img [ref=e1974]
+                                - button "Add node" [ref=e1981] [cursor=pointer]:
+                                  - img [ref=e1984]
+                                - figure [ref=e1988]:
+                                  - generic "Redirect to QM Orchestrator" [ref=e1990]:
+                                    - generic [ref=e1992] [cursor=pointer]:
+                                      - generic [ref=e1993]:
+                                        - img [ref=e1995]:
+                                          - img [ref=e1996]
+                                        - heading "Topic" [level=2] [ref=e1999]
+                                      - group "Menu" [ref=e2002]:
+                                        - button "More" [ref=e2004]:
+                                          - img [ref=e2007]
+                                    - generic [ref=e2013]:
+                                      - generic [ref=e2022]:
+                                        - text: QM Orchestrator
+                                        - button "View topic" [ref=e2023] [cursor=pointer]
+                                      - generic [ref=e2025]:
+                                        - generic [ref=e2026]:
+                                          - generic [ref=e2027] [cursor=pointer]: Outputs (1)
+                                          - img [ref=e2029] [cursor=pointer]
+                                        - generic [ref=e2033]:
+                                          - generic [ref=e2034]:
+                                            - button "ProcessingStatus:string" [ref=e2036] [cursor=pointer]:
+                                              - img "AdaptiveVariablesIcon" [ref=e2038]:
+                                                - img [ref=e2039]
+                                              - generic [ref=e2041]:
+                                                - generic [ref=e2043]: ProcessingStatus
+                                                - generic [ref=e2045]: string
+                                            - text: =
+                                          - button "Set variable" [ref=e2047] [cursor=pointer]:
+                                            - generic [ref=e2048]:
+                                              - button "ProcessingStatus:string" [ref=e2051]:
+                                                - img "AdaptiveVariablesIcon" [ref=e2053]:
+                                                  - img [ref=e2054]
+                                                - generic [ref=e2056]:
+                                                  - generic [ref=e2058]: ProcessingStatus
+                                                  - generic [ref=e2060]: string
+                                              - img [ref=e2062]
+                                - button "Add node" [ref=e2068] [cursor=pointer]:
+                                  - img [ref=e2071]
+                                - figure [ref=e2075]:
+                                  - generic "Redirect to QM Data Upload & Decline Detection" [ref=e2077]:
+                                    - generic [ref=e2079] [cursor=pointer]:
+                                      - generic [ref=e2080]:
+                                        - img [ref=e2082]:
+                                          - img [ref=e2083]
+                                        - heading "Topic" [level=2] [ref=e2086]
+                                      - group "Menu" [ref=e2089]:
+                                        - button "More" [ref=e2091]:
+                                          - img [ref=e2094]
+                                    - generic [ref=e2109]:
+                                      - text: QM Data Upload & Decline Detection
+                                      - button "View topic" [ref=e2110] [cursor=pointer]
+                                - button "Add node" [ref=e2115] [cursor=pointer]:
+                                  - img [ref=e2118]
+                                - figure [ref=e2122]:
+                                  - generic "Redirect to QM Action Plan" [ref=e2124]:
+                                    - generic [ref=e2126] [cursor=pointer]:
+                                      - generic [ref=e2127]:
+                                        - img [ref=e2129]:
+                                          - img [ref=e2130]
+                                        - heading "Topic" [level=2] [ref=e2133]
+                                      - group "Menu" [ref=e2136]:
+                                        - button "More" [ref=e2138]:
+                                          - img [ref=e2141]
+                                    - generic [ref=e2156]:
+                                      - text: QM Action Plan
+                                      - button "View topic" [ref=e2157] [cursor=pointer]
+                                - button "Add node" [ref=e2162] [cursor=pointer]:
+                                  - img [ref=e2165]
+                                - figure [ref=e2169]:
+                                  - generic "Redirect to DoR Summary" [ref=e2171]:
+                                    - generic [ref=e2173] [cursor=pointer]:
+                                      - generic [ref=e2174]:
+                                        - img [ref=e2176]:
+                                          - img [ref=e2177]
+                                        - heading "Topic" [level=2] [ref=e2180]
+                                      - group "Menu" [ref=e2183]:
+                                        - button "More" [ref=e2185]:
+                                          - img [ref=e2188]
+                                    - generic [ref=e2203]:
+                                      - text: DoR Summary
+                                      - button "View topic" [ref=e2204] [cursor=pointer]
+                                - button "Add node" [ref=e2209] [cursor=pointer]:
+                                  - img [ref=e2212]
+                                - figure [ref=e2216]:
+                                  - generic "Redirect to QM Intake" [ref=e2218]:
+                                    - generic [ref=e2220] [cursor=pointer]:
+                                      - generic [ref=e2221]:
+                                        - img [ref=e2223]:
+                                          - img [ref=e2224]
+                                        - heading "Topic" [level=2] [ref=e2227]
+                                      - group "Menu" [ref=e2230]:
+                                        - button "More" [ref=e2232]:
+                                          - img [ref=e2235]
+                                    - generic [ref=e2250]:
+                                      - text: QM Intake
+                                      - button "View topic" [ref=e2251] [cursor=pointer]
+                                - button "Add node" [ref=e2256] [cursor=pointer]:
+                                  - img [ref=e2259]
+                        - generic:
+                          - generic:
+                            - img [ref=e2261]
+                            - button "Add node" [ref=e2267] [cursor=pointer]:
+                              - img [ref=e2270]
+                        - generic:
+                          - generic:
+                            - img [ref=e2272]
+                            - button "Add node" [ref=e2278] [cursor=pointer]:
+                              - img [ref=e2281]
+                        - generic:
+                          - generic:
+                            - img [ref=e2283]
+                            - button "Add node" [ref=e2289] [cursor=pointer]:
+                              - img [ref=e2292]
+                        - generic:
+                          - generic:
+                            - img [ref=e2294]
+                            - button "Add node" [ref=e2300] [cursor=pointer]:
+                              - img [ref=e2303]
+                        - generic:
+                          - generic:
+                            - img [ref=e2305]
+                            - button "Add node" [ref=e2311] [cursor=pointer]:
+                              - img [ref=e2314]
+                        - generic:
+                          - generic:
+                            - img [ref=e2316]
+                            - button "Add node" [ref=e2322] [cursor=pointer]:
+                              - img [ref=e2325]
+                        - generic:
+                          - img [ref=e2327]
+                          - generic "All other conditions" [ref=e2331]:
+                            - generic [ref=e2333] [cursor=pointer]:
+                              - generic [ref=e2334]:
+                                - img [ref=e2336]:
+                                  - img [ref=e2337]
+                                - heading "All other conditions" [level=2] [ref=e2340]
+                              - group "Menu" [ref=e2343]:
+                                - button "More" [ref=e2345]:
+                                  - img [ref=e2348]
+                          - generic:
+                            - generic:
+                              - img [ref=e2350]
+                              - button "Add node" [ref=e2354] [cursor=pointer]:
+                                - img [ref=e2357]
+                              - generic:
+                                - generic:
+                                  - img [ref=e2359]
+                                  - generic:
+                                    - generic:
+                                      - img [ref=e2368]
+                                      - generic:
+                                        - generic:
+                                          - img [ref=e2372]
+                                          - button "Add node" [ref=e2376] [cursor=pointer]:
+                                            - img [ref=e2379]
+                                          - button "Add node" [ref=e2386] [cursor=pointer]:
+                                            - img [ref=e2389]
+                                  - generic:
+                                    - img [ref=e2391]
+                                    - generic "All other conditions" [ref=e2395]:
+                                      - generic [ref=e2397] [cursor=pointer]:
+                                        - generic [ref=e2398]:
+                                          - img [ref=e2400]:
+                                            - img [ref=e2401]
+                                          - heading "All other conditions" [level=2] [ref=e2404]
+                                        - group "Menu" [ref=e2407]:
+                                          - button "More" [ref=e2409]:
+                                            - img [ref=e2412]
+                                    - generic:
+                                      - generic:
+                                        - img [ref=e2414]
+                                        - button "Add node" [ref=e2418] [cursor=pointer]:
+                                          - img [ref=e2421]
+                                        - generic:
+                                          - generic:
+                                            - img [ref=e2423]
+                                            - generic:
+                                              - generic:
+                                                - img [ref=e2432]
+                                                - generic:
+                                                  - generic:
+                                                    - img [ref=e2436]
+                                                    - button "Add node" [ref=e2440] [cursor=pointer]:
+                                                      - img [ref=e2443]
+                                                    - button "Add node" [ref=e2450] [cursor=pointer]:
+                                                      - img [ref=e2453]
+                                            - generic:
+                                              - img [ref=e2455]
+                                              - generic "All other conditions" [ref=e2459]:
+                                                - generic [ref=e2461] [cursor=pointer]:
+                                                  - generic [ref=e2462]:
+                                                    - img [ref=e2464]:
+                                                      - img [ref=e2465]
+                                                    - heading "All other conditions" [level=2] [ref=e2468]
+                                                  - group "Menu" [ref=e2471]:
+                                                    - button "More" [ref=e2473]:
+                                                      - img [ref=e2476]
+                                              - generic:
+                                                - generic:
+                                                  - img [ref=e2478]
+                                                  - button "Add node" [ref=e2482] [cursor=pointer]:
+                                                    - img [ref=e2485]
+                                                  - generic:
+                                                    - generic:
+                                                      - img [ref=e2487]
+                                                      - generic:
+                                                        - generic:
+                                                          - img [ref=e2496]
+                                                          - generic:
+                                                            - generic:
+                                                              - img [ref=e2500]
+                                                              - button "Add node" [ref=e2504] [cursor=pointer]:
+                                                                - img [ref=e2507]
+                                                              - button "Add node" [ref=e2514] [cursor=pointer]:
+                                                                - img [ref=e2517]
+                                                      - generic:
+                                                        - img [ref=e2519]
+                                                        - generic "All other conditions" [ref=e2523]:
+                                                          - generic [ref=e2525] [cursor=pointer]:
+                                                            - generic [ref=e2526]:
+                                                              - img [ref=e2528]:
+                                                                - img [ref=e2529]
+                                                              - heading "All other conditions" [level=2] [ref=e2532]
+                                                            - group "Menu" [ref=e2535]:
+                                                              - button "More" [ref=e2537]:
+                                                                - img [ref=e2540]
+                                                        - generic:
+                                                          - generic:
+                                                            - img [ref=e2542]
+                                                            - button "Add node" [ref=e2546] [cursor=pointer]:
+                                                              - img [ref=e2549]
+                                                            - generic:
+                                                              - generic:
+                                                                - img [ref=e2551]
+                                                                - generic:
+                                                                  - generic:
+                                                                    - img [ref=e2560]
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - img [ref=e2564]
+                                                                        - button "Add node" [ref=e2568] [cursor=pointer]:
+                                                                          - img [ref=e2571]
+                                                                        - button "Add node" [ref=e2578] [cursor=pointer]:
+                                                                          - img [ref=e2581]
+                                                                - generic:
+                                                                  - img [ref=e2583]
+                                                                  - generic "All other conditions" [ref=e2587]:
+                                                                    - generic [ref=e2589] [cursor=pointer]:
+                                                                      - generic [ref=e2590]:
+                                                                        - img [ref=e2592]:
+                                                                          - img [ref=e2593]
+                                                                        - heading "All other conditions" [level=2] [ref=e2596]
+                                                                      - group "Menu" [ref=e2599]:
+                                                                        - button "More" [ref=e2601]:
+                                                                          - img [ref=e2604]
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - img [ref=e2606]
+                                                                      - button "Add node" [ref=e2610] [cursor=pointer]:
+                                                                        - img [ref=e2613]
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - img [ref=e2615]
+                                                                          - generic:
+                                                                            - generic:
+                                                                              - img [ref=e2624]
+                                                                              - generic:
+                                                                                - generic:
+                                                                                  - img [ref=e2628]
+                                                                                  - button "Add node" [ref=e2632] [cursor=pointer]:
+                                                                                    - img [ref=e2635]
+                                                                                  - button "Add node" [ref=e2642] [cursor=pointer]:
+                                                                                    - img [ref=e2645]
+                                                                          - generic:
+                                                                            - img [ref=e2647]
+                                                                            - generic "All other conditions" [ref=e2651]:
+                                                                              - generic [ref=e2653] [cursor=pointer]:
+                                                                                - generic [ref=e2654]:
+                                                                                  - img [ref=e2656]:
+                                                                                    - img [ref=e2657]
+                                                                                  - heading "All other conditions" [level=2] [ref=e2660]
+                                                                                - group "Menu" [ref=e2663]:
+                                                                                  - button "More" [ref=e2665]:
+                                                                                    - img [ref=e2668]
+                                                                            - generic:
+                                                                              - generic:
+                                                                                - img [ref=e2670]
+                                                                                - button "Add node" [ref=e2674] [cursor=pointer]:
+                                                                                  - img [ref=e2677]
+                                                                                - generic:
+                                                                                  - generic:
+                                                                                    - img [ref=e2679]
+                                                                                    - generic:
+                                                                                      - generic:
+                                                                                        - img [ref=e2688]
+                                                                                        - generic:
+                                                                                          - generic:
+                                                                                            - img [ref=e2692]
+                                                                                            - button "Add node" [ref=e2696] [cursor=pointer]:
+                                                                                              - img [ref=e2699]
+                                                                                            - button "Add node" [ref=e2706] [cursor=pointer]:
+                                                                                              - img [ref=e2709]
+                                                                                    - generic:
+                                                                                      - img [ref=e2711]
+                                                                                      - generic "All other conditions" [ref=e2715]:
+                                                                                        - generic [ref=e2717] [cursor=pointer]:
+                                                                                          - generic [ref=e2718]:
+                                                                                            - img [ref=e2720]:
+                                                                                              - img [ref=e2721]
+                                                                                            - heading "All other conditions" [level=2] [ref=e2724]
+                                                                                          - group "Menu" [ref=e2727]:
+                                                                                            - button "More" [ref=e2729]:
+                                                                                              - img [ref=e2732]
+                                                                                      - button "Add node" [ref=e2736] [cursor=pointer]:
+                                                                                        - img [ref=e2739]
+                                                                                - button "Add node" [ref=e2743] [cursor=pointer]:
+                                                                                  - img [ref=e2746]
+                                                                      - button "Add node" [ref=e2750] [cursor=pointer]:
+                                                                        - img [ref=e2753]
+                                                            - button "Add node" [ref=e2757] [cursor=pointer]:
+                                                              - img [ref=e2760]
+                                                  - button "Add node" [ref=e2764] [cursor=pointer]:
+                                                    - img [ref=e2767]
+                                        - button "Add node" [ref=e2771] [cursor=pointer]:
+                                          - img [ref=e2774]
+                              - button "Add node" [ref=e2778] [cursor=pointer]:
+                                - img [ref=e2781]
+                    - button "Add node" [ref=e2785] [cursor=pointer]:
+                      - img [ref=e2788]
+              - generic [ref=e2790]:
+                - button "Zoom in" [ref=e2791] [cursor=pointer]:
+                  - img [ref=e2794]
+                - button "Reset" [ref=e2796] [cursor=pointer]:
+                  - img [ref=e2799]
+                - button "Zoom out" [ref=e2801] [cursor=pointer]:
+                  - img [ref=e2804]
+                - button "Mini-map" [ref=e2806] [cursor=pointer]:
+                  - img [ref=e2809]
+                - button "Selection tool" [ref=e2811] [cursor=pointer]:
+                  - img [ref=e2814]
+                - button "Hand tool" [ref=e2816] [cursor=pointer]:
+                  - img [ref=e2819]
+            - status:
+              - generic [ref=e2821]: Tool focused
+  - generic:
+    - region

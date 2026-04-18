@@ -1,0 +1,77 @@
+mcs.metadata:
+  componentName: QM Data Upload & Decline Detection
+  description: Elite clinical intelligence module specialized in [QMDATAUPLOADDECLINEDETECTION]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_GmVw74
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selectedFacility
+      prompt: Which facility does this upload belong to?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_7pwjHM
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.uploadedQmFile
+      prompt: Please upload the SimpleLTC export file now (CSV preferred, PDF accepted).
+      entity: FilePrebuiltEntity
+
+    - kind: Question
+      id: question_wHOmOj
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.analysisScope
+      prompt: "What analysis scope do you want: worsening-QM detection, predicted-vs-actual comparison, or both?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Worsening-QM detection
+              displayName: Worsening-QM detection
+
+            - id: Predicted-vs-actual comparison
+              displayName: Predicted-vs-actual comparison
+
+            - id: Both
+              displayName: Both
+
+        displayName: EmbeddedEntity-KmLK0u
+
+    - kind: ConditionGroup
+      id: conditionGroup_USVVUR
+      conditions:
+        - id: conditionItem_FP3tlL
+          condition: =Topic.analysisScope = 'cr917_agent.topic.QMDataUploadDeclineDetection.main.question_wHOmOj'.'Predicted-vs-actual comparison'
+
+        - id: conditionItem_GDBiZg
+          condition: =Topic.analysisScope = 'cr917_agent.topic.QMDataUploadDeclineDetection.main.question_wHOmOj'.Both
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_kykoSD
+      input:
+        binding:
+          text: =Topic.selectedFacility
+
+      output:
+        binding:
+          confirmationmessage: Topic.ConfirmationMessage
+          declining_metrics_text: Topic.DecliningMetricsText
+          facility_data_text: Topic.FacilityDataText
+          facility_submission_status: Topic.FacilitySubmissionStatus
+
+      flowId: 0b930a15-2516-f111-8341-0022480b6bd9
+
+inputType: {}
+outputType: {}
+

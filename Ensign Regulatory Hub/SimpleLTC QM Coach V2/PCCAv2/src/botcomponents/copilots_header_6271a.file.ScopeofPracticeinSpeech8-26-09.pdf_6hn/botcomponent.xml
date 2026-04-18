@@ -1,0 +1,13 @@
+<botcomponent schemaname="copilots_header_6271a.file.ScopeofPracticeinSpeech8-26-09.pdf_6hn">
+  <category>Authoritative</category>
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Scope of Practice in Speech 8-26-09.pdf</description>
+  <filedata mimetype="application/pdf">Scope%20of%20Practice%20in%20Speech%208-26-09.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Scope of Practice in Speech 8-26-09.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

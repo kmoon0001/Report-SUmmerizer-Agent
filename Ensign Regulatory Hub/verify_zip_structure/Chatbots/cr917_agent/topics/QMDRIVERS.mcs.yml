@@ -1,0 +1,81 @@
+mcs.metadata:
+  componentName: QM DRIVERS
+  description: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  Senior clinical consultant for QM driver analysis. Identify likely root causes for high or worsening quality measures using only the facility analysis already in context. Stay operational, regulatory-focused, and concise. Separate likely drivers into Clinical, Process, and Documentation categories. If a metric is missing, say it is not present in the analysis. If PHI or resident names are shared, redirect back to de-identified clinical process discussion.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - qm drivers
+      - quality management drivers
+      - what are qm drivers
+      - list qm drivers
+      - explain qm drivers
+      - root causes of qm performance
+      - what is driving this qm
+      - why is this qm high
+      - why is this qm getting worse
+      - contributing factors for this qm
+      - drivers of quality management
+      - main qm drivers
+
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_dataGuard
+      conditions:
+        - id: conditionItem_hasAnalysis
+          condition: =!IsBlank(Global.QMAnalysisResult) && !IsBlank(Global.SelectedFacility)
+          actions:
+            - kind: SearchAndSummarizeContent
+              id: bRVEC5
+              userInput: "=Concatenate(\"Selected facility: \", Global.SelectedFacility, Char(10), Char(10), \"Use the facility-level decline analysis below as the controlling input for the driver review.\", Char(10), Char(10), Global.QMAnalysisResult)"
+              additionalInstructions: |-
+                You are performing a QM driver review for a single facility.
+
+                Required behavior:
+                - Treat the existing facility decline analysis as the controlling source.
+                - Do not broaden the answer into generic QM education.
+                - Do not use citations, references, footnotes, or source links.
+                - Use only the flagged measures and facts already present in the decline analysis.
+                - If a flagged measure is not present in the analysis, do not introduce it.
+                - Separate likely drivers into Clinical, Process, and Documentation categories.
+                - Present drivers as likely root-cause hypotheses, not confirmed facts, unless the analysis explicitly confirms them.
+                - Keep the output facility-specific, concise, and operational.
+
+                Output format:
+                1. Facility
+                2. Top driver themes
+                   - list 3 to 5 driver themes only
+                3. Measure-to-driver mapping
+                   - for each major flagged measure in the decline analysis:
+                     - measure name
+                     - likely clinical drivers
+                     - likely process drivers
+                     - likely documentation drivers
+                4. Immediate validation priorities
+                   - list the first audits or checks leadership should run to confirm or disprove the driver hypotheses
+
+                If the decline analysis does not contain enough facility-specific detail, say that clearly instead of filling the response with generic material.
+            - kind: SetVariable
+              id: setVariable_SMmBqT
+              variable: Global.QMDrivers
+              value: =System.Activity.Text
+
+            - kind: SendActivity
+              id: sendActivity_driversComplete
+              activity: "QM Drivers analysis complete. Here are the identified root causes:"
+
+            - kind: EndDialog
+              id: RI71xc
+
+      elseActions:
+        - kind: SendActivity
+          id: sendActivity_missingData
+          activity: I need QM Analysis data to identify drivers. Please run QM Analysis first, then return here.
+
+inputType: {}
+outputType: {}
+

@@ -1,0 +1,33 @@
+{
+  "name": "cr917_SNF_Log_Telemetry_Flow",
+  "trigger": {
+    "type": "Manual",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "ActionName": { "type": "string" },
+          "UrgencyScore": { "type": "string" },
+          "Payload": { "type": "string" }
+        }
+      }
+    }
+  },
+  "actions": {
+    "Create_Telemetry_Record": {
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": { "apiId": "commondataservice" },
+        "operationId": "CreateRecord",
+        "parameters": {
+          "entityName": "cr917_snf_telemetry_logs",
+          "item": {
+            "cr917_actionname": "@triggerBody()?['ActionName']",
+            "cr917_payload": "@triggerBody()?['Payload']",
+            "cr917_botid": "Pac Coast Report Prep Agent"
+          }
+        }
+      }
+    }
+  }
+}

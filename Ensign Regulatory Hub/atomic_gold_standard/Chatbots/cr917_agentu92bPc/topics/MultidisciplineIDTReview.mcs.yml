@@ -1,0 +1,88 @@
+mcs.metadata:
+  componentName: Multidisciplinary IDT Review
+  description: Elite clinical intelligence module specialized in [MultidisciplineIDTReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Topic workflow for Multidisciplinary IDT Review within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - multi-discipline IDT audit
+      - start an IDT audit
+      - initiate interdisciplinary team audit
+      - begin multi-discipline audit process
+      - IDT compliance check
+      - audit for multiple disciplines in IDT
+      - review interdisciplinary team documentation
+      - conduct a multi-discipline IDT review
+      - IDT audit across departments
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_rqpek6
+      activity: Welcome to the IDT-focused compliance review. This topic is designed for cases involving multiple disciplines such as PT, OT, and/or SLP. We will review care-plan integration, shared safety factors, functional outcomes, and unified discharge planning.
+
+    - kind: Question
+      id: Question_JOl3QR
+      variable: Topic.DisciplinesInvolved
+      prompt: 'Please provide a clear response: Which disciplines are involved in this case? (PT, OT, SLP)'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: DisciplineOptions_Multi
+          items:
+            - id: pt
+              displayName: PT
+
+            - id: ot
+              displayName: OT
+
+            - id: slp
+              displayName: SLP
+
+    - kind: Question
+      id: Question_4bGqlD
+      variable: Topic.DisciplineNotes
+      prompt: 'Please provide a clear response: Please provide documentation or notes from each discipline involved.'
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: Question_iijtrV
+      variable: Topic.SharedSafetyFactors
+      prompt: 'Please provide a clear response: Are there shared safety factors identified across the disciplines?'
+      entity: BooleanPrebuiltEntity
+
+    - kind: Question
+      id: Question_eHLdZM
+      variable: Topic.FunctionalOutcomesCoordinated
+      prompt: 'Please provide a clear response: Are functional outcomes coordinated between the disciplines?'
+      entity: BooleanPrebuiltEntity
+
+    - kind: Question
+      id: Question_0if2Hi
+      variable: Topic.UnifiedDischargePlan
+      prompt: 'Please provide a clear response: Is there a unified discharge plan for the patient?'
+      entity: BooleanPrebuiltEntity
+
+    - kind: SendActivity
+      id: SendActivity_Ep6q3O
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"IDT Compliance Review Summary\" }, { type: \"FactSet\", facts: [ { title: \"Disciplines Involved\", value: Text(Topic.DisciplinesInvolved) }, { title: \"Shared Safety Factors\", value: Text(Topic.SharedSafetyFactors) }, { title: \"Functional Outcomes Coordinated\", value: Text(Topic.FunctionalOutcomesCoordinated) }, { title: \"Unified Discharge Plan\", value: Text(Topic.UnifiedDischargePlan) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+
+

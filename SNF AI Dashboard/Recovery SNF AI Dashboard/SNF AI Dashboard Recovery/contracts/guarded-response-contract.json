@@ -1,0 +1,30 @@
+{
+  "contractName": "guarded-response-evidence",
+  "version": "1.0.0",
+  "description": "Minimum evidence fields required for guarded insight responses in high-impact clinical and operational paths.",
+  "requiredFields": [
+    "Citations",
+    "GroundednessStatus",
+    "VerificationStatus",
+    "UncertaintyReason"
+  ],
+  "allowedGroundednessStatus": [
+    "Grounded",
+    "NeedsVerification",
+    "NotGrounded",
+    "NotAvailable"
+  ],
+  "allowedVerificationStatus": [
+    "Verified",
+    "NeedsReview",
+    "Failed",
+    "NotAvailable"
+  ],
+  "citationFormat": {
+    "type": "json-array",
+    "requiredObjectKeys": [
+      "sourceId",
+      "location"
+    ]
+  }
+}

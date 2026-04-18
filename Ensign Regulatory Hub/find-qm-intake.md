@@ -1,0 +1,790 @@
+- generic [ref=e1]:
+  - generic [ref=e10]:
+    - banner [ref=e12]:
+      - button "Skip to main content" [ref=e13]
+      - banner [ref=e15]:
+        - button "App launcher" [ref=e18] [cursor=pointer]: 
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - img "Copilot studio brand Logo" [ref=e28] [cursor=pointer]
+            - generic [ref=e31]: Copilot Studio
+          - generic [ref=e34]:
+            - 'button "Environment: Therapy AI Agents Dev" [ref=e39] [cursor=pointer]':
+              - img [ref=e41]
+              - generic [ref=e44]:
+                - generic [ref=e45]: Environment
+                - generic [ref=e47]: Therapy AI Agents Dev
+            - button "Settings" [ref=e50] [cursor=pointer]:
+              - generic [ref=e51]: 
+            - button "Help" [ref=e54] [cursor=pointer]:
+              - generic [ref=e55]: 
+        - generic [ref=e56]:
+          - button "Account manager for Moon, Kevin" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: Moon, Kevin
+              - generic [ref=e67]: KM
+          - generic: 
+    - generic [ref=e70]:
+      - navigation [ref=e71]:
+        - tablist [ref=e72]:
+          - tab "Home" [ref=e74] [cursor=pointer]:
+            - img [ref=e76]
+            - generic [ref=e78]: Home
+          - tab "Agents" [selected] [ref=e79] [cursor=pointer]:
+            - generic [ref=e82]: Agents
+          - tab "Flows" [ref=e83] [cursor=pointer]:
+            - img [ref=e85]
+            - generic [ref=e90]: Flows
+          - tab "Tools" [ref=e91] [cursor=pointer]:
+            - img [ref=e93]
+            - generic [ref=e95]: Tools
+          - tab "Explore Power Platform" [ref=e97] [cursor=pointer]:
+            - img [ref=e99]
+      - main "Page content" [ref=e103]:
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - img "Icon for your agent" [ref=e115]
+              - heading "SimpleLTC QM Coach V2" [level=1] [ref=e116]
+              - button "open agent protection shield popover" [ref=e117]:
+                - img [ref=e119]
+              - tablist [ref=e121]:
+                - tab "Overview" [ref=e123] [cursor=pointer]:
+                  - generic [ref=e124]: Overview
+                - tab "Knowledge" [ref=e125] [cursor=pointer]:
+                  - generic [ref=e126]: Knowledge
+                - tab "Tools" [ref=e127] [cursor=pointer]:
+                  - generic [ref=e128]: Tools
+                - tab "Agents" [ref=e129] [cursor=pointer]:
+                  - generic [ref=e130]: Agents
+                - tab "Topics" [selected] [ref=e131] [cursor=pointer]:
+                  - generic [ref=e132]: Topics
+                - tab "Activity" [ref=e133] [cursor=pointer]:
+                  - generic [ref=e134]: Activity
+                - tab "Evaluation" [ref=e135] [cursor=pointer]:
+                  - generic [ref=e136]: Evaluation
+                - tab "Analytics" [ref=e137] [cursor=pointer]:
+                  - generic [ref=e138]: Analytics
+                - tab "Channels" [ref=e139] [cursor=pointer]:
+                  - generic [ref=e140]: Channels
+            - generic [ref=e142]:
+              - button "Search your agent" [ref=e144]:
+                - img [ref=e146]
+              - generic [ref=e149]:
+                - generic [ref=e150]: Published 4/11/2026
+                - button "Publish" [ref=e152]
+              - button "Settings" [ref=e154]
+              - button "Options" [ref=e156]:
+                - img [ref=e158]
+              - separator [ref=e161]
+              - button "Test" [ref=e163]:
+                - generic [ref=e164]:
+                  - img [ref=e165]
+                  - text: Test
+          - generic [ref=e167]:
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - generic [ref=e180]:
+                    - button "Back" [ref=e181]:
+                      - img [ref=e183]
+                    - navigation "breadcrumb" [ref=e185]:
+                      - list [ref=e186]:
+                        - listitem [ref=e187]:
+                          - generic [ref=e188]:
+                            - heading "QM Orchestrator" [level=2] [ref=e189]:
+                              - generic [ref=e190]: QM Orchestrator
+                              - textbox "Topic name" [ref=e194]: QM Orchestrator
+                            - group [ref=e195]:
+                              - button "Select a topic" [ref=e197] [cursor=pointer]:
+                                - generic [ref=e199]: 
+                  - generic [ref=e200]:
+                    - toolbar [ref=e201]:
+                      - generic [ref=e1021]:
+                        - generic [ref=e203]: To move through users currently editing this topic use left and right arrow keys
+                        - list "List of users currently editing this topic" [ref=e204]:
+                          - listitem [ref=e1023]:
+                            - generic "Moon, Kevin" [ref=e1024]:
+                              - button "User 700a4462-830f-4df4-96f2-2627f16fbc86 icon button" [ref=e1026] [cursor=pointer]:
+                                - generic [ref=e1027]:
+                                  - generic [ref=e1028]: User 700a4462-830f-4df4-96f2-2627f16fbc86 icon button
+                                  - generic [ref=e1030]: MK
+                      - button "Copilot" [ref=e206]:
+                        - img [ref=e208]
+                        - generic [ref=e210]: Copilot
+                      - button "Comments" [ref=e212]:
+                        - img [ref=e214]
+                        - generic [ref=e216]: Comments
+                      - button "Variables" [ref=e218]:
+                        - img [ref=e220]
+                        - generic [ref=e222]: Variables
+                      - button "Topic checker" [ref=e224]:
+                        - img [ref=e227]
+                        - generic [ref=e229]: Topic checker
+                      - button "Details" [ref=e231]:
+                        - img [ref=e233]
+                        - generic [ref=e235]: Details
+                      - button "More" [ref=e236]:
+                        - img [ref=e238]
+                        - generic [ref=e240]: More
+                    - separator [ref=e242]
+                    - button "Save" [disabled] [ref=e244]
+                - toolbar [ref=e246]:
+                  - button "Undo Show More Options" [ref=e248]:
+                    - generic [ref=e249]:
+                      - img [ref=e250]
+                      - img [ref=e252]
+                  - separator [ref=e254]
+                  - button "Cut" [disabled] [ref=e255]:
+                    - img [ref=e257]
+                  - button "Copy" [disabled] [ref=e259]:
+                    - img [ref=e261]
+                  - button "Paste" [disabled] [ref=e263]:
+                    - img [ref=e265]
+                  - button "Delete node" [disabled] [ref=e267]:
+                    - img [ref=e269]
+              - figure "main authoring canvas" [active] [ref=e274]:
+                - generic [ref=e278]:
+                  - img [ref=e279]
+                  - figure [ref=e1391]:
+                    - 'generic "Trigger Phrases: No phrases to show" [ref=e1393]':
+                      - generic [ref=e1395] [cursor=pointer]:
+                        - generic [ref=e1396]:
+                          - img [ref=e1398]:
+                            - img [ref=e1399]
+                          - heading "Trigger" [level=2] [ref=e1401]
+                        - group "Menu" [ref=e1404]:
+                          - button "More" [ref=e1406]:
+                            - img [ref=e1409]
+                      - generic [ref=e1411]:
+                        - generic [ref=e1413]:
+                          - img "ByAgentIcon" [ref=e1415]:
+                            - img [ref=e1416]
+                          - generic [ref=e1418]:
+                            - generic [ref=e1419]: The agent chooses
+                            - button "The agent chooses Edit" [ref=e1420] [cursor=pointer]:
+                              - img "EditIcon" [ref=e1421]:
+                                - img [ref=e1422]
+                              - generic [ref=e1424]: Edit
+                        - generic [ref=e1426]:
+                          - text: Describe what the topic does
+                          - generic [ref=e1427] [cursor=pointer]: "Primary router for QM workflows. Deterministic command map: intake -> QM Intake, facility -> Facility QM Analysis, upload -> QM Data Upload & Decline Detection, driver -> QM Driver Analysis, action -> QM Action Plan, outlier -> Resident Outlier Analysis, dor -> DoR Summary. Use this topic whenever user asks to route, select, or start a QM workflow."
+                  - generic:
+                    - generic:
+                      - img [ref=e284]
+                      - button "Add node" [ref=e1429] [cursor=pointer]:
+                        - img [ref=e1432]
+                      - figure [ref=e1434]:
+                        - 'generic "Question: Choose a QM workflow to continue." [ref=e1436]':
+                          - generic [ref=e1438] [cursor=pointer]:
+                            - generic [ref=e1439]:
+                              - img [ref=e1441]:
+                                - img [ref=e1442]
+                              - heading "Question" [level=2] [ref=e1445]
+                            - button "Modality" [ref=e1447]:
+                              - generic [ref=e1448]: Text
+                              - generic [ref=e1449]:
+                                - generic: 
+                            - group "Menu" [ref=e1452]:
+                              - button "More" [ref=e1454]:
+                                - img [ref=e1457]
+                          - generic [ref=e1461]:
+                            - generic [ref=e1472] [cursor=pointer]: Choose a QM workflow to continue.
+                            - generic [ref=e1474]:
+                              - generic [ref=e1475]: Identify
+                              - button "Multiple choice options" [ref=e1477]:
+                                - img [ref=e1479]
+                                - generic [ref=e1481]: Multiple choice options
+                                - img [ref=e1482]
+                            - generic [ref=e1484]:
+                              - generic [ref=e1487]: Options for user
+                              - generic [ref=e1488]:
+                                - generic [ref=e1492]: Facility QM Review
+                                - generic [ref=e1496]: QM Driver Analysis
+                                - generic [ref=e1500]: Resident Outlier Analysis
+                                - generic [ref=e1504]: QM Decline Detection
+                                - generic [ref=e1508]: QM Action Plan
+                                - generic [ref=e1512]: DoR Summary Email
+                                - generic [ref=e1516]: QM Intake
+                                - button "New option" [ref=e1517] [cursor=pointer]:
+                                  - generic [ref=e1518]:
+                                    - img [ref=e1520]
+                                    - generic [ref=e1523]: New option
+                            - generic [ref=e1524]:
+                              - generic [ref=e1525]: Save user response as
+                              - button "Set variable" [ref=e1527] [cursor=pointer]:
+                                - generic [ref=e1528]:
+                                  - button "routeChoice:choice" [ref=e1531]:
+                                    - img "AdaptiveVariablesIcon" [ref=e1533]:
+                                      - img [ref=e1534]
+                                    - generic [ref=e1536]:
+                                      - generic [ref=e1538]: routeChoice
+                                      - generic [ref=e1540]: choice
+                                  - img [ref=e1542]
+                      - button "Add node" [ref=e1545] [cursor=pointer]:
+                        - img [ref=e1548]
+                      - generic:
+                        - generic:
+                          - img [ref=e303]
+                          - generic:
+                            - generic:
+                              - img [ref=e342]
+                              - button "Add node" [ref=e1551] [cursor=pointer]:
+                                - img [ref=e1554]
+                          - generic:
+                            - generic:
+                              - img [ref=e353]
+                              - button "Add node" [ref=e1557] [cursor=pointer]:
+                                - img [ref=e1560]
+                          - generic:
+                            - generic:
+                              - img [ref=e364]
+                              - button "Add node" [ref=e1563] [cursor=pointer]:
+                                - img [ref=e1566]
+                          - generic:
+                            - generic:
+                              - img [ref=e375]
+                              - button "Add node" [ref=e1568] [cursor=pointer]:
+                                - img [ref=e1571]
+                          - generic:
+                            - generic:
+                              - img [ref=e386]
+                              - figure [ref=e1324]:
+                                - 'generic "Condition: Topic.routeChoice is equal to QM Action Plan" [ref=e1326]':
+                                  - generic [ref=e1328] [cursor=pointer]:
+                                    - generic [ref=e1329]:
+                                      - img [ref=e1331]:
+                                        - img [ref=e1332]
+                                      - heading "Condition" [level=2] [ref=e1335]
+                                    - group "Menu" [ref=e1338]:
+                                      - button "More" [ref=e1340]:
+                                        - img [ref=e1343]
+                                  - generic [ref=e1346]:
+                                    - generic [ref=e1348]:
+                                      - button "Set variable" [ref=e1350] [cursor=pointer]:
+                                        - generic [ref=e1351]:
+                                          - button "routeChoice:choice" [ref=e1354]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1356]:
+                                              - img [ref=e1357]
+                                            - generic [ref=e1359]:
+                                              - generic [ref=e1361]: routeChoice
+                                              - generic [ref=e1363]: choice
+                                          - img [ref=e1365]
+                                      - combobox "Select condition" [ref=e1368]:
+                                        - generic [ref=e1369] [cursor=pointer]: is equal to
+                                        - generic [ref=e1370] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1373]:
+                                        - combobox "QM Action Plan" [ref=e1376]
+                                        - generic [ref=e1377]:
+                                          - separator [ref=e1378]
+                                          - button "Select variable" [ref=e1379] [cursor=pointer]:
+                                            - img [ref=e1382]
+                                    - button "New condition" [ref=e1384] [cursor=pointer]:
+                                      - generic [ref=e1385]:
+                                        - img [ref=e1387]
+                                        - generic [ref=e1390]: New condition
+                              - button "Add node" [ref=e1574] [cursor=pointer]:
+                                - img [ref=e1577]
+                          - generic:
+                            - generic:
+                              - img [ref=e397]
+                              - figure [ref=e1579]:
+                                - 'generic "Condition: Topic.routeChoice is equal to DoR Summary Email" [ref=e1581]':
+                                  - generic [ref=e1583] [cursor=pointer]:
+                                    - generic [ref=e1584]:
+                                      - img [ref=e1586]:
+                                        - img [ref=e1587]
+                                      - heading "Condition" [level=2] [ref=e1590]
+                                    - group "Menu" [ref=e1593]:
+                                      - button "More" [ref=e1595]:
+                                        - img [ref=e1598]
+                                  - generic [ref=e1601]:
+                                    - generic [ref=e1603]:
+                                      - button "Set variable" [ref=e1605] [cursor=pointer]:
+                                        - generic [ref=e1606]:
+                                          - button "routeChoice:choice" [ref=e1609]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1611]:
+                                              - img [ref=e1612]
+                                            - generic [ref=e1614]:
+                                              - generic [ref=e1616]: routeChoice
+                                              - generic [ref=e1618]: choice
+                                          - img [ref=e1620]
+                                      - combobox "Select condition" [ref=e1623]:
+                                        - generic [ref=e1624] [cursor=pointer]: is equal to
+                                        - generic [ref=e1625] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1628]:
+                                        - combobox "DoR Summary Email" [ref=e1631]
+                                        - generic [ref=e1632]:
+                                          - separator [ref=e1633]
+                                          - button "Select variable" [ref=e1634] [cursor=pointer]:
+                                            - img [ref=e1637]
+                                    - button "New condition" [ref=e1639] [cursor=pointer]:
+                                      - generic [ref=e1640]:
+                                        - img [ref=e1642]
+                                        - generic [ref=e1645]: New condition
+                              - button "Add node" [ref=e1647] [cursor=pointer]:
+                                - img [ref=e1650]
+                          - generic:
+                            - generic:
+                              - img [ref=e408]
+                              - figure [ref=e1652]:
+                                - 'generic "Condition: Topic.routeChoice is equal to QM Intake" [ref=e1654]':
+                                  - generic [ref=e1656] [cursor=pointer]:
+                                    - generic [ref=e1657]:
+                                      - img [ref=e1659]:
+                                        - img [ref=e1660]
+                                      - heading "Condition" [level=2] [ref=e1663]
+                                    - group "Menu" [ref=e1666]:
+                                      - button "More" [ref=e1668]:
+                                        - img [ref=e1671]
+                                  - generic [ref=e1674]:
+                                    - generic [ref=e1676]:
+                                      - button "Set variable" [ref=e1678] [cursor=pointer]:
+                                        - generic [ref=e1679]:
+                                          - button "routeChoice:choice" [ref=e1682]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1684]:
+                                              - img [ref=e1685]
+                                            - generic [ref=e1687]:
+                                              - generic [ref=e1689]: routeChoice
+                                              - generic [ref=e1691]: choice
+                                          - img [ref=e1693]
+                                      - combobox "Select condition" [ref=e1696]:
+                                        - generic [ref=e1697] [cursor=pointer]: is equal to
+                                        - generic [ref=e1698] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1701]:
+                                        - combobox "QM Intake" [ref=e1704]
+                                        - generic [ref=e1705]:
+                                          - separator [ref=e1706]
+                                          - button "Select variable" [ref=e1707] [cursor=pointer]:
+                                            - img [ref=e1710]
+                                    - button "New condition" [ref=e1712] [cursor=pointer]:
+                                      - generic [ref=e1713]:
+                                        - img [ref=e1715]
+                                        - generic [ref=e1718]: New condition
+                              - button "Add node" [ref=e1720] [cursor=pointer]:
+                                - img [ref=e1723]
+                          - generic:
+                            - img [ref=e419]
+                            - generic "All other conditions" [ref=e423]:
+                              - generic [ref=e425] [cursor=pointer]:
+                                - generic [ref=e426]:
+                                  - img [ref=e428]:
+                                    - img [ref=e429]
+                                  - heading "All other conditions" [level=2] [ref=e432]
+                                - group "Menu" [ref=e435]:
+                                  - button "More" [ref=e437]:
+                                    - img [ref=e440]
+                            - generic:
+                              - generic:
+                                - img [ref=e442]
+                                - button "Add node" [ref=e446] [cursor=pointer]:
+                                  - img [ref=e449]
+                                - generic:
+                                  - generic:
+                                    - img [ref=e451]
+                                    - generic:
+                                      - generic:
+                                        - img [ref=e460]
+                                        - figure [ref=e1725]:
+                                          - 'generic "Condition: Topic.routeChoice is equal to Facility QM Review" [ref=e1727]':
+                                            - generic [ref=e1729] [cursor=pointer]:
+                                              - generic [ref=e1730]:
+                                                - img [ref=e1732]:
+                                                  - img [ref=e1733]
+                                                - heading "Condition" [level=2] [ref=e1736]
+                                              - group "Menu" [ref=e1739]:
+                                                - button "More" [ref=e1741]:
+                                                  - img [ref=e1744]
+                                            - generic [ref=e1747]:
+                                              - generic [ref=e1749]:
+                                                - button "Set variable" [ref=e1751] [cursor=pointer]:
+                                                  - generic [ref=e1752]:
+                                                    - button "routeChoice:choice" [ref=e1755]:
+                                                      - img "AdaptiveVariablesIcon" [ref=e1757]:
+                                                        - img [ref=e1758]
+                                                      - generic [ref=e1760]:
+                                                        - generic [ref=e1762]: routeChoice
+                                                        - generic [ref=e1764]: choice
+                                                    - img [ref=e1766]
+                                                - combobox "Select condition" [ref=e1769]:
+                                                  - generic [ref=e1770] [cursor=pointer]: is equal to
+                                                  - generic [ref=e1771] [cursor=pointer]:
+                                                    - generic: 
+                                                - generic [ref=e1774]:
+                                                  - combobox "Facility QM Review" [ref=e1777]
+                                                  - generic [ref=e1778]:
+                                                    - separator [ref=e1779]
+                                                    - button "Select variable" [ref=e1780] [cursor=pointer]:
+                                                      - img [ref=e1783]
+                                              - button "New condition" [ref=e1785] [cursor=pointer]:
+                                                - generic [ref=e1786]:
+                                                  - img [ref=e1788]
+                                                  - generic [ref=e1791]: New condition
+                                        - generic:
+                                          - generic:
+                                            - img [ref=e464]
+                                            - button "Add node" [ref=e1793] [cursor=pointer]:
+                                              - img [ref=e1796]
+                                            - figure [ref=e1798]:
+                                              - generic "Redirect to Facility QM Analysis" [ref=e1800]:
+                                                - generic [ref=e1802] [cursor=pointer]:
+                                                  - generic [ref=e1803]:
+                                                    - img [ref=e1805]:
+                                                      - img [ref=e1806]
+                                                    - heading "Topic" [level=2] [ref=e1809]
+                                                  - group "Menu" [ref=e1812]:
+                                                    - button "More" [ref=e1814]:
+                                                      - img [ref=e1817]
+                                                - generic [ref=e2046]:
+                                                  - text: Facility QM Analysis
+                                                  - button "View topic" [ref=e2047] [cursor=pointer]
+                                            - button "Add node" [ref=e1825] [cursor=pointer]:
+                                              - img [ref=e1828]
+                                    - generic:
+                                      - img [ref=e483]
+                                      - generic "All other conditions" [ref=e487]:
+                                        - generic [ref=e489] [cursor=pointer]:
+                                          - generic [ref=e490]:
+                                            - img [ref=e492]:
+                                              - img [ref=e493]
+                                            - heading "All other conditions" [level=2] [ref=e496]
+                                          - group "Menu" [ref=e499]:
+                                            - button "More" [ref=e501]:
+                                              - img [ref=e504]
+                                      - generic:
+                                        - generic:
+                                          - img [ref=e506]
+                                          - button "Add node" [ref=e510] [cursor=pointer]:
+                                            - img [ref=e513]
+                                          - generic:
+                                            - generic:
+                                              - img [ref=e515]
+                                              - generic:
+                                                - generic:
+                                                  - img [ref=e524]
+                                                  - figure [ref=e1830]:
+                                                    - 'generic "Condition: Topic.routeChoice is equal to QM Decline Detection" [ref=e1832]':
+                                                      - generic [ref=e1834] [cursor=pointer]:
+                                                        - generic [ref=e1835]:
+                                                          - img [ref=e1837]:
+                                                            - img [ref=e1838]
+                                                          - heading "Condition" [level=2] [ref=e1841]
+                                                        - group "Menu" [ref=e1844]:
+                                                          - button "More" [ref=e1846]:
+                                                            - img [ref=e1849]
+                                                      - generic [ref=e1852]:
+                                                        - generic [ref=e1854]:
+                                                          - button "Set variable" [ref=e1856] [cursor=pointer]:
+                                                            - generic [ref=e1857]:
+                                                              - button "routeChoice:choice" [ref=e1860]:
+                                                                - img "AdaptiveVariablesIcon" [ref=e1862]:
+                                                                  - img [ref=e1863]
+                                                                - generic [ref=e1865]:
+                                                                  - generic [ref=e1867]: routeChoice
+                                                                  - generic [ref=e1869]: choice
+                                                              - img [ref=e1871]
+                                                          - combobox "Select condition" [ref=e1874]:
+                                                            - generic [ref=e1875] [cursor=pointer]: is equal to
+                                                            - generic [ref=e1876] [cursor=pointer]:
+                                                              - generic: 
+                                                          - generic [ref=e1879]:
+                                                            - combobox "QM Decline Detection" [ref=e1882]
+                                                            - generic [ref=e1883]:
+                                                              - separator [ref=e1884]
+                                                              - button "Select variable" [ref=e1885] [cursor=pointer]:
+                                                                - img [ref=e1888]
+                                                        - button "New condition" [ref=e1890] [cursor=pointer]:
+                                                          - generic [ref=e1891]:
+                                                            - img [ref=e1893]
+                                                            - generic [ref=e1896]: New condition
+                                                  - generic:
+                                                    - generic:
+                                                      - img [ref=e528]
+                                                      - button "Add node" [ref=e1898] [cursor=pointer]:
+                                                        - img [ref=e1901]
+                                                      - figure [ref=e1903]:
+                                                        - generic "Redirect to QM Data Upload & Decline Detection" [ref=e1905]:
+                                                          - generic [ref=e1907] [cursor=pointer]:
+                                                            - generic [ref=e1908]:
+                                                              - img [ref=e1910]:
+                                                                - img [ref=e1911]
+                                                              - heading "Topic" [level=2] [ref=e1914]
+                                                            - group "Menu" [ref=e1917]:
+                                                              - button "More" [ref=e1919]:
+                                                                - img [ref=e1922]
+                                                          - generic [ref=e2060]:
+                                                            - text: QM Data Upload & Decline Detection
+                                                            - button "View topic" [ref=e2061] [cursor=pointer]
+                                                      - button "Add node" [ref=e1930] [cursor=pointer]:
+                                                        - img [ref=e1933]
+                                              - generic:
+                                                - img [ref=e547]
+                                                - generic "All other conditions" [ref=e551]:
+                                                  - generic [ref=e553] [cursor=pointer]:
+                                                    - generic [ref=e554]:
+                                                      - img [ref=e556]:
+                                                        - img [ref=e557]
+                                                      - heading "All other conditions" [level=2] [ref=e560]
+                                                    - group "Menu" [ref=e563]:
+                                                      - button "More" [ref=e565]:
+                                                        - img [ref=e568]
+                                                - generic:
+                                                  - generic:
+                                                    - img [ref=e570]
+                                                    - button "Add node" [ref=e574] [cursor=pointer]:
+                                                      - img [ref=e577]
+                                                    - generic:
+                                                      - generic:
+                                                        - img [ref=e579]
+                                                        - generic:
+                                                          - generic:
+                                                            - img [ref=e588]
+                                                            - figure [ref=e1935]:
+                                                              - 'generic "Condition: Topic.routeChoice is equal to QM Driver Analysis" [ref=e1937]':
+                                                                - generic [ref=e1939] [cursor=pointer]:
+                                                                  - generic [ref=e1940]:
+                                                                    - img [ref=e1942]:
+                                                                      - img [ref=e1943]
+                                                                    - heading "Condition" [level=2] [ref=e1946]
+                                                                  - group "Menu" [ref=e1949]:
+                                                                    - button "More" [ref=e1951]:
+                                                                      - img [ref=e1954]
+                                                                - generic [ref=e1957]:
+                                                                  - generic [ref=e1959]:
+                                                                    - button "Set variable" [ref=e1961] [cursor=pointer]:
+                                                                      - generic [ref=e1962]:
+                                                                        - button "routeChoice:choice" [ref=e1965]:
+                                                                          - img "AdaptiveVariablesIcon" [ref=e1967]:
+                                                                            - img [ref=e1968]
+                                                                          - generic [ref=e1970]:
+                                                                            - generic [ref=e1972]: routeChoice
+                                                                            - generic [ref=e1974]: choice
+                                                                        - img [ref=e1976]
+                                                                    - combobox "Select condition" [ref=e1979]:
+                                                                      - generic [ref=e1980] [cursor=pointer]: is equal to
+                                                                      - generic [ref=e1981] [cursor=pointer]:
+                                                                        - generic: 
+                                                                    - generic [ref=e1984]:
+                                                                      - combobox "QM Driver Analysis" [ref=e1987]
+                                                                      - generic [ref=e1988]:
+                                                                        - separator [ref=e1989]
+                                                                        - button "Select variable" [ref=e1990] [cursor=pointer]:
+                                                                          - img [ref=e1993]
+                                                                  - button "New condition" [ref=e1995] [cursor=pointer]:
+                                                                    - generic [ref=e1996]:
+                                                                      - img [ref=e1998]
+                                                                      - generic [ref=e2001]: New condition
+                                                            - generic:
+                                                              - generic:
+                                                                - img [ref=e592]
+                                                                - button "Add node" [ref=e596] [cursor=pointer]:
+                                                                  - img [ref=e599]
+                                                                - figure [ref=e2002]:
+                                                                  - generic "Redirect to QM Driver Analysis" [ref=e2004]:
+                                                                    - generic [ref=e2006] [cursor=pointer]:
+                                                                      - generic [ref=e2007]:
+                                                                        - img [ref=e2009]:
+                                                                          - img [ref=e2010]
+                                                                        - heading "Topic" [level=2] [ref=e2013]
+                                                                      - group "Menu" [ref=e2016]:
+                                                                        - button "More" [ref=e2018]:
+                                                                          - img [ref=e2021]
+                                                                    - generic [ref=e2074]:
+                                                                      - text: QM Driver Analysis
+                                                                      - button "View topic" [ref=e2075] [cursor=pointer]
+                                                                - button "Add node" [ref=e606] [cursor=pointer]:
+                                                                  - img [ref=e609]
+                                                        - generic:
+                                                          - img [ref=e611]
+                                                          - generic "All other conditions" [ref=e615]:
+                                                            - generic [ref=e617] [cursor=pointer]:
+                                                              - generic [ref=e618]:
+                                                                - img [ref=e620]:
+                                                                  - img [ref=e621]
+                                                                - heading "All other conditions" [level=2] [ref=e624]
+                                                              - group "Menu" [ref=e627]:
+                                                                - button "More" [ref=e629]:
+                                                                  - img [ref=e632]
+                                                          - generic:
+                                                            - generic:
+                                                              - img [ref=e634]
+                                                              - button "Add node" [ref=e638] [cursor=pointer]:
+                                                                - img [ref=e641]
+                                                              - generic:
+                                                                - generic:
+                                                                  - img [ref=e643]
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - img [ref=e652]
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - img [ref=e656]
+                                                                          - button "Add node" [ref=e660] [cursor=pointer]:
+                                                                            - img [ref=e663]
+                                                                          - button "Add node" [ref=e670] [cursor=pointer]:
+                                                                            - img [ref=e673]
+                                                                  - generic:
+                                                                    - img [ref=e675]
+                                                                    - generic "All other conditions" [ref=e679]:
+                                                                      - generic [ref=e681] [cursor=pointer]:
+                                                                        - generic [ref=e682]:
+                                                                          - img [ref=e684]:
+                                                                            - img [ref=e685]
+                                                                          - heading "All other conditions" [level=2] [ref=e688]
+                                                                        - group "Menu" [ref=e691]:
+                                                                          - button "More" [ref=e693]:
+                                                                            - img [ref=e696]
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - img [ref=e698]
+                                                                        - button "Add node" [ref=e702] [cursor=pointer]:
+                                                                          - img [ref=e705]
+                                                                        - generic:
+                                                                          - generic:
+                                                                            - img [ref=e707]
+                                                                            - generic:
+                                                                              - generic:
+                                                                                - img [ref=e716]
+                                                                                - generic:
+                                                                                  - generic:
+                                                                                    - img [ref=e720]
+                                                                                    - button "Add node" [ref=e724] [cursor=pointer]:
+                                                                                      - img [ref=e727]
+                                                                                    - button "Add node" [ref=e734] [cursor=pointer]:
+                                                                                      - img [ref=e737]
+                                                                            - generic:
+                                                                              - img [ref=e739]
+                                                                              - generic "All other conditions" [ref=e743]:
+                                                                                - generic [ref=e745] [cursor=pointer]:
+                                                                                  - generic [ref=e746]:
+                                                                                    - img [ref=e748]:
+                                                                                      - img [ref=e749]
+                                                                                    - heading "All other conditions" [level=2] [ref=e752]
+                                                                                  - group "Menu" [ref=e755]:
+                                                                                    - button "More" [ref=e757]:
+                                                                                      - img [ref=e760]
+                                                                              - generic:
+                                                                                - generic:
+                                                                                  - img [ref=e762]
+                                                                                  - button "Add node" [ref=e766] [cursor=pointer]:
+                                                                                    - img [ref=e769]
+                                                                                  - generic:
+                                                                                    - generic:
+                                                                                      - img [ref=e771]
+                                                                                      - generic:
+                                                                                        - generic:
+                                                                                          - img [ref=e780]
+                                                                                          - generic:
+                                                                                            - generic:
+                                                                                              - img [ref=e784]
+                                                                                              - button "Add node" [ref=e788] [cursor=pointer]:
+                                                                                                - img [ref=e791]
+                                                                                              - button "Add node" [ref=e798] [cursor=pointer]:
+                                                                                                - img [ref=e801]
+                                                                                      - generic:
+                                                                                        - img [ref=e803]
+                                                                                        - generic "All other conditions" [ref=e807]:
+                                                                                          - generic [ref=e809] [cursor=pointer]:
+                                                                                            - generic [ref=e810]:
+                                                                                              - img [ref=e812]:
+                                                                                                - img [ref=e813]
+                                                                                              - heading "All other conditions" [level=2] [ref=e816]
+                                                                                            - group "Menu" [ref=e819]:
+                                                                                              - button "More" [ref=e821]:
+                                                                                                - img [ref=e824]
+                                                                                        - button "Add node" [ref=e828] [cursor=pointer]:
+                                                                                          - img [ref=e831]
+                                                                                  - button "Add node" [ref=e835] [cursor=pointer]:
+                                                                                    - img [ref=e838]
+                                                                        - button "Add node" [ref=e842] [cursor=pointer]:
+                                                                          - img [ref=e845]
+                                                              - button "Add node" [ref=e849] [cursor=pointer]:
+                                                                - img [ref=e852]
+                                                    - button "Add node" [ref=e856] [cursor=pointer]:
+                                                      - img [ref=e859]
+                                          - button "Add node" [ref=e863] [cursor=pointer]:
+                                            - img [ref=e866]
+                                - button "Add node" [ref=e870] [cursor=pointer]:
+                                  - img [ref=e873]
+                      - button "Add node" [ref=e2029] [cursor=pointer]:
+                        - img [ref=e2032]
+                - generic [ref=e882]:
+                  - button "Zoom in" [ref=e883] [cursor=pointer]:
+                    - img [ref=e886]
+                  - button "Reset" [ref=e888] [cursor=pointer]:
+                    - img [ref=e891]
+                  - button "Zoom out" [ref=e893] [cursor=pointer]:
+                    - img [ref=e896]
+                  - button "Mini-map" [ref=e898] [cursor=pointer]:
+                    - img [ref=e901]
+                  - button "Selection tool" [ref=e903] [cursor=pointer]:
+                    - img [ref=e906]
+                  - button "Hand tool" [ref=e908] [cursor=pointer]:
+                    - img [ref=e911]
+              - status
+            - separator
+            - generic [ref=e915]:
+              - generic [ref=e917]:
+                - generic [ref=e918]: Test your agent
+                - generic [ref=e919]:
+                  - button "Start new test session" [ref=e920]:
+                    - img [ref=e922]
+                  - button "Evaluate SimpleLTC QM Coach V2" [ref=e924]:
+                    - img [ref=e926]
+                  - button "Variables" [ref=e928]:
+                    - img [ref=e930]
+                  - button "More" [ref=e932]:
+                    - img [ref=e934]
+                  - button "Expand test pane" [ref=e937]:
+                    - img [ref=e939]
+                  - button "Close test pane" [ref=e941]:
+                    - img [ref=e943]
+              - generic [ref=e958]:
+                - generic:
+                  - log
+                - group "Chat history, press arrow keys to navigate." [ref=e961]:
+                  - generic [ref=e962]:
+                    - feed [ref=e965]:
+                      - article [ref=e967]:
+                        - 'generic "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help? Like Like Dislike Dislike" [ref=e970]':
+                          - group [ref=e973]:
+                            - generic [ref=e974]: "Bot said:"
+                            - generic [ref=e979]:
+                              - paragraph [ref=e982]: Hello, I'm SimpleLTC QM Coach V2. How can I help?
+                              - generic [ref=e985]:
+                                - generic [ref=e986]:
+                                  - radio "Like" [ref=e987]
+                                  - tooltip "Like"
+                                - generic [ref=e988]:
+                                  - radio "Dislike" [ref=e989]
+                                  - tooltip "Dislike"
+                          - generic [ref=e992]:
+                            - generic [ref=e993]: Sent at April 11 at 1:45 PM
+                            - generic [ref=e994]: A minute ago
+                        - generic:
+                          - 'article "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help? Message is interactive. Click to interact."':
+                            - generic: "Bot said: Hello, I'm SimpleLTC QM Coach V2. How can I help? Message is interactive. Click to interact."
+                    - note "End of chat history"
+                - generic [ref=e997]: "Connectivity Status: Connected"
+                - generic [ref=e999]:
+                  - toolbar "Suggested actions"
+                  - generic [ref=e1000]:
+                    - textbox "Ask a question or describe what you need" [ref=e1002]
+                    - generic [ref=e1003]:
+                      - generic [ref=e1004]: 0/2000
+                      - generic [ref=e1005]:
+                        - button "Upload file" [ref=e1007] [cursor=pointer]
+                        - separator [ref=e1009]
+                        - button "Send" [ref=e1010] [cursor=pointer]
+                - generic [ref=e1013]:
+                  - text: You're testing your agent's real responses and capabilities.
+                  - link "Find troubleshooting help here." [ref=e1014] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2345957
+                  - text: Make sure AI-generated content is accurate and appropriate before using.
+                  - link "See terms" [ref=e1015] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2182773
+  - generic:
+    - region

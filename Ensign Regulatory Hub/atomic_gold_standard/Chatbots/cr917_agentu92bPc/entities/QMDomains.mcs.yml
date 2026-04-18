@@ -1,0 +1,21 @@
+mcs.metadata:
+  componentName: QM Domains
+kind: ClosedListEntity
+items:
+  - id: Mobility
+    displayName: Mobility
+
+  - id: ADL
+    displayName: ADL
+
+  - id: Falls
+    displayName: Falls
+
+  - id: PressureUlcers
+    displayName: Pressure Ulcers
+
+  - id: Rehospitalization
+    displayName: Rehospitalization
+
+  - id: Other
+    displayName: Other

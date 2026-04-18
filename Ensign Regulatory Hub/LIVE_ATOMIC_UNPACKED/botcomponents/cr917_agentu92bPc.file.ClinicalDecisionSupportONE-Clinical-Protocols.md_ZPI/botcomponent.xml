@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.ClinicalDecisionSupportONE-Clinical-Protocols.md_ZPI">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Clinical Decision Support ONE-Clinical-Protocols.md</description>
+  <filedata mimetype="application/octet-stream">Clinical%20Decision%20Support%20ONE-Clinical-Protocols.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Clinical Decision Support ONE-Clinical-Protocols.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,10 @@
+<botcomponent schemaname="copilots_header_3f0ed.topic.P6-EmergencyCriticalCareMedicareCompliance">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>P6 - Emergency/Critical Care Medicare Compliance</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

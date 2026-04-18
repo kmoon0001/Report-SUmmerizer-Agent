@@ -1,0 +1,9 @@
+mcs.metadata:
+  componentName: SuppressGenericAnalysisPromptOnce
+kind: Variable
+name: SuppressGenericAnalysisPromptOnce
+scope: User
+isExternalInitializationAllowed: false
+isOutputToExternalCallers: false
+initializationTimeoutInMilliseconds: 0
+

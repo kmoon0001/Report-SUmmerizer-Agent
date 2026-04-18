@@ -1,0 +1,85 @@
+mcs.metadata:
+  componentName: QM Driver Analysis
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [QMDriverAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: adaptiveCardPrompt_driverCategory
+      card: |-
+        ={
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "TextBlock",
+              text: "Driver Category",
+              wrap: true,
+              weight: "Bolder",
+              size: "Medium",
+              style: "heading"
+            },
+            {
+              type: "TextBlock",
+              text: "Which root-cause category should we investigate first?",
+              wrap: true,
+              spacing: "Small"
+            }
+          ],
+          actions: [
+            { type: "Action.Submit", title: "ðŸ“ Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
+            { type: "Action.Submit", title: "ðŸ‘¥ Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
+            { type: "Action.Submit", title: "ðŸ¥ Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
+            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
+          ]
+        }
+      output:
+        binding:
+          driverCategory: Topic.driverCategory
+      outputType:
+        properties:
+          driverCategory: String
+
+    - kind: Question
+      id: question_Swypdb
+      interruptionPolicy:
+        allowInterruption: true
+      variable: init:Topic.selectedFacility
+      prompt: Which facility should this QM driver analysis use?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_ti7dMJ
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.coachingOutput
+      prompt: "What coaching output do you need first: root cause summary, targeted interventions, or audit checklist?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Root cause summary
+              displayName: Root cause summary
+
+            - id: Targeted interventions
+              displayName: Targeted interventions
+
+            - id: Audit checklist
+              displayName: Audit checklist
+
+        displayName: EmbeddedEntity-2M4sno
+
+    - kind: SendActivity
+      id: sendActivity_completion
+      activity: Analyzing QM drivers for {Topic.selectedFacility}. This analysis will help identify root causes and guide corrective actions.
+
+inputType: {}
+outputType: {}
+
+

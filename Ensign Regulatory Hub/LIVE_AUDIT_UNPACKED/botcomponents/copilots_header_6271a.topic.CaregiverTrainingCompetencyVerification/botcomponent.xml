@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_6271a.topic.CaregiverTrainingCompetencyVerification">
+  <componenttype>9</componenttype>
+  <description>Evaluates caregiver competency to reduce denial risk tied to unsupervised home programs. Use this for verifying demonstration of SLP-directed strategies, safety comprehension (aspiration/diet), cognitive capacity for multi-step tasks, and documenting verified independence for Medicare compliance.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Caregiver Training Competency  Verification</name>
+  <parentbotid>
+    <schemaname>copilots_header_6271a</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

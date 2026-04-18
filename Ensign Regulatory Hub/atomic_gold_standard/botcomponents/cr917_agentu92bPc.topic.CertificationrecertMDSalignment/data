@@ -1,0 +1,95 @@
+mcs.metadata:
+  componentName: Certification Recert and MDS Alignment
+  description: |
+    Topic workflow for Certification Recert and MDS Alignment within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - certification process
+      - how do I recertify
+      - MDS alignment help
+      - renew my certification
+      - recertification steps
+      - align MDS records
+      - update certification status
+      - MDS recertification requirements
+      - certification renewal information
+      - help with MDS alignment
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_ND6J7p
+      activity: Let's review your certification, recertification, and MDS/plan-of-care alignment.
+
+    - kind: Question
+      id: Question_jLI5Fw
+      variable: Topic.CertDate
+      prompt: 'Please provide a clear response: Please provide the certification or recertification date.'
+      entity: DatePrebuiltEntity
+
+    - kind: Question
+      id: Question_V5ktPO
+      variable: Topic.PartType
+      prompt: 'Please provide a clear response: Is this for Part A or Part B?'
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: PartTypeOptions
+          items:
+            - id: partA
+              displayName: Part A
+
+            - id: partB
+              displayName: Part B
+
+    - kind: Question
+      id: Question_xPJgwO
+      variable: Topic.PlanOfCareDate
+      prompt: 'Please provide a clear response: Please provide the date of the most recent plan of care.'
+      entity: DatePrebuiltEntity
+
+    - kind: Question
+      id: Question_GvUqpC
+      variable: Topic.MDSDate
+      prompt: 'Please provide a clear response: Please provide the date of the most recent MDS assessment.'
+      entity: DatePrebuiltEntity
+
+    - kind: Question
+      id: Question_QcILT1
+      variable: Topic.PlanMDSConsistent
+      prompt: 'Please provide a clear response: Is the therapy plan consistent with the MDS assessment? (Yes/No)'
+      entity: BooleanPrebuiltEntity
+
+    - kind: Question
+      id: Question_kOr3HX
+      variable: Topic.SignatureObtained
+      prompt: 'Please provide a clear response: Has the required signature been obtained for the certification/recertification? (Yes/No)'
+      entity: BooleanPrebuiltEntity
+
+    - kind: SendActivity
+      id: SendActivity_wgwy3M
+      activity:
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: "={ type: \"AdaptiveCard\", body: [ { type: \"TextBlock\", size: \"Medium\", weight: \"Bolder\", text: \"Certification & Alignment Summary\" }, { type: \"FactSet\", facts: [ { title: \"Certification/Recert Date\", value: Text(Topic.CertDate) }, { title: \"Part Type\", value: Text(Topic.PartType) }, { title: \"Plan of Care Date\", value: Text(Topic.PlanOfCareDate) }, { title: \"MDS Date\", value: Text(Topic.MDSDate) }, { title: \"Plan Consistent with MDS\", value: Text(Topic.PlanMDSConsistent) }, { title: \"Signature Obtained\", value: Text(Topic.SignatureObtained) } ] } ], '$schema': \"http://adaptivecards.io/schemas/adaptive-card.json\", version: \"1.5\"}"
+
+    - kind: SendActivity
+      id: SendActivity_vOlG88
+      activity: Please note above information or suggestions provided are for general educational purposes only and should not be considered as medical advice or used as a substitute for seeking the advice of a qualified healthcare provider. It is important to consult with a licensed healthcare professional if you have any questions or concerns about your health or well-being.
+
+inputType: {}
+outputType: {}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: SNF Command Center - Send Clinical Alert
+kind: TaskDialog
+modelDisplayName: SNF Command Center - Send Clinical Alert
+modeldescription: Elite clinical intelligence module specialized in [SendClinicalAlert]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+outputs: []
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 52df51b9-5a31-f111-88b3-00224805b033
+
+outputMode: All
+

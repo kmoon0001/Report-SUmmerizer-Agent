@@ -1,0 +1,126 @@
+{
+  "project": "SNF AI Dashboard",
+  "integrations": [
+    {
+      "name": "CopilotStudio",
+      "purpose": "Agent authoring, preview, apply, and publish",
+      "requiredEnv": [
+        "COPILOT_STUDIO_URL",
+        "COPILOT_STUDIO_ENVIRONMENT_ID",
+        "COPILOT_STUDIO_BOT_ID"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Dataverse",
+      "purpose": "Structured patient registry, workflow state, governed reference data",
+      "requiredEnv": [
+        "DATAVERSE_URL",
+        "DATAVERSE_TENANT_ID",
+        "DATAVERSE_CLIENT_ID",
+        "DATAVERSE_CLIENT_SECRET"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "PowerBI",
+      "purpose": "Operational and executive reporting",
+      "requiredEnv": [
+        "POWERBI_TENANT_ID",
+        "POWERBI_CLIENT_ID",
+        "POWERBI_CLIENT_SECRET",
+        "POWERBI_WORKSPACE_ID",
+        "POWERBI_REPORT_ID"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Fabric",
+      "purpose": "Real-time ingestion, lakehouse, eventhouse, and dashboard backplane",
+      "requiredEnv": [
+        "FABRIC_WORKSPACE_ID",
+        "FABRIC_EVENTHOUSE_ID",
+        "FABRIC_LAKEHOUSE_ID",
+        "FABRIC_KQL_DATABASE"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "FHIR",
+      "purpose": "PCC and NetHealth clinical data exchange",
+      "requiredEnv": [
+        "FHIR_BASE_URL",
+        "FHIR_TENANT_ID",
+        "FHIR_CLIENT_ID",
+        "FHIR_CLIENT_SECRET"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Graph",
+      "purpose": "Tenant identity, mail, files, and sites access",
+      "requiredEnv": [
+        "GRAPH_TENANT_ID",
+        "GRAPH_CLIENT_ID",
+        "GRAPH_CLIENT_SECRET",
+        "GRAPH_SCOPES"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "SharePoint",
+      "purpose": "Governed document storage and policy libraries",
+      "requiredEnv": [
+        "SHAREPOINT_SITE_URL"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "OneDrive",
+      "purpose": "Working document storage and export landing zone",
+      "requiredEnv": [
+        "ONEDRIVE_ROOT_PATH"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "AzureAI",
+      "purpose": "Clinical NLP, image analysis, and predictive model endpoints",
+      "requiredEnv": [
+        "AZURE_OPENAI_ENDPOINT",
+        "AZURE_OPENAI_API_KEY",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_AI_LANGUAGE_ENDPOINT",
+        "AZURE_AI_LANGUAGE_KEY",
+        "AZURE_ML_ENDPOINT",
+        "AZURE_ML_API_KEY"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Purview",
+      "purpose": "Audit, classification, and governance reporting",
+      "requiredEnv": [
+        "PURVIEW_ACCOUNT_NAME",
+        "PURVIEW_COLLECTION"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Sql",
+      "purpose": "Relational operational data access",
+      "requiredEnv": [
+        "SQL_CONNECTION_STRING"
+      ],
+      "status": "planned"
+    },
+    {
+      "name": "Postgres",
+      "purpose": "Analytics or app database access",
+      "requiredEnv": [
+        "POSTGRES_CONNECTION_STRING"
+      ],
+      "status": "planned"
+    }
+  ]
+}

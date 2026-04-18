@@ -1,0 +1,16 @@
+mcs.metadata:
+  componentName: INTERNAL_UploadNormalizeManualQMFile
+kind: TaskDialog
+modeldescription: Elite clinical intelligence module specialized in [UploadNormalizeManualQMFile]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+outputs:
+  - propertyName: normalization_status
+
+  - propertyName: normalized_document_type
+
+  - propertyName: normalized_text
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 51112488-9726-f111-8341-0022480b6bd9
+
+outputMode: All

@@ -1,0 +1,48 @@
+﻿{
+    "GeneratedAt":  "2026-04-05T12:08:35",
+    "EventCount":  6,
+    "Events":  [
+                   {
+                       "Timestamp":  "2026-04-05T12:08:33",
+                       "Step":  "PCC Census",
+                       "Status":  "PASS",
+                       "Message":  "PCC active census file found.",
+                       "ArtifactPath":  "D:\\SNF AI Dashboard\\data\\processed\\pcc_resident_list_current.active-only.csv"
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T12:08:34",
+                       "Step":  "Documentation Queue Build",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T12:08:35",
+                       "Step":  "Therapy Pipeline",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T12:08:35",
+                       "Step":  "Priority Queue Build",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T12:08:35",
+                       "Step":  "Executive Unit Snapshot",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   },
+                   {
+                       "Timestamp":  "2026-04-05T12:08:35",
+                       "Step":  "Operational Summary",
+                       "Status":  "PASS",
+                       "Message":  "Completed.",
+                       "ArtifactPath":  ""
+                   }
+               ]
+}

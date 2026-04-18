@@ -1,0 +1,10 @@
+<botcomponent schemaname="copilots_header_3f0ed.topic.P4-ComplexMulti-SystemMedicareCompliance">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>P4 - Complex Multi-System Medicare Compliance</name>
+  <parentbotid>
+    <schemaname>copilots_header_3f0ed</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

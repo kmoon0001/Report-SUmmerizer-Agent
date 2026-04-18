@@ -1,0 +1,19 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SetVariable
+      id: setVariable_F94P6w
+      variable: Topic.structuredOutput
+      value: Topic.processedData
+
+    - kind: ConditionGroup
+      id: conditionGroup_1HlH73
+      conditions:
+        - id: conditionItem_NkCMCm
+          condition: =Topic.structuredOutput exactin "PT" && Topic.structuredOutput exactin "OT" && Topic.structuredOutput exactin Blank()
+
+inputType: {}
+outputType: {}

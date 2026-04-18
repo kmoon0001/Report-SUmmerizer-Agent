@@ -1,0 +1,109 @@
+mcs.metadata:
+  componentName: DoR Summary
+kind: AdaptiveDialog
+modeldescription: Elite clinical intelligence module specialized in [DoRSummary]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_eM11Kq
+      interruptionPolicy:
+        allowInterruption: true
+      variable: init:Topic.selectedFacility
+      prompt: Which facility should this DoR summary cover?
+      entity: StringPrebuiltEntity
+
+    - kind: AdaptiveCardPrompt
+      id: adaptiveCardPrompt_summaryAudience
+      card: |-
+        ={
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "TextBlock",
+              text: "Summary Audience",
+              wrap: true,
+              weight: "Bolder",
+              size: "Medium",
+              style: "heading"
+            },
+            {
+              type: "TextBlock",
+              text: "Who is the primary audience for this DoR summary? This determines the level of clinical detail and formatting.",
+              wrap: true,
+              spacing: "Small"
+            }
+          ],
+          actions: [
+            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
+            { type: "Action.Submit", title: "ðŸ‘¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
+            { type: "Action.Submit", title: "ðŸ“Š Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
+          ]
+        }
+      output:
+        binding:
+          summaryAudience: Topic.summaryAudience
+      outputType:
+        properties:
+          summaryAudience: String
+
+      variable: init:Topic.summaryAudience
+      prompt: "Who is the primary audience for this summary: DoR only, interdisciplinary team, or executive leadership?"
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_wLeVr8
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.summaryFocus
+      prompt: "Which focus should lead the summary: top risks, wins, or action priorities?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Top risks
+              displayName: Top risks
+
+            - id: Wins
+              displayName: Wins
+
+            - id: Action priorities
+              displayName: Action priorities
+
+            - id: Interdisciplinary team
+              displayName: Interdisciplinary team
+
+            - id: Executive leadership
+              displayName: Executive leadership
+
+            - id: Palm Terrace
+              displayName: Palm Terrace
+
+        displayName: EmbeddedEntity-ksxjkh
+
+    - kind: ConditionGroup
+      id: conditionGroup_LR1OWO
+      conditions:
+        - id: conditionItem_MWm4PG
+          condition: =Topic.summaryFocus = Wins
+
+        - id: conditionItem_LiY9IC
+          condition: =Topic.summaryFocus = 'Action priorities'
+
+        - id: conditionItem_etr69m
+          condition: =Topic.summaryFocus = 'Interdisciplinary team'
+
+        - id: conditionItem_Il0Gh7
+          condition: =Topic.summaryFocus = 'Executive leadership'
+
+        - id: conditionItem_VkJy27
+          condition: =Topic.summaryFocus = 'Palm Terrace'
+inputType: {}
+outputType: {}
+

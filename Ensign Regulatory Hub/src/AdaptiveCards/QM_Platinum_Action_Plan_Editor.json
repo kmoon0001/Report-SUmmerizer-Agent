@@ -1,0 +1,46 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "backgroundImage": {
+    "url": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1000",
+    "fillMode": "cover"
+  },
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "QM COACH | ACTION PLAN BUILDER",
+      "color": "Accent",
+      "weight": "Bolder",
+      "size": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Corrective Action Plan Review",
+      "weight": "Bolder",
+      "size": "ExtraLarge",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "**Measure:** ${qmTitle} | **Target:** ${targetScore}",
+      "isSubtle": true
+    },
+    {
+      "type": "Input.Text",
+      "id": "editedActionPlan",
+      "label": "AI Strategy (Editable):",
+      "isMultiline": true,
+      "value": "${aiGeneratedSOP}",
+      "placeholder": "Refine the root cause analysis..."
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "📥 Commit to QAPI Queue",
+      "style": "positive",
+      "data": { "actionType": "commitQAPI", "qmId": "${qmId}" }
+    }
+  ]
+}

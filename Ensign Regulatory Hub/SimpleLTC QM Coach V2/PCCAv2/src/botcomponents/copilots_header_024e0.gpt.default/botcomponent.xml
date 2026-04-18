@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_024e0.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Non‑conversational backend coaching engine that transforms PCA and specialist findings into structured, discipline‑safe educational guidance, highlighting documentation gaps, regulatory expectations, and improvement strategies without providing clinical advice. Returns JSON‑formatted coaching output for PCA orchestration.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Coaching_Agent</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,65 @@
+mcs.metadata:
+  componentName: HIPAA Guardrail
+  description: Elite clinical intelligence module specialized in [HIPAAGuardrail]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - hipaa guardrail
+      - hipaa compliance check
+      - is this hipaa compliant
+      - protect patient data
+      - secure health information
+      - hipaa privacy rules
+      - ensure hipaa standards
+      - health data security
+      - check for hipaa violations
+      - review hipaa guidelines
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_kdE6I0
+      activity: Welcome. I support healthcare workflow questions and quality-measure trends. Do not type personal or protected health information into free text. Resident-specific review is only allowed through the approved secure export workflow, and I will still use minimum necessary details. How can I help you today?
+
+    - kind: Question
+      id: Question_Kzkh2v
+      variable: Topic.GeneralHealthcareQuestion
+      prompt: What general healthcare question can I assist you with?
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: ConditionGroup
+      id: ConditionGroup_iO3CCA
+      conditions:
+        - id: ConditionItem_9wcBwd
+          condition: ="ssn" in Lower(Topic.GeneralHealthcareQuestion) || "dob" in Lower(Topic.GeneralHealthcareQuestion) || "birthdate" in Lower(Topic.GeneralHealthcareQuestion) || "date of birth" in Lower(Topic.GeneralHealthcareQuestion) || "mrn" in Lower(Topic.GeneralHealthcareQuestion) || "medical record" in Lower(Topic.GeneralHealthcareQuestion) || "social security" in Lower(Topic.GeneralHealthcareQuestion) || "member id" in Lower(Topic.GeneralHealthcareQuestion) || "patient id" in Lower(Topic.GeneralHealthcareQuestion) || "resident id" in Lower(Topic.GeneralHealthcareQuestion) || "patient name" in Lower(Topic.GeneralHealthcareQuestion) || "resident name" in Lower(Topic.GeneralHealthcareQuestion) || "admitted on" in Lower(Topic.GeneralHealthcareQuestion) || "discharged on" in Lower(Topic.GeneralHealthcareQuestion) || IsMatch(Topic.GeneralHealthcareQuestion, "\d{3}-\d{2}-\d{4}") || IsMatch(Topic.GeneralHealthcareQuestion, "\d{1,2}/\d{1,2}/\d{2,4}")
+          actions:
+            - kind: SendActivity
+              id: SendActivity_YPfxTE
+              activity: It looks like you may be sharing personal or protected health information in free text. To protect privacy, please avoid typing names, dates of birth, medical record numbers, or other identifiers into chat. If resident-specific support is needed, use the approved secure export workflow instead.
+
+            - kind: SetVariable
+              id: setVariable_phiDetected
+              variable: Global.PHIDetected
+              value: =true
+
+            - kind: LogCustomTelemetryEvent
+              id: log_phiDetected
+              eventName: PHIViolationAttempt
+              properties: "={InputLength: Len(Topic.GeneralHealthcareQuestion), Timestamp: Text(Now(), \"yyyy-MM-ddTHH:mm:ssZ\")}"
+
+            - kind: SendActivity
+              id: sendActivity_phiRedirect
+              activity: If you need to discuss specific resident information, use your organization's approved secure export workflow or secure clinical systems. Otherwise, please rephrase your question without identifying information.
+
+      elseActions:
+        - kind: SendActivity
+          id: SendActivity_5MJX7k
+          activity: Thank you for your question. I can provide general information here, but do not include identifiers in free text. If you need resident-specific support, use the approved secure workflow and keep clinician oversight in place.
+
+inputType: {}
+outputType: {}
+

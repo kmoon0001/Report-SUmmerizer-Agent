@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.QMMeasureDefinitionsandCalculationRules.md_4OM">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in QM Measure Definitions and Calculation Rules.md</description>
+  <filedata mimetype="application/octet-stream">QM%20Measure%20Definitions%20and%20Calculation%20Rules.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>QM Measure Definitions and Calculation Rules.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-04-06T09:14:39.545Z",
+  "startUrl": "https://app.fabric.microsoft.com/onelake/explore?experience=fabric-developer",
+  "finalUrl": "https://signup.microsoft.com/get-started/signup?sku=a403ebcc-fae0-4ca2-8c8c-7a907fd6c235&email=123713644%40ensignsrvices.net&ru=https%3a%2f%2fapp.fabric.microsoft.com%2fonelake%2fexplore%3fexperience%3dfabric-developer%26noSignUpCheck%3d1%26pbi_source%3dpbiSSOService&products=a403ebcc-fae0-4ca2-8c8c-7a907fd6c235&ali=1",
+  "title": "Microsoft Fabric free - Sign up",
+  "error": "",
+  "permissionSignals": [],
+  "loginSignals": [],
+  "discoveredLinks": [],
+  "discoveredWorkspaceIds": [],
+  "discoveredItemIds": [],
+  "discoveredGuids": [
+    "4cd3eca2-cf0b-4c6e-8fb6-ca2743521904",
+    "272AEF57-0D14-458A-BCCB-0C2D6CD6494F",
+    "990892a6-e117-429a-b2ec-615e962268a8",
+    "a403ebcc-fae0-4ca2-8c8c-7a907fd6c235",
+    "00000000-0000-0000-0000-000000000000",
+    "1d317e1c-a678-48d0-af91-842bf4f16858",
+    "6f2f8f59-cecf-48ed-83e8-b76a68080b88",
+    "2caeb7e8-ee9a-4f10-998f-2e7a329b6c49",
+    "2f3a4689-333c-4053-be02-052e2062c8ab"
+  ],
+  "storageHints": [
+    "responseCache={\"getproductdetails-a403ebcc-fae0-4ca2-8c8c-7a907fd6c235-us-true-true-false-en-us-simple\":{\"expirationTime\":1775553315878,\"data\":{\"productDetails\":{\"appHasAddons\":false,\"backgroundImage\":null,\"catalogId\":null,\"category\":null,\"serviceFamily\":null,\"contentRatings\":null,\"description\":\"\",\"eligibleProductSkuDetails\":[{\"availabilityId\":null,\"productId\":\"a403ebcc-fae0-4ca2-8c8c-7a907fd6c235"
+  ],
+  "screenshotPath": "D:\\SNF AI Dashboard\\data\\processed\\fabric_live_probe.png"
+}

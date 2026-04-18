@@ -1,0 +1,5 @@
+mcs.metadata:
+  componentName: Feedback
+kind: DefaultFeedbackCollection
+disclaimer: Your feedback helps improve TheraDoc QM Coach. Please do not include PHI (Protected Health Information), patient names, identifiers, or sensitive clinical data in your feedback. Feedback is used only for quality improvement and is reviewed by our organization. By submitting, you consent to this use. All agent outputs are AI-generated decision support requiring licensed clinician review before implementation.
+

@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_0331e.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Non‑conversational backend formatting engine that converts PCA‑synthesized JSON into a clean, audit‑ready report layout (title, summary, strengths, issues, fixes, transparency). Performs formatting only—no content edits. Returns PDF‑ready JSON for PCA orchestration.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Report_Generator</name>
+  <parentbotid>
+    <schemaname>copilots_header_0331e</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

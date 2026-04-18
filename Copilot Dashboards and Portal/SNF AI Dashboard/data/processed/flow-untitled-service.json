@@ -1,0 +1,204 @@
+{
+  "name": "88baac30-d059-12c1-3f38-656f35cf6d11",
+  "id": "/providers/Microsoft.ProcessSimple/environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315/flows/88baac30-d059-12c1-3f38-656f35cf6d11",
+  "type": "Microsoft.ProcessSimple/environments/flows",
+  "properties": {
+    "apiId": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+    "displayName": "Untitled",
+    "userType": "Owner",
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          },
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "file": {
+                  "description": "Upload a CSV, Excel, PDF, image, or email file for QM analysis.",
+                  "title": "ManualUploadFile",
+                  "type": "object",
+                  "properties": {
+                    "contentBytes": {
+                      "type": "string",
+                      "format": "byte"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "x-ms-content-hint": "FILE",
+                  "x-ms-dynamically-added": true
+                },
+                "text": {
+                  "description": "Optional context such as facility name, quarter, or requested analysis focus.",
+                  "title": "AnalysisContext",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "file",
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_the_agent": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          },
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "normalization_status": {
+                  "title": "normalization_status",
+                  "description": "Status of manual upload normalization.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "normalized_document_type": {
+                  "title": "normalized_document_type",
+                  "description": "Detected document type for the uploaded manual file.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "normalized_text": {
+                  "title": "normalized_text",
+                  "description": "Normalized text summary placeholder for uploaded content.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "normalization_status": "success",
+              "normalized_document_type": "uploaded-file",
+              "normalized_text": "Uploaded file received and ready for QM analysis."
+            }
+          }
+        }
+      },
+      "outputs": {},
+      "description": "When an agent calls the flow and send back a response."
+    },
+    "triggerSchema": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "description": "Upload a CSV, Excel, PDF, image, or email file for QM analysis.",
+          "title": "ManualUploadFile",
+          "type": "object",
+          "properties": {
+            "contentBytes": {
+              "type": "string",
+              "format": "byte"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "x-ms-content-hint": "FILE",
+          "x-ms-dynamically-added": true
+        },
+        "text": {
+          "description": "Optional context such as facility name, quarter, or requested analysis focus.",
+          "title": "AnalysisContext",
+          "type": "string",
+          "x-ms-content-hint": "TEXT",
+          "x-ms-dynamically-added": true
+        }
+      },
+      "required": [
+        "file",
+        "text"
+      ]
+    },
+    "state": "Started",
+    "sharingType": "CommonDataService",
+    "connectionReferences": {},
+    "createdTime": "2026-03-23T16:05:04Z",
+    "lastModifiedTime": "2026-03-23T16:12:45Z",
+    "flowSuspensionReason": "None",
+    "environment": {
+      "name": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+      "type": "Microsoft.ProcessSimple/environments",
+      "id": "/providers/Microsoft.ProcessSimple/environments/a944fdf0-0d2e-e14d-8a73-0f5ffae23315"
+    },
+    "definitionSummary": {
+      "triggers": [
+        {
+          "type": "Request",
+          "kind": "Skills",
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          }
+        }
+      ],
+      "actions": [
+        {
+          "type": "Response",
+          "kind": "Skills",
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          }
+        }
+      ],
+      "description": "When an agent calls the flow and send back a response."
+    },
+    "creator": {
+      "tenantId": "03cc92c3-986c-4cf4-ae27-1478cf99d17f",
+      "objectId": "700a4462-830f-4df4-96f2-2627f16fbc86",
+      "userId": "700a4462-830f-4df4-96f2-2627f16fbc86",
+      "userType": "ActiveDirectory"
+    },
+    "flowTriggerUri": "https://a944fdf0-0d2e-e14d-8a73-0f5ffae23315.09.common.usa002.azure-apihub.net:443/apim/logicflows/88BAAC30D05912C13F38656F35CF6D11-079F4D3D1370016E/triggers/manual/run?api-version=2016-06-01",
+    "installationStatus": "Installed",
+    "owningUser": {
+      "id": "2323b317-8bf5-f011-8406-6045bd05041c",
+      "azureActiveDirectoryObjectId": "700a4462-830f-4df4-96f2-2627f16fbc86"
+    },
+    "provisioningMethod": "FromDefinition",
+    "flowFailureAlertSubscribed": true,
+    "workflowEntityId": "db104008-d226-f111-8341-000d3a5b88c6",
+    "workflowUniqueId": "0587af92-f246-4dc4-9a82-05a49d8e609f",
+    "referencedResources": [],
+    "isManaged": false,
+    "componentState": "Published",
+    "isCustomizable": {
+      "value": true,
+      "canBeChanged": true,
+      "managedPropertyLogicalName": "iscustomizableanddeletable"
+    },
+    "resourceId": "88baac30-d059-12c1-3f38-656f35cf6d11",
+    "machineDescriptionData": {}
+  }
+}

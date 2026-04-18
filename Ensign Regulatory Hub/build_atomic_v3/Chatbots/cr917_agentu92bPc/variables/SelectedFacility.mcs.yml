@@ -1,0 +1,9 @@
+mcs.metadata:
+  componentName: SelectedFacility
+kind: Variable
+name: SelectedFacility
+scope: User
+isExternalInitializationAllowed: true
+isOutputToExternalCallers: true
+initializationTimeoutInMilliseconds: 0
+

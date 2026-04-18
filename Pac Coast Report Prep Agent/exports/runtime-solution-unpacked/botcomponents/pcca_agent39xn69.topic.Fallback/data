@@ -1,0 +1,38 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_fallbackTiers
+      conditions:
+        - id: conditionItem_firstFallback
+          condition: =System.FallbackCount = 1
+          actions:
+            - kind: SendActivity
+              id: sendMessage_firstFallback
+              activity: I didn't match that request. Tell me the note type first: Eval, Progress, Recert, or Discharge.
+
+            - kind: BeginDialog
+              id: beginDialog_firstFallbackSuggestions
+              dialog: pcca_agent39xn69.topic.SuggestedActions
+
+        - id: conditionItem_secondFallback
+          condition: =System.FallbackCount = 2
+          actions:
+            - kind: SendActivity
+              id: sendMessage_secondFallback
+              activity: I still need structured clinical input. Please include objective findings, interventions, goal linkage, and payer/cert timing if available.
+
+            - kind: BeginDialog
+              id: beginDialog_secondFallbackRoute
+              dialog: pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_fallbackEscalate
+          activity: I'm not confident I can safely continue with current inputs. I'll move this to escalation for clinician-supervised handling.
+
+        - kind: BeginDialog
+          id: beginDialog_fallbackEscalate
+          dialog: pcca_agent39xn69.topic.Escalate

@@ -1,0 +1,26 @@
+mcs.metadata:
+  componentName: COACHING CORNER
+  description: Generates clinical coaching scripts and accountability frameworks for therapy and nursing staff. Supports mentorship conversations, professional development planning, and clinical performance improvement through structured guidance.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - coaching corner
+      - need coaching advice
+      - help with coaching
+      - tips for coaches
+      - how to be a better coach
+      - coaching resources
+      - coach support
+      - improve my coaching skills
+      - coaching questions
+      - guidance for coaches
+  actions:
+    - kind: SendActivity
+      id: sendActivity_stub
+      activity: "This topic (COACHING CORNER) has been stubbed to resolve compilation errors. Please re-implement its logic in the Copilot Studio UI."
+
+inputType: {}
+outputType: {}

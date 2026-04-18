@@ -1,0 +1,17 @@
+﻿{
+    "GeneratedAt":  "2026-04-05T11:56:38",
+    "RowCount":  1,
+    "Rows":  [
+                 {
+                     "GeneratedAt":  "2026-04-05T11:56:38",
+                     "SnapshotDateKey":  "20260405",
+                     "CurrentResidents":  162,
+                     "ResidentsWithDocumentationItems":  59,
+                     "OutstandingDocumentationItems":  121,
+                     "OverdueDocumentationItems":  0,
+                     "ResidentsWithTherapy":  67,
+                     "TotalTherapyMinutes":  7663,
+                     "ResidentsInPriorityQueue":  82
+                 }
+             ]
+}

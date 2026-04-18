@@ -1,0 +1,21 @@
+{
+  "name": "snf-rehab-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "format": "prettier --write \"src/**/*.{json,yaml,ts,md}\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.{json,yaml,ts,md}\" \"tests/**/*.ts\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
+    "prettier": "^3.8.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}

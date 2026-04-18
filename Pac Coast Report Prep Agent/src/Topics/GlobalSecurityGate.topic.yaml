@@ -1,0 +1,27 @@
+kind: AdaptiveDialog
+description: Elite security gate for emergency agent shutdown. Monitoring env_SNF_Global_KillSwitch.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: GlobalSecurityGate
+  actions:
+    # 1. Check a Global Environment Variable (The Killswitch)
+    - kind: SetVariable
+      id: checkKillSwitch
+      variable: Topic.IsTerminated
+      value: =Environment.env_SNF_Global_KillSwitch
+
+    - kind: ConditionGroup
+      id: securityCheck
+      conditions:
+        - id: emergencyStop
+          condition: =Topic.IsTerminated = true
+          actions:
+            - kind: SendActivity
+              id: msgEmergency
+              activity: 🚨 SYSTEM ALERT: This agent has been placed in EMERGENCY LOCKDOWN by Ensign Services Security. All autonomous processing is suspended.
+            - kind: EndDialog
+              id: stopAll
+    
+    # 2. Else: Continue as normal

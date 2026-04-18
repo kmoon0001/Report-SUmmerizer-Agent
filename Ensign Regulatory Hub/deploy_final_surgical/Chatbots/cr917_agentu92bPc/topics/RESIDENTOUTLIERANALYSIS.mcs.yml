@@ -1,0 +1,96 @@
+mcs.metadata:
+  componentName: Resident Outlier Analysis
+  description: Elite clinical intelligence module specialized in [RESIDENTOUTLIERANALYSIS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_tODM2n
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selectedFacility
+      prompt: Which facility should this resident outlier review use?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_oLugIE
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.coachingOutput
+      prompt: "What coaching output do you want first: intervention ideas, documentation checkpoints, or escalation triggers?"
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_vOiqE9
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.outlierPattern
+      prompt: Which resident outlier pattern should we analyze first?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Repeated QM trigger
+              displayName: Repeated QM trigger
+
+            - id: Multi-QM trigger
+              displayName: Multi-QM trigger
+
+            - id: Functional decline
+              displayName: Functional decline
+
+            - id: Post-hospital return
+              displayName: Post-hospital return
+
+            - id: New admission risk
+              displayName: New admission risk
+
+            - id: Documentation checkpoints
+              displayName: Documentation checkpoints
+
+            - id: Escalation triggers
+              displayName: Escalation triggers
+
+        displayName: EmbeddedEntity-1l5CgD
+
+    - kind: ConditionGroup
+      id: conditionGroup_MuLWQT
+      conditions:
+        - id: conditionItem_BxXlSy
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Multi-QM trigger'
+
+        - id: conditionItem_2c2iAG
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Functional decline'
+
+        - id: conditionItem_aaPKuW
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Post-hospital return'
+
+        - id: conditionItem_6dNO3K
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'New admission risk'
+
+        - id: conditionItem_PMsuPA
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Documentation checkpoints'
+
+        - id: conditionItem_9TrmWg
+          condition: =Topic.outlierPattern = 'cr917_agentu92bPc.topic.ResidentOutlierAnalysis.main.question_vOiqE9'.'Escalation triggers'
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_sItQNY
+      input: {}
+      output:
+        binding:
+          resident_data_text: Topic.resident_data_text
+
+      flowId: 88ce03b7-6b25-f111-8341-000d3a33801d
+
+inputType: {}
+outputType: {}
+
+

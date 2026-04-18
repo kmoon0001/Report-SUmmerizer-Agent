@@ -1,0 +1,12 @@
+<botcomponent schemaname="copilots_header_024e0.file.MedicareTherapyLearningNetwork.pdf_Sfm">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Medicare Therapy Learning Network.pdf</description>
+  <filedata mimetype="application/pdf">Medicare%20Therapy%20Learning%20Network.pdf</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Medicare Therapy Learning Network.pdf</name>
+  <parentbotid>
+    <schemaname>copilots_header_024e0</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

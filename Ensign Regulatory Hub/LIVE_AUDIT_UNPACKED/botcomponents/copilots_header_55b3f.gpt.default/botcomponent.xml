@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_55b3f.gpt.default">
+  <componenttype>15</componenttype>
+  <description>Regulatory compliance validator enforcing CMS Medicare rules, FDA 2025 guidelines (medical devices, AI-enabled systems, sex-specific data requirements), HIPAA Privacy/Security Rules, and state regulations. Audits documentation quality, identifies regulatory violations, assigns risk scores, and flags denial patterns. Validates against current FY2025 ICD-10-CM coding standards and Medicare necessity thresholds.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Compliance_Auditor</name>
+  <parentbotid>
+    <schemaname>copilots_header_55b3f</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

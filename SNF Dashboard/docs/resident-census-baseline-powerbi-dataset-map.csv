@@ -1,0 +1,9 @@
+SemanticObject,ObjectType,SourceViewOrTable,FieldOrMeasure,Definition,Usage
+ResidentCensusBaseline,Report,mart.vw_CurrentResidentCensusDetail,,Current resident detail grain,Detail and drillthrough
+CurrentResidentCount,Measure,mart.vw_CurrentResidentCensusDetail,COUNTROWS,Count of current resident rows,KPI and matrix totals
+UnitsWithResidents,Measure,mart.vw_CurrentResidentCensusByUnit,DISTINCTCOUNT(UnitCode),Count of units with current residents,KPI
+RecentAdmissions7Days,Measure,mart.vw_CurrentResidentCensusDetail,Count where AdmissionDate >= SnapshotDate - 7,Recent admission volume,KPI
+CurrentQualityExceptions,Measure,mart.vw_CurrentResidentCensusQualityExceptions,COUNTROWS,Current census data quality issues,KPI
+ResidentCensusByUnit,VisualDataset,mart.vw_CurrentResidentCensusByUnit,,Aggregated unit census dataset,Matrix visual
+ResidentRecentAdmissions,VisualDataset,mart.vw_CurrentResidentRecentAdmissions,,Recent admissions dataset,Table visual
+ResidentCensusExceptions,VisualDataset,mart.vw_CurrentResidentCensusQualityExceptions,,Operational exception dataset,Exception table

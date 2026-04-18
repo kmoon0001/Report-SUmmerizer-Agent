@@ -1,0 +1,18 @@
+mcs.metadata:
+  componentName: TheraDoc - Generate Note
+kind: TaskDialog
+modelDisplayName: TheraDoc - Generate Note
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-GenerateNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+outputs:
+  - propertyName: generatednote
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 58fc66ed-762f-f111-88b4-000d3a37eba2
+  inputs:
+    binding:
+      text: Topic.noteRequestText
+  inputMode: Prompt
+
+outputMode: All
+

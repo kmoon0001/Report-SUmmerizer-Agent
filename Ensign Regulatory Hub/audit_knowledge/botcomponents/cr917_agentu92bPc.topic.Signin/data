@@ -1,0 +1,33 @@
+mcs.metadata:
+  componentName: Sign In
+  description: |
+    Topic workflow for Sign In within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnSignIn
+  id: main
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_ypjGKL
+      conditions:
+        - id: conditionItem_7XYIIR
+          condition: =System.SignInReason = SignInReason.SignInRequired
+          actions:
+            - kind: SendActivity
+              id: sendMessage_1jHUNO
+              activity: Please sign in so I can continue helping with your request.
+
+    - kind: OAuthInput
+      id: gOjhZA
+      title: Sign In Required
+      text: Please sign in to continue using this assistant.
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+mcs.metadata:
+  componentName: Thank You
+  description: Elite clinical intelligence module specialized in [Thankyou]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+    Topic workflow for Thank You within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Thank you
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - thanks
+      - thank you
+      - thanks so much
+      - ty
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_9iz6v7
+      activity: You're welcome.
+
+
+
+
+
+
+
+
+
+
+

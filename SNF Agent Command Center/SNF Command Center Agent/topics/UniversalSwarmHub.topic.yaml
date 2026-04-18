@@ -1,0 +1,44 @@
+kind: AdaptiveDialog
+description: Elite Clinical Swarm Orchestrator. Dispatches complex intents to specialized clinical workers (Prep, QM, TheraDoc).
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: UniversalSwarmHub
+  actions:
+    - kind: Question
+      id: qDispatcher
+      variable: Topic.RequestedSpecialist
+      prompt: "🛡️ **COMMAND CENTER ACTIVE**: How can I assist you in the Ensign AI Fleet? I can dispatch specialists for Documentation, Compliance, or Clinical Synthesis."
+    
+    - kind: ConditionGroup
+      id: dispatchLogic
+      conditions:
+        - id: callPrep
+          condition: =IsMatch(Topic.RequestedSpecialist, ".*prep.*|.*report.*|.*summary.*")
+          actions:
+            - kind: SendActivity
+              activity: "🔗 **DYNAMIC HANDOFF**: Connecting to **Pac Coast Prep Assistant** (Synthesis Specialist) for deep clinical review..."
+        
+        - id: callQM
+          condition: =IsMatch(Topic.RequestedSpecialist, ".*qm.*|.*quality.*|.*measure.*")
+          actions:
+            - kind: SendActivity
+              activity: "🔗 **DYNAMIC HANDOFF**: Connecting to **QM Coach** (Regulatory Specialist) for root-cause analysis..."
+
+        - id: callTheraDoc
+          condition: =IsMatch(Topic.RequestedSpecialist, ".*note.*|.*documentation.*|.*audit.*")
+          actions:
+            - kind: SendActivity
+              activity: "🔗 **DYNAMIC HANDOFF**: Connecting to **TheraDoc** (Documentation Specialist) for note refinement..."
+        - id: routeToHistory
+          condition: =IsMatch(Topic.RequestedSpecialist, '.*history.*|.*timeline.*|.*record.*')
+          actions:
+            - kind: SendActivity
+              activity: '?? **DYNAMIC HANDOFF**: Connecting to **Case Historian** (Longitudinal Specialist) for timeline synthesis...'
+        - id: routeToDenialDefense
+          condition: =IsMatch(Topic.RequestedSpecialist, '.*denial.*|.*audit.*|.*defense.*|.*compliance.*')
+          actions:
+            - kind: SendActivity
+              activity: '?? **DYNAMIC HANDOFF**: Connecting to **Denial Defense Agent** (Revenue Specialist) for medical necessity audit...'
+

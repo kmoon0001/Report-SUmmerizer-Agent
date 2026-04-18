@@ -1,0 +1,71 @@
+mcs.metadata:
+  componentName: Goals and Progress Quality
+  description: |
+    Enhanced topic for Goal and Progress audit.
+    Automates analysis using the Coaching Agent to check SMART goal alignment.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - track my goals
+      - goal progress update
+      - how am I doing with my goals
+      - review my progress
+      - quality of my achievements
+      - evaluate goal success
+      - progress quality check
+      - assess my goal performance
+      - show me my goal stats
+      - how well am I meeting my goals
+
+  actions:
+    - kind: SendActivity
+      id: WelcomeMsg
+      activity: I can help you evaluate the quality of your therapy goals and progress documentation.
+
+    - kind: Question
+      id: GetNote
+      variable: init:Topic.AuditNoteContent
+      prompt: "Please paste your evaluation, progress, or discharge note below:"
+      entity: StringPrebuiltEntity
+
+    - kind: SendActivity
+      id: AssessingMsg
+      activity: "📝 **Assessing documentation...** checking for SMART goal structure, quantifiable baselines, and functional outcomes."
+
+    - kind: BeginDialog
+      id: CallCoach
+      dialog: cr917_agentu92bPc.topic.COACHINGCORNER
+
+    - kind: SendActivity
+      id: ClosingMsg
+      activity: |
+        - **Next Steps:** Review the coaching feedback above and check if any baselines need more specific objective data.
+        - Would you like to run another check?
+    
+    - kind: Question
+      id: RunAnother
+      variable: init:Topic.RunAnother
+      prompt: "Perform another goal quality check?"
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: RestartLogic
+      conditions:
+        - id: Restart
+          condition: =true
+          actions:
+            - kind: BeginDialog
+              id: LoopBack
+              dialog: cr917_agentu92bPc.topic.Goalsandprogressquality
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+
+
+
+
+
+

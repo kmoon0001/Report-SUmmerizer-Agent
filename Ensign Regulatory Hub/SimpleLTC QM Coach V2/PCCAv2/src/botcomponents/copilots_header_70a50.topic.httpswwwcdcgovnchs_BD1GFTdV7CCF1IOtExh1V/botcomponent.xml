@@ -1,0 +1,11 @@
+<botcomponent schemaname="copilots_header_70a50.topic.httpswwwcdcgovnchs_BD1GFTdV7CCF1IOtExh1V">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.cdc.gov/nchs/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>https://www.cdc.gov/nchs/</name>
+  <parentbotid>
+    <schemaname>copilots_header_70a50</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

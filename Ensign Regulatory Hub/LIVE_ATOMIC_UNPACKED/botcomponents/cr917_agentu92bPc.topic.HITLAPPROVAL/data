@@ -1,0 +1,164 @@
+mcs.metadata:
+  componentName: HITL APPROVAL
+  description: Handles Human-in-the-Loop approval workflows for QM outputs. Presents AI-generated summaries or recommendations for human review and sign-off before any export or action, ensuring clinician oversight of all quality measure decisions.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - request human approval
+      - need HITL approval
+      - send for manual review
+      - human in the loop required
+      - ask for supervisor sign-off
+      - submit for HITL authorization
+      - get manager approval
+      - trigger human intervention
+      - escalate to HITL
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_06SWdx
+      activity: Your summary is now ready for your review. Please Approve or Reject below.
+
+    - kind: SendActivity
+      id: SendActivity_riifYV
+      activity: Before sending or finalizing anything, I need human approval. Let's capture that now.
+
+    - kind: Question
+      id: Question_DrVtCN
+      variable: Topic.ApproverName
+      prompt: What is your name?
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: Question_YTXGWv
+      variable: Topic.ApprovalDecision
+      prompt: Do you approve or reject this summary? Please select Approve or Reject.
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: ApprovalDecisionOptions
+          items:
+            - id: Approve
+              displayName: Approve
+
+            - id: Reject
+              displayName: Reject
+
+    - kind: SetVariable
+      id: setVariable_q5WQ3y
+      variable: Topic.ApproverTimestamp
+      value: =Text(Now(), "yyyy-MM-ddTHH:mm:ssZ")
+
+    - kind: ConditionGroup
+      id: ConditionGroup_qaHhS7
+      conditions:
+        - id: ConditionItem_xYh4Fz
+          condition: =Topic.ApprovalDecision = ApprovalDecisionOptions.Reject
+          actions:
+            - kind: Question
+              id: Question_qkPxOO
+              variable: Global.ApprovalComments
+              prompt: Please provide any comments about why this is not approved.
+              entity:
+                kind: StringPrebuiltEntity
+                sensitivityLevel: None
+
+            - kind: SetVariable
+              id: setVariable_eAHJzQ
+              variable: Global.HITL_Approval
+              value: =false
+
+            - kind: SetVariable
+              id: setVariable_hitlString_reject
+              variable: Topic.hitl_approval
+              value: Rejected
+
+            - kind: SendActivity
+              id: SendActivity_lD2JlG
+              activity: "Approval rejected. Reason recorded. No automated actions will be taken. Approver: =Topic.ApproverName"
+
+            - kind: ConditionGroup
+              id: conditionGroup_escalateOnReject
+              conditions:
+                - id: conditionItem_escalate
+                  condition: =!IsBlank(Global.ApprovalComments)
+                  actions:
+                    - kind: TransferConversationV2
+                      id: transferConversationV2_soc0zw
+                      transferType:
+                        kind: TransferToAgent
+                        messageToAgent: "=Concatenate(\"Rejection received for SimpleLTC QM review. Approver: \", Topic.ApproverName, \". Comments: \", Global.ApprovalComments)"
+                        context:
+                          kind: AutomaticTransferContext
+
+              elseActions:
+                - kind: SendActivity
+                  id: sendActivity_rejectNoEscalate
+                  activity: Rejection recorded. Please review and resubmit when ready.
+
+        - id: ConditionItem_c3GOLC
+          condition: =Topic.ApprovalDecision = ApprovalDecisionOptions.Approve
+          actions:
+            - kind: SetVariable
+              id: setVariable_CPjrE2
+              variable: Global.HITL_Approval
+              value: =true
+
+            - kind: SetVariable
+              id: setVariable_hitlString_approve
+              variable: Topic.hitl_approval
+              value: Approved
+
+            - kind: SetMultipleVariables
+              id: setVariable_plwn3G
+              assignments:
+                - variable: Global.QMDomainString
+                  value: =Text(Global.QMDomain)
+
+                - variable: Topic.GlobalQMActionPlanString
+                  value: =Text(Global.QMActionPlan)
+
+            - kind: LogTelemetry
+              id: logTelemetry_clinicalApproval
+              eventName: QMClinicalSignOff
+              properties:
+                Facility: =Global.SelectedFacility
+                Approver: =Topic.ApproverName
+                Decision: Approved
+                Timestamp: =Topic.ApproverTimestamp
+
+            - kind: SendActivity
+              id: SendActivity_EFERb7
+              activity: "Approval recorded in clinical audit log. Thank you, =Topic.ApproverName. You may now proceed."
+
+            - kind: EndDialog
+              id: wwgqUG
+
+inputType: {}
+outputType:
+  properties:
+    ApprovalDecision:
+      displayName: ApprovalDecision
+      type:
+        kind: EmbeddedOptionSet
+        dialogSchemaName: cr917_agentu92bPc.topic.HITLAPPROVAL
+        triggerId: main
+        actionId: Question_YTXGWv
+
+    ApproverName:
+      displayName: ApproverName
+      type: String
+
+    ApproverTimestamp:
+      displayName: ApproverTimestamp
+      type: String
+
+    hitl_approval:
+      displayName: hitl_approval
+      type: String

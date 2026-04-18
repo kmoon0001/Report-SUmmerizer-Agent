@@ -1,0 +1,4 @@
+kind: KnowledgeSourceConfiguration
+source:
+  kind: PublicSiteSearchSource
+  site: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln

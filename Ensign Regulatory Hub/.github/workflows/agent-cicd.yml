@@ -1,0 +1,316 @@
+name: Agent CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'SimpleLTC QM Coach V2/**'
+      - 'scripts/**'
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Daily sync from Microsoft Learn at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'Dev'
+        type: choice
+        options:
+          - Dev
+          - Test
+          - Prod
+      skip_tests:
+        description: 'Skip automated tests'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  AGENT_PATH: 'SimpleLTC QM Coach V2'
+  NODE_VERSION: '20.x'
+  DOTNET_VERSION: '8.x'
+
+jobs:
+  validate:
+    name: Validate Agent
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Install Power Platform CLI
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          pac install latest
+      
+      - name: Validate YAML structure
+        run: |
+          Get-ChildItem "${{ env.AGENT_PATH }}" -Recurse -Filter "*.mcs.yml" | ForEach-Object {
+            Write-Host "Validating: $($_.Name)"
+            $content = Get-Content $_.FullName -Raw
+            if ($content -notmatch "^mcs\.metadata:") {
+              Write-Error "Invalid YAML: $($_.Name)"
+              exit 1
+            }
+          }
+        shell: pwsh
+      
+      - name: Check required files
+        run: |
+          $required = @(
+            "${{ env.AGENT_PATH }}/agent.mcs.yml",
+            "${{ env.AGENT_PATH }}/topics/ConversationStart.mcs.yml",
+            "${{ env.AGENT_PATH }}/topics/Fallback.mcs.yml",
+            "${{ env.AGENT_PATH }}/topics/OnError.mcs.yml"
+          )
+          
+          foreach ($file in $required) {
+            if (-not (Test-Path $file)) {
+              Write-Error "Missing required file: $file"
+              exit 1
+            }
+          }
+        shell: pwsh
+  
+  sync-docs:
+    name: Sync Microsoft Learn Docs
+    runs-on: windows-latest
+    needs: validate
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup PowerShell modules
+        run: |
+          Install-Module -Name powershell-yaml -Force -Scope CurrentUser
+        shell: pwsh
+      
+      - name: Sync documentation
+        run: |
+          .\scripts\Sync-MicrosoftLearnDocs.ps1 -All -DryRun
+        shell: pwsh
+      
+      - name: Upload sync report
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-sync-report
+          path: .cache/microsoft-learn/*.json
+          retention-days: 7
+  
+  security-scan:
+    name: Security Hardening
+    runs-on: windows-latest
+    needs: validate
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run security hardening
+        run: |
+          .\scripts\Harden-Agent.ps1 -DryRun
+        shell: pwsh
+      
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: security-report-*.md
+          retention-days: 30
+  
+  test:
+    name: Automated Tests
+    runs-on: windows-latest
+    needs: [validate, sync-docs, security-scan]
+    if: ${{ !inputs.skip_tests }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup test environment
+        run: |
+          # Install test dependencies
+          npm install -g @playwright/test
+        shell: pwsh
+      
+      - name: Run compliance tests
+        run: |
+          $agentFile = Join-Path "${{ env.AGENT_PATH }}" "agent.mcs.yml"
+          $content = Get-Content $agentFile -Raw
+          
+          $checks = @(
+            @{ Pattern = "HITL|Human-in-the-Loop"; Name = "HITL Requirement" },
+            @{ Pattern = "HIPAA"; Name = "HIPAA Compliance" },
+            @{ Pattern = "licensed clinician"; Name = "Clinician Review" },
+            @{ Pattern = "PHIDetected"; Name = "PHI Detection" }
+          )
+          
+          $failed = 0
+          foreach ($check in $checks) {
+            if ($content -match $check.Pattern) {
+              Write-Host "✓ $($check.Name)" -ForegroundColor Green
+            } else {
+              Write-Host "✗ $($check.Name)" -ForegroundColor Red
+              $failed++
+            }
+          }
+          
+          if ($failed -gt 0) {
+            Write-Error "$failed compliance checks failed"
+            exit 1
+          }
+        shell: pwsh
+      
+      - name: Test topic structure
+        run: |
+          $topics = Get-ChildItem "${{ env.AGENT_PATH }}/topics" -Filter "*.mcs.yml"
+          Write-Host "Found $($topics.Count) topics"
+          
+          if ($topics.Count -lt 5) {
+            Write-Error "Too few topics found"
+            exit 1
+          }
+        shell: pwsh
+  
+  deploy-dev:
+    name: Deploy to Dev
+    runs-on: windows-latest
+    needs: test
+    if: github.ref == 'refs/heads/develop' || inputs.environment == 'Dev'
+    environment: Development
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Power Platform CLI
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          pac install latest
+        shell: pwsh
+      
+      - name: Authenticate to Power Platform
+        run: |
+          # Use service principal authentication
+          pac auth create `
+            --environment ${{ secrets.DEV_ENVIRONMENT_URL }} `
+            --applicationId ${{ secrets.APP_CLIENT_ID }} `
+            --clientSecret ${{ secrets.APP_CLIENT_SECRET }} `
+            --tenant ${{ secrets.TENANT_ID }}
+        shell: pwsh
+      
+      - name: Publish agent
+        run: |
+          .\scripts\Make-And-Publish.ps1 -Execute -ProfileIndex 0
+        shell: pwsh
+      
+      - name: Verify deployment
+        run: |
+          $conn = Get-Content "${{ env.AGENT_PATH }}/.mcs/conn.json" | ConvertFrom-Json
+          pac copilot list --environment $conn.EnvironmentId
+        shell: pwsh
+  
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: windows-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || inputs.environment == 'Prod'
+    environment: Production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Create backup
+        run: |
+          $backupPath = "backups/prod-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+          New-Item -ItemType Directory -Force -Path $backupPath
+          Copy-Item -Path "${{ env.AGENT_PATH }}" -Destination $backupPath -Recurse
+          Write-Host "Backup created: $backupPath"
+        shell: pwsh
+      
+      - name: Setup Power Platform CLI
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+          pac install latest
+        shell: pwsh
+      
+      - name: Authenticate to Power Platform
+        run: |
+          pac auth create `
+            --environment ${{ secrets.PROD_ENVIRONMENT_URL }} `
+            --applicationId ${{ secrets.APP_CLIENT_ID }} `
+            --clientSecret ${{ secrets.APP_CLIENT_SECRET }} `
+            --tenant ${{ secrets.TENANT_ID }}
+        shell: pwsh
+      
+      - name: Publish agent
+        run: |
+          .\scripts\Make-And-Publish.ps1 -Execute -ProfileIndex 0
+        shell: pwsh
+      
+      - name: Verify deployment
+        run: |
+          $conn = Get-Content "${{ env.AGENT_PATH }}/.mcs/conn.json" | ConvertFrom-Json
+          pac copilot list --environment $conn.EnvironmentId
+        shell: pwsh
+      
+      - name: Create release tag
+        if: success()
+        run: |
+          $version = "v$(Get-Date -Format 'yyyy.MM.dd.HHmm')"
+          git tag $version
+          git push origin $version
+        shell: pwsh
+  
+  notify:
+    name: Send Notifications
+    runs-on: windows-latest
+    needs: [deploy-dev, deploy-prod]
+    if: always()
+    
+    steps:
+      - name: Send Teams notification
+        run: |
+          $status = "${{ job.status }}"
+          $color = if ($status -eq "success") { "good" } else { "danger" }
+          
+          $webhook = "${{ secrets.TEAMS_WEBHOOK_URL }}"
+          $body = @{
+            "@type" = "MessageCard"
+            "@context" = "https://schema.org/extensions"
+            "summary" = "Agent Deployment $status"
+            "themeColor" = $color
+            "title" = "SimpleLTC QM Coach V2 Deployment"
+            "sections" = @(
+              @{
+                "activityTitle" = "Deployment Status: $status"
+                "facts" = @(
+                  @{ "name" = "Environment"; "value" = "${{ inputs.environment }}" },
+                  @{ "name" = "Branch"; "value" = "${{ github.ref_name }}" },
+                  @{ "name" = "Commit"; "value" = "${{ github.sha }}" }
+                )
+              }
+            )
+          }
+          
+          if ($webhook) {
+            Invoke-RestMethod -Uri $webhook -Method Post -Body ($body | ConvertTo-Json -Depth 10) -ContentType "application/json"
+          }
+        shell: pwsh

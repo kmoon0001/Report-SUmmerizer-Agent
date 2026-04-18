@@ -1,0 +1,16 @@
+SourceSystem,SourceObject,SourceColumnFamily,TargetTable,TargetColumnFamily,TransformRule,Nullable,JoinPriority,Notes
+NetHealth,therapyCensus,Patient_ID_or_Resident_ID,mart.DimResident,ResidentSourceId,Match only on direct governed identifier when available,No,1,Preferred PCC enrichment key
+NetHealth,therapyCensus,Case_ID,mart.DimTherapyCase,TherapyCaseSourceId,Trim source text and preserve exact source value,No,1,Primary therapy case key
+NetHealth,therapyCensus,Discipline,mart.DimDiscipline,DisciplineCode,Normalize PT OT ST Nursing values,No,1,Conformed discipline dimension
+NetHealth,therapyCensus,Case_Status,mart.FactTherapyCaseSnapshot,TherapyCaseStatus,Normalize active hold discharged and other source values,No,1,Therapy case status
+NetHealth,therapyCensus,Case_Start_Date,mart.FactTherapyCaseSnapshot,CaseStartDateKey,Parse local date,Yes,1,Episode detail
+NetHealth,therapyCensus,Case_End_Date,mart.FactTherapyCaseSnapshot,CaseEndDateKey,Parse local date,Yes,1,Episode close date if present
+NetHealth,therapyCensus,Assigned_Clinician,mart.DimClinician,ClinicianName_or_Id,Retain exact source identifier where present,Yes,2,Only if source provides it
+NetHealth,documentationDueDates,Patient_ID_or_Resident_ID,mart.DimResident,ResidentSourceId,Match only on direct governed identifier when available,No,1,Preferred PCC enrichment key
+NetHealth,documentationDueDates,Case_ID,mart.DimTherapyCase,TherapyCaseSourceId,Retain exact source case key,Yes,1,Case bridge when available
+NetHealth,documentationDueDates,Clinician_ID,mart.DimClinician,ClinicianSourceId,Retain exact source clinician ID,No,1,Primary clinician key
+NetHealth,documentationDueDates,Clinician_Role_or_Discipline,mart.DimClinician,DisciplineCode,Normalize PT OT ST Nursing values,Yes,2,Supports role and queue reporting
+NetHealth,documentationDueDates,Document_Type,mart.DimDocumentType,DocumentTypeName,Trim and standardize document type names,No,1,Conformed document type
+NetHealth,documentationDueDates,Due_Date,mart.FactDocumentationTask,DueDateKey,Parse local date,No,1,Main operational due field
+NetHealth,documentationDueDates,Completion_Date,mart.FactDocumentationTask,CompletedDateKey,Parse local date,Yes,1,Null if incomplete
+NetHealth,documentationDueDates,Document_Status,mart.FactDocumentationTask,DocumentationStatus,Normalize due completed overdue and other source statuses,No,1,Main compliance status

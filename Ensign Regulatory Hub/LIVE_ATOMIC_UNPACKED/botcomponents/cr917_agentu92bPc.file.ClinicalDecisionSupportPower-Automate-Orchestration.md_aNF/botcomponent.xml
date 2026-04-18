@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.ClinicalDecisionSupportPower-Automate-Orchestration.md_aNF">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Clinical Decision Support Power-Automate-Orchestration.md</description>
+  <filedata mimetype="application/octet-stream">Clinical%20Decision%20Support%20Power-Automate-Orchestration.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Clinical Decision Support Power-Automate-Orchestration.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

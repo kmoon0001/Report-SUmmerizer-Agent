@@ -1,0 +1,43 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "📊 Pacific Coast Clinical Hub",
+      "weight": "Bolder",
+      "size": "Large"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Select a hardened clinical action below:",
+      "isSubtle": true
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "title": "📄 Audit Documentation",
+          "data": { "action": "audit" }
+        },
+        {
+          "type": "Action.Submit",
+          "title": "🔍 Conflict Check (Inter-Disciplinary)",
+          "data": { "action": "conflict" }
+        },
+        {
+          "type": "Action.Submit",
+          "title": "🏠 Predict Discharge Disposition",
+          "data": { "action": "outcome" }
+        },
+        {
+          "type": "Action.Submit",
+          "title": "📏 Section GG / MDS 3.0 Sync",
+          "data": { "action": "section_gg" }
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}

@@ -1,0 +1,75 @@
+mcs.metadata:
+  componentName: ProgressAnalysis
+  description: Elite clinical intelligence module specialized in [ProgressAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Progress Analysis
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze progress note
+      - review daily therapy note
+      - check treatment progress documentation
+      - validate progress report
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_progress_guidance
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      moderationLevel: Medium
+      additionalInstructions: |-
+        Provide a structured progress-note review for SNF rehab.
+        Include:
+        1) measurable change from prior status
+        2) continued skilled need / medical necessity
+        3) compliance risks and overdue items
+        4) focused follow-up questions if needed
+        If confidence is low due to missing data, state "Requires therapist review".
+      publicDataSource:
+        sites:
+          - "www.cms.gov"
+          - "www.ecfr.gov"
+
+      sharePointSearchDataSource: {}
+
+    - kind: ConditionGroup
+      id: conditionGroup_progressAnswer
+      conditions:
+        - id: conditionItem_hasAnswer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: ConditionGroup
+              id: conditionGroup_progressLowConfidence
+              conditions:
+                - id: conditionItem_progressRequiresReview
+                  condition: ="requires therapist review" in Lower(Topic.Answer)
+                  actions:
+                    - kind: SendActivity
+                      id: sendMessage_progressRequiresReview
+                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+
+                    - kind: BeginDialog
+                      id: beginDialog_progressEscalateLowConfidence
+                      dialog: pcca_agent39xn69.topic.Escalate
+
+              elseActions:
+                - kind: SendActivity
+                  id: sendMessage_progressAnswer
+                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+
+                - kind: BeginDialog
+                  id: beginDialog_progressSuggestedActions
+                  dialog: pcca_agent39xn69.topic.SuggestedActions
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_progressNeedsInput
+          activity: I need objective progress data (baseline vs current, treatment response, and goal linkage) to complete this review.
+
+        - kind: BeginDialog
+          id: beginDialog_progressEscalate
+          dialog: pcca_agent39xn69.topic.Escalate
+

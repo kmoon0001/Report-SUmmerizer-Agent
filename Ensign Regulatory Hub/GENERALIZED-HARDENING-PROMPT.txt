@@ -1,0 +1,134 @@
+═══════════════════════════════════════════════════════════════
+ COPY THIS PROMPT TO HARDEN ANY MCP CONFIGURATION
+═══════════════════════════════════════════════════════════════
+
+I need you to harden my MCP server configuration for maximum security, automation, and compliance. Please analyze my current .kiro/settings/mcp.json and enhance it with:
+
+1. AUTO-APPROVE LISTS for safe operations:
+   - Filesystem: read_file, read_multiple_files, list_directory, get_file_info (read-only operations)
+   - Git: git_status, git_diff, git_log (read-only git operations)
+   - Memory: create_entities, add_observations, search_nodes (safe memory operations)
+   - Playwright: browser_navigate, browser_snapshot, browser_click, browser_take_screenshot (safe browser operations)
+   - GitHub: search_repositories, get_file_contents, list_commits (read-only GitHub operations)
+
+2. SECURITY HARDENING section with:
+   
+   a) Input Validation:
+      - Max input length: 2000 characters
+      - Blocked patterns for SQL injection: (?i)(drop|delete|truncate)\s+(table|database)
+      - Blocked patterns for XSS: <script[^>]*>.*?</script>, javascript:, onerror=, onclick=
+      - HTML sanitization: enabled
+      - Special character escaping: enabled
+   
+   b) PHI/PII Protection:
+      - Detection patterns: SSN (\b\d{3}-\d{2}-\d{4}\b), MRN (\b[A-Z]{2}\d{6}\b), generic 9-digit (\b\d{9}\b)
+      - Redact in logs: true
+      - Require secure workflow: true
+   
+   c) Rate Limiting:
+      - Max requests per hour: 100
+      - Max concurrent sessions: 10
+      - Throttle bulk exports: true
+   
+   d) Audit Logging:
+      - Log PHI access: true
+      - Log action plans: true
+      - Log flow invocations: true
+      - Retention days: 2555 (7 years for HIPAA)
+      - Export to SIEM: false (configurable)
+
+3. QUALITY GATES for automated publishing:
+   - YAML validation (blocking)
+   - HITL (Human-in-the-Loop) requirement check (blocking)
+   - HIPAA compliance check (blocking)
+   - Error handling topics verification (blocking)
+   - Documentation freshness check (warning only)
+   - Minimum passing score: 80%
+
+4. AUTOMATION SCHEDULES:
+   - Daily documentation sync: cron "0 2 * * *" (2 AM daily)
+   - Weekly security scan: cron "0 3 * * 0" (3 AM Sunday)
+   - Monthly full audit: cron "0 4 1 * *" (4 AM 1st of month)
+   - Pre-publish hooks: documentation sync, security validation
+   - Post-publish hooks: verification, notification
+
+5. NOTIFICATION CONFIGURATION:
+   - Teams webhook: ${TEAMS_WEBHOOK_URL} (environment variable)
+   - Email SMTP: ${SMTP_SERVER} (environment variable)
+   - Event triggers:
+     * publish_success: true
+     * publish_failure: true
+     * security_scan_failure: true
+     * compliance_violation: true
+     * docs_sync_failure: false
+
+6. UPDATE WORKSPACE PATHS to: [REPLACE_WITH_YOUR_WORKSPACE_PATH]
+
+7. ADD DOCUMENTATION URLS for auto-sync (if applicable):
+   - Microsoft Learn base: https://learn.microsoft.com
+   - Best practices URL
+   - Security guidelines URL
+   - Compliance documentation URL
+   - Cache settings: 24-hour TTL, force refresh on publish
+
+Please create an enhanced mcp.json that:
+- Preserves all my existing MCP server configurations
+- Adds these hardening features in new sections
+- Uses environment variables for sensitive data (${VAR_NAME})
+- Includes detailed descriptions for each section
+- Follows JSON schema best practices
+- Is ready to use immediately
+
+Output the complete enhanced mcp.json file.
+
+═══════════════════════════════════════════════════════════════
+ CUSTOMIZATION OPTIONS
+═══════════════════════════════════════════════════════════════
+
+FOR HEALTHCARE/HIPAA PROJECTS, ADD:
+"My project handles Protected Health Information (PHI). Please emphasize:
+- 7-year audit log retention (HIPAA requirement)
+- Strict PHI detection and redaction
+- HITL approval gates for all PHI access
+- Secure workflow requirements
+- Compliance violation notifications"
+
+FOR FINANCIAL/PCI PROJECTS, ADD:
+"My project handles payment card data. Please emphasize:
+- Credit card number detection patterns
+- PCI-DSS compliance checks
+- Strict rate limiting (50 requests/hour)
+- Transaction logging
+- 1-year audit retention"
+
+FOR GENERAL ENTERPRISE PROJECTS, ADD:
+"My project is general enterprise software. Please emphasize:
+- Standard security patterns
+- 90-day audit retention
+- Moderate rate limiting (100 requests/hour)
+- Email notifications"
+
+FOR OPEN SOURCE PROJECTS, ADD:
+"My project is open source. Please emphasize:
+- Basic security patterns
+- GitHub Actions integration
+- Public documentation sync
+- Community-friendly rate limits"
+
+═══════════════════════════════════════════════════════════════
+ QUICK START EXAMPLES
+═══════════════════════════════════════════════════════════════
+
+EXAMPLE 1: Healthcare Agent
+"I need you to harden my MCP configuration for a healthcare AI agent that processes patient data. My workspace path is: D:\healthcare-agent. Please include HIPAA-compliant PHI protection, 7-year audit retention, and HITL approval gates."
+
+EXAMPLE 2: Financial Bot
+"I need you to harden my MCP configuration for a financial chatbot. My workspace path is: D:\finance-bot. Please include PCI-DSS patterns, credit card detection, and strict rate limiting."
+
+EXAMPLE 3: General Copilot Studio Agent
+"I need you to harden my MCP configuration for a Copilot Studio agent. My workspace path is: D:\my-agent. Please include standard security hardening, quality gates, and auto-update mechanisms."
+
+EXAMPLE 4: Multi-Agent Workspace
+"I need you to harden my MCP configuration for multiple agents in one workspace. My workspace path is: D:\agents. Please make it reusable across different agent folders."
+
+═══════════════════════════════════════════════════════════════

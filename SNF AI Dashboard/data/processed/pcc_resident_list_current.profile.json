@@ -1,0 +1,124 @@
+{
+    "FilePath":  "D:\\SNF AI Dashboard\\data\\incoming\\pcc_resident_list_current.csv",
+    "RowCount":  8731,
+    "ColumnCount":  10,
+    "Columns":  [
+                    {
+                        "Name":  "Resident Last Name",
+                        "NonBlankSampleCount":  25,
+                        "UniquePreview":  [
+                                              "AARONS",
+                                              "ABARCA",
+                                              "ABAYA",
+                                              "ABAYON",
+                                              "ABAZLY",
+                                              "ABBEY",
+                                              "ABBINANTI",
+                                              "ABBOTT",
+                                              "ABDEL MALEK",
+                                              "ABDIANNIA"
+                                          ]
+                    },
+                    {
+                        "Name":  "Resident First Name",
+                        "NonBlankSampleCount":  25,
+                        "UniquePreview":  [
+                                              "VILMA",
+                                              "ARMIDA",
+                                              "MARY",
+                                              "DANILO",
+                                              "ELHAM",
+                                              "KAREN",
+                                              "CATHERINE",
+                                              "BETTY",
+                                              "SAFINAZ",
+                                              "NOZHEH"
+                                          ]
+                    },
+                    {
+                        "Name":  "Resident Id",
+                        "NonBlankSampleCount":  25,
+                        "UniquePreview":  [
+                                              "\t18494",
+                                              "\t23401",
+                                              "\t20898",
+                                              "\t20176",
+                                              "\t20379",
+                                              "\t21344",
+                                              "\t13349-00",
+                                              "\t18402",
+                                              "\t16147",
+                                              "\t17266"
+                                          ]
+                    },
+                    {
+                        "Name":  "Age",
+                        "NonBlankSampleCount":  25,
+                        "UniquePreview":  [
+                                              "8",
+                                              "74",
+                                              "72",
+                                              "71",
+                                              "73",
+                                              "78",
+                                              "86",
+                                              "70",
+                                              "89",
+                                              "84"
+                                          ]
+                    },
+                    {
+                        "Name":  "Location Floor",
+                        "NonBlankSampleCount":  2,
+                        "UniquePreview":  [
+                                              "\t1"
+                                          ]
+                    },
+                    {
+                        "Name":  "Location Unit",
+                        "NonBlankSampleCount":  2,
+                        "UniquePreview":  [
+                                              "\tA"
+                                          ]
+                    },
+                    {
+                        "Name":  "Location Room",
+                        "NonBlankSampleCount":  2,
+                        "UniquePreview":  [
+                                              "\t001",
+                                              "\t007"
+                                          ]
+                    },
+                    {
+                        "Name":  "Location Bed",
+                        "NonBlankSampleCount":  2,
+                        "UniquePreview":  [
+                                              "C"
+                                          ]
+                    },
+                    {
+                        "Name":  "Admission Date",
+                        "NonBlankSampleCount":  21,
+                        "UniquePreview":  [
+                                              "3/31/2026",
+                                              "3/1/2021",
+                                              "6/6/2021",
+                                              "8/22/2016",
+                                              "1/17/2018",
+                                              "2/10/2014",
+                                              "1/25/2016",
+                                              "9/17/2015",
+                                              "9/18/2017",
+                                              "12/3/2020"
+                                          ]
+                    },
+                    {
+                        "Name":  "Status",
+                        "NonBlankSampleCount":  21,
+                        "UniquePreview":  [
+                                              "Active",
+                                              "Discharge"
+                                          ]
+                    }
+                ]
+}

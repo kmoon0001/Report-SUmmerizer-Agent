@@ -1,0 +1,10 @@
+mcs.metadata:
+  componentName: SNF - Therapy AI Resident Insight Intake
+kind: TaskDialog
+modelDisplayName: Collect and Process Therapy Resident Insights
+modelDescription: Collects and processes therapy resident data from source systems to generate AI-powered compliance insights for skilled nursing facilities. Analyzes resident assessments and produces actionable intelligence for care teams.
+action:
+  kind: InvokeFlowTaskAction
+  flowId: f96d43dd-fd24-f111-8341-6045bd061151
+
+outputMode: All

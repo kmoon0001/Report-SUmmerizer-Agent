@@ -1,0 +1,71 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Recert Analysis
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze recert note
+      - review recertification documentation
+      - check recert medical necessity
+      - prepare recert compliance review
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_recert_guidance
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      moderationLevel: Medium
+      additionalInstructions: |-
+        Provide a structured recertification review for SNF rehab.
+        Include:
+        1) recert medical necessity justification
+        2) skilled treatment continuation rationale
+        3) payer/compliance denial risk flags
+        4) clarifications required before submission
+        If required fields are missing, state "Requires therapist review".
+      publicDataSource:
+        sites:
+          - "www.cms.gov"
+          - "www.ecfr.gov"
+
+      sharePointSearchDataSource: {}
+
+    - kind: ConditionGroup
+      id: conditionGroup_recertAnswer
+      conditions:
+        - id: conditionItem_hasAnswer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: ConditionGroup
+              id: conditionGroup_recertLowConfidence
+              conditions:
+                - id: conditionItem_recertRequiresReview
+                  condition: ="requires therapist review" in Lower(Topic.Answer)
+                  actions:
+                    - kind: SendActivity
+                      id: sendMessage_recertRequiresReview
+                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+
+                    - kind: BeginDialog
+                      id: beginDialog_recertEscalateLowConfidence
+                      dialog: pcca_agent39xn69.topic.Escalate
+
+              elseActions:
+                - kind: SendActivity
+                  id: sendMessage_recertAnswer
+                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+
+                - kind: BeginDialog
+                  id: beginDialog_recertSuggestedActions
+                  dialog: pcca_agent39xn69.topic.SuggestedActions
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_recertNeedsInput
+          activity: I need recert-specific inputs (cert period timing, objective progress, barriers, and plan updates) to complete this review.
+
+        - kind: BeginDialog
+          id: beginDialog_recertEscalate
+          dialog: pcca_agent39xn69.topic.Escalate

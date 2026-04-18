@@ -1,0 +1,13 @@
+kind: TaskDialog
+inputs:
+  - kind: ManualTaskInput
+    propertyName: DenialRisk
+    value: "{{conversation.lastUserMessage.text}}"
+
+modelDisplayName: PT INSURANCE DENIAL RISK PROMPT
+modelDescription: PT INSURANCE DENIAL RISK PROMPT
+action:
+  kind: InvokeAIBuilderModelTaskAction
+  aIModelId: 9f201fb9-667e-48f5-9e1f-b5ec46b06eae
+
+outputMode: All

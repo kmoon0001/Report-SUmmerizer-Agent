@@ -1,0 +1,39 @@
+mcs.metadata:
+  componentName: SNF Command Center - Send Clinical Alert
+kind: TaskDialog
+modelDisplayName: SNF Command Center - Send Clinical Alert
+modeldescription: Elite clinical intelligence module specialized in [SendClinicalAlert]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+inputs:
+  - propertyName: severity
+    required: false
+  - propertyName: messagetext
+    required: false
+  - propertyName: patientid
+    required: false
+  - propertyName: unit
+    required: false
+  - propertyName: requestedbyrole
+    required: false
+outputs:
+  - propertyName: status
+  - propertyName: summary
+  - propertyName: confidence
+  - propertyName: requireshumanreview
+  - propertyName: datasource
+  - propertyName: warnings
+  - propertyName: citations
+  - propertyName: groundedness_status
+  - propertyName: verification_status
+  - propertyName: uncertainty_reason
+  - propertyName: alertid
+  - propertyName: sentat
+  - propertyName: responsibleparty
+  - propertyName: escalationpath
+  - propertyName: nextstep
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 18c14215-a5d0-4570-be82-3047d5fd0b22
+
+outputMode: All
+

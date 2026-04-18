@@ -1,0 +1,30 @@
+﻿jsonFileName: workflows/TheraDoc-ParseBrainDump-e0feb36e-8d2f-f111-88b4-000d3a37eba2/workflow.json
+workflowId: e0feb36e-8d2f-f111-88b4-000d3a37eba2
+name: TheraDoc - Parse Brain Dump
+type: 1
+description: 
+subprocess: false
+category: 5
+mode: 0
+scope: 4
+onDemand: false
+triggerOnCreate: false
+triggerOnDelete: false
+asyncAutodelete: false
+syncWorkflowLogOnFailure: false
+stateCode: 1
+statusCode: 2
+runAs: 1
+isTransacted: true
+introducedVersion: 1.0.0.1
+isCustomizable:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: iscustomizableanddeletable
+businessProcessType: 
+isCustomProcessingStepAllowedForOtherPublishers:
+  value: true
+  canBeChanged: true
+  managedPropertyLogicalName: canbedeleted
+modernFlowType: 1
+primaryEntity: none

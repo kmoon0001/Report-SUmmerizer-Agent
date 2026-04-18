@@ -1,0 +1,22 @@
+# Slp Outcome Measures Pediatric
+
+- Standardized assessment of an individual
+- Compensatory measure for identifying language delay or disorder in infants, toddlers, and young children (birth to 7:11).
+- Zimmerman, I. L., et al. (2011). Preschool Language Scales - Fifth Edition (PLS-5). Bloomington, MN: Pearson.
+- Clinical Evaluation of Language Fundamentals - 5th Edition
+- Comprehensive, standardized measure for identifying, diagnosing, and following up on language disorders in school-age children (5:0 to 21:11).
+- Wiig, E. H., Semel, E., & Secord, W. A. (2013). Clinical Evaluation of Language Fundamentals - Fifth Edition (CELF-5). Bloomington, MN: Pearson.
+- Normalized assessment of stuttering severity in children and adults, measuring frequency, duration, and physical concomitants.
+- Total overall score converted to percentile rank and severity (Very Mild to Very Severe)
+- Comprehensive Assessment of Spoken Language - 2nd Edition
+- Measure of oral language processing skills across lexical/semantic, syntactic, supralinguistic, and pragmatic domains.
+- Peabody Picture Vocabulary Test - 5th Edition
+- Measure of receptive vocabulary for Standard American English, for ages 2:6 to 90+.
+- Standard scores, growth scale values, and age/grade equivalents
+- Measure of expressive vocabulary and word retrieval for Standard American English, for ages 2:6 to 90+.
+- Caregiver interview scale for identifying language delay in infants and toddlers (birth to 3:0).
+- Bzoch, K. R., et al. (2020). Receptive-Expressive Emergent Language Test - Fourth Edition (REEL-4). Austin, TX: Pro-Ed.
+- s awareness of the oral language structures (rhyming, segmentation, isolation, deletion, blending).
+- Test of Pragmatic Language - 2nd Edition
+- Assessment of social communication and pragmatic language skills across social contexts.
+- Social Pragmatic Language Disorder (SPLD)

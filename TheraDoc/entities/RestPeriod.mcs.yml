@@ -1,0 +1,4 @@
+mcs.metadata:
+  componentName: Rest Period
+kind: RegexEntity
+pattern: \b(\d+)\s?(sec(ond)?s?|min(ute)?s?)\b\s?(rest|break|between\s?sets?)?|\b(\d+)[\s-]?(sec(ond)?|min(ute)?)\s?(rest|break)

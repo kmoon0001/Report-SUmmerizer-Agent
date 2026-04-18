@@ -1,0 +1,53 @@
+# PLATINUM STANDARD GITIGNORE
+# Prevents bloat and keeps the clinical repo focused on source truth.
+
+# System & Environment
+node_modules/
+.env
+.env.local
+.env.*.local
+dist/
+build/
+out/
+.next/
+.cache/
+.DS_Store
+Thumbs.db
+
+# VS Code & AI Tools
+.vscode/
+.qodo/
+.kiro/
+.cursor/
+.playwright-mcp/
+.playwright-cli/
+.github/instructions/codacy.instructions.md
+
+# Copilot Studio & PAC CLI Artifacts
+*.zip
+*.log
+*.tmp
+*.bak
+_tmp_zip_check*/
+solution-clone/
+unpacked_*/
+extracted_*/
+solution_unpacked*/
+
+# Test Reports
+playwright-report/
+test-results/
+coverage/
+
+# Junk & Diagnostic
+scripts/legacy/
+*screenshot*.png
+after-*.png
+before-*.png
+canvas-*.png
+scratch_*.txt
+tall-viewport.md
+[Qq][Mm]-orchestrator-error-view.png
+[Qq][Mm]-orchestrator-full-view.png
+[Pp]ublish-result.md
+[Rr]eady-to-publish.md

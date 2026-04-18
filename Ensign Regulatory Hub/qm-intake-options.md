@@ -1,0 +1,669 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e10]:
+    - banner [ref=e12]:
+      - button "Skip to main content" [ref=e13]
+      - banner [ref=e15]:
+        - button "App launcher" [ref=e18] [cursor=pointer]: 
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - img "Copilot studio brand Logo" [ref=e28] [cursor=pointer]
+            - generic [ref=e31]: Copilot Studio
+          - generic [ref=e34]:
+            - 'button "Environment: Therapy AI Agents Dev" [ref=e39] [cursor=pointer]':
+              - img [ref=e41]
+              - generic [ref=e44]:
+                - generic [ref=e45]: Environment
+                - generic [ref=e47]: Therapy AI Agents Dev
+            - button "Settings" [ref=e50] [cursor=pointer]:
+              - generic [ref=e51]: 
+            - button "Help" [ref=e54] [cursor=pointer]:
+              - generic [ref=e55]: 
+        - generic [ref=e56]:
+          - button "Account manager for Moon, Kevin" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: Moon, Kevin
+              - generic [ref=e67]: KM
+          - generic: 
+    - generic [ref=e70]:
+      - navigation [ref=e71]:
+        - tablist [ref=e72]:
+          - tab "Home" [ref=e74] [cursor=pointer]:
+            - img [ref=e76]
+            - generic [ref=e78]: Home
+          - tab "Agents" [selected] [ref=e79] [cursor=pointer]:
+            - generic [ref=e82]: Agents
+          - tab "Flows" [ref=e83] [cursor=pointer]:
+            - img [ref=e85]
+            - generic [ref=e90]: Flows
+          - tab "Tools" [ref=e91] [cursor=pointer]:
+            - img [ref=e93]
+            - generic [ref=e95]: Tools
+          - tab "Explore Power Platform" [ref=e97] [cursor=pointer]:
+            - img [ref=e99]
+      - main "Page content" [ref=e103]:
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - img "Icon for your agent" [ref=e115]
+              - heading "SimpleLTC QM Coach V2" [level=1] [ref=e116]
+              - button "open agent protection shield popover" [ref=e117]:
+                - img [ref=e119]
+              - tablist [ref=e121]:
+                - tab "Overview" [ref=e123] [cursor=pointer]:
+                  - generic [ref=e124]: Overview
+                - tab "Knowledge" [ref=e125] [cursor=pointer]:
+                  - generic [ref=e126]: Knowledge
+                - tab "Tools" [ref=e127] [cursor=pointer]:
+                  - generic [ref=e128]: Tools
+                - tab "Agents" [ref=e129] [cursor=pointer]:
+                  - generic [ref=e130]: Agents
+                - tab "Topics" [selected] [ref=e131] [cursor=pointer]:
+                  - generic [ref=e132]: Topics
+                - tab "Activity" [ref=e133] [cursor=pointer]:
+                  - generic [ref=e134]: Activity
+                - tab "Evaluation" [ref=e135] [cursor=pointer]:
+                  - generic [ref=e136]: Evaluation
+                - tab "Analytics" [ref=e137] [cursor=pointer]:
+                  - generic [ref=e138]: Analytics
+                - tab "Channels" [ref=e139] [cursor=pointer]:
+                  - generic [ref=e140]: Channels
+            - generic [ref=e142]:
+              - button "Search your agent" [ref=e144]:
+                - img [ref=e146]
+              - generic [ref=e149]:
+                - generic [ref=e150]: Published 4/10/2026
+                - button "Publish" [ref=e152]
+              - button "Settings" [ref=e154]
+              - button "Options" [ref=e156]:
+                - img [ref=e158]
+              - separator [ref=e161]
+              - button "Test" [ref=e163]:
+                - generic [ref=e164]:
+                  - img [ref=e165]
+                  - text: Test
+          - generic [ref=e167]:
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - generic [ref=e180]:
+                    - button "Back" [ref=e181]:
+                      - img [ref=e183]
+                    - navigation "breadcrumb" [ref=e185]:
+                      - list [ref=e186]:
+                        - listitem [ref=e187]:
+                          - generic [ref=e188]:
+                            - heading "QM Intake" [level=2] [ref=e189]:
+                              - generic [ref=e190]: QM Intake
+                              - textbox "Topic name" [ref=e194]: QM Intake
+                            - group [ref=e195]:
+                              - button "Select a topic" [ref=e197] [cursor=pointer]:
+                                - generic [ref=e199]: 
+                  - generic [ref=e200]:
+                    - toolbar [ref=e201]:
+                      - button "Copilot" [ref=e204]:
+                        - img [ref=e206]
+                        - generic [ref=e208]: Copilot
+                      - button "Comments" [ref=e210]:
+                        - img [ref=e212]
+                        - generic [ref=e214]: Comments
+                      - button "Variables" [ref=e216]:
+                        - img [ref=e218]
+                        - generic [ref=e220]: Variables
+                      - button "Topic checker" [ref=e222]:
+                        - img [ref=e225]
+                        - generic [ref=e227]: Topic checker
+                      - button "Details" [ref=e229]:
+                        - img [ref=e231]
+                        - generic [ref=e233]: Details
+                      - button "More" [ref=e234]:
+                        - img [ref=e236]
+                        - generic [ref=e238]: More
+                    - separator [ref=e240]
+                    - button "Save" [disabled] [ref=e242]
+                - toolbar [ref=e244]:
+                  - button "Undo Show More Options" [ref=e246]:
+                    - generic [ref=e247]:
+                      - img [ref=e248]
+                      - img [ref=e250]
+                  - separator [ref=e252]
+                  - button "Cut" [ref=e253]:
+                    - img [ref=e255]
+                  - button "Copy" [ref=e257]:
+                    - img [ref=e259]
+                  - button "Paste" [disabled] [ref=e261]:
+                    - img [ref=e263]
+                  - button "Delete node" [ref=e265]:
+                    - img [ref=e267]
+              - figure "main authoring canvas" [ref=e272]:
+                - generic [ref=e276]:
+                  - img [ref=e277]
+                  - figure [ref=e281]:
+                    - 'generic "Trigger Phrases: No phrases to show" [ref=e283]':
+                      - generic [ref=e285] [cursor=pointer]:
+                        - generic [ref=e286]:
+                          - img [ref=e288]:
+                            - img [ref=e289]
+                          - heading "Trigger" [level=2] [ref=e291]
+                        - group "Menu" [ref=e294]:
+                          - button "More" [ref=e296]:
+                            - img [ref=e299]
+                      - generic [ref=e301]:
+                        - generic [ref=e303]:
+                          - img "ByAgentIcon" [ref=e305]:
+                            - img [ref=e306]
+                          - generic [ref=e308]:
+                            - generic [ref=e309]: The agent chooses
+                            - button "The agent chooses Edit" [ref=e310] [cursor=pointer]:
+                              - img "EditIcon" [ref=e311]:
+                                - img [ref=e312]
+                              - generic [ref=e314]: Edit
+                        - generic [ref=e316]:
+                          - text: Describe what the topic does
+                          - generic [ref=e317] [cursor=pointer]: "Collects required QM intake context: selectedFacility, lookbackPeriod, and qmDomain. Returns a concise intake summary and prepares handoff to QM Orchestrator."
+                  - generic:
+                    - generic:
+                      - img [ref=e318]
+                      - button "Add node" [ref=e323] [cursor=pointer]:
+                        - img [ref=e326]
+                      - figure [ref=e330]:
+                        - 'generic "Question: Which facility are we reviewing?" [ref=e332]':
+                          - generic [ref=e334] [cursor=pointer]:
+                            - generic [ref=e335]:
+                              - img [ref=e337]:
+                                - img [ref=e338]
+                              - heading "Question" [level=2] [ref=e341]
+                            - button "Modality" [ref=e343]:
+                              - generic [ref=e344]: Text
+                              - generic [ref=e345]:
+                                - generic: 
+                            - group "Menu" [ref=e348]:
+                              - button "More" [ref=e350]:
+                                - img [ref=e353]
+                          - generic [ref=e357]:
+                            - generic [ref=e368] [cursor=pointer]: Which facility are we reviewing?
+                            - generic [ref=e370]:
+                              - generic [ref=e371]: Identify
+                              - button "User's entire response" [ref=e373]:
+                                - img [ref=e375]
+                                - generic [ref=e377]: User's entire response
+                                - img [ref=e378]
+                            - generic [ref=e380]:
+                              - generic [ref=e381]: Save user response as
+                              - button "Set variable" [ref=e383] [cursor=pointer]:
+                                - generic [ref=e384]:
+                                  - button "selectedFacility:string" [ref=e1281]:
+                                    - img "AdaptiveVariablesIcon" [ref=e1283]:
+                                      - img [ref=e1284]
+                                    - generic [ref=e1286]:
+                                      - generic [ref=e1288]: selectedFacility
+                                      - generic [ref=e1290]: string
+                                  - img [ref=e387]
+                      - button "Add node" [ref=e392] [cursor=pointer]:
+                        - img [ref=e395]
+                      - figure [ref=e399]:
+                        - 'generic "Question: What lookback period should we use (30 days, 60 days, 90 days, or current quarter)?" [ref=e401]':
+                          - generic [ref=e403] [cursor=pointer]:
+                            - generic [ref=e404]:
+                              - img [ref=e406]:
+                                - img [ref=e407]
+                              - heading "Question" [level=2] [ref=e410]
+                            - button "Modality" [ref=e412]:
+                              - generic [ref=e413]: Text
+                              - generic [ref=e414]:
+                                - generic: 
+                            - group "Menu" [ref=e417]:
+                              - button "More" [ref=e419]:
+                                - img [ref=e422]
+                          - generic [ref=e426]:
+                            - generic [ref=e430]:
+                              - button "Add modality" [ref=e432] [cursor=pointer]:
+                                - generic [ref=e433]:
+                                  - img [ref=e435]
+                                  - generic [ref=e438]: Add
+                                  - generic [ref=e439]: 
+                              - generic [ref=e443]:
+                                - generic [ref=e446] [cursor=pointer]: What lookback period should we use (30 days, 60 days, 90 days, or current quarter)?
+                                - button "Remove variation" [ref=e447] [cursor=pointer]
+                            - generic [ref=e450]:
+                              - generic [ref=e451]: Identify
+                              - button "Multiple choice options" [ref=e453]:
+                                - img [ref=e455]
+                                - generic [ref=e457]: Multiple choice options
+                                - img [ref=e458]
+                            - generic [ref=e460]:
+                              - generic [ref=e463]: Options for user
+                              - generic [ref=e464]:
+                                - generic [ref=e468]: Last 30 days
+                                - generic [ref=e472]: Last 60 days
+                                - generic [ref=e476]: Last 90 days
+                                - generic [ref=e480]: Current quarter
+                                - generic [ref=e484]: Mobility Decline
+                                - generic [ref=e488]: ADL Function
+                                - generic [ref=e492]: Rehospitalization
+                                - generic [ref=e496]: Antipsychotic Use
+                                - generic [ref=e500]: Palm Terrace
+                                - generic [ref=e504]: Victoria
+                                - generic [ref=e508]: St. Catherine
+                                - button "New option" [ref=e509] [cursor=pointer]:
+                                  - generic [ref=e510]:
+                                    - img [ref=e512]
+                                    - generic [ref=e515]: New option
+                            - generic [ref=e516]:
+                              - generic [ref=e517]: Save user response as
+                              - button "Set variable" [ref=e519] [cursor=pointer]:
+                                - generic [ref=e520]:
+                                  - button "lookbackPeriod:choice" [ref=e1292]:
+                                    - img "AdaptiveVariablesIcon" [ref=e1294]:
+                                      - img [ref=e1295]
+                                    - generic [ref=e1297]:
+                                      - generic [ref=e1299]: lookbackPeriod
+                                      - generic [ref=e1301]: choice
+                                  - img [ref=e523]
+                      - button "Add node" [ref=e528] [cursor=pointer]:
+                        - img [ref=e531]
+                      - generic:
+                        - generic:
+                          - img [ref=e533]
+                          - generic:
+                            - generic:
+                              - img [ref=e575]
+                              - button "Add node" [ref=e581] [cursor=pointer]:
+                                - img [ref=e584]
+                          - generic:
+                            - generic:
+                              - img [ref=e586]
+                              - button "Add node" [ref=e592] [cursor=pointer]:
+                                - img [ref=e595]
+                          - generic:
+                            - generic:
+                              - img [ref=e597]
+                              - figure [ref=e600]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to Current quarter" [ref=e1302]':
+                                  - generic [ref=e604] [cursor=pointer]:
+                                    - generic [ref=e605]:
+                                      - img [ref=e607]:
+                                        - img [ref=e608]
+                                      - heading "Condition" [level=2] [ref=e611]
+                                    - group "Menu" [ref=e614]:
+                                      - button "More" [ref=e616]:
+                                        - img [ref=e619]
+                                  - generic [ref=e1303]:
+                                    - generic [ref=e1305]:
+                                      - button "Set variable" [ref=e1307] [cursor=pointer]:
+                                        - generic [ref=e1308]:
+                                          - button "lookbackPeriod:choice" [ref=e1311]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1313]:
+                                              - img [ref=e1314]
+                                            - generic [ref=e1316]:
+                                              - generic [ref=e1318]: lookbackPeriod
+                                              - generic [ref=e1320]: choice
+                                          - img [ref=e1322]
+                                      - combobox "Select condition" [ref=e1325]:
+                                        - generic [ref=e1326] [cursor=pointer]: is equal to
+                                        - generic [ref=e1327] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1330]:
+                                        - combobox "Current quarter" [ref=e1333]
+                                        - generic [ref=e1334]:
+                                          - separator [ref=e1335]
+                                          - button "Select variable" [ref=e1336] [cursor=pointer]:
+                                            - img [ref=e1339]
+                                    - button "New condition" [ref=e1341] [cursor=pointer]:
+                                      - generic [ref=e1342]:
+                                        - img [ref=e1344]
+                                        - generic [ref=e1347]: New condition
+                              - button "Add node" [ref=e648] [cursor=pointer]:
+                                - img [ref=e651]
+                          - generic:
+                            - generic:
+                              - img [ref=e653]
+                              - figure [ref=e656]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to Mobility Decline" [ref=e1348]':
+                                  - generic [ref=e660] [cursor=pointer]:
+                                    - generic [ref=e661]:
+                                      - img [ref=e663]:
+                                        - img [ref=e664]
+                                      - heading "Condition" [level=2] [ref=e667]
+                                    - group "Menu" [ref=e670]:
+                                      - button "More" [ref=e672]:
+                                        - img [ref=e675]
+                                  - generic [ref=e1349]:
+                                    - generic [ref=e1351]:
+                                      - button "Set variable" [ref=e1353] [cursor=pointer]:
+                                        - generic [ref=e1354]:
+                                          - button "lookbackPeriod:choice" [ref=e1357]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1359]:
+                                              - img [ref=e1360]
+                                            - generic [ref=e1362]:
+                                              - generic [ref=e1364]: lookbackPeriod
+                                              - generic [ref=e1366]: choice
+                                          - img [ref=e1368]
+                                      - combobox "Select condition" [ref=e1371]:
+                                        - generic [ref=e1372] [cursor=pointer]: is equal to
+                                        - generic [ref=e1373] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1376]:
+                                        - combobox "Mobility Decline" [ref=e1379]
+                                        - generic [ref=e1380]:
+                                          - separator [ref=e1381]
+                                          - button "Select variable" [ref=e1382] [cursor=pointer]:
+                                            - img [ref=e1385]
+                                    - button "New condition" [ref=e1387] [cursor=pointer]:
+                                      - generic [ref=e1388]:
+                                        - img [ref=e1390]
+                                        - generic [ref=e1393]: New condition
+                              - button "Add node" [ref=e705] [cursor=pointer]:
+                                - img [ref=e708]
+                          - generic:
+                            - generic:
+                              - img [ref=e710]
+                              - figure [ref=e713]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to ADL Function" [ref=e1394]':
+                                  - generic [ref=e717] [cursor=pointer]:
+                                    - generic [ref=e718]:
+                                      - img [ref=e720]:
+                                        - img [ref=e721]
+                                      - heading "Condition" [level=2] [ref=e724]
+                                    - group "Menu" [ref=e727]:
+                                      - button "More" [ref=e729]:
+                                        - img [ref=e732]
+                                  - generic [ref=e1395]:
+                                    - generic [ref=e1397]:
+                                      - button "Set variable" [ref=e1399] [cursor=pointer]:
+                                        - generic [ref=e1400]:
+                                          - button "lookbackPeriod:choice" [ref=e1403]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1405]:
+                                              - img [ref=e1406]
+                                            - generic [ref=e1408]:
+                                              - generic [ref=e1410]: lookbackPeriod
+                                              - generic [ref=e1412]: choice
+                                          - img [ref=e1414]
+                                      - combobox "Select condition" [ref=e1417]:
+                                        - generic [ref=e1418] [cursor=pointer]: is equal to
+                                        - generic [ref=e1419] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1422]:
+                                        - combobox "ADL Function" [ref=e1425]
+                                        - generic [ref=e1426]:
+                                          - separator [ref=e1427]
+                                          - button "Select variable" [ref=e1428] [cursor=pointer]:
+                                            - img [ref=e1431]
+                                    - button "New condition" [ref=e1433] [cursor=pointer]:
+                                      - generic [ref=e1434]:
+                                        - img [ref=e1436]
+                                        - generic [ref=e1439]: New condition
+                              - button "Add node" [ref=e762] [cursor=pointer]:
+                                - img [ref=e765]
+                          - generic:
+                            - generic:
+                              - img [ref=e767]
+                              - figure [ref=e770]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to Rehospitalization" [ref=e1440]':
+                                  - generic [ref=e774] [cursor=pointer]:
+                                    - generic [ref=e775]:
+                                      - img [ref=e777]:
+                                        - img [ref=e778]
+                                      - heading "Condition" [level=2] [ref=e781]
+                                    - group "Menu" [ref=e784]:
+                                      - button "More" [ref=e786]:
+                                        - img [ref=e789]
+                                  - generic [ref=e1441]:
+                                    - generic [ref=e1443]:
+                                      - button "Set variable" [ref=e1445] [cursor=pointer]:
+                                        - generic [ref=e1446]:
+                                          - button "lookbackPeriod:choice" [ref=e1449]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1451]:
+                                              - img [ref=e1452]
+                                            - generic [ref=e1454]:
+                                              - generic [ref=e1456]: lookbackPeriod
+                                              - generic [ref=e1458]: choice
+                                          - img [ref=e1460]
+                                      - combobox "Select condition" [ref=e1463]:
+                                        - generic [ref=e1464] [cursor=pointer]: is equal to
+                                        - generic [ref=e1465] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1468]:
+                                        - combobox "Rehospitalization" [ref=e1471]
+                                        - generic [ref=e1472]:
+                                          - separator [ref=e1473]
+                                          - button "Select variable" [ref=e1474] [cursor=pointer]:
+                                            - img [ref=e1477]
+                                    - button "New condition" [ref=e1479] [cursor=pointer]:
+                                      - generic [ref=e1480]:
+                                        - img [ref=e1482]
+                                        - generic [ref=e1485]: New condition
+                              - button "Add node" [ref=e819] [cursor=pointer]:
+                                - img [ref=e822]
+                          - generic:
+                            - generic:
+                              - img [ref=e824]
+                              - figure [ref=e827]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to Antipsychotic Use" [ref=e1486]':
+                                  - generic [ref=e831] [cursor=pointer]:
+                                    - generic [ref=e832]:
+                                      - img [ref=e834]:
+                                        - img [ref=e835]
+                                      - heading "Condition" [level=2] [ref=e838]
+                                    - group "Menu" [ref=e841]:
+                                      - button "More" [ref=e843]:
+                                        - img [ref=e846]
+                                  - generic [ref=e1487]:
+                                    - generic [ref=e1489]:
+                                      - button "Set variable" [ref=e1491] [cursor=pointer]:
+                                        - generic [ref=e1492]:
+                                          - button "lookbackPeriod:choice" [ref=e1495]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1497]:
+                                              - img [ref=e1498]
+                                            - generic [ref=e1500]:
+                                              - generic [ref=e1502]: lookbackPeriod
+                                              - generic [ref=e1504]: choice
+                                          - img [ref=e1506]
+                                      - combobox "Select condition" [ref=e1509]:
+                                        - generic [ref=e1510] [cursor=pointer]: is equal to
+                                        - generic [ref=e1511] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1514]:
+                                        - combobox "Antipsychotic Use" [ref=e1517]
+                                        - generic [ref=e1518]:
+                                          - separator [ref=e1519]
+                                          - button "Select variable" [ref=e1520] [cursor=pointer]:
+                                            - img [ref=e1523]
+                                    - button "New condition" [ref=e1525] [cursor=pointer]:
+                                      - generic [ref=e1526]:
+                                        - img [ref=e1528]
+                                        - generic [ref=e1531]: New condition
+                              - button "Add node" [ref=e876] [cursor=pointer]:
+                                - img [ref=e879]
+                          - generic:
+                            - generic:
+                              - img [ref=e881]
+                              - figure [ref=e884]:
+                                - 'generic "Condition: Topic.lookbackPeriod is equal to Palm Terrace" [ref=e1532]':
+                                  - generic [ref=e888] [cursor=pointer]:
+                                    - generic [ref=e889]:
+                                      - img [ref=e891]:
+                                        - img [ref=e892]
+                                      - heading "Condition" [level=2] [ref=e895]
+                                    - group "Menu" [ref=e898]:
+                                      - button "More" [ref=e900]:
+                                        - img [ref=e903]
+                                  - generic [ref=e1533]:
+                                    - generic [ref=e1535]:
+                                      - button "Set variable" [ref=e1537] [cursor=pointer]:
+                                        - generic [ref=e1538]:
+                                          - button "lookbackPeriod:choice" [ref=e1541]:
+                                            - img "AdaptiveVariablesIcon" [ref=e1543]:
+                                              - img [ref=e1544]
+                                            - generic [ref=e1546]:
+                                              - generic [ref=e1548]: lookbackPeriod
+                                              - generic [ref=e1550]: choice
+                                          - img [ref=e1552]
+                                      - combobox "Select condition" [ref=e1555]:
+                                        - generic [ref=e1556] [cursor=pointer]: is equal to
+                                        - generic [ref=e1557] [cursor=pointer]:
+                                          - generic: 
+                                      - generic [ref=e1560]:
+                                        - combobox "Palm Terrace" [ref=e1563]
+                                        - generic [ref=e1564]:
+                                          - separator [ref=e1565]
+                                          - button "Select variable" [ref=e1566] [cursor=pointer]:
+                                            - img [ref=e1569]
+                                    - button "New condition" [ref=e1571] [cursor=pointer]:
+                                      - generic [ref=e1572]:
+                                        - img [ref=e1574]
+                                        - generic [ref=e1577]: New condition
+                              - button "Add node" [ref=e933] [cursor=pointer]:
+                                - img [ref=e936]
+                          - generic:
+                            - generic:
+                              - img [ref=e938]
+                              - button "Add node" [ref=e989] [cursor=pointer]:
+                                - img [ref=e992]
+                          - generic:
+                            - generic:
+                              - img [ref=e994]
+                              - button "Add node" [ref=e1000] [cursor=pointer]:
+                                - img [ref=e1003]
+                          - generic:
+                            - img [ref=e1005]
+                            - generic "All other conditions" [ref=e1009]:
+                              - generic [ref=e1011] [cursor=pointer]:
+                                - generic [ref=e1012]:
+                                  - img [ref=e1014]:
+                                    - img [ref=e1015]
+                                  - heading "All other conditions" [level=2] [ref=e1018]
+                                - group "Menu" [ref=e1021]:
+                                  - button "More" [ref=e1023]:
+                                    - img [ref=e1026]
+                            - button "Add node" [ref=e1030] [cursor=pointer]:
+                              - img [ref=e1033]
+                      - button "Add node" [ref=e1038] [cursor=pointer]:
+                        - img [ref=e1041]
+                      - figure [ref=e1045]:
+                        - 'generic "Question: Which QM domain should we focus on first (falls, mobility decline, ADL function, rehospitalization, or antipsychotic use)?" [ref=e1047]':
+                          - generic [ref=e1049] [cursor=pointer]:
+                            - generic [ref=e1050]:
+                              - img [ref=e1052]:
+                                - img [ref=e1053]
+                              - heading "Question" [level=2] [ref=e1056]
+                            - button "Modality" [ref=e1058]:
+                              - generic [ref=e1059]: Text
+                              - generic [ref=e1060]:
+                                - generic: 
+                            - group "Menu" [ref=e1063]:
+                              - button "More" [ref=e1065]:
+                                - img [ref=e1068]
+                          - generic [ref=e1072]:
+                            - generic [ref=e1083] [cursor=pointer]: Which QM domain should we focus on first (falls, mobility decline, ADL function, rehospitalization, or antipsychotic use)?
+                            - generic [ref=e1085]:
+                              - generic [ref=e1086]: Identify
+                              - button "User's entire response" [ref=e1088]:
+                                - img [ref=e1090]
+                                - generic [ref=e1092]: User's entire response
+                                - img [ref=e1093]
+                            - generic [ref=e1095]:
+                              - generic [ref=e1096]: Save user response as
+                              - button "Set variable" [ref=e1098] [cursor=pointer]:
+                                - generic [ref=e1099]:
+                                  - button "qmDomain:string" [ref=e1580]:
+                                    - img "AdaptiveVariablesIcon" [ref=e1582]:
+                                      - img [ref=e1583]
+                                    - generic [ref=e1585]:
+                                      - generic [ref=e1587]: qmDomain
+                                      - generic [ref=e1589]: string
+                                  - img [ref=e1102]
+                      - button "Add node" [ref=e1107] [cursor=pointer]:
+                        - img [ref=e1110]
+                      - figure [ref=e1114]:
+                        - generic "Redirect to QM Orchestrator" [ref=e1116]:
+                          - generic [ref=e1118] [cursor=pointer]:
+                            - generic [ref=e1119]:
+                              - img [ref=e1121]:
+                                - img [ref=e1122]
+                              - heading "Topic" [level=2] [ref=e1125]
+                            - group "Menu" [ref=e1128]:
+                              - button "More" [ref=e1130]:
+                                - img [ref=e1133]
+                          - generic [ref=e1601]:
+                            - text: QM Orchestrator
+                            - button "View topic" [ref=e1602] [cursor=pointer]
+                      - button "Add node" [ref=e1143] [cursor=pointer]:
+                        - img [ref=e1146]
+                - generic [ref=e1148]:
+                  - button "Zoom in" [ref=e1149] [cursor=pointer]:
+                    - img [ref=e1152]
+                  - button "Reset" [ref=e1154] [cursor=pointer]:
+                    - img [ref=e1157]
+                  - button "Zoom out" [ref=e1159] [cursor=pointer]:
+                    - img [ref=e1162]
+                  - button "Mini-map" [ref=e1164] [cursor=pointer]:
+                    - img [ref=e1167]
+                  - button "Selection tool" [ref=e1169] [cursor=pointer]:
+                    - img [ref=e1172]
+                  - button "Hand tool" [ref=e1174] [cursor=pointer]:
+                    - img [ref=e1177]
+              - status:
+                - generic [ref=e1179]: Tool focused
+            - separator
+            - generic [ref=e1181]:
+              - generic [ref=e1183]:
+                - generic [ref=e1184]: Test your agent
+                - generic [ref=e1185]:
+                  - button "Start new test session" [ref=e1186]:
+                    - img [ref=e1188]
+                  - button "Evaluate SimpleLTC QM Coach V2" [ref=e1190]:
+                    - img [ref=e1192]
+                  - button "Variables" [ref=e1194]:
+                    - img [ref=e1196]
+                  - button "More" [ref=e1198]:
+                    - img [ref=e1200]
+                  - button "Expand test pane" [ref=e1203]:
+                    - img [ref=e1205]
+                  - button "Close test pane" [ref=e1207]:
+                    - img [ref=e1209]
+              - generic [ref=e1220]:
+                - generic:
+                  - log
+                - group "Chat history, press arrow keys to navigate." [ref=e1223]:
+                  - generic [ref=e1224]:
+                    - feed [ref=e1227]:
+                      - article [ref=e1229]:
+                        - 'generic "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help? Like Like Dislike Dislike" [ref=e1232]':
+                          - group [ref=e1235]:
+                            - generic [ref=e1236]: "Bot said:"
+                            - generic [ref=e1241]:
+                              - paragraph [ref=e1244]: Hello, I'm SimpleLTC QM Coach V2. How can I help?
+                              - generic [ref=e1247]:
+                                - generic [ref=e1248]:
+                                  - radio "Like" [ref=e1249]
+                                  - tooltip "Like"
+                                - generic [ref=e1250]:
+                                  - radio "Dislike" [ref=e1251]
+                                  - tooltip "Dislike"
+                          - generic [ref=e1254]:
+                            - generic [ref=e1255]: Sent at April 10 at 2:29 PM
+                            - generic [ref=e1256]: A minute ago
+                        - generic:
+                          - 'article "Bot said: Hello, I''m SimpleLTC QM Coach V2. How can I help? Message is interactive. Click to interact."':
+                            - generic: "Bot said: Hello, I'm SimpleLTC QM Coach V2. How can I help? Message is interactive. Click to interact."
+                    - note "End of chat history"
+                - generic [ref=e1257]: "Connectivity Status: Connected"
+                - generic [ref=e1259]:
+                  - toolbar "Suggested actions"
+                  - generic [ref=e1260]:
+                    - textbox "Ask a question or describe what you need" [ref=e1262]
+                    - generic [ref=e1263]:
+                      - generic [ref=e1264]: 0/2000
+                      - generic [ref=e1265]:
+                        - button "Upload file" [ref=e1267] [cursor=pointer]
+                        - separator [ref=e1269]
+                        - button "Send" [ref=e1270] [cursor=pointer]
+                - generic [ref=e1273]:
+                  - text: You're testing your agent's real responses and capabilities.
+                  - link "Find troubleshooting help here." [ref=e1274] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2345957
+                  - text: Make sure AI-generated content is accurate and appropriate before using.
+                  - link "See terms" [ref=e1275] [cursor=pointer]:
+                    - /url: https://go.microsoft.com/fwlink/?linkid=2182773
+  - generic:
+    - region

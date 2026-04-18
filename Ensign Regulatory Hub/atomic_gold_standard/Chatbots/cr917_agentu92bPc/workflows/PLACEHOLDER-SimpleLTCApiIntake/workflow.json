@@ -1,0 +1,35 @@
+{
+  "_placeholder": true,
+  "_status": "AWAITING_API_CREDENTIALS",
+  "_description": "SimpleLTC API Data Intake - ready to wire when API access is granted",
+  "_activationChecklist": [
+    "1. Obtain SimpleLTC API key/credentials from Netsmart",
+    "2. Create a Custom Connector in Power Automate for SimpleLTC API",
+    "3. Add connection reference to the Healthcare Agents Foundation V2 solution",
+    "4. Build the flow actions: authenticate, query facility QM data, query resident data",
+    "5. Store results in Dataverse tasks table with subject Facility insight submission (facility) or Resident insight intake (resident)",
+    "6. Wire the flow to the QM Orchestrator topic as an alternative to manual upload",
+    "7. Add a scheduled trigger (recurrence) for automated bi-weekly pulls",
+    "8. Test end-to-end: API pull then Dataverse store then agent lookup then analysis"
+  ],
+  "_expectedApiEndpoints": {
+    "facilityQmData": {
+      "description": "Facility-level QM scores, Five-Star predictions, measure-level rates",
+      "expectedFields": ["facility_name", "facility_id", "qm_measure", "numerator", "denominator", "rate", "predicted_star", "quarter", "lookback_period"]
+    },
+    "residentQmData": {
+      "description": "Resident-level MDS data, QM measure membership, outlier indicators",
+      "expectedFields": ["resident_name", "resident_id", "facility_name", "mds_items", "qm_measures_triggered", "adl_score", "bims", "falls_count", "diagnosis_codes"]
+    }
+  },
+  "_flowTemplate": {
+    "trigger": { "type": "Recurrence", "frequency": "Week", "interval": 2 },
+    "actions": [
+      { "step": 1, "name": "Authenticate_SimpleLTC_API" },
+      { "step": 2, "name": "Query_Facility_QM_Data" },
+      { "step": 3, "name": "Query_Resident_Data" },
+      { "step": 4, "name": "Store_In_Dataverse" },
+      { "step": 5, "name": "Respond_To_Agent" }
+    ]
+  }
+}

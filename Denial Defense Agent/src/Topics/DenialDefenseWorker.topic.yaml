@@ -1,0 +1,22 @@
+kind: AdaptiveDialog
+description: Denial Defense Worker. Audits medical necessity and professional standards compliance.
+id: DenialDefenseWorker
+beginDialog:
+  kind: OnRecognizedIntent
+  id: Main
+  actions:
+    # PLATINUM: Zero-Text Input Conversion
+    - kind: Question
+      id: QAuditSelection
+      variable: Topic.AuditIntent
+      prompt: "🛡️ **DENIAL DEFENSE HUB**: Select your oversight mission for this session:"
+      choices:
+        - display: "🔍 Medicare RAC/MAC Audit"
+          value: "RAC_MAC"
+        - display: "📖 Professional Standards Check (ASHA/AOTA/APTA)"
+          value: "PROF_STD"
+        - display: "📊 View 7-Layer XAI Intelligence"
+          value: "XAI_DASH"
+    
+    - kind: SendActivity
+      activity: "🔄 **ENFORCING PLATINUM GUARDRAILS**: Initializing ${Topic.AuditIntent} verification loop..."

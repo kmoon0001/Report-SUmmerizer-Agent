@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.ClinicalDecisionSupportQM-Domain-Logic.md_HyS">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Clinical Decision Support QM-Domain-Logic.md</description>
+  <filedata mimetype="application/octet-stream">Clinical%20Decision%20Support%20QM-Domain-Logic.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Clinical Decision Support QM-Domain-Logic.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

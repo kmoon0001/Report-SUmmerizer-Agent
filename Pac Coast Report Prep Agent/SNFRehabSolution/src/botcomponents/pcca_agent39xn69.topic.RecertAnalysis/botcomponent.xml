@@ -1,0 +1,11 @@
+﻿<botcomponent schemaname="pcca_agent39xn69.topic.RecertAnalysis">
+  <componenttype>9</componenttype>
+  <description>Auto-migrated custom code topic: RecertAnalysis.</description>
+  <iscustomizable>1</iscustomizable>
+  <name>RecertAnalysis</name>
+  <parentbotid>
+    <schemaname>pcca_agent39xn69</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

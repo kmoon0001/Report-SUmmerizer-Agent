@@ -1,0 +1,9 @@
+mcs.metadata:
+  componentName: PendingDorFacilitySelection
+kind: Variable
+name: PendingDorFacilitySelection
+scope: User
+isExternalInitializationAllowed: false
+isOutputToExternalCallers: false
+initializationTimeoutInMilliseconds: 0
+

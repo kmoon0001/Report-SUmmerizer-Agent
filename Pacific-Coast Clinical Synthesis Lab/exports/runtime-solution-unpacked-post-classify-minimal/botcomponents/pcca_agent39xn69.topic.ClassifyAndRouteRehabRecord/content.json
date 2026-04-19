@@ -1,0 +1,18 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Classify and Route Rehab Record
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze this therapy note
+      - review this therapy documentation
+      - classify this rehab note
+      - route this patient note
+      - help me with a therapy note
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_classifyReady
+      activity: ClassifyAndRouteRehabRecord is active and ready.

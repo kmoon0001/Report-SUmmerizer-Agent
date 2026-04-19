@@ -1,0 +1,23 @@
+{
+  "recordId": "REC-12009",
+  "patientToken": "PT-4498D",
+  "discipline": "PT",
+  "therapistName": "Jane Doe",
+  "reportType": "Discharge",
+  "dcFlag": true,
+  "sessionCount": 24,
+  "avgMinutes": 55,
+  "initialGoals": {
+    "shortTerm": "Ambulate 150ft with RW",
+    "longTerm": "Ambulate 300ft with SPC"
+  },
+  "finalGoalProgress": "Patient successfully ambulates 350ft with SPC independently.",
+  "functionalMeasures_Admission": {
+    "tug": "24 seconds"
+  },
+  "functionalMeasures_Discharge": {
+    "tug": "12 seconds"
+  },
+  "dischargeDisposition": "Discharge to community/home with spouse.",
+  "justification": "All long-term goals met. Patient is safe for home discharge."
+}

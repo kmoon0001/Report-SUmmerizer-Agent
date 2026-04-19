@@ -1,0 +1,29 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: EvalAnalysis
+  actions:
+    # Uses the shared Prompt Tool to process the evaluation
+    - kind: InvokePromptAction
+      id: runEvalTool
+      actionId: cr917_SNFRehab.Rehab_Eval_Insight
+      inputs:
+        patientToken: =Topic.ClassificationResult.patientToken
+        functionalMeasures: =Topic.ClassificationResult.functionalMeasures
+        goals: =Topic.ClassificationResult.goals
+        orders: =Topic.ClassificationResult.orders
+      output: Topic.EvalInsightResponse
+
+    # Emits telemetry for Power BI Purview Logging
+    - kind: PerformAction
+      id: logTelemetry
+      action: cr917_SNFRehab.LogTelemetry
+      inputs:
+        ActionName: 'EvalAnalysis Complete'
+        UrgencyScore: =Topic.EvalInsightResponse.complianceFlags
+
+    - kind: EndDialog
+      id: exit
+

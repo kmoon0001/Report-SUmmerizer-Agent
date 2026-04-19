@@ -1,0 +1,353 @@
+{
+  "name": "Automated Therapist Daily Workflow",
+  "description": "Fully automated workflow that prepares daily briefing with minimal user input",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "therapistId": "string",
+      "discipline": "string",
+      "date": "string",
+      "autoValidateData": "boolean",
+      "autoGenerateRecommendations": "boolean",
+      "includeHighRiskOnly": "boolean"
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Workflow_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "workflowState",
+            "type": "object",
+            "value": {
+              "startTime": "@utcNow()",
+              "therapistId": "@triggerBody()?['therapistId']",
+              "discipline": "@triggerBody()?['discipline']",
+              "totalPatients": 0,
+              "highPriorityCount": 0,
+              "recommendationsGenerated": 0,
+              "avgConfidence": 0,
+              "errors": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Therapist_Caseload",
+      "inputs": {
+        "entityName": "snf_patient_assignment",
+        "fetchXml": "<fetch><entity name='snf_patient_assignment'><filter><condition attribute='snf_therapist_id' operator='eq' value='@{triggerBody()?['therapistId']}'/><condition attribute='snf_status' operator='eq' value='active'/></filter></entity></fetch>"
+      },
+      "runAfter": {
+        "Initialize_Workflow_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "SetVariable",
+      "name": "Update_Total_Patients",
+      "inputs": {
+        "name": "workflowState",
+        "value": "@setProperty(variables('workflowState'), 'totalPatients', length(outputs('Get_Therapist_Caseload')?['body']?['value']))"
+      },
+      "runAfter": {
+        "Get_Therapist_Caseload": ["Succeeded"]
+      }
+    },
+    {
+      "type": "For_Each",
+      "name": "Process_Each_Patient",
+      "foreach": "@outputs('Get_Therapist_Caseload')?['body']?['value']",
+      "actions": {
+        "Get_Patient_Data": {
+          "type": "Scope",
+          "actions": {
+            "Query_Patient_Rehab_Data": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('dataAggregationEndpoint')/patient-rehab-data",
+                "body": {
+                  "patientToken": "@items('Process_Each_Patient')?['snf_patient_token']",
+                  "includeHistory": true,
+                  "includeMeasures": true
+                }
+              },
+              "retryPolicy": {
+                "type": "exponential",
+                "count": 3,
+                "interval": "PT2S"
+              }
+            }
+          }
+        },
+        "Validate_Data_Quality": {
+          "type": "ConditionGroup",
+          "expression": {
+            "equals": [
+              "@triggerBody()?['autoValidateData']",
+              true
+            ]
+          },
+          "actions": {
+            "Calculate_Data_Completeness": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('flowEndpoint')/calculate-data-completeness",
+                "body": "@body('Query_Patient_Rehab_Data')"
+              }
+            },
+            "Check_Completeness_Threshold": {
+              "type": "ConditionGroup",
+              "expression": {
+                "greaterOrEquals": [
+                  "@body('Calculate_Data_Completeness')?['completenessScore']",
+                  70
+                ]
+              },
+              "actions": {
+                "Mark_Data_Validated": {
+                  "type": "Compose",
+                  "inputs": {
+                    "dataValidated": true,
+                    "completenessScore": "@body('Calculate_Data_Completeness')?['completenessScore']"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Flag_For_Manual_Review": {
+                    "type": "Compose",
+                    "inputs": {
+                      "dataValidated": false,
+                      "requiresManualReview": true,
+                      "reason": "Data completeness below threshold"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Calculate_Data_Completeness": ["Succeeded"]
+              }
+            }
+          },
+          "runAfter": {
+            "Get_Patient_Data": ["Succeeded"]
+          }
+        },
+        "Determine_Priority": {
+          "type": "Compose",
+          "inputs": {
+            "priority": "@if(or(or(lessOrEquals(body('Query_Patient_Rehab_Data')?['daysToCertEnd'], 7), greaterOrEquals(body('Query_Patient_Rehab_Data')?['daysSinceLastNote'], 7)), not(empty(body('Query_Patient_Rehab_Data')?['complianceFlags']))), 'High', 'Standard')",
+            "urgencyReason": "@if(lessOrEquals(body('Query_Patient_Rehab_Data')?['daysToCertEnd'], 7), 'Cert ending soon', if(greaterOrEquals(body('Query_Patient_Rehab_Data')?['daysSinceLastNote'], 7), 'Overdue documentation', if(not(empty(body('Query_Patient_Rehab_Data')?['complianceFlags'])), 'Compliance flags present', 'Standard')))"
+          },
+          "runAfter": {
+            "Validate_Data_Quality": ["Succeeded"]
+          }
+        },
+        "Generate_AI_Recommendation": {
+          "type": "ConditionGroup",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@triggerBody()?['autoGenerateRecommendations']",
+                  true
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "equals": [
+                      "@triggerBody()?['includeHighRiskOnly']",
+                      false
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@outputs('Determine_Priority')?['priority']",
+                      "High"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": {
+            "Call_AI_Generation_With_Retry": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('flowEndpoint')/enhanced-retry-logic",
+                "body": {
+                  "operation": "azureml_prediction",
+                  "operationData": {
+                    "patientData": "@body('Query_Patient_Rehab_Data')",
+                    "recommendationType": "auto_detect"
+                  },
+                  "maxRetries": 4,
+                  "initialDelaySeconds": 2
+                }
+              }
+            },
+            "Calculate_SHAP_Values": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('flowEndpoint')/calculate-shap-values",
+                "body": {
+                  "recommendationId": "@body('Call_AI_Generation_With_Retry')?['recommendationId']",
+                  "patientFeatures": "@body('Query_Patient_Rehab_Data')",
+                  "modelOutput": "@body('Call_AI_Generation_With_Retry')?['result']"
+                }
+              },
+              "runAfter": {
+                "Call_AI_Generation_With_Retry": ["Succeeded"]
+              }
+            },
+            "Calculate_Confidence_Score": {
+              "type": "HTTP",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('flowEndpoint')/calculate-confidence-score",
+                "body": {
+                  "recommendationId": "@body('Call_AI_Generation_With_Retry')?['recommendationId']",
+                  "modelOutput": "@body('Call_AI_Generation_With_Retry')?['result']",
+                  "sourceData": "@body('Query_Patient_Rehab_Data')"
+                }
+              },
+              "runAfter": {
+                "Calculate_SHAP_Values": ["Succeeded"]
+              }
+            },
+            "Store_Recommendation": {
+              "type": "Microsoft.Dataverse/CreateRecord",
+              "inputs": {
+                "entityName": "snf_rehab_recommendation",
+                "item": {
+                  "snf_patient_token": "@items('Process_Each_Patient')?['snf_patient_token']",
+                  "snf_therapist_id": "@triggerBody()?['therapistId']",
+                  "snf_discipline": "@triggerBody()?['discipline']",
+                  "snf_recommendation_type": "@body('Call_AI_Generation_With_Retry')?['result']?['recommendationType']",
+                  "snf_recommendation_text": "@body('Call_AI_Generation_With_Retry')?['result']?['fullText']",
+                  "snf_clinical_summary": "@body('Call_AI_Generation_With_Retry')?['result']?['clinicalSummary']",
+                  "snf_medical_necessity": "@body('Call_AI_Generation_With_Retry')?['result']?['medicalNecessity']",
+                  "snf_skilled_bullets": "@string(body('Call_AI_Generation_With_Retry')?['result']?['skilledBullets'])",
+                  "snf_compliance_flags": "@string(body('Call_AI_Generation_With_Retry')?['result']?['complianceFlags'])",
+                  "snf_confidence": "@body('Calculate_Confidence_Score')?['overallConfidence']",
+                  "snf_shap_summary": "@body('Calculate_SHAP_Values')?['summary']",
+                  "snf_priority": "@outputs('Determine_Priority')?['priority']",
+                  "snf_urgency_reason": "@outputs('Determine_Priority')?['urgencyReason']",
+                  "snf_status": "pending_review",
+                  "snf_generation_timestamp": "@utcNow()"
+                }
+              },
+              "runAfter": {
+                "Calculate_Confidence_Score": ["Succeeded"]
+              }
+            }
+          },
+          "runAfter": {
+            "Determine_Priority": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Update_Total_Patients": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Generated_Recommendations",
+      "inputs": {
+        "entityName": "snf_rehab_recommendation",
+        "fetchXml": "<fetch><entity name='snf_rehab_recommendation'><filter><condition attribute='snf_therapist_id' operator='eq' value='@{triggerBody()?['therapistId']}'/><condition attribute='snf_generation_timestamp' operator='today'/><condition attribute='snf_status' operator='eq' value='pending_review'/></filter><order attribute='snf_priority' descending='true'/><order attribute='snf_confidence' descending='false'/></entity></fetch>"
+      },
+      "runAfter": {
+        "Process_Each_Patient": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Separate_By_Priority",
+      "inputs": {
+        "highPriority": "@filter(outputs('Get_Generated_Recommendations')?['body']?['value'], equals(item()?['snf_priority'], 'High'))",
+        "standardPriority": "@filter(outputs('Get_Generated_Recommendations')?['body']?['value'], equals(item()?['snf_priority'], 'Standard'))"
+      },
+      "runAfter": {
+        "Get_Generated_Recommendations": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Summary_Metrics",
+      "inputs": {
+        "totalPatients": "@variables('workflowState')['totalPatients']",
+        "highPriorityCount": "@length(outputs('Separate_By_Priority')?['highPriority'])",
+        "standardPriorityCount": "@length(outputs('Separate_By_Priority')?['standardPriority'])",
+        "avgConfidence": "@if(greater(length(outputs('Get_Generated_Recommendations')?['body']?['value']), 0), div(sum(select(outputs('Get_Generated_Recommendations')?['body']?['value'], item()?['snf_confidence'])), length(outputs('Get_Generated_Recommendations')?['body']?['value'])), 0)",
+        "highConfidenceThreshold": 85,
+        "date": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+        "generationTime": "@formatDateTime(utcNow(), 'HH:mm')"
+      },
+      "runAfter": {
+        "Separate_By_Priority": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Format_High_Priority_Patients",
+      "inputs": "@select(outputs('Separate_By_Priority')?['highPriority'], json(concat('{\"patientToken\":\"', item()?['snf_patient_token'], '\",\"urgencyReason\":\"', item()?['snf_urgency_reason'], '\",\"recommendation\":\"', item()?['snf_recommendation_type'], '\",\"confidence\":', string(item()?['snf_confidence']), ',\"dataQuality\":90,\"recommendationId\":\"', item()?['snf_rehab_recommendationid'], '\"}')))",
+      "runAfter": {
+        "Calculate_Summary_Metrics": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Create_Daily_Briefing_Record",
+      "inputs": {
+        "entityName": "snf_daily_briefing",
+        "item": {
+          "snf_briefing_date": "@utcNow()",
+          "snf_therapist_id": "@triggerBody()?['therapistId']",
+          "snf_discipline": "@triggerBody()?['discipline']",
+          "snf_patient_count": "@outputs('Calculate_Summary_Metrics')?['totalPatients']",
+          "snf_high_risk_count": "@outputs('Calculate_Summary_Metrics')?['highPriorityCount']",
+          "snf_avg_confidence": "@outputs('Calculate_Summary_Metrics')?['avgConfidence']",
+          "snf_status": "ready_for_review",
+          "snf_generation_timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Format_High_Priority_Patients": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Briefing_Data",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "totalPatients": "@outputs('Calculate_Summary_Metrics')?['totalPatients']",
+          "highPriorityCount": "@outputs('Calculate_Summary_Metrics')?['highPriorityCount']",
+          "standardPriorityCount": "@outputs('Calculate_Summary_Metrics')?['standardPriorityCount']",
+          "avgConfidence": "@outputs('Calculate_Summary_Metrics')?['avgConfidence']",
+          "highConfidenceThreshold": "@outputs('Calculate_Summary_Metrics')?['highConfidenceThreshold']",
+          "date": "@outputs('Calculate_Summary_Metrics')?['date']",
+          "generationTime": "@outputs('Calculate_Summary_Metrics')?['generationTime']",
+          "highPriorityPatients": "@outputs('Format_High_Priority_Patients')",
+          "briefingId": "@outputs('Create_Daily_Briefing_Record')?['body']?['snf_daily_briefingid']"
+        }
+      },
+      "runAfter": {
+        "Create_Daily_Briefing_Record": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

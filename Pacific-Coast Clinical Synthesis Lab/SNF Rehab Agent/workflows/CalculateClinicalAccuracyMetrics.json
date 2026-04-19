@@ -1,0 +1,194 @@
+{
+  "name": "Calculate Clinical Accuracy Metrics",
+  "description": "Weekly calculation of clinical accuracy metrics by recommendation type for quality monitoring",
+  "trigger": {
+    "type": "recurrence",
+    "recurrence": {
+      "frequency": "Week",
+      "interval": 1
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Recommendation_Types",
+      "inputs": {
+        "variables": [
+          {
+            "name": "recommendationTypes",
+            "type": "array",
+            "value": [
+              "RecertFull",
+              "RecertPartial",
+              "Discharge",
+              "ContinueTreatment",
+              "ModifyTreatment"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Validations_Last_7_Days",
+      "inputs": {
+        "entityName": "snf_clinical_validation",
+        "fetchXml": "<fetch><entity name='snf_clinical_validation'><filter><condition attribute='snf_validation_timestamp' operator='last-x-days' value='7'/></filter></entity></fetch>"
+      },
+      "runAfter": {
+        "Initialize_Recommendation_Types": ["Succeeded"]
+      }
+    },
+    {
+      "type": "For_Each",
+      "name": "Calculate_Metrics_By_Type",
+      "foreach": "@variables('recommendationTypes')",
+      "actions": [
+        {
+          "type": "Compose",
+          "name": "Filter_By_Type",
+          "inputs": "@filter(outputs('Get_Validations_Last_7_Days')['body']['value'], equals(item()['snf_recommendation_type'], items('Calculate_Metrics_By_Type')))"
+        },
+        {
+          "type": "Compose",
+          "name": "Calculate_True_Positives",
+          "inputs": "@length(filter(outputs('Filter_By_Type'), equals(item()['snf_validation_result'], 'accurate')))"
+        },
+        {
+          "type": "Compose",
+          "name": "Calculate_Minor_Issues",
+          "inputs": "@length(filter(outputs('Filter_By_Type'), equals(item()['snf_validation_result'], 'minor_issues')))"
+        },
+        {
+          "type": "Compose",
+          "name": "Calculate_False_Positives",
+          "inputs": "@length(filter(outputs('Filter_By_Type'), equals(item()['snf_validation_result'], 'inaccurate')))"
+        },
+        {
+          "type": "Compose",
+          "name": "Calculate_Total_Sample",
+          "inputs": "@length(outputs('Filter_By_Type'))"
+        },
+        {
+          "type": "ConditionGroup",
+          "name": "Check_If_Has_Samples",
+          "expression": {
+            "greater": ["@outputs('Calculate_Total_Sample')", 0]
+          },
+          "actions": {
+            "Calculate_Accuracy_Score": {
+              "type": "Compose",
+              "inputs": {
+                "accuracyScore": "@mul(div(add(outputs('Calculate_True_Positives'), div(outputs('Calculate_Minor_Issues'), 2)), outputs('Calculate_Total_Sample')), 100)",
+                "precisionScore": "@mul(div(outputs('Calculate_True_Positives'), add(outputs('Calculate_True_Positives'), outputs('Calculate_False_Positives'))), 100)",
+                "sampleSize": "@outputs('Calculate_Total_Sample')"
+              }
+            },
+            "Store_Metrics": {
+              "type": "Microsoft.Dataverse/CreateRecord",
+              "inputs": {
+                "entityName": "snf_clinical_accuracy_metric",
+                "item": {
+                  "snf_recommendation_type": "@items('Calculate_Metrics_By_Type')",
+                  "snf_accuracy_score": "@outputs('Calculate_Accuracy_Score')['accuracyScore']",
+                  "snf_precision_score": "@outputs('Calculate_Accuracy_Score')['precisionScore']",
+                  "snf_sample_size": "@outputs('Calculate_Accuracy_Score')['sampleSize']",
+                  "snf_time_period": "last_7_days",
+                  "snf_last_updated": "@utcNow()",
+                  "snf_true_positives": "@outputs('Calculate_True_Positives')",
+                  "snf_minor_issues": "@outputs('Calculate_Minor_Issues')",
+                  "snf_false_positives": "@outputs('Calculate_False_Positives')"
+                }
+              },
+              "runAfter": {
+                "Calculate_Accuracy_Score": ["Succeeded"]
+              }
+            }
+          },
+          "runAfter": {
+            "Calculate_Total_Sample": ["Succeeded"]
+          }
+        }
+      ],
+      "runAfter": {
+        "Get_Validations_Last_7_Days": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Overall_Accuracy",
+      "inputs": {
+        "totalValidations": "@length(outputs('Get_Validations_Last_7_Days')['body']['value'])",
+        "accurateCount": "@length(filter(outputs('Get_Validations_Last_7_Days')['body']['value'], equals(item()['snf_validation_result'], 'accurate')))",
+        "minorIssuesCount": "@length(filter(outputs('Get_Validations_Last_7_Days')['body']['value'], equals(item()['snf_validation_result'], 'minor_issues')))",
+        "inaccurateCount": "@length(filter(outputs('Get_Validations_Last_7_Days')['body']['value'], equals(item()['snf_validation_result'], 'inaccurate')))"
+      },
+      "runAfter": {
+        "Calculate_Metrics_By_Type": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Store_Overall_Accuracy",
+      "inputs": {
+        "entityName": "snf_clinical_accuracy_metric",
+        "item": {
+          "snf_recommendation_type": "Overall",
+          "snf_accuracy_score": "@mul(div(add(outputs('Calculate_Overall_Accuracy')['accurateCount'], div(outputs('Calculate_Overall_Accuracy')['minorIssuesCount'], 2)), outputs('Calculate_Overall_Accuracy')['totalValidations']), 100)",
+          "snf_sample_size": "@outputs('Calculate_Overall_Accuracy')['totalValidations']",
+          "snf_time_period": "last_7_days",
+          "snf_last_updated": "@utcNow()",
+          "snf_true_positives": "@outputs('Calculate_Overall_Accuracy')['accurateCount']",
+          "snf_minor_issues": "@outputs('Calculate_Overall_Accuracy')['minorIssuesCount']",
+          "snf_false_positives": "@outputs('Calculate_Overall_Accuracy')['inaccurateCount']"
+        }
+      },
+      "runAfter": {
+        "Calculate_Overall_Accuracy": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Low_Accuracy",
+      "expression": {
+        "less": ["@mul(div(add(outputs('Calculate_Overall_Accuracy')['accurateCount'], div(outputs('Calculate_Overall_Accuracy')['minorIssuesCount'], 2)), outputs('Calculate_Overall_Accuracy')['totalValidations']), 100)", 85]
+      },
+      "actions": {
+        "Send_Alert": {
+          "type": "HTTP",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('alertEndpoint')/clinical-accuracy-warning",
+            "body": {
+              "accuracyScore": "@mul(div(add(outputs('Calculate_Overall_Accuracy')['accurateCount'], div(outputs('Calculate_Overall_Accuracy')['minorIssuesCount'], 2)), outputs('Calculate_Overall_Accuracy')['totalValidations']), 100)",
+              "sampleSize": "@outputs('Calculate_Overall_Accuracy')['totalValidations']",
+              "timestamp": "@utcNow()",
+              "severity": "Warning",
+              "message": "Clinical accuracy below 85% threshold - review recommended"
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Store_Overall_Accuracy": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Summary",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "overallAccuracy": "@mul(div(add(outputs('Calculate_Overall_Accuracy')['accurateCount'], div(outputs('Calculate_Overall_Accuracy')['minorIssuesCount'], 2)), outputs('Calculate_Overall_Accuracy')['totalValidations']), 100)",
+          "totalValidations": "@outputs('Calculate_Overall_Accuracy')['totalValidations']",
+          "timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Check_If_Low_Accuracy": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

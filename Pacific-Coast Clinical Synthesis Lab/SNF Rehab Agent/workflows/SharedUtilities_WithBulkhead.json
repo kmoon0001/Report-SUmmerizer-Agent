@@ -1,0 +1,576 @@
+{
+  "name": "Shared Utility - Bulkhead",
+  "description": "Resource isolation pattern that enforces concurrent request limits per operation type to prevent resource exhaustion",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "operation": {
+        "type": "string",
+        "description": "Operation identifier for bulkhead tracking"
+      },
+      "action": {
+        "type": "string",
+        "description": "Action: acquire, release, status",
+        "enum": ["acquire", "release", "status"]
+      },
+      "requestId": {
+        "type": "string",
+        "description": "Unique request identifier for tracking"
+      },
+      "timeoutSeconds": {
+        "type": "number",
+        "description": "Max time to wait for slot acquisition (default: 30s)"
+      }
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Bulkhead_Config",
+      "inputs": {
+        "variables": [
+          {
+            "name": "bulkheadConfig",
+            "type": "object",
+            "value": {
+              "azureml_prediction": {
+                "maxConcurrent": 10,
+                "maxQueued": 20,
+                "queueTimeoutSeconds": 30
+              },
+              "dataverse_query": {
+                "maxConcurrent": 20,
+                "maxQueued": 40,
+                "queueTimeoutSeconds": 30
+              },
+              "dataverse_write": {
+                "maxConcurrent": 15,
+                "maxQueued": 30,
+                "queueTimeoutSeconds": 30
+              },
+              "shap_calculation": {
+                "maxConcurrent": 5,
+                "maxQueued": 10,
+                "queueTimeoutSeconds": 60
+              },
+              "confidence_scoring": {
+                "maxConcurrent": 10,
+                "maxQueued": 20,
+                "queueTimeoutSeconds": 30
+              },
+              "default": {
+                "maxConcurrent": 10,
+                "maxQueued": 20,
+                "queueTimeoutSeconds": 30
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Get_Operation_Config",
+      "inputs": "@coalesce(variables('bulkheadConfig')[triggerBody()?['operation']], variables('bulkheadConfig')['default'])",
+      "runAfter": {
+        "Initialize_Bulkhead_Config": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Bulkhead_State",
+      "inputs": {
+        "entityName": "snf_bulkhead_state",
+        "fetchXml": "@concat('<fetch top=\"1\"><entity name=\"snf_bulkhead_state\"><filter><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/></filter></entity></fetch>')"
+      },
+      "runAfter": {
+        "Get_Operation_Config": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_Bulkhead_Exists",
+      "expression": {
+        "greater": ["@length(outputs('Get_Bulkhead_State')?['body']?['value'])", 0]
+      },
+      "actions": {
+        "Set_Existing_Bulkhead": {
+          "type": "Compose",
+          "inputs": {
+            "bulkheadId": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_bulkhead_stateid']",
+            "operation": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_operation']",
+            "activeCount": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_active_count']",
+            "queuedCount": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_queued_count']",
+            "totalRejected": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_total_rejected']",
+            "lastUpdated": "@first(outputs('Get_Bulkhead_State')?['body']?['value'])?['snf_last_updated']",
+            "exists": true
+          }
+        }
+      },
+      "else": {
+        "actions": {
+          "Set_New_Bulkhead": {
+            "type": "Compose",
+            "inputs": {
+              "bulkheadId": null,
+              "operation": "@triggerBody()?['operation']",
+              "activeCount": 0,
+              "queuedCount": 0,
+              "totalRejected": 0,
+              "lastUpdated": "@utcNow()",
+              "exists": false
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Get_Bulkhead_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Current_Bulkhead",
+      "inputs": {
+        "variables": [
+          {
+            "name": "currentBulkhead",
+            "type": "object",
+            "value": "@if(greater(length(outputs('Get_Bulkhead_State')?['body']?['value']), 0), outputs('Set_Existing_Bulkhead'), outputs('Set_New_Bulkhead'))"
+          }
+        ]
+      },
+      "runAfter": {
+        "Check_If_Bulkhead_Exists": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Switch",
+      "name": "Route_By_Action",
+      "expression": "@triggerBody()?['action']",
+      "cases": {
+        "Acquire": {
+          "case": "acquire",
+          "actions": {
+            "Check_If_Slot_Available": {
+              "type": "ConditionGroup",
+              "expression": {
+                "less": [
+                  "@variables('currentBulkhead')['activeCount']",
+                  "@outputs('Get_Operation_Config')['maxConcurrent']"
+                ]
+              },
+              "actions": {
+                "Acquire_Slot": {
+                  "type": "ConditionGroup",
+                  "expression": {
+                    "equals": ["@variables('currentBulkhead')['exists']", true]
+                  },
+                  "actions": {
+                    "Update_Active_Count": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_bulkhead_state",
+                        "recordId": "@variables('currentBulkhead')['bulkheadId']",
+                        "item": {
+                          "snf_active_count": "@add(variables('currentBulkhead')['activeCount'], 1)",
+                          "snf_last_updated": "@utcNow()"
+                        }
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Create_Bulkhead_State": {
+                        "type": "Microsoft.Dataverse/CreateRecord",
+                        "inputs": {
+                          "entityName": "snf_bulkhead_state",
+                          "item": {
+                            "snf_operation": "@triggerBody()?['operation']",
+                            "snf_active_count": 1,
+                            "snf_queued_count": 0,
+                            "snf_total_rejected": 0,
+                            "snf_max_concurrent": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                            "snf_max_queued": "@outputs('Get_Operation_Config')['maxQueued']",
+                            "snf_last_updated": "@utcNow()"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Create_Active_Request_Record": {
+                  "type": "Microsoft.Dataverse/CreateRecord",
+                  "inputs": {
+                    "entityName": "snf_bulkhead_request",
+                    "item": {
+                      "snf_operation": "@triggerBody()?['operation']",
+                      "snf_request_id": "@triggerBody()?['requestId']",
+                      "snf_status": "Active",
+                      "snf_acquired_time": "@utcNow()",
+                      "snf_timeout_seconds": "@coalesce(triggerBody()?['timeoutSeconds'], outputs('Get_Operation_Config')['queueTimeoutSeconds'])"
+                    }
+                  },
+                  "runAfter": {
+                    "Acquire_Slot": ["Succeeded"]
+                  }
+                },
+                "Return_Acquired": {
+                  "type": "Response",
+                  "inputs": {
+                    "statusCode": 200,
+                    "body": {
+                      "success": true,
+                      "acquired": true,
+                      "queued": false,
+                      "requestId": "@triggerBody()?['requestId']",
+                      "operation": "@triggerBody()?['operation']",
+                      "activeCount": "@add(variables('currentBulkhead')['activeCount'], 1)",
+                      "maxConcurrent": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                      "message": "Slot acquired immediately"
+                    }
+                  },
+                  "runAfter": {
+                    "Create_Active_Request_Record": ["Succeeded"]
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Check_If_Can_Queue": {
+                    "type": "ConditionGroup",
+                    "expression": {
+                      "less": [
+                        "@variables('currentBulkhead')['queuedCount']",
+                        "@outputs('Get_Operation_Config')['maxQueued']"
+                      ]
+                    },
+                    "actions": {
+                      "Add_To_Queue": {
+                        "type": "ConditionGroup",
+                        "expression": {
+                          "equals": ["@variables('currentBulkhead')['exists']", true]
+                        },
+                        "actions": {
+                          "Update_Queued_Count": {
+                            "type": "Microsoft.Dataverse/UpdateRecord",
+                            "inputs": {
+                              "entityName": "snf_bulkhead_state",
+                              "recordId": "@variables('currentBulkhead')['bulkheadId']",
+                              "item": {
+                                "snf_queued_count": "@add(variables('currentBulkhead')['queuedCount'], 1)",
+                                "snf_last_updated": "@utcNow()"
+                              }
+                            }
+                          }
+                        },
+                        "else": {
+                          "actions": {
+                            "Create_Bulkhead_With_Queue": {
+                              "type": "Microsoft.Dataverse/CreateRecord",
+                              "inputs": {
+                                "entityName": "snf_bulkhead_state",
+                                "item": {
+                                  "snf_operation": "@triggerBody()?['operation']",
+                                  "snf_active_count": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                                  "snf_queued_count": 1,
+                                  "snf_total_rejected": 0,
+                                  "snf_max_concurrent": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                                  "snf_max_queued": "@outputs('Get_Operation_Config')['maxQueued']",
+                                  "snf_last_updated": "@utcNow()"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Create_Queued_Request_Record": {
+                        "type": "Microsoft.Dataverse/CreateRecord",
+                        "inputs": {
+                          "entityName": "snf_bulkhead_request",
+                          "item": {
+                            "snf_operation": "@triggerBody()?['operation']",
+                            "snf_request_id": "@triggerBody()?['requestId']",
+                            "snf_status": "Queued",
+                            "snf_queued_time": "@utcNow()",
+                            "snf_timeout_seconds": "@coalesce(triggerBody()?['timeoutSeconds'], outputs('Get_Operation_Config')['queueTimeoutSeconds'])",
+                            "snf_timeout_time": "@addSeconds(utcNow(), coalesce(triggerBody()?['timeoutSeconds'], outputs('Get_Operation_Config')['queueTimeoutSeconds']))"
+                          }
+                        },
+                        "runAfter": {
+                          "Add_To_Queue": ["Succeeded"]
+                        }
+                      },
+                      "Return_Queued": {
+                        "type": "Response",
+                        "inputs": {
+                          "statusCode": 202,
+                          "body": {
+                            "success": true,
+                            "acquired": false,
+                            "queued": true,
+                            "requestId": "@triggerBody()?['requestId']",
+                            "operation": "@triggerBody()?['operation']",
+                            "queuePosition": "@add(variables('currentBulkhead')['queuedCount'], 1)",
+                            "estimatedWaitSeconds": "@mul(div(variables('currentBulkhead')['activeCount'], outputs('Get_Operation_Config')['maxConcurrent']), 10)",
+                            "timeoutSeconds": "@coalesce(triggerBody()?['timeoutSeconds'], outputs('Get_Operation_Config')['queueTimeoutSeconds'])",
+                            "message": "Request queued, waiting for available slot"
+                          }
+                        },
+                        "runAfter": {
+                          "Create_Queued_Request_Record": ["Succeeded"]
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {
+                        "Reject_Request": {
+                          "type": "ConditionGroup",
+                          "expression": {
+                            "equals": ["@variables('currentBulkhead')['exists']", true]
+                          },
+                          "actions": {
+                            "Update_Rejected_Count": {
+                              "type": "Microsoft.Dataverse/UpdateRecord",
+                              "inputs": {
+                                "entityName": "snf_bulkhead_state",
+                                "recordId": "@variables('currentBulkhead')['bulkheadId']",
+                                "item": {
+                                  "snf_total_rejected": "@add(variables('currentBulkhead')['totalRejected'], 1)",
+                                  "snf_last_updated": "@utcNow()"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Log_Rejection": {
+                          "type": "Microsoft.Dataverse/CreateRecord",
+                          "inputs": {
+                            "entityName": "snf_bulkhead_log",
+                            "item": {
+                              "snf_operation": "@triggerBody()?['operation']",
+                              "snf_event_type": "RequestRejected",
+                              "snf_request_id": "@triggerBody()?['requestId']",
+                              "snf_timestamp": "@utcNow()",
+                              "snf_reason": "Queue full",
+                              "snf_active_count": "@variables('currentBulkhead')['activeCount']",
+                              "snf_queued_count": "@variables('currentBulkhead')['queuedCount']"
+                            }
+                          },
+                          "runAfter": {
+                            "Reject_Request": ["Succeeded"]
+                          }
+                        },
+                        "Return_Rejected": {
+                          "type": "Response",
+                          "inputs": {
+                            "statusCode": 503,
+                            "body": {
+                              "success": false,
+                              "acquired": false,
+                              "queued": false,
+                              "rejected": true,
+                              "requestId": "@triggerBody()?['requestId']",
+                              "operation": "@triggerBody()?['operation']",
+                              "activeCount": "@variables('currentBulkhead')['activeCount']",
+                              "queuedCount": "@variables('currentBulkhead')['queuedCount']",
+                              "maxConcurrent": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                              "maxQueued": "@outputs('Get_Operation_Config')['maxQueued']",
+                              "message": "Request rejected: bulkhead full (active + queued at capacity)",
+                              "retryAfterSeconds": 30
+                            }
+                          },
+                          "runAfter": {
+                            "Log_Rejection": ["Succeeded"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Release": {
+          "case": "release",
+          "actions": {
+            "Find_Request_Record": {
+              "type": "Microsoft.Dataverse/ListRecords",
+              "inputs": {
+                "entityName": "snf_bulkhead_request",
+                "fetchXml": "@concat('<fetch top=\"1\"><entity name=\"snf_bulkhead_request\"><filter><condition attribute=\"snf_request_id\" operator=\"eq\" value=\"', triggerBody()?['requestId'], '\"/><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/></filter></entity></fetch>')"
+              }
+            },
+            "Check_If_Request_Found": {
+              "type": "ConditionGroup",
+              "expression": {
+                "greater": ["@length(outputs('Find_Request_Record')?['body']?['value'])", 0]
+              },
+              "actions": {
+                "Delete_Request_Record": {
+                  "type": "Microsoft.Dataverse/DeleteRecord",
+                  "inputs": {
+                    "entityName": "snf_bulkhead_request",
+                    "recordId": "@first(outputs('Find_Request_Record')?['body']?['value'])?['snf_bulkhead_requestid']"
+                  }
+                },
+                "Decrement_Active_Count": {
+                  "type": "ConditionGroup",
+                  "expression": {
+                    "equals": ["@variables('currentBulkhead')['exists']", true]
+                  },
+                  "actions": {
+                    "Update_Active_Count_Release": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_bulkhead_state",
+                        "recordId": "@variables('currentBulkhead')['bulkheadId']",
+                        "item": {
+                          "snf_active_count": "@max(sub(variables('currentBulkhead')['activeCount'], 1), 0)",
+                          "snf_last_updated": "@utcNow()"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Delete_Request_Record": ["Succeeded"]
+                  }
+                },
+                "Check_For_Queued_Requests": {
+                  "type": "Microsoft.Dataverse/ListRecords",
+                  "inputs": {
+                    "entityName": "snf_bulkhead_request",
+                    "fetchXml": "@concat('<fetch top=\"1\"><entity name=\"snf_bulkhead_request\"><filter><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/><condition attribute=\"snf_status\" operator=\"eq\" value=\"Queued\"/></filter><order attribute=\"snf_queued_time\" /></entity></fetch>')"
+                  },
+                  "runAfter": {
+                    "Decrement_Active_Count": ["Succeeded"]
+                  }
+                },
+                "Promote_Queued_Request": {
+                  "type": "ConditionGroup",
+                  "expression": {
+                    "greater": ["@length(outputs('Check_For_Queued_Requests')?['body']?['value'])", 0]
+                  },
+                  "actions": {
+                    "Update_Request_To_Active": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_bulkhead_request",
+                        "recordId": "@first(outputs('Check_For_Queued_Requests')?['body']?['value'])?['snf_bulkhead_requestid']",
+                        "item": {
+                          "snf_status": "Active",
+                          "snf_acquired_time": "@utcNow()"
+                        }
+                      }
+                    },
+                    "Update_Counts_After_Promotion": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_bulkhead_state",
+                        "recordId": "@variables('currentBulkhead')['bulkheadId']",
+                        "item": {
+                          "snf_active_count": "@variables('currentBulkhead')['activeCount']",
+                          "snf_queued_count": "@max(sub(variables('currentBulkhead')['queuedCount'], 1), 0)",
+                          "snf_last_updated": "@utcNow()"
+                        }
+                      },
+                      "runAfter": {
+                        "Update_Request_To_Active": ["Succeeded"]
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Check_For_Queued_Requests": ["Succeeded"]
+                  }
+                }
+              },
+              "runAfter": {
+                "Find_Request_Record": ["Succeeded"]
+              }
+            },
+            "Return_Release_Response": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "success": true,
+                  "released": true,
+                  "requestId": "@triggerBody()?['requestId']",
+                  "operation": "@triggerBody()?['operation']",
+                  "activeCount": "@if(variables('currentBulkhead')['exists'], max(sub(variables('currentBulkhead')['activeCount'], 1), 0), 0)",
+                  "queuedCount": "@if(and(variables('currentBulkhead')['exists'], greater(length(outputs('Check_For_Queued_Requests')?['body']?['value']), 0)), max(sub(variables('currentBulkhead')['queuedCount'], 1), 0), variables('currentBulkhead')['queuedCount'])",
+                  "promotedRequest": "@if(greater(length(outputs('Check_For_Queued_Requests')?['body']?['value']), 0), first(outputs('Check_For_Queued_Requests')?['body']?['value'])?['snf_request_id'], null)",
+                  "message": "Slot released"
+                }
+              },
+              "runAfter": {
+                "Check_If_Request_Found": ["Succeeded"]
+              }
+            }
+          }
+        },
+        "Status": {
+          "case": "status",
+          "actions": {
+            "Get_Active_Requests": {
+              "type": "Microsoft.Dataverse/ListRecords",
+              "inputs": {
+                "entityName": "snf_bulkhead_request",
+                "fetchXml": "@concat('<fetch><entity name=\"snf_bulkhead_request\"><filter><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/><condition attribute=\"snf_status\" operator=\"eq\" value=\"Active\"/></filter></entity></fetch>')"
+              }
+            },
+            "Get_Queued_Requests": {
+              "type": "Microsoft.Dataverse/ListRecords",
+              "inputs": {
+                "entityName": "snf_bulkhead_request",
+                "fetchXml": "@concat('<fetch><entity name=\"snf_bulkhead_request\"><filter><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/><condition attribute=\"snf_status\" operator=\"eq\" value=\"Queued\"/></filter><order attribute=\"snf_queued_time\" /></entity></fetch>')"
+              },
+              "runAfter": {
+                "Get_Active_Requests": ["Succeeded"]
+              }
+            },
+            "Return_Status": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "operation": "@triggerBody()?['operation']",
+                  "activeCount": "@length(outputs('Get_Active_Requests')?['body']?['value'])",
+                  "queuedCount": "@length(outputs('Get_Queued_Requests')?['body']?['value'])",
+                  "maxConcurrent": "@outputs('Get_Operation_Config')['maxConcurrent']",
+                  "maxQueued": "@outputs('Get_Operation_Config')['maxQueued']",
+                  "totalRejected": "@variables('currentBulkhead')['totalRejected']",
+                  "utilizationPercent": "@mul(div(length(outputs('Get_Active_Requests')?['body']?['value']), outputs('Get_Operation_Config')['maxConcurrent']), 100)",
+                  "queueUtilizationPercent": "@mul(div(length(outputs('Get_Queued_Requests')?['body']?['value']), outputs('Get_Operation_Config')['maxQueued']), 100)",
+                  "lastUpdated": "@variables('currentBulkhead')['lastUpdated']"
+                }
+              },
+              "runAfter": {
+                "Get_Queued_Requests": ["Succeeded"]
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "actions": {
+          "Return_Invalid_Action": {
+            "type": "Response",
+            "inputs": {
+              "statusCode": 400,
+              "body": {
+                "success": false,
+                "error": "Invalid action",
+                "message": "Action must be one of: acquire, release, status"
+              }
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Initialize_Current_Bulkhead": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

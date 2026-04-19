@@ -1,0 +1,123 @@
+﻿{
+    "generatedAtUtc":  "2026-04-18T05:10:33.4614362Z",
+    "projectRoot":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent",
+    "runtimeTemplatePath":  "D:\\Report SUmmerizer Agent\\exports\\runtime-template-current-check.yml",
+    "dialogManifestPath":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\dialog-manifest.json",
+    "runtimeBotXmlPath":  "D:\\Report SUmmerizer Agent\\exports\\runtime-solution-unpacked\\bots\\pcca_agent39xn69\\bot.xml",
+    "localSchema":  "pcca_agent39xn69",
+    "plan":  [
+                 {
+                     "Topic":  "ClassifyAndRouteRehabRecord",
+                     "DriftStatus":  "MissingDialog",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ClassifyAndRouteRehabRecord.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\ClassifyAndRouteRehabRecord.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord",
+                     "RuntimeSchema":  "template-content.topic.ClassifyAndRouteRehabRecord",
+                     "RuntimeComponentId":  "42766d20-8fbe-4a36-a104-6f2edab84ae5",
+                     "RepairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content.",
+                     "BlockingDiagnostics":  [
+                                                 {
+                                                     "$kind":  "ActionReferenceDiagnosticResult",
+                                                     "diagnosticList":  [
+                                                                            {
+                                                                                "$kind":  "InvalidReferenceError",
+                                                                                "referenceType":  "Dialog",
+                                                                                "referenceId":  "pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord",
+                                                                                "errorCode":  "NotFound",
+                                                                                "errorMessage":  "Dialog with id \u0027pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord\u0027 not found"
+                                                                            }
+                                                                        ],
+                                                     "componentId":  "0a0227ca-e1a6-4e0c-9037-edb6a5402565",
+                                                     "reference":  {
+                                                                       "dialogId":  "pcca_agent39xn69.topic.Fallback",
+                                                                       "triggerId":  "main",
+                                                                       "actionId":  "conditionItem_secondFallbackActions"
+                                                                   }
+                                                 },
+                                                 {
+                                                     "$kind":  "ActionReferenceDiagnosticResult",
+                                                     "diagnosticList":  [
+                                                                            {
+                                                                                "$kind":  "InvalidReferenceError",
+                                                                                "referenceType":  "Dialog",
+                                                                                "referenceId":  "pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord",
+                                                                                "errorCode":  "NotFound",
+                                                                                "errorMessage":  "Dialog with id \u0027pcca_agent39xn69.topic.ClassifyAndRouteRehabRecord\u0027 not found"
+                                                                            }
+                                                                        ],
+                                                     "componentId":  "cdb726be-e03e-4886-b513-febb14fab5cf",
+                                                     "reference":  {
+                                                                       "dialogId":  "pcca_agent39xn69.topic.Escalate",
+                                                                       "triggerId":  "main",
+                                                                       "actionId":  "conditionItem_continueYesActions"
+                                                                   }
+                                                 }
+                                             ]
+                 },
+                 {
+                     "Topic":  "EvalAnalysis",
+                     "DriftStatus":  "MissingDialog",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\EvalAnalysis.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\EvalAnalysis.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.EvalAnalysis",
+                     "RuntimeSchema":  "template-content.topic.EvalAnalysis",
+                     "RuntimeComponentId":  "2df0e006-0aee-4b34-84e6-53e96c8037aa",
+                     "RepairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content.",
+                     "BlockingDiagnostics":  [
+
+                                             ]
+                 },
+                 {
+                     "Topic":  "ProgressAnalysis",
+                     "DriftStatus":  "MissingDialog",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ProgressAnalysis.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\ProgressAnalysis.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.ProgressAnalysis",
+                     "RuntimeSchema":  "template-content.topic.ProgressAnalysis",
+                     "RuntimeComponentId":  "a508c0ba-9c8d-490e-a3b7-77f299823336",
+                     "RepairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content.",
+                     "BlockingDiagnostics":  [
+
+                                             ]
+                 },
+                 {
+                     "Topic":  "RecertAnalysis",
+                     "DriftStatus":  "MissingDialog",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\RecertAnalysis.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\RecertAnalysis.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.RecertAnalysis",
+                     "RuntimeSchema":  "template-content.topic.RecertAnalysis",
+                     "RuntimeComponentId":  "fb80ea18-8e91-4405-80c1-1dbfd9446faa",
+                     "RepairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content.",
+                     "BlockingDiagnostics":  [
+
+                                             ]
+                 },
+                 {
+                     "Topic":  "DischargeAnalysis",
+                     "DriftStatus":  "MissingDialog",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\DischargeAnalysis.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\DischargeAnalysis.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.DischargeAnalysis",
+                     "RuntimeSchema":  "template-content.topic.DischargeAnalysis",
+                     "RuntimeComponentId":  "b770245b-4798-4671-963b-2892fd3953e5",
+                     "RepairAction":  "Open existing topic component by RuntimeComponentId and replace code with DialogFile content.",
+                     "BlockingDiagnostics":  [
+
+                                             ]
+                 },
+                 {
+                     "Topic":  "Search",
+                     "DriftStatus":  "MissingComponent",
+                     "DialogFile":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\Search.dialog.yml",
+                     "LocalSource":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\Search.mcs.yml",
+                     "LocalSchema":  "pcca_agent39xn69.topic.Search",
+                     "RuntimeSchema":  null,
+                     "RuntimeComponentId":  "7e802649-3401-4000-bdf2-2685f14e5309",
+                     "RepairAction":  "Create topic component, then paste dialog YAML from DialogFile.",
+                     "BlockingDiagnostics":  [
+
+                                             ]
+                 }
+             ]
+}

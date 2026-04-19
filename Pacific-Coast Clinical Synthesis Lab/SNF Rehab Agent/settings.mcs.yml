@@ -1,0 +1,29 @@
+displayName: Therapy_Report_Prep_Assistant
+schemaName: pcca_agent39xn69
+accessControlPolicy: GroupMembership
+authenticationMode: Integrated
+authenticationTrigger: Always
+configuration:
+  settings:
+    CircuitBreakerEnabled: true
+    ErrorHandlingEnabled: true
+    GenerativeActionsEnabled: true
+    GracefulDegradationEnabled: true
+    HealthCheckIntervalSeconds: 30
+    KnowledgeBoostThreshold: 0.85
+    RetryInitialDelaySeconds: 2
+    RetryMaxAttempts: 4
+
+  isAgentConnectable: true
+  gPTSettings:
+    defaultSchemaName: pcca_agent39xn69.gpt.default
+
+  aISettings:
+    useModelKnowledge: false
+    isFileAnalysisEnabled: true
+    isSemanticSearchEnabled: true
+    contentModeration: Medium
+    optInUseLatestModels: false
+
+  recognizer:
+    kind: GenerativeAIRecognizer

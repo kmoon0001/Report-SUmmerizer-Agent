@@ -1,0 +1,19 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: RecertAnalysis
+  actions:
+    - kind: InvokePromptAction
+      id: runRecertTool
+      actionId: cr917_SNFRehab.Rehab_Recert_Insight
+      inputs:
+        patientToken: =Topic.ClassificationResult.patientToken
+        currentGoals: =Topic.ClassificationResult.currentGoals
+        justificationForContinuedCare: =Topic.ClassificationResult.justificationForContinuedCare
+      output: Topic.RecertInsightResponse
+
+    - kind: EndDialog
+      id: exit
+

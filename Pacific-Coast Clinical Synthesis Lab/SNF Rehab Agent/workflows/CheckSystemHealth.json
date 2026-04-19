@@ -1,0 +1,430 @@
+{
+  "name": "Check System Health",
+  "description": "Monitors health of all dependent services with circuit breaker pattern",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "checkAll": "boolean"
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_HealthStatus",
+      "inputs": {
+        "variables": [
+          {
+            "name": "healthStatus",
+            "type": "object",
+            "value": {
+              "dataverseHealthy": false,
+              "azureMLHealthy": false,
+              "teamsHealthy": false,
+              "searchHealthy": false,
+              "allHealthy": false,
+              "lastCheckTime": "@utcNow()",
+              "estimatedRestoration": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Parallel",
+      "name": "Check_All_Services_Parallel",
+      "branches": {
+        "Dataverse_Health_Check": {
+          "actions": {
+            "Try_Dataverse_Query": {
+              "type": "Scope",
+              "actions": {
+                "Query_Dataverse_Health": {
+                  "type": "Microsoft.Dataverse/ListRecords",
+                  "inputs": {
+                    "entityName": "snf_rehab_recommendation",
+                    "fetchXml": "<fetch top='1'><entity name='snf_rehab_recommendation'><attribute name='snf_rehab_recommendationid'/></entity></fetch>"
+                  },
+                  "timeout": "PT10S",
+                  "retryPolicy": {
+                    "type": "none"
+                  }
+                }
+              }
+            },
+            "Handle_Dataverse_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": [
+                  "@result('Try_Dataverse_Query')[0]['status']",
+                  "Succeeded"
+                ]
+              },
+              "actions": {
+                "Set_Dataverse_Healthy": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'dataverseHealthy', true)"
+                  }
+                },
+                "Set_Dataverse_Status_Text": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'dataverseStatus', '✓ Healthy')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Set_Dataverse_Unhealthy": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "healthStatus",
+                      "value": "@setProperty(variables('healthStatus'), 'dataverseStatus', '✗ Unavailable')"
+                    }
+                  },
+                  "Log_Dataverse_Failure": {
+                    "type": "HTTP",
+                    "inputs": {
+                      "method": "POST",
+                      "uri": "@parameters('loggingEndpoint')/health-check-failure",
+                      "body": {
+                        "service": "Dataverse",
+                        "timestamp": "@utcNow()",
+                        "error": "@result('Try_Dataverse_Query')[0]['error']"
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Try_Dataverse_Query": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        },
+        "Azure_ML_Health_Check": {
+          "actions": {
+            "Try_Azure_ML_Ping": {
+              "type": "Scope",
+              "actions": {
+                "Ping_Azure_ML_Endpoint": {
+                  "type": "HTTP",
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@parameters('azureMLEndpoint')/health",
+                    "headers": {
+                      "Authorization": "Bearer @{parameters('azureMLKey')}"
+                    }
+                  },
+                  "timeout": "PT10S",
+                  "retryPolicy": {
+                    "type": "none"
+                  }
+                }
+              }
+            },
+            "Handle_Azure_ML_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@result('Try_Azure_ML_Ping')[0]['status']",
+                      "Succeeded"
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@outputs('Ping_Azure_ML_Endpoint')['statusCode']",
+                      200
+                    ]
+                  }
+                ]
+              },
+              "actions": {
+                "Set_Azure_ML_Healthy": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'azureMLHealthy', true)"
+                  }
+                },
+                "Set_Azure_ML_Status_Text": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'azureMLStatus', '✓ Healthy')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Set_Azure_ML_Unhealthy": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "healthStatus",
+                      "value": "@setProperty(variables('healthStatus'), 'azureMLStatus', '✗ Unavailable')"
+                    }
+                  },
+                  "Check_Circuit_Breaker": {
+                    "type": "HTTP",
+                    "inputs": {
+                      "method": "GET",
+                      "uri": "@parameters('circuitBreakerEndpoint')/status/azureml"
+                    }
+                  },
+                  "Update_Circuit_Breaker": {
+                    "type": "HTTP",
+                    "inputs": {
+                      "method": "POST",
+                      "uri": "@parameters('circuitBreakerEndpoint')/failure/azureml",
+                      "body": {
+                        "timestamp": "@utcNow()",
+                        "error": "@result('Try_Azure_ML_Ping')[0]['error']"
+                      }
+                    },
+                    "runAfter": {
+                      "Check_Circuit_Breaker": ["Succeeded"]
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Try_Azure_ML_Ping": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        },
+        "Teams_Health_Check": {
+          "actions": {
+            "Try_Teams_Webhook": {
+              "type": "Scope",
+              "actions": {
+                "Test_Teams_Webhook": {
+                  "type": "HTTP",
+                  "inputs": {
+                    "method": "POST",
+                    "uri": "@parameters('teamsWebhookUrl')",
+                    "body": {
+                      "type": "message",
+                      "text": "Health check ping"
+                    }
+                  },
+                  "timeout": "PT10S",
+                  "retryPolicy": {
+                    "type": "none"
+                  }
+                }
+              }
+            },
+            "Handle_Teams_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": [
+                  "@result('Try_Teams_Webhook')[0]['status']",
+                  "Succeeded"
+                ]
+              },
+              "actions": {
+                "Set_Teams_Healthy": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'teamsHealthy', true)"
+                  }
+                },
+                "Set_Teams_Status_Text": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'teamsStatus', '✓ Healthy')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Set_Teams_Unhealthy": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "healthStatus",
+                      "value": "@setProperty(variables('healthStatus'), 'teamsStatus', '⚠ Degraded (notifications may be delayed)')"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Try_Teams_Webhook": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        },
+        "Search_Health_Check": {
+          "actions": {
+            "Try_Search_Query": {
+              "type": "Scope",
+              "actions": {
+                "Test_Search_Service": {
+                  "type": "SearchAndSummarizeContent",
+                  "inputs": {
+                    "userInput": "test query",
+                    "maxResults": 1
+                  },
+                  "timeout": "PT10S",
+                  "retryPolicy": {
+                    "type": "none"
+                  }
+                }
+              }
+            },
+            "Handle_Search_Result": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": [
+                  "@result('Try_Search_Query')[0]['status']",
+                  "Succeeded"
+                ]
+              },
+              "actions": {
+                "Set_Search_Healthy": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'searchHealthy', true)"
+                  }
+                },
+                "Set_Search_Status_Text": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "healthStatus",
+                    "value": "@setProperty(variables('healthStatus'), 'searchStatus', '✓ Healthy')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Set_Search_Unhealthy": {
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "healthStatus",
+                      "value": "@setProperty(variables('healthStatus'), 'searchStatus', '✗ Unavailable')"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Try_Search_Query": ["Succeeded", "Failed", "TimedOut"]
+              }
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Initialize_HealthStatus": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Overall_Health",
+      "inputs": {
+        "allHealthy": "@and(and(variables('healthStatus')['dataverseHealthy'], variables('healthStatus')['azureMLHealthy']), and(variables('healthStatus')['teamsHealthy'], variables('healthStatus')['searchHealthy']))",
+        "criticalServicesHealthy": "@and(variables('healthStatus')['dataverseHealthy'], variables('healthStatus')['azureMLHealthy'])"
+      },
+      "runAfter": {
+        "Check_All_Services_Parallel": ["Succeeded"]
+      }
+    },
+    {
+      "type": "SetVariable",
+      "name": "Update_Overall_Health",
+      "inputs": {
+        "name": "healthStatus",
+        "value": "@setProperty(variables('healthStatus'), 'allHealthy', outputs('Calculate_Overall_Health')['allHealthy'])"
+      },
+      "runAfter": {
+        "Calculate_Overall_Health": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Estimate_Restoration_Time",
+      "expression": {
+        "not": {
+          "equals": [
+            "@outputs('Calculate_Overall_Health')['allHealthy']",
+            true
+          ]
+        }
+      },
+      "actions": {
+        "Get_Historical_Outage_Data": {
+          "type": "HTTP",
+          "inputs": {
+            "method": "GET",
+            "uri": "@parameters('analyticsEndpoint')/outage-history",
+            "queries": {
+              "services": "@if(not(variables('healthStatus')['dataverseHealthy']), 'dataverse,', '')@{if(not(variables('healthStatus')['azureMLHealthy']), 'azureml,', '')}",
+              "lookbackDays": "30"
+            }
+          }
+        },
+        "Calculate_ETA": {
+          "type": "Compose",
+          "inputs": {
+            "avgRestorationMinutes": "@body('Get_Historical_Outage_Data')['averageRestorationMinutes']",
+            "estimatedRestoration": "@addMinutes(utcNow(), body('Get_Historical_Outage_Data')['averageRestorationMinutes'])",
+            "confidence": "@body('Get_Historical_Outage_Data')['confidence']"
+          },
+          "runAfter": {
+            "Get_Historical_Outage_Data": ["Succeeded"]
+          }
+        },
+        "Set_Restoration_Estimate": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "healthStatus",
+            "value": "@setProperty(variables('healthStatus'), 'estimatedRestoration', concat('Approximately ', string(outputs('Calculate_ETA')['avgRestorationMinutes']), ' minutes (', outputs('Calculate_ETA')['confidence'], '% confidence)'))"
+          },
+          "runAfter": {
+            "Calculate_ETA": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Update_Overall_Health": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Log_Health_Check",
+      "inputs": {
+        "entityName": "snf_system_health_log",
+        "item": {
+          "snf_check_timestamp": "@utcNow()",
+          "snf_dataverse_healthy": "@variables('healthStatus')['dataverseHealthy']",
+          "snf_azureml_healthy": "@variables('healthStatus')['azureMLHealthy']",
+          "snf_teams_healthy": "@variables('healthStatus')['teamsHealthy']",
+          "snf_search_healthy": "@variables('healthStatus')['searchHealthy']",
+          "snf_all_healthy": "@variables('healthStatus')['allHealthy']",
+          "snf_estimated_restoration": "@variables('healthStatus')['estimatedRestoration']"
+        }
+      },
+      "runAfter": {
+        "Estimate_Restoration_Time": ["Succeeded", "Skipped"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Health_Status",
+      "inputs": {
+        "statusCode": 200,
+        "body": "@variables('healthStatus')"
+      },
+      "runAfter": {
+        "Log_Health_Check": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

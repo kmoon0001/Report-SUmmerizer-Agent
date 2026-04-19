@@ -1,0 +1,64 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "backgroundImage": {
+    "url": "https://images.unsplash.com/photo-1576091160550-21735994b1a3?auto=format&fit=crop&q=80&w=1000",
+    "fillMode": "cover"
+  },
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "PAC COAST | FDA/NIST COMPLIANT XAI",
+      "color": "Accent",
+      "weight": "Bolder",
+      "size": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Interactive Briefing & Advanced XAI",
+      "weight": "Bolder",
+      "size": "ExtraLarge"
+    },
+    {
+      "type": "Container",
+      "spacing": "Medium",
+      "items": [
+        { "type": "TextBlock", "text": "Score: **${urgencyScore}** [CI: ${confidenceInterval}]", "size": "Large" },
+        { "type": "TextBlock", "text": "Status: **${xaiStatus}** | Logic: SHAP/LIME Enabled", "isSubtle": true }
+      ]
+    },
+    {
+       "type": "ActionSet",
+       "actions": [
+         {
+           "type": "Action.ShowCard",
+           "title": "🔍 View Advanced XAI Details (7-Layers)",
+           "card": {
+             "type": "AdaptiveCard",
+             "body": [
+               { "type": "TextBlock", "text": "SHAP/LIME Factors: ${shapFactors}", "wrap": true },
+               { "type": "TextBlock", "text": "Counterfactuals: ${counterfactuals}", "wrap": true },
+               { "type": "TextBlock", "text": "Attention Weights: ${attentionWeights}", "wrap": true },
+               { "type": "TextBlock", "text": "Anchors: ${xaiAnchors}", "wrap": true }
+             ]
+           }
+         }
+       ]
+    },
+    {
+      "type": "Input.Text",
+      "id": "editedSummary",
+      "label": "Clinical Summary Update:",
+      "isMultiline": true,
+      "value": "${clinicalSummary}"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "✅ Finalize & Sync to Dataverse",
+      "style": "positive"
+    }
+  ]
+}

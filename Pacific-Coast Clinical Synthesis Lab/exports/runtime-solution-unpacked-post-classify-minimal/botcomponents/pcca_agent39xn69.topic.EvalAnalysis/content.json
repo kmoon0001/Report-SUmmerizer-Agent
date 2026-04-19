@@ -1,0 +1,71 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Eval Analysis
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze eval note
+      - review evaluation note
+      - check initial therapy evaluation
+      - evaluate documentation quality
+
+  actions:
+    - kind: SearchAndSummarizeContent
+      id: search_eval_guidance
+      variable: Topic.Answer
+      userInput: =System.Activity.Text
+      moderationLevel: Medium
+      additionalInstructions: |-
+        Provide a structured evaluation-note review for SNF rehab.
+        Include:
+        1) measurable clinical summary
+        2) skilled service / medical necessity justification
+        3) compliance and documentation risk flags
+        4) clarification questions only if needed
+        If data is incomplete or conflicting, explicitly state "Requires therapist review".
+      publicDataSource:
+        sites:
+          - "www.cms.gov"
+          - "www.ecfr.gov"
+
+      sharePointSearchDataSource: {}
+
+    - kind: ConditionGroup
+      id: conditionGroup_evalAnswer
+      conditions:
+        - id: conditionItem_hasAnswer
+          condition: =!IsBlank(Topic.Answer)
+          actions:
+            - kind: ConditionGroup
+              id: conditionGroup_evalLowConfidence
+              conditions:
+                - id: conditionItem_evalRequiresReview
+                  condition: ="requires therapist review" in Lower(Topic.Answer)
+                  actions:
+                    - kind: SendActivity
+                      id: sendMessage_evalRequiresReview
+                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+
+                    - kind: BeginDialog
+                      id: beginDialog_evalEscalateLowConfidence
+                      dialog: pcca_agent39xn69.topic.Escalate
+
+              elseActions:
+                - kind: SendActivity
+                  id: sendMessage_evalAnswer
+                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+
+                - kind: BeginDialog
+                  id: beginDialog_evalSuggestedActions
+                  dialog: pcca_agent39xn69.topic.SuggestedActions
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_evalNeedsInput
+          activity: I need more structured evaluation details (functional status, measurable findings, interventions, goals, and barriers) to complete this review.
+
+        - kind: BeginDialog
+          id: beginDialog_evalEscalate
+          dialog: pcca_agent39xn69.topic.Escalate

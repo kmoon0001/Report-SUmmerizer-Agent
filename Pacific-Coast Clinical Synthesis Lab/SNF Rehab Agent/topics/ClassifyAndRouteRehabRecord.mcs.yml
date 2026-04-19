@@ -1,0 +1,123 @@
+﻿mcs.metadata:
+  componentName: ClassifyAndRouteRehabRecord
+  description: Elite clinical intelligence module specialized in [ClassifyAndRouteRehabRecord]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Classify and Route Rehab Record
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - analyze this therapy note
+      - review this therapy documentation
+      - classify this rehab note
+      - route this patient note
+      - help me with a therapy note
+
+  actions:
+    - kind: SetTextVariable
+      id: setTextVariable_routeInput
+      variable: Topic.RouteInput
+      value: =Lower(System.Activity.Text)
+
+    - kind: ConditionGroup
+      id: conditionGroup_routeTopic
+      conditions:
+        - id: conditionItem_recert
+          condition: ="recert" in Topic.RouteInput || "re-cert" in Topic.RouteInput || "renew" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_recert
+              dialog: pcca_agent39xn69.topic.RecertAnalysis
+
+        - id: conditionItem_discharge
+          condition: ="discharge" in Topic.RouteInput || "dc summary" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_discharge
+              dialog: pcca_agent39xn69.topic.DischargeAnalysis
+
+        - id: conditionItem_eval
+          condition: ="eval" in Topic.RouteInput || "evaluation" in Topic.RouteInput || "initial assessment" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_eval
+              dialog: pcca_agent39xn69.topic.EvalAnalysis
+
+        - id: conditionItem_progress
+          condition: ="progress" in Topic.RouteInput || "daily note" in Topic.RouteInput || "tx note" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_progress
+              dialog: pcca_agent39xn69.topic.ProgressAnalysis
+
+        - id: conditionItem_manualIntake
+          condition: ="ocr fail" in Topic.RouteInput || "ocr failed" in Topic.RouteInput || "can't read" in Topic.RouteInput || "cannot read" in Topic.RouteInput || "scan unreadable" in Topic.RouteInput || "manual intake" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_manualIntake
+              dialog: pcca_agent39xn69.topic.ManualIntakeFallback
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_routeFallback
+          activity: I can route this to Eval, Progress, Recert, or Discharge analysis.
+
+        - kind: Question
+          id: question_routeClarifier
+          variable: Topic.RouteClarifier
+          prompt: Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake.
+          entity:
+            kind: StringPrebuiltEntity
+
+        - kind: SetTextVariable
+          id: setTextVariable_routeClarifierLower
+          variable: Topic.RouteClarifierLower
+          value: =Lower(Topic.RouteClarifier)
+
+        - kind: ConditionGroup
+          id: conditionGroup_routeClarifier
+          conditions:
+            - id: conditionItem_routeClarifierRecert
+              condition: ="recert" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_recertFromClarifier
+                  dialog: pcca_agent39xn69.topic.RecertAnalysis
+
+            - id: conditionItem_routeClarifierDischarge
+              condition: ="discharge" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_dischargeFromClarifier
+                  dialog: pcca_agent39xn69.topic.DischargeAnalysis
+
+            - id: conditionItem_routeClarifierEval
+              condition: ="eval" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_evalFromClarifier
+                  dialog: pcca_agent39xn69.topic.EvalAnalysis
+
+            - id: conditionItem_routeClarifierProgress
+              condition: ="progress" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_progressFromClarifier
+                  dialog: pcca_agent39xn69.topic.ProgressAnalysis
+
+            - id: conditionItem_routeClarifierManualIntake
+              condition: ="manual" in Topic.RouteClarifierLower || "ocr" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_manualIntakeFromClarifier
+                  dialog: pcca_agent39xn69.topic.ManualIntakeFallback
+
+          elseActions:
+            - kind: BeginDialog
+              id: beginDialog_suggested
+              dialog: pcca_agent39xn69.topic.SuggestedActions
+
+
+

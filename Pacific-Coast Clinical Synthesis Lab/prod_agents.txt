@@ -1,0 +1,22 @@
+﻿Connected as 123713644@pacific coastservices.net
+Connected to... Pacific Coast Services (default)
+Name                               Copilot ID                           Component State Is Managed Solution ID                          Status Code State Code
+SimpleLTC QM Coach V2 Hardened     3e300893-9c75-4841-848b-fba98bfb4133 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Therapy_Report_Prep_Assistant      c030a53a-4839-f111-88b4-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+TheraDoc                           f0a91e13-4b2f-f111-88b4-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Pacific Coast Compliance Analyzer  c25968a8-44ff-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+POSTette_Compliance_Agent          2803ea1e-02fd-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Coaching_Agent                     56840757-f9fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Risk_Assessment_Agent              d03452dd-f8fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Compliance_Auditor                 37e138be-f7fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Documentation_Processor            8cd34579-f7fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Rules_Engine_Medicare_Ch15         80a01a1c-f3fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Orchestration_Agent                fc399adc-f9fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+PT_Specialist                      a6aa67e3-f3fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Report_Generator                   5d6cb33b-5afd-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SLP_Specialist                     7f715404-f5fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Synthesis_Orchestrator             57b4ee51-f5fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Fact_Checker                       d86aa3b0-f6fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+OT_Specialist                      c77a614e-f4fc-f011-8406-000d3a37eba2 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+
+

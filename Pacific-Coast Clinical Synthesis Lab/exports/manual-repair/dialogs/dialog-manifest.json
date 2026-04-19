@@ -1,0 +1,32 @@
+﻿[
+    {
+        "Topic":  "ClassifyAndRouteRehabRecord",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\ClassifyAndRouteRehabRecord.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ClassifyAndRouteRehabRecord.dialog.yml"
+    },
+    {
+        "Topic":  "EvalAnalysis",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\EvalAnalysis.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\EvalAnalysis.dialog.yml"
+    },
+    {
+        "Topic":  "ProgressAnalysis",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\ProgressAnalysis.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\ProgressAnalysis.dialog.yml"
+    },
+    {
+        "Topic":  "RecertAnalysis",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\RecertAnalysis.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\RecertAnalysis.dialog.yml"
+    },
+    {
+        "Topic":  "DischargeAnalysis",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\DischargeAnalysis.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\DischargeAnalysis.dialog.yml"
+    },
+    {
+        "Topic":  "Search",
+        "Source":  "D:\\Report SUmmerizer Agent\\SNF Rehab Agent\\topics\\Search.mcs.yml",
+        "Dialog":  "D:\\Report SUmmerizer Agent\\exports\\manual-repair\\dialogs\\Search.dialog.yml"
+    }
+]

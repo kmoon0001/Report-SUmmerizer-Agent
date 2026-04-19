@@ -1,0 +1,196 @@
+{
+  "name": "Calculate SHAP Values",
+  "description": "Calculates SHAP (SHapley Additive exPlanations) values for AI recommendations to provide explainability",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "recommendationId": "string",
+      "patientFeatures": "object",
+      "modelOutput": "object"
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_FeatureList",
+      "inputs": {
+        "variables": [
+          {
+            "name": "featureList",
+            "type": "array",
+            "value": [
+              "sessionCount",
+              "goalProgress",
+              "daysSinceEval",
+              "certDaysRemaining",
+              "functionalMeasures",
+              "avgMinutesPerSession",
+              "goalCount",
+              "complianceFlags"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_SHAPValues",
+      "inputs": {
+        "variables": [
+          {
+            "name": "shapValues",
+            "type": "object",
+            "value": {}
+          }
+        ]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Get_Baseline_Prediction",
+      "inputs": {
+        "baselineFeatures": "@variables('patientFeatures')",
+        "note": "This would call Azure ML endpoint with baseline (mean) values"
+      }
+    },
+    {
+      "type": "For_Each",
+      "name": "Calculate_Feature_Contributions",
+      "foreach": "@variables('featureList')",
+      "actions": [
+        {
+          "type": "Compose",
+          "name": "Create_Perturbed_Features",
+          "inputs": {
+            "originalValue": "@triggerBody()?['patientFeatures']?[items('Calculate_Feature_Contributions')]",
+            "perturbedFeatures": "@setProperty(triggerBody()?['patientFeatures'], items('Calculate_Feature_Contributions'), null)"
+          }
+        },
+        {
+          "type": "HTTP",
+          "name": "Get_Prediction_Without_Feature",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('azureMLEndpoint')",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer @{parameters('azureMLKey')}"
+            },
+            "body": {
+              "data": "@outputs('Create_Perturbed_Features')?['perturbedFeatures']"
+            }
+          },
+          "runAfter": {
+            "Create_Perturbed_Features": ["Succeeded"]
+          }
+        },
+        {
+          "type": "Compose",
+          "name": "Calculate_SHAP_Value",
+          "inputs": {
+            "feature": "@items('Calculate_Feature_Contributions')",
+            "shapValue": "@sub(triggerBody()?['modelOutput']?['probability'], body('Get_Prediction_Without_Feature')?['probability'])",
+            "contribution": "@mul(sub(triggerBody()?['modelOutput']?['probability'], body('Get_Prediction_Without_Feature')?['probability']), 100)",
+            "direction": "@if(greater(sub(triggerBody()?['modelOutput']?['probability'], body('Get_Prediction_Without_Feature')?['probability']), 0), 'positive', 'negative')"
+          },
+          "runAfter": {
+            "Get_Prediction_Without_Feature": ["Succeeded"]
+          }
+        },
+        {
+          "type": "Append_to_array_variable",
+          "name": "Store_SHAP_Value",
+          "inputs": {
+            "name": "shapValues",
+            "value": {
+              "feature": "@items('Calculate_Feature_Contributions')",
+              "featureValue": "@triggerBody()?['patientFeatures']?[items('Calculate_Feature_Contributions')]",
+              "shapValue": "@outputs('Calculate_SHAP_Value')?['shapValue']",
+              "contributionPercent": "@outputs('Calculate_SHAP_Value')?['contribution']",
+              "direction": "@outputs('Calculate_SHAP_Value')?['direction']"
+            }
+          },
+          "runAfter": {
+            "Calculate_SHAP_Value": ["Succeeded"]
+          }
+        }
+      ]
+    },
+    {
+      "type": "Compose",
+      "name": "Sort_By_Absolute_Contribution",
+      "inputs": "@sort(variables('shapValues'), 'contributionPercent')",
+      "runAfter": {
+        "Calculate_Feature_Contributions": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Get_Top_Positive_Features",
+      "inputs": "@take(filter(outputs('Sort_By_Absolute_Contribution'), equals(item()?['direction'], 'positive')), 3)",
+      "runAfter": {
+        "Sort_By_Absolute_Contribution": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Get_Top_Negative_Features",
+      "inputs": "@take(filter(outputs('Sort_By_Absolute_Contribution'), equals(item()?['direction'], 'negative')), 3)",
+      "runAfter": {
+        "Sort_By_Absolute_Contribution": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Format_SHAP_Summary",
+      "inputs": {
+        "topPositive": "@outputs('Get_Top_Positive_Features')",
+        "topNegative": "@outputs('Get_Top_Negative_Features')",
+        "allFeatures": "@outputs('Sort_By_Absolute_Contribution')",
+        "summaryText": "Top factors supporting: @{join(select(outputs('Get_Top_Positive_Features'), concat(item()?['feature'], ' (+', string(item()?['contributionPercent']), '%)')), ', ')}. Top factors against: @{join(select(outputs('Get_Top_Negative_Features'), concat(item()?['feature'], ' (', string(item()?['contributionPercent']), '%)')), ', ')}."
+      },
+      "runAfter": {
+        "Get_Top_Positive_Features": ["Succeeded"],
+        "Get_Top_Negative_Features": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Store_SHAP_Explanation",
+      "inputs": {
+        "entityName": "snf_xai_explanation",
+        "item": {
+          "snf_recommendation_id": "@triggerBody()?['recommendationId']",
+          "snf_shap_values": "@string(outputs('Sort_By_Absolute_Contribution'))",
+          "snf_top_positive_features": "@string(outputs('Get_Top_Positive_Features'))",
+          "snf_top_negative_features": "@string(outputs('Get_Top_Negative_Features'))",
+          "snf_shap_summary": "@outputs('Format_SHAP_Summary')?['summaryText']",
+          "snf_model_version": "@parameters('modelVersion')",
+          "snf_calculation_timestamp": "@utcNow()"
+        }
+      },
+      "runAfter": {
+        "Format_SHAP_Summary": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_SHAP_Values",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "recommendationId": "@triggerBody()?['recommendationId']",
+          "shapValues": "@outputs('Sort_By_Absolute_Contribution')",
+          "topPositive": "@outputs('Get_Top_Positive_Features')",
+          "topNegative": "@outputs('Get_Top_Negative_Features')",
+          "summary": "@outputs('Format_SHAP_Summary')?['summaryText']",
+          "dataverseRecordId": "@outputs('Store_SHAP_Explanation')?['body']?['snf_xai_explanationid']"
+        }
+      },
+      "runAfter": {
+        "Store_SHAP_Explanation": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

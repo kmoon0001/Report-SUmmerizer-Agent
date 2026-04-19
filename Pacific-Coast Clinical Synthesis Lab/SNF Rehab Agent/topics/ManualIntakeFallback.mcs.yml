@@ -1,0 +1,95 @@
+mcs.metadata:
+  componentName: ManualIntakeFallback
+  description: Structured manual intake fallback for OCR failures.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Manual Intake Fallback
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - OCR failed
+      - scan unreadable
+      - manual intake
+      - file could not be parsed
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_manualHeader
+      activity: OCR intake is unavailable. I will collect a structured manual summary for clinician review.
+
+    - kind: Question
+      id: question_manualDiscipline
+      variable: Topic.ManualDiscipline
+      prompt: Which discipline is this note for?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: PT
+              displayName: PT
+            - id: OT
+              displayName: OT
+            - id: SLP
+              displayName: SLP
+
+    - kind: Question
+      id: question_manualNoteType
+      variable: Topic.ManualNoteType
+      prompt: Which note type should I route to?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Eval
+              displayName: Eval
+            - id: Progress
+              displayName: Progress
+            - id: Recert
+              displayName: Recert
+            - id: Discharge
+              displayName: Discharge
+
+    - kind: Question
+      id: question_manualHighlights
+      variable: Topic.ManualHighlights
+      prompt: Provide key objective findings and barriers in one short paragraph.
+      entity: StringPrebuiltEntity
+
+    - kind: SendActivity
+      id: sendActivity_manualSummary
+      activity: |-
+        Manual intake captured.
+        Discipline: {Topic.ManualDiscipline}
+        Note Type: {Topic.ManualNoteType}
+        Summary: {Topic.ManualHighlights}
+        This draft support output requires clinician review before use.
+
+    - kind: ConditionGroup
+      id: conditionGroup_manualRoute
+      conditions:
+        - id: conditionItem_manualRecert
+          condition: =Text(Topic.ManualNoteType) = "Recert"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_manualRecert
+              dialog: pcca_agent39xn69.topic.RecertAnalysis
+        - id: conditionItem_manualDischarge
+          condition: =Text(Topic.ManualNoteType) = "Discharge"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_manualDischarge
+              dialog: pcca_agent39xn69.topic.DischargeAnalysis
+        - id: conditionItem_manualEval
+          condition: =Text(Topic.ManualNoteType) = "Eval"
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_manualEval
+              dialog: pcca_agent39xn69.topic.EvalAnalysis
+      elseActions:
+        - kind: BeginDialog
+          id: beginDialog_manualProgress
+          dialog: pcca_agent39xn69.topic.ProgressAnalysis

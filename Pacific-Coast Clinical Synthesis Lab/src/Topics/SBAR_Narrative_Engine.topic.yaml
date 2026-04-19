@@ -1,0 +1,21 @@
+kind: AdaptiveDialog
+description: High-fidelity SBAR (Situation, Background, Assessment, Recommendation) engine for clinical reports.
+id: SBAR_Narrative_Engine
+beginDialog:
+  kind: OnRecognizedIntent
+  id: Main
+  actions:
+    - kind: SendActivity
+      activity: "📝 **SBAR SYNTHESIS INITIALIZED**: Constructing clinical narrative based on **EHR_INTEGRATION_BRIDGE.md** mappings..."
+    
+    # Situation
+    - kind: SendActivity
+      activity: "📍 **SITUATION**: ${Topic.PatientStatus} presenting with ${Topic.PrimaryDiagnosis}."
+    
+    # Background
+    - kind: SendActivity
+      activity: "📖 **BACKGROUND**: Longitudinal history indicates ${Topic.SurgicalHistory} with a Baseline Function of ${Topic.PriorLevelOfFunction}."
+    
+    # Assessment & Recommendation
+    - kind: SendActivity
+      activity: "⚖️ **ASSESSMENT**: Demonstrated skilled need for ${Topic.Discipline} due to ${Topic.AuditRiskTrigger}. \n\n🚀 **RECOMMENDATION**: Proceed with ${Topic.Frequency} for ${Topic.Duration} to meet functional target."

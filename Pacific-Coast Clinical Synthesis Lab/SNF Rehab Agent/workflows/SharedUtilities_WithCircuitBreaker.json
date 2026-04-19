@@ -1,0 +1,629 @@
+{
+  "name": "Shared Utility - Circuit Breaker",
+  "description": "Standalone circuit breaker service that tracks failure rates and manages state transitions to prevent cascading failures",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "action": {
+        "type": "string",
+        "description": "Action to perform: status, success, failure, reset",
+        "enum": ["status", "success", "failure", "reset"]
+      },
+      "operation": {
+        "type": "string",
+        "description": "Operation identifier (e.g., azureml_prediction, dataverse_query)"
+      },
+      "errorDetails": {
+        "type": "object",
+        "description": "Error details for failure action"
+      }
+    }
+  },
+  "actions": [
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Circuit_Breaker_Config",
+      "inputs": {
+        "variables": [
+          {
+            "name": "circuitBreakerConfig",
+            "type": "object",
+            "value": {
+              "failureThreshold": 5,
+              "timeWindowSeconds": 60,
+              "resetTimeoutSeconds": 60,
+              "halfOpenMaxAttempts": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/ListRecords",
+      "name": "Get_Circuit_Breaker_State",
+      "inputs": {
+        "entityName": "snf_circuit_breaker_state",
+        "fetchXml": "@concat('<fetch top=\"1\"><entity name=\"snf_circuit_breaker_state\"><filter><condition attribute=\"snf_operation\" operator=\"eq\" value=\"', triggerBody()?['operation'], '\"/></filter></entity></fetch>')"
+      },
+      "runAfter": {
+        "Initialize_Circuit_Breaker_Config": ["Succeeded"]
+      }
+    },
+    {
+      "type": "ConditionGroup",
+      "name": "Check_If_State_Exists",
+      "expression": {
+        "greater": ["@length(outputs('Get_Circuit_Breaker_State')?['body']?['value'])", 0]
+      },
+      "actions": {
+        "Set_Existing_State": {
+          "type": "Compose",
+          "inputs": {
+            "stateId": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_circuit_breaker_stateid']",
+            "operation": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_operation']",
+            "state": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_state']",
+            "failureCount": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_failure_count']",
+            "lastFailureTime": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_last_failure_time']",
+            "lastSuccessTime": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_last_success_time']",
+            "openedTime": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_opened_time']",
+            "halfOpenAttempts": "@first(outputs('Get_Circuit_Breaker_State')?['body']?['value'])?['snf_half_open_attempts']",
+            "exists": true
+          }
+        }
+      },
+      "else": {
+        "actions": {
+          "Set_New_State": {
+            "type": "Compose",
+            "inputs": {
+              "stateId": null,
+              "operation": "@triggerBody()?['operation']",
+              "state": "Closed",
+              "failureCount": 0,
+              "lastFailureTime": null,
+              "lastSuccessTime": null,
+              "openedTime": null,
+              "halfOpenAttempts": 0,
+              "exists": false
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Get_Circuit_Breaker_State": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Initialize_Variable",
+      "name": "Initialize_Current_State",
+      "inputs": {
+        "variables": [
+          {
+            "name": "currentState",
+            "type": "object",
+            "value": "@if(greater(length(outputs('Get_Circuit_Breaker_State')?['body']?['value']), 0), outputs('Set_Existing_State'), outputs('Set_New_State'))"
+          }
+        ]
+      },
+      "runAfter": {
+        "Check_If_State_Exists": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Switch",
+      "name": "Route_By_Action",
+      "expression": "@triggerBody()?['action']",
+      "cases": {
+        "Status": {
+          "case": "status",
+          "actions": {
+            "Calculate_Time_Since_Last_Failure": {
+              "type": "Compose",
+              "inputs": {
+                "secondsSinceFailure": "@if(not(empty(variables('currentState')['lastFailureTime'])), div(sub(ticks(utcNow()), ticks(variables('currentState')['lastFailureTime'])), 10000000), null)",
+                "secondsSinceOpened": "@if(not(empty(variables('currentState')['openedTime'])), div(sub(ticks(utcNow()), ticks(variables('currentState')['openedTime'])), 10000000), null)"
+              }
+            },
+            "Check_If_Should_Transition_To_Half_Open": {
+              "type": "ConditionGroup",
+              "expression": {
+                "and": [
+                  {
+                    "equals": ["@variables('currentState')['state']", "Open"]
+                  },
+                  {
+                    "greaterOrEquals": [
+                      "@outputs('Calculate_Time_Since_Last_Failure')['secondsSinceOpened']",
+                      "@variables('circuitBreakerConfig')['resetTimeoutSeconds']"
+                    ]
+                  }
+                ]
+              },
+              "actions": {
+                "Transition_To_Half_Open": {
+                  "type": "Microsoft.Dataverse/UpdateRecord",
+                  "inputs": {
+                    "entityName": "snf_circuit_breaker_state",
+                    "recordId": "@variables('currentState')['stateId']",
+                    "item": {
+                      "snf_state": "HalfOpen",
+                      "snf_half_open_attempts": 0,
+                      "snf_last_state_change": "@utcNow()"
+                    }
+                  }
+                },
+                "Update_State_To_Half_Open": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "currentState",
+                    "value": "@setProperty(setProperty(variables('currentState'), 'state', 'HalfOpen'), 'halfOpenAttempts', 0)"
+                  },
+                  "runAfter": {
+                    "Transition_To_Half_Open": ["Succeeded"]
+                  }
+                }
+              },
+              "runAfter": {
+                "Calculate_Time_Since_Last_Failure": ["Succeeded"]
+              }
+            },
+            "Return_Status": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "operation": "@variables('currentState')['operation']",
+                  "state": "@variables('currentState')['state']",
+                  "isOpen": "@equals(variables('currentState')['state'], 'Open')",
+                  "failureCount": "@variables('currentState')['failureCount']",
+                  "lastFailureTime": "@variables('currentState')['lastFailureTime']",
+                  "lastSuccessTime": "@variables('currentState')['lastSuccessTime']",
+                  "openedTime": "@variables('currentState')['openedTime']",
+                  "resetTimeoutSeconds": "@variables('circuitBreakerConfig')['resetTimeoutSeconds']",
+                  "secondsSinceFailure": "@outputs('Calculate_Time_Since_Last_Failure')['secondsSinceFailure']",
+                  "secondsSinceOpened": "@outputs('Calculate_Time_Since_Last_Failure')['secondsSinceOpened']"
+                }
+              },
+              "runAfter": {
+                "Check_If_Should_Transition_To_Half_Open": ["Succeeded"]
+              }
+            }
+          }
+        },
+        "Success": {
+          "case": "success",
+          "actions": {
+            "Handle_Success_By_State": {
+              "type": "Switch",
+              "expression": "@variables('currentState')['state']",
+              "cases": {
+                "Closed": {
+                  "case": "Closed",
+                  "actions": {
+                    "Update_Success_Closed": {
+                      "type": "ConditionGroup",
+                      "expression": {
+                        "equals": ["@variables('currentState')['exists']", true]
+                      },
+                      "actions": {
+                        "Update_Existing_Success": {
+                          "type": "Microsoft.Dataverse/UpdateRecord",
+                          "inputs": {
+                            "entityName": "snf_circuit_breaker_state",
+                            "recordId": "@variables('currentState')['stateId']",
+                            "item": {
+                              "snf_last_success_time": "@utcNow()",
+                              "snf_failure_count": 0
+                            }
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Create_New_Success": {
+                            "type": "Microsoft.Dataverse/CreateRecord",
+                            "inputs": {
+                              "entityName": "snf_circuit_breaker_state",
+                              "item": {
+                                "snf_operation": "@triggerBody()?['operation']",
+                                "snf_state": "Closed",
+                                "snf_failure_count": 0,
+                                "snf_last_success_time": "@utcNow()",
+                                "snf_last_state_change": "@utcNow()"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "HalfOpen": {
+                  "case": "HalfOpen",
+                  "actions": {
+                    "Transition_To_Closed": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_state",
+                        "recordId": "@variables('currentState')['stateId']",
+                        "item": {
+                          "snf_state": "Closed",
+                          "snf_failure_count": 0,
+                          "snf_last_success_time": "@utcNow()",
+                          "snf_half_open_attempts": 0,
+                          "snf_last_state_change": "@utcNow()"
+                        }
+                      }
+                    },
+                    "Log_Transition_To_Closed": {
+                      "type": "Microsoft.Dataverse/CreateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_log",
+                        "item": {
+                          "snf_operation": "@triggerBody()?['operation']",
+                          "snf_event_type": "StateTransition",
+                          "snf_from_state": "HalfOpen",
+                          "snf_to_state": "Closed",
+                          "snf_timestamp": "@utcNow()",
+                          "snf_reason": "Success in half-open state"
+                        }
+                      },
+                      "runAfter": {
+                        "Transition_To_Closed": ["Succeeded"]
+                      }
+                    }
+                  }
+                },
+                "Open": {
+                  "case": "Open",
+                  "actions": {
+                    "Log_Success_While_Open": {
+                      "type": "Microsoft.Dataverse/CreateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_log",
+                        "item": {
+                          "snf_operation": "@triggerBody()?['operation']",
+                          "snf_event_type": "UnexpectedSuccess",
+                          "snf_from_state": "Open",
+                          "snf_to_state": "Open",
+                          "snf_timestamp": "@utcNow()",
+                          "snf_reason": "Success reported while circuit is open"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Return_Success_Response": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "success": true,
+                  "operation": "@triggerBody()?['operation']",
+                  "previousState": "@variables('currentState')['state']",
+                  "newState": "@if(equals(variables('currentState')['state'], 'HalfOpen'), 'Closed', variables('currentState')['state'])",
+                  "message": "Success recorded"
+                }
+              },
+              "runAfter": {
+                "Handle_Success_By_State": ["Succeeded"]
+              }
+            }
+          }
+        },
+        "Failure": {
+          "case": "failure",
+          "actions": {
+            "Calculate_Failure_Window": {
+              "type": "Compose",
+              "inputs": {
+                "secondsSinceLastFailure": "@if(not(empty(variables('currentState')['lastFailureTime'])), div(sub(ticks(utcNow()), ticks(variables('currentState')['lastFailureTime'])), 10000000), 999999)",
+                "isWithinWindow": "@if(not(empty(variables('currentState')['lastFailureTime'])), less(div(sub(ticks(utcNow()), ticks(variables('currentState')['lastFailureTime'])), 10000000), variables('circuitBreakerConfig')['timeWindowSeconds']), false)"
+              }
+            },
+            "Calculate_New_Failure_Count": {
+              "type": "Compose",
+              "inputs": {
+                "newFailureCount": "@if(outputs('Calculate_Failure_Window')['isWithinWindow'], add(variables('currentState')['failureCount'], 1), 1)"
+              },
+              "runAfter": {
+                "Calculate_Failure_Window": ["Succeeded"]
+              }
+            },
+            "Handle_Failure_By_State": {
+              "type": "Switch",
+              "expression": "@variables('currentState')['state']",
+              "cases": {
+                "Closed": {
+                  "case": "Closed",
+                  "actions": {
+                    "Check_If_Should_Open": {
+                      "type": "ConditionGroup",
+                      "expression": {
+                        "greaterOrEquals": [
+                          "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                          "@variables('circuitBreakerConfig')['failureThreshold']"
+                        ]
+                      },
+                      "actions": {
+                        "Transition_To_Open": {
+                          "type": "ConditionGroup",
+                          "expression": {
+                            "equals": ["@variables('currentState')['exists']", true]
+                          },
+                          "actions": {
+                            "Update_To_Open": {
+                              "type": "Microsoft.Dataverse/UpdateRecord",
+                              "inputs": {
+                                "entityName": "snf_circuit_breaker_state",
+                                "recordId": "@variables('currentState')['stateId']",
+                                "item": {
+                                  "snf_state": "Open",
+                                  "snf_failure_count": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                                  "snf_last_failure_time": "@utcNow()",
+                                  "snf_opened_time": "@utcNow()",
+                                  "snf_last_state_change": "@utcNow()"
+                                }
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Create_Open_State": {
+                                "type": "Microsoft.Dataverse/CreateRecord",
+                                "inputs": {
+                                  "entityName": "snf_circuit_breaker_state",
+                                  "item": {
+                                    "snf_operation": "@triggerBody()?['operation']",
+                                    "snf_state": "Open",
+                                    "snf_failure_count": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                                    "snf_last_failure_time": "@utcNow()",
+                                    "snf_opened_time": "@utcNow()",
+                                    "snf_last_state_change": "@utcNow()"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Log_Transition_To_Open": {
+                          "type": "Microsoft.Dataverse/CreateRecord",
+                          "inputs": {
+                            "entityName": "snf_circuit_breaker_log",
+                            "item": {
+                              "snf_operation": "@triggerBody()?['operation']",
+                              "snf_event_type": "StateTransition",
+                              "snf_from_state": "Closed",
+                              "snf_to_state": "Open",
+                              "snf_timestamp": "@utcNow()",
+                              "snf_reason": "Failure threshold exceeded",
+                              "snf_failure_count": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                              "snf_error_details": "@string(triggerBody()?['errorDetails'])"
+                            }
+                          },
+                          "runAfter": {
+                            "Transition_To_Open": ["Succeeded"]
+                          }
+                        },
+                        "Send_Circuit_Open_Alert": {
+                          "type": "HTTP",
+                          "inputs": {
+                            "method": "POST",
+                            "uri": "@parameters('alertEndpoint')/circuit-breaker-open",
+                            "body": {
+                              "operation": "@triggerBody()?['operation']",
+                              "failureCount": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                              "timestamp": "@utcNow()",
+                              "severity": "High"
+                            }
+                          },
+                          "runAfter": {
+                            "Log_Transition_To_Open": ["Succeeded"]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Increment_Failure_Count": {
+                            "type": "ConditionGroup",
+                            "expression": {
+                              "equals": ["@variables('currentState')['exists']", true]
+                            },
+                            "actions": {
+                              "Update_Failure_Count": {
+                                "type": "Microsoft.Dataverse/UpdateRecord",
+                                "inputs": {
+                                  "entityName": "snf_circuit_breaker_state",
+                                  "recordId": "@variables('currentState')['stateId']",
+                                  "item": {
+                                    "snf_failure_count": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                                    "snf_last_failure_time": "@utcNow()"
+                                  }
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {
+                                "Create_Failure_State": {
+                                  "type": "Microsoft.Dataverse/CreateRecord",
+                                  "inputs": {
+                                    "entityName": "snf_circuit_breaker_state",
+                                    "item": {
+                                      "snf_operation": "@triggerBody()?['operation']",
+                                      "snf_state": "Closed",
+                                      "snf_failure_count": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                                      "snf_last_failure_time": "@utcNow()",
+                                      "snf_last_state_change": "@utcNow()"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "HalfOpen": {
+                  "case": "HalfOpen",
+                  "actions": {
+                    "Transition_Back_To_Open": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_state",
+                        "recordId": "@variables('currentState')['stateId']",
+                        "item": {
+                          "snf_state": "Open",
+                          "snf_failure_count": "@add(variables('currentState')['failureCount'], 1)",
+                          "snf_last_failure_time": "@utcNow()",
+                          "snf_opened_time": "@utcNow()",
+                          "snf_half_open_attempts": 0,
+                          "snf_last_state_change": "@utcNow()"
+                        }
+                      }
+                    },
+                    "Log_Transition_Back_To_Open": {
+                      "type": "Microsoft.Dataverse/CreateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_log",
+                        "item": {
+                          "snf_operation": "@triggerBody()?['operation']",
+                          "snf_event_type": "StateTransition",
+                          "snf_from_state": "HalfOpen",
+                          "snf_to_state": "Open",
+                          "snf_timestamp": "@utcNow()",
+                          "snf_reason": "Failure in half-open state",
+                          "snf_error_details": "@string(triggerBody()?['errorDetails'])"
+                        }
+                      },
+                      "runAfter": {
+                        "Transition_Back_To_Open": ["Succeeded"]
+                      }
+                    }
+                  }
+                },
+                "Open": {
+                  "case": "Open",
+                  "actions": {
+                    "Update_Failure_While_Open": {
+                      "type": "Microsoft.Dataverse/UpdateRecord",
+                      "inputs": {
+                        "entityName": "snf_circuit_breaker_state",
+                        "recordId": "@variables('currentState')['stateId']",
+                        "item": {
+                          "snf_failure_count": "@add(variables('currentState')['failureCount'], 1)",
+                          "snf_last_failure_time": "@utcNow()"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Calculate_New_Failure_Count": ["Succeeded"]
+              }
+            },
+            "Return_Failure_Response": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "success": true,
+                  "operation": "@triggerBody()?['operation']",
+                  "previousState": "@variables('currentState')['state']",
+                  "newState": "@if(and(equals(variables('currentState')['state'], 'Closed'), greaterOrEquals(outputs('Calculate_New_Failure_Count')['newFailureCount'], variables('circuitBreakerConfig')['failureThreshold'])), 'Open', if(equals(variables('currentState')['state'], 'HalfOpen'), 'Open', variables('currentState')['state']))",
+                  "failureCount": "@outputs('Calculate_New_Failure_Count')['newFailureCount']",
+                  "message": "Failure recorded"
+                }
+              },
+              "runAfter": {
+                "Handle_Failure_By_State": ["Succeeded"]
+              }
+            }
+          }
+        },
+        "Reset": {
+          "case": "reset",
+          "actions": {
+            "Manual_Reset_To_Closed": {
+              "type": "ConditionGroup",
+              "expression": {
+                "equals": ["@variables('currentState')['exists']", true]
+              },
+              "actions": {
+                "Update_To_Closed": {
+                  "type": "Microsoft.Dataverse/UpdateRecord",
+                  "inputs": {
+                    "entityName": "snf_circuit_breaker_state",
+                    "recordId": "@variables('currentState')['stateId']",
+                    "item": {
+                      "snf_state": "Closed",
+                      "snf_failure_count": 0,
+                      "snf_half_open_attempts": 0,
+                      "snf_last_state_change": "@utcNow()"
+                    }
+                  }
+                },
+                "Log_Manual_Reset": {
+                  "type": "Microsoft.Dataverse/CreateRecord",
+                  "inputs": {
+                    "entityName": "snf_circuit_breaker_log",
+                    "item": {
+                      "snf_operation": "@triggerBody()?['operation']",
+                      "snf_event_type": "ManualReset",
+                      "snf_from_state": "@variables('currentState')['state']",
+                      "snf_to_state": "Closed",
+                      "snf_timestamp": "@utcNow()",
+                      "snf_reason": "Manual reset requested"
+                    }
+                  },
+                  "runAfter": {
+                    "Update_To_Closed": ["Succeeded"]
+                  }
+                }
+              }
+            },
+            "Return_Reset_Response": {
+              "type": "Response",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "success": true,
+                  "operation": "@triggerBody()?['operation']",
+                  "previousState": "@variables('currentState')['state']",
+                  "newState": "Closed",
+                  "message": "Circuit breaker manually reset"
+                }
+              },
+              "runAfter": {
+                "Manual_Reset_To_Closed": ["Succeeded"]
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "actions": {
+          "Return_Invalid_Action": {
+            "type": "Response",
+            "inputs": {
+              "statusCode": 400,
+              "body": {
+                "success": false,
+                "error": "Invalid action",
+                "message": "Action must be one of: status, success, failure, reset"
+              }
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Initialize_Current_State": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

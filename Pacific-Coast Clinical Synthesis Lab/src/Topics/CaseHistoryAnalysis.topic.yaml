@@ -1,0 +1,15 @@
+kind: AdaptiveDialog
+description: Specialist Historian. Analyzes longitudinal EHR data to build clinical timelines and baseline justifications.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: HistoryAnalysis
+  actions:
+    - kind: Question
+      id: qHistoryIntent
+      variable: Topic.RequestedHistory
+      prompt: "📖 **CASE HISTORIAN SYSTEM**: I am ready to analyze patient history. Are we synthesizing a **Cross-EHR Timeline** or performing a **Hospice/Managed Care Audit**?"
+    
+    - kind: SendActivity
+      activity: "🔄 Analysis in progress. Cross-referencing PCC/Optima records against **CASE_HISTORY_GROUNDING.md** and Section GG baselines..."

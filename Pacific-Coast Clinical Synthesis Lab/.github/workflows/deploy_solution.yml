@@ -1,0 +1,30 @@
+name: Power Platform ALM Automated Push
+on:
+  push:
+    branches: [ release ]
+jobs:
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Power Platform CLI Auth
+      uses: microsoft/powerplatform-actions/auth@v1
+      with:
+        authentication-type: spn
+        app-id: ${{ secrets.POWER_APPS_APP_ID }}
+        client-secret: ${{ secrets.POWER_APPS_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWER_APPS_TENANT_ID }}
+        environment-url: ${{ secrets.PROD_ENVIRONMENT_URL }}
+    - name: Pack Local Copilot Solution
+      uses: microsoft/powerplatform-actions/pack-solution@v1
+      with:
+        solution-folder: 'SNFRehabSolution'
+        solution-file: 'out/SNFRehabSolution.zip'
+        solution-type: 'Unmanaged'
+    - name: Import Solution to Production
+      uses: microsoft/powerplatform-actions/import-solution@v1
+      with:
+        environment-url: ${{ secrets.PROD_ENVIRONMENT_URL }}
+        solution-file: 'out/SNFRehabSolution.zip'
+        force-overwrite: true
+        publish-changes: true

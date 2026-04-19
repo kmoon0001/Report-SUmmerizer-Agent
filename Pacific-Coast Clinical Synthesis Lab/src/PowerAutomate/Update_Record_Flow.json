@@ -1,0 +1,30 @@
+{
+  "name": "cr917_SNF_Update_Record_Flow",
+  "trigger": {
+    "type": "Manual",
+    "inputs": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Table": { "type": "string" },
+          "RecordId": { "type": "string" },
+          "Updates": { "type": "object" }
+        }
+      }
+    }
+  },
+  "actions": {
+    "Patch_Dataverse_Record": {
+      "type": "OpenApiConnection",
+      "inputs": {
+        "host": { "apiId": "commondataservice" },
+        "operationId": "UpdateRecord",
+        "parameters": {
+          "entityName": "@triggerBody()?['Table']",
+          "recordId": "@triggerBody()?['RecordId']",
+          "item": "@triggerBody()?['Updates']"
+        }
+      }
+    }
+  }
+}

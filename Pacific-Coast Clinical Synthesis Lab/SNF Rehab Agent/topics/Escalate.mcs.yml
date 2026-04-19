@@ -1,0 +1,70 @@
+﻿mcs.metadata:
+  componentName: Escalate
+  description: Elite clinical intelligence module specialized in [Escalate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+kind: AdaptiveDialog
+startBehavior: CancelOtherTopics
+beginDialog:
+  kind: OnEscalate
+  id: main
+  intent:
+    displayName: Escalate
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - escalate
+      - human review
+      - transfer me
+      - handoff
+      - clinician review
+      - talk to a person
+      - I need support
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_escalationTime
+      variable: init:Topic.EscalationTimeUtc
+      value: =Text(Now(), DateTimeFormat.UTC)
+
+    - kind: LogCustomTelemetryEvent
+      id: logTelemetry_escalation
+      eventName: EscalationRequested
+      properties: "={ConversationId: System.Conversation.Id, TimeUTC: Topic.EscalationTimeUtc, LastActivity: System.Activity.Text}"
+
+    - kind: SendActivity
+      id: sendMessage_escalationNotice
+      conversationOutcome: Escalated
+      activity: |-
+        Escalation has been recorded for clinician-supervised follow-up.
+        Reference conversation ID: {System.Conversation.Id}
+        Time (UTC): {Topic.EscalationTimeUtc}
+
+    - kind: SendActivity
+      id: sendMessage_escalationInterimGuidance
+      activity: |-
+        While waiting for follow-up, you can continue by sharing:
+        1) note type (Eval/Progress/Recert/Discharge)
+        2) objective clinical findings
+        3) specific compliance concern
+
+    - kind: Question
+      id: question_continueAfterEscalation
+      alwaysPrompt: true
+      variable: Topic.ContinueAfterEscalation
+      prompt: Would you like to continue working on a draft now while escalation is pending?
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_continueAfterEscalation
+      conditions:
+        - id: conditionItem_continueYes
+          condition: =Topic.ContinueAfterEscalation = true
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_routeAfterEscalation
+              dialog: pcca_agent39xn69.topic.SuggestedActions
+
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_closeAfterEscalation
+          activity: Understood. You can return any time with additional clinical details for draft support.
+
+

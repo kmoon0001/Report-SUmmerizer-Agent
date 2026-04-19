@@ -1,0 +1,99 @@
+{
+  "name": "cr917_SNF_Daily_ETL_Flow",
+  "trigger": {
+    "type": "Recurrence",
+    "recurrence": {
+      "frequency": "Day",
+      "interval": 1,
+      "startTime": "2026-04-01T04:00:00Z"
+    }
+  },
+  "actions": {
+    "Try_Scope": {
+      "type": "Scope",
+      "actions": {
+        "Fetch_PCC_Records": {
+          "type": "Http",
+          "inputs": {
+            "method": "GET",
+            "uri": "@environmentVariables('env_PCC_BaseUrl')",
+            "retryPolicy": { "type": "exponential", "count": 3, "interval": "PT10S" }
+          }
+        },
+        "Fetch_Optima_Records": {
+          "type": "Http",
+          "inputs": {
+            "method": "GET",
+            "uri": "@environmentVariables('env_Optima_BaseUrl')",
+            "retryPolicy": { "type": "exponential", "count": 3, "interval": "PT10S" }
+          }
+        },
+        "Wait_Execution_Sync": {
+          "type": "Compose",
+          "inputs": "Sync Step",
+          "runAfter": {
+            "Fetch_PCC_Records": ["Succeeded"],
+            "Fetch_Optima_Records": ["Succeeded"]
+          }
+        },
+        "Normalize_Payloads": {
+          "type": "Compose",
+          "inputs": "@union(outputs('Fetch_PCC_Records')?['body'], outputs('Fetch_Optima_Records')?['body'])",
+          "runAfter": {
+            "Wait_Execution_Sync": ["Succeeded"]
+          }
+        },
+        "BulkUpsert_Dataverse": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": { "apiId": "commondataservice" },
+            "operationId": "CreateRecord",
+            "parameters": {
+              "entityName": "cr917_snf_daily_briefings",
+              "item": "@outputs('Normalize_Payloads')"
+            }
+          }
+        },
+        "Trigger_Copilot_Orchestrator": {
+          "type": "Http",
+          "inputs": {
+            "method": "POST",
+            "uri": "@environmentVariables('env_CopilotWebhook_Orchestrator')",
+            "body": "@outputs('Normalize_Payloads')"
+          }
+        }
+      },
+      "runAfter": {}
+    },
+    "Catch_Scope": {
+      "type": "Scope",
+      "actions": {
+        "Notify_DOR_Teams_Failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "apiId": "teams" },
+            "operationId": "PostMessageToChannelV3",
+            "parameters": {
+              "poster": "Flow bot",
+              "channel": "@environmentVariables('env_SNF_Teams_DOR_ChannelId')",
+              "message": "Critical Failure: The Daily Pac Coast ETL Sync Failed to reach the Copilot Orchestrator."
+            }
+          }
+        },
+        "Terminate_Failed": {
+          "type": "Terminate",
+          "inputs": {
+            "runStatus": "Failed",
+            "runError": {
+              "code": "SyncError",
+              "message": "Automated ETL Try Block Failed"
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Try_Scope": ["Failed", "TimedOut", "Skipped"]
+      }
+    }
+  }
+}

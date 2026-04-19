@@ -1,0 +1,18 @@
+{
+  "recordId": "REC-11582",
+  "patientToken": "PT-7762C",
+  "discipline": "ST",
+  "therapistName": "Alice Johnson",
+  "reportType": "Recertification",
+  "dcFlag": false,
+  "sessionCount": 15,
+  "avgMinutes": 35,
+  "daysSinceInitialEval": 28,
+  "nextCertEndDate": "2026-06-12",
+  "currentGoals": "Patient will safely tolerate mechanical soft diet with thin liquids without overt signs of aspiration.",
+  "goalProgress": "Patient tolerates mechanical soft diet with SBA. Occasional throat clearing noted with thin liquids.",
+  "functionalMeasures": {
+    "foes": "Mild pharyngeal residue"
+  },
+  "justificationForContinuedCare": "Patient requires continued ST to upgrade diet texture safely and implement swallow strategies."
+}

@@ -1,0 +1,303 @@
+{
+  "name": "Log HITL Decision",
+  "description": "Comprehensive logging of all Human-in-the-Loop decisions for audit trail and continuous learning per 21 CFR Part 11 and HIPAA",
+  "trigger": {
+    "type": "manual",
+    "inputs": {
+      "interactionId": "string",
+      "hitlTier": "string",
+      "decisionPoint": "string",
+      "action": "string",
+      "clinicianId": "string",
+      "clinicianName": "string",
+      "timestamp": "string",
+      "context": "object"
+    }
+  },
+  "actions": [
+    {
+      "type": "Compose",
+      "name": "Generate_Audit_ID",
+      "inputs": {
+        "auditId": "@guid()",
+        "timestamp": "@utcNow()",
+        "timestampTicks": "@ticks(utcNow())"
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Extract_Context_Details",
+      "inputs": {
+        "patientToken": "@triggerBody()?['context']?['patientToken']",
+        "recommendationId": "@triggerBody()?['context']?['recommendationId']",
+        "outputId": "@triggerBody()?['context']?['outputId']",
+        "briefingId": "@triggerBody()?['context']?['briefingId']",
+        "aiConfidence": "@triggerBody()?['context']?['aiConfidence']",
+        "originalText": "@triggerBody()?['context']?['originalText']",
+        "editedText": "@triggerBody()?['context']?['editedText']",
+        "reason": "@triggerBody()?['context']?['reason']",
+        "details": "@triggerBody()?['context']?['details']"
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Review_Metrics",
+      "inputs": {
+        "timeToReview": "@triggerBody()?['context']?['timeToReview']",
+        "editDistance": "@if(and(not(empty(triggerBody()?['context']?['originalText'])), not(empty(triggerBody()?['context']?['editedText']))), div(mul(length(triggerBody()?['context']?['editedText']), 100), length(triggerBody()?['context']?['originalText'])), null)",
+        "hasEdits": "@not(equals(triggerBody()?['context']?['originalText'], triggerBody()?['context']?['editedText']))"
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Classify_Decision_Type",
+      "inputs": {
+        "decisionType": "@triggerBody()?['action']",
+        "isApproval": "@or(or(equals(triggerBody()?['action'], 'approved'), equals(triggerBody()?['action'], 'validated')), equals(triggerBody()?['action'], 'proceed'))",
+        "isRejection": "@or(or(equals(triggerBody()?['action'], 'rejected'), equals(triggerBody()?['action'], 'skipped')), equals(triggerBody()?['action'], 'returned'))",
+        "isEdit": "@or(equals(triggerBody()?['action'], 'edited_and_approved'), equals(triggerBody()?['action'], 'correction_needed'))",
+        "isEscalation": "@equals(triggerBody()?['action'], 'escalated')"
+      }
+    },
+    {
+      "type": "Microsoft.Dataverse/CreateRecord",
+      "name": "Create_HITL_Audit_Record",
+      "inputs": {
+        "entityName": "snf_hitl_audit",
+        "item": {
+          "snf_audit_id": "@outputs('Generate_Audit_ID')?['auditId']",
+          "snf_interaction_id": "@triggerBody()?['interactionId']",
+          "snf_hitl_tier": "@triggerBody()?['hitlTier']",
+          "snf_decision_point": "@triggerBody()?['decisionPoint']",
+          "snf_action": "@triggerBody()?['action']",
+          "snf_decision_type": "@outputs('Classify_Decision_Type')?['decisionType']",
+          "snf_is_approval": "@outputs('Classify_Decision_Type')?['isApproval']",
+          "snf_is_rejection": "@outputs('Classify_Decision_Type')?['isRejection']",
+          "snf_is_edit": "@outputs('Classify_Decision_Type')?['isEdit']",
+          "snf_is_escalation": "@outputs('Classify_Decision_Type')?['isEscalation']",
+          "snf_clinician_id": "@triggerBody()?['clinicianId']",
+          "snf_clinician_name": "@triggerBody()?['clinicianName']",
+          "snf_timestamp": "@outputs('Generate_Audit_ID')?['timestamp']",
+          "snf_timestamp_ticks": "@outputs('Generate_Audit_ID')?['timestampTicks']",
+          "snf_patient_token": "@outputs('Extract_Context_Details')?['patientToken']",
+          "snf_recommendation_id": "@outputs('Extract_Context_Details')?['recommendationId']",
+          "snf_output_id": "@outputs('Extract_Context_Details')?['outputId']",
+          "snf_briefing_id": "@outputs('Extract_Context_Details')?['briefingId']",
+          "snf_ai_confidence": "@outputs('Extract_Context_Details')?['aiConfidence']",
+          "snf_time_to_review_seconds": "@outputs('Calculate_Review_Metrics')?['timeToReview']",
+          "snf_edit_distance_percent": "@outputs('Calculate_Review_Metrics')?['editDistance']",
+          "snf_has_edits": "@outputs('Calculate_Review_Metrics')?['hasEdits']",
+          "snf_reason": "@outputs('Extract_Context_Details')?['reason']",
+          "snf_details": "@outputs('Extract_Context_Details')?['details']",
+          "snf_original_text": "@outputs('Extract_Context_Details')?['originalText']",
+          "snf_edited_text": "@outputs('Extract_Context_Details')?['editedText']",
+          "snf_full_context": "@string(triggerBody()?['context'])"
+        }
+      },
+      "runAfter": {
+        "Classify_Decision_Type": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Condition",
+      "name": "Check_If_Learning_Event",
+      "expression": {
+        "or": [
+          {
+            "equals": [
+              "@outputs('Classify_Decision_Type')?['isEdit']",
+              true
+            ]
+          },
+          {
+            "equals": [
+              "@outputs('Classify_Decision_Type')?['isRejection']",
+              true
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Create_Learning_Event": {
+          "type": "Microsoft.Dataverse/CreateRecord",
+          "inputs": {
+            "entityName": "snf_learning_event",
+            "item": {
+              "snf_audit_id": "@outputs('Generate_Audit_ID')?['auditId']",
+              "snf_event_type": "@if(outputs('Classify_Decision_Type')?['isEdit'], 'edit', 'rejection')",
+              "snf_recommendation_id": "@outputs('Extract_Context_Details')?['recommendationId']",
+              "snf_original_output": "@outputs('Extract_Context_Details')?['originalText']",
+              "snf_corrected_output": "@outputs('Extract_Context_Details')?['editedText']",
+              "snf_correction_reason": "@outputs('Extract_Context_Details')?['reason']",
+              "snf_ai_confidence_at_generation": "@outputs('Extract_Context_Details')?['aiConfidence']",
+              "snf_clinician_id": "@triggerBody()?['clinicianId']",
+              "snf_timestamp": "@outputs('Generate_Audit_ID')?['timestamp']",
+              "snf_processed_for_training": false,
+              "snf_model_version": "@parameters('currentModelVersion')"
+            }
+          }
+        },
+        "Queue_For_Model_Review": {
+          "type": "HTTP",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('mlOpsEndpoint')/learning-queue",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer @{parameters('mlOpsApiKey')}"
+            },
+            "body": {
+              "auditId": "@outputs('Generate_Audit_ID')?['auditId']",
+              "eventType": "@if(outputs('Classify_Decision_Type')?['isEdit'], 'edit', 'rejection')",
+              "recommendationId": "@outputs('Extract_Context_Details')?['recommendationId']",
+              "priority": "@if(outputs('Classify_Decision_Type')?['isRejection'], 'high', 'medium')"
+            }
+          },
+          "runAfter": {
+            "Create_Learning_Event": ["Succeeded"]
+          }
+        }
+      },
+      "runAfter": {
+        "Create_HITL_Audit_Record": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Condition",
+      "name": "Check_If_High_Risk_Rejection",
+      "expression": {
+        "and": [
+          {
+            "equals": [
+              "@outputs('Classify_Decision_Type')?['isRejection']",
+              true
+            ]
+          },
+          {
+            "greaterOrEquals": [
+              "@outputs('Extract_Context_Details')?['aiConfidence']",
+              85
+            ]
+          }
+        ]
+      },
+      "actions": {
+        "Send_Alert_To_AI_Team": {
+          "type": "HTTP",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('teamsWebhookUrl')",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "type": "message",
+              "attachments": [
+                {
+                  "contentType": "application/vnd.microsoft.card.adaptive",
+                  "content": {
+                    "type": "AdaptiveCard",
+                    "version": "1.5",
+                    "body": [
+                      {
+                        "type": "TextBlock",
+                        "text": "⚠️ High-Confidence AI Output Rejected",
+                        "weight": "Bolder",
+                        "size": "Large",
+                        "color": "Attention"
+                      },
+                      {
+                        "type": "FactSet",
+                        "facts": [
+                          {
+                            "title": "Audit ID",
+                            "value": "@{outputs('Generate_Audit_ID')?['auditId']}"
+                          },
+                          {
+                            "title": "AI Confidence",
+                            "value": "@{outputs('Extract_Context_Details')?['aiConfidence']}%"
+                          },
+                          {
+                            "title": "Clinician",
+                            "value": "@{triggerBody()?['clinicianName']}"
+                          },
+                          {
+                            "title": "Reason",
+                            "value": "@{outputs('Extract_Context_Details')?['reason']}"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TextBlock",
+                        "text": "This indicates a potential model calibration issue. Please review.",
+                        "wrap": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Check_If_Learning_Event": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Compose",
+      "name": "Calculate_Aggregate_Metrics",
+      "inputs": {
+        "note": "This would query recent HITL decisions for trend analysis"
+      },
+      "runAfter": {
+        "Check_If_High_Risk_Rejection": ["Succeeded"]
+      }
+    },
+    {
+      "type": "HTTP",
+      "name": "Update_Real_Time_Dashboard",
+      "inputs": {
+        "method": "POST",
+        "uri": "@parameters('dashboardEndpoint')/hitl-metrics",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "auditId": "@outputs('Generate_Audit_ID')?['auditId']",
+          "hitlTier": "@triggerBody()?['hitlTier']",
+          "action": "@triggerBody()?['action']",
+          "clinicianId": "@triggerBody()?['clinicianId']",
+          "timestamp": "@outputs('Generate_Audit_ID')?['timestamp']",
+          "metrics": {
+            "timeToReview": "@outputs('Calculate_Review_Metrics')?['timeToReview']",
+            "aiConfidence": "@outputs('Extract_Context_Details')?['aiConfidence']",
+            "wasEdited": "@outputs('Calculate_Review_Metrics')?['hasEdits']"
+          }
+        }
+      },
+      "runAfter": {
+        "Calculate_Aggregate_Metrics": ["Succeeded"]
+      }
+    },
+    {
+      "type": "Response",
+      "name": "Return_Audit_Confirmation",
+      "inputs": {
+        "statusCode": 200,
+        "body": {
+          "success": true,
+          "auditId": "@outputs('Generate_Audit_ID')?['auditId']",
+          "timestamp": "@outputs('Generate_Audit_ID')?['timestamp']",
+          "dataverseRecordId": "@outputs('Create_HITL_Audit_Record')?['body']?['snf_hitl_auditid']",
+          "learningEventCreated": "@outputs('Classify_Decision_Type')?['isEdit']",
+          "message": "HITL decision logged successfully per regulatory requirements"
+        }
+      },
+      "runAfter": {
+        "Update_Real_Time_Dashboard": ["Succeeded"]
+      }
+    }
+  ],
+  "outputs": {}
+}

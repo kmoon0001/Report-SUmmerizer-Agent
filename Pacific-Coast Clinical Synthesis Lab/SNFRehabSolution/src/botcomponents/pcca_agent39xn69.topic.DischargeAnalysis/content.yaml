@@ -1,0 +1,19 @@
+﻿kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: DischargeAnalysis
+  actions:
+    - kind: InvokePromptAction
+      id: runDischargeTool
+      actionId: cr917_SNFRehab.Rehab_Discharge_Insight
+      inputs:
+        patientToken: =Topic.ClassificationResult.patientToken
+        dischargeDisposition: =Topic.ClassificationResult.dischargeDisposition
+        finalGoalProgress: =Topic.ClassificationResult.finalGoalProgress
+      output: Topic.DischargeInsightResponse
+
+    - kind: EndDialog
+      id: exit
+

@@ -48,6 +48,55 @@
     }
   },
   "spec": {
-    "connectors": []
+    "connectors": [],
+    "knowledgeSources": {
+      "publicSites": [
+        {
+          "name": "CMS SNF Certification Compliance and Coverage Standards",
+          "description": "Use for CMS-published SNF certification requirements, Medicare coverage conditions, nursing home compliance standards, and health and safety regulations governing skilled nursing facilities. Prioritize this source for questions about SNF qualification criteria, coverage conditions, and regulatory compliance standards. Do not use this source for billing-specific PDPM classification or clinical note formatting. | Version: 2026.1 | Specialty: PT, OT, ST | Category: CMS/Certification",
+          "site": "https://www.cms.gov/medicare/health-safety-standards"
+        },
+        {
+          "name": "Functional Outcome Measures and Standardized Assessment Reference",
+          "description": "Use for standardized functional outcome measures used in PT, OT, and ST SNF documentation, including assessment tool names, scoring ranges, clinical interpretation, and appropriate notation in therapy notes. Published by the American Physical Therapy Association. Prioritize this source when drafting evaluation, progress, or recertification notes that require measurable functional baselines or change documentation. Do not use this source for compliance requirements or note formatting. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Functional Outcomes",
+          "site": "https://www.apta.org/your-practice"
+        },
+        {
+          "name": "ASHA Speech-Language Pathology Practice Standards and Guidelines",
+          "description": "Use this source for ASHA speech-language pathology clinical practice guidelines, dysphagia management standards, cognitive-communication frameworks, and AAC resources applicable to SNF settings. Reference when answering questions about SLP documentation, swallowing assessments, voice disorders, and skilled speech therapy justification. Do not use for PT or OT clinical standards. | Version: 2026.1 | Specialty: ST | Category: Clinical Practice Guidelines",
+          "site": "https://www.asha.org/practice"
+        },
+        {
+          "name": "APTA Physical Therapy Clinical Practice Guidelines and Evidence",
+          "description": "Use this source for APTA evidence-based clinical practice guidelines for physical therapy in SNF and post-acute settings. Reference for PT intervention standards, outcome measures, functional mobility benchmarks, and skilled PT care justification criteria. Do not use for billing codes or OT/SLP-specific clinical standards. | Version: 2026.1 | Specialty: PT | Category: Clinical Practice Guidelines",
+          "site": "https://www.apta.org/patient-care"
+        },
+        {
+          "name": "SNF Therapy Audit Triggers and Denial Risk Patterns",
+          "description": "Use for known SNF therapy audit triggers, OIG and RAC audit findings, denial risk patterns, documentation weaknesses that result in claim downcoding or denial, and OIG oversight priorities for skilled nursing facilities. Published by the HHS Office of Inspector General. Prioritize this source when auditing a note, assessing denial risk, or answering questions about compliance red flags. Do not use this source for note formatting or discipline-specific clinical standards. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Compliance/Audit",
+          "site": "https://oig.hhs.gov/reports"
+        },
+        {
+          "name": "MedPAC Medicare Payment Policy Reports for Post-Acute Care",
+          "description": "Use this source for MedPAC annual Medicare payment policy reports, SNF payment rate analyses, post-acute care reform recommendations, and PDPM payment trend data. Reference when answering questions about Medicare reimbursement policy changes, SNF market trends, and post-acute payment reform. Do not use for clinical documentation standards or therapy technique guidance. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Policy/Payment",
+          "site": "https://www.medpac.gov/reports"
+        },
+        {
+          "name": "SNF Medicare Part A and PDPM Documentation Requirements",
+          "description": "Use for Medicare Part A SNF billing requirements, PDPM therapy classification support, MDS linkage, therapy minute documentation, ARD windows, and medical record requirements to support the SNF claim. Prioritize this source when the user asks about billing support, therapy minutes, PDPM classification, or payer-specific documentation requirements. Do not use this source for clinical note formatting or discipline-specific terminology. | Version: 2026.1 | Specialty: PT, OT, ST | Category: CMS/PDPM/Billing",
+          "site": "https://www.cms.gov/medicare/payment"
+        },
+        {
+          "name": "OIG Healthcare Fraud Alerts and Compliance News",
+          "description": "Use this source to retrieve OIG fraud alerts, enforcement actions, corporate integrity agreement updates, and compliance news relevant to SNF therapy billing and documentation. Reference when answering questions about recent OIG investigations, exclusions, or emerging compliance risks in post-acute care. Do not use for clinical documentation standards or therapy technique guidance. | Version: 2026.1 | Specialty: PT, OT, ST | Category: Compliance/OIG",
+          "site": "https://oig.hhs.gov/newsroom"
+        },
+        {
+          "name": "AOTA Occupational Therapy Practice Standards and Evidence",
+          "description": "Use this source for AOTA occupational therapy standards, ADL assessment frameworks, and evidence-based OT practice guidelines applicable to SNF settings. Reference when answering questions about OT documentation requirements, ADL coding, functional performance goals, and skilled OT justification. Do not use for PT or SLP clinical standards or billing code references. | Version: 2026.1 | Specialty: OT | Category: Clinical Practice Guidelines",
+          "site": "https://www.aota.org/practice"
+        }
+      ]
+    }
   }
 }

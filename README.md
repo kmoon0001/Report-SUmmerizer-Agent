@@ -1,4 +1,4 @@
-# Ensign Clinical Swarm Intelligence (v3.0 Platinum)
+# Pacific Coast Therapy Hub (v3.0 Platinum)
 
 ## 🚁 Overview
 This repository contains the **Ensign Clinical Swarm**, a unified ecosystem of specialized AI agents designed to automate the 24-hour clinical documentation lifecycle for Skilled Nursing Facilities (SNF). 

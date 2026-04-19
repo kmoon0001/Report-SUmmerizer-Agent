@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -78,7 +78,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ“Š PATIENT CLINICAL OVERVIEW"
+                      text: "ðŸ�Š PATIENT CLINICAL OVERVIEW"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -110,7 +110,7 @@ beginDialog:
                           weight: Bolder
                           spacing: None
                 - type: TextBlock
-                  text: "âš ï¸ This is a structured intake summary. The automated backend is currently in validation mode."
+                  text: "âš ï¸ This is a structured intake summary. The automated backend is currently in validation mode."
                   wrap: true
                   fontType: Monospace
                   size: Small
@@ -129,6 +129,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

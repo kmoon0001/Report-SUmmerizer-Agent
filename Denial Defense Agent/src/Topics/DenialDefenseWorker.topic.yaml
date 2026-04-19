@@ -1,3 +1,8 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
 kind: AdaptiveDialog
 description: Denial Defense Worker. Audits medical necessity and professional standards compliance.
 id: DenialDefenseWorker
@@ -123,7 +128,7 @@ beginDialog:
 
                     - kind: SendActivity
                       id: sendActivity_highRiskEscalation
-                      activity: Confidence threshold policy active: route HIGH risk results to Supervisory Compliance Hub.
+                      activity: "Confidence threshold policy active: route HIGH risk results to Supervisory Compliance Hub."
 
             - kind: ConditionGroup
               id: conditionGroup_nonHighRisk
@@ -150,3 +155,4 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_xai
               activity: XAI view enabled. Use the scoring worker to review SHAP driver, confidence band, and counterfactual remediation.
+

@@ -1,0 +1,83 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + Executive Reporting Standards.
+# **Patterns**: PLATINUM_PROMPT_PATTERNS.md.
+
+mcs.metadata:
+  componentName: ExecutiveBriefOrchestrator
+  description: >
+    Platinum Executive Brief Orchestrator. Consolidates outputs from across the
+    clinical swarm (TheraDoc, Regulatory Hub, Denial Defense) into a 1-page
+    executive clinical brief for Nursing Home Administrators and Corporate Leadership.
+kind: AdaptiveDialog
+modeldescription: >
+  Elite executive reporting module for the SNF Agent Command Center.
+  Aggregates clinical, regulatory, and audit risk data into a high-level
+  executive summary suitable for morning meetings, QAPI reviews, and
+  corporate reporting.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Executive Brief Orchestrator
+    triggerQueries:
+      - executive summary
+      - daily clinical brief
+      - corporate report
+      - morning meeting summary
+      - synthesize full swarm output
+      - admin report
+      - executive clinical brief
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸŽ›ï¸ **Command Center â€” Executive Brief Orchestrator**
+        I will consolidate your multi-agent clinical data into a high-level executive briefing.
+
+    - kind: Question
+      id: question_clinicalSummary
+      variable: Topic.BriefClinicalSummary
+      prompt: Paste the clinical intake or synthesis data (e.g., from TheraDoc or Synthesis Lab).
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: question_regulatoryRisk
+      variable: Topic.BriefRegulatoryRisk
+      prompt: Paste the regulatory or QM risk findings (e.g., from Regulatory Hub).
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: BeginDialog
+      id: beginDialog_briefSynthesis
+      input:
+        binding:
+          text: =Concatenate(
+            "### EXECUTIVE CLINICAL BRIEF SYNTHESIS â€” PLATINUM STANDARD ###\n\n",
+            "CLINICAL DATA:\n", Topic.BriefClinicalSummary, "\n\n",
+            "REGULATORY DATA:\n", Topic.BriefRegulatoryRisk, "\n\n",
+            "TASK:\n",
+            "Generate a 'Board Ready' 1-page executive summary covering:\n",
+            "1. CLINICAL VELOCITY: Summary of patient volume, evaluations, and acuity.\n",
+            "2. REGULATORY HEATMAP: Top 3 QM or compliance risks identified.\n",
+            "3. ACTION PLAN: 3 specific strategic actions for the Administrator today.\n",
+            "4. ESTIMATED PDPM IMPACT: Potential revenue risk/opportunity based on complexity data."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.BriefFinal
+
+    - kind: SendActivity
+      id: sendActivity_output
+      activity: |-
+        ### ðŸ“Š Executive Clinical Brief
+
+        {Topic.BriefFinal}
+
+        ---
+        **âš ï¸ Disclaimer**: Strategic decision support only. Final clinical and operational decisions are the responsibility of the facility Administrator and Nursing/Rehab leadership.
+

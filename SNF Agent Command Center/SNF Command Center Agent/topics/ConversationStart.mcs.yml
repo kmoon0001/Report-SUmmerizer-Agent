@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
 # 1. **NO HALLUCINATION**: Flag missing IDs immediately.
@@ -26,8 +26,9 @@ beginDialog:
           - |-
             Hello, I'm {System.Bot.Name}. How can I help?
 
-            This is a HIPAA-protected clinical workflow agent. All patient data is PHI. I do not provide clinical diagnoses â€” all outputs are DRAFT and require clinician review before use.
+            This is a HIPAA-protected clinical workflow agent. All patient data is PHI. I do not provide clinical diagnoses â all outputs are DRAFT and require clinician review before use.
 
             To begin, please provide the patient MRN and describe the alert or task.
         speak:
           - Hello and thank you for calling {System.Bot.Name}, powered by generative AI. How may I help you today?
+

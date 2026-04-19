@@ -37,11 +37,11 @@ beginDialog:
           optionSetName: MainMenuOptions
           items:
             - id: classify
-              displayName: ðŸ“‚ Classify & Route
+              displayName: ðŸ�� Classify & Route
             - id: extract
               displayName: ðŸ§¬ Extract Clinical Elements
             - id: skilled
-              displayName: âš–ï¸ Check Skilled Need
+              displayName: âš�ï¸� Check Skilled Need
             - id: goals
               displayName: ðŸŽ¯ Audit Goal Quality
             - id: redflag

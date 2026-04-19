@@ -32,7 +32,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AssessingMsg
-      activity: "ðŸ“ **Assessing documentation...** checking for SMART goal structure, quantifiable baselines, and functional outcomes."
+      activity: "ðŸ�� **Assessing documentation...** checking for SMART goal structure, quantifiable baselines, and functional outcomes."
 
     - kind: BeginDialog
       id: CallCoach

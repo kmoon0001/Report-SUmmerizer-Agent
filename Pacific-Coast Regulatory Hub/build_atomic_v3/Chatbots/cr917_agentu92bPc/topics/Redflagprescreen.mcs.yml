@@ -53,7 +53,7 @@ beginDialog:
         value: =Topic.QuickRiskResult
         text:
           - |-
-            - Here is your preliminary redâ€‘flag risk summary:
+            - Here is your preliminary redâ��flag risk summary:
 
 
             {Topic.QuickRiskResult}

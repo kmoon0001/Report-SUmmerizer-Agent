@@ -1,4 +1,4 @@
-kind: AdaptiveDialog
+﻿kind: AdaptiveDialog
 description: Syncs and maintains the Universal Swarm Context across all clinical workers.
 id: ContextOrchestrator
 beginDialog:
@@ -8,7 +8,8 @@ beginDialog:
     # 1. Capture State from Last Worker
     - kind: SetVariable
       variable: Global.SwarmContext
-      value: "=JSON({ FleetID: 'ENSIGN-PLATINUM-01', LastExpert: Global.LastWorker, RiskScore: Global.AuditRiskScore })"
+      value: "=JSON({ FleetID: 'Pacific Coast-PLATINUM-01', LastExpert: Global.LastWorker, RiskScore: Global.AuditRiskScore })"
     
     - kind: SendActivity
-      activity: "🛰️ **SWARM TELEMETRY**: Clinical state synchronized. Command Center is ready for handoff..."
+      activity: "ð°ï¸ **SWARM TELEMETRY**: Clinical state synchronized. Command Center is ready for handoff..."
+

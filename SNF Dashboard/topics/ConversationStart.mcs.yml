@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -32,7 +32,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "=Concatenate(\"ðŸ‘‹ Welcome back, \", If(IsBlank(System.User.DisplayName), \"Colleague\", System.User.DisplayName))"
+                      text: "=Concatenate(\"ðŸ�� Welcome back, \", If(IsBlank(System.User.DisplayName), \"Colleague\", System.User.DisplayName))"
                       weight: Bolder
                       size: ExtraLarge
                     - type: TextBlock
@@ -53,11 +53,11 @@ beginDialog:
                   spacing: Medium
               actions:
                 - type: Action.Submit
-                  title: "ðŸš€ Quick Actions"
+                  title: "ðŸš� Quick Actions"
                   data:
                     action: "open_executive_shortcuts"
                 - type: Action.Submit
-                  title: "â“ Help & Roles"
+                  title: "â� Help & Roles"
                   data:
                     action: "open_help"
               $schema: "http://adaptivecards.io/schemas/adaptive-card.json"
@@ -67,6 +67,7 @@ beginDialog:
     - kind: BeginDialog
       id: begin_welcome
       dialog: snf_ai_dashboard.topic.WelcomeStart
+
 
 
 

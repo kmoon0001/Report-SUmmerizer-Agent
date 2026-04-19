@@ -1,0 +1,74 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + CMS Five-Star Quality Rating System.
+# **Patterns**: PLATINUM_PROMPT_PATTERNS.md.
+
+mcs.metadata:
+  componentName: GlobalRiskHeatmap
+  description: >
+    Swarm-Wide Risk Heatmap Orchestrator. Analyzes clinical, regulatory, and
+    denial data from across the Pacific Coast ecosystem to identify emerging
+    systemic risks and facility-wide compliance clusters.
+kind: AdaptiveDialog
+modeldescription: >
+  Elite risk intelligence module for the SNF Agent Command Center.
+  Identified systemic risk clusters across multiple data domains: clinical documentation,
+  denial defense patterns, and quality measure trends. Produces a visual-friendly
+  risk heatmap summary and strategic mitigation priorities.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Global Risk Heatmap
+    triggerQueries:
+      - overall risk report
+      - where are our risks
+      - compliance heatmap
+      - show me the risk clusters
+      - systemic risk analysis
+      - facility risk map
+      - cross-agent risk audit
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸ“¡ **Command Center â€” Global Risk Heatmap**
+        Generating a cross-domain systemic risk analysis for the current facility context.
+
+    - kind: Question
+      id: question_riskInputs
+      variable: Topic.HeatmapData
+      prompt: Paste the raw risk data or reports from across your hubs (Documentation Audits, QM Reports, Denial Trends).
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: BeginDialog
+      id: beginDialog_heatmapAnalysis
+      input:
+        binding:
+          text: =Concatenate(
+            "### GLOBAL SWARM RISK HEATMAP â€” PLATINUM STANDARD ###\n\n",
+            "RAW DATA INPUTS:\n", Topic.HeatmapData, "\n\n",
+            "TASK:\n",
+            "1. RISK CLUSTERING: Identify 3-5 systemic risk clusters (e.g., 'Inconsistent SLP Cognitive Documentation', 'High Fall Rate with Major Injury').\n",
+            "2. HEAT LEVEL: Assign risk levels (ðŸ”´ CRITICAL, ðŸŸ  HIGH, ðŸŸ¡ MODERATE, ðŸŸ¢ STABLE) to each cluster.\n",
+            "3. ROOT CAUSE HYPOTHESIS: Why are these clusters forming?\n",
+            "4. QAPI PRIORITY: Map each cluster to the CMS Five-Star Quality Rating domain and suggest a QAPI focus area."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.HeatmapOutput
+
+    - kind: SendActivity
+      id: sendActivity_output
+      activity: |-
+        ### ðŸ—ºï¸ Systemic Risk Heatmap
+
+        {Topic.HeatmapOutput}
+
+        ---
+        **ðŸ“Œ Priority Actions**: Review these clusters at your next weekly risk/compliance meeting.
+        **âš ï¸ Disclaimer**: Strategic risk intelligence. Requires operational leadership validation.
+

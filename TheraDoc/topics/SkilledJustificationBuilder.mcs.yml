@@ -1,0 +1,216 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: Invoke ComplianceAuditor gate before output.
+#
+# ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
+# 1. **JIMMO GROUNDING**: Every output must reference Jimmo v. Sebelius maintenance standard.
+# 2. **NO HALLUCINATION**: Generate only from provided clinical inputs.
+# 3. **DENIAL DEFENSE**: Output must withstand RAC/MAC audit scrutiny.
+
+mcs.metadata:
+  componentName: SkilledJustificationBuilder
+  description: >
+    Standalone Skilled Justification Builder. Generates a Medicare-defensible
+    Skilled Justification paragraph grounded in Jimmo v. Sebelius, CMS Chapter 15,
+    and the Denial Defense protocols â€” without requiring a full note regeneration.
+kind: AdaptiveDialog
+modeldescription: >
+  Platinum Skilled Justification Builder for Pacific Coast Therapy Hub.
+  Produces a standalone, forensically defensible Skilled Justification
+  statement for use in any SNF therapy note type. Grounded in Jimmo v. Sebelius
+  (maintenance therapy standard), CMS Medicare Benefit Policy Manual Chapter 15,
+  and ONE Clinical/POSTette internal standards. Designed to be the #1 defense
+  against medical necessity denials from RAC, MAC, and ZPIC auditors.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Skilled Justification Builder
+    triggerQueries:
+      - build skilled justification
+      - write my skilled justification
+      - justify skilled services
+      - medical necessity justification
+      - skilled need statement
+      - why is this patient skilled
+      - denial defense statement
+      - jimmo justification
+      - build my snj
+      - skilled justification paragraph
+
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_patientContext
+      conditions:
+        - id: conditionItem_hasContext
+          condition: =!IsBlank(Global.MPC_PatientName)
+          actions:
+            - kind: SendActivity
+              id: sendActivity_contextDetected
+              activity: "âœ… Building Skilled Justification for: **{Global.MPC_PatientName}** | Diagnosis: **{Global.MPC_PrimaryDiagnosis}**"
+      elseActions:
+        - kind: Question
+          id: question_patientFallback
+          variable: Global.MPC_PatientName
+          prompt: What is the patient's name?
+          entity: PersonNamePrebuiltEntity
+        - kind: Question
+          id: question_diagnosisFallback
+          variable: Global.MPC_PrimaryDiagnosis
+          prompt: What is the primary diagnosis?
+          entity:
+            kind: StringPrebuiltEntity
+            sensitivityLevel: None
+
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: "âš–ï¸ **Skilled Justification Builder** â€” I will generate a forensically defensible SNJ statement. Answer each question precisely."
+
+    - kind: Question
+      id: question_discipline
+      variable: Topic.SNJDiscipline
+      prompt: Which discipline is writing this justification?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: PT
+              displayName: Physical Therapy (PT)
+            - id: OT
+              displayName: Occupational Therapy (OT)
+            - id: SLP
+              displayName: Speech-Language Pathology (SLP)
+
+    - kind: Question
+      id: question_serviceType
+      variable: Topic.SNJServiceType
+      prompt: What level of service requires justification?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Restorative
+              displayName: Restorative therapy (improvement expected)
+            - id: Maintenance
+              displayName: Maintenance therapy (Jimmo standard â€” prevent decline)
+            - id: Prevention
+              displayName: Prevention of further deterioration
+
+    - kind: Question
+      id: question_functionalStatus
+      variable: Topic.SNJFunctionalStatus
+      prompt: Describe the patient's current functional status in clinical terms. Include assist levels, functional scores, and how this compares to their PLOF.
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: question_skillRequired
+      variable: Topic.SNJSkillRequired
+      prompt: What specific clinical skill is required that a non-licensed person (family, aide, nurse) CANNOT safely provide? Be specific â€” e.g., "dynamic balance training," "dysphagia compensatory strategy instruction," "therapeutic exercise progression."
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: question_riskWithout
+      variable: Topic.SNJRiskWithout
+      prompt: What is the documented risk if skilled services are NOT continued? (e.g., fall risk, aspiration pneumonia, skin breakdown, functional decline, loss of independence)
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: question_progressEvidence
+      variable: Topic.SNJProgressEvidence
+      prompt: What measurable evidence of progress or response to treatment supports continued skilled need? (e.g., "improved from Max A to Min A for transfers over 2 weeks," "diet upgraded from puree to soft mechanical")
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: Question
+      id: question_complexityFactors
+      variable: Topic.SNJComplexityFactors
+      prompt: List any complicating factors that increase clinical complexity and justify skilled oversight. (e.g., cognitive impairment, multiple comorbidities, medication effects on balance, behavioral barriers)
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: BeginDialog
+      id: beginDialog_snjGeneration
+      input:
+        binding:
+          text: =Concatenate(
+            "### SKILLED JUSTIFICATION BUILDER â€” PLATINUM STANDARD ###\n\n",
+            "Generate a concise, forensically defensible Skilled Justification paragraph for the following:\n\n",
+            "Patient: ", Global.MPC_PatientName, "\n",
+            "Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
+            "Comorbidities: ", Global.MPC_SecondaryDiagnoses, "\n",
+            "Discipline: ", Topic.SNJDiscipline, "\n",
+            "Service Type: ", Topic.SNJServiceType, "\n",
+            "PLOF: ", Global.MPC_PLOF, "\n\n",
+            "Current Functional Status: ", Topic.SNJFunctionalStatus, "\n",
+            "Specific Skill Required: ", Topic.SNJSkillRequired, "\n",
+            "Risk Without Services: ", Topic.SNJRiskWithout, "\n",
+            "Evidence of Progress: ", Topic.SNJProgressEvidence, "\n",
+            "Complexity Factors: ", Topic.SNJComplexityFactors, "\n\n",
+            "REQUIREMENTS:\n",
+            "1. If service type is Maintenance, invoke Jimmo v. Sebelius (2013) â€” patient need not improve, must only prevent decline.\n",
+            "2. State specifically why a non-licensed individual cannot safely provide this care.\n",
+            "3. Reference the functional complexity factors that require clinical judgment.\n",
+            "4. Include one sentence on risk to patient safety if skilled services are discontinued.\n",
+            "5. Use precise clinical terminology. Avoid vague phrases like 'patient tolerated well' or 'patient cooperative.'\n",
+            "6. Maximum 150 words. Dense, defensible, audit-ready.\n",
+            "7. Do NOT include preamble â€” output the justification paragraph only."
+          )
+      dialog: pcca_agent.action.TheraDoc-PTGenerateNote
+      output:
+        binding:
+          generatednote: Topic.SNJOutput
+
+    - kind: SendActivity
+      id: sendActivity_snjOutput
+      activity: |-
+        ### âš–ï¸ Skilled Justification Statement â€” Platinum Build
+
+        {Topic.SNJOutput}
+
+        ---
+        **ðŸ“‹ Usage Instructions**:
+        - Copy this paragraph into the "Skilled Justification" section of your note.
+        - Review for accuracy â€” you must be able to defend every claim clinically.
+        - To revise, say "rebuild skilled justification."
+
+        **âš ï¸ Grounding**: Jimmo v. Sebelius (2013) | CMS Medicare Benefit Policy Manual Ch. 15 | Pacific Coast POSTette Standards
+        **âš ï¸ Disclaimer**: AI-generated. Final clinical defensibility is the treating therapist's responsibility.
+
+    - kind: Question
+      id: question_sendToEHR
+      variable: Topic.SendToEHR
+      prompt: Would you like to send this justification directly to the EHR Finalizer?
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_ehrRoute
+      conditions:
+        - id: conditionItem_sendToEHR
+          condition: =Topic.SendToEHR = true
+          actions:
+            - kind: SetVariable
+              id: setVariable_ehrNote
+              variable: Global.MPC_PendingNoteText
+              value: =Topic.SNJOutput
+            - kind: BeginDialog
+              id: beginDialog_ehrFinalizer
+              dialog: pcca_agent.topic.EHRFinalizerGateway
+
+inputType: {}
+outputType:
+  properties:
+    SNJ_Output:
+      displayName: SNJ_Output
+      type: String
+

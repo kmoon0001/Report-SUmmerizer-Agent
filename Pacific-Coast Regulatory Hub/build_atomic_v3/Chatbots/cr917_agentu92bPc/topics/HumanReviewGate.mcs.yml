@@ -28,7 +28,7 @@ beginDialog:
     - kind: Question
       id: Question_V3sn5I
       variable: Topic.riskHighlights
-      prompt: 'Please provide a clear response: List the top 3â€“5 risk highlights for this report.'
+      prompt: 'Please provide a clear response: List the top 3â��5 risk highlights for this report.'
       entity: StringPrebuiltEntity
 
     - kind: Question

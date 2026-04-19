@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
 # 1. **NO HALLUCINATION**: Flag missing IDs immediately.
@@ -31,11 +31,11 @@ beginDialog:
                 I wasn't able to recognize that request within my SNF routing scope.
 
                 I can help with:
-                â€¢ Patient alert routing (provide MRN + alert type)
-                â€¢ Case history and assessment review
-                â€¢ Documentation creation (saved as DRAFT only)
-                â€¢ Compliance gap analysis
-                â€¢ Progress, recertification, or discharge summaries
+                â¢ Patient alert routing (provide MRN + alert type)
+                â¢ Case history and assessment review
+                â¢ Documentation creation (saved as DRAFT only)
+                â¢ Compliance gap analysis
+                â¢ Progress, recertification, or discharge summaries
 
                 Please try again with a format like:
                 "Route rehospitalization alert for MRN 12345"
@@ -48,3 +48,4 @@ beginDialog:
         - kind: BeginDialog
           id: 5aXj5M
           dialog: cua_agent_U805x.topic.Escalate
+

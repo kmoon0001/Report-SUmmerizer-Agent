@@ -25,7 +25,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
 
-      variable: Topic.var_rawNote
+      variable: Topic.VarRawNote
       prompt: |-
         Please paste your full unstructured therapy note below. I will extract key clinical information and structure it into a defensible SNF therapy documentation format.
 
@@ -38,19 +38,20 @@ beginDialog:
       id: cryAx3
       input:
         binding:
-          text: =Topic.var_rawNote
+          text: =Topic.VarRawNote
 
       dialog: pcca_agent.action.TheraDoc-ParseBrainDump
       output:
         binding:
-          parseddata: Topic.parseddata
+          parseddata: Topic.Parseddata
 
     - kind: SendActivity
       id: sendActivity_PM4QPH
-      activity: "{Topic.parseddata}This is an AI-generated draft. Please review all extracted information carefully before entering into the EHR. Verify: patient functional status, treatment interventions, goals, and plan. Modify as needed to accurately reflect your clinical reasoning and skilled care."
+      activity: "{Topic.Parseddata}This is an AI-generated draft. Please review all extracted information carefully before entering into the EHR. Verify: patient functional status, treatment interventions, goals, and plan. Modify as needed to accurately reflect your clinical reasoning and skilled care."
 
 inputType: {}
 outputType: {}
+
 
 
 

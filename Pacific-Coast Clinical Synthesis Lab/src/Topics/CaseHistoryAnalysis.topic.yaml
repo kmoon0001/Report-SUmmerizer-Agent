@@ -9,7 +9,7 @@ beginDialog:
     - kind: Question
       id: qHistoryIntent
       variable: Topic.RequestedHistory
-      prompt: "ðŸ“– **CASE HISTORIAN SYSTEM**: I am ready to analyze patient history. Are we synthesizing a **Cross-EHR Timeline** or performing a **Hospice/Managed Care Audit**?"
+      prompt: "ð **CASE HISTORIAN SYSTEM**: I am ready to analyze patient history. Are we synthesizing a **Cross-EHR Timeline** or performing a **Hospice/Managed Care Audit**?"
     
     - kind: SendActivity
-      activity: "ðŸ”„ Analysis in progress. Cross-referencing PCC/Optima records against **CASE_HISTORY_GROUNDING.md** and Section GG baselines..."
+      activity: "ð Analysis in progress. Cross-referencing PCC/Optima records against **CASE_HISTORY_GROUNDING.md** and Section GG baselines..."

@@ -1,4 +1,9 @@
-﻿kind: AdaptiveDialog
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
+kind: AdaptiveDialog
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -57,7 +62,7 @@ beginDialog:
         - kind: Question
           id: question_routeClarifier
           variable: Topic.RouteClarifier
-          prompt: Please type one option exactly: Eval, Progress, Recert, or Discharge.
+          prompt: "Please type one option exactly: Eval, Progress, Recert, or Discharge."
           entity:
             kind: StringPrebuiltEntity
 
@@ -101,3 +106,4 @@ beginDialog:
             - kind: BeginDialog
               id: beginDialog_suggested
               dialog: pcca_agent39xn69.topic.SuggestedActions
+

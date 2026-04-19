@@ -39,12 +39,12 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "Ã¢Å¡Â Ã¯Â¸Â Falls", data: { qmMeasureFocus: "Falls" }, tooltip: "Falls with major injury" },
-            { type: "Action.Submit", title: "Ã°Å¸â€œâ€° ADL Decline", data: { qmMeasureFocus: "ADL Decline" }, tooltip: "Mobility and ADL function decline" },
-            { type: "Action.Submit", title: "Ã°Å¸Â©Â¹ Pressure Ulcers", data: { qmMeasureFocus: "Pressure Ulcers" }, tooltip: "New or worsened pressure injuries" },
-            { type: "Action.Submit", title: "Ã°Å¸â€™Å  Antipsychotic Use", data: { qmMeasureFocus: "Antipsychotic Use" }, tooltip: "Antipsychotic medication rates" },
-            { type: "Action.Submit", title: "Ã°Å¸ËœÂ£ Pain", data: { qmMeasureFocus: "Pain" }, tooltip: "Moderate to severe pain rates" },
-            { type: "Action.Submit", title: "Ã°Å¸â€œâ€¹ All QMs (Full Review)", data: { qmMeasureFocus: "All QMs" }, tooltip: "Comprehensive review of all quality measures" }
+            { type: "Action.Submit", title: "�¢�¡� �¯�¸�� Falls", data: { qmMeasureFocus: "Falls" }, tooltip: "Falls with major injury" },
+            { type: "Action.Submit", title: "�°�¸â��â�° ADL Decline", data: { qmMeasureFocus: "ADL Decline" }, tooltip: "Mobility and ADL function decline" },
+            { type: "Action.Submit", title: "�°�¸�©�¹ Pressure Ulcers", data: { qmMeasureFocus: "Pressure Ulcers" }, tooltip: "New or worsened pressure injuries" },
+            { type: "Action.Submit", title: "�°�¸â���  Antipsychotic Use", data: { qmMeasureFocus: "Antipsychotic Use" }, tooltip: "Antipsychotic medication rates" },
+            { type: "Action.Submit", title: "�°�¸���£ Pain", data: { qmMeasureFocus: "Pain" }, tooltip: "Moderate to severe pain rates" },
+            { type: "Action.Submit", title: "�°�¸â��â�¹ All QMs (Full Review)", data: { qmMeasureFocus: "All QMs" }, tooltip: "Comprehensive review of all quality measures" }
           ]
         }
       output:

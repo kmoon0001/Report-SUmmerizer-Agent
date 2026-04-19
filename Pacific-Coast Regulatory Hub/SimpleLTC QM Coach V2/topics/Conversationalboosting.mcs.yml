@@ -8,6 +8,7 @@ beginDialog:
   priority: -1
   actions:
     - kind: SearchAndSummarizeContent
+      additionalInstructions: 'You are the Universal Policy Engine. Prioritize internal Pacific Coast (POSTette) policies for procedural questions, and CMS Chapter 15 for regulatory grounding. Combine both into a single cohesive answer.'
       id: search-content
       variable: Topic.Answer
       userInput: =System.Activity.Text
@@ -21,5 +22,6 @@ beginDialog:
             - kind: EndDialog
               id: end-topic
               clearTopicQueue: true
+
 
 

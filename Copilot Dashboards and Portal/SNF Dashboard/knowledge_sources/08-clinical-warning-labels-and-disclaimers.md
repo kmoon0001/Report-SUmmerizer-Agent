@@ -1,8 +1,0 @@
-# Clinical Warning Labels And Disclaimers
-
-- This system provides AI-assisted clinical and operational decision support.
-- It does not replace clinical judgment, direct patient assessment, facility policy, or physician orders.
-- High-risk, ambiguous, or rapidly changing situations require evaluation by the appropriate licensed clinician.
-- Use the minimum necessary patient information for the task being performed.
-- Do not share PHI outside approved workflows, authorized audiences, and documented consent boundaries.
-

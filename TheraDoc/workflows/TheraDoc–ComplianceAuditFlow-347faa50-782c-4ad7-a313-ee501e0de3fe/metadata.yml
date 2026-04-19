@@ -1,6 +1,6 @@
-﻿jsonFileName: workflows/TheraDoc–ComplianceAuditFlow-347faa50-782c-4ad7-a313-ee501e0de3fe/workflow.json
+﻿jsonFileName: workflows/TheraDoc�ComplianceAuditFlow-347faa50-782c-4ad7-a313-ee501e0de3fe/workflow.json
 workflowId: 347faa50-782c-4ad7-a313-ee501e0de3fe
-name: TheraDoc – Compliance Audit Flow
+name: TheraDoc � Compliance Audit Flow
 type: 1
 description: Post-generation compliance auditor. Called at the end of any TheraDoc note generation flow. Accepts documentType, discipline, and noteText; returns a JSON audit result with complianceScore, findings checklist, and pass/fail for Medicare SNF standards.
 subprocess: false

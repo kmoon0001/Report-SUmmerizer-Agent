@@ -9,7 +9,7 @@ beginDialog:
     - kind: Question
       id: qDispatcher
       variable: Topic.RequestedSpecialist
-      prompt: "ðŸ›¡ï¸ **COMMAND CENTER ACTIVE**: How can I assist you in the Pacific Coast AI Fleet? I can dispatch specialists for Documentation, Compliance, or Clinical Synthesis."
+      prompt: "ðŸ�¡ï¸� **COMMAND CENTER ACTIVE**: How can I assist you in the Pacific Coast AI Fleet? I can dispatch specialists for Documentation, Compliance, or Clinical Synthesis."
     
     - kind: ConditionGroup
       id: dispatchLogic
@@ -18,19 +18,19 @@ beginDialog:
           condition: =IsMatch(Topic.RequestedSpecialist, ".*prep.*|.*report.*|.*summary.*")
           actions:
             - kind: SendActivity
-              activity: "ðŸ”— **DYNAMIC HANDOFF**: Connecting to **Pac Coast Prep Assistant** (Synthesis Specialist) for deep clinical review..."
+              activity: "ðŸ�� **DYNAMIC HANDOFF**: Connecting to **Pac Coast Prep Assistant** (Synthesis Specialist) for deep clinical review..."
         
         - id: callQM
           condition: =IsMatch(Topic.RequestedSpecialist, ".*qm.*|.*quality.*|.*measure.*")
           actions:
             - kind: SendActivity
-              activity: "ðŸ”— **DYNAMIC HANDOFF**: Connecting to **QM Coach** (Regulatory Specialist) for root-cause analysis..."
+              activity: "ðŸ�� **DYNAMIC HANDOFF**: Connecting to **QM Coach** (Regulatory Specialist) for root-cause analysis..."
 
         - id: callTheraDoc
           condition: =IsMatch(Topic.RequestedSpecialist, ".*note.*|.*documentation.*|.*audit.*")
           actions:
             - kind: SendActivity
-              activity: "ðŸ”— **DYNAMIC HANDOFF**: Connecting to **TheraDoc** (Documentation Specialist) for note refinement..."
+              activity: "ðŸ�� **DYNAMIC HANDOFF**: Connecting to **TheraDoc** (Documentation Specialist) for note refinement..."
         - id: routeToHistory
           condition: =IsMatch(Topic.RequestedSpecialist, '.*history.*|.*timeline.*|.*record.*')
           actions:

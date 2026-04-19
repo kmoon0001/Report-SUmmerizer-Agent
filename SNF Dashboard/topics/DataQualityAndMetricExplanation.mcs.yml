@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -74,7 +74,7 @@ beginDialog:
                 Refresh timing:
                 - Dashboard data refreshes on a scheduled cadence depending on the source system and pipeline configuration.
                 - PCC and NetHealth data typically refresh on a daily or near-real-time cadence depending on integration configuration.
-                - Power BI semantic models refresh on a schedule set by the workspace administrator â€” usually once or multiple times per day.
+                - Power BI semantic models refresh on a schedule set by the workspace administrator â�� usually once or multiple times per day.
                 - If a value looks stale, check the dashboard refresh timestamp before assuming an error.
                 - For real-time data needs, consult the source system directly until a streaming integration is live.
 
@@ -88,7 +88,7 @@ beginDialog:
                 - Dashboards apply approved filters, aggregation rules, and standardization logic that source systems do not.
                 - A difference between the dashboard and the source system is expected when different date ranges, population filters, or calculation methods are used.
                 - Common causes: late-arriving data, timezone offsets, census snapshot timing, and data-quality rules that exclude incomplete records.
-                - If the difference persists after checking filters and refresh timing, escalate to the data governance lead â€” do not treat it as a dashboard error without verification.
+                - If the difference persists after checking filters and refresh timing, escalate to the data governance lead â�� do not treat it as a dashboard error without verification.
 
         - id: route_missing_data
           condition: =Text(Topic.DataIssueChoice) = "MissingData"
@@ -113,6 +113,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

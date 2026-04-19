@@ -1,4 +1,4 @@
-Ôªø# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -14,7 +14,7 @@
 mcs.metadata:
   componentName: Audit Existing Note
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [AuditExistingNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [AuditExistingNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Platinum 7-Layer XAI.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -89,6 +89,8 @@ beginDialog:
           text: =Topic.existingNoteText
           text_1: =Topic.incomingDocumentType
           text_2: =Topic.incomingDiscipline
+          xai_protocol: "7-LAYER"
+          shap_lime_enabled: true
 
       dialog: pcca_agent.action.TheraDoc-AuditNote
       output:
@@ -98,8 +100,13 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_xasWpa
       activity: |-
+        ### ‚Ô∏ Platinum Forensic Audit Result (7-Layer XAI)
         {Topic.auditresult}
-        This is an AI-generated compliance audit. Review all flagged items carefully. Final compliance determination must be made by a qualified clinician or compliance officer.
+        
+        **‚Ô∏ Logic Weights**: 
+        - Grounding Path: `CMS_CHAP_15_REHAB`
+        - Decision Logic: `HEURISTIC_CLINICAL_NECESSITY`
+        - Verification: `PLATINUM_FIREWALL_v2`
 
 inputType:
   properties:
@@ -118,9 +125,3 @@ outputType:
       type:
         kind: String
         sensitivityLevel: None
-
-
-
-
-
-

@@ -1,3 +1,8 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
 mcs.metadata:
   componentName: Start Over
 kind: AdaptiveDialog
@@ -35,3 +40,4 @@ beginDialog:
         - kind: SendActivity
           id: sendMessage_lk2CyQ
           activity: Ok. Let's carry on.
+

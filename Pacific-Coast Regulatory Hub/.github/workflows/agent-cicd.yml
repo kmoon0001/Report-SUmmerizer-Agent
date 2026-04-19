@@ -164,9 +164,9 @@ jobs:
           $failed = 0
           foreach ($check in $checks) {
             if ($content -match $check.Pattern) {
-              Write-Host "âœ“ $($check.Name)" -ForegroundColor Green
+              Write-Host "â $($check.Name)" -ForegroundColor Green
             } else {
-              Write-Host "âœ— $($check.Name)" -ForegroundColor Red
+              Write-Host "â $($check.Name)" -ForegroundColor Red
               $failed++
             }
           }

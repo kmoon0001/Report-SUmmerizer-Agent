@@ -37,7 +37,7 @@ test.describe('Pac Coast Report Prep Agent E2E Automation', () => {
           };
         </script>
       </html>
-    `, { baseURL: 'https://localhost' });
+    `);
 
     // Ensure the button is attached before interacting
     await page.waitForSelector('button:has-text("Run Daily Copilot Orchestrator")', { timeout: 5000 });

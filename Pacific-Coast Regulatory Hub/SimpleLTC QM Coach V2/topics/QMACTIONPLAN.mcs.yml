@@ -15,7 +15,7 @@ beginDialog:
           actions:
             - kind: SetVariable
               id: setVariable_syncActionPlanFacility
-              variable: Topic.selectedFacility
+              variable: Topic.SelectedFacility
               value: =Global.SelectedFacility
 
       elseActions:
@@ -24,7 +24,7 @@ beginDialog:
           interruptionPolicy:
             allowInterruption: true
 
-          variable: init:Topic.selectedFacility
+          variable: init:Topic.SelectedFacility
           prompt: Which facility does this action plan apply to?
           entity: StringPrebuiltEntity
 
@@ -33,7 +33,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
 
-      variable: init:Topic.targetMetric
+      variable: init:Topic.TargetMetric
       prompt: Which QM metric is the primary target for this action plan?
       entity: StringPrebuiltEntity
 
@@ -42,7 +42,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
 
-      variable: init:Topic.planTimeline
+      variable: init:Topic.PlanTimeline
       prompt: What timeline should the first action cycle use (for example 14, 30, or 60 days)?
       entity:
         kind: EmbeddedEntity
@@ -67,19 +67,19 @@ beginDialog:
       id: conditionGroup_LabKPu
       conditions:
         - id: conditionItem_OfcRmu
-          condition: =Topic.planTimeline = "14 days"
+          condition: =Topic.PlanTimeline = "14 days"
 
         - id: conditionItem_Y3Gix9
-          condition: =Topic.planTimeline = "30 days"
+          condition: =Topic.PlanTimeline = "30 days"
 
         - id: conditionItem_uY5sXT
-          condition: =Topic.planTimeline = "60 days"
+          condition: =Topic.PlanTimeline = "60 days"
 
     - kind: InvokeFlowAction
       id: invokeFlowAction_IgRCDO
       input:
         binding:
-          text: =Topic.targetMetric
+          text: =Topic.TargetMetric
 
       output:
         binding:
@@ -109,7 +109,7 @@ beginDialog:
       dialog: cr917_agentu92bPc.topic.HITLAPPROVAL
       output:
         binding:
-          hitl_approval: Topic.hitl_approval
+          hitl_approval: Topic.HitlApproval
 
     - kind: ConditionGroup
       id: conditionGroup_checkHITLApproval
@@ -120,11 +120,11 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_approvalGranted
               activity: |-
-                **PDSA ACTION PLAN FINALIZED Ã¢Å“â€¦**
+                **PDSA ACTION PLAN FINALIZED �¢��â�¦**
                 
-                **PLAN:** Targeted improvement in =Topic.targetMetric for =Global.SelectedFacility.
+                **PLAN:** Targeted improvement in =Topic.TargetMetric for =Global.SelectedFacility.
                 
-                **DO:** Implementation cycle of =Topic.planTimeline initiated.
+                **DO:** Implementation cycle of =Topic.PlanTimeline initiated.
                 
                 **STUDY:** Monitoring metrics and documentation checkpoints scheduled.
                 
@@ -141,5 +141,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

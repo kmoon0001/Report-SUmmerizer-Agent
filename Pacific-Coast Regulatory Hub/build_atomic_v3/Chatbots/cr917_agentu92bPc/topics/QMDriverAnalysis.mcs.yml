@@ -31,10 +31,10 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "ðŸ“ Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
-            { type: "Action.Submit", title: "ðŸ‘¥ Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
-            { type: "Action.Submit", title: "ðŸ¥ Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
-            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
+            { type: "Action.Submit", title: "ðŸ�� Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
+            { type: "Action.Submit", title: "ðŸ�¥ Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
+            { type: "Action.Submit", title: "ðŸ�¥ Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
+            { type: "Action.Submit", title: "ðŸ§�â��âš�ï¸� Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
           ]
         }
       output:

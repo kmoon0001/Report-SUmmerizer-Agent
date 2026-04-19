@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Clinical Synthesis Lab — SBAR Generation Engine. Uses AI Builder to synthesize clinical narratives into structured SBAR briefs for Recerts, Evals, Progress, and Discharge documents. Grounded in APTA/AOTA/ASHA and CMS standards.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "The complex clinical payload for synthesis",
+                  "title": "ClinicalPayload",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "sbar-gen-trigger-v1"
+          }
+        }
+      },
+      "actions": {
+        "Run_SBAR_Synthesis_AI": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "recordId": "08a6d787-e9b9-4929-8ffd-3953c81a863c",
+              "item/requestv2/DocumentationStandards": "@triggerBody()?['text']"
+            },
+            "host": {
+              "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+              "operationId": "aibuilderpredict_customprompt",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "generatednote": {
+                  "title": "GeneratedNote",
+                  "description": "The structured SBAR clinical brief",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "generatednote": "@body('Run_SBAR_Synthesis_AI')?['responsev2']?['predictionOutput']?['text']"
+            }
+          },
+          "runAfter": {
+            "Run_SBAR_Synthesis_AI": ["SUCCEEDED"]
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

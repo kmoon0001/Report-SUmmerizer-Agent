@@ -371,7 +371,7 @@ beginDialog:
     # Send confirmation with disclaimer
     - kind: SendActivity
       id: send_confirmation
-      activity: "âœ… Session note generated. âš ï¸ DRAFT ONLY â€” Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
+      activity: "â�� Session note generated. âš ï¸� DRAFT ONLY â�� Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
 
     # Offer audit option
     - kind: BeginDialog

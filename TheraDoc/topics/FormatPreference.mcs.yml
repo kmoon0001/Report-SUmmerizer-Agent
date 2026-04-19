@@ -25,10 +25,10 @@ beginDialog:
       activity: |-
         TheraDoc supports the following documentation formats:
 
-        â€¢ Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
-        â€¢ SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
-        â€¢ DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
-        â€¢ Bullet summary: Concise bullet points for quick review or MDS support documentation.
+        â�¢ Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
+        â�¢ SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
+        â�¢ DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
+        â�¢ Bullet summary: Concise bullet points for quick review or MDS support documentation.
 
         To request a specific format, simply include it in your request. For example: "Write this as a SOAP note" or "Give me a bullet summary."
 

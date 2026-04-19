@@ -15,7 +15,7 @@ beginDialog:
           actions:
             - kind: SetVariable
               id: setVariable_syncOutlierFacility
-              variable: Topic.selectedFacility
+              variable: Topic.SelectedFacility
               value: =Global.SelectedFacility
 
       elseActions:
@@ -24,7 +24,7 @@ beginDialog:
           interruptionPolicy:
             allowInterruption: true
 
-          variable: init:Topic.selectedFacility
+          variable: init:Topic.SelectedFacility
           prompt: Which facility should this resident outlier review use?
           entity: StringPrebuiltEntity
 
@@ -33,7 +33,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
 
-      variable: init:Topic.coachingOutput
+      variable: init:Topic.CoachingOutput
       prompt: "What coaching output do you want first: intervention ideas, documentation checkpoints, or escalation triggers?"
       entity: StringPrebuiltEntity
 
@@ -42,7 +42,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
 
-      variable: init:Topic.outlierPattern
+      variable: init:Topic.OutlierPattern
       prompt: Which resident outlier pattern should we analyze first?
       entity:
         kind: EmbeddedEntity
@@ -76,29 +76,29 @@ beginDialog:
       id: conditionGroup_MuLWQT
       conditions:
         - id: conditionItem_BxXlSy
-          condition: =Topic.outlierPattern = 'Multi-QM trigger'
+          condition: =Topic.OutlierPattern = 'Multi-QM trigger'
 
         - id: conditionItem_2c2iAG
-          condition: =Topic.outlierPattern = 'Functional decline'
+          condition: =Topic.OutlierPattern = 'Functional decline'
 
         - id: conditionItem_aaPKuW
-          condition: =Topic.outlierPattern = 'Post-hospital return'
+          condition: =Topic.OutlierPattern = 'Post-hospital return'
 
         - id: conditionItem_6dNO3K
-          condition: =Topic.outlierPattern = 'New admission risk'
+          condition: =Topic.OutlierPattern = 'New admission risk'
 
         - id: conditionItem_PMsuPA
-          condition: =Topic.outlierPattern = 'Documentation checkpoints'
+          condition: =Topic.OutlierPattern = 'Documentation checkpoints'
 
         - id: conditionItem_9TrmWg
-          condition: =Topic.outlierPattern = 'Escalation triggers'
+          condition: =Topic.OutlierPattern = 'Escalation triggers'
 
     - kind: InvokeFlowAction
       id: invokeFlowAction_sItQNY
       input: {}
       output:
         binding:
-          resident_data_text: Topic.resident_data_text
+          resident_data_text: Topic.ResidentData_text
 
       flowId: 88ce03b7-6b25-f111-8341-000d3a33801d
 
@@ -106,7 +106,7 @@ beginDialog:
       id: conditionGroup_checkFlowResult
       conditions:
         - id: conditionItem_emptyResult
-          condition: =IsBlank(Topic.resident_data_text)
+          condition: =IsBlank(Topic.ResidentData_text)
           actions:
             - kind: SendActivity
               id: sendActivity_FlowFailed
@@ -116,9 +116,10 @@ beginDialog:
       elseActions:
         - kind: SendActivity
           id: sendActivity_FlowSuccess
-          activity: ="Here is the resident anomaly review based on your request:\n\n" & Topic.resident_data_text
+          activity: ="Here is the resident anomaly review based on your request:\n\n" & Topic.ResidentData_text
 
 inputType: {}
 outputType: {}
+
 
 

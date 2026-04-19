@@ -1,4 +1,9 @@
-﻿mcs.metadata:
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
+mcs.metadata:
   componentName: On Error
   description: Elite clinical intelligence module specialized in [OnError]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -70,5 +75,6 @@ beginDialog:
         - kind: BeginDialog
           id: beginDialog_errorEscalate
           dialog: pcca_agent39xn69.topic.Escalate
+
 
 

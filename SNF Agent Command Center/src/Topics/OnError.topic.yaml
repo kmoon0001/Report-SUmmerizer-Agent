@@ -1,0 +1,24 @@
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: System Recovery & Error Mitigation.
+# **Patterns**: Self-Healing / Graceful Degradation.
+
+mcs.metadata:
+  componentName: OnError
+  description: Platinum Error Recovery Hub. Intercepts all runtime exceptions and provides graceful degradation to manual intake or helpdesk escalation.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnError
+  id: main
+  actions:
+    - kind: SendActivity
+      id: send_error
+      activity: |-
+        ⚠️ **Command Center — Resilience Protocol Active**
+        An unexpected interruption occurred in the swarm routing logic.
+
+        **Auto-Correction**: Resetting mission context.
+        **Status**: Graceful degradation to manual triage.
+
+    - kind: BeginDialog
+      id: recover
+      dialog: pcca_agent.topic.SwarmCommandRouter

@@ -1,0 +1,158 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365": {
+        "api": { "name": "shared_office365" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedoffice365_Pacific_Coast" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Therapy Hub — SCIC IDT Notification Flow. When the SignificantChangeDetector confirms a Significant Change in Condition, this flow automatically sends an IDT notification email and creates a Dataverse SCIC log entry. Grounded in CMS MDS 3.0 RAI Manual Chapter 5, OBRA regulations, and Microsoft Learn Power Automate notification best practices.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Patient name or alias",
+                  "title": "PatientName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "SCIC indicators confirmed positive (pipe-separated list)",
+                  "title": "SCICIndicators",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Primary diagnosis",
+                  "title": "PrimaryDiagnosis",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Facility / unit name",
+                  "title": "FacilityName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text", "text_1", "text_2", "text_3"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "scic-notify-trigger-001",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_SCIC_ID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [{
+              "name": "SCICTrackingID",
+              "type": "string",
+              "value": "@{concat('PCCA-SCIC-', utcNow('yyyyMMddHHmmss'))}"
+            }]
+          },
+          "runAfter": {}
+        },
+        "Log_SCIC_To_Dataverse": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "pcca_sciclogs",
+              "item/pcca_trackingid": "@variables('SCICTrackingID')",
+              "item/pcca_patientname": "@triggerBody()?['text']",
+              "item/pcca_primarydiagnosis": "@triggerBody()?['text_2']",
+              "item/pcca_scicindicators": "@triggerBody()?['text_1']",
+              "item/pcca_facilityname": "@triggerBody()?['text_3']",
+              "item/pcca_detectiontimestamp": "@utcNow()",
+              "item/pcca_status": "Confirmed - Pending IDT Review",
+              "item/pcca_mdsrequired": true,
+              "item/pcca_mdsduedate": "@addDays(utcNow(), 14)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": { "Initialize_SCIC_ID": ["SUCCEEDED"] }
+        },
+        "Send_IDT_Notification_Email": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "emailMessage/To": "don@pacificcoast.com;dor@pacificcoast.com;mds@pacificcoast.com",
+              "emailMessage/Subject": "@{concat('[ACTION REQUIRED] Significant Change in Condition — ', triggerBody()?['text'], ' — ', triggerBody()?['text_3'])}",
+              "emailMessage/Body": "@{concat('<h2>🚨 Significant Change in Condition Detected</h2><p><strong>Pacific Coast Therapy Hub — Automated IDT Alert</strong></p><table border=\"1\" cellpadding=\"5\"><tr><th>Field</th><th>Value</th></tr><tr><td>Tracking ID</td><td>', variables('SCICTrackingID'), '</td></tr><tr><td>Patient</td><td>', triggerBody()?['text'], '</td></tr><tr><td>Facility</td><td>', triggerBody()?['text_3'], '</td></tr><tr><td>Primary Diagnosis</td><td>', triggerBody()?['text_2'], '</td></tr><tr><td>SCIC Indicators</td><td>', triggerBody()?['text_1'], '</td></tr><tr><td>Detection Time</td><td>', utcNow(), '</td></tr><tr><td>MDS Due Date</td><td>Within 14 days</td></tr></table><h3>Required Actions (CMS MDS 3.0 RAI Manual Chapter 5)</h3><ol><li>Initiate Significant Change MDS within 14 days</li><li>Order new therapy evaluations for all active disciplines</li><li>Convene IDT meeting to revise Plan of Care</li><li>Notify attending physician — obtain new therapy orders</li><li>Review Medicare certification period appropriateness</li></ol><p><em>Generated by Pacific Coast Therapy Hub SCIC Detection Engine. Grounded in CMS MDS 3.0 RAI Manual Ch.5 and OBRA regulations.</em></p>')}"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "SendEmailV2",
+              "connectionName": "shared_office365"
+            }
+          },
+          "runAfter": { "Log_SCIC_To_Dataverse": ["SUCCEEDED"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scictrackingid": {
+                  "title": "SCICTrackingID",
+                  "description": "Unique SCIC tracking ID logged to Dataverse",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "notificationstatus": {
+                  "title": "NotificationStatus",
+                  "description": "IDT notification delivery status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "scictrackingid": "@variables('SCICTrackingID')",
+              "notificationstatus": "IDT notification sent. SCIC logged to Dataverse. MDS due within 14 days."
+            }
+          },
+          "runAfter": { "Send_IDT_Notification_Email": ["SUCCEEDED"] },
+          "metadata": { "operationMetadataId": "scic-notify-response-001" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

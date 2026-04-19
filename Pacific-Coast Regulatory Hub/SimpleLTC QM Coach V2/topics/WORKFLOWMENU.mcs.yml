@@ -117,3 +117,17 @@ inputType: {}
 outputType: {}
 
 
+
+        - id: route_pdpm_calc
+          condition: =Topic.routeChoice = 'PDPM HIPPS Calculator'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_pdpm
+              dialog: cr917_agentu92bPc.topic.PDPMHIPPSCalculator
+
+        - id: route_trend_reporter
+          condition: =Topic.routeChoice = 'Facility Trend Reporter'
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_trend
+              dialog: cr917_agentu92bPc.topic.FacilityTrendReporter

@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -111,7 +111,8 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: msgSuccess
-              activity: ðŸš€ Clinical Intelligence processing complete. Record ${Topic.ClassificationResult.recordId} is ready for DOR review.
+              activity: ðŸš� Clinical Intelligence processing complete. Record ${Topic.ClassificationResult.recordId} is ready for DOR review.
+
 
 
 

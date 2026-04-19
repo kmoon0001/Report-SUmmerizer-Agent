@@ -14,7 +14,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendMessage_firstFallback
-              activity: I didn't match that request. Tell me the note type first: Eval, Progress, Recert, or Discharge.
+              activity: "I didn't match that request. Tell me the note type first: Eval, Progress, Recert, or Discharge."
 
             - kind: BeginDialog
               id: beginDialog_firstFallbackSuggestions

@@ -1,2 +1,7 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
 kind: ContentModerationSettings
 moderatedCustomResponse: This request falls outside the scope of SNF clinical and operational workflows I can assist with. Please consult the treating clinician or facility administrator directly.

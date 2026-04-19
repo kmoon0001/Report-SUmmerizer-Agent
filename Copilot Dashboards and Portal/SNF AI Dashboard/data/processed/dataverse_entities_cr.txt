@@ -1,7 +1,0 @@
-﻿Connected as 123713644@pacific coastservices.net
-Connected to... Therapy AI Agents Dev
-
-logicalname name       entityid
-credential  credential 359e0a0a-6b96-4755-94d6-cca5d3410c9f
-
-

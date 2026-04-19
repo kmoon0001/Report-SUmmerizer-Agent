@@ -1,6 +1,0 @@
-VisualizationName,UseCase,Audience,DataGrain,Notes
-Risk_Stratification_Matrix,Patient_risk_distribution,Clinical,Patient,Starter row
-Patient_Trajectory_Timeline,Patient_context_and_change_over_time,Clinical,Patient,Starter row
-Control_Chart,Process_stability,Quality,Unit_or_facility,Starter row
-Heatmap_With_Clinical_Overlay,Event_density_and_pattern_detection,Clinical_and_ops,Unit_or_time,Starter row
-

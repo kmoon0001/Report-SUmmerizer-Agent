@@ -1,0 +1,172 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365": {
+        "api": { "name": "shared_office365" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedoffice365_Pacific_Coast" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Therapy Hub — EHR Document Submit Flow. Receives a finalized, approved clinical note package from the EHR Finalizer Gateway and prepares it for EHR entry. Logs submission to Dataverse audit trail. Grounded in HIPAA Safe Harbor, CMS documentation retention standards (7-year rule), and Microsoft Learn Power Automate healthcare connector best practices.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "The approved finalized clinical note text",
+                  "title": "ApprovedNoteText",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Patient de-identified alias or room number",
+                  "title": "PatientAlias",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Discipline (PT, OT, SLP)",
+                  "title": "Discipline",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Document type (Progress Note, Eval, Recert, Discharge, Daily Note)",
+                  "title": "DocumentType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "Therapist name and credentials for signature",
+                  "title": "TherapistSignature",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text", "text_1", "text_2", "text_3", "text_4"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "ehr-submit-trigger-001",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Submission_ID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [{
+              "name": "SubmissionID",
+              "type": "string",
+              "value": "@{concat('PCCA-EHR-', utcNow('yyyyMMddHHmmss'), '-', triggerBody()?['text_2'])}"
+            }]
+          },
+          "runAfter": {}
+        },
+        "Log_EHR_Submission_To_Dataverse": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "pcca_ehrsubmissionlogs",
+              "item/pcca_submissionid": "@variables('SubmissionID')",
+              "item/pcca_patientalias": "@triggerBody()?['text_1']",
+              "item/pcca_discipline": "@triggerBody()?['text_2']",
+              "item/pcca_documenttype": "@triggerBody()?['text_3']",
+              "item/pcca_therapistsignature": "@triggerBody()?['text_4']",
+              "item/pcca_notetext": "@triggerBody()?['text']",
+              "item/pcca_submissiontimestamp": "@utcNow()",
+              "item/pcca_status": "Approved - Pending EHR Entry",
+              "item/pcca_approvedby": "@triggerBody()?['text_4']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": { "Initialize_Submission_ID": ["SUCCEEDED"] }
+        },
+        "Build_EHR_Submission_Package": {
+          "type": "Compose",
+          "inputs": {
+            "SubmissionID": "@variables('SubmissionID')",
+            "PatientAlias": "@triggerBody()?['text_1']",
+            "Discipline": "@triggerBody()?['text_2']",
+            "DocumentType": "@triggerBody()?['text_3']",
+            "TherapistSignature": "@triggerBody()?['text_4']",
+            "ApprovalTimestamp": "@utcNow()",
+            "NoteText": "@triggerBody()?['text']",
+            "EHRInstructions": "1. Open your EHR (PointClickCare/MatrixCare/Epic). 2. Navigate to the correct resident record. 3. Select the Progress Notes / Clinical Documentation module. 4. Select the correct discipline and note type. 5. Paste the note text below. 6. Attach your credentials and submit. HIPAA Note: This package was prepared using de-identified aliases. Do NOT enter AI-generated content into the EHR without clinical review.",
+            "ComplianceNote": "Generated by Pacific Coast Therapy Hub AI. Grounded in CMS Chapter 15, APTA/AOTA/ASHA standards, and Jimmo v. Sebelius. All AI outputs require treating therapist clinical review before EHR entry. Retention: 7 years per CMS documentation standards."
+          },
+          "runAfter": { "Log_EHR_Submission_To_Dataverse": ["SUCCEEDED"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "submissionid": {
+                  "title": "SubmissionID",
+                  "description": "Unique EHR submission tracking ID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "submissionpackage": {
+                  "title": "SubmissionPackage",
+                  "description": "Complete EHR submission package ready for clinician entry",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "status": {
+                  "title": "Status",
+                  "description": "Submission log status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "submissionid": "@variables('SubmissionID')",
+              "submissionpackage": "@{string(outputs('Build_EHR_Submission_Package'))}",
+              "status": "Logged to Dataverse. Ready for EHR Entry."
+            }
+          },
+          "runAfter": { "Build_EHR_Submission_Package": ["SUCCEEDED"] },
+          "metadata": { "operationMetadataId": "ehr-submit-response-001" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

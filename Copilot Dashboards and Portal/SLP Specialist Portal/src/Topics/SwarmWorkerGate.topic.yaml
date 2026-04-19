@@ -1,8 +1,0 @@
-kind: AdaptiveDialog
-description: Swarm Worker Intelligence Gate. Listening for Command Center dispatch signals.
-beginDialog:
-  kind: OnRecognizedIntent
-  id: main
-  actions:
-    - kind: SendActivity
-      activity: "?? **WORKER ACTIVE**: Specialized clinical logic is online and waiting for remote task injection."

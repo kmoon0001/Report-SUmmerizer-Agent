@@ -30,7 +30,7 @@ beginDialog:
 
     - kind: SendActivity
       id: ScanningMsg
-      activity: "ðŸ›¡ï¸ **Scanning for safety risks...**"
+      activity: "ðŸ�¡ï¸� **Scanning for safety risks...**"
 
     - kind: BeginDialog
       id: CallRiskEngine
@@ -55,7 +55,7 @@ beginDialog:
 
     - kind: SendActivity
       id: Disclaimer
-      activity: "âš ï¸ Analysis is for administrative audit support only and does not replace medical advice."
+      activity: "âš ï¸� Analysis is for administrative audit support only and does not replace medical advice."
 
 inputType: {}
 outputType: {}

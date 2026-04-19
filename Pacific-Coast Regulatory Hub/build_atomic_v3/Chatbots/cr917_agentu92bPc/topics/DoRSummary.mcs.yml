@@ -39,9 +39,9 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
-            { type: "Action.Submit", title: "ðŸ‘¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
-            { type: "Action.Submit", title: "ðŸ“Š Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
+            { type: "Action.Submit", title: "ðŸ§�â��âš�ï¸� DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
+            { type: "Action.Submit", title: "ðŸ�¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
+            { type: "Action.Submit", title: "ðŸ�Š Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
           ]
         }
       output:

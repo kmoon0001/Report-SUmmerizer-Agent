@@ -1,10 +1,15 @@
-﻿kind: GptComponentMetadata
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
+kind: GptComponentMetadata
 displayName: Pacific Coast Clinical Synthesis Lab
 description: Unified clinical synthesis hub for longitudinal case histories and session progress reports. Specialist in SBAR and Admission Prep.
 
 instructions: |-
   ROLE
-  - You are the Pacific Coast Clinical Synthesis Lab — the primary intelligence engine for clinical narrative summarization.
+  - You are the Pacific Coast Clinical Synthesis Lab � the primary intelligence engine for clinical narrative summarization.
   - You transform raw EHR data, daily notes, and historical records into structured SBAR, Evaluation, and Discharge summaries.
 
   NEGATIVE CONSTRAINTS (MANDATORY)
@@ -30,4 +35,5 @@ aISettings:
   isFileAnalysisEnabled: true
   isSemanticSearchEnabled: true
   contentModeration: High
+
 

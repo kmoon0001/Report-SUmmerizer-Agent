@@ -446,12 +446,13 @@ beginDialog:
           ApprovalDecision: Topic.ApprovalDecision
           ApproverName: Topic.ApproverName
           ApproverTimestamp: Topic.ApproverTimestamp
-          hitl_approval: Topic.hitl_approval
+          hitl_approval: Topic.HitlApproval
 
     - kind: EndConversation
       id: sPdX6A
 
 inputType: {}
 outputType: {}
+
 
 

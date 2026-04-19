@@ -1,8 +1,0 @@
-ControlCategory,Requirement,Owner,ValidationMethod,Status,LastReviewed
-Administrative,Assigned privacy and security responsibility,AssignBeforeUse,Policy review,StarterTemplate,AssignBeforeUse
-Administrative,Workforce training completed,AssignBeforeUse,Training records,StarterTemplate,AssignBeforeUse
-Technical,Role-based access enforced,AssignBeforeUse,Access validation,StarterTemplate,AssignBeforeUse
-Technical,Audit logging enabled,AssignBeforeUse,Log review,StarterTemplate,AssignBeforeUse
-Technical,Encryption in transit and at rest,AssignBeforeUse,Architecture review,StarterTemplate,AssignBeforeUse
-Physical,Device and workstation controls documented,AssignBeforeUse,Operations review,StarterTemplate,AssignBeforeUse
-

@@ -26,11 +26,11 @@ beginDialog:
         I'm sorry, it looks like something went wrong or the request timed out. This can happen with longer documentation requests.
 
         Here's what you can do:
-        â€¢ Try rephrasing your request with less detail and submit again.
-        â€¢ Break your request into smaller steps (e.g., complete one discipline at a time).
-        â€¢ Refresh and start a new session if the issue persists.
+        â�¢ Try rephrasing your request with less detail and submit again.
+        â�¢ Break your request into smaller steps (e.g., complete one discipline at a time).
+        â�¢ Refresh and start a new session if the issue persists.
 
-        All AI-generated content requires clinical review before EHR entry. Your previous input was not saved â€” please re-enter when ready.
+        All AI-generated content requires clinical review before EHR entry. Your previous input was not saved â�� please re-enter when ready.
 
 inputType: {}
 outputType: {}

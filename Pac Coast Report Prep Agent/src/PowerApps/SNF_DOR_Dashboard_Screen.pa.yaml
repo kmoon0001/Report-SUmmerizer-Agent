@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -74,7 +74,7 @@ Screens:
             - KPICard:
                 Control: Label
                 Properties:
-                  Text: ThisItem.cr917_reporttype & ": " & CountRows(ThisItem.GroupedReports)
+                  Text: '"ThisItem.cr917_reporttype & \": \" & CountRows(ThisItem.GroupedReports)"'
 
       - ApprovalGrid:
           Control: Gallery
@@ -85,11 +85,11 @@ Screens:
             - TherapistText:
                 Control: Label
                 Properties:
-                  Text: "Therapist: " & ThisItem.cr917_therapistname
+                  Text: '"Therapist: " & ThisItem.cr917_therapistname'
             - PatientText:
                 Control: Label
                 Properties:
-                  Text: "Token: " & ThisItem.cr917_patienttoken
+                  Text: '"Token: " & ThisItem.cr917_patienttoken'
             - MedicalNecessityInput:
                 Control: TextInput
                 Properties:
@@ -102,6 +102,7 @@ Screens:
                   Title: "Exclude from Teams Broadcast"
                   OnChange: |
                     Patch(cr917_snf_daily_briefings, ThisItem, {cr917_excludefromsend: Self.Value})
+
 
 
 

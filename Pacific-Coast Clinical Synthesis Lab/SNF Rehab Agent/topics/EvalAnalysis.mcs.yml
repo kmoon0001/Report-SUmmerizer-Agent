@@ -1,76 +1,131 @@
-﻿mcs.metadata:
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + APTA/AOTA/ASHA evaluation standards.
+# **GLOBAL SAFETY GUARDRAILS (IRONCLAD):
+# 1. NO HALLUCINATION â€” synthesize only from provided inputs.
+# 2. SBAR FORMAT mandatory. 3. PHI SAFE â€” session only. 4. APTA/AOTA/ASHA GROUND.
+
+mcs.metadata:
   componentName: EvalAnalysis
-  description: Elite clinical intelligence module specialized in [EvalAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: >
+    Platinum Evaluation Analysis Engine. Reads initial therapy evaluation
+    and assessment documentation and synthesizes a structured Admission SBAR
+    Brief detailing baseline functional deficits, rehab prognosis, and initial
+    plan of care complexity. Grounded in CMS Chapter 15 and professional standards.
 kind: AdaptiveDialog
+modeldescription: >
+  Elite Evaluation Synthesis module for Pacific Coast Clinical Synthesis Lab.
+  Accepts raw evaluation/assessment content and generates an Admission SBAR
+  Brief covering: admitting diagnosis/PLOF, baseline functional deficits,
+  standardized test results, medical complexity/SNJ, and rehab prognosis.
+  Grounded in APTA Guide to PT Practice, AOTA Occupational Profile, ASHA
+  Comprehensive Assessment standards, and CMS MBPM Chapter 15.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
   intent:
-    displayName: Eval Analysis
-    includeInOnSelectIntent: false
+    displayName: Evaluation Analysis
     triggerQueries:
-      - analyze eval note
-      - review evaluation note
-      - check initial therapy evaluation
-      - evaluate documentation quality
+      - eval analysis
+      - analyze evaluation
+      - admission sbar
+      - eval summary
+      - synthesize evaluation
+      - initial assessment review
+      - baseline functional analysis
+      - eval brief
 
   actions:
-    - kind: SearchAndSummarizeContent
-      id: search_eval_guidance
-      variable: Topic.Answer
-      userInput: =System.Activity.Text
-      moderationLevel: Medium
-      additionalInstructions: |-
-        Provide a structured evaluation-note review for SNF rehab.
-        Include:
-        1) measurable clinical summary
-        2) skilled service / medical necessity justification
-        3) compliance and documentation risk flags
-        4) clarification questions only if needed
-        If data is incomplete or conflicting, explicitly state "Requires therapist review".
-      publicDataSource:
-        sites:
-          - "www.cms.gov"
-          - "www.ecfr.gov"
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸ”¬ **Pacific Coast Clinical Synthesis Lab â€” Evaluation Analysis**
+        I will synthesize the initial evaluation documentation into a structured Admission SBAR Brief to establish the baseline and rehab prognosis.
 
-      sharePointSearchDataSource: {}
+    - kind: Question
+      id: question_discipline
+      variable: Topic.EvalDiscipline
+      prompt: Which discipline's evaluation are you analyzing?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: PT
+              displayName: Physical Therapy (PT)
+            - id: OT
+              displayName: Occupational Therapy (OT)
+            - id: SLP
+              displayName: Speech-Language Pathology (SLP)
+            - id: All
+              displayName: Comprehensive IDT Admission
 
-    - kind: ConditionGroup
-      id: conditionGroup_evalAnswer
-      conditions:
-        - id: conditionItem_hasAnswer
-          condition: =!IsBlank(Topic.Answer)
-          actions:
-            - kind: ConditionGroup
-              id: conditionGroup_evalLowConfidence
-              conditions:
-                - id: conditionItem_evalRequiresReview
-                  condition: ="requires therapist review" in Lower(Topic.Answer)
-                  actions:
-                    - kind: SendActivity
-                      id: sendMessage_evalRequiresReview
-                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+    - kind: Question
+      id: question_plof
+      variable: Topic.EvalPLOF
+      prompt: What is the patient's documented Prior Level of Function (PLOF)?
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
 
-                    - kind: BeginDialog
-                      id: beginDialog_evalEscalateLowConfidence
-                      dialog: pcca_agent39xn69.topic.Escalate
+    - kind: Question
+      id: question_noteText
+      variable: Topic.EvalNoteText
+      prompt: |-
+        Paste the full evaluation/assessment note content below:
 
-              elseActions:
-                - kind: SendActivity
-                  id: sendMessage_evalAnswer
-                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+        Include: subjective history, objective findings, standardized test scores, assessment/rehab potential, and recommended frequency/duration.
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
 
-                - kind: BeginDialog
-                  id: beginDialog_evalSuggestedActions
-                  dialog: pcca_agent39xn69.topic.SuggestedActions
+    - kind: BeginDialog
+      id: beginDialog_evalSynthesis
+      input:
+        binding:
+          text: =Concatenate(
+            "### PACIFIC COAST EVALUATION SBAR SYNTHESIS ###\n\n",
+            "AUTHORITATIVE SOURCES:\n",
+            "- CMS Medicare Benefit Policy Manual Chapter 15 â€” Initial Evaluation Requirements\n",
+            "- APTA Guide to Physical Therapist Practice â€” Examination and Evaluation\n",
+            "- AOTA Occupational Therapy Practice Framework, 4th Ed. â€” Evaluation Process\n",
+            "- ASHA Comprehensive Assessment Standards\n",
+            "- CMS Section GG Baseline Functional Status Guidelines\n\n",
+            "PATIENT: ", If(!IsBlank(Global.MPC_PatientName), Global.MPC_PatientName, "Not specified"), "\n",
+            "DIAGNOSIS: ", If(!IsBlank(Global.MPC_PrimaryDiagnosis), Global.MPC_PrimaryDiagnosis, "Not specified"), "\n",
+            "DISCIPLINE: ", Topic.EvalDiscipline, "\n",
+            "PLOF: ", Topic.EvalPLOF, "\n\n",
+            "EVALUATION CONTENT:\n", Topic.EvalNoteText, "\n\n",
+            "SYNTHESIS TASK â€” ADMISSION SBAR BRIEF:\n\n",
+            "S â€” SITUATION (Admitting Profile):\n",
+            "Primary medical/treatment diagnosis, admitting event (e.g., fall, stroke, surgery), and immediate rehab referral reason.\n\n",
+            "B â€” BACKGROUND (Baseline Status vs. PLOF):\n",
+            "Documented PLOF. Current baseline functional deficits requiring therapy. Significant comorbidities impacting rehab. Social support and anticipated discharge environment.\n\n",
+            "A â€” ASSESSMENT (Clinical Complexity & SNJ):\n",
+            "Synthesize objective findings (MMT, ROM, balance, cognition, swallowing). Standardized test scores with interpretations (e.g., high fall risk). Establish Skilled Need Justification (SNJ) â€” why is a therapist required right now? State Rehab Prognosis (Excellent, Good, Fair, Poor) with clinical rationale.\n\n",
+            "R â€” RECOMMENDATION (Initial Plan of Care):\n",
+            "Recommended frequency and duration. Proposed treatment interventions. Key short-term goals targeted in the first week. Immediate equipment or safety recommendations.\n\n",
+            "OUTPUT: Professional Admission SBAR Brief ready for the facility IDT Morning Meeting."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.EvalOutput
 
-      elseActions:
-        - kind: SendActivity
-          id: sendMessage_evalNeedsInput
-          activity: I need more structured evaluation details (functional status, measurable findings, interventions, goals, and barriers) to complete this review.
+    - kind: SendActivity
+      id: sendActivity_evalOutput
+      activity: |-
+        ### ðŸ“‹ Admission SBAR Brief â€” Pacific Coast Synthesis Lab
 
-        - kind: BeginDialog
-          id: beginDialog_evalEscalate
-          dialog: pcca_agent39xn69.topic.Escalate
+        {Topic.EvalOutput}
 
+        ---
+        **Discipline**: {Topic.EvalDiscipline}
+        **âš ï¸ Disclaimer**: AI-synthesized. Treating therapist must verify accuracy for the medical record.
+
+inputType: {}
+outputType:
+  properties:
+    Eval_Output:
+      displayName: Eval_Output
+      type: String
 

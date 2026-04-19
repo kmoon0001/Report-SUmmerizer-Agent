@@ -76,7 +76,7 @@ beginDialog:
 
             - kind: SetVariable
               id: setVariable_hitlString_reject
-              variable: Topic.hitl_approval
+              variable: Topic.HitlApproval
               value: Rejected
 
             - kind: SendActivity
@@ -112,7 +112,7 @@ beginDialog:
 
             - kind: SetVariable
               id: setVariable_hitlString_approve
-              variable: Topic.hitl_approval
+              variable: Topic.HitlApproval
               value: Approved
 
             - kind: SetMultipleVariables
@@ -162,5 +162,6 @@ outputType:
     hitl_approval:
       displayName: hitl_approval
       type: String
+
 
 

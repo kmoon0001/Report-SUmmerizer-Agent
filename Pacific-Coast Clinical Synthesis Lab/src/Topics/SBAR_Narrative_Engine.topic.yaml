@@ -6,16 +6,16 @@ beginDialog:
   id: Main
   actions:
     - kind: SendActivity
-      activity: "üìù **SBAR SYNTHESIS INITIALIZED**: Constructing clinical narrative based on **EHR_INTEGRATION_BRIDGE.md** mappings..."
+      activity: " **SBAR SYNTHESIS INITIALIZED**: Constructing clinical narrative based on **EHR_INTEGRATION_BRIDGE.md** mappings..."
     
     # Situation
     - kind: SendActivity
-      activity: "üìç **SITUATION**: ${Topic.PatientStatus} presenting with ${Topic.PrimaryDiagnosis}."
+      activity: " **SITUATION**: ${Topic.PatientStatus} presenting with ${Topic.PrimaryDiagnosis}."
     
     # Background
     - kind: SendActivity
-      activity: "üìñ **BACKGROUND**: Longitudinal history indicates ${Topic.SurgicalHistory} with a Baseline Function of ${Topic.PriorLevelOfFunction}."
+      activity: " **BACKGROUND**: Longitudinal history indicates ${Topic.SurgicalHistory} with a Baseline Function of ${Topic.PriorLevelOfFunction}."
     
     # Assessment & Recommendation
     - kind: SendActivity
-      activity: "‚öñÔ∏è **ASSESSMENT**: Demonstrated skilled need for ${Topic.Discipline} due to ${Topic.AuditRiskTrigger}. \n\nüöÄ **RECOMMENDATION**: Proceed with ${Topic.Frequency} for ${Topic.Duration} to meet functional target."
+      activity: "‚Ô∏ **ASSESSMENT**: Demonstrated skilled need for ${Topic.Discipline} due to ${Topic.AuditRiskTrigger}. \n\n **RECOMMENDATION**: Proceed with ${Topic.Frequency} for ${Topic.Duration} to meet functional target."

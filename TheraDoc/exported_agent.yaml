@@ -270,22 +270,22 @@ components:
             activity: |-
               Here are SNF therapy documentation standards to guide your clinical notes:
 
-              **Cueing Levels** ‚Äî Document the level of verbal or tactile cues provided:
-              ‚Ä¢ Independent (I): No cues needed
-              ‚Ä¢ Supervision (S): Stand-by, no hands-on
-              ‚Ä¢ Modified Independent (ModI): Uses device/compensation, no assist
-              ‚Ä¢ Contact Guard Assist (CGA): Therapist hand contact, no force
-              ‚Ä¢ Minimal Assist (MinA): Patient performs 75%+ of task
-              ‚Ä¢ Moderate Assist (ModA): Patient performs 50‚Äì74% of task
-              ‚Ä¢ Maximum Assist (MaxA): Patient performs 25‚Äì49% of task
-              ‚Ä¢ Total Assist (TA): Patient performs less than 25%
+              **Cueing Levels** ‚ Document the level of verbal or tactile cues provided:
+              ‚¢ Independent (I): No cues needed
+              ‚¢ Supervision (S): Stand-by, no hands-on
+              ‚¢ Modified Independent (ModI): Uses device/compensation, no assist
+              ‚¢ Contact Guard Assist (CGA): Therapist hand contact, no force
+              ‚¢ Minimal Assist (MinA): Patient performs 75%+ of task
+              ‚¢ Moderate Assist (ModA): Patient performs 50‚74% of task
+              ‚¢ Maximum Assist (MaxA): Patient performs 25‚49% of task
+              ‚¢ Total Assist (TA): Patient performs less than 25%
 
-              **Skilled Language Requirements** ‚Äî Every note must include:
-              ‚Ä¢ Clinical reason skilled therapy is required (not maintenance)
-              ‚Ä¢ Patient response to treatment and measurable progress
-              ‚Ä¢ Functional goals with objective baselines and targets
-              ‚Ä¢ Safety considerations or precautions addressed
-              ‚Ä¢ Plan and frequency of continued treatment
+              **Skilled Language Requirements** ‚ Every note must include:
+              ‚¢ Clinical reason skilled therapy is required (not maintenance)
+              ‚¢ Patient response to treatment and measurable progress
+              ‚¢ Functional goals with objective baselines and targets
+              ‚¢ Safety considerations or precautions addressed
+              ‚¢ Plan and frequency of continued treatment
 
               **What to avoid:** Unskilled language (e.g., "patient tolerated well"), non-measurable progress, missing assist levels, or absent functional connection.
 
@@ -463,7 +463,7 @@ components:
                 actions:
                   - kind: SendActivity
                     id: sendActivity_vIkRlN
-                    activity: Understood ‚Äî generating your SLP Discharge Note. Please provide the following details.
+                    activity: Understood ‚ generating your SLP Discharge Note. Please provide the following details.
 
               - id: conditionItem_6mR6sA
                 condition: =Topic.therapyDiscipline = 'template-content.entity.Discipline'.iNfx28
@@ -471,7 +471,7 @@ components:
                 actions:
                   - kind: SendActivity
                     id: sendActivity_almObs
-                    activity: Understood ‚Äî generating your OT Discharge Note. Please provide the following details.
+                    activity: Understood ‚ generating your OT Discharge Note. Please provide the following details.
 
               - id: conditionItem_4EpbHC
                 condition: =Topic.therapyDiscipline = 'template-content.entity.Discipline'.dxugsW
@@ -479,7 +479,7 @@ components:
                 actions:
                   - kind: SendActivity
                     id: sendActivity_kw4FOB
-                    activity: Understood ‚Äî generating your PT Discharge Note. Please provide the following details.
+                    activity: Understood ‚ generating your PT Discharge Note. Please provide the following details.
 
           - kind: Question
             id: question_bP6AK7
@@ -699,7 +699,7 @@ components:
                 actions:
                   - kind: SendActivity
                     id: sendActivity_VJc0kw
-                    activity: Thank you for using TheraDoc. Your documentation efforts support excellent patient care. Have a productive clinical day ‚Äî goodbye!
+                    activity: Thank you for using TheraDoc. Your documentation efforts support excellent patient care. Have a productive clinical day ‚ goodbye!
 
                   - kind: BeginDialog
                     id: dn94DC
@@ -920,11 +920,11 @@ components:
               I'm sorry, it looks like something went wrong or the request timed out. This can happen with longer documentation requests.
 
               Here's what you can do:
-              ‚Ä¢ Try rephrasing your request with less detail and submit again.
-              ‚Ä¢ Break your request into smaller steps (e.g., complete one discipline at a time).
-              ‚Ä¢ Refresh and start a new session if the issue persists.
+              ‚¢ Try rephrasing your request with less detail and submit again.
+              ‚¢ Break your request into smaller steps (e.g., complete one discipline at a time).
+              ‚¢ Refresh and start a new session if the issue persists.
 
-              All AI-generated content requires clinical review before EHR entry. Your previous input was not saved ‚Äî please re-enter when ready.
+              All AI-generated content requires clinical review before EHR entry. Your previous input was not saved ‚ please re-enter when ready.
 
       inputType: {}
       outputType: {}
@@ -1239,7 +1239,7 @@ components:
                   {
                     "type": "Input.Text",
                     "id": "painBaseline",
-                    "label": "Pain Baseline ‚Äî Location, Intensity, Quality",
+                    "label": "Pain Baseline ‚ Location, Intensity, Quality",
                     "isMultiline": true,
                     "placeholder": "Right hip 6/10, aching, constant"
                   },
@@ -1272,7 +1272,7 @@ components:
                   {
                     "type": "Input.Text",
                     "id": "functionalMobilityBaseline",
-                    "label": "Functional Mobility Baseline ‚Äî Section GG",
+                    "label": "Functional Mobility Baseline ‚ Section GG",
                     "isMultiline": true
                   },
                   {
@@ -1407,10 +1407,10 @@ components:
             activity: |-
               TheraDoc supports the following documentation formats:
 
-              ‚Ä¢ Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
-              ‚Ä¢ SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
-              ‚Ä¢ DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
-              ‚Ä¢ Bullet summary: Concise bullet points for quick review or MDS support documentation.
+              ‚¢ Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
+              ‚¢ SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
+              ‚¢ DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
+              ‚¢ Bullet summary: Concise bullet points for quick review or MDS support documentation.
 
               To request a specific format, simply include it in your request. For example: "Write this as a SOAP note" or "Give me a bullet summary."
 
@@ -1476,7 +1476,7 @@ components:
                 actions:
                   - kind: SendActivity
                     id: sendActivity_5jICPJ
-                    activity: "Understood ‚Äî generating your OT Evaluation note. Using the information provided, here is the structured evaluation:"
+                    activity: "Understood ‚ generating your OT Evaluation note. Using the information provided, here is the structured evaluation:"
 
                   - kind: BeginDialog
                     id: q5V5pZ
@@ -1495,9 +1495,9 @@ components:
                   - kind: SendActivity
                     id: sendActivity_4AwdhG
                     activity: |-
-                      Understood ‚Äî generating your SLP Evaluation note. Using the information provided, here is the structured SLP Evaluation documentation:
+                      Understood ‚ generating your SLP Evaluation note. Using the information provided, here is the structured SLP Evaluation documentation:
 
-                      ‚ö†Ô∏è CLINICAL REVIEW REQUIRED ‚Äì Review and verify all content before entering into the EHR.
+                      ‚†Ô∏ CLINICAL REVIEW REQUIRED ‚ Review and verify all content before entering into the EHR.
 
                   - kind: BeginDialog
                     id: bxwRTT
@@ -1539,9 +1539,9 @@ components:
                              - Signs/Symptoms of Aspiration: [present/absent]
                              - Compensatory Strategies Trialed: [list]
 
-                          7. STANDARDIZED TESTING: [e.g., BDAE, SLUMS, MoCA, FEES/MBS results ‚Äî include scores]
+                          7. STANDARDIZED TESTING: [e.g., BDAE, SLUMS, MoCA, FEES/MBS results ‚ include scores]
 
-                          8. ASSESSMENT: Skilled ST justification ‚Äî safety risks, rehab potential, barriers, and medical necessity for continued ST.
+                          8. ASSESSMENT: Skilled ST justification ‚ safety risks, rehab potential, barriers, and medical necessity for continued ST.
 
                           9. PLAN OF CARE:
                              - Frequency and Duration: [e.g., 5x/week x 4 weeks]
@@ -1553,7 +1553,7 @@ components:
                           - Use only data from the patient information above
                           - Where clinical data is not provided, indicate [To be assessed]
                           - Every section must be clinically meaningful and support Medicare skilled level of care
-                          - Do not include any preamble or explanation ‚Äî output the evaluation only")
+                          - Do not include any preamble or explanation ‚ output the evaluation only")
 
                     dialog: template-content.action.TheraDocPTGenerateNote
                     output:
@@ -1566,9 +1566,9 @@ components:
                   - kind: SendActivity
                     id: sendActivity_Dr9Kfk
                     activity: |-
-                      Understood ‚Äî generating your PT Evaluation note. Using the information provided, here is the structured PT Evaluation documentation:
+                      Understood ‚ generating your PT Evaluation note. Using the information provided, here is the structured PT Evaluation documentation:
 
-                      ‚ö†Ô∏è CLINICAL REVIEW REQUIRED ‚Äì Review and verify all content before entering into the EHR.
+                      ‚†Ô∏ CLINICAL REVIEW REQUIRED ‚ Review and verify all content before entering into the EHR.
 
                   - kind: BeginDialog
                     id: y7igjG
@@ -1602,9 +1602,9 @@ components:
                              - Balance: [static/dynamic sitting/standing]
                              - Functional Mobility: [stairs, community ambulation if applicable]
 
-                          5. STANDARDIZED TESTING: [e.g., TUG, Berg Balance Scale, 10MWT, 30-sec STS ‚Äî include scores if available]
+                          5. STANDARDIZED TESTING: [e.g., TUG, Berg Balance Scale, 10MWT, 30-sec STS ‚ include scores if available]
 
-                          6. ASSESSMENT: Skilled PT justification ‚Äî patient's rehab potential, barriers to progress, medical necessity, and why skilled PT is required.
+                          6. ASSESSMENT: Skilled PT justification ‚ patient's rehab potential, barriers to progress, medical necessity, and why skilled PT is required.
 
                           7. PLAN OF CARE:
                              - Frequency and Duration: [e.g., 5x/week x 4 weeks]
@@ -1616,7 +1616,7 @@ components:
                           - Use only data from the patient information above
                           - Where clinical data is not provided, indicate [To be assessed]
                           - Every section must be clinically meaningful and support Medicare skilled level of care
-                          - Do not include any preamble or explanation ‚Äî output the evaluation only")
+                          - Do not include any preamble or explanation ‚ output the evaluation only")
 
                     dialog: template-content.action.TheraDocPTGenerateNote
                     output:
@@ -1627,15 +1627,15 @@ components:
               - kind: SendActivity
                 id: sendActivity_320n0N
                 activity: |-
-                  Understood ‚Äî generating your OT Evaluation note. Using the information provided, here is the structured OT Evaluation documentation:
+                  Understood ‚ generating your OT Evaluation note. Using the information provided, here is the structured OT Evaluation documentation:
 
-                  ‚ö†Ô∏è CLINICAL REVIEW REQUIRED ‚Äì Review and verify all content before entering into the EHR.
+                  ‚†Ô∏ CLINICAL REVIEW REQUIRED ‚ Review and verify all content before entering into the EHR.
 
           - kind: SendActivity
             id: sendActivity_OqAVYX
             activity: |-
               Thank you for providing the evaluation information. I'll help you create your evaluation assessment documentation.
-              ‚ö†Ô∏è DRAFT ONLY ‚Äî Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.
+              ‚†Ô∏ DRAFT ONLY ‚ Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.
 
       inputType: {}
       outputType: {}
@@ -3180,17 +3180,17 @@ components:
           - kind: SendActivity
             id: sendActivity_mDSpVD
             activity: |-
-              üëã Welcome to TheraDoc!
+               Welcome to TheraDoc!
 
               I can help you generate Medicare-compliant therapy notes fast.
 
               What would you like to do?
-              ‚Ä¢ Daily Note ‚Äî quick session note
-              ‚Ä¢ Progress Note ‚Äî goal progress update
-              ‚Ä¢ Assessment / Eval ‚Äî full evaluation
-              ‚Ä¢ Recertification ‚Äî continued care justification
-              ‚Ä¢ Discharge Summary ‚Äî end of episode
-              ‚Ä¢ Nursing Handoff ‚Äî SBAR summary
+              ‚¢ Daily Note ‚ quick session note
+              ‚¢ Progress Note ‚ goal progress update
+              ‚¢ Assessment / Eval ‚ full evaluation
+              ‚¢ Recertification ‚ continued care justification
+              ‚¢ Discharge Summary ‚ end of episode
+              ‚¢ Nursing Handoff ‚ SBAR summary
 
               Just tell me what you need, or pick from the list above.
 
@@ -3272,11 +3272,11 @@ components:
             activity: |-
               SNF therapy documentation must meet Medicare Part A and MDS compliance standards. Key requirements include:
 
-              ‚Ä¢ Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
-              ‚Ä¢ Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
-              ‚Ä¢ Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
-              ‚Ä¢ Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
-              ‚Ä¢ Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
+              ‚¢ Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
+              ‚¢ Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
+              ‚¢ Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
+              ‚¢ Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
+              ‚¢ Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
 
               For note-specific auditing, use the Audit Existing Note feature. For drafting compliant notes, use the appropriate Daily Note or Evaluation topic.
 

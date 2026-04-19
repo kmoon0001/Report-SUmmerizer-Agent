@@ -1,4 +1,9 @@
-﻿mcs.metadata:
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
+mcs.metadata:
   componentName: ClassifyAndRouteRehabRecord
   description: Elite clinical intelligence module specialized in [ClassifyAndRouteRehabRecord]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -67,7 +72,7 @@ beginDialog:
         - kind: Question
           id: question_routeClarifier
           variable: Topic.RouteClarifier
-          prompt: Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake.
+          prompt: "Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake."
           entity:
             kind: StringPrebuiltEntity
 
@@ -118,6 +123,7 @@ beginDialog:
             - kind: BeginDialog
               id: beginDialog_suggested
               dialog: pcca_agent39xn69.topic.SuggestedActions
+
 
 
 

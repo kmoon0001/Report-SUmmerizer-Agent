@@ -1,6 +1,0 @@
-ActionName,FlowId,InputFields,OutputFields,PrimarySystems,Readiness
-GenerateOnDemandPatientInsight,f96d43dd-fd24-f111-8341-6045bd061151,"patientid;unit;risktype;timeframe;requestedbyrole;requestcontext","","Fabric;Power BI;Dataverse;FHIR",manual-review backend
-SendClinicalAlert,52df51b9-5a31-f111-88b3-00224805b033,"severity;messagetext;patientid;unit;requestedbyrole","","Power Automate;Teams;Dataverse;FHIR",manual-review backend
-GenerateQualityMeasureReport,0b930a15-2516-f111-8341-0022480b6bd9,"measuregroup;unit;daterange;requestedbyrole","confirmationmessage;facility_submission_status;facility_data_text;declining_metrics_text","Fabric;Power BI;Dataverse",manual-review backend
-ProcessClinicalFileIntake,db104008-d226-f111-8341-000d3a5b88c6,"documenttype;intendeduse;minimumnecessary;sourcefilename","normalization_status;normalized_document_type;normalized_text","SharePoint;OneDrive;FHIR;Power Automate",manual-review backend
-ProcessClinicalImageReview,384ef424-2726-f111-8341-000d3a36320f,"imagetype;imageuse;approvalstatus;sourcefilename","accepted;runId","Azure AI;SharePoint;OneDrive;Power Automate",manual-review backend

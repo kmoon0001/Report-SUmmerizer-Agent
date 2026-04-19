@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Therapy Hub — OT Clinical Note Generator. Generates Medicare-compliant OT documentation grounded in AOTA Occupational Therapy Practice Framework (4th Ed.), CMS Chapter 15, and Pacific Coast POSTette OT Standards.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Full OT clinical input package — patient context, ADL status, standardized assessments, observations, and goals",
+                  "title": "OTClinicalInputPackage",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "ot-gen-trigger-001",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Run_OT_Note_Prompt": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "recordId": "08a6d787-e9b9-4929-8ffd-3953c81a863c",
+              "item/requestv2/DocumentationStandards": "@{concat('### PACIFIC COAST OT CLINICAL NOTE GENERATOR ###\n\nAUTHORITATIVE SOURCES (MANDATORY GROUNDING):\n- AOTA Occupational Therapy Practice Framework: Domain and Process (4th Ed., 2020)\n- AOTA Standards of Practice for Occupational Therapy\n- CMS Medicare Benefit Policy Manual Chapter 15, Section 220 (Occupational Therapy)\n- CMS MDS 3.0 RAI Manual Section GG (Self-Care)\n- Pacific Coast POSTette OT Documentation Standards\n- Jimmo v. Sebelius (2013) — Maintenance OT Standard\n- IADL Performance Framework (AOTA)\n\nCLINICAL INPUT PACKAGE:\n', triggerBody()?['text'], '\n\nDOCUMENTATION GENERATION REQUIREMENTS:\n\n1. OCCUPATIONAL PROFILE ALIGNMENT\nAll OT documentation must reference the patient''s occupational profile — their life roles, values, and what meaningful occupations they want to return to. Per AOTA Practice Framework.\n\n2. ADL PERFORMANCE DOCUMENTATION\nDocument all relevant ADL performance areas with specific assist levels:\n- Dressing (upper/lower extremity, fasteners)\n- Bathing/Showering (transfers, washing, drying)\n- Grooming (face, hair, oral hygiene, shaving)\n- Toileting hygiene\n- Eating/Feeding (setup, hand-to-mouth, cutting)\n- Functional Mobility (transfers, bed mobility) — coordinate with PT documentation\n- Section GG Self-Care scores where applicable\n\n3. COGNITIVE-PERCEPTUAL PERFORMANCE\nDocument cognitive status as it impacts OT function: attention, memory, problem-solving, safety awareness. Reference any formal cognitive screens (MMSE, MoCA, KELS).\n\n4. UPPER EXTREMITY STATUS\nDocument UE strength (MMT grades), ROM, coordination, fine motor, grip, and how these impact ADL performance.\n\n5. SKILLED JUSTIFICATION (AOTA + CMS Standard)\nGenerate a skilled justification statement that:\n- Specifies the OT-specific skilled service (therapeutic use of occupations, task analysis, adaptive strategy training, orthotic fabrication)\n- States why a non-licensed provider cannot safely provide this level of care\n- References the Jimmo maintenance standard if patient is not expected to improve\n\n6. ADAPTIVE EQUIPMENT & ENVIRONMENTAL MODIFICATION\nDocument any AE recommended or trained, and home/environment modification recommendations.\n\n7. PLAN OF CARE ALIGNMENT\nVerify all documented interventions align with the current active goals. Flag any goal-intervention misalignment.\n\n8. ANTI-VAGUE LANGUAGE PROTOCOL\nDo NOT use: \"participated\", \"tolerated well\", \"cooperative\", \"good effort\". Replace with specific OT clinical terminology: \"demonstrated functional use of\", \"required verbal cues for\", \"completed with modification\".\n\nGenerate the complete, Medicare-compliant OT clinical note based on the above.')}"
+            },
+            "host": {
+              "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+              "operationId": "aibuilderpredict_customprompt",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "generatednote": {
+                  "title": "GeneratedOTNote",
+                  "description": "AOTA-grounded Medicare-compliant OT clinical note",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "generatednote": "@body('Run_OT_Note_Prompt')?['responsev2']?['predictionOutput']?['text']"
+            }
+          },
+          "runAfter": { "Run_OT_Note_Prompt": ["SUCCEEDED"] },
+          "metadata": { "operationMetadataId": "ot-gen-response-001" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

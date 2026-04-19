@@ -25,11 +25,11 @@ beginDialog:
       activity: |-
         SNF therapy documentation must meet Medicare Part A and MDS compliance standards. Key requirements include:
 
-        â€¢ Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
-        â€¢ Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
-        â€¢ Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
-        â€¢ Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
-        â€¢ Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
+        â�¢ Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
+        â�¢ Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
+        â�¢ Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
+        â�¢ Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
+        â�¢ Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
 
         For note-specific auditing, use the Audit Existing Note feature. For drafting compliant notes, use the appropriate Daily Note or Evaluation topic.
 

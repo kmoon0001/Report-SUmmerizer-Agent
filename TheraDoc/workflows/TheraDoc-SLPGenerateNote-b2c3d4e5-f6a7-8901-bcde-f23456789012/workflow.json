@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Therapy Hub — SLP Clinical Note Generator. Generates Medicare-compliant SLP documentation grounded in ASHA Clinical Documentation Standards, ASHA Code of Ethics, IDDSI Framework, CMS Chapter 15, and Pacific Coast POSTette SLP Standards.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Full SLP clinical input package — patient context, communication status, swallowing status, cognitive-communication, standardized test scores, observations, and goals",
+                  "title": "SLPClinicalInputPackage",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "slp-gen-trigger-001",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Run_SLP_Note_Prompt": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "recordId": "08a6d787-e9b9-4929-8ffd-3953c81a863c",
+              "item/requestv2/DocumentationStandards": "@{concat('### PACIFIC COAST SLP CLINICAL NOTE GENERATOR ###\n\nAUTHORITATIVE SOURCES (MANDATORY GROUNDING):\n- ASHA Clinical Documentation in Audiology and Speech-Language Pathology (2023)\n- ASHA Code of Ethics — Principle of Competence\n- ASHA Scope of Practice in Speech-Language Pathology\n- ASHA Evidence Maps (Dysphagia, Cognitive-Communication, Motor Speech)\n- International Dysphagia Diet Standardisation Initiative (IDDSI) Framework (2019)\n- Mann Assessment of Swallowing Ability (MASA) / MBSS interpretation standards\n- CMS Medicare Benefit Policy Manual Chapter 15, Section 230 (Speech-Language Pathology)\n- CMS MDS 3.0 RAI Manual (BIMS, Swallowing/Nutritional Status, Communication items)\n- Pacific Coast POSTette SLP Documentation Standards\n- Jimmo v. Sebelius (2013) — Maintenance SLP Standard\n\nCLINICAL INPUT PACKAGE:\n', triggerBody()?['text'], '\n\nDOCUMENTATION GENERATION REQUIREMENTS:\n\n1. COMMUNICATION STATUS\nDocument the patient''s functional communication abilities:\n- Expressive language (verbal, gestural, AAC)\n- Receptive language (comprehension of spoken/written language)\n- Vocal quality, fluency, resonance if applicable\n- Functional Communication Measure (FCM) rating if applicable\nReference ASHA Functional Communication Measures where applicable.\n\n2. COGNITIVE-COMMUNICATION STATUS\nDocument cognitive-communication impairments as relevant:\n- Attention, memory, executive function, orientation, problem-solving\n- BIMS score or formal cognitive screen results (SLUMS, MoCA, MMSE)\n- How cognitive status impacts communication and swallowing safety\n- Safety awareness and judgment for diet management\n\n3. SWALLOWING STATUS (DYSPHAGIA)\nIf dysphagia is present:\n- Clinical swallowing exam findings (oral, pharyngeal, esophageal phases)\n- IDDSI Diet Level (0-7) and Liquid Consistency Level (0-4) with explicit rationale\n- Signs and symptoms of aspiration (overt/silent)\n- MASA score or MBSS/FEES findings if available\n- Aspiration risk level (low, moderate, high)\n- Compensatory strategies trained and patient''s response\n\n4. SKILLED JUSTIFICATION (ASHA + CMS Standard)\nGenerate a skilled justification that:\n- Specifies the SLP-specific skilled service (dysphagia management, AAC, LSVT, cognitive rehabilitation)\n- States why a non-licensed provider cannot safely provide this service\n- Explicitly addresses safety: what happens without skilled SLP management?\n- References the Jimmo maintenance standard if patient is not expected to improve (e.g., maintenance of safe swallowing)\n\n5. STANDARDIZED ASSESSMENT RESULTS\nDocument all formal assessments administered this period with scores and interpretation.\n\n6. PLAN OF CARE ALIGNMENT\nVerify all interventions link to active SLP goals. Include diet recommendation consistency with speech evaluation findings.\n\n7. ANTI-VAGUE LANGUAGE PROTOCOL\nDo NOT use: \"tolerated well\", \"participated\", \"cooperative\". Replace with ASHA-standard clinical terminology: \"demonstrated consistent use of chin tuck maneuver\", \"required maximum verbal cues for\", \"produced intelligible speech at 80% in structured context\".\n\nGenerate the complete, Medicare-compliant SLP clinical note based on the above.')}"
+            },
+            "host": {
+              "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+              "operationId": "aibuilderpredict_customprompt",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "generatednote": {
+                  "title": "GeneratedSLPNote",
+                  "description": "ASHA/IDDSI-grounded Medicare-compliant SLP clinical note",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "generatednote": "@body('Run_SLP_Note_Prompt')?['responsev2']?['predictionOutput']?['text']"
+            }
+          },
+          "runAfter": { "Run_SLP_Note_Prompt": ["SUCCEEDED"] },
+          "metadata": { "operationMetadataId": "slp-gen-response-001" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

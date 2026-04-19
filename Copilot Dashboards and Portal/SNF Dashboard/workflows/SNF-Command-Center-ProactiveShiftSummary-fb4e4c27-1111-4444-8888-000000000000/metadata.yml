@@ -1,5 +1,0 @@
-jsonFileName: workflows/SNF-Command-Center-ProactiveShiftSummary-fb4e4c27-1111-4444-8888-000000000000/workflow.json
-workflowId: fb4e4c27-1111-4444-8888-000000000000
-name: SNF Command Center - Proactive Shift Summary
-type: 1
-description: "Automated scheduled backend for proactive shift summary broadcast."

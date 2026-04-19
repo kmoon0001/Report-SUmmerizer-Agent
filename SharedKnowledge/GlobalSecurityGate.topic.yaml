@@ -20,7 +20,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: msgEmergency
-              activity: ðŸš¨ SYSTEM ALERT: This agent has been placed in EMERGENCY LOCKDOWN by Pacific Coast Services Security. All autonomous processing is suspended.
+              activity: "ðŸš¨ SYSTEM ALERT: This agent has been placed in EMERGENCY LOCKDOWN by Pacific Coast Services Security. All autonomous processing is suspended."
             - kind: EndDialog
               id: stopAll
     

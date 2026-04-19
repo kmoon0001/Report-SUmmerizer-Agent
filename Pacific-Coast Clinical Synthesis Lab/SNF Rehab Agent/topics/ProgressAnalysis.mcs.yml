@@ -1,76 +1,142 @@
-﻿mcs.metadata:
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + APTA/AOTA/ASHA evaluation standards.
+# **GLOBAL SAFETY GUARDRAILS (IRONCLAD):
+# 1. NO HALLUCINATION â€” synthesize only from provided inputs.
+# 2. SBAR FORMAT mandatory. 3. PHI SAFE â€” session only. 4. APTA/AOTA/ASHA GROUND.
+
+mcs.metadata:
   componentName: ProgressAnalysis
-  description: Elite clinical intelligence module specialized in [ProgressAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: >
+    Platinum Progress Note Longitudinal Analysis Engine. Reads multiple therapy
+    progress notes over a cert period and synthesizes a longitudinal functional
+    trends brief with goal trajectory analysis and skilled need reassessment.
 kind: AdaptiveDialog
+modeldescription: >
+  Elite Progress Note Synthesis module for Pacific Coast Clinical Synthesis Lab.
+  Accepts one or more progress notes from a cert period and generates a
+  Longitudinal Progress Brief with: functional trend analysis, goal trajectory
+  (improving/plateauing/declining), skilled need strength reassessment, and
+  a 30-day forward projection. Grounded in APTA, AOTA, ASHA, CMS Chapter 15.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
   intent:
-    displayName: Progress Analysis
-    includeInOnSelectIntent: false
+    displayName: Progress Note Analysis
     triggerQueries:
-      - analyze progress note
-      - review daily therapy note
-      - check treatment progress documentation
-      - validate progress report
+      - progress analysis
+      - analyze progress notes
+      - progress sbar
+      - longitudinal analysis
+      - progress note review
+      - synthesize progress notes
+      - functional trend analysis
+      - progress brief
 
   actions:
-    - kind: SearchAndSummarizeContent
-      id: search_progress_guidance
-      variable: Topic.Answer
-      userInput: =System.Activity.Text
-      moderationLevel: Medium
-      additionalInstructions: |-
-        Provide a structured progress-note review for SNF rehab.
-        Include:
-        1) measurable change from prior status
-        2) continued skilled need / medical necessity
-        3) compliance risks and overdue items
-        4) focused follow-up questions if needed
-        If confidence is low due to missing data, state "Requires therapist review".
-      publicDataSource:
-        sites:
-          - "www.cms.gov"
-          - "www.ecfr.gov"
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸ”¬ **Pacific Coast Clinical Synthesis Lab â€” Progress Note Analysis**
+        I will synthesize your progress documentation into a structured Longitudinal Functional Trends Brief.
 
-      sharePointSearchDataSource: {}
+    - kind: Question
+      id: question_discipline
+      variable: Topic.ProgDiscipline
+      prompt: Which discipline?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: PT
+              displayName: Physical Therapy (PT)
+            - id: OT
+              displayName: Occupational Therapy (OT)
+            - id: SLP
+              displayName: Speech-Language Pathology (SLP)
 
-    - kind: ConditionGroup
-      id: conditionGroup_progressAnswer
-      conditions:
-        - id: conditionItem_hasAnswer
-          condition: =!IsBlank(Topic.Answer)
-          actions:
-            - kind: ConditionGroup
-              id: conditionGroup_progressLowConfidence
-              conditions:
-                - id: conditionItem_progressRequiresReview
-                  condition: ="requires therapist review" in Lower(Topic.Answer)
-                  actions:
-                    - kind: SendActivity
-                      id: sendMessage_progressRequiresReview
-                      activity: "{Topic.Answer}\n\nI detected low-confidence output and recommend clinician-supervised escalation."
+    - kind: Question
+      id: question_periodCovered
+      variable: Topic.ProgPeriod
+      prompt: What 30-day period do these progress notes cover? (e.g., "Jan 3 â€“ Feb 2, 2026")
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
 
-                    - kind: BeginDialog
-                      id: beginDialog_progressEscalateLowConfidence
-                      dialog: pcca_agent39xn69.topic.Escalate
+    - kind: Question
+      id: question_noteCount
+      variable: Topic.ProgNoteSource
+      prompt: How many progress notes are you synthesizing?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: One
+              displayName: Single progress note
+            - id: Two
+              displayName: Two progress notes
+            - id: Full
+              displayName: Full cert period (all progress notes)
 
-              elseActions:
-                - kind: SendActivity
-                  id: sendMessage_progressAnswer
-                  activity: "{Topic.Answer}\n\nThis is an AI-generated draft support output. Licensed clinician review and approval are required."
+    - kind: Question
+      id: question_noteText
+      variable: Topic.ProgNoteText
+      prompt: |-
+        Paste all progress note content below (or describe key functional changes across the period):
 
-                - kind: BeginDialog
-                  id: beginDialog_progressSuggestedActions
-                  dialog: pcca_agent39xn69.topic.SuggestedActions
+        Include: functional status at each measurement point, goal progress, response to treatment, any significant changes.
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
 
-      elseActions:
-        - kind: SendActivity
-          id: sendMessage_progressNeedsInput
-          activity: I need objective progress data (baseline vs current, treatment response, and goal linkage) to complete this review.
+    - kind: BeginDialog
+      id: beginDialog_progressSynthesis
+      input:
+        binding:
+          text: =Concatenate(
+            "### PACIFIC COAST PROGRESS NOTE LONGITUDINAL SYNTHESIS ###\n\n",
+            "AUTHORITATIVE SOURCES:\n",
+            "- CMS Medicare Benefit Policy Manual Chapter 15 â€” 30-day Progress Report requirements\n",
+            "- APTA Standards of Practice â€” Progress Documentation\n",
+            "- AOTA Occupational Therapy Practice Framework, 4th Ed. â€” Intervention and Outcomes\n",
+            "- ASHA Technical Report â€” Documentation in Clinical Practice\n",
+            "- Jimmo v. Sebelius (2013) â€” Maintenance Therapy Progress Standard\n\n",
+            "PATIENT: ", If(!IsBlank(Global.MPC_PatientName), Global.MPC_PatientName, "Not specified"), "\n",
+            "DIAGNOSIS: ", If(!IsBlank(Global.MPC_PrimaryDiagnosis), Global.MPC_PrimaryDiagnosis, "Not specified"), "\n",
+            "DISCIPLINE: ", Topic.ProgDiscipline, "\n",
+            "PERIOD: ", Topic.ProgPeriod, "\n",
+            "NOTES INCLUDED: ", Topic.ProgNoteSource, "\n\n",
+            "PROGRESS NOTE CONTENT:\n", Topic.ProgNoteText, "\n\n",
+            "SYNTHESIS TASK â€” LONGITUDINAL PROGRESS BRIEF:\n\n",
+            "1. FUNCTIONAL TREND ANALYSIS: Create a timeline of key functional measures. Show trajectory: Improving (â†‘) / Plateauing (â†’) / Declining (â†“) for each active goal domain.\n\n",
+            "2. GOAL TRAJECTORY ASSESSMENT: For each active goal, assess: On target / Behind target / Ahead of target. Calculate % progress toward LTG.\n\n",
+            "3. SKILLED NEED REASSESSMENT: Is the skilled need still justified at this point in the cert period? Apply Jimmo standard for maintenance cases. Rate current SNJ strength: Strong / Adequate / Needs Reinforcement / At Risk for Denial.\n\n",
+            "4. RESPONSE TO TREATMENT: Summarize patient's clinical response. Identify any barriers (cognitive, behavioral, medical, social).\n\n",
+            "5. 30-DAY FORWARD PROJECTION: Based on current trajectory, project functional status at next progress report. Recommend any frequency/intensity adjustments.\n\n",
+            "6. RECERTIFICATION READINESS: Is the patient on track for recertification? Flag any concerns.\n\n",
+            "OUTPUT: Professional longitudinal brief suitable for IDT meeting, recertification planning, and compliance review."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.ProgOutput
 
-        - kind: BeginDialog
-          id: beginDialog_progressEscalate
-          dialog: pcca_agent39xn69.topic.Escalate
+    - kind: SendActivity
+      id: sendActivity_progressOutput
+      activity: |-
+        ### ðŸ“ˆ Longitudinal Progress Brief â€” Pacific Coast Synthesis Lab
 
+        {Topic.ProgOutput}
+
+        ---
+        **Period**: {Topic.ProgPeriod} | **Discipline**: {Topic.ProgDiscipline}
+        **âš ï¸ Disclaimer**: AI-synthesized. Treating therapist must verify accuracy.
+
+inputType: {}
+outputType:
+  properties:
+    Prog_Output:
+      displayName: Prog_Output
+      type: String
 

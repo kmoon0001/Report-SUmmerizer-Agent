@@ -1,0 +1,90 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + ASHA/AOTA/APTA Professional Standards.
+# **Patterns**: PLATINUM_PROMPT_PATTERNS.md.
+
+mcs.metadata:
+  componentName: ProfessionalStandardsAuditor
+  description: >
+    Professional Standards Forensic Auditor. Cross-references documentation
+    against APTA Guide to Physical Therapist Practice, AOTA Practice Framework,
+    and ASHA Clinical Documentation Standards to ensure professional compliance.
+kind: AdaptiveDialog
+modeldescription: >
+  Elite auditor module for Denial Defense. Performs deep forensic analysis
+  of clinical documentation against the professional standards of the specific
+  rehab discipline (PT, OT, or SLP). Identifies gaps in terminology,
+  assessment choice, and scope of practice alignment.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Professional Standards Auditor
+    triggerQueries:
+      - check professional standards
+      - apta audit
+      - aota compliance
+      - asha documentation check
+      - am i meeting professional standards
+      - clinical standards audit
+      - discipline standards check
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸ›¡ï¸ **Denial Defense Hub â€” Professional Standards Auditor**
+        I will audit your documentation against the governing standards of your clinical discipline (APTA, AOTA, or ASHA).
+
+    - kind: Question
+      id: question_discipline
+      variable: Topic.AuditDiscipline
+      prompt: Which discipline are we auditing?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: PT
+              displayName: Physical Therapy (APTA Standards)
+            - id: OT
+              displayName: Occupational Therapy (AOTA Standards)
+            - id: SLP
+              displayName: Speech-Language Pathology (ASHA Standards)
+
+    - kind: Question
+      id: question_noteText
+      variable: Topic.AuditNoteText
+      prompt: Paste the clinical note you wish to audit for professional standards compliance.
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: BeginDialog
+      id: beginDialog_standardsAudit
+      input:
+        binding:
+          text: =Concatenate(
+            "### PROFESSIONAL STANDARDS FORENSIC AUDIT â€” PLATINUM STANDARD ###\n\n",
+            "DISCIPLINE: ", Topic.AuditDiscipline, "\n",
+            "NOTE CONTENT:\n", Topic.AuditNoteText, "\n\n",
+            "AUDIT REQUIREMENTS:\n",
+            "1. TERMINOLOGY CHECK: Flag any non-clinical or vague terminology (e.g., 'tolerated well', 'participated'). Suggest profession-specific replacements.\n",
+            "2. SCOPE ALIGNMENT: Does the note demonstrate services within the professional scope? (e.g., PT mobility, OT occupation-based intervention, SLP communication/swallowing).\n",
+            "3. DOCUMENTATION FRAMEWORK: For PT: reference APTA Guide (Exam, Eval, Dx, Px, Interventions). For OT: reference OTPF-4 (Evaluation, Intervention, Outcomes). For SLP: reference ASHA Documentation Standards.\n",
+            "4. CONFIDENCE SCORE: 0-100% compliance with professional standards."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.AuditResult
+
+    - kind: SendActivity
+      id: sendActivity_output
+      activity: |-
+        ### ðŸ“‹ Professional Standards Audit Report
+
+        {Topic.AuditResult}
+
+        ---
+        **âš ï¸ Disclaimer**: Focus on professional documentation standards. Always align with your State Practice Act and CMS regulations.
+

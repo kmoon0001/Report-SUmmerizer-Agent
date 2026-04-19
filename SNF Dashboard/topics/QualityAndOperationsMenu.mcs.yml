@@ -1,7 +1,7 @@
 ﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -12,7 +12,7 @@
 # 5. **KNOWLEDGE ANCHOR**: Refer to 'src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md' for grounding.
 
 mcs.metadata:
-  componentName: Quality And Operations Menu
+  componentName: Quality and Operations Menu
   description: Elite clinical intelligence module specialized in [QualityAndOperationsMenu]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 modeldescription: Elite clinical intelligence module specialized in [QualityAndOperationsMenu]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
@@ -20,16 +20,18 @@ beginDialog:
   kind: OnRecognizedIntent
   id: main
   intent:
-    displayName: Quality And Operations Menu
+    displayName: Quality and Operations Menu
     includeInOnSelectIntent: true
     triggerQueries:
-      - quality menu
-      - operations menu
-      - command center operations
+      - quality and operations
+      - operational metrics
+      - compliance metrics
+      - facility quality
+      - performance dashboard
 
   actions:
     - kind: Question
-      id: question_quality_menu
+      id: question_quality_ops_menu
       alwaysPrompt: true
       variable: init:Topic.QualityMenuChoice
       prompt:
@@ -42,71 +44,65 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ“ˆ QUALITY & OPERATIONS MENU"
+                      text: "⚖️ QUALITY & OPERATIONS MENU"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
-                      text: "Which quality or operations workflow do you need?"
+                      text: "Which operational domain would you like to explore?"
                       isSubtle: true
                       spacing: None
               $schema: "http://adaptivecards.io/schemas/adaptive-card.json"
       entity:
         kind: DynamicClosedListEntity
         items:
-          - DisplayName: Documentation completeness
-            Value: DocumentationCompleteness
           - DisplayName: Quality measure performance
-            Value: QualityMeasurePerformance
-          - DisplayName: Regulatory compliance tracking
-            Value: RegulatoryCompliance
-          - DisplayName: Staffing and workload
-            Value: StaffingWorkload
-          - DisplayName: Patient flow and bed management
-            Value: PatientFlow
-          - DisplayName: Resource utilization and cost optimization
-            Value: ResourceUtilization
-          - DisplayName: Research and data use requests
-            Value: ResearchDataUse
+            Value: QMPerformance
+          - DisplayName: Staffing optimization and workload balance
+            Value: StaffingOptimization
           - DisplayName: Revenue cycle and MDS optimization
             Value: RevenueCycle
+          - DisplayName: Regulatory compliance tracking
+            Value: RegulatoryCompliance
+          - DisplayName: Resource utilization and cost optimization
+            Value: ResourceUtilization
+          - DisplayName: Clinical Coaching Corner (Therapists)
+            Value: CoachingCorner
+          - DisplayName: Research and data use requests
+            Value: ResearchDataUse
 
     - kind: ConditionGroup
       id: condition_route
       conditions:
-        - id: route_docs
-          condition: =Text(Topic.QualityMenuChoice) = "DocumentationCompleteness"
+        - id: route_coaching_corner
+          condition: =Text(Topic.QualityMenuChoice) = "CoachingCorner"
           actions:
+            - kind: SendActivity
+              id: send_coaching_launch
+              activity: "🚀 Launching the **Pacific Coast Clinical Coaching Hub**. Connecting you to a Senior Clinical Coach..."
             - kind: BeginDialog
-              id: begin_docs
-              dialog: snf_ai_dashboard.topic.ClinicalDocumentationCompleteness
+              id: begin_coaching_corner
+              dialog: cr917_agentu92bPc.topic.COACHINGCORNER
 
-        - id: route_quality_measures
-          condition: =Text(Topic.QualityMenuChoice) = "QualityMeasurePerformance"
+        - id: route_qm_performance
+          condition: =Text(Topic.QualityMenuChoice) = "QMPerformance"
           actions:
             - kind: BeginDialog
-              id: begin_quality_measures
+              id: begin_qm_performance
               dialog: snf_ai_dashboard.topic.QualityMeasurePerformance
 
-        - id: route_regulatory
+        - id: route_staffing_optimization
+          condition: =Text(Topic.QualityMenuChoice) = "StaffingOptimization"
+          actions:
+            - kind: BeginDialog
+              id: begin_staffing_optimization
+              dialog: snf_ai_dashboard.topic.StaffingOptimizationAndWorkloadBalance
+
+        - id: route_regulatory_compliance
           condition: =Text(Topic.QualityMenuChoice) = "RegulatoryCompliance"
           actions:
             - kind: BeginDialog
-              id: begin_regulatory
+              id: begin_regulatory_compliance
               dialog: snf_ai_dashboard.topic.RegulatoryComplianceTracking
-
-        - id: route_staffing
-          condition: =Text(Topic.QualityMenuChoice) = "StaffingWorkload"
-          actions:
-            - kind: BeginDialog
-              id: begin_staffing
-              dialog: snf_ai_dashboard.topic.StaffingOptimizationAndWorkloadBalance
-
-        - id: route_patient_flow
-          condition: =Text(Topic.QualityMenuChoice) = "PatientFlow"
-          actions:
-            - kind: BeginDialog
-              id: begin_patient_flow
-              dialog: snf_ai_dashboard.topic.PatientFlowAndBedManagement
 
         - id: route_resource_utilization
           condition: =Text(Topic.QualityMenuChoice) = "ResourceUtilization"
@@ -136,9 +132,3 @@ beginDialog:
 
 inputType: {}
 outputType: {}
-
-
-
-
-
-

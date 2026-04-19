@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -44,7 +44,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ•¹ï¸ COMMAND CENTER DASHBOARD"
+                      text: "ðŸ�¹ï¸ COMMAND CENTER DASHBOARD"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -57,19 +57,19 @@ beginDialog:
         items:
           - DisplayName: ðŸ©º Clinical Insights
             Value: ClinicalInsights
-          - DisplayName: ðŸ›¡ï¸ Safety and Surveillance
+          - DisplayName: ðŸ�¡ï¸ Safety and Surveillance
             Value: SafetySurveillance
-          - DisplayName: ðŸ“ˆ Quality and Operations
+          - DisplayName: ðŸ�� Quality and Operations
             Value: QualityOperations
-          - DisplayName: ðŸ¤ Transitions and Family
+          - DisplayName: ðŸ¤ Transitions and Family
             Value: CommunicationTransitions
-          - DisplayName: ðŸ“‚ Files and Images
+          - DisplayName: ðŸ�� Files and Images
             Value: FilesImages
           - DisplayName: ðŸš¨ Urgent Clinical Concern
             Value: Urgent
-          - DisplayName: ðŸš€ Executive Quick Actions
+          - DisplayName: ðŸš� Executive Quick Actions
             Value: ExecutiveQuickActions
-          - DisplayName: â“ Help and Quick Start
+          - DisplayName: â� Help and Quick Start
             Value: Help
     - kind: ConditionGroup
       id: condition_main_route
@@ -137,6 +137,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

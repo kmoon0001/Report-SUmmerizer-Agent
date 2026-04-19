@@ -49,14 +49,14 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: SendActivity_Vs0ssA
-              activity: âœ… Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
+              activity: â�� Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
 
         - id: ConditionItem_DB9HpK
           condition: =Topic.ApprovalStatus = ApprovalStatusOptions.rejected
           actions:
             - kind: SendActivity
               id: SendActivity_Hp7Fh6
-              activity: "âŒ Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
+              activity: "â�� Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
 
             - kind: Question
               id: Question_jFYbDy

@@ -59,7 +59,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_5jICPJ
-              activity: "Understood â€” generating your OT Evaluation note. Using the information provided, here is the structured evaluation:"
+              activity: "Understood â�� generating your OT Evaluation note. Using the information provided, here is the structured evaluation:"
 
             - kind: BeginDialog
               id: q5V5pZ
@@ -78,9 +78,9 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_4AwdhG
               activity: |-
-                Understood â€” generating your SLP Evaluation note. Using the information provided, here is the structured SLP Evaluation documentation:
+                Understood â�� generating your SLP Evaluation note. Using the information provided, here is the structured SLP Evaluation documentation:
 
-                âš ï¸ CLINICAL REVIEW REQUIRED â€“ Review and verify all content before entering into the EHR.
+                âš ï¸� CLINICAL REVIEW REQUIRED â�� Review and verify all content before entering into the EHR.
 
             - kind: BeginDialog
               id: bxwRTT
@@ -122,9 +122,9 @@ beginDialog:
                        - Signs/Symptoms of Aspiration: [present/absent]
                        - Compensatory Strategies Trialed: [list]
 
-                    7. STANDARDIZED TESTING: [e.g., BDAE, SLUMS, MoCA, FEES/MBS results â€” include scores]
+                    7. STANDARDIZED TESTING: [e.g., BDAE, SLUMS, MoCA, FEES/MBS results â�� include scores]
 
-                    8. ASSESSMENT: Skilled ST justification â€” safety risks, rehab potential, barriers, and medical necessity for continued ST.
+                    8. ASSESSMENT: Skilled ST justification â�� safety risks, rehab potential, barriers, and medical necessity for continued ST.
 
                     9. PLAN OF CARE:
                        - Frequency and Duration: [e.g., 5x/week x 4 weeks]
@@ -136,7 +136,7 @@ beginDialog:
                     - Use only data from the patient information above
                     - Where clinical data is not provided, indicate [To be assessed]
                     - Every section must be clinically meaningful and support Medicare skilled level of care
-                    - Do not include any preamble or explanation â€” output the evaluation only")
+                    - Do not include any preamble or explanation â�� output the evaluation only")
 
               dialog: pcca_agent.action.TheraDoc-PTGenerateNote
               output:
@@ -149,9 +149,9 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_Dr9Kfk
               activity: |-
-                Understood â€” generating your PT Evaluation note. Using the information provided, here is the structured PT Evaluation documentation:
+                Understood â�� generating your PT Evaluation note. Using the information provided, here is the structured PT Evaluation documentation:
 
-                âš ï¸ CLINICAL REVIEW REQUIRED â€“ Review and verify all content before entering into the EHR.
+                âš ï¸� CLINICAL REVIEW REQUIRED â�� Review and verify all content before entering into the EHR.
 
             - kind: BeginDialog
               id: y7igjG
@@ -185,9 +185,9 @@ beginDialog:
                        - Balance: [static/dynamic sitting/standing]
                        - Functional Mobility: [stairs, community ambulation if applicable]
 
-                    5. STANDARDIZED TESTING: [e.g., TUG, Berg Balance Scale, 10MWT, 30-sec STS â€” include scores if available]
+                    5. STANDARDIZED TESTING: [e.g., TUG, Berg Balance Scale, 10MWT, 30-sec STS â�� include scores if available]
 
-                    6. ASSESSMENT: Skilled PT justification â€” patient's rehab potential, barriers to progress, medical necessity, and why skilled PT is required.
+                    6. ASSESSMENT: Skilled PT justification â�� patient's rehab potential, barriers to progress, medical necessity, and why skilled PT is required.
 
                     7. PLAN OF CARE:
                        - Frequency and Duration: [e.g., 5x/week x 4 weeks]
@@ -199,7 +199,7 @@ beginDialog:
                     - Use only data from the patient information above
                     - Where clinical data is not provided, indicate [To be assessed]
                     - Every section must be clinically meaningful and support Medicare skilled level of care
-                    - Do not include any preamble or explanation â€” output the evaluation only")
+                    - Do not include any preamble or explanation â�� output the evaluation only")
 
               dialog: pcca_agent.action.TheraDoc-PTGenerateNote
               output:
@@ -210,15 +210,15 @@ beginDialog:
         - kind: SendActivity
           id: sendActivity_320n0N
           activity: |-
-            Understood â€” generating your OT Evaluation note. Using the information provided, here is the structured OT Evaluation documentation:
+            Understood â�� generating your OT Evaluation note. Using the information provided, here is the structured OT Evaluation documentation:
 
-            âš ï¸ CLINICAL REVIEW REQUIRED â€“ Review and verify all content before entering into the EHR.
+            âš ï¸� CLINICAL REVIEW REQUIRED â�� Review and verify all content before entering into the EHR.
 
     - kind: SendActivity
       id: sendActivity_OqAVYX
       activity: |-
         Thank you for providing the evaluation information. I'll help you create your evaluation assessment documentation.
-        âš ï¸ DRAFT ONLY â€” Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.
+        âš ï¸� DRAFT ONLY â�� Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.
 
 inputType: {}
 outputType: {}

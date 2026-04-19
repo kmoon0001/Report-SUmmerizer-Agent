@@ -31,7 +31,7 @@ beginDialog:
 
     - kind: SendActivity
       id: ProcessingMessage
-      activity: ðŸ” **Processing note...** I am identifying diagnosis, codes, functional status, and risks automatically.
+      activity: ðŸ�� **Processing note...** I am identifying diagnosis, codes, functional status, and risks automatically.
 
     - kind: BeginDialog
       id: CallProcessor
@@ -57,7 +57,7 @@ beginDialog:
       activity:
         attachments:
           - kind: AdaptiveCardTemplate
-            cardContent:
+            cardContent: |-
               ={
                 type: "AdaptiveCard",
                 body: [
@@ -97,7 +97,7 @@ beginDialog:
       elseActions:
         - kind: SendActivity
           id: FinalSuccess
-          activity: âœ… Clinical elements confirmed. Results are ready for compliance routing.
+          activity: â�� Clinical elements confirmed. Results are ready for compliance routing.
 
     - kind: SendActivity
       id: RoutingMessage

@@ -1,9 +1,0 @@
-﻿<fetch count="3">
-  <entity name="workflow">
-    <attribute name="workflowid"/>
-    <attribute name="name"/>
-    <filter>
-      <condition attribute="name" operator="eq" value="SNF-Handoff-Webhook-Intake"/>
-    </filter>
-  </entity>
-</fetch>

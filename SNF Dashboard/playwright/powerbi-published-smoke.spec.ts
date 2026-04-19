@@ -4,7 +4,7 @@ const reportUrl = process.env.POWERBI_REPORT_URL;
 const expectedMarkersRaw = process.env.POWERBI_EXPECTED_MARKERS
   ?? 'Current Resident Census|Outstanding Documentation Items|Residents With Therapy';
 const disallowedMarkersRaw = process.env.POWERBI_DISALLOWED_MARKERS
-  ?? 'Something went wrong|Couldn\\'t load the data for this visual|Error fetching data';
+  ?? "Something went wrong|Couldn't load the data for this visual|Error fetching data";
 
 test('power bi published report smoke', async ({ page }) => {
   if (!reportUrl) {

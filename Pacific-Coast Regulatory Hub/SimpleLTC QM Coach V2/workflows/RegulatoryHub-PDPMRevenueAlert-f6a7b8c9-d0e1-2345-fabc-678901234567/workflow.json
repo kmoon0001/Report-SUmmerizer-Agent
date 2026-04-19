@@ -1,0 +1,163 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      },
+      "shared_teams": {
+        "api": { "name": "shared_teams" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedteams_Pacific_Coast" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Regulatory Hub — PDPM Revenue Alert Flow. When the PDPM HIPPS Calculator detects potential under-classification, this flow auto-alerts the MDS Coordinator via Microsoft Teams and logs the alert to Dataverse. Grounded in CMS PDPM Final Rule (CMS-1696-F) and Microsoft Learn Power Automate Teams connector best practices.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Patient name or alias",
+                  "title": "PatientAlias",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Estimated HIPPS code",
+                  "title": "EstimatedHIPPS",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Under-classification risk flags identified",
+                  "title": "UnderClassificationFlags",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Facility name",
+                  "title": "FacilityName",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "Teams Channel ID for MDS Coordinator alerts",
+                  "title": "TeamsChannelID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text", "text_1", "text_2", "text_3"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "pdpm-alert-trigger-001",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Alert_ID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [{
+              "name": "AlertID",
+              "type": "string",
+              "value": "@{concat('PCCA-PDPM-', utcNow('yyyyMMddHHmmss'))}"
+            }]
+          },
+          "runAfter": {}
+        },
+        "Log_PDPM_Alert_To_Dataverse": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "pcca_pdpmalerts",
+              "item/pcca_alertid": "@variables('AlertID')",
+              "item/pcca_patientalias": "@triggerBody()?['text']",
+              "item/pcca_estimatedhipps": "@triggerBody()?['text_1']",
+              "item/pcca_underclassificationflags": "@triggerBody()?['text_2']",
+              "item/pcca_facilityname": "@triggerBody()?['text_3']",
+              "item/pcca_alerttimestamp": "@utcNow()",
+              "item/pcca_status": "Under-classification Risk — MDS Review Required"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": { "Initialize_Alert_ID": ["SUCCEEDED"] }
+        },
+        "Post_Teams_Alert": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "teamId": "Pacific_Coast_Clinical_Team",
+              "channelId": "@{if(empty(triggerBody()?['text_4']), 'MDS_Coordinators_Channel', triggerBody()?['text_4'])}",
+              "messageBody/content": "@{concat('## 💰 PDPM Revenue Alert — Action Required\n\n**Alert ID**: ', variables('AlertID'), '\n**Patient**: ', triggerBody()?['text'], '\n**Facility**: ', triggerBody()?['text_3'], '\n**Estimated HIPPS**: ', triggerBody()?['text_1'], '\n**Under-Classification Risks**: ', triggerBody()?['text_2'], '\n**Time**: ', utcNow(), '\n\n**Action Required**: Review MDS documentation and ICD-10 primary diagnosis code to ensure accurate PDPM classification. Revenue impact may be significant.\n\n*Grounded in CMS PDPM Final Rule (CMS-1696-F). Generated by Pacific Coast Regulatory Hub AI.*')}"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+              "operationId": "PostMessageToConversation",
+              "connectionName": "shared_teams"
+            }
+          },
+          "runAfter": { "Log_PDPM_Alert_To_Dataverse": ["SUCCEEDED"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "alertid": {
+                  "title": "AlertID",
+                  "description": "Unique PDPM alert tracking ID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "alertstatus": {
+                  "title": "AlertStatus",
+                  "description": "Alert delivery confirmation",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "alertid": "@variables('AlertID')",
+              "alertstatus": "PDPM under-classification alert sent to MDS Coordinator via Teams and logged to Dataverse."
+            }
+          },
+          "runAfter": { "Post_Teams_Alert": ["SUCCEEDED"] },
+          "metadata": { "operationMetadataId": "pdpm-alert-response-001" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

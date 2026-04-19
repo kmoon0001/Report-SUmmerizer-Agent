@@ -1,5 +1,0 @@
-ProtocolName,Category,Owner,Version,LastReviewed,EvidenceBase,Status
-Fall_Prevention,Patient_Safety,AssignBeforeUse,0.1,AssignBeforeUse,Facility_and_CMS,StarterTemplate
-Pressure_Injury_Prevention,Patient_Safety,AssignBeforeUse,0.1,AssignBeforeUse,Facility_and_CDC,StarterTemplate
-Medication_Reconciliation,Medication_Safety,AssignBeforeUse,0.1,AssignBeforeUse,Facility_and_CMS,StarterTemplate
-

@@ -1,0 +1,105 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": { "name": "shared_commondataserviceforapps" },
+        "connection": { "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_af899" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Pacific Coast Therapy Hub — Compliance Audit Flow. Performs 7-Layer XAI forensic audit of a clinical note. Authoritative sources: Microsoft Learn Power Platform, CMS Chapter 15, APTA Documentation Guidelines, AOTA Documentation Framework, ASHA Clinical Documentation Standards.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "The full clinical note text to be audited",
+                  "title": "ClinicalNoteText",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Discipline of the note (PT, OT, SLP)",
+                  "title": "Discipline",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Document type (Progress Note, Eval, Recert, Discharge, Daily Note)",
+                  "title": "DocumentType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text", "text_1", "text_2"]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "c7a3e291-8812-4f1a-b881-112233445566",
+            "flowSystemMetadata": { "flowKind": "Stateless" }
+          }
+        }
+      },
+      "actions": {
+        "Run_Compliance_Audit_Prompt": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "recordId": "08a6d787-e9b9-4929-8ffd-3953c81a863c",
+              "item/requestv2/DocumentationStandards": "@{concat('### PACIFIC COAST 7-LAYER XAI COMPLIANCE AUDIT ###\n\nAUTHORITATIVE SOURCES:\n- Microsoft Learn: Power Platform Healthcare AI Best Practices\n- CMS Medicare Benefit Policy Manual Chapter 15\n- APTA Documentation Guidelines (2023)\n- AOTA Occupational Therapy Practice Framework (4th Ed.)\n- ASHA Clinical Documentation Standards\n- Jimmo v. Sebelius (2013) Maintenance Therapy Standard\n- CMS MDS 3.0 RAI Manual\n\nDISCIPLINE: ', triggerBody()?['text_1'], '\nDOCUMENT TYPE: ', triggerBody()?['text_2'], '\n\nNOTE TO AUDIT:\n', triggerBody()?['text'], '\n\nPERFORM 7-LAYER FORENSIC AUDIT:\n\nLAYER 1 — SKILLED SERVICE JUSTIFICATION\nDoes the note contain a clear, measurable skilled justification per CMS Ch.15? Does it address the Jimmo maintenance standard if applicable? Does it specify why a non-licensed provider cannot safely deliver this care?\n\nLAYER 2 — FUNCTIONAL BASELINE & PROGRESS\nAre functional levels documented with specific assist levels (Min A, Mod A, Max A, etc.)? Is there a measurable comparison to prior status or PLOF? For PT: reference APTA Guide to Physical Therapist Practice. For OT: reference AOTA Occupational Profile. For SLP: reference ASHA functional communication/swallowing measures.\n\nLAYER 3 — GOAL ALIGNMENT\nDo the interventions documented align with the active goals? Are all active goals referenced? Are goals SMART and time-bound per APTA/AOTA/ASHA standards?\n\nLAYER 4 — MEDICAL NECESSITY & COMPLEXITY\nAre complicating factors documented that justify skilled oversight? Are clinical reasoning and judgment explicitly demonstrated?\n\nLAYER 5 — SHAP/LIME LOGIC WEIGHTING\nAssign confidence weights (0-1.0) for: Skilled Need (SHAP), Functional Measurement (SHAP), Goal Alignment (LIME), Medical Necessity (LIME), Plan Specificity (SHAP). Calculate composite risk score.\n\nLAYER 6 — ADVERSARIAL FIREWALL\nScan for vague language triggers: \"tolerated well\", \"participated\", \"cooperative\", \"patient did well\". Flag each with specific replacement suggestions using discipline-specific clinical terminology.\n\nLAYER 7 — OVERALL AUDIT VERDICT & REMEDIATION\nOverall denial risk: LOW (0-30%), MEDIUM (31-60%), HIGH (61-85%), CRITICAL (86-100%). List top 3 specific remediations with exact language recommendations.\n\nOUTPUT FORMAT: Structured audit report with each layer clearly labeled. Include composite risk score and final verdict.')}"
+            },
+            "host": {
+              "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+              "operationId": "aibuilderpredict_customprompt",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auditresult": {
+                  "title": "AuditResult",
+                  "description": "7-Layer XAI forensic audit report with risk score and remediation guidance",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "auditresult": "@body('Run_Compliance_Audit_Prompt')?['responsev2']?['predictionOutput']?['text']"
+            }
+          },
+          "runAfter": {
+            "Run_Compliance_Audit_Prompt": ["SUCCEEDED"]
+          },
+          "metadata": { "operationMetadataId": "d9f72c44-3391-4b77-b992-aa7733221155" }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

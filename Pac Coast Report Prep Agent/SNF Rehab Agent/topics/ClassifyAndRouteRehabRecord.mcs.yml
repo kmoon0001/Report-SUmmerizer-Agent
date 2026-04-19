@@ -67,7 +67,7 @@ beginDialog:
         - kind: Question
           id: question_routeClarifier
           variable: Topic.RouteClarifier
-          prompt: Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake.
+          prompt: "Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake."
           entity:
             kind: StringPrebuiltEntity
 

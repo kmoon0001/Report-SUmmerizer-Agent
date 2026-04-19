@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -42,7 +42,7 @@ beginDialog:
         items:
           - DisplayName: One unit
             Value: Unit
-          - DisplayName: All units â€” facility-wide
+          - DisplayName: All units â�� facility-wide
             Value: FacilityWide
           - DisplayName: My assigned items only
             Value: MyItems
@@ -59,7 +59,7 @@ beginDialog:
             Value: CurrentShift
           - DisplayName: Last 24 hours
             Value: Last24Hours
-          - DisplayName: Open items â€” any age
+          - DisplayName: Open items â�� any age
             Value: AllOpen
 
     - kind: Question
@@ -77,7 +77,7 @@ beginDialog:
 
     - kind: SendActivity
       id: send_queue_summary
-      activity: =Concatenate("I have the intake for a handoff queue review: ", Text(Topic.QueueScopeChoice), " scope, ", Text(Topic.ShiftFilterChoice), " window, ", Text(Topic.PriorityFilterChoice), " priority.")
+      activity: "=Concatenate(\"I have the intake for a handoff queue review: \", Text(Topic.QueueScopeChoice), \" scope, \", Text(Topic.ShiftFilterChoice), \" window, \", Text(Topic.PriorityFilterChoice), \" priority.\")"
 
     - kind: SendActivity
       id: send_queue_next_step
@@ -85,6 +85,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

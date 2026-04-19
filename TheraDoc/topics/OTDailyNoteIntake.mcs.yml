@@ -111,7 +111,7 @@ beginDialog:
                - Cognition/Safety Awareness: [relevant observations]
                - Sessions This Week/Total Authorized: [if provided]
 
-            4. ASSESSMENT: Skilled justification â€” document progress, barriers, rehab potential, and why continued OT is medically necessary.
+            4. ASSESSMENT: Skilled justification â�� document progress, barriers, rehab potential, and why continued OT is medically necessary.
 
             5. PLAN: Next session focus, frequency, goals to address, and any changes to treatment approach.
 
@@ -120,7 +120,7 @@ beginDialog:
             - Every section must be clinically meaningful and specific
             - Never use vague filler language
             - Note must justify Medicare skilled level of care
-            - Do not include any preamble or explanation â€” output the note only")
+            - Do not include any preamble or explanation â�� output the note only")
 
       dialog: pcca_agent.action.TheraDoc-PTGenerateNote
       output:
@@ -130,7 +130,7 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_zQeeYU
       activity: |-
-        âš ï¸ DRAFT ONLY âš ï¸ â€” Review and edit before entering into the EHR.
+        âš ï¸� DRAFT ONLY âš ï¸� â�� Review and edit before entering into the EHR.
 
         {Topic.generatednote}
 

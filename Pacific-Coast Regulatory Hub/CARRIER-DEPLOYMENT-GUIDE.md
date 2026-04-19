@@ -1,4 +1,4 @@
-# 🚀 Carrier Solution ALM Deployment Guide
+﻿# ðŸš€ Carrier Solution ALM Deployment Guide
 
 You have successfully adopted the **Microsoft Learn "Solution as Carrier"** best practice! 
 
@@ -10,13 +10,13 @@ By injecting the raw, purified YAML files into an official Dataverse solution co
 
 ---
 
-## 🏎️ How to Import and Deploy (The Playwright / MCP Pattern)
+## ðŸŽï¸ How to Import and Deploy (The Playwright / MCP Pattern)
 
 Since Dataverse Conditional Access and MFA frequently break headless Playwright scripts during authentication, the safest, most reliable way to execute this final step is through a guided manual import or through your trusted browser session.
 
 ### Step 1: Open the Solutions Portal
 1. Navigate to your target environment in the [Power Apps Solutions Portal](https://make.powerapps.com/).
-2. Make sure you are in the correct environment (e.g., ENSIGN DEVELOPMENT).
+2. Make sure you are in the correct environment (e.g., Pacific Coast DEVELOPMENT).
 3. _(If Playwright automation is requested via MCP, use the Playwright MCP tool to launch the browser to `https://make.powerapps.com/environments/YOUR_ENV_ID/solutions`.)_
 
 ### Step 2: Import the Carrier
@@ -34,10 +34,11 @@ Since Dataverse Conditional Access and MFA frequently break headless Playwright 
 
 ---
 
-## 🔄 Maintaining This Pattern
+## ðŸ”„ Maintaining This Pattern
 Whenever you harden or modify more topics locally:
 1. Save the sanitized topic text to `sanitized_editor_payloads\`.
 2. Run `.\Build-CarrierSolution.ps1`.
 3. Import the new `Carrier_Solution_Hardened.zip` via the portal.
 
 You have successfully bypassed the Copilot Studio UI bugs and achieved true **Infrastructure as Code** for your agent!
+

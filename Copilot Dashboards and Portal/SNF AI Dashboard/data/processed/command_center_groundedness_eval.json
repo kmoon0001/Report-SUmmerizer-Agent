@@ -1,5 +1,0 @@
-{
-  "status": "SKIP",
-  "reason": "Azure OpenAI groundedness configuration is incomplete: AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT",
-  "rows": 17
-}

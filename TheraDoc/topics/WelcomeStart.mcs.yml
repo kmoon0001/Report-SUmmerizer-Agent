@@ -23,17 +23,17 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_mDSpVD
       activity: |-
-        ðŸ‘‹ Welcome to TheraDoc!
+        ðŸ�� Welcome to TheraDoc!
 
         I can help you generate Medicare-compliant therapy notes fast.
 
         What would you like to do?
-        â€¢ Daily Note â€” quick session note
-        â€¢ Progress Note â€” goal progress update
-        â€¢ Assessment / Eval â€” full evaluation
-        â€¢ Recertification â€” continued care justification
-        â€¢ Discharge Summary â€” end of episode
-        â€¢ Nursing Handoff â€” SBAR summary
+        â�¢ Daily Note â�� quick session note
+        â�¢ Progress Note â�� goal progress update
+        â�¢ Assessment / Eval â�� full evaluation
+        â�¢ Recertification â�� continued care justification
+        â�¢ Discharge Summary â�� end of episode
+        â�¢ Nursing Handoff â�� SBAR summary
 
         Just tell me what you need, or pick from the list above.
 

@@ -1,4 +1,9 @@
-﻿displayName: SNF Command Center Agent
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+
+displayName: SNF Command Center Agent
 schemaName: cua_agent_U805x
 accessControlPolicy: GroupMembership
 authenticationMode: Integrated
@@ -25,3 +30,4 @@ configuration:
 publishedOn: 2026-04-17T14:00:06.0000000Z
 template: default-2.1.0
 language: 1033
+

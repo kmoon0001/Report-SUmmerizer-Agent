@@ -56,7 +56,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_vIkRlN
-              activity: Understood â€” generating your SLP Discharge Note. Please provide the following details.
+              activity: Understood â�� generating your SLP Discharge Note. Please provide the following details.
 
         - id: conditionItem_6mR6sA
           condition: =Topic.therapyDiscipline = 'pcca_agent.entity.Discipline'.iNfx28
@@ -64,7 +64,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_almObs
-              activity: Understood â€” generating your OT Discharge Note. Please provide the following details.
+              activity: Understood â�� generating your OT Discharge Note. Please provide the following details.
 
         - id: conditionItem_4EpbHC
           condition: =Topic.therapyDiscipline = 'pcca_agent.entity.Discipline'.dxugsW
@@ -72,7 +72,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_kw4FOB
-              activity: Understood â€” generating your PT Discharge Note. Please provide the following details.
+              activity: Understood â�� generating your PT Discharge Note. Please provide the following details.
 
     # Discharge reason - structured for phone with quick buttons
     - kind: Question

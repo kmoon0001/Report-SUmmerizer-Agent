@@ -25,22 +25,22 @@ beginDialog:
       activity: |-
         Here are SNF therapy documentation standards to guide your clinical notes:
 
-        **Cueing Levels** â€” Document the level of verbal or tactile cues provided:
-        â€¢ Independent (I): No cues needed
-        â€¢ Supervision (S): Stand-by, no hands-on
-        â€¢ Modified Independent (ModI): Uses device/compensation, no assist
-        â€¢ Contact Guard Assist (CGA): Therapist hand contact, no force
-        â€¢ Minimal Assist (MinA): Patient performs 75%+ of task
-        â€¢ Moderate Assist (ModA): Patient performs 50â€“74% of task
-        â€¢ Maximum Assist (MaxA): Patient performs 25â€“49% of task
-        â€¢ Total Assist (TA): Patient performs less than 25%
+        **Cueing Levels** â�� Document the level of verbal or tactile cues provided:
+        â�¢ Independent (I): No cues needed
+        â�¢ Supervision (S): Stand-by, no hands-on
+        â�¢ Modified Independent (ModI): Uses device/compensation, no assist
+        â�¢ Contact Guard Assist (CGA): Therapist hand contact, no force
+        â�¢ Minimal Assist (MinA): Patient performs 75%+ of task
+        â�¢ Moderate Assist (ModA): Patient performs 50â��74% of task
+        â�¢ Maximum Assist (MaxA): Patient performs 25â��49% of task
+        â�¢ Total Assist (TA): Patient performs less than 25%
 
-        **Skilled Language Requirements** â€” Every note must include:
-        â€¢ Clinical reason skilled therapy is required (not maintenance)
-        â€¢ Patient response to treatment and measurable progress
-        â€¢ Functional goals with objective baselines and targets
-        â€¢ Safety considerations or precautions addressed
-        â€¢ Plan and frequency of continued treatment
+        **Skilled Language Requirements** â�� Every note must include:
+        â�¢ Clinical reason skilled therapy is required (not maintenance)
+        â�¢ Patient response to treatment and measurable progress
+        â�¢ Functional goals with objective baselines and targets
+        â�¢ Safety considerations or precautions addressed
+        â�¢ Plan and frequency of continued treatment
 
         **What to avoid:** Unskilled language (e.g., "patient tolerated well"), non-measurable progress, missing assist levels, or absent functional connection.
 

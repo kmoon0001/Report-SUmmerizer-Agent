@@ -40,7 +40,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AuditStatus
-      activity: "ðŸ”„ **Running completeness audit...** checking for clinician signatures, objective baselines, and intervention clarity."
+      activity: "ðŸ�� **Running completeness audit...** checking for clinician signatures, objective baselines, and intervention clarity."
 
     - kind: BeginDialog
       id: CallComplianceEngine
@@ -75,11 +75,11 @@ beginDialog:
           optionSetName: CompletenessNextSteps
           items:
             - id: human_review
-              displayName: ðŸ•µï¸ Send to Human Review
+              displayName: ðŸ�µï¸� Send to Human Review
             - id: edit_note
-              displayName: ðŸ“ Revise Documentation
+              displayName: ðŸ�� Revise Documentation
             - id: menu
-              displayName: ðŸ  Back to Main Menu
+              displayName: ðŸ�  Back to Main Menu
 
     - kind: ConditionGroup
       id: ActionRedirect

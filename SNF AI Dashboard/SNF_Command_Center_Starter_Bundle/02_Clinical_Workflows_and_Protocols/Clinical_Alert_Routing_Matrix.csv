@@ -1,5 +1,0 @@
-Severity,AlertType,PrimaryRoute,EscalationRoute,TargetResponseTime,Notes
-Low,Documentation_or_nonurgent_issue,Secure_message,Supervisor_review,4_hours,Use for non-urgent remediation or awareness
-Medium,Clinical_review_needed,Charge_nurse,Department_lead,1_hour,Use when timely clinician review is required
-High,Acute_safety_risk,Rapid_response,Medical_director,15_minutes,Use for significant deterioration or serious safety risk
-Critical,Life_threatening,Code_blue,Emergency_response,Immediate,Use for life-threatening emergencies

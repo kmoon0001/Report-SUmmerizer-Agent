@@ -49,7 +49,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AnalyzingMessage
-      activity: "â³ **Analyzing {Topic.Discipline} documentation...** reviewing for clinician intervention, complexity, and specific patient safety factors."
+      activity: "â�³ **Analyzing {Topic.Discipline} documentation...** reviewing for clinician intervention, complexity, and specific patient safety factors."
 
     - kind: ConditionGroup
       id: RouteToSpecialist
@@ -77,7 +77,7 @@ beginDialog:
 
     - kind: SendActivity
       id: EducationalDisclaimer
-      activity: "âš ï¸ **Disclaimer:** This analysis is for educational and administrative audit support. Always refer to your facility's specific policies and licensed clinician judgment."
+      activity: "âš ï¸� **Disclaimer:** This analysis is for educational and administrative audit support. Always refer to your facility's specific policies and licensed clinician judgment."
 
 inputType: {}
 outputType: {}

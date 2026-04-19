@@ -1,7 +1,7 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -44,7 +44,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ“ FILE & IMAGE PROCESSING"
+                      text: "ðŸ� FILE & IMAGE PROCESSING"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -102,6 +102,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

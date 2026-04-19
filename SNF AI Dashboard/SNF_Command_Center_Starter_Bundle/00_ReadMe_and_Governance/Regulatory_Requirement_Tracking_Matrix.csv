@@ -1,6 +1,0 @@
-RequirementName,Jurisdiction,Category,Owner,ReviewCadence,CurrentStatus,Notes
-HIPAA_Privacy,Federal,Privacy,AssignBeforeUse,Annual,StarterTemplate,Starter row
-HITECH_Breach_Tracking,Federal,Security,AssignBeforeUse,Annual,StarterTemplate,Starter row
-State_Long_Term_Care_Reporting,State,Regulatory,AssignBeforeUse,Quarterly,StarterTemplate,Starter row
-CMS_Quality_Reporting,Federal,Quality,AssignBeforeUse,Monthly,StarterTemplate,Starter row
-

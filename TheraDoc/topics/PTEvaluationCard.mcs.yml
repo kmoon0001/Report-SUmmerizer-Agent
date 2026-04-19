@@ -93,7 +93,7 @@ beginDialog:
             {
               "type": "Input.Text",
               "id": "painBaseline",
-              "label": "Pain Details â€” Location, Quality, Aggravating Factors",
+              "label": "Pain Details â�� Location, Quality, Aggravating Factors",
               "isMultiline": true,
               "placeholder": "Right hip, aching with weight-bearing..."
             },
@@ -174,7 +174,7 @@ beginDialog:
             {
               "type": "Input.Text",
               "id": "functionalMobilityBaseline",
-              "label": "Functional Mobility Baseline â€” Section GG",
+              "label": "Functional Mobility Baseline â�� Section GG",
               "isMultiline": true
             },
             {

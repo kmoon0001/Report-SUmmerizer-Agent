@@ -1,0 +1,95 @@
+﻿# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: GLOBAL_CMS_COMPLIANCE.md + CMS Appeals Process (Chapter 29 of Medicare Claims Processing Manual).
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md.
+# **Self-Correction**: DenialDefense-Audit gate before final letter generation.
+
+mcs.metadata:
+  componentName: MedicareAppealGenerator
+  description: >
+    Platinum Medicare Appeal Generator. Produces high-fidelity medical necessity
+    rebuttals for Medicare Redeterminations (Level 1) and Reconsiderations (Level 2).
+    Grounded in CMS Chapters 15 and 29 and Jimmo v. Sebelius.
+kind: AdaptiveDialog
+modeldescription: >
+  Elite appeal generation module for the Denial Defense Agent.
+  Takes a denial reason (e.g., "Services not skilled") and clinical documentation,
+  and produces a professionally formatted appeal letter draft. Includes citations
+  to the Medicare Benefit Policy Manual and Jimmo settlement standards.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Medicare Appeal Generator
+    triggerQueries:
+      - generate appeal letter
+      - write a rebuttal
+      - medicare reconsideration
+      - redetermination request
+      - fight this denial
+      - appeal medicare services
+      - denial rebuttal letter
+
+  actions:
+    - kind: SendActivity
+      id: sendActivity_intro
+      activity: |-
+        ðŸ›¡ï¸ **Denial Defense Hub â€” Medicare Appeal Generator**
+        I will help you draft a high-fidelity medical necessity rebuttal grounded in CMS regulations and legal settlement standards.
+
+    - kind: Question
+      id: question_denialReason
+      variable: Topic.AppealDenialReason
+      prompt: What was the primary reason for the denial stated by the payer?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: NotSkilled
+              displayName: Services not skilled / can be performed by non-licensed staff
+            - id: NotMedicallyNecessary
+              displayName: Services not medically necessary
+            - id: PotentialMet
+              displayName: Patient has reached maximum potential / plateaued
+            - id: MaintenanceExcluded
+              displayName: Maintenance therapy not covered
+            - id: DocumentationGaps
+              displayName: Documentation fails to support skilled intervention
+
+    - kind: Question
+      id: question_clinicalNote
+      variable: Topic.AppealNoteText
+      prompt: Paste the clinical note or progress report that best rebuts this denial.
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: BeginDialog
+      id: beginDialog_appealGeneration
+      input:
+        binding:
+          text: =Concatenate(
+            "### MEDICARE APPEAL REBUTTAL REQUEST â€” PLATINUM STANDARD ###\n\n",
+            "DENIAL REASON: ", Topic.AppealDenialReason, "\n",
+            "CLINICAL DOCS:\n", Topic.AppealNoteText, "\n\n",
+            "REQUIREMENTS:\n",
+            "1. REBUTTAL NARRATIVE: Draft a 3-paragraph clinical rebuttal. Paragraph 1: State why the therapist is required per CMS Chapter 15. Paragraph 2: Reference specific objective data from the note that proves skilled response. Paragraph 3: Address the Jimmo maintenance standard explicitly.\n",
+            "2. REGULATORY CITATIONS: Include 3-4 specific citations to the Medicare Benefit Policy Manual Chapter 15 (Section 220 for Home Health, or Section 230/240 for SNF).\n",
+            "3. ACTION CALL: Demand redetermination based on the evidence provided.\n",
+            "Apply Platinum forensic logic weights."
+          )
+      dialog: pcca_agent39xn69.action.SNFRehabAgent-SBARGenerateNote
+      output:
+        binding:
+          generatednote: Topic.AppealDraft
+
+    - kind: SendActivity
+      id: sendActivity_output
+      activity: |-
+        ### ðŸ›¡ï¸ Medicare Appeal Draft â€” Denial Defense
+
+        {Topic.AppealDraft}
+
+        ---
+        **âš ï¸ Disclaimer**: This draft requires review by your clinical leadership and compliance officer before submission.
+

@@ -1,9 +1,0 @@
-mcs.metadata:
-  componentName: FallbackCount
-kind: Variable
-name: FallbackCount
-scope: User
-isExternalInitializationAllowed: false
-isOutputToExternalCallers: false
-initializationTimeoutInMilliseconds: 0
-

@@ -1,9 +1,0 @@
-mcs.metadata:
-  componentName: TopicVar1
-kind: Variable
-name: TopicVar1
-scope: User
-isExternalInitializationAllowed: false
-isOutputToExternalCallers: false
-initializationTimeoutInMilliseconds: 0
-

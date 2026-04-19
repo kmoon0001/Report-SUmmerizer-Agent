@@ -1,9 +1,0 @@
-mcs.metadata:
-  componentName: YesNoOptions
-kind: ClosedListEntity
-displayName: YesNoOptions
-items:
-  - id: Yes
-    displayName: Yes
-  - id: No
-    displayName: No

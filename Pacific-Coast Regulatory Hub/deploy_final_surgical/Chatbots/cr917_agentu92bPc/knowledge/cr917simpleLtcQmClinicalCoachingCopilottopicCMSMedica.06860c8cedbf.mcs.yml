@@ -1,9 +1,0 @@
-﻿mcs.metadata:
-  componentName: Medicare therapy standards (Pub. 100-02, Ch. 15 Â§220.2)
-  description: Elite clinical intelligence module specialized in [cr917simpleLtcQmClinicalCoachingCopilottopicCMSMedica.06860c8cedbf]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
-kind: KnowledgeSourceConfiguration
-source:
-  kind: PublicSiteSearchSource
-  triggerCondition: true
-  site: https://www.cms.gov/medicare
-

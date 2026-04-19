@@ -1,9 +1,0 @@
-mcs.metadata:
-  componentName: QMAnalysisResult
-kind: Variable
-name: QMAnalysisResult
-scope: User
-isExternalInitializationAllowed: false
-isOutputToExternalCallers: false
-initializationTimeoutInMilliseconds: 0
-

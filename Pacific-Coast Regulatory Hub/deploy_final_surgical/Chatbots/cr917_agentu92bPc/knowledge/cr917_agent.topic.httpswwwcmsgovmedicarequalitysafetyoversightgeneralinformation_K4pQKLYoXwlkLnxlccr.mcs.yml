@@ -1,9 +1,0 @@
-﻿mcs.metadata:
-  componentName: CMS quality safety oversight general information
-  description: Elite clinical intelligence module specialized in [cr917_agent.httpswwwcmsgovmedicarequalitysafetyoversightgeneralinformation_K4pQKLYoXwlkLnxlccr]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
-kind: KnowledgeSourceConfiguration
-source:
-  kind: PublicSiteSearchSource
-  triggerCondition: true
-  site: https://www.cms.gov/medicare/quality-safety-oversight-general-information
-

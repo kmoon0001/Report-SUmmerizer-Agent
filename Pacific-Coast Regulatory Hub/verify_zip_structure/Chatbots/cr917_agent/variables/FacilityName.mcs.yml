@@ -1,8 +1,0 @@
-mcs.metadata:
-  componentName: FacilityName
-kind: Variable
-name: FacilityName
-scope: User
-isExternalInitializationAllowed: false
-isOutputToExternalCallers: false
-initializationTimeoutInMilliseconds: 0

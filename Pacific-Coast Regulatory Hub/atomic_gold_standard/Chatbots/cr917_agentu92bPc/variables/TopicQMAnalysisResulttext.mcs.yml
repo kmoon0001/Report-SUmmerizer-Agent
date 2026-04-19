@@ -1,9 +1,0 @@
-mcs.metadata:
-  componentName: TopicQMAnalysisResulttext
-kind: Variable
-name: TopicQMAnalysisResulttext
-scope: User
-isExternalInitializationAllowed: false
-isOutputToExternalCallers: false
-initializationTimeoutInMilliseconds: 0
-

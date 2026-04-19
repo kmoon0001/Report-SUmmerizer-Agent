@@ -1,5 +1,0 @@
-jsonFileName: workflows/PLACEHOLDER-SimpleLTCApiIntake/workflow.json
-workflowId: placeholder-simpleltc-api
-name: SimpleLTC API Data Intake
-type: 1
-description: "PLACEHOLDER — Awaiting SimpleLTC API credentials. When activated, this flow will pull facility and resident QM data directly from SimpleLTC API, normalize it, and store in Dataverse for agent consumption. Until then, the manual upload path is the primary data intake."

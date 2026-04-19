@@ -1,5 +1,0 @@
-{
-  "name": "Pacific Coast SLP Portal",
-  "description": "A coastal-themed clinical dashboard for Speech-Language Pathologists, featuring advanced clinical resources, documentation aids, and compliance tools with a Pacific Coast aesthetic.",
-  "requestFramePermissions": ["microphone"]
-}

@@ -1,4 +1,4 @@
-kind: AdaptiveDialog
+﻿kind: AdaptiveDialog
 description: Elite security gate for emergency agent shutdown. Monitoring env_SNF_Global_KillSwitch.
 beginDialog:
   kind: OnRecognizedIntent
@@ -20,8 +20,9 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: msgEmergency
-              activity: 🚨 SYSTEM ALERT: This agent has been placed in EMERGENCY LOCKDOWN by Ensign Services Security. All autonomous processing is suspended.
+              activity: ðŸš¨ SYSTEM ALERT: This agent has been placed in EMERGENCY LOCKDOWN by Pacific Coast Services Security. All autonomous processing is suspended.
             - kind: EndDialog
               id: stopAll
     
     # 2. Else: Continue as normal
+

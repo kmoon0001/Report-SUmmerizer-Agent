@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Skilled Need and Medical Necessity
-  description: Elite clinical intelligence module specialized in [Skilledneedandmedicalnecessity]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Skilledneedandmedicalnecessity]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Enhanced topic for evaluating Skilled Need and Medical Necessity.
     Connects to specialist agents for deep clinical documentation audit.
 beginDialog:
@@ -49,7 +49,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AnalyzingMessage
-      activity: "⏳ **Analyzing {Topic.Discipline} documentation...** reviewing for clinician intervention, complexity, and specific patient safety factors."
+      activity: "â³ **Analyzing {Topic.Discipline} documentation...** reviewing for clinician intervention, complexity, and specific patient safety factors."
 
     - kind: ConditionGroup
       id: RouteToSpecialist
@@ -77,10 +77,11 @@ beginDialog:
 
     - kind: SendActivity
       id: EducationalDisclaimer
-      activity: "⚠️ **Disclaimer:** This analysis is for educational and administrative audit support. Always refer to your facility's specific policies and licensed clinician judgment."
+      activity: "âš ï¸ **Disclaimer:** This analysis is for educational and administrative audit support. Always refer to your facility's specific policies and licensed clinician judgment."
 
 inputType: {}
 outputType: {}
+
 
 
 

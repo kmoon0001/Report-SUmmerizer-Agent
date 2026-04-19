@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,7 +13,7 @@
 
 mcs.metadata:
   componentName: OT Daily Note Intake
-  description: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
   guardrails:
     - Always use closed-list choices for discipline, note type, interventions, assist level, goal status, and cert period
     - Only use free text for patient identifier, date, specific metrics, and custom clinical details
@@ -21,7 +21,7 @@ mcs.metadata:
     - Check contract: action inputs must match flow parameters exactly
     - On failure: preserve context and offer retry/manual continue/start over
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -95,7 +95,7 @@ beginDialog:
 
             CLINICAL SESSION DATA:
             Primary ADL/Functional Task: ", Topic.primaryADLTask, "
-            Session description: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+            Session description: Elite clinical intelligence module specialized in [OTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 
             GENERATE THE OT DAILY NOTE WITH THESE EXACT SECTIONS:
 
@@ -111,7 +111,7 @@ beginDialog:
                - Cognition/Safety Awareness: [relevant observations]
                - Sessions This Week/Total Authorized: [if provided]
 
-            4. ASSESSMENT: Skilled justification — document progress, barriers, rehab potential, and why continued OT is medically necessary.
+            4. ASSESSMENT: Skilled justification â€” document progress, barriers, rehab potential, and why continued OT is medically necessary.
 
             5. PLAN: Next session focus, frequency, goals to address, and any changes to treatment approach.
 
@@ -120,7 +120,7 @@ beginDialog:
             - Every section must be clinically meaningful and specific
             - Never use vague filler language
             - Note must justify Medicare skilled level of care
-            - Do not include any preamble or explanation — output the note only")
+            - Do not include any preamble or explanation â€” output the note only")
 
       dialog: pcca_agent.action.TheraDoc-PTGenerateNote
       output:
@@ -130,12 +130,13 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_zQeeYU
       activity: |-
-        ⚠️ DRAFT ONLY ⚠️ — Review and edit before entering into the EHR.
+        âš ï¸ DRAFT ONLY âš ï¸ â€” Review and edit before entering into the EHR.
 
         {Topic.generatednote}
 
 inputType: {}
 outputType: {}
+
 
 
 

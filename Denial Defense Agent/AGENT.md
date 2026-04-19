@@ -1,4 +1,4 @@
-# Denial Defense Agent (Platinum Standard V3)
+﻿# Denial Defense Agent (Platinum Standard V3)
 
 **Metadata:**
 - **Status**: IRONCLAD HARDENED
@@ -7,7 +7,7 @@
 
 ---
 
-## 🛡️ PLATINUM HARDENING & GUARDRAILS (IRONCLAD)
+## ðŸ›¡ï¸ PLATINUM HARDENING & GUARDRAILS (IRONCLAD)
 
 ### 1. Confidence & Boundaries
 - **Logic**: Every audit must report a **Confidence Scale (0-100)**.
@@ -25,18 +25,19 @@
 
 ---
 
-## 📐 MICROSOFT LEARN: IMPLEMENTATION SOURCE OF TRUTH
+## ðŸ“ MICROSOFT LEARN: IMPLEMENTATION SOURCE OF TRUTH
 - **Reference**: [Designing Agentic Workflows in Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/agentic-workflows)
 - **Constraint**: Strict use of **Portable Solution Structures** (src/Topics, /KB, /Cards).
 - **Automation**: Use **Action.Submit** JSON payloads to eliminate conversational friction.
 
 ---
 
-## 🩺 CLINICAL PREFLIGHT AUDIT CHECKLIST
+## ðŸ©º CLINICAL PREFLIGHT AUDIT CHECKLIST
 - [x] **ASHA/AOTA/APTA Neutrality**: Verified.
 - [x] **CFR Part 483 Alignment**: Verified.
 - [x] **7-30-90 Framework**: Integrated.
 - [x] **Adversarial Injection Firewall**: Active in `src/KnowledgeBase`.
 
 ---
-*Ensign Services: World-Class Clinical Intelligence Infrastructure.*
+*Pacific Coast Services: World-Class Clinical Intelligence Infrastructure.*
+

@@ -1,4 +1,4 @@
-# TheraDoc Three-Way Merge Report
+﻿# TheraDoc Three-Way Merge Report
 
 Date: 2026-04-18  
 Workspace: `D:\my agents copilot studio\TheraDoc`
@@ -10,7 +10,7 @@ Workspace: `D:\my agents copilot studio\TheraDoc`
   - Bot: `855c7dda-ad19-4734-a8cd-df366c48f3d2`
   - Components loaded: `93`
 - Default env template extracted from:
-  - Environment: `03cc92c3-986c-4cf4-ae27-1478cf99d17f` (`Ensign Services (default)`)
+  - Environment: `03cc92c3-986c-4cf4-ae27-1478cf99d17f` (`Pacific Coast Services (default)`)
   - Bot: `f0a91e13-4b2f-f111-88b4-000d3a37eba2`
   - Components loaded: `70`
 
@@ -60,3 +60,4 @@ Decision: use Dev template as cloud source for merge because it is the richer/la
 
 - Local retains additional orchestration topics (`GenerateNoteOrchestration`, `PlanOfCareGeneration`, etc.) to preserve local enhancements.
 - A dedicated TheraDoc preflight script call timed out in this session; deterministic sweep/dependency gates passed.
+

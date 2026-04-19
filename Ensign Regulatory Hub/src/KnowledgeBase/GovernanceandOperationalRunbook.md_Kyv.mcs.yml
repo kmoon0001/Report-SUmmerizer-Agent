@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,9 +13,10 @@
 
 mcs.metadata:
   componentName: Governance and Operational Runbook
-  description: Elite clinical intelligence module specialized in [GovernanceandOperationalRunbook.md_Kyv]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [GovernanceandOperationalRunbook.md_Kyv]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: FileAttachmentComponentMetadata
 triggerCondition: true
+
 
 
 

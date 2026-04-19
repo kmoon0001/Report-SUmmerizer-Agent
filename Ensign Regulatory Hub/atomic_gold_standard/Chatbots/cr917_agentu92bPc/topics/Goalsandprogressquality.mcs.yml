@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Goals and Progress Quality
-  description: Elite clinical intelligence module specialized in [Goalsandprogressquality]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Goalsandprogressquality]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Enhanced topic for Goal and Progress audit.
     Automates analysis using the Coaching Agent to check SMART goal alignment.
 beginDialog:
@@ -32,7 +32,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AssessingMsg
-      activity: "📝 **Assessing documentation...** checking for SMART goal structure, quantifiable baselines, and functional outcomes."
+      activity: "ðŸ“ **Assessing documentation...** checking for SMART goal structure, quantifiable baselines, and functional outcomes."
 
     - kind: BeginDialog
       id: CallCoach
@@ -61,5 +61,6 @@ beginDialog:
               dialog: cr917_agentu92bPc.topic.Goalsandprogressquality
 inputType: {}
 outputType: {}
+
 
 

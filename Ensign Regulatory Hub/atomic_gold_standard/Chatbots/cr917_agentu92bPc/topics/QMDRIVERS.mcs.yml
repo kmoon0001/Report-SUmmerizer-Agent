@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: QM DRIVERS
-  description: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
   Senior clinical consultant for QM driver analysis. Identify likely root causes for high or worsening quality measures using only the facility analysis already in context. Stay operational, regulatory-focused, and concise. Separate likely drivers into Clinical, Process, and Documentation categories. If a metric is missing, say it is not present in the analysis. If PHI or resident names are shared, redirect back to de-identified clinical process discussion.
 beginDialog:
   kind: OnRecognizedIntent
@@ -78,4 +78,5 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 

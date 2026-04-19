@@ -1,4 +1,4 @@
-kind: BotDefinition
+﻿kind: BotDefinition
 entity:
   accessControlPolicy: GroupMembership
   authenticationMode: Integrated
@@ -6911,7 +6911,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [AmbiguousRequestDisambiguation].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7035,7 +7035,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [AuditExistingNote].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7137,7 +7137,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [ComplianceHelp].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7193,7 +7193,7 @@ components:
   displayName: Discharge Note Intake
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [DischargeNoteIntake].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -7203,7 +7203,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [DischargeNoteIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7487,7 +7487,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [DocumentationGuidance].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7521,7 +7521,7 @@ components:
   displayName: End of Conversation
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [EndofConversation].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining. This system topic is only
     triggered by a redirect action, and guides the user through rating their conversation
     with the agent.
@@ -7610,7 +7610,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [ErrorTimeoutRecovery].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7642,7 +7642,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [EvaluationAssessmentIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7830,7 +7830,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [FormatPreference].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -7863,7 +7863,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [GenerateNoteOrchestration].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -8044,7 +8044,7 @@ components:
   displayName: Greeting
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [Greeting]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8155,7 +8155,7 @@ components:
   displayName: Multiple Topics Matched
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [MultipleTopicsMatched].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8215,7 +8215,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [NursingHandoff].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -8251,7 +8251,7 @@ components:
   displayName: On Error
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [OnError]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8415,7 +8415,7 @@ components:
   displayName: OT Daily Note Intake
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [OTDailyNoteIntake].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8425,7 +8425,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [OTDailyNoteIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -8488,7 +8488,7 @@ components:
               \ ADL/Functional Task: \", Topic.primaryADLTask, \"\nSession description:\
               \ Elite clinical intelligence module specialized in [OTDailyNoteIntake].\
               \ Executes high-precision data analysis grounded in CMS Chapter 15 and\
-              \ Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.\n\
+              \ Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.\n\
               \nGENERATE THE OT DAILY NOTE WITH THESE EXACT SECTIONS:\n\n1. SKILLED\
               \ SERVICE: State the skilled OT service provided and medical necessity.\n\
               \n2. SUBJECTIVE: Patient/caregiver report on performance, pain, fatigue,\
@@ -8522,7 +8522,7 @@ components:
   displayName: OT Evaluation Card
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [OTEvaluationCard].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8631,7 +8631,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [ParseBrainDump].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -8676,7 +8676,7 @@ components:
   displayName: Plan Of Care Generation
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [PlanOfCareGeneration].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8686,7 +8686,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [PlanOfCareGeneration].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -8795,7 +8795,7 @@ components:
   displayName: Progress Note Intake
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [ProgressNoteIntake].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -8805,7 +8805,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [ProgressNoteIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -9033,7 +9033,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [PTDailyNoteCard].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -9156,7 +9156,7 @@ components:
   displayName: PT Daily Note Intake
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [PTDailyNoteIntake].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -9166,7 +9166,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [PTDailyNoteIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -9349,7 +9349,7 @@ components:
   displayName: PT Evaluation Card
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [PTEvaluationCard].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -9593,7 +9593,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [RecertificationIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -9639,7 +9639,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [RedoReviseNote].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -9703,7 +9703,7 @@ components:
   displayName: Conversational boosting
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [Search]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -9736,7 +9736,7 @@ components:
   displayName: Session Close
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [SessionClose]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -9746,7 +9746,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [SessionClose].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -10040,7 +10040,7 @@ components:
   displayName: 'Sign in '
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [Signin]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -10350,7 +10350,7 @@ components:
   displayName: ST Daily Note Intake
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [STDailyNoteIntake].
-    Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services
+    Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services
     Ironclad Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -10360,7 +10360,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [STDailyNoteIntake].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -10418,7 +10418,7 @@ components:
               \nCLINICAL SESSION DATA:\nPrimary Speech/Communication Concern: \",\
               \ Topic.primarySpeechConcern, \"\nSession description: Elite clinical\
               \ intelligence module specialized in [STDailyNoteIntake]. Executes high-precision\
-              \ data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad\
+              \ data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad\
               \ Standards. Optimized for Dynamic Chaining.\n\nGENERATE THE ST DAILY\
               \ NOTE WITH THESE EXACT SECTIONS:\n\n1. SKILLED SERVICE: State the skilled\
               \ ST service provided and medical necessity.\n\n2. SUBJECTIVE: Patient/caregiver\
@@ -10455,7 +10455,7 @@ components:
   displayName: Thank you
   parentBotId: 855c7dda-ad19-4734-a8cd-df366c48f3d2
   description: Elite clinical intelligence module specialized in [ThankYou]. Executes
-    high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad
+    high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad
     Standards. Optimized for Dynamic Chaining.
   shareContext: {}
   state: Active
@@ -10492,7 +10492,7 @@ components:
   dialog:
     kind: AdaptiveDialog
     modeldescription: Elite clinical intelligence module specialized in [WelcomeStart].
-      Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign
+      Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast
       Services Ironclad Standards. Optimized for Dynamic Chaining.
     beginDialog:
       kind: OnRecognizedIntent
@@ -10510,4 +10510,5 @@ components:
           \ what you need, or pick from the list above."
     inputType: {}
     outputType: {}
+
 

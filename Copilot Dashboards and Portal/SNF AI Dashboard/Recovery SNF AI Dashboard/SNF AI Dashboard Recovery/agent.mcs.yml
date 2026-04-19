@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF AI Dashboard Recovery
-  description: Elite clinical intelligence agent for Ensign Services [SNF AI Dashboard Recovery]. Specialized in high-fidelity clinical summarization, CMS Chapter 15 compliance auditing, and proactive quality management. Hardened with the Ironclad Standard and Optimized for Microsoft Learn Platinum performance.
+  description: Elite clinical intelligence agent for Pacific Coast Services [SNF AI Dashboard Recovery]. Specialized in high-fidelity clinical summarization, CMS Chapter 15 compliance auditing, and proactive quality management. Hardened with the Ironclad Standard and Optimized for Microsoft Learn Platinum performance.
 kind: GptComponentMetadata
 displayName: SNF AI Dashboard Recovery
 instructions: |-
@@ -41,6 +41,7 @@ gptCapabilities:
 aISettings:
   model:
     modelNameHint: sonnet4-5
+
 
 
 

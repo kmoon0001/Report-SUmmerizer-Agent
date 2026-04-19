@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: INTERNAL_ResidentInsightDataverseLookupFlow
 kind: TaskDialog
-modeldescription: Elite clinical intelligence module specialized in [COPILOTV2-ResidentInsightDataverseLookupNative]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [COPILOTV2-ResidentInsightDataverseLookupNative]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: resident_data_text
 
@@ -10,4 +10,5 @@ action:
   flowId: 88ce03b7-6b25-f111-8341-000d3a33801d
 
 outputMode: All
+
 

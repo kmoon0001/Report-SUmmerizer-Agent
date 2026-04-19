@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,7 +13,7 @@
 
 mcs.metadata:
   componentName: Session Close
-  description: Elite clinical intelligence module specialized in [SessionClose]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [SessionClose]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
   guardrails:
     - Use closed-list choices for session type, primary task, and response
     - Only use free text for brief session notes and deviations
@@ -22,7 +22,7 @@ mcs.metadata:
     - Check contract: action inputs must match flow parameters exactly
     - On failure: preserve context and offer retry/manual continue/start over
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [SessionClose]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [SessionClose]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -371,12 +371,13 @@ beginDialog:
     # Send confirmation with disclaimer
     - kind: SendActivity
       id: send_confirmation
-      activity: "✅ Session note generated. ⚠️ DRAFT ONLY — Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
+      activity: "âœ… Session note generated. âš ï¸ DRAFT ONLY â€” Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
 
     # Offer audit option
     - kind: BeginDialog
       id: audit_option
       dialog: pcca_agent.topic.AuditExistingNote
+
 
 
 

@@ -1,8 +1,9 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: OIG Healthcare Fraud Alerts and Compliance News
-  description: Elite clinical intelligence module specialized in [pcca_agent.httpsoighhsgovnewsroom_XXFni5xxYOS9a6yaZxm4g]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [pcca_agent.httpsoighhsgovnewsroom_XXFni5xxYOS9a6yaZxm4g]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
   triggerCondition: true
   site: https://oig.hhs.gov/newsroom
+

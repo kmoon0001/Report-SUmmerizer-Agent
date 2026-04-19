@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,7 +13,7 @@
 
 mcs.metadata:
   componentName: PT Daily Note Intake
-  description: Elite clinical intelligence module specialized in [PTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [PTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
   guardrails:
     - Always use closed-list choices for discipline, note type, interventions, assist level, goal status, and cert period
     - Only use free text for patient identifier, date, specific metrics, and custom clinical details
@@ -21,7 +21,7 @@ mcs.metadata:
     - Check contract: action inputs must match flow parameters exactly
     - On failure: preserve context and offer retry/manual continue/start over
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [PTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [PTDailyNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -174,11 +174,11 @@ beginDialog:
           actions:
             - kind: SearchAndSummarizeContent
               id: BYx599
-              userInput: "=Concatenate(\"You are a clinical documentation specialist generating SNF therapy notes that meet the GOLD STANDARD for PT Daily Note. REQUIRED SECTIONS — include ALL of the following, in this order, every time: 1. Discipline/Date/Therapist header 2. Diagnosis (treatment diagnosis only — NOT long-term goals or cert dates) 3. Subjective: Patient report of pain (0-10), tolerance, complaints 4. Objective: Treatment performed (specific interventions, reps, sets, weight, distance, time), Assist level with descriptor, Skilled interventions used (cueing, guarding, hands-on facilitation) 5. Assessment: Patient response to treatment, Skilled justification for continued PT, Progress toward functional goal (measurable, referenced to baseline) 6. Plan: Next session plan, frequency confirmation, any precautions 7. Therapist signature line STRICT RULES: NEVER include plan of care goals, certification dates, frequency/duration of the episode, or diagnoses lists. NEVER include evaluation-level content (PLOF, rehab potential, LTG/STG). EVERY section must be populated with patient-specific data from the intake variables — never leave a section generic or as a placeholder. Assist levels must follow standard terminology: Dependent, Max A, Mod A, Min A, Supervision/Contact Guard, Modified Independent, Independent — always include cueing type. Pain must be rated 0-10 NRS scale. All interventions must be named specifically (not 'exercises performed'). Skilled justification must appear in the Assessment — one sentence minimum explaining why skilled therapy is medically necessary today. Output the note as clean, readable plain text. No markdown headers. Patient data: Primary mobility task: \", Text(Topic.primaryMobilityTask), \". Assist level: \", Text(Topic.assistLevel), \". Goal status: \", Text(Topic.goalStatus), \". Cert period week: \", Text(Topic.certPeriodWeek), \".\")"
+              userInput: "=Concatenate(\"You are a clinical documentation specialist generating SNF therapy notes that meet the GOLD STANDARD for PT Daily Note. REQUIRED SECTIONS â€” include ALL of the following, in this order, every time: 1. Discipline/Date/Therapist header 2. Diagnosis (treatment diagnosis only â€” NOT long-term goals or cert dates) 3. Subjective: Patient report of pain (0-10), tolerance, complaints 4. Objective: Treatment performed (specific interventions, reps, sets, weight, distance, time), Assist level with descriptor, Skilled interventions used (cueing, guarding, hands-on facilitation) 5. Assessment: Patient response to treatment, Skilled justification for continued PT, Progress toward functional goal (measurable, referenced to baseline) 6. Plan: Next session plan, frequency confirmation, any precautions 7. Therapist signature line STRICT RULES: NEVER include plan of care goals, certification dates, frequency/duration of the episode, or diagnoses lists. NEVER include evaluation-level content (PLOF, rehab potential, LTG/STG). EVERY section must be populated with patient-specific data from the intake variables â€” never leave a section generic or as a placeholder. Assist levels must follow standard terminology: Dependent, Max A, Mod A, Min A, Supervision/Contact Guard, Modified Independent, Independent â€” always include cueing type. Pain must be rated 0-10 NRS scale. All interventions must be named specifically (not 'exercises performed'). Skilled justification must appear in the Assessment â€” one sentence minimum explaining why skilled therapy is medically necessary today. Output the note as clean, readable plain text. No markdown headers. Patient data: Primary mobility task: \", Text(Topic.primaryMobilityTask), \". Assist level: \", Text(Topic.assistLevel), \". Goal status: \", Text(Topic.goalStatus), \". Cert period week: \", Text(Topic.certPeriodWeek), \".\")"
 
             - kind: SendActivity
               id: sendActivity_tUY0Ag
-              activity: "⚠️ DRAFT ONLY — Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.\n\nNote: Your context has been preserved. You can:\n• Retry: Say 'try again' to regenerate\n• Edit manually: Say 'edit' to modify specific sections\n• Start over: Say 'start over' to begin a new note\n• Continue: Say 'continue' to proceed to audit"
+              activity: "âš ï¸ DRAFT ONLY â€” Review and edit this note before entering into the EHR. Do not include PHI or patient identifiers in any feedback.\n\nNote: Your context has been preserved. You can:\nâ€¢ Retry: Say 'try again' to regenerate\nâ€¢ Edit manually: Say 'edit' to modify specific sections\nâ€¢ Start over: Say 'start over' to begin a new note\nâ€¢ Continue: Say 'continue' to proceed to audit"
 
             - kind: BeginDialog
               id: M4puPD
@@ -195,7 +195,8 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_validationError
-              activity: "Some required information is missing. Your progress has been saved.\n\nPlease provide the missing details:\n• Primary mobility task\n• Assist level\n• Goal status\n• Certification period week\n\nOr say 'start over' to begin a new note."
+              activity: "Some required information is missing. Your progress has been saved.\n\nPlease provide the missing details:\nâ€¢ Primary mobility task\nâ€¢ Assist level\nâ€¢ Goal status\nâ€¢ Certification period week\n\nOr say 'start over' to begin a new note."
+
 
 
 

@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: QM Driver Analysis
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [QMDriverAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [QMDriverAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -31,10 +31,10 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "📝 Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
-            { type: "Action.Submit", title: "👥 Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
-            { type: "Action.Submit", title: "🏥 Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
-            { type: "Action.Submit", title: "🧑‍⚕️ Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
+            { type: "Action.Submit", title: "ðŸ“ Documentation", data: { driverCategory: "Documentation" }, tooltip: "MDS coding accuracy, care plan gaps, missing orders" },
+            { type: "Action.Submit", title: "ðŸ‘¥ Staffing", data: { driverCategory: "Staffing" }, tooltip: "Staffing levels, training gaps, handoff issues" },
+            { type: "Action.Submit", title: "ðŸ¥ Clinical Process", data: { driverCategory: "Clinical Process" }, tooltip: "Assessment frequency, intervention selection, protocols" },
+            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ Resident Complexity", data: { driverCategory: "Resident Complexity" }, tooltip: "Acuity changes, comorbidities, new admissions" }
           ]
         }
       output:
@@ -81,5 +81,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

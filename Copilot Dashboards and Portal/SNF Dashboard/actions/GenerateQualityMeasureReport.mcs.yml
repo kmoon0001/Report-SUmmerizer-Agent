@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF Command Center - Generate Quality Measure Report
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Generate Quality Measure Report
-modeldescription: Elite clinical intelligence module specialized in [GenerateQualityMeasureReport]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [GenerateQualityMeasureReport]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 inputs:
   - propertyName: measuregroup
     required: false
@@ -32,4 +32,5 @@ action:
   flowId: c2ed03e7-6fe4-44b3-a219-25d20cc36548
 
 outputMode: All
+
 

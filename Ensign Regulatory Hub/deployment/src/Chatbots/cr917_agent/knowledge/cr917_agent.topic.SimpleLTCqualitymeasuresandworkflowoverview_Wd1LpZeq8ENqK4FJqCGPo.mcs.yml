@@ -1,7 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SimpleLTC quality measures and workflow overview
-  description: Elite clinical intelligence module specialized in [cr917_agent.SimpleLTCqualitymeasuresandworkflowoverview_Wd1LpZeq8ENqK4FJqCGPo]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [cr917_agent.SimpleLTCqualitymeasuresandworkflowoverview_Wd1LpZeq8ENqK4FJqCGPo]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
   site: https://www.simpleltc.com
+

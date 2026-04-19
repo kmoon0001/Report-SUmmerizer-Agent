@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Validate Documentation Completeness
-  description: Elite clinical intelligence module specialized in [ValidateDocumentationCompleteness]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ValidateDocumentationCompleteness]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Automated completeness validation topic.
     Uses AI to calculate completeness scores and risk levels based on clinical elements.
 beginDialog:
@@ -40,7 +40,7 @@ beginDialog:
 
     - kind: SendActivity
       id: AuditStatus
-      activity: "🔄 **Running completeness audit...** checking for clinician signatures, objective baselines, and intervention clarity."
+      activity: "ðŸ”„ **Running completeness audit...** checking for clinician signatures, objective baselines, and intervention clarity."
 
     - kind: BeginDialog
       id: CallComplianceEngine
@@ -75,11 +75,11 @@ beginDialog:
           optionSetName: CompletenessNextSteps
           items:
             - id: human_review
-              displayName: 🕵️ Send to Human Review
+              displayName: ðŸ•µï¸ Send to Human Review
             - id: edit_note
-              displayName: 📝 Revise Documentation
+              displayName: ðŸ“ Revise Documentation
             - id: menu
-              displayName: 🏠 Back to Main Menu
+              displayName: ðŸ  Back to Main Menu
 
     - kind: ConditionGroup
       id: ActionRedirect
@@ -100,5 +100,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

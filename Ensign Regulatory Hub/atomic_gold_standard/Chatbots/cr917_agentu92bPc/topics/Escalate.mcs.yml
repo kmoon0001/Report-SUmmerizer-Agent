@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Escalate
-  description: Elite clinical intelligence module specialized in [Escalate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Escalate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Escalate within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 startBehavior: CancelOtherTopics
@@ -62,6 +62,7 @@ beginDialog:
         Escalating to a representative is not currently configured for this agent, however this is where the agent could provide information about how to get in touch with someone another way.
 
         Is there anything else I can help you with?
+
 
 
 

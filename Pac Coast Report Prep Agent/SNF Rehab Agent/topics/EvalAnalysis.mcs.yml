@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: EvalAnalysis
-  description: Elite clinical intelligence module specialized in [EvalAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [EvalAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnRecognizedIntent
@@ -72,4 +72,5 @@ beginDialog:
         - kind: BeginDialog
           id: beginDialog_evalEscalate
           dialog: pcca_agent39xn69.topic.Escalate
+
 

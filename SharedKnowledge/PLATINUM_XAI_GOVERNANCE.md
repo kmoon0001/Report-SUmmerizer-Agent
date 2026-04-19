@@ -1,4 +1,4 @@
-# PLATINUM_XAI_GOVERNANCE.md
+﻿# PLATINUM_XAI_GOVERNANCE.md
 
 **Metadata:**
 - **Role**: FDA/NIST Compliant Explainability Standard (V3.1)
@@ -22,4 +22,5 @@
 - **Pattern**: "The model's Attention Weights are concentrated on the 'Skilled Progress' section of the therapy note."
 
 ---
-*Enforced for all Ensign Services agents to ensure FDA/NIST compliant transparency.*
+*Enforced for all Pacific Coast Services agents to ensure FDA/NIST compliant transparency.*
+

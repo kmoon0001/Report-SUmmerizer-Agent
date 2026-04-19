@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Publish Output
-  description: Elite clinical intelligence module specialized in [PublishOutput]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [PublishOutput]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Publish Output within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 beginDialog:
@@ -49,14 +49,14 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: SendActivity_Vs0ssA
-              activity: ✅ Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
+              activity: âœ… Your compliance report has been approved and delivered. Thank you for using the Pacific Coast Compliance Analyzer (PCA).
 
         - id: ConditionItem_DB9HpK
           condition: =Topic.ApprovalStatus = ApprovalStatusOptions.rejected
           actions:
             - kind: SendActivity
               id: SendActivity_Hp7Fh6
-              activity: "❌ Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
+              activity: "âŒ Your compliance report was rejected. Reviewer comments: {Topic.ReviewerComments}"
 
             - kind: Question
               id: Question_jFYbDy
@@ -66,6 +66,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

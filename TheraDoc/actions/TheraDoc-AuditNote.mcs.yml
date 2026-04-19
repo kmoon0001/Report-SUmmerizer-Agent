@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: TheraDoc - Audit Note
 kind: TaskDialog
 modelDisplayName: TheraDoc - Audit Note
-modeldescription: Elite clinical intelligence module specialized in [TheraDoc-AuditNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-AuditNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: auditresult
 
@@ -15,4 +15,5 @@ action:
   inputMode: Prompt
 
 outputMode: All
+
 

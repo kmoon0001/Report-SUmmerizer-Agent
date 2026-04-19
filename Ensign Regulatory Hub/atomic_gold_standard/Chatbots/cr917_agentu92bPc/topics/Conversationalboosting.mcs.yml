@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Conversational Boosting
-  description: Elite clinical intelligence module specialized in [Conversationalboosting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Conversationalboosting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Enhanced Conversational Boosting with integrated user feedback loop for AI quality tracking.
 beginDialog:
   kind: OnUnknownIntent
@@ -57,5 +57,6 @@ beginDialog:
             - kind: EndDialog
               id: end-topic
               clearTopicQueue: true
+
 
 

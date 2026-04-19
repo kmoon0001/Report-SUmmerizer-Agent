@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Multiple Topics Matched
-  description: Elite clinical intelligence module specialized in [MultipleTopicsMatched]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
-modeldescription: Elite clinical intelligence module specialized in [MultipleTopicsMatched]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [MultipleTopicsMatched]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [MultipleTopicsMatched]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnSelectIntent
@@ -45,5 +45,6 @@ beginDialog:
             - kind: ReplaceDialog
               id: YZXRDb
               dialog: snf_ai_dashboard_recovery.topic.Fallback
+
 
 

@@ -1,6 +1,6 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
-import { ENSIGN_SLP_CORNER_DATA } from '../src/data/ensign-slp-data.ts';
+import { ENSIGN_SLP_CORNER_DATA } from '../src/data/pacific coast-slp-data.ts';
 import { SUBSPECIALTY_DATA } from '../src/data/subspecialty-data.ts';
 import { MEDICARE_KNOWLEDGE_BASE } from '../src/data/medicare-knowledge-base.ts';
 import { CODING_DATA } from '../src/data/coding-data.ts';
@@ -78,8 +78,8 @@ function convertToMarkdown(data: any, title: string): string {
     return md;
 }
 
-// Process Ensign SLP Corner
-fs.writeFileSync(path.join(OUTPUT_DIR, 'Ensign_SLP_Guidelines.md'), convertToMarkdown(ENSIGN_SLP_CORNER_DATA, 'Ensign SLP Guidelines'));
+// Process Pacific Coast SLP Corner
+fs.writeFileSync(path.join(OUTPUT_DIR, 'Pacific Coast_SLP_Guidelines.md'), convertToMarkdown(ENSIGN_SLP_CORNER_DATA, 'Pacific Coast SLP Guidelines'));
 
 // Process Subspecialties
 fs.writeFileSync(path.join(OUTPUT_DIR, 'Clinical_Subspecialties.md'), convertToMarkdown(SUBSPECIALTY_DATA, 'Clinical Subspecialty Reference'));
@@ -88,3 +88,4 @@ fs.writeFileSync(path.join(OUTPUT_DIR, 'Clinical_Subspecialties.md'), convertToM
 fs.writeFileSync(path.join(OUTPUT_DIR, 'Medicare_Knowledge_Base.md'), convertToMarkdown(MEDICARE_KNOWLEDGE_BASE, 'Medicare Compliance & Guidelines'));
 
 console.log('Knowledge extraction complete!');
+

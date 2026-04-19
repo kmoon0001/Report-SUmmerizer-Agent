@@ -1,4 +1,4 @@
-import { 
+﻿import { 
   BookOpen, 
   Brain, 
   FileText, 
@@ -48,7 +48,7 @@ export type CategoryId =
   | 'slp-corner'
   | 'medical-diagnostics'
   | 'handout-maker'
-  | 'ensign-slp-corner'
+  | 'pacific coast-slp-corner'
   | 'studios'
   | 'palliative'
   | 'dysphagia-eval'
@@ -84,7 +84,7 @@ export interface ResourceLink {
   url?: string;
   description?: string;
   type: 'external' | 'internal' | 'tool';
-  ensignId?: string;
+  pacific coastId?: string;
   image?: string;
   video?: string;
   confidenceScore?: number; // 1-5 ranking based on research/evidence
@@ -126,7 +126,7 @@ export interface Category {
   description: string;
   color: string; // Tailwind class for background/accent
   content: SubCategory[];
-  component?: 'MedicareHelper' | 'ClinicalMeds' | 'GoalGenerator' | 'IDDSIGuide' | 'CognitiveTasks' | 'ClinicalPathways' | 'ComplianceCenter' | 'SubspecialtyDetail' | 'InstrumentalsGuide' | 'TrachVentGuide' | 'HandoutMaker' | 'ClinicalExams' | 'EnsignSLPCorner' | 'AACModule' | 'AnatomyLab' | 'CaseBrainstorm' | 'NetHealthHelp' | 'ClinicalLibrary' | 'SLPLife' | 'DocumentationStudio' | 'TherapyStudio' | 'TrismusTracker' | 'ClinicalCalculators' | 'PDFLibrary' | 'DysarthriaEval' | 'AphasiaTools' | 'DysphagiaHub' | 'ProgressTracker' | 'SLPChat' | 'TreatmentIdeas' | 'MedicareDocChecker' | 'MotorSpeechModule' | 'CognitiveModule' | 'VoiceModule' | 'BrainAnatomyExplorer';
+  component?: 'MedicareHelper' | 'ClinicalMeds' | 'GoalGenerator' | 'IDDSIGuide' | 'CognitiveTasks' | 'ClinicalPathways' | 'ComplianceCenter' | 'SubspecialtyDetail' | 'InstrumentalsGuide' | 'TrachVentGuide' | 'HandoutMaker' | 'ClinicalExams' | 'Pacific CoastSLPCorner' | 'AACModule' | 'AnatomyLab' | 'CaseBrainstorm' | 'NetHealthHelp' | 'ClinicalLibrary' | 'SLPLife' | 'DocumentationStudio' | 'TherapyStudio' | 'TrismusTracker' | 'ClinicalCalculators' | 'PDFLibrary' | 'DysarthriaEval' | 'AphasiaTools' | 'DysphagiaHub' | 'ProgressTracker' | 'SLPChat' | 'TreatmentIdeas' | 'MedicareDocChecker' | 'MotorSpeechModule' | 'CognitiveModule' | 'VoiceModule' | 'BrainAnatomyExplorer';
   image?: string;
   video?: string;
   relatedTools?: { id: string; title: string; icon?: string }[];
@@ -316,7 +316,7 @@ export const SLP_DATA: Category[] = [
           {
             title: 'Standardized Protocols',
             items: [
-              { title: 'MBSImP™ Protocol', description: 'Standardized protocol for Modified Barium Swallow studies.', type: 'external', url: 'https://www.mbsimp.com/', image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
+              { title: 'MBSImPâ„¢ Protocol', description: 'Standardized protocol for Modified Barium Swallow studies.', type: 'external', url: 'https://www.mbsimp.com/', image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
               { title: 'DIGEST Scoring', description: 'Dynamic Imaging Grade of Swallowing Toxicity.', type: 'internal', url: 'https://www.mdanderson.org/research/departments-labs-institutes/departments-divisions/head-and-neck-surgery/digest.html', confidenceScore: 4 }
             ]
           }
@@ -341,7 +341,7 @@ export const SLP_DATA: Category[] = [
               { title: 'MASA (Mann Assessment of Swallowing Ability)', description: 'Standardized clinical bedside exam for stroke patients.', type: 'external', url: 'https://www.asha.org/practice-portal/clinical-topics/adult-dysphagia/', confidenceScore: 5 },
               { title: 'GUSS (Gugging Swallowing Screen)', description: 'Step-by-step bedside screen for acute stroke.', type: 'external', url: 'https://www.strokecenter.org/', confidenceScore: 4 },
               { title: 'Yale Swallow Protocol', description: '3oz water swallow challenge.', type: 'external', url: 'https://www.dysphagiacafe.com/', confidenceScore: 5 },
-              { title: 'TOR-BSST©', description: 'Toronto Bedside Swallowing Screening Test.', type: 'external', url: 'https://tor-bsst.com/', confidenceScore: 4 }
+              { title: 'TOR-BSSTÂ©', description: 'Toronto Bedside Swallowing Screening Test.', type: 'external', url: 'https://tor-bsst.com/', confidenceScore: 4 }
             ]
           },
           {
@@ -354,13 +354,13 @@ export const SLP_DATA: Category[] = [
         ]
       },
       {
-        title: 'Ensign Clinical Summaries',
+        title: 'Pacific Coast Clinical Summaries',
         items: [
-          { title: 'Handling Dietary Refusals', type: 'internal', ensignId: 'dietary-refusals', description: 'IDT protocols and patient choice documentation.', confidenceScore: 5 },
-          { title: 'Respiratory Rehab: SLP Role', type: 'internal', ensignId: 'respiratory-rehab', description: 'RMST, airway protection, and swallow safety.', confidenceScore: 4 },
-          { title: 'VFSS & FEES: Complementary Exams', type: 'internal', ensignId: 'vfss-fees-complementary', description: 'Clinical rationale for dual studies.', confidenceScore: 5 },
-          { title: 'Dispelling Myths: VFSS', type: 'internal', ensignId: 'vfss-myths', description: 'Radiation safety and clinical justification.', confidenceScore: 4 },
-          { title: 'Clinical Application: Peak Cough Flow', type: 'internal', ensignId: 'peak-cough-flow', description: 'Procedure and aspiration risk cutoffs.', confidenceScore: 4 }
+          { title: 'Handling Dietary Refusals', type: 'internal', pacific coastId: 'dietary-refusals', description: 'IDT protocols and patient choice documentation.', confidenceScore: 5 },
+          { title: 'Respiratory Rehab: SLP Role', type: 'internal', pacific coastId: 'respiratory-rehab', description: 'RMST, airway protection, and swallow safety.', confidenceScore: 4 },
+          { title: 'VFSS & FEES: Complementary Exams', type: 'internal', pacific coastId: 'vfss-fees-complementary', description: 'Clinical rationale for dual studies.', confidenceScore: 5 },
+          { title: 'Dispelling Myths: VFSS', type: 'internal', pacific coastId: 'vfss-myths', description: 'Radiation safety and clinical justification.', confidenceScore: 4 },
+          { title: 'Clinical Application: Peak Cough Flow', type: 'internal', pacific coastId: 'peak-cough-flow', description: 'Procedure and aspiration risk cutoffs.', confidenceScore: 4 }
         ]
       },
       {
@@ -420,7 +420,7 @@ export const SLP_DATA: Category[] = [
             items: [
               { title: 'Constraint-Induced Language Therapy (CILT)', description: 'Intensive therapy focusing on verbal output.', type: 'internal', image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
               { title: 'Semantic Feature Analysis (SFA)', description: 'Targeting word retrieval via semantic mapping.', type: 'tool', confidenceScore: 4 },
-              { title: 'VNeST: Verb Network Strengthening', type: 'internal', ensignId: 'vnest-protocol', description: 'Systematic semantic-lexical treatment.', confidenceScore: 4 }
+              { title: 'VNeST: Verb Network Strengthening', type: 'internal', pacific coastId: 'vnest-protocol', description: 'Systematic semantic-lexical treatment.', confidenceScore: 4 }
             ]
           },
           {
@@ -437,8 +437,8 @@ export const SLP_DATA: Category[] = [
         items: [
           { title: 'WAB-R Aphasia Quotient', description: 'Western Aphasia Battery - Revised.', type: 'tool', confidenceScore: 5 },
           { title: 'Boston Diagnostic Aphasia Exam (BDAE)', description: 'Comprehensive language assessment.', type: 'external', url: 'https://www.asha.org/practice-portal/clinical-topics/aphasia/', confidenceScore: 5 },
-          { title: 'Aphasia: Assessment & Treatment Guide', type: 'internal', ensignId: 'aphasia-tx-guide', description: 'Impairment vs. communication-based approaches.', confidenceScore: 5 },
-          { title: 'Cueing Hierarchies', type: 'internal', ensignId: 'cueing-hierarchies', description: 'Least-to-most cueing principles.', confidenceScore: 4 }
+          { title: 'Aphasia: Assessment & Treatment Guide', type: 'internal', pacific coastId: 'aphasia-tx-guide', description: 'Impairment vs. communication-based approaches.', confidenceScore: 5 },
+          { title: 'Cueing Hierarchies', type: 'internal', pacific coastId: 'cueing-hierarchies', description: 'Least-to-most cueing principles.', confidenceScore: 4 }
         ]
       },
       {
@@ -698,7 +698,7 @@ export const SLP_DATA: Category[] = [
             items: [
               { title: 'Spaced Retrieval Training (SRT)', description: 'Memory training for functional information.', type: 'tool', image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
               { title: 'Errorless Learning', description: 'Minimizing mistakes during the learning process.', type: 'internal', confidenceScore: 5 },
-              { title: 'Dementia: Learning & Memory', type: 'internal', ensignId: 'dementia-learning-memory', description: 'SRT and procedural memory strategies.', confidenceScore: 5 }
+              { title: 'Dementia: Learning & Memory', type: 'internal', pacific coastId: 'dementia-learning-memory', description: 'SRT and procedural memory strategies.', confidenceScore: 5 }
             ]
           },
           {
@@ -716,8 +716,8 @@ export const SLP_DATA: Category[] = [
           { title: 'SLUMS Examination', description: 'Saint Louis University Mental Status.', type: 'external', url: 'https://www.slu.edu/medicine/internal-medicine/geriatric-medicine/slums-exam.php', confidenceScore: 4 },
           { title: 'BCAT (Brief Cognitive Assessment Tool)', description: 'Multi-domain cognitive screening.', type: 'external', url: 'https://www.thebcat.com/', confidenceScore: 4 },
           { title: 'CLQT+ (Cognitive Linguistic Quick Test)', description: 'Brief assessment of attention, memory, executive functions.', type: 'external', url: 'https://www.pearsonassessments.com/', confidenceScore: 5 },
-          { title: 'Cognitively Impaired: SLP Role', type: 'internal', ensignId: 'cog-impaired-slp', description: 'Skilled interventions and diagnostic coding.', confidenceScore: 5 },
-          { title: 'Cognitive Performance Assessment (96125)', type: 'internal', ensignId: 'cog-perf-96125', description: 'Standardized testing requirements and billing.', confidenceScore: 5 }
+          { title: 'Cognitively Impaired: SLP Role', type: 'internal', pacific coastId: 'cog-impaired-slp', description: 'Skilled interventions and diagnostic coding.', confidenceScore: 5 },
+          { title: 'Cognitive Performance Assessment (96125)', type: 'internal', pacific coastId: 'cog-perf-96125', description: 'Standardized testing requirements and billing.', confidenceScore: 5 }
         ]
       },
       {
@@ -764,10 +764,10 @@ export const SLP_DATA: Category[] = [
       {
         title: 'Clinical Fundamentals',
         items: [
-          { title: 'Tracheostomy 101 Guide', type: 'internal', ensignId: 'tracheostomy-101', description: 'Terminology, anatomy, and decannulation.', image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
-          { title: 'Ventilators 101 & 102', type: 'internal', ensignId: 'ventilators-basics', description: 'Terminology and ventilation modes.', confidenceScore: 5 },
-          { title: 'Speaking Valves: Clinical Benefits', type: 'internal', ensignId: 'speaking-valve-clinical', description: 'Swallowing benefits and safety rules.', confidenceScore: 5 },
-          { title: 'Starting a Tracheostomy Team', type: 'internal', ensignId: 'trach-team-guide', description: 'Multidisciplinary team objectives and procedures.', confidenceScore: 4 }
+          { title: 'Tracheostomy 101 Guide', type: 'internal', pacific coastId: 'tracheostomy-101', description: 'Terminology, anatomy, and decannulation.', image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800', confidenceScore: 5 },
+          { title: 'Ventilators 101 & 102', type: 'internal', pacific coastId: 'ventilators-basics', description: 'Terminology and ventilation modes.', confidenceScore: 5 },
+          { title: 'Speaking Valves: Clinical Benefits', type: 'internal', pacific coastId: 'speaking-valve-clinical', description: 'Swallowing benefits and safety rules.', confidenceScore: 5 },
+          { title: 'Starting a Tracheostomy Team', type: 'internal', pacific coastId: 'trach-team-guide', description: 'Multidisciplinary team objectives and procedures.', confidenceScore: 4 }
         ]
       },
       {
@@ -1170,12 +1170,12 @@ export const SLP_DATA: Category[] = [
     ]
   },
   {
-    id: 'ensign-slp-corner',
-    title: 'Ensign SLP Corner',
+    id: 'pacific coast-slp-corner',
+    title: 'Pacific Coast SLP Corner',
     icon: Library,
-    description: 'Exclusive clinical resources, program development guides, and updates for Ensign SLPs.',
+    description: 'Exclusive clinical resources, program development guides, and updates for Pacific Coast SLPs.',
     color: 'bg-slate-900 text-white',
-    component: 'EnsignSLPCorner',
+    component: 'Pacific CoastSLPCorner',
     content: []
   },
   {
@@ -1313,3 +1313,4 @@ if (process.env.NODE_ENV !== 'production') {
     );
   }
 }
+

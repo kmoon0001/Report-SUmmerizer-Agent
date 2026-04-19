@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Multidisciplinary IDT Review
-  description: Elite clinical intelligence module specialized in [MultidisciplineIDTReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [MultidisciplineIDTReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Multidisciplinary IDT Review within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 beginDialog:
@@ -75,6 +75,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

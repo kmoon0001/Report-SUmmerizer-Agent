@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: On Error
-  description: Elite clinical intelligence module specialized in [OnError]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [OnError]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for On Error within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 startBehavior: UseLatestPublishedContentAndCancelOtherTopics
@@ -47,6 +47,7 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: NW7NyY
+
 
 
 

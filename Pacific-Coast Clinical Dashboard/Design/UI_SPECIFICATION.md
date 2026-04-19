@@ -1,4 +1,4 @@
-# Ensign Clinical Dashboard: UI Architecture Specification
+﻿# Pacific Coast Clinical Dashboard: UI Architecture Specification
 
 **Goal**: A role-based dashboard for SNF therapy teams hosted in **Microsoft Teams.**
 
@@ -28,4 +28,5 @@
 - **Security**: Bound to Dataverse Security Roles (Clinician vs. Administrator).
 
 ---
-*Ensign Services: World-Class Clinical Intelligence Infrastructure.*
+*Pacific Coast Services: World-Class Clinical Intelligence Infrastructure.*
+

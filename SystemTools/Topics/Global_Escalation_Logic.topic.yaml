@@ -1,4 +1,4 @@
-kind: AdaptiveDialog
+﻿kind: AdaptiveDialog
 description: Hub for handling clinical escalations and critical system errors across the swarm.
 id: Global_Escalation_Logic
 beginDialog:
@@ -6,12 +6,13 @@ beginDialog:
   id: Main
   actions:
     - kind: SendActivity
-      activity: "🚨 **CRITICAL ESCALATION**: Initiating Human-in-the-Loop protocol. Synchronizing clinical context to Teams Oversight Channel..."
+      activity: "ðŸš¨ **CRITICAL ESCALATION**: Initiating Human-in-the-Loop protocol. Synchronizing clinical context to Teams Oversight Channel..."
     
-    # Placeholder for Power Automate Flow: "Ensign_Escalate_To_DOR"
+    # Placeholder for Power Automate Flow: "Pacific Coast_Escalate_To_DOR"
     - kind: SendActivity
-      activity: "📡 **BEACON SENT**: The Director of Rehab has been paged. Please hold for direct intervention."
+      activity: "ðŸ“¡ **BEACON SENT**: The Director of Rehab has been paged. Please hold for direct intervention."
     
     - kind: SetVariable
       variable: Global.EscalationStatus
       value: "ACTIVE"
+

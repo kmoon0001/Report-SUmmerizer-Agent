@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Fallback
-  description: Elite clinical intelligence module specialized in [Fallback]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Fallback]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Fallback within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 beginDialog:
@@ -21,6 +21,7 @@ beginDialog:
         - kind: BeginDialog
           id: 5aXj5M
           dialog: Escalate
+
 
 
 

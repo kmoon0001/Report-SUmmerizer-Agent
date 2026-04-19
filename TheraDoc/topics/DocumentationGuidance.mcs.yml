@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -14,7 +14,7 @@
 mcs.metadata:
   componentName: Documentation Guidance
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [DocumentationGuidance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [DocumentationGuidance]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -25,22 +25,22 @@ beginDialog:
       activity: |-
         Here are SNF therapy documentation standards to guide your clinical notes:
 
-        **Cueing Levels** — Document the level of verbal or tactile cues provided:
-        • Independent (I): No cues needed
-        • Supervision (S): Stand-by, no hands-on
-        • Modified Independent (ModI): Uses device/compensation, no assist
-        • Contact Guard Assist (CGA): Therapist hand contact, no force
-        • Minimal Assist (MinA): Patient performs 75%+ of task
-        • Moderate Assist (ModA): Patient performs 50–74% of task
-        • Maximum Assist (MaxA): Patient performs 25–49% of task
-        • Total Assist (TA): Patient performs less than 25%
+        **Cueing Levels** â€” Document the level of verbal or tactile cues provided:
+        â€¢ Independent (I): No cues needed
+        â€¢ Supervision (S): Stand-by, no hands-on
+        â€¢ Modified Independent (ModI): Uses device/compensation, no assist
+        â€¢ Contact Guard Assist (CGA): Therapist hand contact, no force
+        â€¢ Minimal Assist (MinA): Patient performs 75%+ of task
+        â€¢ Moderate Assist (ModA): Patient performs 50â€“74% of task
+        â€¢ Maximum Assist (MaxA): Patient performs 25â€“49% of task
+        â€¢ Total Assist (TA): Patient performs less than 25%
 
-        **Skilled Language Requirements** — Every note must include:
-        • Clinical reason skilled therapy is required (not maintenance)
-        • Patient response to treatment and measurable progress
-        • Functional goals with objective baselines and targets
-        • Safety considerations or precautions addressed
-        • Plan and frequency of continued treatment
+        **Skilled Language Requirements** â€” Every note must include:
+        â€¢ Clinical reason skilled therapy is required (not maintenance)
+        â€¢ Patient response to treatment and measurable progress
+        â€¢ Functional goals with objective baselines and targets
+        â€¢ Safety considerations or precautions addressed
+        â€¢ Plan and frequency of continued treatment
 
         **What to avoid:** Unskilled language (e.g., "patient tolerated well"), non-measurable progress, missing assist levels, or absent functional connection.
 
@@ -48,6 +48,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Safety and Critical Risk Flags
-  description: Elite clinical intelligence module specialized in [Safetyandcriticalriskflags]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Safetyandcriticalriskflags]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Enhanced Safety and Risk topic featuring automated risk detection from notes.
 beginDialog:
   kind: OnRecognizedIntent
@@ -30,7 +30,7 @@ beginDialog:
 
     - kind: SendActivity
       id: ScanningMsg
-      activity: "🛡️ **Scanning for safety risks...**"
+      activity: "ðŸ›¡ï¸ **Scanning for safety risks...**"
 
     - kind: BeginDialog
       id: CallRiskEngine
@@ -55,9 +55,10 @@ beginDialog:
 
     - kind: SendActivity
       id: Disclaimer
-      activity: "⚠️ Analysis is for administrative audit support only and does not replace medical advice."
+      activity: "âš ï¸ Analysis is for administrative audit support only and does not replace medical advice."
 
 inputType: {}
 outputType: {}
+
 
 

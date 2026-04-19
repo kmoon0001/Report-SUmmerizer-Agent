@@ -1,4 +1,4 @@
-kind: BotDefinition
+﻿kind: BotDefinition
 entity:
   accessControlPolicy: GroupMembership
   authenticationMode: Integrated
@@ -985,7 +985,7 @@ components:
             activity: |-
               I understand you need to speak with someone directly. Here is how to reach the right person:
 
-              - For QM or clinical workflow questions, contact your Regional Therapy Consultant or email therapy.support@ensignservices.net
+              - For QM or clinical workflow questions, contact your Regional Therapy Consultant or email therapy.support@pacific coastservices.net
               - For technical issues with this agent, contact your IT help desk
               - For urgent clinical concerns, contact the facility Director of Nursing or Administrator directly
 

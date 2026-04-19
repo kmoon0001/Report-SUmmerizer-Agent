@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Thank you
-  description: Elite clinical intelligence module specialized in [ThankYou]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ThankYou]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnRecognizedIntent
@@ -18,3 +18,4 @@ beginDialog:
     - kind: SendActivity
       id: sendMessage_9iz6v7
       activity: You're welcome.
+

@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: QMEmailGeneratorFlow
 kind: TaskDialog
-modeldescription: Elite clinical intelligence module specialized in [QMEmailGeneratorFlow]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
-  This tool securely sends the agent’s quality measure analysis and improvement recommendations to the Regional Therapy Resource for human‑in‑the‑loop review and approval.
+modeldescription: Elite clinical intelligence module specialized in [QMEmailGeneratorFlow]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+  This tool securely sends the agentâ€™s quality measure analysis and improvement recommendations to the Regional Therapy Resource for humanâ€‘inâ€‘theâ€‘loop review and approval.
   The Regional Therapy Resource evaluates the findings against internal clinical protocols and operational standards, provides expert guidance, and confirms or refines recommendations before they are shared with Directors of Rehabilitation.
   This tool ensures clinical oversight, alignment with company standards, and appropriate escalation of guidance related to improving therapy quality measures.
 outputs:
@@ -13,4 +13,5 @@ action:
   flowId: fcf035ad-af0c-f111-8406-0022480b6bd9
 
 outputMode: All
+
 

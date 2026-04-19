@@ -1,4 +1,4 @@
-import { Postette } from './ensign-slp-data';
+﻿import { Postette } from './pacific coast-slp-data';
 import { 
   TrendingUp, 
   Utensils, 
@@ -19,7 +19,7 @@ export const ENSIGN_PROGRAMS_DATA: Postette[] = [
       {
         title: 'Overview',
         type: 'text',
-        content: 'As an SLP in a Skilled Nursing Facility, you are uniquely positioned to lead programs that transform patient care. By aligning your clinical initiatives with Ensign\'s mission—to dignify and transform post-acute care—you can elevate the entire facility.'
+        content: 'As an SLP in a Skilled Nursing Facility, you are uniquely positioned to lead programs that transform patient care. By aligning your clinical initiatives with Pacific Coast\'s missionâ€”to dignify and transform post-acute careâ€”you can elevate the entire facility.'
       },
       {
         title: 'The CAPLICO Approach to Program Building',
@@ -186,3 +186,4 @@ export const ENSIGN_PROGRAMS_DATA: Postette[] = [
     ]
   }
 ];
+

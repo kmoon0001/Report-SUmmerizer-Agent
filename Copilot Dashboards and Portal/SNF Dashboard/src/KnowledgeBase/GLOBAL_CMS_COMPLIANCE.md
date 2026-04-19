@@ -1,9 +1,9 @@
-# PLATINUM SOURCE: GLOBAL CMS COMPLIANCE
+﻿# PLATINUM SOURCE: GLOBAL CMS COMPLIANCE
 
 **Metadata:**
 - **Role**: Primary Source of Truth
 - **Category**: Clinical Governance
-- **Description**: Primary clinical and operational governance source for Ensign Services AI Fleet. Reference this for all CMS_COMPLIANCE logic.
+- **Description**: Primary clinical and operational governance source for Pacific Coast Services AI Fleet. Reference this for all CMS_COMPLIANCE logic.
 
 ---
 # CMS Compliance Hardening Guidelines (Therapy Documentation)
@@ -35,4 +35,5 @@ The following rules represent the "Gold Standard" for therapy documentation as d
 ## 5. Pac Coast Specific Standards
 - **Daily Review:** All AI-generated summaries must be proofread by a Director of Rehab (DOR).
 - **Reject Scenarios:** If the AI summary contains invented vitals or hallucinated standardized scores, the record Must be marked "Rejected" and pulled for manual review.
+
 

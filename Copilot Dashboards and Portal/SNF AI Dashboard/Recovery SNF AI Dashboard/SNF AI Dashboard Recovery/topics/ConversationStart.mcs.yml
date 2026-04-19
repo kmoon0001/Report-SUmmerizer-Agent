@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Conversation Start
-  description: Elite clinical intelligence module specialized in [ConversationStart]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
-modeldescription: Elite clinical intelligence module specialized in [ConversationStart]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ConversationStart]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [ConversationStart]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnConversationStart
@@ -14,6 +14,7 @@ beginDialog:
           - Hello, I'm {System.Bot.Name}. How can I help?
         speak:
           - Hello and thank you for calling {System.Bot.Name}, powered by generative AI. How may I help you today?
+
 
 
 

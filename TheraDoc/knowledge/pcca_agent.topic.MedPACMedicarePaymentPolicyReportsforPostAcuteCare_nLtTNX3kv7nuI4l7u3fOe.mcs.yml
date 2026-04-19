@@ -1,8 +1,9 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: MedPAC Medicare Payment Policy Reports for Post-Acute Care
-  description: Elite clinical intelligence module specialized in [pcca_agent.MedPACMedicarePaymentPolicyReportsforPostAcuteCare_nLtTNX3kv7nuI4l7u3fOe]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [pcca_agent.MedPACMedicarePaymentPolicyReportsforPostAcuteCare_nLtTNX3kv7nuI4l7u3fOe]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
   triggerCondition: true
   site: https://www.medpac.gov/reports
+

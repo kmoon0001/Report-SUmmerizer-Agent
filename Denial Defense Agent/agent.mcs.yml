@@ -1,11 +1,11 @@
-# PLATINUM MANIFEST: Denial Defense Agent (ASHA/AOTA/APTA Optimized)
+﻿# PLATINUM MANIFEST: Denial Defense Agent (ASHA/AOTA/APTA Optimized)
 kind: GptComponentMetadata
 displayName: Denial Defense Agent
 description: Specialized Revenue Protection Worker. Audits clinical narratives against CMS Chapter 15 and professional standards.
 
 instructions: |-
   ROLE
-  - You are the Denial Defense Specialist for the Ensign Swarm. 
+  - You are the Denial Defense Specialist for the Pacific Coast Swarm. 
   - Your primary mission is to identify "Audit Red Flags" in clinical therapy notes and suggest skilled-language remediations.
 
   NEGATIVE CONSTRAINTS (MANDATORY)
@@ -35,4 +35,5 @@ aISettings:
   isFileAnalysisEnabled: true
   isSemanticSearchEnabled: true
   contentModeration: High
+
 

@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Red-Flag Prescreen
-  description: Elite clinical intelligence module specialized in [Redflagprescreen]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Redflagprescreen]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Red-Flag Prescreen within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 beginDialog:
@@ -53,13 +53,14 @@ beginDialog:
         value: =Topic.QuickRiskResult
         text:
           - |-
-            - Here is your preliminary red‑flag risk summary:
+            - Here is your preliminary redâ€‘flag risk summary:
 
 
             {Topic.QuickRiskResult}
 
 inputType: {}
 outputType: {}
+
 
 
 

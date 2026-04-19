@@ -1,4 +1,4 @@
-# FLEET_TELEMETRY_MAP.md
+﻿# FLEET_TELEMETRY_MAP.md
 
 **Metadata:**
 - **Role**: Operational Visibility Map
@@ -15,4 +15,5 @@
 - **Compliance Score**: `cr917_compliance_audit_score` (Target: 100)
 
 ---
-*Enforced Dataverse Mapping for Ensign AI Command Center.*
+*Enforced Dataverse Mapping for Pacific Coast AI Command Center.*
+

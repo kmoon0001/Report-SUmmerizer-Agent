@@ -1,4 +1,4 @@
-# Ensign Platinum Swarm Unified Punch List
+﻿# Pacific Coast Platinum Swarm Unified Punch List
 
 Last updated: 2026-04-18
 Source: User architectural audit + automated repo/ALM scans.
@@ -16,15 +16,15 @@ Source: User architectural audit + automated repo/ALM scans.
 | Regulatory Hub / SimpleLTC | Environment variable + secure API key storage | DONE (local runbook + flow parameterization, 2026-04-18) | Knowledge & Grounding |
 | Global | Friday DOR Pulse scheduled flow | DONE (local, 2026-04-18) | Workflows & Connective Tissue |
 | Global | Escalation Beacon flow (3x human-assistance/critical errors) | DONE (local, 2026-04-18) | Workflows & Connective Tissue |
-| Fleet UX | Naming harmonization to Ensign [Specialist] Hub | PARTIAL (requires tenant display-name publish pass) | Operational |
+| Fleet UX | Naming harmonization to Pacific Coast [Specialist] Hub | PARTIAL (requires tenant display-name publish pass) | Operational |
 
 ## B. Automated ALM / Dependency Gaps
 
 | Project | Gap | Status | Notes |
 |---|---|---|---|
 | TheraDoc | Source solution in Dev is managed (TheraDocTransport) and not exportable as unmanaged | BLOCKED | Must place TheraDoc in unmanaged source solution for solution-first export/unpack |
-| Ensign Regulatory Hub/deployment/src/Chatbots/cr917_agent | Workflow contains placeholder/undefined values in `SNF-ClinicalIntakeHandoffRouter-.../workflow.json` | DONE (2026-04-18) | Current router workflow has concrete schema/contentVersion values |
-| Ensign Regulatory Hub/SimpleLTC QM Coach V2 | Workflow contains placeholder/undefined values in `SNF-ClinicalIntakeHandoffRouter-.../workflow.json` | DONE (2026-04-18) | Current router workflow has concrete schema/contentVersion values |
+| Pacific Coast Regulatory Hub/deployment/src/Chatbots/cr917_agent | Workflow contains placeholder/undefined values in `SNF-ClinicalIntakeHandoffRouter-.../workflow.json` | DONE (2026-04-18) | Current router workflow has concrete schema/contentVersion values |
+| Pacific Coast Regulatory Hub/SimpleLTC QM Coach V2 | Workflow contains placeholder/undefined values in `SNF-ClinicalIntakeHandoffRouter-.../workflow.json` | DONE (2026-04-18) | Current router workflow has concrete schema/contentVersion values |
 | Pac Coast Report Prep Agent/SNF Rehab Agent | Missing `connectionreferences.mcs.yml` | DONE (2026-04-18) | Added `connectionreferences.mcs.yml` with explicit placeholder map |
 | Enabled agents except TheraDoc | Missing `solutionName` mappings in ALM manifest | DONE (provisional, 2026-04-18) | Added solution names; run export validation to confirm tenant alignment |
 | SNF Dashboard | Placeholder constants in workflow JSON (`CLINICAL_TEAMS_GROUP_ID`, `NURSING_STATION_CHANNEL_ID`) | DONE (2026-04-18) | Replaced with workflow parameters and trigger overrides |
@@ -52,3 +52,4 @@ Source: User architectural audit + automated repo/ALM scans.
 - No direct unsupported headless mutation of Studio internals.
 - Browser automation (Playwright) for validation/smoke, not primary deployment path.
 - Keep runtime dependencies in solution: flows, connection refs, env vars, bot components.
+

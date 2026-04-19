@@ -1,8 +1,9 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: ASHA Speech-Language Pathology Practice Standards and Guidelines
-  description: Elite clinical intelligence module specialized in [pcca_agent.ASHASpeechLanguagePathologyPracticeStandardsandGuidelines_KCrwZSOrANC1jfO12YNC6]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [pcca_agent.ASHASpeechLanguagePathologyPracticeStandardsandGuidelines_KCrwZSOrANC1jfO12YNC6]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
   triggerCondition: true
   site: https://www.asha.org/practice
+

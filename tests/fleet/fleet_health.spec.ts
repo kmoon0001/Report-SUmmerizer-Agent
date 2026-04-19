@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+﻿import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,7 +13,7 @@ const AGENT_FOLDERS = fs.readdirSync(WORKSPACE_ROOT, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory() && /Agent|Assistant|Analyzer|TheraDoc|Dashboard|Portal/i.test(dirent.name))
     .map(dirent => dirent.name);
 
-test.describe('Ensign AI Fleet: Cross-Agent Sanity Suite', () => {
+test.describe('Pacific Coast AI Fleet: Cross-Agent Sanity Suite', () => {
 
     for (const agentName of AGENT_FOLDERS) {
         const agentPath = path.join(WORKSPACE_ROOT, agentName);
@@ -26,8 +26,8 @@ test.describe('Ensign AI Fleet: Cross-Agent Sanity Suite', () => {
             
             const content = fs.readFileSync(agentMdPath, 'utf8');
             
-            // 2. Ensure agent is referencing the new "Pac Coast" or "Ensign" standards
-            expect(content).toMatch(/Pac Coast|Ensign|QM|TheraDoc/i);
+            // 2. Ensure agent is referencing the new "Pac Coast" or "Pacific Coast" standards
+            expect(content).toMatch(/Pac Coast|Pacific Coast|QM|TheraDoc/i);
         });
 
         test(`${agentName}: Shared Knowledge Integration`, async () => {
@@ -47,3 +47,4 @@ test.describe('Ensign AI Fleet: Cross-Agent Sanity Suite', () => {
         });
     }
 });
+

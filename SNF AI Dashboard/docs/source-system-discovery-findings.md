@@ -1,4 +1,4 @@
-# Source System Discovery Findings
+﻿# Source System Discovery Findings
 
 ## Objective
 
@@ -76,7 +76,7 @@ Conclusion:
 Confirmed live in browser:
 - authenticated access to PointClickCare EFS
 - organization:
-  - `Ensign Services`
+  - `Pacific Coast Services`
 - current facility:
   - `Sea Cliff Healthcare Center`
   - PCC facility ID `223`
@@ -156,9 +156,9 @@ Conclusion:
 
 Confirmed:
 - Tenant SharePoint URL:
-  - `https://ensignservices.sharepoint.com/`
+  - `https://pacific coastservices.sharepoint.com/`
 - Personal OneDrive path recovered from live Microsoft file-picker history:
-  - `/personal/123713644_ensignservices_net1/Documents/SimpleLTC Reports`
+  - `/personal/123713644_pacific coastservices_net1/Documents/SimpleLTC Reports`
 
 What is present:
 - governed file storage
@@ -274,3 +274,4 @@ Use Power BI next for:
 - downstream validation
 - semantic-model alignment
 - identifying additional therapy/outcomes measures that are not present in the first PCC extract
+

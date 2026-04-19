@@ -1,11 +1,12 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF - Therapy AI Resident Insight Intake
 kind: TaskDialog
 modelDisplayName: Collect and Process Therapy Resident Insights
-modeldescription: Elite clinical intelligence module specialized in [SNF-TherapyAIResidentInsightIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [SNF-TherapyAIResidentInsightIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 action:
   kind: InvokeFlowTaskAction
   flowId: f96d43dd-fd24-f111-8341-6045bd061151
 
 outputMode: All
+
 

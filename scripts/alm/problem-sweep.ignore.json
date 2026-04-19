@@ -1,16 +1,17 @@
-{
+﻿{
   "projects": [
     {
       "path": "Denial Defense Agent",
       "reason": "Local draft project, not yet attached to a Copilot Studio environment."
     },
     {
-      "path": "Ensign Clinical Synthesis Lab",
+      "path": "Pacific Coast Clinical Synthesis Lab",
       "reason": "Container workspace; active attached agent is the nested SNF Rehab Agent project."
     },
     {
-      "path": "Ensign Regulatory Hub\\build_atomic_v3\\Chatbots\\cr917_agentu92bPc",
+      "path": "Pacific Coast Regulatory Hub\\build_atomic_v3\\Chatbots\\cr917_agentu92bPc",
       "reason": "Build artifact copy used for packaging verification, not a live attached workspace."
     }
   ]
 }
+

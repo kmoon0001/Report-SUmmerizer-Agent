@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: COPILOT V2 - Facility Insight Dataverse Lookup
 kind: TaskDialog
-modeldescription: Elite clinical intelligence module specialized in [COPILOTV2-FacilityInsightDataverseLookup]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [COPILOTV2-FacilityInsightDataverseLookup]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: facility_submission_status
 
@@ -12,4 +12,5 @@ action:
   flowId: 0b930a15-2516-f111-8341-0022480b6bd9
 
 outputMode: All
+
 

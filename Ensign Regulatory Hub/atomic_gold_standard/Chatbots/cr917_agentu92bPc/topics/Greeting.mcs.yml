@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Greeting
-  description: Elite clinical intelligence module specialized in [Greeting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Greeting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Enhanced Greeting topic with a quick-start main menu (buttons) for improved UX.
 beginDialog:
   kind: OnRecognizedIntent
@@ -37,15 +37,15 @@ beginDialog:
           optionSetName: MainMenuOptions
           items:
             - id: classify
-              displayName: 📂 Classify & Route
+              displayName: ðŸ“‚ Classify & Route
             - id: extract
-              displayName: 🧬 Extract Clinical Elements
+              displayName: ðŸ§¬ Extract Clinical Elements
             - id: skilled
-              displayName: ⚖️ Check Skilled Need
+              displayName: âš–ï¸ Check Skilled Need
             - id: goals
-              displayName: 🎯 Audit Goal Quality
+              displayName: ðŸŽ¯ Audit Goal Quality
             - id: redflag
-              displayName: 🚩 Red-Flag Prescreen
+              displayName: ðŸš© Red-Flag Prescreen
 
     - kind: ConditionGroup
       id: MenuRedirect
@@ -87,5 +87,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

@@ -1,4 +1,4 @@
-$sourcePath = "D:\my agents copilot studio\QM Agent and Coach\extracted_hardened\Chatbots\cr53f_pcca_v2"
+﻿$sourcePath = "D:\my agents copilot studio\QM Agent and Coach\extracted_hardened\Chatbots\cr53f_pcca_v2"
 $targetSchema = "cr917_agentu92bPc"
 $buildPath = "D:\my agents copilot studio\QM Agent and Coach\build_atomic_v3"
 $zipPath = "D:\my agents copilot studio\QM Agent and Coach\PCCA_Atomic_V3_Final.zip"
@@ -37,12 +37,12 @@ $solutionXml = @"
     <Version>1.0.0.3</Version>
     <Managed>0</Managed>
     <Publisher>
-      <UniqueName>EnsignServices</UniqueName>
+      <UniqueName>Pacific CoastServices</UniqueName>
       <LocalizedNames>
-        <LocalizedName description="EnsignServices" languagecode="1033" />
+        <LocalizedName description="Pacific CoastServices" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="EnsignServices" languagecode="1033" />
+        <Description description="Pacific CoastServices" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
@@ -102,3 +102,4 @@ try {
 }
 
 Write-Host "Atomic Build Complete: $zipPath" -ForegroundColor Cyan
+

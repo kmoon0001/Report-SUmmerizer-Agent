@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,9 +13,9 @@
 
 mcs.metadata:
   componentName: End Of Conversation
-  description: Elite clinical intelligence module specialized in [EndOfConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [EndOfConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [EndOfConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [EndOfConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 startBehavior: CancelOtherTopics
 beginDialog:
   kind: OnSystemRedirect
@@ -77,7 +77,7 @@ beginDialog:
                             - type: Container
                               items:
                                 - type: TextBlock
-                                  text: "🔒 SECURE SESSION TERMINATED"
+                                  text: "ðŸ”’ SECURE SESSION TERMINATED"
                                   weight: Bolder
                                   color: Accent
                             - type: TextBlock
@@ -119,7 +119,7 @@ beginDialog:
                         - type: Container
                           items:
                             - type: TextBlock
-                              text: "🔒 SECURE SESSION TERMINATED"
+                              text: "ðŸ”’ SECURE SESSION TERMINATED"
                               weight: Bolder
                               color: Accent
                         - type: TextBlock
@@ -132,6 +132,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

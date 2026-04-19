@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -14,7 +14,7 @@
 mcs.metadata:
   componentName: Format Preference
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [FormatPreference]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [FormatPreference]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -25,10 +25,10 @@ beginDialog:
       activity: |-
         TheraDoc supports the following documentation formats:
 
-        • Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
-        • SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
-        • DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
-        • Bullet summary: Concise bullet points for quick review or MDS support documentation.
+        â€¢ Narrative (default): Full paragraph format with clinical reasoning, ideal for evaluations and complex notes.
+        â€¢ SOAP Note: Structured Subjective, Objective, Assessment, Plan format.
+        â€¢ DAP Note: Data, Assessment, Plan format common in behavioral and rehab settings.
+        â€¢ Bullet summary: Concise bullet points for quick review or MDS support documentation.
 
         To request a specific format, simply include it in your request. For example: "Write this as a SOAP note" or "Give me a bullet summary."
 
@@ -36,6 +36,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

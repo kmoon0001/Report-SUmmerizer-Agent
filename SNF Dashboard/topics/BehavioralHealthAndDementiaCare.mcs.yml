@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,9 +13,9 @@
 
 mcs.metadata:
   componentName: Behavioral Health And Dementia Care
-  description: Elite clinical intelligence module specialized in [BehavioralHealthAndDementiaCare]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [BehavioralHealthAndDementiaCare]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [BehavioralHealthAndDementiaCare]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [BehavioralHealthAndDementiaCare]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -70,7 +70,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "🧠 BEHAVIORAL HEALTH OVERVIEW"
+                      text: "ðŸ§  BEHAVIORAL HEALTH OVERVIEW"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -102,7 +102,7 @@ beginDialog:
                           weight: Bolder
                           spacing: None
                 - type: TextBlock
-                  text: "⚠️ This is a structured intake summary. The automated backend is currently in validation mode."
+                  text: "âš ï¸ This is a structured intake summary. The automated backend is currently in validation mode."
                   wrap: true
                   fontType: Monospace
                   size: Small
@@ -121,6 +121,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

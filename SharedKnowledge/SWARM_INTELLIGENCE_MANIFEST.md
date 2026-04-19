@@ -1,4 +1,4 @@
-# SWARM_INTELLIGENCE_MANIFEST.md
+﻿# SWARM_INTELLIGENCE_MANIFEST.md
 
 **Metadata:**
 - **Role**: Hub-and-Spoke Swarm Architecture
@@ -37,9 +37,10 @@
 - `cr917_status` (Pending, Active, Resolved)
 
 ---
-*Enterprise-grade clinical swarm intelligence for Ensign Services.*
+*Enterprise-grade clinical swarm intelligence for Pacific Coast Services.*
 
 ## 4. Universal Fleet XAI Standards
 - **XAI Stack**: 7-Layer SHAP/LIME logic enforced.
 - **Confidence Gate**: 85% minimum required for clinical sign-off.
 - **Audit Trace**: Escalation required for low-certainty predictions.
+

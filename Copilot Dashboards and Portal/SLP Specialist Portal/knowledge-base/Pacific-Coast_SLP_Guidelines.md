@@ -1,4 +1,4 @@
-# Ensign SLP Guidelines
+﻿# Pacific Coast SLP Guidelines
 
 ## Cognitive Communication Basics
 
@@ -17,7 +17,7 @@ Capture how the patient is performing certain activities, skill sets, and tasks 
 ## Rehab Screen / Consultation
 
 ### Purpose
-Determine the need for a skilled evaluation and make an impact on a resident’s quality of life. Requests can come from MD, NPP, nursing, or family.
+Determine the need for a skilled evaluation and make an impact on a residentâ€™s quality of life. Requests can come from MD, NPP, nursing, or family.
 
 ---
 
@@ -220,4 +220,5 @@ A low-tech AAC technique where the communication partner "scans" through options
 ## SLP Interview & Career Prep
 
 ---
+
 

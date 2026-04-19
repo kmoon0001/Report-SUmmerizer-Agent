@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF - Quality Measure Decline Detection And Reporting
 kind: TaskDialog
 modelDisplayName: Detect and Report Quality Measure Declines
-modeldescription: Elite clinical intelligence module specialized in [SNF-QualityMeasureDeclineDetectionAndReporting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [SNF-QualityMeasureDeclineDetectionAndReporting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: confirmationmessage
 
@@ -17,4 +17,5 @@ action:
   flowId: 0b930a15-2516-f111-8341-0022480b6bd9
 
 outputMode: All
+
 

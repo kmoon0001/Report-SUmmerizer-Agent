@@ -1,8 +1,9 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Functional Outcome Measures and Standardized Assessment Reference
-  description: Elite clinical intelligence module specialized in [pcca_agent.FunctionalOutcomeMeasuresandStandardizedAssessmentReference__3pkQU_Z3drt0FVoDDQNs]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [pcca_agent.FunctionalOutcomeMeasuresandStandardizedAssessmentReference__3pkQU_Z3drt0FVoDDQNs]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: KnowledgeSourceConfiguration
 source:
   kind: PublicSiteSearchSource
   triggerCondition: true
   site: https://www.apta.org/your-practice
+

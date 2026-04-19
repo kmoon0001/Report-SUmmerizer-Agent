@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: ACCOUNTABILITY MATRIX
-  description: Elite clinical intelligence module specialized in [ACCOUNTABILITYMATRIX]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ACCOUNTABILITYMATRIX]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 inputs:
   - kind: AutomaticTaskInput
@@ -98,5 +98,6 @@ outputType:
     QMDomain:
       displayName: QMDomain
       type: String
+
 
 

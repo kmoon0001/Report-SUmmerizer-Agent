@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,7 +13,7 @@
 
 mcs.metadata:
   componentName: Greeting
-  description: Elite clinical intelligence module specialized in [Greeting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [Greeting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnRecognizedIntent
@@ -34,10 +34,10 @@ beginDialog:
       activity:
         text:
           - |-
-            👋 Welcome to TheraDoc!
+            ðŸ‘‹ Welcome to TheraDoc!
             Your AI-powered documentation assistant for SNF therapy teams.
 
-            ⚠️ HIPAA: Use initials or room numbers only — no full names or MRNs.
+            âš ï¸ HIPAA: Use initials or room numbers only â€” no full names or MRNs.
 
             Tap a button below to get started:
         speak:
@@ -55,62 +55,62 @@ beginDialog:
         definition:
           kind: ClosedListEntity
           items:
-            - id: 📝 Write a daily note
-              displayName: 📝 Write a daily note
+            - id: ðŸ“ Write a daily note
+              displayName: ðŸ“ Write a daily note
 
-            - id: 📋 Create an evaluation
-              displayName: 📋 Create an evaluation
+            - id: ðŸ“‹ Create an evaluation
+              displayName: ðŸ“‹ Create an evaluation
 
-            - id: 📝 Generate progress note
-              displayName: 📝 Generate progress note
+            - id: ðŸ“ Generate progress note
+              displayName: ðŸ“ Generate progress note
 
-            - id: 🏥 Complete a discharge note intake
-              displayName: 🏥 Complete a discharge note intake
+            - id: ðŸ¥ Complete a discharge note intake
+              displayName: ðŸ¥ Complete a discharge note intake
 
-            - id: 📄 Write a recertification note
-              displayName: 📄 Write a recertification note
+            - id: ðŸ“„ Write a recertification note
+              displayName: ðŸ“„ Write a recertification note
 
-            - id: 🤝 Generate a nursing handoff
-              displayName: 🤝 Generate a nursing handoff
+            - id: ðŸ¤ Generate a nursing handoff
+              displayName: ðŸ¤ Generate a nursing handoff
 
-            - id: 🔍 Audit an existing note
-              displayName: 🔍 Audit an existing note
+            - id: ðŸ” Audit an existing note
+              displayName: ðŸ” Audit an existing note
 
     - kind: ConditionGroup
       id: conditionGroup_zklXmJ
       conditions:
         - id: conditionItem_cR7JfM
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'📝 Write a daily note'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ“ Write a daily note'
 
         - id: conditionItem_YGLugP
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'📋 Create an evaluation'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ“‹ Create an evaluation'
 
         - id: conditionItem_iDRmB2
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'📝 Generate progress note'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ“ Generate progress note'
 
         - id: conditionItem_aEaTzZ
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'🏥 Complete a discharge note intake'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ¥ Complete a discharge note intake'
           actions:
             - kind: BeginDialog
               id: 1rN4iS
               dialog: pcca_agent.topic.DischargeNoteIntake
 
         - id: conditionItem_Kjiq3i
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'📄 Write a recertification note'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ“„ Write a recertification note'
           actions:
             - kind: BeginDialog
               id: OierPd
               dialog: pcca_agent.topic.RecertificationIntake
 
         - id: conditionItem_OYhkIu
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'🤝 Generate a nursing handoff'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ¤ Generate a nursing handoff'
           actions:
             - kind: BeginDialog
               id: pjTk4F
               dialog: pcca_agent.topic.NursingHandoff
 
         - id: conditionItem_7om3uT
-          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'🔍 Audit an existing note'
+          condition: =Topic.selectedWorkflow = 'pcca_agent.topic.Greeting.main.question_vct0Ze'.'ðŸ” Audit an existing note'
           actions:
             - kind: BeginDialog
               id: SgRqPC
@@ -119,6 +119,7 @@ beginDialog:
     - kind: CancelAllDialogs
       id: cancelAllDialogs_01At22
       displayName: End all topics
+
 
 
 

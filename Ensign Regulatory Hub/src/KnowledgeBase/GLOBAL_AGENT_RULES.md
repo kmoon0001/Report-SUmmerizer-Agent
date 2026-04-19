@@ -1,9 +1,9 @@
-# PLATINUM SOURCE: GLOBAL AGENT RULES
+﻿# PLATINUM SOURCE: GLOBAL AGENT RULES
 
 **Metadata:**
 - **Role**: Primary Source of Truth
 - **Category**: Clinical Governance
-- **Description**: Primary clinical and operational governance source for Ensign Services AI Fleet. Reference this for all AGENT_RULES logic.
+- **Description**: Primary clinical and operational governance source for Pacific Coast Services AI Fleet. Reference this for all AGENT_RULES logic.
 
 ---
 # GLOBAL_AGENT_RULES.md (The Ironclad Standard)
@@ -31,5 +31,6 @@ High-criticality agents (TheraDoc, QM Agent, Report Prep) must implement a **Sec
 Agents should reference `SharedKnowledge/` for regulatory grounding instead of maintaining local copies of CMS or HIPAA guidelines.
 
 ---
-*Enforced globally across the Ensign Services AI Fleet.*
+*Enforced globally across the Pacific Coast Services AI Fleet.*
+
 

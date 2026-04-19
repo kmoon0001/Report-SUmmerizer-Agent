@@ -1,4 +1,4 @@
-import { 
+﻿import { 
   FileText, 
   ClipboardCheck, 
   Stethoscope, 
@@ -110,7 +110,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
       {
         title: 'Purpose',
         type: 'text',
-        content: 'Determine the need for a skilled evaluation and make an impact on a resident’s quality of life. Requests can come from MD, NPP, nursing, or family.'
+        content: 'Determine the need for a skilled evaluation and make an impact on a residentâ€™s quality of life. Requests can come from MD, NPP, nursing, or family.'
       },
       {
         title: 'The Do\'s',
@@ -368,7 +368,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
     title: 'Patient Driven Payment Model (PDPM)',
     category: 'Billing',
     icon: TrendingUp,
-    reference: 'Ensign Services 2019; CMS PDPM Website',
+    reference: 'Pacific Coast Services 2019; CMS PDPM Website',
     sections: [
       {
         title: 'Overview',
@@ -647,7 +647,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
     title: 'Assessing Cognition in Dementia',
     category: 'Clinical',
     icon: Brain,
-    reference: 'ASHA 2018; Alzheimer’s Association 2018',
+    reference: 'ASHA 2018; Alzheimerâ€™s Association 2018',
     sections: [
       {
         title: 'Clinical Aim',
@@ -669,8 +669,8 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         title: 'Caregiver Collaboration',
         type: 'bullets',
         content: [
-          'Gather information on the patient’s greatest areas of concern.',
-          'Identify the patient’s strengths and when they are most engaged.',
+          'Gather information on the patientâ€™s greatest areas of concern.',
+          'Identify the patientâ€™s strengths and when they are most engaged.',
           'Balance standardized measures with observations of functional routines (meals, social interactions).'
         ]
       }
@@ -681,7 +681,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
     title: 'Dementia: Behavioral & Psychosocial',
     category: 'Clinical',
     icon: AlertCircle,
-    reference: 'ASHA 2019; Alzheimer’s Association 2017',
+    reference: 'ASHA 2019; Alzheimerâ€™s Association 2017',
     sections: [
       {
         title: 'Responsive Behaviors',
@@ -791,9 +791,9 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         type: 'bullets',
         content: [
           'Who first noticed the problems?',
-          'What is the patient’s understanding of the referral?',
+          'What is the patientâ€™s understanding of the referral?',
           'How does the CCD impact daily life (Driving, Employment, Med Management)?',
-          'What are the family’s primary concerns?',
+          'What are the familyâ€™s primary concerns?',
           'What strategies is the patient currently using to help themselves?'
         ]
       },
@@ -825,7 +825,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         title: 'Population-Specific Benefits',
         type: 'bullets',
         content: [
-          'SCI/ACDF: VFSS for prevertebral edema and UES visualization; FEES for laryngeal function and bird’s eye view of pharyngeal structures.',
+          'SCI/ACDF: VFSS for prevertebral edema and UES visualization; FEES for laryngeal function and birdâ€™s eye view of pharyngeal structures.',
           'TBI/CVA: VFSS for patients with reduced consciousness; FEES once calm/cooperative for secretion management.',
           'Trach/Vent: FEES is easier in the ICU and promotes early nutrition; VFSS follow-up once weaned from mechanical ventilation.',
           'H&N Cancer: VFSS for pharyngeal phase evaluation; FEES for direct visualization of masses and mucosal changes.'
@@ -888,7 +888,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         type: 'bullets',
         content: [
           'Stroke: < 174 L/min.',
-          'Parkinson’s: < 314 L/min.',
+          'Parkinsonâ€™s: < 314 L/min.',
           'ALS: < 240 L/min (Identified unsafe swallowing).'
         ]
       }
@@ -911,7 +911,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         type: 'bullets',
         content: [
           'EAT-10: Swallowing assessment. Score >3 is abnormal; >15 indicates 2.2x higher aspiration risk.',
-          'PILL-5: Pill dysphagia. Score ≥6 warrants referral to a swallowing specialist.',
+          'PILL-5: Pill dysphagia. Score â‰¥6 warrants referral to a swallowing specialist.',
           'VHI-10: Voice Handicap Index for adults with voice disorders.',
           'Neuro-QOL: Cognitive function assessment for neurological impairment.'
         ]
@@ -1084,7 +1084,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         type: 'bullets',
         content: [
           'Impairment-Based: SFA (Semantic Feature Analysis), VNeST (Verb Network Strengthening), MIT (Melodic Intonation Therapy).',
-          'Communication-Based: PACE (Promoting Aphasics’ Communicative Effectiveness), SCA (Supported Conversation Approach), Script Training.'
+          'Communication-Based: PACE (Promoting Aphasicsâ€™ Communicative Effectiveness), SCA (Supported Conversation Approach), Script Training.'
         ]
       }
     ]
@@ -1165,7 +1165,7 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
         title: 'Voice & Message Banking',
         type: 'bullets',
         content: [
-          'Voice Banking: Creating a synthesized version of the patient’s own voice.',
+          'Voice Banking: Creating a synthesized version of the patientâ€™s own voice.',
           'Message Banking: Recording specific, meaningful phrases (e.g., "I love you").',
           'Note: These must be completed BEFORE the patient loses their natural speech.'
         ]
@@ -1329,3 +1329,4 @@ export const ENSIGN_SLP_CORNER_DATA: Postette[] = [
     ]
   }
 ];
+

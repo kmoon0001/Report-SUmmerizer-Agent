@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: LATEST RESIDENT SUBMISSION ROUTER
-  description: Elite clinical intelligence module specialized in [LATESTRESIDENTSUBMISSION]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [LATESTRESIDENTSUBMISSION]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [LATESTRESIDENTSUBMISSION]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [LATESTRESIDENTSUBMISSION]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -310,4 +310,5 @@ beginDialog:
       dialog: cr917_agentu92bPc.topic.RESIDENTOUTLIERANALYSIS
 inputType: {}
 outputType: {}
+
 

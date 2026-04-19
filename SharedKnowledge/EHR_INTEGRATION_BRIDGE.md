@@ -1,4 +1,4 @@
-# EHR_INTEGRATION_BRIDGE (PLATINUM V3)
+﻿# EHR_INTEGRATION_BRIDGE (PLATINUM V3)
 **Grounding Source**: PointClickCare (PCC) API + NetHealth Optima (Rehab Optima)
 **Integration Standard**: Microsoft Learn "Unified Data Hub" Pattern
 
@@ -27,4 +27,5 @@ Following Microsoft's "Idempotent Worker" standard, the Fabric trigger follows t
 | Optima.GG_Score | Topic.FunctionalBaseline | Integer |
 
 ---
-*Ensign Services: World-Class Clinical Intelligence Infrastructure.*
+*Pacific Coast Services: World-Class Clinical Intelligence Infrastructure.*
+

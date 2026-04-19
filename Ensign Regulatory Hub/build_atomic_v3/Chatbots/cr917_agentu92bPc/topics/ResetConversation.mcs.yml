@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Reset Conversation
-  description: Elite clinical intelligence module specialized in [ResetConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ResetConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Reset Conversation within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 startBehavior: UseLatestPublishedContentAndCancelOtherTopics
@@ -18,6 +18,7 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: cancelAllDialogs_12Gt21
+
 
 
 

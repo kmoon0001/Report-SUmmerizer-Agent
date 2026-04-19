@@ -1,9 +1,9 @@
-# PLATINUM SOURCE: PLATINUM PROMPT PATTERNS
+﻿# PLATINUM SOURCE: PLATINUM PROMPT PATTERNS
 
 **Metadata:**
 - **Role**: Primary Source of Truth
 - **Category**: Clinical Governance
-- **Description**: Primary clinical and operational governance source for Ensign Services AI Fleet. Reference this for all PLATINUM_PROMPT_PATTERNS logic.
+- **Description**: Primary clinical and operational governance source for Pacific Coast Services AI Fleet. Reference this for all PLATINUM_PROMPT_PATTERNS logic.
 
 ---
 # PLATINUM_PROMPT_PATTERNS.md
@@ -34,3 +34,4 @@ This global reference defines the few-shot learning patterns required for Micros
 **Goal**: Provide mathematical justification for scores.
 - **Pattern**: [Score] achieved. Primary driver: [Feature] contributing [Value] to the deviation from baseline.
 - **Implementation**: The Urgency Score of 85 is driven primarily by the 'Cert Expires in 3 days' feature, which represents the strongest contributor to the clinical risk profile according to the SHAP interpreter.
+

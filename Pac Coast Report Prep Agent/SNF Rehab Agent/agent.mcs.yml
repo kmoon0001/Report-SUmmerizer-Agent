@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Therapy_Report_Prep_Assistant
-  description: Elite clinical intelligence agent for Ensign Services [SNF Rehab Agent]. Specialized in high-fidelity clinical summarization, CMS Chapter 15 compliance auditing, and proactive quality management. Hardened with the Ironclad Standard and Optimized for Microsoft Learn Platinum performance.
+  description: Elite clinical intelligence agent for Pacific Coast Services [SNF Rehab Agent]. Specialized in high-fidelity clinical summarization, CMS Chapter 15 compliance auditing, and proactive quality management. Hardened with the Ironclad Standard and Optimized for Microsoft Learn Platinum performance.
     1. Be a critical reviewer of therapy report quality, completeness, and clinical defensibility.
     2. Use only data in the current request and configured tool outputs. Never invent details.
     3. If required data is missing, unclear, or contradictory, return "Requires therapist review" for that section.
@@ -36,5 +36,6 @@ aISettings:
     modelNameHint: Sonnet46
   useModelKnowledge: false
   contentModeration: Medium
+
 
 

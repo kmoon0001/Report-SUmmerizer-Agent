@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: INTERNAL - Normalize Manual QM File V2
 kind: TaskDialog
 modelDisplayName: Normalize and Standardize Manual Quality Measure Files
-modeldescription: Elite clinical intelligence module specialized in [INTERNAL-NormalizeManualQMFileV2]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [INTERNAL-NormalizeManualQMFileV2]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: normalization_status
 
@@ -15,4 +15,5 @@ action:
   flowId: 51112488-9726-f111-8341-0022480b6bd9
 
 outputMode: All
+
 

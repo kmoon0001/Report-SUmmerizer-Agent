@@ -1,10 +1,11 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: ApiIntakeStatus
-  description: Elite clinical intelligence module specialized in [ApiIntakeStatus]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ApiIntakeStatus]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: Variable
 name: ApiIntakeStatus
 scope: Global
 isExternalInitializationAllowed: true
 isOutputToExternalCallers: false
 initializationTimeoutInMilliseconds: 0
+
 

@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF Command Center - Generate On-Demand Patient Insight
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Generate On-Demand Patient Insight
-modeldescription: Elite clinical intelligence module specialized in [GenerateOnDemandPatientInsight]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [GenerateOnDemandPatientInsight]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs: []
 
 action:
@@ -10,4 +10,5 @@ action:
   flowId: f96d43dd-fd24-f111-8341-6045bd061151
 
 outputMode: All
+
 

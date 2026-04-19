@@ -1,8 +1,8 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF - Quality Measure Email Generator
 kind: TaskDialog
 modelDisplayName: Generate Quality Measure Compliance Emails
-modeldescription: Elite clinical intelligence module specialized in [SNF-QualityMeasureEmailGenerator]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [SNF-QualityMeasureEmailGenerator]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 outputs:
   - propertyName: hitl_approval
 
@@ -11,4 +11,5 @@ action:
   flowId: fcf035ad-af0c-f111-8406-0022480b6bd9
 
 outputMode: All
+
 

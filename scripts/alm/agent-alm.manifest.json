@@ -1,4 +1,4 @@
-{
+﻿{
   "generatedAtUtc": "2026-04-18T22:45:45.0471583Z",
   "root": "D:\\my agents copilot studio",
   "defaults": {
@@ -34,10 +34,10 @@
     },
     {
       "enabled": false,
-      "projectPath": "Ensign Clinical Synthesis Lab",
+      "projectPath": "Pacific Coast Clinical Synthesis Lab",
       "sourceOfTruth": "local",
       "mergeMode": "none",
-      "localDisplayName": "Ensign Clinical Synthesis Lab",
+      "localDisplayName": "Pacific Coast Clinical Synthesis Lab",
       "agentId": "",
       "environmentId": "fd140aae-4df4-11dd-bd17-0019b9312238",
       "dataverseEndpoint": "",
@@ -46,7 +46,7 @@
     },
     {
       "enabled": false,
-      "projectPath": "Ensign Clinical Synthesis Lab\\SNF Rehab Agent",
+      "projectPath": "Pacific Coast Clinical Synthesis Lab\\SNF Rehab Agent",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "Therapy_Report_Prep_Assistant",
@@ -58,7 +58,7 @@
     },
     {
       "enabled": false,
-      "projectPath": "Ensign Regulatory Hub\\atomic_gold_standard\\Chatbots\\cr917_agentu92bPc",
+      "projectPath": "Pacific Coast Regulatory Hub\\atomic_gold_standard\\Chatbots\\cr917_agentu92bPc",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "Pacific Coast Compliance Analyzer",
@@ -70,7 +70,7 @@
     },
     {
       "enabled": false,
-      "projectPath": "Ensign Regulatory Hub\\deploy_final_surgical\\Chatbots\\cr917_agentu92bPc",
+      "projectPath": "Pacific Coast Regulatory Hub\\deploy_final_surgical\\Chatbots\\cr917_agentu92bPc",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "Pacific Coast Compliance Analyzer",
@@ -82,7 +82,7 @@
     },
     {
       "enabled": true,
-      "projectPath": "Ensign Regulatory Hub\\deployment\\src\\Chatbots\\cr917_agent",
+      "projectPath": "Pacific Coast Regulatory Hub\\deployment\\src\\Chatbots\\cr917_agent",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "SimpleLTC QM Coach V2",
@@ -94,7 +94,7 @@
     },
     {
       "enabled": true,
-      "projectPath": "Ensign Regulatory Hub\\SimpleLTC QM Coach V2",
+      "projectPath": "Pacific Coast Regulatory Hub\\SimpleLTC QM Coach V2",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "SimpleLTC QM Coach V2",
@@ -106,7 +106,7 @@
     },
     {
       "enabled": false,
-      "projectPath": "Ensign Regulatory Hub\\verify_zip_structure\\Chatbots\\cr917_agent",
+      "projectPath": "Pacific Coast Regulatory Hub\\verify_zip_structure\\Chatbots\\cr917_agent",
       "sourceOfTruth": "local",
       "mergeMode": "none",
       "localDisplayName": "SimpleLTC QM Coach V2",
@@ -202,3 +202,4 @@
     }
   ]
 }
+

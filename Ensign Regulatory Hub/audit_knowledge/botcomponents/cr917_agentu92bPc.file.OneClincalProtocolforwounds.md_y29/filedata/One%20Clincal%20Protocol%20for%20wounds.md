@@ -1,4 +1,4 @@
-# ONE Clinical Wound Protocol
+﻿# ONE Clinical Wound Protocol
 
 ## Purpose of Therapy
 
@@ -77,7 +77,7 @@ Use of standardized/evidence-based testing, such as:
 - Patient will decrease L heel wound length, width, and depth by 0.5 cm to demonstrate progression towards epithelialization by X date and to allow for SPV level gait with RW.
 - Patient will decrease L palm wound pain at rest from 5 to 3 to demonstrate wound progression and to promote overall patient well-being by X date to allow for independence when eating with a fork.
 - L distal tibial wound will have minimal serosanguinous drainage as a demonstration of wound healing by X date to allow for independent donning/doffing of sock.
-- Pt will decrease the area of R sacral wound from current XXcm² to XXcm² within 2 weeks in order to increase ability to move in/out bed comfortably.
+- Pt will decrease the area of R sacral wound from current XXcmÂ² to XXcmÂ² within 2 weeks in order to increase ability to move in/out bed comfortably.
 - Pt will increase viable tissue in R sacral wound bed from current 50% to 80% granulation tissue within 2 weeks in order to reduce risk of infection.
 - Pt will decrease pain noted in R sacral wound from current 5/10 to 2/10 using NRS within 2 weeks in order to improve general mobility.
 - Pt will decrease undermining on R sacral wound at 12 o'clock by current 2 cm to 1 cm within 1 week in order to reduce infection risk.
@@ -119,4 +119,4 @@ Elements for documentation and assessment use the **MEASURE** acronym, as follow
 
 ## Contact
 
-wounds@ensignservices.net
+wounds@pacific coastservices.net

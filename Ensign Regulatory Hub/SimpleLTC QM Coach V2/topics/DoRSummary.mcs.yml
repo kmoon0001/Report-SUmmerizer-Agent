@@ -1,7 +1,7 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: DoR Summary
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [DoRSummary]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [DoRSummary]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -39,9 +39,9 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "ðŸ§‘â€âš•ï¸ DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
-            { type: "Action.Submit", title: "ðŸ‘¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
-            { type: "Action.Submit", title: "ðŸ“Š Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
+            { type: "Action.Submit", title: "Ã°Å¸Â§â€˜Ã¢â‚¬ÂÃ¢Å¡â€¢Ã¯Â¸Â DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
+            { type: "Action.Submit", title: "Ã°Å¸â€˜Â¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
+            { type: "Action.Submit", title: "Ã°Å¸â€œÅ  Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
           ]
         }
       output:
@@ -106,4 +106,5 @@ beginDialog:
           condition: =Topic.summaryFocus = 'Palm Terrace'
 inputType: {}
 outputType: {}
+
 

@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -14,7 +14,7 @@
 mcs.metadata:
   componentName: Compliance Help
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [ComplianceHelp]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [ComplianceHelp]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -25,16 +25,17 @@ beginDialog:
       activity: |-
         SNF therapy documentation must meet Medicare Part A and MDS compliance standards. Key requirements include:
 
-        • Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
-        • Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
-        • Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
-        • Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
-        • Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
+        â€¢ Skilled need justification: Every note must clearly state why skilled therapy is required (e.g., complexity, safety risk, patient inability to self-instruct).
+        â€¢ Functional baseline and progress: Document measurable functional status and progress toward goals using objective data.
+        â€¢ Plan of care alignment: Therapy provided must align with the certified plan of care, frequency, and duration.
+        â€¢ Medical necessity: Notes must support continued skilled need or justify maintenance therapy per Medicare guidelines.
+        â€¢ Defensible documentation: Avoid vague language. Use measurable terms and clinical reasoning.
 
         For note-specific auditing, use the Audit Existing Note feature. For drafting compliant notes, use the appropriate Daily Note or Evaluation topic.
 
 inputType: {}
 outputType: {}
+
 
 
 

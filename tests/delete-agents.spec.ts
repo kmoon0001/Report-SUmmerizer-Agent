@@ -1,8 +1,8 @@
-import { test, chromium } from '@playwright/test';
+﻿import { test, chromium } from '@playwright/test';
 import * as path from 'path';
 
 const ENVIRONMENTS = [
-  { name: 'Ensign Default', id: '03cc92c3-986c-4cf4-ae27-1478cf99d17f' },
+  { name: 'Pacific Coast Default', id: '03cc92c3-986c-4cf4-ae27-1478cf99d17f' },
   { name: 'PCCA Package', id: '077422cf-d088-e3d7-917e-5c9a9b64710c' },
   { name: 'Therapy AI Agents Dev', id: 'a944fdf0-0d2e-e14d-8a73-0f5ffae23315' }
 ];
@@ -84,3 +84,4 @@ test('Delete placeholder agents', async () => {
     
     await context.close();
 });
+

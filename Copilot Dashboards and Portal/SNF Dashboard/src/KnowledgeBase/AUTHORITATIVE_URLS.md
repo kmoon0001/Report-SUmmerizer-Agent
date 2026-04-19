@@ -1,4 +1,4 @@
-# AUTHORITATIVE_URLS.md
+﻿# AUTHORITATIVE_URLS.md
 
 **Metadata:**
 - **Role**: Primary Web Grounding Source
@@ -14,4 +14,5 @@
 - **ASHA Standards**: `https://www.asha.org`
 
 ---
-*Grounding Source for Ensign Services AI Fleet.*
+*Grounding Source for Pacific Coast Services AI Fleet.*
+

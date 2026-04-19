@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Extract Clinical Elements
-  description: Elite clinical intelligence module specialized in [ExtractClincialElements]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ExtractClincialElements]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Extract Clinical Elements within Pacific Coast Compliance Analyzer.
     Uses AI-driven extraction to automate clinical data gathering from therapy notes.
 beginDialog:
@@ -31,7 +31,7 @@ beginDialog:
 
     - kind: SendActivity
       id: ProcessingMessage
-      activity: 🔍 **Processing note...** I am identifying diagnosis, codes, functional status, and risks automatically.
+      activity: ðŸ” **Processing note...** I am identifying diagnosis, codes, functional status, and risks automatically.
 
     - kind: BeginDialog
       id: CallProcessor
@@ -97,7 +97,7 @@ beginDialog:
       elseActions:
         - kind: SendActivity
           id: FinalSuccess
-          activity: ✅ Clinical elements confirmed. Results are ready for compliance routing.
+          activity: âœ… Clinical elements confirmed. Results are ready for compliance routing.
 
     - kind: SendActivity
       id: RoutingMessage
@@ -109,6 +109,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

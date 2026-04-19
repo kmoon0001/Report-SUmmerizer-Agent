@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -13,7 +13,7 @@
 
 mcs.metadata:
   componentName: Progress Note Intake
-  description: Elite clinical intelligence module specialized in [ProgressNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [ProgressNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
   guardrails:
     - Always use closed-list choices for discipline, note type, interventions, assist level, goal status, and cert period
     - Only use free text for patient identifier, date, specific metrics, and custom clinical details
@@ -21,7 +21,7 @@ mcs.metadata:
     - Check contract: action inputs must match flow parameters exactly
     - On failure: preserve context and offer retry/manual continue/start over
 kind: AdaptiveDialog
-modeldescription: Elite clinical intelligence module specialized in [ProgressNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+modeldescription: Elite clinical intelligence module specialized in [ProgressNoteIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -217,26 +217,26 @@ beginDialog:
             - kind: SetTextVariable
               id: setTextVariable_goalBarHigh
               variable: Topic.goalProgressBar
-              value: ="██████████"
+              value: ="â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ"
         - id: conditionItem_goalBarMedium
           condition: =Topic.goalProgressPercent >= 50
           actions:
             - kind: SetTextVariable
               id: setTextVariable_goalBarMedium
               variable: Topic.goalProgressBar
-              value: ="██████░░░░"
+              value: ="â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘"
         - id: conditionItem_goalBarLow
           condition: =Topic.goalProgressPercent >= 25
           actions:
             - kind: SetTextVariable
               id: setTextVariable_goalBarLow
               variable: Topic.goalProgressBar
-              value: ="███░░░░░░░"
+              value: ="â–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘â–‘â–‘â–‘"
       elseActions:
         - kind: SetTextVariable
           id: setTextVariable_goalBarVeryLow
           variable: Topic.goalProgressBar
-          value: ="█░░░░░░░░░"
+          value: ="â–ˆâ–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘"
 
     - kind: Question
       id: question_pB7H6z
@@ -271,6 +271,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

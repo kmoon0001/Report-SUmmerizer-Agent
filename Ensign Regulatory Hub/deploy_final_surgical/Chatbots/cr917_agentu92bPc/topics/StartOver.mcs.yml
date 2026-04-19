@@ -1,6 +1,6 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: Start Over
-  description: Elite clinical intelligence module specialized in [StartOver]. Executes high-precision data analysis grounded in CMS Chapter 15 and Ensign Services Ironclad Standards. Optimized for Dynamic Chaining.
+  description: Elite clinical intelligence module specialized in [StartOver]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     Topic workflow for Start Over within Pacific Coast Compliance Analyzer.
     Guides structured user input and consistent compliance-oriented responses.
 beginDialog:
@@ -37,6 +37,7 @@ beginDialog:
         - kind: SendActivity
           id: sendMessage_lk2CyQ
           activity: Ok. Let's carry on.
+
 
 
 

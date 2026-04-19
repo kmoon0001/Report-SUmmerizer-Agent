@@ -1,0 +1,199 @@
+mcs.metadata:
+  componentName: SLPDailyNoteIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - slp daily note intake
+    - speech therapy daily notes
+    - add slp daily note
+    - record speech session details
+    - enter slp session information
+    - log speech language pathology notes
+    - submit daily note for slp
+    - speech therapist daily intake form
+    - start slp note entry
+  actions:
+  - kind: Question
+    id: Question_nlUswU
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_uOrYie
+    variable: Topic.DateOfService
+    prompt: What is the date of service?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_P9JrCu
+    variable: Topic.TherapistName
+    prompt: What is the treating therapist's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_MwBNbG
+    variable: Topic.PrimaryDiagnosis
+    prompt: What is the primary diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_XQPsHi
+    variable: Topic.TreatmentDiagnoses
+    prompt: 'Select treatment diagnoses:'
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: TreatmentDiagnosisOptions
+        items:
+        - id: dysphagia
+          displayName: Dysphagia
+        - id: aphasia
+          displayName: Aphasia
+        - id: cognitive_communication
+          displayName: Cognitive-Communication
+        - id: voice
+          displayName: Voice
+        - id: fluency
+          displayName: Fluency
+        - id: motor_speech
+          displayName: Motor Speech
+        - id: aac
+          displayName: AAC
+  - kind: Question
+    id: Question_TeKbeZ
+    variable: Topic.SessionDuration
+    prompt: How many minutes was the session?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_Ovm18i
+    variable: Topic.TreatmentSetting
+    prompt: 'Select treatment setting:'
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: TreatmentSettingOptions
+        items:
+        - id: bedside
+          displayName: Bedside
+        - id: therapy_gym
+          displayName: Therapy Gym
+        - id: dining_room
+          displayName: Dining Room
+  - kind: Question
+    id: Question_29M4S1
+    variable: Topic.PatientPresentation
+    prompt: 'Describe patient presentation and participation level (cooperative/uncooperative/varied,
+      alert/confused/lethargic):'
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_EFuEFE
+    variable: Topic.AreasTreated
+    prompt: 'Select areas treated:'
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: AreasTreatedOptions
+        items:
+        - id: swallowing
+          displayName: Swallowing
+        - id: language
+          displayName: Language
+        - id: cognition
+          displayName: Cognition
+        - id: voice
+          displayName: Voice
+        - id: fluency
+          displayName: Fluency
+        - id: aac
+          displayName: AAC
+  - kind: Question
+    id: Question_9aJNUg
+    variable: Topic.TechniquesInterventions
+    prompt: 'List techniques and interventions used (e.g. NMES, VitalStim, LSVT, SLP-specific
+      exercises):'
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ECGJFD
+    variable: Topic.PatientResponse
+    prompt: How did the patient respond to treatment?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: PatientResponseOptions
+        items:
+        - id: good
+          displayName: Good
+        - id: fair
+          displayName: Fair
+        - id: poor
+          displayName: Poor
+  - kind: Question
+    id: Question_UxftdR
+    variable: Topic.GoalProgress
+    prompt: 'List each active goal with current performance percentage or level:'
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_IUxdVc
+    variable: Topic.DietLiquidLevel
+    prompt: Any diet/liquid level changes or recommendations (IDDSI level)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_4d7YoC
+    variable: Topic.SkilledJustification
+    prompt: 'Provide skilled justification statement (why skilled SLP care is needed):'
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_yOZFbE
+    variable: Topic.NextSessionPlan
+    prompt: What is the plan for the next session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_PAbGw6
+    variable: Topic.SafetyPrecautions
+    prompt: Any safety or precaution updates?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_bs4Ike
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Daily Treatment Note" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Date of Service", value: Text(Topic.DateOfService) }, { title:
+          "Treating Therapist", value: Text(Topic.TherapistName) }, { title: "Primary
+          Diagnosis", value: Text(Topic.PrimaryDiagnosis) }, { title: "Treatment Diagnoses",
+          value: Text(Topic.TreatmentDiagnoses) }, { title: "Session Duration (min)",
+          value: Text(Topic.SessionDuration) }, { title: "Treatment Setting", value:
+          Text(Topic.TreatmentSetting) }, { title: "Patient Presentation", value:
+          Text(Topic.PatientPresentation) }, { title: "Areas Treated", value: Text(Topic.AreasTreated)
+          }, { title: "Techniques/Interventions", value: Text(Topic.TechniquesInterventions)
+          }, { title: "Patient Response", value: Text(Topic.PatientResponse) }, {
+          title: "Goal Progress", value: Text(Topic.GoalProgress) }, { title: "Diet/Liquid
+          Level", value: Text(Topic.DietLiquidLevel) }, { title: "Skilled Justification",
+          value: Text(Topic.SkilledJustification) }, { title: "Next Session Plan",
+          value: Text(Topic.NextSessionPlan) }, { title: "Safety/Precautions", value:
+          Text(Topic.SafetyPrecautions) } ] }, { type: "TextBlock", text: "CLINICAL
+          REVIEW REQUIRED", weight: "Bolder", color: "Attention" } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5" }'
+  - kind: SendActivity
+    id: SendActivity_cr6NAz
+    activity: "SNF SLP Daily Treatment Note\n\n**Patient:** {Topic.PatientName}\n\
+      **Date of Service:** {Topic.DateOfService}\n**Therapist:** {Topic.TherapistName}\n\
+      **Diagnosis:** {Topic.PrimaryDiagnosis}\n**Session Duration:** {Topic.SessionDuration}\
+      \ minutes\n**Treatment Setting:** {Topic.TreatmentSetting}\n**Areas Treated:**\
+      \ {Topic.AreasTreated}\n**Interventions Used:** {Topic.TechniquesInterventions}\n\
+      **Patient Response:** {Topic.PatientResponse}\n**Goal Progress:** {Topic.GoalProgress}\n\
+      **Diet/Liquid Level:** {Topic.DietLiquidLevel}\n**Skilled Justification:** {Topic.SkilledJustification}\n\
+      **Plan:** {Topic.NextSessionPlan}\n**Safety/Precautions:** {Topic.SafetyPrecautions}\n\
+      \n\u26A0\uFE0F CLINICAL REVIEW REQUIRED \u2014 AI-generated content. Verify\
+      \ accuracy before signing."
+inputType: {}
+outputType: {}
+
+
+

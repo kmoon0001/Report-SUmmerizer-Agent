@@ -1,10 +1,34 @@
 {
   "properties": {
     "definition": {
+      "parameters": {
+        "clinicalTeamsGroupId": {
+          "type": "string",
+          "defaultValue": ""
+        },
+        "clinicalChannelId": {
+          "type": "string",
+          "defaultValue": ""
+        }
+      },
       "triggers": {
         "manual": {
           "type": "Request",
-          "kind": "Skills"
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "severity": { "type": "string" },
+                "messagetext": { "type": "string" },
+                "patientid": { "type": "string" },
+                "unit": { "type": "string" },
+                "requestedbyrole": { "type": "string" },
+                "groupid": { "type": "string" },
+                "channelid": { "type": "string" }
+              }
+            }
+          }
         }
       },
       "actions": {
@@ -15,7 +39,10 @@
             "method": "post",
             "path": "/v2/teams/conversation/message/poster",
             "body": {
-              "recipient": { "groupId": "CLINICAL_TEAMS_GROUP_ID", "channelId": "CLINICAL_CHANNEL_ID" },
+              "recipient": {
+                "groupId": "@{coalesce(triggerBody()?['groupid'], parameters('clinicalTeamsGroupId'))}",
+                "channelId": "@{coalesce(triggerBody()?['channelid'], parameters('clinicalChannelId'))}"
+              },
               "message": {
                 "content": "<div style='border-left: 5px solid #d13438; padding: 10px;'><h3>🚨 EMERGENCY CLINICAL ALERT</h3><p><b>Severity:</b> @{triggerBody()?['severity']}</p><p><b>Unit:</b> @{triggerBody()?['unit']}</p><p><b>Message:</b> @{triggerBody()?['messagetext']}</p><p><i>Source: SNF Command Center Agent</i></p></div>",
                 "contentType": "html"

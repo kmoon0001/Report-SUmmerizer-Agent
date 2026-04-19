@@ -1,0 +1,157 @@
+mcs.metadata:
+  componentName: NoteIntakeRouter
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - add a note
+    - create a new note
+    - submit a note
+    - note intake
+    - start note entry
+    - route my note
+    - begin note submission
+    - enter a note
+    - send in a note
+  actions:
+  - kind: Question
+    id: Question_zWc583
+    variable: Topic.Discipline
+    prompt: Which discipline do you practice?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: NoteIntakeDisciplineOptions
+        items:
+        - id: PT
+          displayName: Physical Therapy PT
+        - id: OT
+          displayName: Occupational Therapy OT
+        - id: ST
+          displayName: Speech-Language Pathology SLP/ST
+  - kind: Question
+    id: Question_tF4DJZ
+    variable: Topic.NoteType
+    prompt: What type of note do you need?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: NoteIntakeNoteTypeOptions
+        items:
+        - id: Progress
+          displayName: Progress Note
+        - id: Recertification
+          displayName: Recertification
+        - id: Evaluation
+          displayName: Evaluation
+        - id: Discharge
+          displayName: Discharge Summary
+        - id: Daily Note
+          displayName: Daily Note
+  - kind: ConditionGroup
+    id: ConditionGroup_hcPQeA
+    conditions:
+    - id: ConditionItem_MHuUq6
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.PT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Progress
+      actions:
+      - kind: SendActivity
+        id: SendActivity_yjcJeg
+        activity: Redirecting to PT Progress Note topic...
+    - id: ConditionItem_kt23fU
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.PT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Recertification
+      actions:
+      - kind: SendActivity
+        id: SendActivity_TfUdDC
+        activity: Redirecting to PT Recertification topic...
+    - id: ConditionItem_a2kPYm
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.PT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Evaluation
+      actions:
+      - kind: SendActivity
+        id: SendActivity_GbrWS5
+        activity: Redirecting to PT Evaluation topic...
+    - id: ConditionItem_7eqgmc
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.PT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Discharge
+      actions:
+      - kind: SendActivity
+        id: SendActivity_vR6AZF
+        activity: Redirecting to PT Discharge topic...
+    - id: ConditionItem_h5DHCC
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.OT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Progress
+      actions:
+      - kind: SendActivity
+        id: SendActivity_jQC1ca
+        activity: Redirecting to OT Progress Note topic...
+    - id: ConditionItem_VDGsrv
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.OT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Recertification
+      actions:
+      - kind: SendActivity
+        id: SendActivity_yzzy3x
+        activity: Redirecting to OT Recertification topic...
+    - id: ConditionItem_ojzPxC
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.OT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Evaluation
+      actions:
+      - kind: SendActivity
+        id: SendActivity_GjTw5A
+        activity: Redirecting to OT Evaluation topic...
+    - id: ConditionItem_inP4Mk
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.OT && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Discharge
+      actions:
+      - kind: SendActivity
+        id: SendActivity_3jZKsd
+        activity: Redirecting to OT Discharge topic...
+    - id: ConditionItem_V0iQv2
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.ST && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Progress
+      actions:
+      - kind: SendActivity
+        id: SendActivity_PJl2Li
+        activity: Redirecting to ST Progress Note topic...
+    - id: ConditionItem_MjCx4U
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.ST && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Recertification
+      actions:
+      - kind: SendActivity
+        id: SendActivity_Hu9Ddd
+        activity: Redirecting to ST Recertification topic...
+    - id: ConditionItem_gLXshv
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.ST && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Evaluation
+      actions:
+      - kind: SendActivity
+        id: SendActivity_XKVnKD
+        activity: Redirecting to ST Evaluation topic...
+    - id: ConditionItem_dnyhD8
+      condition: =Topic.Discipline = NoteIntakeDisciplineOptions.ST && Topic.NoteType
+        = NoteIntakeNoteTypeOptions.Discharge
+      actions:
+      - kind: SendActivity
+        id: SendActivity_ZvYR36
+        activity: Redirecting to ST Discharge topic...
+    - id: conditionItem_ZGpEWw
+      condition: =Topic.NoteType = NoteIntakeNoteTypeOptions.'Daily Note' && Topic.Discipline
+        = NoteIntakeDisciplineOptions.PT
+      actions:
+      - kind: SendActivity
+        id: sendActivity_Q8P00W
+        activity: Redirecting to PT Daily Note topic...
+    elseActions:
+    - kind: SendActivity
+      id: SendActivity_dfKvrm
+      activity: Sorry, I could not match your selection to a clinical note topic.
+inputType: {}
+outputType: {}
+
+
+

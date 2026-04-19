@@ -1,0 +1,138 @@
+mcs.metadata:
+  componentName: OTDischargeIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - ot discharge intake
+    - start ot discharge process
+    - begin occupational therapy discharge
+    - initiate ot discharge intake
+    - ot patient leaving
+    - occupational therapy discharge form
+    - discharge from ot services
+    - complete ot intake for discharge
+    - ot client finishing treatment
+  actions:
+  - kind: Question
+    id: Question_9PXO1C
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_y1pJiK
+    variable: Topic.OTDiagnosis
+    prompt: What is the OT diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ygi2nc
+    variable: Topic.ADLAdmission
+    prompt: What was the ADL status at admission for dressing, bathing, grooming,
+      feeding, and toileting?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ab4zXy
+    variable: Topic.ADLDischarge
+    prompt: What was the ADL status at discharge for dressing, bathing, grooming,
+      feeding, and toileting?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_HbqAYM
+    variable: Topic.FIMAdmission
+    prompt: What were the FIM or Section GG scores at admission?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_01yfXp
+    variable: Topic.FIMDischarge
+    prompt: What were the FIM or Section GG scores at discharge?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_TyWjMV
+    variable: Topic.OTSessionsCompleted
+    prompt: How many total OT sessions were completed?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_5r7qUy
+    variable: Topic.GoalsMet
+    prompt: Which goals were met?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_IN5Jvo
+    variable: Topic.GoalsNotMetReason
+    prompt: Which goals were not met and what was the reason?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_DK2iGa
+    variable: Topic.AdaptiveEquipment
+    prompt: What adaptive equipment was issued at discharge?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_VydcSq
+    variable: Topic.CaregiverTrainingProvided
+    prompt: Was caregiver training provided?
+    entity: BooleanPrebuiltEntity
+  - kind: ConditionGroup
+    id: ConditionGroup_RqGKbM
+    conditions:
+    - id: ConditionItem_F1Oj3q
+      condition: =Topic.CaregiverTrainingProvided = true
+      actions:
+      - kind: Question
+        id: Question_VTI2iz
+        variable: Topic.CaregiverTrainingDetails
+        prompt: What was trained for the caregiver?
+        entity: StringPrebuiltEntity
+    elseActions:
+    - kind: SendActivity
+      id: SendActivity_1bH22K
+      activity: No caregiver training was provided.
+  - kind: Question
+    id: Question_xvr6NY
+    variable: Topic.DischargeDisposition
+    prompt: What is the discharge disposition?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_2cYQUB
+    variable: Topic.HomeSafetyRecommendations
+    prompt: What are the home safety recommendations?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_pPpGE4
+    variable: Topic.FollowUpOTRecommendations
+    prompt: What are the follow-up OT recommendations?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_ZeRLrp
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "OT Discharge Summary" }, { type: "FactSet",
+          facts: [ { title: "Patient Name", value: Text(Topic.PatientName) }, { title:
+          "OT Diagnosis", value: Text(Topic.OTDiagnosis) }, { title: "ADL Admission",
+          value: Text(Topic.ADLAdmission) }, { title: "ADL Discharge", value: Text(Topic.ADLDischarge)
+          }, { title: "FIM/Section GG Admission", value: Text(Topic.FIMAdmission)
+          }, { title: "FIM/Section GG Discharge", value: Text(Topic.FIMDischarge)
+          }, { title: "OT Sessions Completed", value: Text(Topic.OTSessionsCompleted)
+          }, { title: "Goals Met", value: Text(Topic.GoalsMet) }, { title: "Goals
+          Not Met/Reason", value: Text(Topic.GoalsNotMetReason) }, { title: "Adaptive
+          Equipment", value: Text(Topic.AdaptiveEquipment) }, { title: "Caregiver
+          Training Provided", value: Text(Topic.CaregiverTrainingProvided) }, { title:
+          "Caregiver Training Details", value: Text(Topic.CaregiverTrainingDetails)
+          }, { title: "Discharge Disposition", value: Text(Topic.DischargeDisposition)
+          }, { title: "Home Safety Recommendations", value: Text(Topic.HomeSafetyRecommendations)
+          }, { title: "Follow-Up OT Recommendations", value: Text(Topic.FollowUpOTRecommendations)
+          } ] } ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5" }'
+  - kind: Question
+    id: Question_Sd6SLm
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise the note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

@@ -1,0 +1,176 @@
+mcs.metadata:
+  componentName: STDischargeIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - start discharge intake
+    - discharge intake process
+    - initiate ST discharge
+    - begin ST discharge intake
+    - ST patient discharge intake
+    - intake for ST discharge
+    - discharge form for ST
+    - submit ST discharge intake
+    - complete ST discharge intake
+  actions:
+  - kind: Question
+    id: Question_8AlQIl
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_XEmCZ9
+    variable: Topic.SLPDiagnosis
+    prompt: What is the SLP diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ywDNqD
+    variable: Topic.CommStatusAdmission
+    prompt: Describe the patient's communication status at admission.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_0bDAZR
+    variable: Topic.CommStatusDischarge
+    prompt: Describe the patient's communication status at discharge.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_O36Bxc
+    variable: Topic.SwallowStatusAdmission
+    prompt: Describe the patient's swallowing status at admission.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_oltaTS
+    variable: Topic.SwallowStatusDischarge
+    prompt: Describe the patient's swallowing status at discharge.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_8AZKCA
+    variable: Topic.DietTextureAdmission
+    prompt: What was the diet texture at admission? (IDDSI level)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_pE0IuK
+    variable: Topic.DietTextureDischarge
+    prompt: What was the diet texture at discharge? (IDDSI level)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ALYHCC
+    variable: Topic.LiquidConsistencyAdmission
+    prompt: What was the liquid consistency at admission? (IDDSI level)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_N8lTCP
+    variable: Topic.LiquidConsistencyDischarge
+    prompt: What was the liquid consistency at discharge? (IDDSI level)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_oWRJYx
+    variable: Topic.TotalSLPSessions
+    prompt: How many total SLP sessions were completed?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_QXcuPp
+    variable: Topic.GoalsMet
+    prompt: List the communication and swallowing goals met.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_nqZDUU
+    variable: Topic.GoalsNotMetReason
+    prompt: List the communication and swallowing goals not met and the reason.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_aGIvAl
+    variable: Topic.DischargeDietRecommendations
+    prompt: What are the discharge diet recommendations?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_EgjrMU
+    variable: Topic.DischargeLiquidRecommendations
+    prompt: What are the discharge liquid recommendations?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ro8Kfp
+    variable: Topic.HomeExerciseProgram
+    prompt: What home exercise program or strategies were provided to the patient
+      and family?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_tgqD2W
+    variable: Topic.CaregiverTrainingProvided
+    prompt: Was caregiver or family training provided?
+    entity: BooleanPrebuiltEntity
+  - kind: Question
+    id: Question_rP6teV
+    variable: Topic.DischargeDisposition
+    prompt: What is the discharge disposition?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mKnQ36
+    variable: Topic.FollowUpSLPRecommendations
+    prompt: What are the follow-up SLP recommendations?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_G2VpF1
+    variable: Topic.SafetyConcerns
+    prompt: Are there any safety concerns?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_OiKIDk
+    activity: 'Drafting SNF SLP Discharge Summary note...
+
+
+      Patient Name: {Topic.PatientName}
+
+      SLP Diagnosis: {Topic.SLPDiagnosis}
+
+      Communication Status at Admission: {Topic.CommStatusAdmission}
+
+      Communication Status at Discharge: {Topic.CommStatusDischarge}
+
+      Swallowing Status at Admission: {Topic.SwallowStatusAdmission}
+
+      Swallowing Status at Discharge: {Topic.SwallowStatusDischarge}
+
+      Diet Texture at Admission: {Topic.DietTextureAdmission}
+
+      Diet Texture at Discharge: {Topic.DietTextureDischarge}
+
+      Liquid Consistency at Admission: {Topic.LiquidConsistencyAdmission}
+
+      Liquid Consistency at Discharge: {Topic.LiquidConsistencyDischarge}
+
+      Total SLP Sessions Completed: {Topic.TotalSLPSessions}
+
+      Goals Met: {Topic.GoalsMet}
+
+      Goals Not Met/Reason: {Topic.GoalsNotMetReason}
+
+      Discharge Diet Recommendations: {Topic.DischargeDietRecommendations}
+
+      Discharge Liquid Recommendations: {Topic.DischargeLiquidRecommendations}
+
+      Home Exercise Program/Strategies Provided: {Topic.HomeExerciseProgram}
+
+      Caregiver/Family Training Provided: {Topic.CaregiverTrainingProvided}
+
+      Discharge Disposition: {Topic.DischargeDisposition}
+
+      Follow-up SLP Recommendations: {Topic.FollowUpSLPRecommendations}
+
+      Safety Concerns: {Topic.SafetyConcerns}
+
+
+      Please review the note. Would you like to finalize or revise?'
+  - kind: Question
+    id: Question_qdKtUy
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise the discharge summary?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

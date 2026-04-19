@@ -6,6 +6,7 @@ authenticationTrigger: Always
 configuration:
   settings:
     GenerativeActionsEnabled: true
+    KnowledgeBoostThreshold: 0.85
 
   isAgentConnectable: false
   gPTSettings:

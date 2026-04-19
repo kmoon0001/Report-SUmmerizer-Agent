@@ -1,0 +1,140 @@
+mcs.metadata:
+  componentName: PTProgressNoteIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - pt progress note intake
+    - start pt progress note
+    - begin physical therapy progress note
+    - intake for pt progress note
+    - create pt progress note
+    - new physical therapy progress intake
+    - log pt session notes
+    - record physical therapy progress
+    - enter pt treatment update
+  actions:
+  - kind: Question
+    id: Question_ay3Ryy
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_ET2xEr
+    variable: Topic.PTDiagnosis
+    prompt: What is the primary physical therapy diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_zJ94ZC
+    variable: Topic.FunctionalMobilityGoals
+    prompt: What are the functional mobility goals?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_J3Xo82
+    variable: Topic.ProgressPercentage
+    prompt: What is the current progress percentage?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_olnskA
+    variable: Topic.GaitTransferActivities
+    prompt: What gait or transfer training activities were performed this session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_XjxXFw
+    variable: Topic.AssistiveDevice
+    prompt: What assistive device was used?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_oDWNpM
+    variable: Topic.LevelOfAssist
+    prompt: What was the level of assist?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: LevelOfAssistOptions
+        items:
+        - id: dependent
+          displayName: Dependent
+        - id: max_assist
+          displayName: Max Assist
+        - id: mod_assist
+          displayName: Mod Assist
+        - id: min_assist
+          displayName: Min Assist
+        - id: supervision
+          displayName: Supervision
+        - id: independent
+          displayName: Independent
+  - kind: Question
+    id: Question_ttmpR6
+    variable: Topic.BalanceFallRisk
+    prompt: Please describe balance and fall risk observations.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_DNsLtu
+    variable: Topic.PainLevel
+    prompt: What is the patient's pain level (0-10)?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_3w0BmN
+    variable: Topic.NextSessionPlan
+    prompt: What is your plan for the next session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_LWt1ae
+    variable: Topic.AdditionalNotes
+    prompt: Any additional notes?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_4bENQW
+    activity:
+      text:
+      - 'Here is your PT Progress Note summary. Please review:'
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "PT Progress Note Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Primary PT Diagnosis", value: Text(Topic.PTDiagnosis) }, {
+          title: "Functional Mobility Goals", value: Text(Topic.FunctionalMobilityGoals)
+          }, { title: "Progress Percentage", value: Text(Topic.ProgressPercentage)
+          }, { title: "Gait/Transfer Activities", value: Text(Topic.GaitTransferActivities)
+          }, { title: "Assistive Device", value: Text(Topic.AssistiveDevice) }, {
+          title: "Level of Assist", value: Text(Topic.LevelOfAssist) }, { title: "Balance/Fall
+          Risk", value: Text(Topic.BalanceFallRisk) }, { title: "Pain Level", value:
+          Text(Topic.PainLevel) }, { title: "Next Session Plan", value: Text(Topic.NextSessionPlan)
+          }, { title: "Additional Notes", value: Text(Topic.AdditionalNotes) } ] }
+          ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json", version:
+          "1.5"}'
+  - kind: Question
+    id: Question_q5NK4O
+    variable: Topic.FinalizeOrRevise
+    prompt: Do you want to finalize or revise the progress note?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: FinalizeOrReviseOptions
+        items:
+        - id: finalize
+          displayName: Finalize
+        - id: revise
+          displayName: Revise
+  - kind: SetVariable
+    id: setVariable_knG29O
+    variable: Global.GeneratedNote
+    value: '="PT Progress Note | Patient: " & Text(Topic.PatientName) & " | Dx: "
+      & Text(Topic.PTDiagnosis) & " | Goals: " & Text(Topic.FunctionalMobilityGoals)
+      & " | Progress: " & Text(Topic.ProgressPercentage) & "% | Gait/Transfer: " &
+      Text(Topic.GaitTransferActivities) & " | Device: " & Text(Topic.AssistiveDevice)
+      & " | LOA: " & Text(Topic.LevelOfAssist) & " | Balance: " & Text(Topic.BalanceFallRisk)
+      & " | Pain: " & Text(Topic.PainLevel) & " | Next Session: " & Text(Topic.NextSessionPlan)
+      & " | Notes: " & Text(Topic.AdditionalNotes)'
+inputType: {}
+outputType: {}
+
+
+

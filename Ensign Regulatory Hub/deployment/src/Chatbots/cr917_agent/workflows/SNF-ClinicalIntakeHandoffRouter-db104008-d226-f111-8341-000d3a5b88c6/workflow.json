@@ -85,7 +85,7 @@
                 },
                 "normalized_text": {
                   "title": "normalized_text",
-                  "description": "Normalized text summary placeholder for uploaded content.",
+                  "description": "Normalized text summary for uploaded content.",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true

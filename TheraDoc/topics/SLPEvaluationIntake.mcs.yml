@@ -1,0 +1,257 @@
+mcs.metadata:
+  componentName: SLPEvaluationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - slp evaluation intake
+    - speech evaluation appointment
+    - schedule slp assessment
+    - request speech therapy evaluation
+    - start slp intake process
+    - speech language pathology intake
+    - book slp evaluation
+    - begin speech assessment intake
+    - need a speech evaluation
+  actions:
+  - kind: Question
+    id: Question_CJ3W6Z
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_ZAuonM
+    variable: Topic.EvalDate
+    prompt: What is the date of evaluation?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_Pam6HP
+    variable: Topic.ReferringPhysician
+    prompt: Who is the referring physician?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_PBX3KL
+    variable: Topic.PrimaryDiagnosis
+    prompt: What is the primary admitting diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_CK6dkl
+    variable: Topic.Comorbidities
+    prompt: List relevant comorbidities.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_gnO757
+    variable: Topic.ReasonForReferral
+    prompt: What is the reason for referral?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: ReferralReasonOptions
+        items:
+        - id: dysphagia
+          displayName: Dysphagia
+        - id: communication_deficit
+          displayName: Communication Deficit
+        - id: cognitive_impairment
+          displayName: Cognitive Impairment
+        - id: voice_disorder
+          displayName: Voice Disorder
+        - id: other
+          displayName: Other
+  - kind: Question
+    id: Question_qK8AlQ
+    variable: Topic.PLOF
+    prompt: Describe prior level of function (PLOF) before current illness, including
+      diet level and communication status.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_jJKfag
+    variable: Topic.MedicalStatus
+    prompt: Describe current medical status and relevant medical history.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_wJ93vZ
+    variable: Topic.AssessmentTools
+    prompt: Which standardized assessment tools were administered? (MASA, FEES, MBSS,
+      WAB, MMSE, MoCA, Boston Naming, etc.)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_EI9sUw
+    variable: Topic.AssessmentResults
+    prompt: What are the results of the standardized assessments?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_c6ZIH9
+    variable: Topic.OralMotorFindings
+    prompt: Describe oral motor examination findings.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_7RfoP6
+    variable: Topic.SwallowEval
+    prompt: Describe swallowing function evaluation results (laryngeal function, oral/pharyngeal
+      phases, aspiration risk).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_RPZGUA
+    variable: Topic.LanguageFindings
+    prompt: Describe language assessment findings (expression, comprehension, naming,
+      reading, writing).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_AhuZqb
+    variable: Topic.CognitiveFindings
+    prompt: Describe cognitive-communication assessment findings (attention, memory,
+      problem-solving, executive function).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mm1z3w
+    variable: Topic.VoiceFindings
+    prompt: Describe voice assessment findings (if applicable).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_870Mhp
+    variable: Topic.FluencyFindings
+    prompt: Describe fluency assessment findings (if applicable).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_1aBLhI
+    variable: Topic.AACFindings
+    prompt: Describe AAC evaluation findings (if applicable).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_BI3Cmg
+    variable: Topic.FunctionalCommStatus
+    prompt: Describe functional communication status.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_A8y8sx
+    variable: Topic.DietLevel
+    prompt: What is the recommended diet level per IDDSI?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_BCP8gf
+    variable: Topic.LiquidLevel
+    prompt: What is the recommended liquid level per IDDSI?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_HHXspR
+    variable: Topic.DietRationale
+    prompt: Provide rationale for diet and liquid recommendations.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_GFruP3
+    variable: Topic.AspirationPrecautions
+    prompt: List aspiration precautions.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_9z9lYi
+    variable: Topic.ShortTermGoals
+    prompt: List short-term goals (2-4 weeks) with measurable criteria.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_hj9Vz5
+    variable: Topic.LongTermGoals
+    prompt: List long-term goals (6-8 weeks) with measurable criteria.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_8APDKf
+    variable: Topic.TreatmentFrequency
+    prompt: What is the recommended treatment frequency and duration?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_Z34gDa
+    variable: Topic.RehabPotential
+    prompt: What is the rehabilitation potential?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: RehabPotentialOptions
+        items:
+        - id: good
+          displayName: Good
+        - id: fair
+          displayName: Fair
+        - id: limited
+          displayName: Limited
+  - kind: Question
+    id: Question_vScl5h
+    variable: Topic.RehabRationale
+    prompt: Provide rationale for rehabilitation potential.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_zPt492
+    variable: Topic.PlanOfCare
+    prompt: Describe the plan of care.
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_xZoqa6
+    activity: 'SLP Initial Evaluation for SNF Medicare Documentation:
+
+
+      Patient Name: {Topic.PatientName}
+
+      Date of Evaluation: {Topic.EvalDate}
+
+      Referring Physician: {Topic.ReferringPhysician}
+
+      Primary Admitting Diagnosis: {Topic.PrimaryDiagnosis}
+
+      Comorbidities: {Topic.Comorbidities}
+
+      Reason for Referral: {Topic.ReasonForReferral}
+
+      Prior Level of Function: {Topic.PLOF}
+
+      Current Medical Status: {Topic.MedicalStatus}
+
+      Assessment Tools: {Topic.AssessmentTools}
+
+      Assessment Results: {Topic.AssessmentResults}
+
+      Oral Motor Findings: {Topic.OralMotorFindings}
+
+      Swallowing Evaluation: {Topic.SwallowEval}
+
+      Language Findings: {Topic.LanguageFindings}
+
+      Cognitive Findings: {Topic.CognitiveFindings}
+
+      Voice Findings: {Topic.VoiceFindings}
+
+      Fluency Findings: {Topic.FluencyFindings}
+
+      AAC Findings: {Topic.AACFindings}
+
+      Functional Communication Status: {Topic.FunctionalCommStatus}
+
+      Diet Level: {Topic.DietLevel}
+
+      Liquid Level: {Topic.LiquidLevel}
+
+      Diet Rationale: {Topic.DietRationale}
+
+      Aspiration Precautions: {Topic.AspirationPrecautions}
+
+      Short-Term Goals: {Topic.ShortTermGoals}
+
+      Long-Term Goals: {Topic.LongTermGoals}
+
+      Treatment Frequency: {Topic.TreatmentFrequency}
+
+      Rehabilitation Potential: {Topic.RehabPotential}
+
+      Rehab Rationale: {Topic.RehabRationale}
+
+      Plan of Care: {Topic.PlanOfCare}
+
+
+      CLINICAL REVIEW REQUIRED.'
+inputType: {}
+outputType: {}
+
+
+

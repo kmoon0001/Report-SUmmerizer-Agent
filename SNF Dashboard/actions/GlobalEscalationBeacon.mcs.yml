@@ -1,0 +1,27 @@
+mcs.metadata:
+  componentName: SNF Command Center - Global Escalation Beacon
+kind: TaskDialog
+modelDisplayName: SNF Command Center - Global Escalation Beacon
+modeldescription: Sends a global escalation beacon when critical errors or repeated human-assistance requests occur.
+inputs:
+  - propertyName: agentname
+    required: false
+  - propertyName: severity
+    required: false
+  - propertyName: criticalerrorcount
+    required: false
+  - propertyName: humanassistancecount
+    required: false
+  - propertyName: summary
+    required: false
+outputs:
+  - propertyName: status
+  - propertyName: escalated
+  - propertyName: summary
+  - propertyName: nextstep
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 3f8a26d0-6f2e-4a66-a128-59020f47c441
+
+outputMode: All

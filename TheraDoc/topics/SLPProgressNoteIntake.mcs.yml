@@ -1,0 +1,293 @@
+mcs.metadata:
+  componentName: SLPProgressNoteIntake
+modelDescription: 'This tool can handle queries like these: slp progress note intake,
+  start slp progress note, begin speech therapy progress note, speech language pathology
+  intake, create slp progress note'
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - slp progress note intake
+    - start slp progress note
+    - begin speech therapy progress note
+    - speech language pathology intake
+    - create slp progress note
+    - new slp intake form
+    - fill out slp progress note
+    - enter speech therapy session details
+    - document slp session
+  actions:
+  - kind: Question
+    id: Question_CJ3W6Z
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_ZAuonM
+    variable: Topic.DateOfService
+    prompt: What is the date of service?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_Pam6HP
+    variable: Topic.TherapistName
+    prompt: What is the therapist's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_PBX3KL
+    variable: Topic.TreatmentDaysSinceLastNote
+    prompt: How many treatment days since the last progress note?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_CK6dkl
+    variable: Topic.StatusSwallowing
+    prompt: What is the current functional status for swallowing/dysphagia?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_gnO757
+    variable: Topic.StatusLanguage
+    prompt: What is the current functional status for language/aphasia?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_qK8AlQ
+    variable: Topic.StatusCognitiveCommunication
+    prompt: What is the current functional status for cognitive-communication?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_jJKfag
+    variable: Topic.StatusVoice
+    prompt: What is the current functional status for voice?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_wJ93vZ
+    variable: Topic.StatusFluency
+    prompt: What is the current functional status for fluency?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_EI9sUw
+    variable: Topic.StatusMotorSpeech
+    prompt: What is the current functional status for motor speech?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_c6ZIH9
+    variable: Topic.StatusAAC
+    prompt: What is the current functional status for AAC?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_7RfoP6
+    variable: Topic.GoalPerformanceData
+    prompt: What is the goal performance data (percentage or level achieved vs. goal
+      target)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_RPZGUA
+    variable: Topic.ResponseToTreatment
+    prompt: Describe the patient's response to treatment and carryover ability.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_AhuZqb
+    variable: Topic.SkilledJustification
+    prompt: Provide an updated skilled justification statement explaining why continued
+      SLP services are medically necessary and cannot be provided by a non-skilled
+      person.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mm1z3w
+    variable: Topic.ChangesDiagnosisConditionPlan
+    prompt: Are there any changes in diagnosis, condition, or treatment plan?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_1aBLhI
+    variable: Topic.SignificantEvents
+    prompt: Describe any significant events or changes (diet modification, hospitalization,
+      new diagnoses).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_BI3Cmg
+    variable: Topic.PlanOfCareDischargeCriteria
+    prompt: What is the updated plan of care and anticipated discharge criteria?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_A8y8sx
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Progress Note Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Date of Service", value: Text(Topic.DateOfService) }, { title:
+          "Therapist Name", value: Text(Topic.TherapistName) }, { title: "Treatment
+          Days Since Last Note", value: Text(Topic.TreatmentDaysSinceLastNote) },
+          { title: "Swallowing/Dysphagia Status", value: Text(Topic.StatusSwallowing)
+          }, { title: "Language/Aphasia Status", value: Text(Topic.StatusLanguage)
+          }, { title: "Cognitive-Communication Status", value: Text(Topic.StatusCognitiveCommunication)
+          }, { title: "Voice Status", value: Text(Topic.StatusVoice) }, { title: "Fluency
+          Status", value: Text(Topic.StatusFluency) }, { title: "Motor Speech Status",
+          value: Text(Topic.StatusMotorSpeech) }, { title: "AAC Status", value: Text(Topic.StatusAAC)
+          }, { title: "Goal Performance Data", value: Text(Topic.GoalPerformanceData)
+          }, { title: "Response to Treatment", value: Text(Topic.ResponseToTreatment)
+          }, { title: "Skilled Justification", value: Text(Topic.SkilledJustification)
+          }, { title: "Changes in Diagnosis/Condition/Plan", value: Text(Topic.ChangesDiagnosisConditionPlan)
+          }, { title: "Rehabilitation Potential", value: Text(Topic.RehabPotential)
+          }, { title: "Significant Events", value: Text(Topic.SignificantEvents) },
+          { title: "Plan of Care/Discharge Criteria", value: Text(Topic.PlanOfCareDischargeCriteria)
+          } ] } ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5"}'
+  - kind: SendActivity
+    id: SendActivity_BCP8gf
+    activity: CLINICAL REVIEW REQUIRED.
+  - kind: Question
+    id: Question_whDaq9
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_kz4m0u
+    variable: Topic.DateOfService
+    prompt: What is the date of service?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_l4RawF
+    variable: Topic.TherapistName
+    prompt: What is the therapist's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_ZURd10
+    variable: Topic.TreatmentDaysSinceLastNote
+    prompt: How many treatment days since the last progress note?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_x6wYe5
+    variable: Topic.StatusSwallowing
+    prompt: What is the current functional status for swallowing/dysphagia?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_OChGrX
+    variable: Topic.StatusLanguage
+    prompt: What is the current functional status for language/aphasia?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mnDZ3i
+    variable: Topic.StatusCognitiveCommunication
+    prompt: What is the current functional status for cognitive-communication?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_w1Szq9
+    variable: Topic.StatusVoice
+    prompt: What is the current functional status for voice?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_A7ZpdS
+    variable: Topic.StatusFluency
+    prompt: What is the current functional status for fluency?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_rSqMmu
+    variable: Topic.StatusMotorSpeech
+    prompt: What is the current functional status for motor speech?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_NMV8Yx
+    variable: Topic.StatusAAC
+    prompt: What is the current functional status for AAC?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_MfM4xI
+    variable: Topic.GoalPerformanceData
+    prompt: What is the goal performance data (percentage or level achieved vs. goal
+      target)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_CAatr9
+    variable: Topic.ResponseToTreatment
+    prompt: Describe the patient's response to treatment and carryover ability.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_i8QwXh
+    variable: Topic.SkilledJustification
+    prompt: Provide an updated skilled justification statement explaining why continued
+      SLP services are medically necessary and cannot be provided by a non-skilled
+      person.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_fjiOYZ
+    variable: Topic.ChangesDiagnosisConditionPlan
+    prompt: Are there any changes in diagnosis, condition, or treatment plan?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: question_gf5yTd
+    interruptionPolicy:
+      allowInterruption: true
+    variable: Topic.RehabilitationPotential
+    prompt: What is the updated rehabilitation potential?
+    entity:
+      kind: EmbeddedEntity
+      sensitivityLevel: None
+      definition:
+        kind: ClosedListEntity
+        items:
+        - id: Good Rehabilitation Potential
+          displayName: Good Rehabilitation Potential
+        - id: Fair Rehabilitation Potential
+          displayName: Fair Rehabilitation Potential
+        - id: Limited Rehabilitation Potential
+          displayName: Limited Rehabilitation Potential
+  - kind: Question
+    id: Question_NxcemK
+    variable: Topic.SignificantEvents
+    prompt: Describe any significant events or changes (diet modification, hospitalization,
+      new diagnoses).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_xGJQnd
+    variable: Topic.PlanOfCareDischargeCriteria
+    prompt: What is the updated plan of care and anticipated discharge criteria?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_18lqoo
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Progress Note Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Date of Service", value: Text(Topic.DateOfService) }, { title:
+          "Therapist Name", value: Text(Topic.TherapistName) }, { title: "Treatment
+          Days Since Last Note", value: Text(Topic.TreatmentDaysSinceLastNote) },
+          { title: "Swallowing/Dysphagia Status", value: Text(Topic.StatusSwallowing)
+          }, { title: "Language/Aphasia Status", value: Text(Topic.StatusLanguage)
+          }, { title: "Cognitive-Communication Status", value: Text(Topic.StatusCognitiveCommunication)
+          }, { title: "Voice Status", value: Text(Topic.StatusVoice) }, { title: "Fluency
+          Status", value: Text(Topic.StatusFluency) }, { title: "Motor Speech Status",
+          value: Text(Topic.StatusMotorSpeech) }, { title: "AAC Status", value: Text(Topic.StatusAAC)
+          }, { title: "Goal Performance Data", value: Text(Topic.GoalPerformanceData)
+          }, { title: "Response to Treatment", value: Text(Topic.ResponseToTreatment)
+          }, { title: "Skilled Justification", value: Text(Topic.SkilledJustification)
+          }, { title: "Changes in Diagnosis/Condition/Plan", value: Text(Topic.ChangesDiagnosisConditionPlan)
+          }, { title: "Rehabilitation Potential", value: Text(Topic.RehabPotential)
+          }, { title: "Significant Events", value: Text(Topic.SignificantEvents) },
+          { title: "Plan of Care/Discharge Criteria", value: Text(Topic.PlanOfCareDischargeCriteria)
+          } ] } ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5" }'
+  - kind: SendActivity
+    id: SendActivity_eazydz
+    activity: "Medicare-Compliant SLP Progress Note\n\n**Patient:** {Topic.PatientName}\n\
+      **Date of Service:** {Topic.DateOfService}\n**Therapist:** {Topic.TherapistName}\n\
+      **Certification Period Days:** {Topic.TreatmentDaysSinceLastNote}\n\n**Goal\
+      \ Area Status:**\n- Swallowing/Dysphagia: {Topic.StatusSwallowing}\n- Language/Aphasia:\
+      \ {Topic.StatusLanguage}\n- Cognitive-Communication: {Topic.StatusCognitiveCommunication}\n\
+      - Voice: {Topic.StatusVoice}\n- Fluency: {Topic.StatusFluency}\n- Motor Speech:\
+      \ {Topic.StatusMotorSpeech}\n- AAC: {Topic.StatusAAC}\n\n**Goal Performance\
+      \ Data:** {Topic.GoalPerformanceData}\n\n**Patient Response and Carryover:**\
+      \ {Topic.ResponseToTreatment}\n\n**Updated Skilled Justification:** {Topic.SkilledJustification}\n\
+      \n**Changes in Condition:** {Topic.ChangesDiagnosisConditionPlan}\n\n**Rehab\
+      \ Potential:** {Topic.RehabPotential}\n\n**Updated Plan of Care:** {Topic.PlanOfCareDischargeCriteria}\n\
+      \n**Anticipated Discharge Criteria:** {Topic.PlanOfCareDischargeCriteria}\n\n\
+      \u26A0\uFE0F CLINICAL REVIEW REQUIRED \u2014 AI-generated content. Verify accuracy\
+      \ before signing."
+inputType: {}
+outputType: {}
+
+
+

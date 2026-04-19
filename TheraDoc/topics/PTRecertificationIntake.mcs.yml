@@ -1,0 +1,137 @@
+mcs.metadata:
+  componentName: PTRecertificationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - pt recertification
+    - physical therapy recertification
+    - start pt recertification intake
+    - recertify physical therapy
+    - pt recert intake form
+    - begin pt recert process
+    - need to recertify for pt
+    - update my pt certification
+    - pt renewal intake
+  actions:
+  - kind: Question
+    id: Question_5DZjVJ
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_ce98hG
+    variable: Topic.PrimaryPTDiagnosis
+    prompt: What is the primary PT diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_bJr6pv
+    variable: Topic.FunctionalStatusMobility
+    prompt: What is the patient's current functional status and mobility level?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_xfpQRY
+    variable: Topic.GoalsAchieved
+    prompt: What goals have been achieved since the last certification?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_uxIAzi
+    variable: Topic.NewGoals
+    prompt: What are the new goals for the next certification period (typically 60
+      days)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mLnI1k
+    variable: Topic.SkilledNecessityJustification
+    prompt: Please justify the continued necessity for skilled PT (why skilled care
+      is still needed).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_7m8tGP
+    variable: Topic.RehabPotential
+    prompt: What is the current rehab potential?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: RehabPotentialOptions
+        items:
+        - id: good
+          displayName: Good
+        - id: fair
+          displayName: Fair
+        - id: guarded
+          displayName: Guarded
+  - kind: Question
+    id: Question_tWGeN7
+    variable: Topic.FrequencyDuration
+    prompt: What is the frequency and duration of the continued treatment plan?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_JihGWn
+    variable: Topic.Barriers
+    prompt: Are there any barriers to progress?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_OowBzh
+    activity: 'Drafting SNF PT Recertification Note...
+
+
+      Patient Name: {Topic.PatientName}
+
+      Primary PT Diagnosis: {Topic.PrimaryPTDiagnosis}
+
+      Current Functional Status and Mobility Level: {Topic.FunctionalStatusMobility}
+
+      Goals Achieved Since Last Certification: {Topic.GoalsAchieved}
+
+      New Goals for Next Certification Period: {Topic.NewGoals}
+
+      Continued Skilled PT Necessity Justification: {Topic.SkilledNecessityJustification}
+
+      Current Rehab Potential: {Topic.RehabPotential}
+
+      Frequency and Duration of Continued Treatment Plan: {Topic.FrequencyDuration}
+
+      Barriers to Progress: {Topic.Barriers}
+
+
+      This information will be sent to the Draft or Rewrite SNF Therapy Documentation
+      tool with PT Recertification context.'
+  - kind: SendActivity
+    id: SendActivity_BcoaVV
+    activity: 'Here is your generated SNF PT Recertification Note:
+
+
+      Patient Name: {Topic.PatientName}
+
+      Primary PT Diagnosis: {Topic.PrimaryPTDiagnosis}
+
+      Current Functional Status and Mobility Level: {Topic.FunctionalStatusMobility}
+
+      Goals Achieved Since Last Certification: {Topic.GoalsAchieved}
+
+      New Goals for Next Certification Period: {Topic.NewGoals}
+
+      Continued Skilled PT Necessity Justification: {Topic.SkilledNecessityJustification}
+
+      Current Rehab Potential: {Topic.RehabPotential}
+
+      Frequency and Duration of Continued Treatment Plan: {Topic.FrequencyDuration}
+
+      Barriers to Progress: {Topic.Barriers}
+
+
+      Would you like to finalize or revise this note?'
+  - kind: Question
+    id: Question_dSRH9D
+    variable: Topic.FinalizeNote
+    prompt: Would you like to finalize this note or revise it?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

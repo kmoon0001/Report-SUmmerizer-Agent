@@ -1,0 +1,145 @@
+mcs.metadata:
+  componentName: OTEvaluationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - ot evaluation intake
+    - start ot evaluation
+    - begin occupational therapy intake
+    - schedule ot assessment
+    - ot assessment request
+    - occupational therapy evaluation form
+    - intake for ot evaluation
+    - request ot intake appointment
+    - need occupational therapy evaluation
+  actions:
+  - kind: Question
+    id: Question_ml0g38
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_7XHqzj
+    variable: Topic.ReferringDiagnosis
+    prompt: What is the referring diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_P3JSLM
+    variable: Topic.PLOF
+    prompt: What was the patient's prior level of function (PLOF) for ADLs before
+      current hospitalization?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_WKcJAm
+    variable: Topic.DressingUpperBodyStatus
+    prompt: What is the current status in dressing upper body?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_bnHtPq
+    variable: Topic.DressingLowerBodyStatus
+    prompt: What is the current status in dressing lower body?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_oNNQ0I
+    variable: Topic.BathingStatus
+    prompt: What is the current status in bathing?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_xVSmid
+    variable: Topic.GroomingStatus
+    prompt: What is the current status in grooming?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_yDVNXH
+    variable: Topic.ToiletingStatus
+    prompt: What is the current status in toileting?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_7mdd6q
+    variable: Topic.FeedingStatus
+    prompt: What is the current status in feeding?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_mdkOEP
+    variable: Topic.FunctionalMobilityStatus
+    prompt: What is the current status in functional mobility for ADLs?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_1NHbCm
+    variable: Topic.BaselineScores
+    prompt: What are the FIM or Section GG baseline scores?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_W8CBf0
+    variable: Topic.UpperExtremityAssessment
+    prompt: Describe the upper extremity assessment (strength, ROM, coordination,
+      sensation).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_4ul9U7
+    variable: Topic.CognitivePerceptualStatus
+    prompt: Describe the cognitive and perceptual status affecting ADLs.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_QNQAwn
+    variable: Topic.HomeSocialSituation
+    prompt: Describe the home environment and social situation.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_MKQgoX
+    variable: Topic.ShortTermGoals
+    prompt: What are the short-term OT goals (2 weeks)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_iiQCvV
+    variable: Topic.LongTermGoals
+    prompt: What are the long-term OT goals (60 days)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_VXAt0Z
+    variable: Topic.FrequencyDuration
+    prompt: What is the recommended frequency and duration?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_E5GniL
+    variable: Topic.RehabPotential
+    prompt: What is the rehab potential?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_FnJm80
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "OT Initial Evaluation Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Referring Diagnosis", value: Text(Topic.ReferringDiagnosis)
+          }, { title: "PLOF", value: Text(Topic.PLOF) }, { title: "Dressing Upper
+          Body", value: Text(Topic.DressingUpperBodyStatus) }, { title: "Dressing
+          Lower Body", value: Text(Topic.DressingLowerBodyStatus) }, { title: "Bathing",
+          value: Text(Topic.BathingStatus) }, { title: "Grooming", value: Text(Topic.GroomingStatus)
+          }, { title: "Toileting", value: Text(Topic.ToiletingStatus) }, { title:
+          "Feeding", value: Text(Topic.FeedingStatus) }, { title: "Functional Mobility",
+          value: Text(Topic.FunctionalMobilityStatus) }, { title: "Baseline Scores",
+          value: Text(Topic.BaselineScores) }, { title: "Upper Extremity Assessment",
+          value: Text(Topic.UpperExtremityAssessment) }, { title: "Cognitive/Perceptual
+          Status", value: Text(Topic.CognitivePerceptualStatus) }, { title: "Home/Social
+          Situation", value: Text(Topic.HomeSocialSituation) }, { title: "Short-Term
+          Goals", value: Text(Topic.ShortTermGoals) }, { title: "Long-Term Goals",
+          value: Text(Topic.LongTermGoals) }, { title: "Frequency/Duration", value:
+          Text(Topic.FrequencyDuration) }, { title: "Rehab Potential", value: Text(Topic.RehabPotential)
+          } ] } ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5"}'
+  - kind: Question
+    id: Question_90beO2
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise the note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

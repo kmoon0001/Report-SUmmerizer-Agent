@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -77,6 +77,7 @@ beginDialog:
         Escalating to a representative is not currently configured for this agent, however this is where the agent could provide information about how to get in touch with someone another way.
 
         Is there anything else I can help you with?
+
 
 
 

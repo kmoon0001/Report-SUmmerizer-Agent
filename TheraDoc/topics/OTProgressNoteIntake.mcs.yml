@@ -1,0 +1,172 @@
+mcs.metadata:
+  componentName: OTProgressNoteIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - ot progress note intake
+    - start ot progress note
+    - begin occupational therapy intake
+    - create ot progress note
+    - intake for ot progress note
+    - new occupational therapy progress note
+    - document ot session intake
+    - record ot progress intake
+    - open ot progress note form
+    - initiate OT intake process
+  actions:
+  - kind: Question
+    id: Question_ffWtRt
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_A2WBtd
+    variable: Topic.OTDiagnosis
+    prompt: What is the primary Occupational Therapy diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_bmPTut
+    variable: Topic.DressingGoal
+    prompt: What is the ADL goal for dressing?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_4pvfIz
+    variable: Topic.DressingProgress
+    prompt: Current progress percentage toward dressing goal?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_JRTRen
+    variable: Topic.BathingGoal
+    prompt: What is the ADL goal for bathing?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_uulbxu
+    variable: Topic.BathingProgress
+    prompt: Current progress percentage toward bathing goal?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_DxSVDc
+    variable: Topic.GroomingGoal
+    prompt: What is the ADL goal for grooming?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_8QRNKi
+    variable: Topic.GroomingProgress
+    prompt: Current progress percentage toward grooming goal?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_VBCqh4
+    variable: Topic.FeedingGoal
+    prompt: What is the ADL goal for feeding?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_w9XgjA
+    variable: Topic.FeedingProgress
+    prompt: Current progress percentage toward feeding goal?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_atXsQ8
+    variable: Topic.ToiletingGoal
+    prompt: What is the ADL goal for toileting?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_29zeP7
+    variable: Topic.ToiletingProgress
+    prompt: Current progress percentage toward toileting goal?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_ajlTg1
+    variable: Topic.ActivitiesPerformed
+    prompt: What activities and ADL training were performed this session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_h6Gv5d
+    variable: Topic.FunctionalScores
+    prompt: Enter FIM or Section GG functional scores for key ADLs.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_lENrox
+    variable: Topic.AssistLevel
+    prompt: What assist level was required?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: AssistLevelOptions
+        items:
+        - id: dependent
+          displayName: Dependent
+        - id: max_assist
+          displayName: Max Assist
+        - id: mod_assist
+          displayName: Mod Assist
+        - id: min_assist
+          displayName: Min Assist
+        - id: supervision
+          displayName: Supervision
+        - id: independent
+          displayName: Independent
+  - kind: Question
+    id: Question_XgNR5U
+    variable: Topic.AdaptiveEquipment
+    prompt: What adaptive equipment was used?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_EQ9SUL
+    variable: Topic.UEObservations
+    prompt: Describe upper extremity strength or coordination observations.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_s0vEP8
+    variable: Topic.CognitiveObservations
+    prompt: Describe cognitive or perceptual observations affecting ADL performance.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_Sdcf9n
+    variable: Topic.NextSessionPlan
+    prompt: What is the plan for the next session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_4ox3GM
+    variable: Topic.AdditionalNotes
+    prompt: Any additional notes?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_vLVBHs
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "OT Progress Note Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Primary OT Diagnosis", value: Text(Topic.OTDiagnosis) }, {
+          title: "Dressing Goal", value: Text(Topic.DressingGoal) }, { title: "Dressing
+          Progress (%)", value: Text(Topic.DressingProgress) }, { title: "Bathing
+          Goal", value: Text(Topic.BathingGoal) }, { title: "Bathing Progress (%)",
+          value: Text(Topic.BathingProgress) }, { title: "Grooming Goal", value: Text(Topic.GroomingGoal)
+          }, { title: "Grooming Progress (%)", value: Text(Topic.GroomingProgress)
+          }, { title: "Feeding Goal", value: Text(Topic.FeedingGoal) }, { title: "Feeding
+          Progress (%)", value: Text(Topic.FeedingProgress) }, { title: "Toileting
+          Goal", value: Text(Topic.ToiletingGoal) }, { title: "Toileting Progress
+          (%)", value: Text(Topic.ToiletingProgress) }, { title: "Activities Performed",
+          value: Text(Topic.ActivitiesPerformed) }, { title: "Functional Scores",
+          value: Text(Topic.FunctionalScores) }, { title: "Assist Level", value: Text(Topic.AssistLevel)
+          }, { title: "Adaptive Equipment", value: Text(Topic.AdaptiveEquipment) },
+          { title: "UE Observations", value: Text(Topic.UEObservations) }, { title:
+          "Cognitive Observations", value: Text(Topic.CognitiveObservations) }, {
+          title: "Next Session Plan", value: Text(Topic.NextSessionPlan) }, { title:
+          "Additional Notes", value: Text(Topic.AdditionalNotes) } ] } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5"}'
+  - kind: Question
+    id: Question_tIoROQ
+    variable: Topic.FinalizeNote
+    prompt: Would you like to finalize or revise the note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

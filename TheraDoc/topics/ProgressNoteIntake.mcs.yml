@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -200,6 +200,45 @@ beginDialog:
       entity: StringPrebuiltEntity
 
     - kind: Question
+      id: question_goalPercent
+      interruptionPolicy:
+        allowInterruption: true
+      variable: Topic.goalProgressPercent
+      prompt: What percentage of goal completion best reflects this session? (0-100)
+      entity:
+        kind: NumberPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_goalBar
+      conditions:
+        - id: conditionItem_goalBarHigh
+          condition: =Topic.goalProgressPercent >= 80
+          actions:
+            - kind: SetTextVariable
+              id: setTextVariable_goalBarHigh
+              variable: Topic.goalProgressBar
+              value: ="██████████"
+        - id: conditionItem_goalBarMedium
+          condition: =Topic.goalProgressPercent >= 50
+          actions:
+            - kind: SetTextVariable
+              id: setTextVariable_goalBarMedium
+              variable: Topic.goalProgressBar
+              value: ="██████░░░░"
+        - id: conditionItem_goalBarLow
+          condition: =Topic.goalProgressPercent >= 25
+          actions:
+            - kind: SetTextVariable
+              id: setTextVariable_goalBarLow
+              variable: Topic.goalProgressBar
+              value: ="███░░░░░░░"
+      elseActions:
+        - kind: SetTextVariable
+          id: setTextVariable_goalBarVeryLow
+          variable: Topic.goalProgressBar
+          value: ="█░░░░░░░░░"
+
+    - kind: Question
       id: question_pB7H6z
       interruptionPolicy:
         allowInterruption: true
@@ -223,8 +262,16 @@ beginDialog:
       id: sendActivity_1ywoow
       activity: "{Topic.generatednote}"
 
+    - kind: SendActivity
+      id: sendActivity_goalVisualizer
+      activity: |-
+        Goal Progress Visualizer
+        {Topic.goalProgressBar}  {Topic.goalProgressPercent}%
+        This percentage is clinician-entered and should be verified against objective measures.
+
 inputType: {}
 outputType: {}
+
 
 
 

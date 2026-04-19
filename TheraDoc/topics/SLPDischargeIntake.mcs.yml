@@ -1,0 +1,197 @@
+mcs.metadata:
+  componentName: SLPDischargeIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - slp discharge intake
+    - start slp discharge process
+    - speech therapy discharge intake
+    - begin slp discharge
+    - initiate slp discharge intake
+    - complete slp discharge form
+    - discharge speech patient
+    - slp patient leaving
+    - speech language pathology discharge
+  actions:
+  - kind: Question
+    id: Question_lLdVuZ
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_zEYs7O
+    variable: Topic.DischargeDate
+    prompt: What is the date of discharge?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_NBnKli
+    variable: Topic.InitialEvalDate
+    prompt: What is the date of initial evaluation?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_RGUE4W
+    variable: Topic.TotalVisits
+    prompt: What is the total number of treatment visits?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_tvrih7
+    variable: Topic.TherapistName
+    prompt: What is the treating therapist's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_yypOYj
+    variable: Topic.AdmittingDiagnoses
+    prompt: What are the admitting diagnoses?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_nVryR2
+    variable: Topic.SLPDiagnoses
+    prompt: Which SLP-relevant diagnoses were treated?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: SLPDiagnosesOptions
+        items:
+        - id: dysphagia
+          displayName: Dysphagia
+        - id: aphasia
+          displayName: Aphasia
+        - id: cognitive_communication
+          displayName: Cognitive-Communication
+        - id: voice
+          displayName: Voice
+        - id: fluency
+          displayName: Fluency
+        - id: motor_speech
+          displayName: Motor Speech
+        - id: aac
+          displayName: AAC
+  - kind: Question
+    id: Question_uScP8d
+    variable: Topic.InitialFunctionalStatus
+    prompt: What was the initial functional status at start of care?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_hFDalg
+    variable: Topic.DischargeFunctionalStatus
+    prompt: What was the discharge functional status for each area treated?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ShQHm8
+    variable: Topic.GoalOutcomes
+    prompt: List each goal with achieved/not achieved/partially achieved and final
+      performance level.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_rRha4J
+    variable: Topic.DischargeReason
+    prompt: What is the reason for discharge?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: DischargeReasonOptions
+        items:
+        - id: goals_met
+          displayName: Goals Met
+        - id: patient_declined
+          displayName: Patient Declined
+        - id: medically_discharged
+          displayName: Medically Discharged
+        - id: plateau_reached
+          displayName: Plateau Reached
+        - id: patient_refused
+          displayName: Patient Refused
+        - id: insurance_exhausted
+          displayName: Insurance Exhausted
+  - kind: Question
+    id: Question_i8nDhP
+    variable: Topic.DischargeDietLevel
+    prompt: What is the discharge diet level per IDDSI?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_1czcTm
+    variable: Topic.DischargeLiquidLevel
+    prompt: What is the discharge liquid level per IDDSI?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_3ewOAc
+    variable: Topic.HomeProgramProvided
+    prompt: Was a home program provided?
+    entity: BooleanPrebuiltEntity
+  - kind: Question
+    id: Question_3XMI60
+    variable: Topic.HomeProgramDescription
+    prompt: Please describe the home program provided.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_SgssHA
+    variable: Topic.SkilledJustification
+    prompt: Provide skilled justification for services rendered.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_VUXTqA
+    variable: Topic.DischargeRecommendations
+    prompt: What are the recommendations at discharge?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_zdiyjI
+    variable: Topic.SafetyStatus
+    prompt: What is the safety status and precautions at discharge?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_r0OoNI
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Discharge Summary" }, { type: "FactSet",
+          facts: [ { title: "Patient Name", value: Text(Topic.PatientName) }, { title:
+          "Discharge Date", value: Text(Topic.DischargeDate) }, { title: "Initial
+          Evaluation Date", value: Text(Topic.InitialEvalDate) }, { title: "Total
+          Visits", value: Text(Topic.TotalVisits) }, { title: "Treating Therapist",
+          value: Text(Topic.TherapistName) }, { title: "Admitting Diagnoses", value:
+          Text(Topic.AdmittingDiagnoses) }, { title: "SLP Diagnoses Treated", value:
+          Text(Topic.SLPDiagnoses) }, { title: "Initial Functional Status", value:
+          Text(Topic.InitialFunctionalStatus) }, { title: "Discharge Functional Status",
+          value: Text(Topic.DischargeFunctionalStatus) }, { title: "Goal Outcomes",
+          value: Text(Topic.GoalOutcomes) }, { title: "Reason for Discharge", value:
+          Text(Topic.DischargeReason) }, { title: "Discharge Diet Level", value: Text(Topic.DischargeDietLevel)
+          }, { title: "Discharge Liquid Level", value: Text(Topic.DischargeLiquidLevel)
+          }, { title: "Home Program Provided", value: Text(Topic.HomeProgramProvided)
+          }, { title: "Home Program Description", value: Text(Topic.HomeProgramDescription)
+          }, { title: "Skilled Justification", value: Text(Topic.SkilledJustification)
+          }, { title: "Recommendations", value: Text(Topic.DischargeRecommendations)
+          }, { title: "Safety Status", value: Text(Topic.SafetyStatus) } ] } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5"}'
+  - kind: SendActivity
+    id: SendActivity_LcQFgg
+    activity: CLINICAL REVIEW REQUIRED.
+  - kind: SendActivity
+    id: SendActivity_2mWlaz
+    activity: "**Medicare-Compliant SLP Discharge Summary**\n\n**Patient:** {Topic.PatientName}\n\
+      **Discharge Date:** {Topic.DischargeDate}\n**Initial Eval Date:** {Topic.InitialEvalDate}\n\
+      **Total Treatment Visits:** {Topic.TotalVisits}\n**Therapist:** {Topic.TherapistName}\n\
+      \n**Diagnoses Treated:**\n- Admitting Diagnoses: {Topic.AdmittingDiagnoses}\n\
+      - SLP Diagnoses Treated: {Topic.SLPDiagnoses}\n\n**Initial Functional Status:**\
+      \ {Topic.InitialFunctionalStatus}\n**Discharge Functional Status (each area):**\
+      \ {Topic.DischargeFunctionalStatus}\n\n**Goal Outcomes (each goal with status):**\
+      \ {Topic.GoalOutcomes}\n\n**Reason for Discharge:** {Topic.DischargeReason}\n\
+      \n**Discharge Diet Level (IDDSI):** {Topic.DischargeDietLevel}\n**Discharge\
+      \ Liquid Level (IDDSI):** {Topic.DischargeLiquidLevel}\n\n**Home Program:**\n\
+      - Provided: {Topic.HomeProgramProvided}\n- Description: {Topic.HomeProgramDescription}\n\
+      \n**Skilled Justification for Services:** {Topic.SkilledJustification}\n\n**Discharge\
+      \ Recommendations:** {Topic.DischargeRecommendations}\n\n\u26A0\uFE0F CLINICAL\
+      \ REVIEW REQUIRED \u2014 AI-generated content. Verify accuracy before signing."
+  - kind: SendActivity
+    id: SendActivity_O7EjCR
+    activity: CLINICAL REVIEW REQUIRED.
+inputType: {}
+outputType: {}
+
+
+

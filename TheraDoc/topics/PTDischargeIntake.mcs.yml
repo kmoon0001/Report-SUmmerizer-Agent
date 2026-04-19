@@ -1,0 +1,152 @@
+mcs.metadata:
+  componentName: PTDischargeIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - pt discharge intake
+    - start pt discharge process
+    - begin physical therapy discharge
+    - intake for pt discharge
+    - discharge patient from physical therapy
+    - physical therapy discharge intake form
+    - initiate pt discharge intake
+    - complete pt discharge intake
+    - pt leaving physical therapy
+  actions:
+  - kind: Question
+    id: Question_Hyhxgt
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_bWLnIB
+    variable: Topic.PTDiagnosis
+    prompt: What is the PT diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_AtAYHh
+    variable: Topic.AdmissionFunctionalStatus
+    prompt: What was the patient's functional status at admission?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_w1YXfN
+    variable: Topic.DischargeFunctionalStatus
+    prompt: What is the patient's functional status at discharge?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_qDNvvC
+    activity: 'Comparison of functional status:
+
+      Admission: {Topic.AdmissionFunctionalStatus}
+
+      Discharge: {Topic.DischargeFunctionalStatus}'
+  - kind: Question
+    id: Question_4ZVk2f
+    variable: Topic.PTSessionsCompleted
+    prompt: How many PT sessions were completed?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_zSDOZn
+    variable: Topic.GoalsAchieved
+    prompt: Which goals were achieved?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_SOezTr
+    variable: Topic.GoalsNotMetReason
+    prompt: Which goals were not met and what was the reason?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_1utDrn
+    variable: Topic.DischargeDisposition
+    prompt: What is the discharge disposition?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: DischargeDispositionOptions
+        items:
+        - id: home
+          displayName: Home
+        - id: assisted_living
+          displayName: Assisted Living
+        - id: long_term_care
+          displayName: Long-Term Care
+  - kind: Question
+    id: Question_NtSUHd
+    variable: Topic.HomeExerciseProgramProvided
+    prompt: Was a home exercise program provided?
+    entity: BooleanPrebuiltEntity
+  - kind: ConditionGroup
+    id: ConditionGroup_dibvFQ
+    conditions:
+    - id: ConditionItem_pa0fjy
+      condition: =Topic.HomeExerciseProgramProvided = true
+      actions:
+      - kind: Question
+        id: Question_fpkIss
+        variable: Topic.HomeExerciseProgramDetails
+        prompt: What was included in the home exercise program?
+        entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_s0uf4B
+    variable: Topic.EquipmentIssued
+    prompt: What equipment was issued?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: EquipmentIssuedOptions
+        items:
+        - id: walker
+          displayName: Walker
+        - id: cane
+          displayName: Cane
+        - id: wheelchair
+          displayName: Wheelchair
+        - id: other
+          displayName: Other
+  - kind: Question
+    id: Question_T1ssXJ
+    variable: Topic.FollowUpPTRecommendations
+    prompt: What are the follow-up PT recommendations?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_MfLjsu
+    variable: Topic.SafetyConcerns
+    prompt: Are there any safety concerns at discharge?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_CJgwK2
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "PT Discharge Summary" }, { type: "FactSet",
+          facts: [ { title: "Patient Name", value: Text(Topic.PatientName) }, { title:
+          "PT Diagnosis", value: Text(Topic.PTDiagnosis) }, { title: "Admission Functional
+          Status", value: Text(Topic.AdmissionFunctionalStatus) }, { title: "Discharge
+          Functional Status", value: Text(Topic.DischargeFunctionalStatus) }, { title:
+          "PT Sessions Completed", value: Text(Topic.PTSessionsCompleted) }, { title:
+          "Goals Achieved", value: Text(Topic.GoalsAchieved) }, { title: "Goals Not
+          Met/Reason", value: Text(Topic.GoalsNotMetReason) }, { title: "Discharge
+          Disposition", value: Text(Topic.DischargeDisposition) }, { title: "Home
+          Exercise Program Provided", value: Text(Topic.HomeExerciseProgramProvided)
+          }, { title: "Home Exercise Program Details", value: Text(Topic.HomeExerciseProgramDetails)
+          }, { title: "Equipment Issued", value: Text(Topic.EquipmentIssued) }, {
+          title: "Follow-Up PT Recommendations", value: Text(Topic.FollowUpPTRecommendations)
+          }, { title: "Safety Concerns", value: Text(Topic.SafetyConcerns) } ] } ],
+          ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json", version:
+          "1.5"}'
+  - kind: Question
+    id: Question_1WL5jI
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise the discharge summary?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

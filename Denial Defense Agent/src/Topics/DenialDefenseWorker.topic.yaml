@@ -5,18 +5,148 @@ beginDialog:
   kind: OnRecognizedIntent
   id: Main
   actions:
-    # PLATINUM: Zero-Text Input Conversion
     - kind: Question
       id: QAuditSelection
       variable: Topic.AuditIntent
-      prompt: "🛡️ **DENIAL DEFENSE HUB**: Select your oversight mission for this session:"
+      prompt: "DENIAL DEFENSE HUB: Select your oversight mission."
       choices:
-        - display: "🔍 Medicare RAC/MAC Audit"
+        - display: "Medicare RAC/MAC Audit"
           value: "RAC_MAC"
-        - display: "📖 Professional Standards Check (ASHA/AOTA/APTA)"
+        - display: "Professional Standards Check (ASHA/AOTA/APTA)"
           value: "PROF_STD"
-        - display: "📊 View 7-Layer XAI Intelligence"
+        - display: "View 7-Layer XAI Intelligence"
           value: "XAI_DASH"
-    
-    - kind: SendActivity
-      activity: "🔄 **ENFORCING PLATINUM GUARDRAILS**: Initializing ${Topic.AuditIntent} verification loop..."
+
+    - kind: Question
+      id: QNoteText
+      variable: Topic.NoteText
+      prompt: Paste the clinical note text for this audit. Avoid PHI.
+      entity:
+        kind: StringPrebuiltEntity
+
+    - kind: SetTextVariable
+      id: setTextVariable_normalizedNote
+      variable: Topic.NoteTextNormalized
+      value: =Trim(Topic.NoteText)
+
+    - kind: ConditionGroup
+      id: conditionGroup_smallNoteBypass
+      conditions:
+        - id: conditionItem_smallNote
+          condition: =Length(Topic.NoteTextNormalized) < 150
+          actions:
+            - kind: SendActivity
+              id: sendActivity_smallNoteBypass
+              activity: |-
+                Small-note bypass active (under 150 characters).
+                Quick triage result: add objective measures, skilled rationale, and a next-session plan before full audit.
+
+            - kind: Question
+              id: QSmallBypassEscalate
+              variable: Topic.SmallBypassEscalate
+              prompt: Do you want to escalate for a full 7-layer review now?
+              choices:
+                - display: "Yes - run full review"
+                  value: "YES"
+                - display: "No - continue with quick edits"
+                  value: "NO"
+
+            - kind: ConditionGroup
+              id: conditionGroup_smallBypassEscalate
+              conditions:
+                - id: conditionItem_smallBypassYes
+                  condition: =Topic.SmallBypassEscalate = "YES"
+                  actions:
+                    - kind: SendActivity
+                      id: sendActivity_smallBypassEscalate
+                      activity: Escalating to supervisory compliance review because full audit was requested.
+                - id: conditionItem_smallBypassNo
+                  condition: =Topic.SmallBypassEscalate = "NO"
+                  actions:
+                    - kind: SendActivity
+                      id: sendActivity_smallBypassDone
+                      activity: Quick-edit mode complete. Re-submit after revisions for full defense scoring.
+
+    - kind: ConditionGroup
+      id: conditionGroup_mainAuditPath
+      conditions:
+        - id: conditionItem_notSmallNote
+          condition: =Length(Topic.NoteTextNormalized) >= 150
+          actions:
+            - kind: Question
+              id: QRiskAssessment
+              variable: Topic.RiskAssessment
+              prompt: Select denial risk level from this review.
+              choices:
+                - display: "High Risk"
+                  value: "HIGH"
+                - display: "Moderate Risk"
+                  value: "MODERATE"
+                - display: "Low Risk"
+                  value: "LOW"
+
+            - kind: ConditionGroup
+              id: conditionGroup_highRiskPath
+              conditions:
+                - id: conditionItem_highRisk
+                  condition: =Topic.RiskAssessment = "HIGH"
+                  actions:
+                    - kind: Question
+                      id: QPayerName
+                      variable: Topic.PayerName
+                      prompt: Enter payer or contractor name for the appeal draft.
+                      entity:
+                        kind: StringPrebuiltEntity
+
+                    - kind: Question
+                      id: QPatientToken
+                      variable: Topic.PatientToken
+                      prompt: Enter de-identified patient token for this case.
+                      entity:
+                        kind: StringPrebuiltEntity
+
+                    - kind: SendActivity
+                      id: sendActivity_appealTemplate
+                      activity: |-
+                        APPEAL LETTER DRAFT
+                        To: {Topic.PayerName}
+                        Subject: Medical Necessity Appeal - {Topic.PatientToken}
+
+                        This appeal requests reconsideration of denied SNF therapy services. The note documents skilled intervention, measurable response, and clinically justified continuation under Medicare skilled-need standards. The current denial risk stems from documentation specificity gaps rather than absence of skilled need.
+
+                        Requested action:
+                        1) Re-open claim review using corrected skilled-language narrative.
+                        2) Reconsider medical necessity with objective treatment response evidence.
+                        3) Confirm adjudication update in writing.
+
+                        This draft is AI-generated decision support and requires licensed clinician/compliance review before submission.
+
+                    - kind: SendActivity
+                      id: sendActivity_highRiskEscalation
+                      activity: Confidence threshold policy active: route HIGH risk results to Supervisory Compliance Hub.
+
+            - kind: ConditionGroup
+              id: conditionGroup_nonHighRisk
+              conditions:
+                - id: conditionItem_moderateRisk
+                  condition: =Topic.RiskAssessment = "MODERATE"
+                  actions:
+                    - kind: SendActivity
+                      id: sendActivity_moderateRisk
+                      activity: Moderate risk detected. Remediate skilled terminology and measurable outcomes before final filing.
+                - id: conditionItem_lowRisk
+                  condition: =Topic.RiskAssessment = "LOW"
+                  actions:
+                    - kind: SendActivity
+                      id: sendActivity_lowRisk
+                      activity: Low risk detected. Proceed with final clinician review and documentation sign-off.
+
+    - kind: ConditionGroup
+      id: conditionGroup_xai
+      conditions:
+        - id: conditionItem_xaiRequested
+          condition: =Topic.AuditIntent = "XAI_DASH"
+          actions:
+            - kind: SendActivity
+              id: sendActivity_xai
+              activity: XAI view enabled. Use the scoring worker to review SHAP driver, confidence band, and counterfactual remediation.

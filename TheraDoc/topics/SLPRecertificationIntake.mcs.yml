@@ -1,0 +1,199 @@
+mcs.metadata:
+  componentName: SLPRecertificationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - slp recertification
+    - speech language pathologist recertification
+    - recertify slp
+    - slp recertification intake
+    - start slp recertification process
+    - renew slp certification
+    - slp renewal application
+    - begin slp recertification intake
+    - help with slp recertification
+  actions:
+  - kind: Question
+    id: Question_O3CkI8
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_Y16SOH
+    variable: Topic.RecertStartDate
+    prompt: What is the recertification period start date?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_xA5XiB
+    variable: Topic.RecertEndDate
+    prompt: What is the recertification period end date?
+    entity: DatePrebuiltEntity
+  - kind: Question
+    id: Question_PWGBYA
+    variable: Topic.TherapistName
+    prompt: What is the therapist's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_8aBOhF
+    variable: Topic.Diagnoses
+    prompt: Which current diagnoses are being treated?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: SLPDiagnoses
+        items:
+        - id: dysphagia
+          displayName: Dysphagia
+        - id: aphasia
+          displayName: Aphasia
+        - id: cognitive_communication
+          displayName: Cognitive-Communication
+        - id: voice
+          displayName: Voice
+        - id: fluency
+          displayName: Fluency
+        - id: motor_speech
+          displayName: Motor Speech
+        - id: aac
+          displayName: AAC
+  - kind: Question
+    id: Question_x27Z63
+    variable: Topic.FunctionalStatusStart
+    prompt: Describe functional status at start of current certification period for
+      each goal area.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_i0Df5o
+    variable: Topic.FunctionalStatusCurrent
+    prompt: Describe current functional status for each goal area.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_ICj0fR
+    variable: Topic.GoalProgress
+    prompt: List each active goal with target and current performance.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_dWL0GZ
+    variable: Topic.SkilledJustification
+    prompt: Provide the reason continued SLP services are medically necessary (skilled
+      justification including why services cannot be delegated to unskilled staff).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_CNfCms
+    variable: Topic.PlanOfCare
+    prompt: Describe the updated plan of care including treatment frequency, duration,
+      and specific interventions planned.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_6KU0eW
+    variable: Topic.RehabPotential
+    prompt: What is the updated rehabilitation potential (good, fair, limited)?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: RehabPotentialOptions
+        items:
+        - id: good
+          displayName: Good
+        - id: fair
+          displayName: Fair
+        - id: limited
+          displayName: Limited
+  - kind: SendActivity
+    id: SendActivity_Z3hss5
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Recertification Note" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Recertification Period", value: Text(Topic.RecertStartDate)
+          + " to " + Text(Topic.RecertEndDate) }, { title: "Therapist Name", value:
+          Text(Topic.TherapistName) }, { title: "Diagnoses", value: Text(Topic.Diagnoses)
+          }, { title: "Functional Status Start", value: Text(Topic.FunctionalStatusStart)
+          }, { title: "Functional Status Current", value: Text(Topic.FunctionalStatusCurrent)
+          }, { title: "Goal Progress", value: Text(Topic.GoalProgress) }, { title:
+          "Skilled Justification", value: Text(Topic.SkilledJustification) }, { title:
+          "Plan of Care", value: Text(Topic.PlanOfCare) }, { title: "Rehab Potential",
+          value: Text(Topic.RehabPotential) }, { title: "Rehab Rationale", value:
+          Text(Topic.RehabRationale) }, { title: "Barriers", value: Text(Topic.Barriers)
+          }, { title: "Diet Changes", value: Text(Topic.DietChanges) }, { title: "Discharge
+          Criteria", value: Text(Topic.DischargeCriteria) }, { title: "Medical Changes",
+          value: Text(Topic.MedicalChanges) } ] }, { type: "TextBlock", text: "CLINICAL
+          REVIEW REQUIRED.", weight: "Bolder", color: "Attention" } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5" }'
+  - kind: SendActivity
+    id: SendActivity_tVWKHK
+    activity: "**Medicare-Compliant SLP Recertification Note**\n\n**Patient:** {Topic.PatientName}\n\
+      \n**Recertification Period:** {Topic.RecertStartDate} to {Topic.RecertEndDate}\n\
+      \n**Therapist:** {Topic.TherapistName}\n\n**Diagnoses Treated:** {Topic.Diagnoses}\n\
+      \n**Functional Status at Start of Cert Period:** {Topic.FunctionalStatusStart}\n\
+      \n**Functional Status Current:** {Topic.FunctionalStatusCurrent}\n\n**Active\
+      \ Goals with Target and Current Performance:** {Topic.GoalProgress}\n\n**Skilled\
+      \ Justification for Continued Services:** {Topic.SkilledJustification}\n\n**Updated\
+      \ Plan of Care (frequency, duration, interventions):** {Topic.PlanOfCare}\n\n\
+      **Rehab Potential:** {Topic.RehabPotential}\n\n**Rehab Rationale:** {Topic.RehabRationale}\n\
+      \n**Barriers to Progress:** {Topic.Barriers}\n\n**Diet/Liquid Level Changes\
+      \ (IDDSI):** {Topic.DietChanges}\n\n**Anticipated Discharge Criteria and Timeline:**\
+      \ {Topic.DischargeCriteria}\n\n**Medical Changes:** {Topic.MedicalChanges}\n\
+      \n\u26A0\uFE0F CLINICAL REVIEW REQUIRED \u2014 AI-generated content. Verify\
+      \ accuracy before signing."
+  - kind: Question
+    id: Question_KYDCzr
+    variable: Topic.RehabRationale
+    prompt: Provide the clinical rationale for the rehabilitation potential.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_7ubb2W
+    variable: Topic.Barriers
+    prompt: List any barriers to progress.
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_bI4uuK
+    variable: Topic.DietChanges
+    prompt: Describe any changes to diet level or liquid level (IDDSI).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_47vhWt
+    variable: Topic.DischargeCriteria
+    prompt: What are the anticipated discharge criteria and estimated timeline to
+      discharge?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_XgOViv
+    variable: Topic.MedicalChanges
+    prompt: List any significant medical changes or new diagnoses.
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_URhNqH
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Recertification Note" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Recertification Period", value: Text(Topic.RecertStartDate)
+          + " to " + Text(Topic.RecertEndDate) }, { title: "Therapist Name", value:
+          Text(Topic.TherapistName) }, { title: "Diagnoses", value: Text(Topic.Diagnoses)
+          }, { title: "Functional Status Start", value: Text(Topic.FunctionalStatusStart)
+          }, { title: "Functional Status Current", value: Text(Topic.FunctionalStatusCurrent)
+          }, { title: "Goal Progress", value: Text(Topic.GoalProgress) }, { title:
+          "Skilled Justification", value: Text(Topic.SkilledJustification) }, { title:
+          "Plan of Care", value: Text(Topic.PlanOfCare) }, { title: "Rehab Potential",
+          value: Text(Topic.RehabPotential) }, { title: "Rehab Rationale", value:
+          Text(Topic.RehabRationale) }, { title: "Barriers", value: Text(Topic.Barriers)
+          }, { title: "Diet Changes", value: Text(Topic.DietChanges) }, { title: "Discharge
+          Criteria", value: Text(Topic.DischargeCriteria) }, { title: "Medical Changes",
+          value: Text(Topic.MedicalChanges) } ] }, { type: "TextBlock", text: "CLINICAL
+          REVIEW REQUIRED.", weight: "Bolder", color: "Attention" } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5" }'
+inputType: {}
+outputType: {}
+
+
+

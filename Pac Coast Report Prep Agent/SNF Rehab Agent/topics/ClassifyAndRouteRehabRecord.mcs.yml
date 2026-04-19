@@ -52,6 +52,13 @@ beginDialog:
               id: beginDialog_progress
               dialog: pcca_agent39xn69.topic.ProgressAnalysis
 
+        - id: conditionItem_manualIntake
+          condition: ="ocr fail" in Topic.RouteInput || "ocr failed" in Topic.RouteInput || "can't read" in Topic.RouteInput || "cannot read" in Topic.RouteInput || "scan unreadable" in Topic.RouteInput || "manual intake" in Topic.RouteInput
+          actions:
+            - kind: BeginDialog
+              id: beginDialog_manualIntake
+              dialog: pcca_agent39xn69.topic.ManualIntakeFallback
+
       elseActions:
         - kind: SendActivity
           id: sendMessage_routeFallback
@@ -60,7 +67,7 @@ beginDialog:
         - kind: Question
           id: question_routeClarifier
           variable: Topic.RouteClarifier
-          prompt: Please type one option exactly: Eval, Progress, Recert, or Discharge.
+          prompt: Please type one option exactly: Eval, Progress, Recert, Discharge, or Manual Intake.
           entity:
             kind: StringPrebuiltEntity
 
@@ -99,6 +106,13 @@ beginDialog:
                 - kind: BeginDialog
                   id: beginDialog_progressFromClarifier
                   dialog: pcca_agent39xn69.topic.ProgressAnalysis
+
+            - id: conditionItem_routeClarifierManualIntake
+              condition: ="manual" in Topic.RouteClarifierLower || "ocr" in Topic.RouteClarifierLower
+              actions:
+                - kind: BeginDialog
+                  id: beginDialog_manualIntakeFromClarifier
+                  dialog: pcca_agent39xn69.topic.ManualIntakeFallback
 
           elseActions:
             - kind: BeginDialog

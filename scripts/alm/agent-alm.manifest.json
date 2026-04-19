@@ -89,8 +89,8 @@
       "agentId": "ea52ad9c-8233-f111-88b3-6045bd09a824",
       "environmentId": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
       "dataverseEndpoint": "https://orgbd048f00.crm.dynamics.com/",
-      "solutionName": "",
-      "notes": "Set solutionName before running export/unpack."
+      "solutionName": "HealthcareAgentsFoundationV2",
+      "notes": "Mapped for ALM wave; verify in tenant before production import."
     },
     {
       "enabled": true,
@@ -101,8 +101,8 @@
       "agentId": "a1133f91-9d37-f111-88b3-000d3a383a6c",
       "environmentId": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
       "dataverseEndpoint": "https://orgbd048f00.crm.dynamics.com/",
-      "solutionName": "",
-      "notes": "Set solutionName before running export/unpack."
+      "solutionName": "PacificCoast_Atomic",
+      "notes": "Mapped from probe inventory (cr917_agentu92bPc present in PacificCoast_Atomic)."
     },
     {
       "enabled": false,
@@ -137,8 +137,8 @@
       "agentId": "c030a53a-4839-f111-88b4-000d3a37eba2",
       "environmentId": "03cc92c3-986c-4cf4-ae27-1478cf99d17f",
       "dataverseEndpoint": "https://org3353a370.crm.dynamics.com/",
-      "solutionName": "",
-      "notes": "Set solutionName before running export/unpack."
+      "solutionName": "SNFRehabSolution",
+      "notes": "Mapped for ALM wave; verify in tenant before production import."
     },
     {
       "enabled": true,
@@ -149,8 +149,8 @@
       "agentId": "8c9b244f-073a-f111-88b3-000d3a5b95c6",
       "environmentId": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
       "dataverseEndpoint": "https://orgbd048f00.crm.dynamics.com/",
-      "solutionName": "",
-      "notes": "Set solutionName before running export/unpack."
+      "solutionName": "PCCAv2",
+      "notes": "Mapped for ALM wave; verify in tenant before production import."
     },
     {
       "enabled": false,
@@ -185,8 +185,8 @@
       "agentId": "b5d87f73-c34f-4eca-9405-29f8f7e62d71",
       "environmentId": "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
       "dataverseEndpoint": "https://orgbd048f00.crm.dynamics.com/",
-      "solutionName": "",
-      "notes": "Set solutionName before running export/unpack."
+      "solutionName": "PCCAv2",
+      "notes": "Mapped for ALM wave; verify in tenant before production import."
     },
     {
       "enabled": true,

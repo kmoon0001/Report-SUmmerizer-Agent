@@ -1,0 +1,183 @@
+mcs.metadata:
+  componentName: GenerateDocumentation
+modelDescription: Routes therapy documentation requests by collecting discipline (PT,
+  OT, ST) and document type (Daily Note, Progress Note, Evaluation Note, Discharge
+  Note, Recertification Note), then redirects to the matching discipline-specific
+  intake topic using named variables disciplineSelection and documentTypeSelection.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+  - kind: Question
+    id: question_BjBCKR
+    interruptionPolicy:
+      allowInterruption: true
+    variable: Topic.disciplineSelection
+    prompt: Which therapy discipline are you documenting for?
+    entity:
+      kind: EmbeddedEntity
+      sensitivityLevel: None
+      definition:
+        kind: ClosedListEntity
+        items:
+        - id: PT
+          displayName: PT
+        - id: OT
+          displayName: OT
+        - id: ST
+          displayName: ST
+      displayName: EmbeddedEntity-tyOIfT
+  - kind: Question
+    id: question_Lg9zAA
+    interruptionPolicy:
+      allowInterruption: true
+    variable: init:Topic.documentTypeSelection
+    prompt: What type of documentation do you need?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        items:
+        - id: Daily Note
+          displayName: Daily Note
+        - id: Progress Note
+          displayName: Progress Note
+        - id: Evaluation Note
+          displayName: Evaluation Note
+        - id: Discharge Note
+          displayName: Discharge Note
+        - id: Recertification Note
+          displayName: Recertification Note
+  - kind: ConditionGroup
+    id: conditionGroup_2R6zi5
+    conditions:
+    - id: conditionItem_8niqXF
+      condition: =Topic.documentTypeSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_Lg9zAA'.'Daily
+        Note'
+      actions:
+      - kind: ConditionGroup
+        id: conditionGroup_wxMcBS
+        conditions:
+        - id: conditionItem_iLXhv2
+          condition: =Topic.disciplineSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_BjBCKR'.PT
+          actions:
+          - kind: BeginDialog
+            id: QboQD9
+            dialog: pcca_agent.topic.PTDailyNoteCard
+        elseActions:
+        - kind: ConditionGroup
+          id: conditionGroup_DZ2DkO
+          conditions:
+          - id: conditionItem_21oV9Q
+            condition: =Topic.disciplineSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_BjBCKR'.OT
+            actions:
+            - kind: BeginDialog
+              id: 0rIyKU
+              dialog: pcca_agent.topic.OTDailyNoteCard
+          elseActions:
+          - kind: BeginDialog
+            id: sPR4BF
+            dialog: pcca_agent.topic.SLPDailyNoteCard
+    - id: conditionItem_n1u2en
+      condition: =Topic.documentTypeSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_Lg9zAA'.'Progress
+        Note'
+      actions:
+      - kind: ConditionGroup
+        id: conditionGroup_RYVmjG
+        conditions:
+        - id: conditionItem_vNT1DO
+          condition: =Topic.disciplineSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_BjBCKR'.PT
+          actions:
+          - kind: BeginDialog
+            id: YIxUhX
+            dialog: pcca_agent.topic.ProgressNoteIntake
+        elseActions:
+        - kind: ConditionGroup
+          id: conditionGroup_IshxYf
+          conditions:
+          - id: conditionItem_KMQ0Es
+            condition: =Topic.disciplineSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_BjBCKR'.OT
+            actions:
+            - kind: BeginDialog
+              id: JdJmli
+              dialog: pcca_agent.topic.ProgressNoteIntake
+          elseActions:
+          - kind: BeginDialog
+            id: 2Ghc7M
+            dialog: pcca_agent.topic.ProgressNoteIntake
+    - id: conditionItem_d4YboC
+      condition: =Topic.documentTypeSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_Lg9zAA'.'Evaluation
+        Note'
+      actions:
+      - kind: BeginDialog
+        id: opDV3i
+        dialog: pcca_agent.topic.EvaluationAssessmentIntake
+    - id: conditionItem_KoTdpj
+      condition: =Topic.documentTypeSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_Lg9zAA'.'Discharge
+        Note'
+      actions:
+      - kind: BeginDialog
+        id: Hpc9sJ
+        dialog: pcca_agent.topic.DischargeNoteIntake
+    - id: conditionItem_PySttg
+      condition: =Topic.documentTypeSelection = 'pcca_agent.topic.GenerateDocumentation.main.question_Lg9zAA'.'Recertification
+        Note'
+      actions:
+      - kind: BeginDialog
+        id: wYz3wZ
+        dialog: pcca_agent.topic.RecertificationDischargeCard
+    elseActions:
+    - kind: SendActivity
+      id: sendActivity_EKjGkP
+      activity: 'I''m sorry, I didn''t recognize that document type. Please choose
+        from: Daily Note, Progress Note, Evaluation Note, Discharge Note, or Recertification
+        Note.'
+  - kind: Question
+    id: Question_ctGpzW
+    variable: Topic.discipline
+    prompt: Which therapy discipline do you need documentation for?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: DisciplineOptions
+        items:
+        - id: PT
+          displayName: PT (Physical Therapy)
+        - id: OT
+          displayName: OT (Occupational Therapy)
+        - id: ST
+          displayName: ST (Speech Therapy)
+  - kind: Question
+    id: Question_PRS9Yk
+    variable: Topic.noteType
+    prompt: Which note type do you need?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: NoteTypeOptions
+        items:
+        - id: DailyNote
+          displayName: Daily Note
+        - id: ProgressNote
+          displayName: Progress Note
+        - id: EvaluationAssessment
+          displayName: Evaluation/Assessment
+        - id: Recertification
+          displayName: Recertification
+        - id: DischargeSummary
+          displayName: Discharge Summary
+        - id: NursingHandoff
+          displayName: Nursing Handoff
+  - kind: SendActivity
+    id: SendActivity_X5eRQO
+    activity: Got it! Routing you to the right workflow for {Topic.discipline} {Topic.noteType}.
+      Please follow the prompts.
+inputType: {}
+outputType: {}
+
+
+

@@ -1,0 +1,165 @@
+mcs.metadata:
+  componentName: STProgressNoteIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - start speech therapy progress note
+    - begin ST progress note intake
+    - speech therapy intake form
+    - create ST progress note
+    - new speech therapy progress note
+    - fill out ST progress note intake
+    - speech therapist progress documentation
+    - intake for speech therapy session
+    - record ST session notes
+  actions:
+  - kind: Question
+    id: Question_KP1VbA
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_KVFBbM
+    variable: Topic.PrimarySLPDiagnosis
+    prompt: What is the primary SLP diagnosis?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: SLPDiagnosisOptions
+        items:
+        - id: dysphagia
+          displayName: Dysphagia
+        - id: aphasia
+          displayName: Aphasia
+        - id: dysarthria
+          displayName: Dysarthria
+        - id: cognitive_communication
+          displayName: Cognitive-Communication
+        - id: voice
+          displayName: Voice
+        - id: other
+          displayName: Other
+  - kind: Question
+    id: Question_DxfUZR
+    variable: Topic.Goals
+    prompt: What are the communication and/or swallowing goals?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_hInldc
+    variable: Topic.ProgressPercentage
+    prompt: What is the current progress percentage?
+    entity: NumberPrebuiltEntity
+  - kind: Question
+    id: Question_RK23Ng
+    variable: Topic.TreatmentActivities
+    prompt: What treatment activities were performed this session?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: TreatmentActivityOptions
+        items:
+        - id: articulation_drills
+          displayName: Articulation Drills
+        - id: language_tasks
+          displayName: Language Tasks
+        - id: dysphagia_therapy
+          displayName: Dysphagia Therapy
+        - id: feesmmbs_followup
+          displayName: FEES/MBS Follow-up
+        - id: aac_training
+          displayName: AAC Training
+        - id: other
+          displayName: Other
+  - kind: Question
+    id: Question_EXx8mm
+    variable: Topic.IDDSILevel
+    prompt: What is the patient's diet texture and liquid consistency level (IDDSI
+      level 0-7)?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: IDDSILevelOptions
+        items:
+        - id: 0
+          displayName: Level 0 (Thin)
+        - id: 1
+          displayName: Level 1 (Slightly Thick)
+        - id: 2
+          displayName: Level 2 (Mildly Thick)
+        - id: 3
+          displayName: Level 3 (Moderately Thick)
+        - id: 4
+          displayName: Level 4 (Extremely Thick/Puree)
+        - id: 5
+          displayName: Level 5 (Minced & Moist)
+        - id: 6
+          displayName: Level 6 (Soft & Bite-Sized)
+        - id: 7
+          displayName: Level 7 (Regular)
+  - kind: Question
+    id: Question_1ISghW
+    variable: Topic.CueingLevel
+    prompt: What cueing level was required?
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: CueingLevelOptions
+        items:
+        - id: independent
+          displayName: Independent
+        - id: min_cues
+          displayName: Minimal Cues
+        - id: mod_cues
+          displayName: Moderate Cues
+        - id: max_cues
+          displayName: Maximal Cues
+  - kind: Question
+    id: Question_c2FMiz
+    variable: Topic.CognitiveCommunicationObservations
+    prompt: What cognitive-communication observations were made? (attention, memory,
+      executive function)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_eNrSTj
+    variable: Topic.ClinicianPlan
+    prompt: What is the clinician's plan for the next session?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_RivZER
+    variable: Topic.AdditionalNotes
+    prompt: Any additional notes?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_HQIj6E
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "SLP Progress Note Summary" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Primary SLP Diagnosis", value: Text(Topic.PrimarySLPDiagnosis)
+          }, { title: "Goals", value: Text(Topic.Goals) }, { title: "Progress %",
+          value: Text(Topic.ProgressPercentage) }, { title: "Treatment Activities",
+          value: Text(Topic.TreatmentActivities) }, { title: "IDDSI Level", value:
+          Text(Topic.IDDSILevel) }, { title: "Cueing Level", value: Text(Topic.CueingLevel)
+          }, { title: "Cognitive-Communication Observations", value: Text(Topic.CognitiveCommunicationObservations)
+          }, { title: "Clinician Plan", value: Text(Topic.ClinicianPlan) }, { title:
+          "Additional Notes", value: Text(Topic.AdditionalNotes) } ] } ], ''$schema'':
+          "http://adaptivecards.io/schemas/adaptive-card.json", version: "1.5"}'
+  - kind: Question
+    id: Question_ZFL3dR
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise the note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

@@ -1,0 +1,106 @@
+mcs.metadata:
+  componentName: PTEvaluationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - pt evaluation intake
+    - start pt evaluation
+    - begin physical therapy intake
+    - schedule pt evaluation
+    - new patient for physical therapy
+    - intake for pt assessment
+    - physical therapy evaluation form
+    - register for pt eval
+    - pt assessment intake process
+    - initiate physical therapy evaluation
+  actions:
+  - kind: Question
+    id: Question_cr6NAz
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_2mWlaz
+    variable: Topic.ReferringDiagnosis
+    prompt: What is the referring diagnosis and reason for referral?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_O7EjCR
+    variable: Topic.PLOF
+    prompt: What was the patient's prior level of function (PLOF) before current hospitalization?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_I1SoTt
+    variable: Topic.FunctionalMobility
+    prompt: What is the patient's current functional mobility status? (bed mobility,
+      transfers, ambulation, stairs)
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_nrvM5g
+    variable: Topic.Deficits
+    prompt: What range of motion and strength deficits are noted?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_YEQo9x
+    variable: Topic.AssessmentScores
+    prompt: Please provide standardized assessment scores (Berg Balance or Tinetti,
+      if applicable).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_j9nYoE
+    variable: Topic.ShortTermGoals
+    prompt: What are the short-term goals (2 weeks) for PT?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_UP9wc5
+    variable: Topic.LongTermGoals
+    prompt: What are the long-term goals (60 days) for PT?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_kqeUlH
+    variable: Topic.FrequencyDuration
+    prompt: What is the recommended frequency and duration for PT?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_gxYNkS
+    variable: Topic.RehabPotential
+    prompt: What is the patient's rehab potential?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_Epq0MW
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "PT Initial Evaluation Note" }, { type:
+          "FactSet", facts: [ { title: "Patient Name", value: Text(Topic.PatientName)
+          }, { title: "Referring Diagnosis", value: Text(Topic.ReferringDiagnosis)
+          }, { title: "Prior Level of Function", value: Text(Topic.PLOF) }, { title:
+          "Current Functional Mobility", value: Text(Topic.FunctionalMobility) },
+          { title: "Deficits", value: Text(Topic.Deficits) }, { title: "Assessment
+          Scores", value: Text(Topic.AssessmentScores) }, { title: "Short-Term Goals",
+          value: Text(Topic.ShortTermGoals) }, { title: "Long-Term Goals", value:
+          Text(Topic.LongTermGoals) }, { title: "Frequency & Duration", value: Text(Topic.FrequencyDuration)
+          }, { title: "Rehab Potential", value: Text(Topic.RehabPotential) } ] } ],
+          ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json", version:
+          "1.5"}'
+  - kind: Question
+    id: Question_ik7QAD
+    variable: Topic.FinalizeNote
+    prompt: Would you like to finalize or revise this note?
+    entity: BooleanPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_ntMOUE
+    activity: Please note above information or suggestions provided are for general
+      educational purposes only and should not be considered as medical advice or
+      used as a substitute for seeking the advice of a qualified healthcare provider.
+      It is important to consult with a licensed healthcare professional if you have
+      any questions or concerns about your health or well-being.
+inputType: {}
+outputType: {}
+
+
+

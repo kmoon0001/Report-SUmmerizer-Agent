@@ -1,7 +1,7 @@
 # Microsoft Learn Platinum Standard Instructions:
-**Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
-**Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
-**Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
+# **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
+# **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
+# **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
 
 # 
 # ### GLOBAL SAFETY GUARDRAILS (IRONCLAD):
@@ -196,6 +196,7 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_validationError
               activity: "Some required information is missing. Your progress has been saved.\n\nPlease provide the missing details:\n• Primary mobility task\n• Assist level\n• Goal status\n• Certification period week\n\nOr say 'start over' to begin a new note."
+
 
 
 

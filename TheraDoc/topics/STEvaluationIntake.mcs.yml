@@ -1,0 +1,127 @@
+mcs.metadata:
+  componentName: STEvaluationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - start speech therapy evaluation
+    - speech therapy intake
+    - begin ST evaluation
+    - schedule ST assessment
+    - request speech evaluation
+    - speech therapy screening
+    - initiate ST intake process
+    - need speech assessment
+    - ST evaluation appointment
+  actions:
+  - kind: Question
+    id: Question_W0Tpd6
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_j19Qn6
+    variable: Topic.ReferringDiagnosisReason
+    prompt: What is the referring diagnosis and reason for SLP referral?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_6hX050
+    variable: Topic.PLOFCommunication
+    prompt: What was the prior level of function (PLOF) for communication?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_gjlEbA
+    variable: Topic.PLOFSwallowing
+    prompt: What was the prior level of function (PLOF) for swallowing?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_O5kaD4
+    variable: Topic.CurrentCommunicationStatus
+    prompt: Describe the current communication status (speech intelligibility, language
+      comprehension and expression, voice quality).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_31JIXA
+    variable: Topic.CurrentSwallowingStatus
+    prompt: Describe the current swallowing status (oral phase, pharyngeal phase,
+      signs of aspiration).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_FZcJDr
+    variable: Topic.SwallowingEvalResults
+    prompt: Provide bedside swallowing evaluation findings or instrumental assessment
+      results (MBSS/FEES if done).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_My9Mqb
+    variable: Topic.DietTextureLiquidConsistency
+    prompt: What is the current diet texture and liquid consistency (IDDSI level)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_dJ5l7o
+    variable: Topic.StandardizedAssessmentResults
+    prompt: Provide standardized assessment results (e.g., MOCA, MMSE, WAB, MASA,
+      FOIS).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_QRZTah
+    variable: Topic.ShortTermGoals
+    prompt: What are the short-term SLP goals (2 weeks)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_WJyFXw
+    variable: Topic.LongTermGoals
+    prompt: What are the long-term SLP goals (60 days)?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_xxKWuf
+    variable: Topic.FrequencyDuration
+    prompt: What is the recommended frequency and duration?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_XWg42m
+    variable: Topic.RehabPotential
+    prompt: What is the rehab potential?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_ACPJ64
+    activity: 'Here is your draft SLP evaluation note:
+
+
+      Patient Name: {Topic.PatientName}
+
+      Referring Diagnosis/Reason: {Topic.ReferringDiagnosisReason}
+
+      Prior Level of Function (Communication): {Topic.PLOFCommunication}
+
+      Prior Level of Function (Swallowing): {Topic.PLOFSwallowing}
+
+      Current Communication Status: {Topic.CurrentCommunicationStatus}
+
+      Current Swallowing Status: {Topic.CurrentSwallowingStatus}
+
+      Swallowing Evaluation Results: {Topic.SwallowingEvalResults}
+
+      Diet Texture/Liquid Consistency: {Topic.DietTextureLiquidConsistency}
+
+      Standardized Assessment Results: {Topic.StandardizedAssessmentResults}
+
+      Short-Term Goals: {Topic.ShortTermGoals}
+
+      Long-Term Goals: {Topic.LongTermGoals}
+
+      Recommended Frequency/Duration: {Topic.FrequencyDuration}
+
+      Rehab Potential: {Topic.RehabPotential}'
+  - kind: Question
+    id: Question_8S3e2F
+    variable: Topic.FinalizeOrRevise
+    prompt: Would you like to finalize or revise this note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

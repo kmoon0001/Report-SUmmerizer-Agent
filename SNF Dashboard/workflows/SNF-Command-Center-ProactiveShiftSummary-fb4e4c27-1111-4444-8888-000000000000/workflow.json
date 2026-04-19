@@ -1,14 +1,25 @@
 {
   "properties": {
     "definition": {
+      "parameters": {
+        "clinicalTeamsGroupId": {
+          "type": "string",
+          "defaultValue": ""
+        },
+        "nursingStationChannelId": {
+          "type": "string",
+          "defaultValue": ""
+        }
+      },
       "triggers": {
         "Recurrence": {
           "type": "Recurrence",
           "recurrence": {
-            "frequency": "Day",
+            "frequency": "Week",
             "interval": 1,
             "schedule": {
-              "hours": ["7", "19"],
+              "weekDays": ["Friday"],
+              "hours": ["16"],
               "minutes": ["0"]
             }
           }
@@ -31,9 +42,12 @@
             "method": "post",
             "path": "/v2/teams/conversation/message/poster",
             "body": {
-              "recipient": { "groupId": "CLINICAL_TEAMS_GROUP_ID", "channelId": "NURSING_STATION_CHANNEL_ID" },
+              "recipient": {
+                "groupId": "@{parameters('clinicalTeamsGroupId')}",
+                "channelId": "@{parameters('nursingStationChannelId')}"
+              },
               "message": {
-                "content": "<div style='background-color:#EFEFEF; padding:15px;'><h2>🚀 SHIFT KICKOFF: TOP PRIORITIES</h2><p><b>Unit:</b> Wing 1 | <b>Time:</b> @{utcNow()}</p><p><b>Sepsis Watch:</b> Patient 204B</p><p><b>High Fall Risk:</b> Patient 207A</p><p><b>Compliance Note:</b> 3 missed therapy mins yesterday.</p></div>",
+                "content": "<div style='background-color:#EFEFEF; padding:15px;'><h2>📈 FRIDAY DOR PULSE</h2><p><b>Generated:</b> @{utcNow()}</p><p><b>Summary:</b> Weekly compliance and revenue-at-risk snapshot prepared for DOR review.</p><p><b>Next Step:</b> Confirm high-risk items and assign owners for next week.</p></div>",
                 "contentType": "html"
               }
             }

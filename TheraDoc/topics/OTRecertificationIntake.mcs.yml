@@ -1,0 +1,115 @@
+mcs.metadata:
+  componentName: OTRecertificationIntake
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+    - ot recertification intake
+    - start ot recertification
+    - begin ot recertification process
+    - ot recert intake form
+    - recertify occupational therapy
+    - occupational therapy recertification intake
+    - submit ot recertification request
+    - ot license renewal intake
+    - initiate ot recertification
+  actions:
+  - kind: Question
+    id: Question_sQ8IWo
+    variable: Topic.PatientName
+    prompt: What is the patient's name?
+    entity: PersonNamePrebuiltEntity
+  - kind: Question
+    id: Question_wkJXDT
+    variable: Topic.PrimaryOTDiagnosis
+    prompt: What is the primary OT diagnosis?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_AShJCC
+    variable: Topic.CurrentADLStatus
+    prompt: What is the current ADL functional status and FIM/Section GG scores?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_tmCrxJ
+    variable: Topic.GoalsAchieved
+    prompt: What goals have been achieved since the last certification period?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_BIgASA
+    variable: Topic.NewGoals
+    prompt: What are the new goals for the next certification period focused on ADL
+      independence?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_rQQDc7
+    variable: Topic.OTNecessityJustification
+    prompt: Please justify the continued skilled OT necessity (what skilled OT intervention
+      still requires a therapist).
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_W3rFx4
+    variable: Topic.AssistLevels
+    prompt: What are the current assist levels for key ADLs?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_kFgPLC
+    variable: Topic.RehabPotential
+    prompt:
+      text:
+      - What is the rehab potential?
+      - 'Please select the rehab potential:'
+    entity:
+      kind: EmbeddedEntity
+      definition:
+        kind: ClosedListEntity
+        optionSetName: RehabPotentialOptions
+        items:
+        - id: good
+          displayName: Good
+        - id: fair
+          displayName: Fair
+        - id: guarded
+          displayName: Guarded
+  - kind: Question
+    id: Question_JqfNAT
+    variable: Topic.FrequencyDuration
+    prompt: What is the recommended frequency and duration?
+    entity: StringPrebuiltEntity
+  - kind: Question
+    id: Question_IBdyHN
+    variable: Topic.BarriersADL
+    prompt: Are there any barriers to ADL independence?
+    entity: StringPrebuiltEntity
+  - kind: SendActivity
+    id: SendActivity_IvRIqw
+    activity:
+      attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: '={ type: "AdaptiveCard", body: [ { type: "TextBlock", size:
+          "Medium", weight: "Bolder", text: "OT Recertification Note" }, { type: "FactSet",
+          facts: [ { title: "Patient Name", value: Text(Topic.PatientName) }, { title:
+          "Primary OT Diagnosis", value: Text(Topic.PrimaryOTDiagnosis) }, { title:
+          "Current ADL Status & FIM/GG", value: Text(Topic.CurrentADLStatus) }, {
+          title: "Goals Achieved", value: Text(Topic.GoalsAchieved) }, { title: "New
+          Goals", value: Text(Topic.NewGoals) }, { title: "OT Necessity Justification",
+          value: Text(Topic.OTNecessityJustification) }, { title: "Assist Levels",
+          value: Text(Topic.AssistLevels) }, { title: "Rehab Potential", value: Text(Topic.RehabPotential)
+          }, { title: "Frequency & Duration", value: Text(Topic.FrequencyDuration)
+          }, { title: "Barriers to ADL Independence", value: Text(Topic.BarriersADL)
+          } ] } ], ''$schema'': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.5"}'
+  - kind: Question
+    id: Question_C60kwJ
+    variable: Topic.FinalizeNote
+    prompt:
+      text:
+      - Would you like to finalize or revise the note?
+      - Do you want to finalize or revise the OT Recertification note?
+    entity: BooleanPrebuiltEntity
+inputType: {}
+outputType: {}
+
+
+

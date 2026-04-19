@@ -11,6 +11,7 @@ configuration:
 
   settings:
     GenerativeActionsEnabled: true
+    KnowledgeBoostThreshold: 0.85
 
   isAgentConnectable: true
   publishOnImport: true

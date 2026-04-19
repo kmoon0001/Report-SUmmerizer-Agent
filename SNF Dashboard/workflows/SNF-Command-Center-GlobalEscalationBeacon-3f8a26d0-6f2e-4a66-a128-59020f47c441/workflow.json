@@ -1,0 +1,77 @@
+{
+  "properties": {
+    "definition": {
+      "parameters": {
+        "clinicalTeamsGroupId": {
+          "type": "string",
+          "defaultValue": ""
+        },
+        "clinicalChannelId": {
+          "type": "string",
+          "defaultValue": ""
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "agentname": { "type": "string" },
+                "severity": { "type": "string" },
+                "criticalerrorcount": { "type": "integer" },
+                "humanassistancecount": { "type": "integer" },
+                "summary": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "actions": {
+        "POST_ESCALATION_BEACON": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": { "connection": { "name": "@json(decodeBase64(parameters('$connections'))).shared_teams.connectionId" } },
+            "method": "post",
+            "path": "/v2/teams/conversation/message/poster",
+            "body": {
+              "recipient": {
+                "groupId": "@{parameters('clinicalTeamsGroupId')}",
+                "channelId": "@{parameters('clinicalChannelId')}"
+              },
+              "message": {
+                "content": "<div style='border-left: 5px solid #d13438; padding: 10px;'><h3>GLOBAL ESCALATION BEACON</h3><p><b>Agent:</b> @{triggerBody()?['agentname']}</p><p><b>Severity:</b> @{triggerBody()?['severity']}</p><p><b>Critical Errors:</b> @{coalesce(triggerBody()?['criticalerrorcount'], 0)}</p><p><b>Human Assistance Requests:</b> @{coalesce(triggerBody()?['humanassistancecount'], 0)}</p><p><b>Summary:</b> @{triggerBody()?['summary']}</p></div>",
+                "contentType": "html"
+              }
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string" },
+                "escalated": { "type": "boolean" },
+                "summary": { "type": "string" },
+                "nextstep": { "type": "string" }
+              }
+            },
+            "body": {
+              "status": "EscalationBeaconSent",
+              "escalated": true,
+              "summary": "Escalation beacon delivered to the configured clinical channel.",
+              "nextstep": "A human supervisor should acknowledge and triage within policy SLA."
+            }
+          },
+          "runAfter": { "POST_ESCALATION_BEACON": ["Succeeded", "Failed"] }
+        }
+      }
+    }
+  }
+}

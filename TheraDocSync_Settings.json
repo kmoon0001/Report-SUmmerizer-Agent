@@ -1,0 +1,14 @@
+{
+  "EnvironmentVariables": [],
+  "ConnectionReferences": [],
+  "CopilotAgents": [
+    {
+      "AadGroupId": "00000000-0000-0000-0000-000000000000",
+      "Name": "ens_theradoclocalintegrated"
+    },
+    {
+      "AadGroupId": "00000000-0000-0000-0000-000000000000",
+      "Name": "ens_theradocsource"
+    }
+  ]
+}

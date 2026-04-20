@@ -1,0 +1,78 @@
+mcs.metadata:
+  componentName: QM Action Plan
+  description: Collects action-planning parameters (facility, target metric, timeline) and generates a practical 7-30-90 day quality-improvement plan with owners, timelines, and escalation rules.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_MdF0YE
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selectedFacility
+      prompt: Which facility does this action plan apply to?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_I26cBZ
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.targetMetric
+      prompt: Which QM metric is the primary target for this action plan?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_DuVSAg
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.planTimeline
+      prompt: What timeline should the first action cycle use (for example 14, 30, or 60 days)?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: 7-30-90 days
+              displayName: 7-30-90 days
+
+            - id: 14 days
+              displayName: 14 days
+
+            - id: 30 days
+              displayName: 30 days
+
+            - id: 60 days
+              displayName: 60 days
+
+        displayName: EmbeddedEntity-NkC5XE
+
+    - kind: ConditionGroup
+      id: conditionGroup_LabKPu
+      conditions:
+        - id: conditionItem_OfcRmu
+          condition: =true
+
+        - id: conditionItem_Y3Gix9
+          condition: =true
+
+        - id: conditionItem_uY5sXT
+          condition: =true
+
+    - kind: SendActivity
+      id: flowPlaceholder
+      activity: "[Action placeholder] This workflow step requires a Power Automate flow that is not yet configured in this environment."
+
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+
+
+
+
+

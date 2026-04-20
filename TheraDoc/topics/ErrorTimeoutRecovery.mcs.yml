@@ -1,4 +1,4 @@
-ï»¿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -26,14 +26,16 @@ beginDialog:
         I'm sorry, it looks like something went wrong or the request timed out. This can happen with longer documentation requests.
 
         Here's what you can do:
-        Ã¢â¬Â¢ Try rephrasing your request with less detail and submit again.
-        Ã¢â¬Â¢ Break your request into smaller steps (e.g., complete one discipline at a time).
-        Ã¢â¬Â¢ Refresh and start a new session if the issue persists.
+         Try rephrasing your request with less detail and submit again.
+         Break your request into smaller steps (e.g., complete one discipline at a time).
+         Refresh and start a new session if the issue persists.
 
-        All AI-generated content requires clinical review before EHR entry. Your previous input was not saved Ã¢â¬â please re-enter when ready.
+        All AI-generated content requires clinical review before EHR entry. Your previous input was not saved  please re-enter when ready.
 
 inputType: {}
 outputType: {}
+
+
 
 
 

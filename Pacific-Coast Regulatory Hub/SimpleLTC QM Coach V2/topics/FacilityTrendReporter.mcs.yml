@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -49,7 +49,7 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_intro
       activity: |-
-        ðŸ“ˆ **Pacific Coast Facility Trend Reporter**
+        **Pacific Coast Facility Trend Reporter**
         I will analyze multiple QM reporting periods to identify sustained trends and generate a strategic improvement narrative.
 
         You will need SimpleLTC (or equivalent) QM summary data from **2-4 consecutive periods**.
@@ -81,7 +81,7 @@ beginDialog:
     - kind: Question
       id: question_period1
       variable: Topic.TrendPeriod1
-      prompt: "Paste Period 1 (oldest) QM data â€” include measure names, rates, and national/state benchmarks if available."
+      prompt: "Paste Period 1 (oldest) QM data  include measure names, rates, and national/state benchmarks if available."
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -125,7 +125,7 @@ beginDialog:
     - kind: Question
       id: question_focusMeasures
       variable: Topic.TrendFocusMeasures
-      prompt: Are there specific QM measures you want the trend analysis to prioritize? (e.g., "Falls with major injury, Antipsychotic use" â€” or type "all" for comprehensive analysis)
+      prompt: Are there specific QM measures you want the trend analysis to prioritize? (e.g., "Falls with major injury, Antipsychotic use"  or type "all" for comprehensive analysis)
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -135,7 +135,7 @@ beginDialog:
       input:
         binding:
           text: =Concatenate(
-            "### LONGITUDINAL QM TREND ANALYSIS â€” PLATINUM STANDARD ###\n\n",
+            "### LONGITUDINAL QM TREND ANALYSIS  PLATINUM STANDARD ###\n\n",
             "Facility: ", Topic.TrendFacility, "\n",
             "Periods Analyzed: ", Topic.TrendPeriodCount, "\n",
             "Focus Measures: ", Topic.TrendFocusMeasures, "\n\n",
@@ -144,7 +144,7 @@ beginDialog:
             "PERIOD 3 DATA:\n", If(!IsBlank(Topic.TrendPeriod3), Topic.TrendPeriod3, "N/A"), "\n\n",
             "PERIOD 4 DATA:\n", If(!IsBlank(Topic.TrendPeriod4), Topic.TrendPeriod4, "N/A"), "\n\n",
             "ANALYSIS REQUIRED:\n",
-            "1. TREND CLASSIFICATION: For each QM, classify as: Sustained High-Risk (ðŸ”´), Improving (ðŸŸ¢), Stable (ðŸŸ¡), or Newly Emerging Risk (ðŸŸ ).\n",
+            "1. TREND CLASSIFICATION: For each QM, classify as: Sustained High-Risk (), Improving (), Stable (), or Newly Emerging Risk ().\n",
             "2. VELOCITY ANALYSIS: Flag any measure deteriorating faster than 1.5x the national average rate of change.\n",
             "3. FIVE-STAR IMPACT: Identify which trending measures affect the CMS Five-Star Quality Rating domain.\n",
             "4. TOP 3 PRIORITY RISKS: Select the 3 most dangerous sustained trends and explain WHY they are high-risk.\n",
@@ -164,14 +164,14 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_trendOutput
       activity: |-
-        ### ðŸ“ˆ Longitudinal QM Trend Report â€” Pacific Coast Regulatory Hub
+        ###  Longitudinal QM Trend Report  Pacific Coast Regulatory Hub
 
         {Topic.TrendOutput}
 
         ---
-        **ðŸ“‹ Distribution**: Share with DON, DOR, Administrator, and Medical Director.
-        **ðŸ“… Next Review**: Schedule re-analysis in 30 days.
-        **âš ï¸ Disclaimer**: AI-generated trend analysis. Final QAPI determinations require clinical leadership review.
+        ** Distribution**: Share with DON, DOR, Administrator, and Medical Director.
+        ** Next Review**: Schedule re-analysis in 30 days.
+        ** Disclaimer**: AI-generated trend analysis. Final QAPI determinations require clinical leadership review.
 
 inputType: {}
 outputType:
@@ -179,5 +179,6 @@ outputType:
     Trend_Output:
       displayName: Trend_Output
       type: String
+
 
 

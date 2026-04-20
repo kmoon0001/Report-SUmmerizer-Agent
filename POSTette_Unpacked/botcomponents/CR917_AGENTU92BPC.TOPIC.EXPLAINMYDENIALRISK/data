@@ -1,0 +1,62 @@
+mcs.metadata:
+  componentName: Explain My Denial Risk
+  description: |
+    Topic workflow for Explain My Denial Risk within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - explain my denial risk
+      - why was my claim denied
+      - help me understand denial risk
+      - what is the reason for my denial risk
+      - can you tell me about my denial risk
+      - details about claim denial risk
+      - risk of claim being denied
+      - why am I at risk of denial
+      - denial reasons for my claim
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_2qRrDM
+      activity: Welcome! I can help explain denial risk in plain language and provide coaching for therapists. Please paste your note or describe the situation you'd like help with.
+
+    - kind: Question
+      id: Question_U2fFon
+      variable: Topic.ClinicalNote
+      prompt: 'Please provide a clear response: Please paste your clinical note or describe the audit findings you received.'
+      entity: StringPrebuiltEntity
+
+    - kind: SendActivity
+      id: SendActivity_nJmsJB
+      activity: |-
+        Thank you for sharing your note. Here are some therapist-friendly teaching points to help reduce denial risk:
+
+        1. **Clarity and Specificity:** Make sure your note clearly describes the clinical need and the interventions provided. Avoid vague language.
+        2. **Link to Medical Necessity:** Explain how the treatment addresses the patient's diagnosis and functional goals.
+        3. **Document Progress:** Show measurable progress or explain barriers to progress.
+        4. **Address Audit Findings:** If you received technical feedback, restate it in plain language and describe how to fix it in your documentation.
+
+        If you have specific audit findings, please share them and I can help translate them into practical steps.
+
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

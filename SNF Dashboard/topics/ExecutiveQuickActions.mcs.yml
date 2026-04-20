@@ -44,7 +44,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: send_rbac_deny
-              activity: "â�� **ZERO-TRUST ENFORCEMENT**: Access Denied. You must be authenticated with a facility Entra ID token that carries the `Executive_Leadership` or `Compliance_Officer` role to view this menu."
+              activity: " **ZERO-TRUST ENFORCEMENT**: Access Denied. You must be authenticated with a facility Entra ID token that carries the `Executive_Leadership` or `Compliance_Officer` role to view this menu."
             - kind: BeginDialog
               id: return_from_rbac
               dialog: snf_ai_dashboard.topic.WelcomeStart
@@ -131,6 +131,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

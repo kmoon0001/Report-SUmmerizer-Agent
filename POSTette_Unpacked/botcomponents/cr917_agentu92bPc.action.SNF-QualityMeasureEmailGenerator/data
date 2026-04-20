@@ -1,0 +1,13 @@
+mcs.metadata:
+  componentName: SNF - Quality Measure Email Generator
+kind: TaskDialog
+modelDisplayName: Generate Quality Measure Compliance Emails
+modelDescription: Generates compliance notification emails from quality measure data for skilled nursing facility therapy teams. Formats decline alerts, care gap summaries, and risk reports for stakeholder communication.
+outputs:
+  - propertyName: hitl_approval
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: fcf035ad-af0c-f111-8406-0022480b6bd9
+
+outputMode: All

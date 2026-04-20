@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: QM Action Plan
   description: Elite clinical intelligence module specialized in [QMACTIONPLAN]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -120,7 +120,7 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_approvalGranted
               activity: |-
-                **PDSA ACTION PLAN FINALIZED �¢��â�¦**
+                **PDSA ACTION PLAN FINALIZED **
                 
                 **PLAN:** Targeted improvement in =Topic.TargetMetric for =Global.SelectedFacility.
                 
@@ -141,6 +141,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

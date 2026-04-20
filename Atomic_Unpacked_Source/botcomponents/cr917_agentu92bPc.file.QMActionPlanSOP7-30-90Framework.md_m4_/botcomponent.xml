@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.QMActionPlanSOP7-30-90Framework.md_m4_">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in QM Action Plan SOP 7-30-90 Framework.md</description>
+  <filedata mimetype="application/octet-stream">QM%20Action%20Plan%20SOP%207-30-90%20Framework.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>QM Action Plan SOP 7-30-90 Framework.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

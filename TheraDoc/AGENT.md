@@ -51,6 +51,8 @@ NOT appear in any cross-agent payload.
   via `record_id` before handoff — never concatenated inline in a cross-agent payload.
 - Every Dataverse write action MUST logCustomTelemetry to the `cr917_snf_telemetry_logs` table with:
   `{agent: "TheraDoc", timestamp: utcNow(), record_id, operation_type}`.
+- Generated clinical narratives MUST adhere to the **P-O-S-T-E-TE-E 6-Dimension Framework** (Priority, Objective, Subjective, Time-Bound, Treatment Plan, Evaluation).
+- Any note failing the P-O-S-T-E-TE-E check is categorized as **SEV-1 (Blocker)** and prevents the `Finalize` handoff to the Command Center.
 
 ## Platinum Orchestration & Security Rules (v2.0)
 
@@ -69,6 +71,20 @@ NOT appear in any cross-agent payload.
 
 5. **Fleet Fallback Escalation Ticket**
    - If clinical oversight is required and the agent fails gracefully, it must trigger an action that results in a service ticket generated for the `clinical-leadership` distribution list.
+
+6. **POSTette Documentation Standards**
+   TheraDoc applies the **6-Dimension POSTette Audit** to all generated and revised notes to ensure Ensign Services compliance:
+   1. **P (Priority):** Validates skilled necessity, medical complexity, and PLOF.
+   2. **O (Objective):** Ensures standardized tests/measures (Gait speed, Berg, etc.) include specific scale interpretations.
+   3. **S (Subjective):** Maps resident-reported pain/fatigue directly to observed functional deficits.
+   4. **T (Time):** Justifies the rationale for session duration and continued frequency vs. maintenance.
+   5. **TE (Treatment):** Replaces passive "assist" with skilled intervention verbs (e.g., *facilitated*, *inhibited*, *graded*).
+   6. **E (Evaluation):** Links treatment response directly to functional impact and progress toward goals.
+
+   **Severity Tagging Rules:**
+   - 🔴 **SEV-1 (Critical):** Missing skilled necessity or objective metrics. **ACTION: Block Release.**
+   - 🟡 **SEV-2 (Moderate):** Weak functional linking or unclear scale meaning. **ACTION: Suggest Revision.**
+   - 🔵 **SEV-3 (Minor):** Non-standardized phrasing or style alignment. **ACTION: Auto-Optimize.**
 
 ## Real Production Path
 
@@ -148,7 +164,8 @@ Primary user goals:
 - Audit note
 - Parse brain dump
 - Create nursing handoff
-- Get documentation guidance
+- Create nursing handoff
+- Get documentation guidance (via POSTette 6-Dimension Framework)
 
 Design guardrails:
 

@@ -1,4 +1,4 @@
-ï»¿mcs.metadata:
+mcs.metadata:
   componentName: Facility QM Analysis
 kind: AdaptiveDialog
 modeldescription: Elite clinical intelligence module specialized in [FacilityQMAnalysis]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
@@ -39,12 +39,12 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "ÃÂ¢ÃÂ¡ÃÂ ÃÂ¯ÃÂ¸ÃÂ Falls", data: { qmMeasureFocus: "Falls" }, tooltip: "Falls with major injury" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸Ã¢â¬ÅÃ¢â¬Â° ADL Decline", data: { qmMeasureFocus: "ADL Decline" }, tooltip: "Mobility and ADL function decline" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸ÃÂ©ÃÂ¹ Pressure Ulcers", data: { qmMeasureFocus: "Pressure Ulcers" }, tooltip: "New or worsened pressure injuries" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸Ã¢â¬â¢ÃÂ  Antipsychotic Use", data: { qmMeasureFocus: "Antipsychotic Use" }, tooltip: "Antipsychotic medication rates" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸ÃÅÃÂ£ Pain", data: { qmMeasureFocus: "Pain" }, tooltip: "Moderate to severe pain rates" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸Ã¢â¬ÅÃ¢â¬Â¹ All QMs (Full Review)", data: { qmMeasureFocus: "All QMs" }, tooltip: "Comprehensive review of all quality measures" }
+            { type: "Action.Submit", title: " Falls", data: { qmMeasureFocus: "Falls" }, tooltip: "Falls with major injury" },
+            { type: "Action.Submit", title: " ADL Decline", data: { qmMeasureFocus: "ADL Decline" }, tooltip: "Mobility and ADL function decline" },
+            { type: "Action.Submit", title: " Pressure Ulcers", data: { qmMeasureFocus: "Pressure Ulcers" }, tooltip: "New or worsened pressure injuries" },
+            { type: "Action.Submit", title: " Antipsychotic Use", data: { qmMeasureFocus: "Antipsychotic Use" }, tooltip: "Antipsychotic medication rates" },
+            { type: "Action.Submit", title: " Pain", data: { qmMeasureFocus: "Pain" }, tooltip: "Moderate to severe pain rates" },
+            { type: "Action.Submit", title: " All QMs (Full Review)", data: { qmMeasureFocus: "All QMs" }, tooltip: "Comprehensive review of all quality measures" }
           ]
         }
       output:
@@ -111,5 +111,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

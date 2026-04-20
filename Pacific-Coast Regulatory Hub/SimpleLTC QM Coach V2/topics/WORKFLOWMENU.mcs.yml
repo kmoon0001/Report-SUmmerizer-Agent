@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: WORKFLOW MENU
   description: Elite clinical intelligence module specialized in [WORKFLOWMENU]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -131,3 +131,4 @@ outputType: {}
             - kind: BeginDialog
               id: beginDialog_trend
               dialog: cr917_agentu92bPc.topic.FacilityTrendReporter
+

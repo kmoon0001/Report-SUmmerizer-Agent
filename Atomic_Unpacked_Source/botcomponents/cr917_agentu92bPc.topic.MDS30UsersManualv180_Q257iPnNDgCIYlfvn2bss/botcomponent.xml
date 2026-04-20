@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr917_agentu92bPc.topic.MDS30UsersManualv180_Q257iPnNDgCIYlfvn2bss">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.simple.health/mds-3-0-quality-measures-users-manual-v18-0-effective-january-1-2026/ website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>MDS 3.0 Users Manual (v18.0)</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

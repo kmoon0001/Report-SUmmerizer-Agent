@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr917_agentu92bPc.topic.httpswwwcmsgovmedicarequality_TE5YvBjQi26fqYEnB8DHU">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.cms.gov/medicare/quality website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>CMS Quality Measures</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

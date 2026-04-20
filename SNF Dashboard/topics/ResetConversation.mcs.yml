@@ -49,7 +49,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "√∞≈∏‚‚ SYSTEM RESET"
+                      text: " SYSTEM RESET"
                       weight: Bolder
                       size: Medium
                       color: Accent
@@ -64,6 +64,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

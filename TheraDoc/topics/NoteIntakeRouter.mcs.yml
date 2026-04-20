@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -44,9 +44,9 @@ beginDialog:
           - kind: SendActivity
             id: sendActivity_contextPrompt
             activity: |-
-              ðŸ‘‹ **Welcome to TheraDoc â€” Pacific Coast Therapy Hub**
+               **Welcome to TheraDoc  Pacific Coast Therapy Hub**
 
-              âš ï¸ No patient context is currently loaded. Loading a patient first saves time by auto-populating all documentation flows.
+               No patient context is currently loaded. Loading a patient first saves time by auto-populating all documentation flows.
 
           - kind: Question
             id: question_loadContext
@@ -75,15 +75,15 @@ beginDialog:
         kind: ClosedListEntity
         items:
         - id: DocumentNote
-          displayName: "ðŸ“ Document a clinical note"
+          displayName: " Document a clinical note"
         - id: FinalizeEHR
-          displayName: "ðŸš€ Finalize & submit note to EHR"
+          displayName: " Finalize & submit note to EHR"
         - id: ConflictAudit
-          displayName: "âš–ï¸ Run cross-discipline conflict audit"
+          displayName: " Run cross-discipline conflict audit"
         - id: AuditNote
-          displayName: "ðŸ” Audit an existing note (compliance)"
+          displayName: " Audit an existing note (compliance)"
         - id: LoadPatient
-          displayName: "ðŸ‘¤ Load / switch patient context"
+          displayName: " Load / switch patient context"
 
   # --- Routing for Utility Actions ---
   - kind: ConditionGroup
@@ -160,7 +160,7 @@ beginDialog:
                 - id: DailyNote
                   displayName: Daily Note
 
-          # --- STEP 4: Routing Matrix (Discipline Ã— Note Type) ---
+          # --- STEP 4: Routing Matrix (Discipline  Note Type) ---
           - kind: ConditionGroup
             id: ConditionGroup_hcPQeA
             conditions:
@@ -261,8 +261,10 @@ beginDialog:
             elseActions:
             - kind: SendActivity
               id: SendActivity_dfKvrm
-              activity: "âš ï¸ I could not match your selection to a clinical note flow. Please try again or say 'help' for a list of available options."
+              activity: " I could not match your selection to a clinical note flow. Please try again or say 'help' for a list of available options."
 
 inputType: {}
 outputType: {}
+
+
 

@@ -35,10 +35,10 @@ beginDialog:
         text:
           - |-
             Hello! I'm the SNF Command Center Agent. I can help you with:
-            тв Patient alert routing (Rehospitalization Risk, Authorization, Documentation)
-            тв Case history review and assessment support
-            тв Compliance gap analysis
-            тв Progress, recertification, and discharge summaries
+             Patient alert routing (Rehospitalization Risk, Authorization, Documentation)
+             Case history review and assessment support
+             Compliance gap analysis
+             Progress, recertification, and discharge summaries
 
             To get started, please provide the patient MRN and describe the alert or task. All patient data is handled as PHI and processed securely.
 
@@ -48,4 +48,5 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: cancelAllDialogs_01At22
+
 

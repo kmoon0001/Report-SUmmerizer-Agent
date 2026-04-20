@@ -1,4 +1,4 @@
-ï»¿mcs.metadata:
+mcs.metadata:
   componentName: DoR Summary
 kind: AdaptiveDialog
 modeldescription: Elite clinical intelligence module specialized in [DoRSummary]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
@@ -39,9 +39,9 @@ beginDialog:
             }
           ],
           actions: [
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸ÃÂ§Ã¢â¬ËÃÂ¢Ã¢âÂ¬ÃÂÃÂ¢ÃÂ¡Ã¢â¬Â¢ÃÂ¯ÃÂ¸ÃÂ DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸Ã¢â¬ËÃÂ¥ Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
-            { type: "Action.Submit", title: "ÃÂ°ÃÂ¸Ã¢â¬ÅÃÂ  Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
+            { type: "Action.Submit", title: " DoR Only", data: { summaryAudience: "DoR only" }, tooltip: "Therapy-focused with clinical detail and protocol references" },
+            { type: "Action.Submit", title: " Interdisciplinary Team", data: { summaryAudience: "Interdisciplinary team" }, tooltip: "Balanced therapy-nursing view with collaboration points" },
+            { type: "Action.Submit", title: " Executive Leadership", data: { summaryAudience: "Executive leadership" }, tooltip: "High-level with Five-Star impact and resource needs" }
           ]
         }
       output:
@@ -106,5 +106,6 @@ beginDialog:
           condition: =Topic.summaryFocus = 'Palm Terrace'
 inputType: {}
 outputType: {}
+
 
 

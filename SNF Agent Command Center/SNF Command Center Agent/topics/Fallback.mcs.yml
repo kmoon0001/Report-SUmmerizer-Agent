@@ -31,11 +31,11 @@ beginDialog:
                 I wasn't able to recognize that request within my SNF routing scope.
 
                 I can help with:
-                тв Patient alert routing (provide MRN + alert type)
-                тв Case history and assessment review
-                тв Documentation creation (saved as DRAFT only)
-                тв Compliance gap analysis
-                тв Progress, recertification, or discharge summaries
+                 Patient alert routing (provide MRN + alert type)
+                 Case history and assessment review
+                 Documentation creation (saved as DRAFT only)
+                 Compliance gap analysis
+                 Progress, recertification, or discharge summaries
 
                 Please try again with a format like:
                 "Route rehospitalization alert for MRN 12345"
@@ -48,4 +48,5 @@ beginDialog:
         - kind: BeginDialog
           id: 5aXj5M
           dialog: cua_agent_U805x.topic.Escalate
+
 

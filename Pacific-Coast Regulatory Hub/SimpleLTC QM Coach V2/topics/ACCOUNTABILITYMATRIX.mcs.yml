@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: ACCOUNTABILITY MATRIX
   description: Elite clinical intelligence module specialized in [ACCOUNTABILITYMATRIX]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -49,9 +49,9 @@ beginDialog:
                 allowLatencyMessage: false
 
               userInput: "=Concatenate(\"Based on QM Risks: \", Topic.QMRisks, \" and clinical drivers: \", Topic.QMDrivers, \", generate a role-based accountability matrix for the QM team. The output should be a clear, concise matrix format with columns: KPI, Role Owner, Cadence, Evidence Required.\")"
-              additionalInstructions: "=Concatenate(\"QM Risks context: \", Topic.QMRisks, \". Generate a RACI matrix aligned with CMS Ch.15 and ONE Clinical protocols.\")"
+            additionalInstructions: "=Concatenate(\"QM Risks context: \", Topic.QMRisks, \". Generate a RACI matrix aligned with CMS Ch.15 and ONE Clinical protocols.\")"
 
-            - kind: SendActivity
+              - kind: SendActivity
               id: SendActivity_q7FZsD
               activity: "Here is your Accountability Matrix:"
 
@@ -98,5 +98,6 @@ outputType:
     QMDomain:
       displayName: QMDomain
       type: String
+
 
 

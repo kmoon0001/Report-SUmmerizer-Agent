@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Reset Conversation
   description: Elite clinical intelligence module specialized in [ResetConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -17,5 +17,6 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: cancelAllDialogs_12Gt21
+
 
 

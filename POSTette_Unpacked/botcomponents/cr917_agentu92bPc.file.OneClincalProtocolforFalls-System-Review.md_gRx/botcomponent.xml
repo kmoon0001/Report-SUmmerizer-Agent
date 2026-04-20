@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.OneClincalProtocolforFalls-System-Review.md_gRx">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in One Clincal Protocol for Falls-System-Review.md</description>
+  <filedata mimetype="application/octet-stream">One%20Clincal%20Protocol%20for%20Falls-System-Review.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>One Clincal Protocol for Falls-System-Review.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

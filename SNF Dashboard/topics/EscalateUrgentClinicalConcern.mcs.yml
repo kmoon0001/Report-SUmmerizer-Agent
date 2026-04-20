@@ -61,7 +61,7 @@ beginDialog:
             Value: SameShift
           - DisplayName: Immediate clinician review needed
             Value: ImmediateReview
-          - DisplayName: Emergency â�� act now
+          - DisplayName: Emergency  act now
             Value: Emergency
 
     - kind: SendActivity
@@ -70,9 +70,9 @@ beginDialog:
 
     - kind: SendActivity
       id: send_urgent_summary
-      activity: "=Concatenate(\"I have the intake for: \", Text(Topic.UrgentFocusChoice), \" â�� Urgency: \", Text(Topic.UrgencyChoice), \".\")"
+      activity: "=Concatenate(\"I have the intake for: \", Text(Topic.UrgentFocusChoice), \"  Urgency: \", Text(Topic.UrgencyChoice), \".\")"
 
-    - kind: ConditionGroup
+      - kind: ConditionGroup
       id: condition_urgency_route
       conditions:
         - id: route_emergency
@@ -107,7 +107,7 @@ beginDialog:
                           bleed: true
                           items:
                             - type: TextBlock
-                              text: "ðŸš¨ IMMEDIATE CLINICAL EMERGENCY"
+                              text: " IMMEDIATE CLINICAL EMERGENCY"
                               weight: Bolder
                               size: Large
                               color: Attention
@@ -154,6 +154,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

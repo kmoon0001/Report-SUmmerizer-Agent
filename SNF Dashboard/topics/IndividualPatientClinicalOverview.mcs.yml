@@ -78,7 +78,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ�Š PATIENT CLINICAL OVERVIEW"
+                      text: " PATIENT CLINICAL OVERVIEW"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -110,7 +110,7 @@ beginDialog:
                           weight: Bolder
                           spacing: None
                 - type: TextBlock
-                  text: "âš ï¸ This is a structured intake summary. The automated backend is currently in validation mode."
+                  text: " This is a structured intake summary. The automated backend is currently in validation mode."
                   wrap: true
                   fontType: Monospace
                   size: Small
@@ -129,6 +129,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

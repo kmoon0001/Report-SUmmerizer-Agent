@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: QM DRIVERS
   description: Elite clinical intelligence module specialized in [QMDRIVERS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -32,7 +32,7 @@ beginDialog:
             - kind: SearchAndSummarizeContent
               id: bRVEC5
               userInput: "=Concatenate(\"Selected facility: \", Global.SelectedFacility, Char(10), Char(10), \"Use the facility-level decline analysis below as the controlling input for the driver review.\", Char(10), Char(10), Global.QMAnalysisResult)"
-              additionalInstructions: |-
+                additionalInstructions: |-
                 You are performing a QM driver review for a single facility.
 
                 Required behavior:
@@ -78,5 +78,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

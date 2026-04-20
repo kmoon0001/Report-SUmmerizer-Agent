@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Escalate
   description: Elite clinical intelligence module specialized in [Escalate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -66,5 +66,6 @@ beginDialog:
         - kind: SendActivity
           id: sendMessage_closeAfterEscalation
           activity: Understood. You can return any time with additional clinical details for draft support.
+
 
 

@@ -24,7 +24,7 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_hopLimit
               activity: |
-                ⚠️ **Orchestration Error: Max-Hop Limit Exceeded**
+                 **Orchestration Error: Max-Hop Limit Exceeded**
                 The request has bounced between agents more than 3 times (Max Hop: 3). Halting execution to prevent infinite loops.
             - kind: LogCustomTelemetryEvent
               id: log_hopLimit
@@ -111,7 +111,7 @@ beginDialog:
             - kind: SendActivity
               id: send_theraDoc
               activity: |
-                🔄 *Routing to TheraDoc Hub...* (Record: {Topic.ParsedPayload.record_id})
+                 *Routing to TheraDoc Hub...* (Record: {Topic.ParsedPayload.record_id})
             - kind: LogCustomTelemetryEvent
               id: log_routeTheraDoc
               eventName: RouteToTheraDoc
@@ -123,7 +123,7 @@ beginDialog:
             - kind: SendActivity
               id: send_regulatoryHub
               activity: |
-                🔄 *Routing to Regulatory Hub...* (Record: {Topic.ParsedPayload.record_id})
+                 *Routing to Regulatory Hub...* (Record: {Topic.ParsedPayload.record_id})
             - kind: LogCustomTelemetryEvent
               id: log_routeRegHub
               eventName: RouteToRegulatoryHub
@@ -135,7 +135,7 @@ beginDialog:
             - kind: SendActivity
               id: send_denialDefense
               activity: |
-                🔄 *Routing to Denial Defense Hub...* (Record: {Topic.ParsedPayload.record_id})
+                 *Routing to Denial Defense Hub...* (Record: {Topic.ParsedPayload.record_id})
             - kind: LogCustomTelemetryEvent
               id: log_routeDenialDefense
               eventName: RouteToDenialDefense
@@ -147,7 +147,7 @@ beginDialog:
             - kind: SendActivity
               id: send_synthesisLab
               activity: |
-                🔄 *Routing to Clinical Synthesis Lab...* (Record: {Topic.ParsedPayload.record_id})
+                 *Routing to Clinical Synthesis Lab...* (Record: {Topic.ParsedPayload.record_id})
             - kind: LogCustomTelemetryEvent
               id: log_routeCSL
               eventName: RouteToCSL
@@ -158,8 +158,9 @@ beginDialog:
         - kind: SendActivity
           id: send_unknownAgent
           activity: |
-            ⚠️ **Unknown Destination Agent**: {Topic.ParsedPayload.next_agent}. 
+             **Unknown Destination Agent**: {Topic.ParsedPayload.next_agent}. 
             Falling back to default dashboard.
         - kind: BeginDialog
           id: routeDashboard
           dialog: snf_ai_dashboard.topic.SNFRoutingStatusCheck
+

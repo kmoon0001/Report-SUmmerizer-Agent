@@ -42,7 +42,7 @@ beginDialog:
         items:
           - DisplayName: One unit
             Value: Unit
-          - DisplayName: All units â�� facility-wide
+          - DisplayName: All units  facility-wide
             Value: FacilityWide
           - DisplayName: My assigned items only
             Value: MyItems
@@ -59,7 +59,7 @@ beginDialog:
             Value: CurrentShift
           - DisplayName: Last 24 hours
             Value: Last24Hours
-          - DisplayName: Open items â�� any age
+          - DisplayName: Open items  any age
             Value: AllOpen
 
     - kind: Question
@@ -79,12 +79,13 @@ beginDialog:
       id: send_queue_summary
       activity: "=Concatenate(\"I have the intake for a handoff queue review: \", Text(Topic.QueueScopeChoice), \" scope, \", Text(Topic.ShiftFilterChoice), \" window, \", Text(Topic.PriorityFilterChoice), \" priority.\")"
 
-    - kind: SendActivity
+      - kind: SendActivity
       id: send_queue_next_step
       activity: Use the intake above to filter the handoff queue in the command center dashboard. This topic stays in structured intake mode until a validated live queue backend is connected. For urgent open items, use Escalate Urgent Clinical Concern.
 
 inputType: {}
 outputType: {}
+
 
 
 

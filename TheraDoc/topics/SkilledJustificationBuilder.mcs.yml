@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: Invoke ComplianceAuditor gate before output.
@@ -13,7 +13,7 @@ mcs.metadata:
   description: >
     Standalone Skilled Justification Builder. Generates a Medicare-defensible
     Skilled Justification paragraph grounded in Jimmo v. Sebelius, CMS Chapter 15,
-    and the Denial Defense protocols â€” without requiring a full note regeneration.
+    and the Denial Defense protocols  without requiring a full note regeneration.
 kind: AdaptiveDialog
 modeldescription: >
   Platinum Skilled Justification Builder for Pacific Coast Therapy Hub.
@@ -48,7 +48,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_contextDetected
-              activity: "âœ… Building Skilled Justification for: **{Global.MPC_PatientName}** | Diagnosis: **{Global.MPC_PrimaryDiagnosis}**"
+              activity: " Building Skilled Justification for: **{Global.MPC_PatientName}** | Diagnosis: **{Global.MPC_PrimaryDiagnosis}**"
       elseActions:
         - kind: Question
           id: question_patientFallback
@@ -65,7 +65,7 @@ beginDialog:
 
     - kind: SendActivity
       id: sendActivity_intro
-      activity: "âš–ï¸ **Skilled Justification Builder** â€” I will generate a forensically defensible SNJ statement. Answer each question precisely."
+      activity: " **Skilled Justification Builder**  I will generate a forensically defensible SNJ statement. Answer each question precisely."
 
     - kind: Question
       id: question_discipline
@@ -95,7 +95,7 @@ beginDialog:
             - id: Restorative
               displayName: Restorative therapy (improvement expected)
             - id: Maintenance
-              displayName: Maintenance therapy (Jimmo standard â€” prevent decline)
+              displayName: Maintenance therapy (Jimmo standard  prevent decline)
             - id: Prevention
               displayName: Prevention of further deterioration
 
@@ -110,7 +110,7 @@ beginDialog:
     - kind: Question
       id: question_skillRequired
       variable: Topic.SNJSkillRequired
-      prompt: What specific clinical skill is required that a non-licensed person (family, aide, nurse) CANNOT safely provide? Be specific â€” e.g., "dynamic balance training," "dysphagia compensatory strategy instruction," "therapeutic exercise progression."
+      prompt: What specific clinical skill is required that a non-licensed person (family, aide, nurse) CANNOT safely provide? Be specific  e.g., "dynamic balance training," "dysphagia compensatory strategy instruction," "therapeutic exercise progression."
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -143,29 +143,30 @@ beginDialog:
       id: beginDialog_snjGeneration
       input:
         binding:
-          text: =Concatenate(
-            "### SKILLED JUSTIFICATION BUILDER â€” PLATINUM STANDARD ###\n\n",
-            "Generate a concise, forensically defensible Skilled Justification paragraph for the following:\n\n",
-            "Patient: ", Global.MPC_PatientName, "\n",
-            "Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
-            "Comorbidities: ", Global.MPC_SecondaryDiagnoses, "\n",
-            "Discipline: ", Topic.SNJDiscipline, "\n",
-            "Service Type: ", Topic.SNJServiceType, "\n",
-            "PLOF: ", Global.MPC_PLOF, "\n\n",
-            "Current Functional Status: ", Topic.SNJFunctionalStatus, "\n",
-            "Specific Skill Required: ", Topic.SNJSkillRequired, "\n",
-            "Risk Without Services: ", Topic.SNJRiskWithout, "\n",
-            "Evidence of Progress: ", Topic.SNJProgressEvidence, "\n",
-            "Complexity Factors: ", Topic.SNJComplexityFactors, "\n\n",
-            "REQUIREMENTS:\n",
-            "1. If service type is Maintenance, invoke Jimmo v. Sebelius (2013) â€” patient need not improve, must only prevent decline.\n",
-            "2. State specifically why a non-licensed individual cannot safely provide this care.\n",
-            "3. Reference the functional complexity factors that require clinical judgment.\n",
-            "4. Include one sentence on risk to patient safety if skilled services are discontinued.\n",
-            "5. Use precise clinical terminology. Avoid vague phrases like 'patient tolerated well' or 'patient cooperative.'\n",
-            "6. Maximum 150 words. Dense, defensible, audit-ready.\n",
-            "7. Do NOT include preamble â€” output the justification paragraph only."
-          )
+          text: |-
+            =Concatenate(
+              "### SKILLED JUSTIFICATION BUILDER ###\n\n",
+              "Generate a concise, forensically defensible Skilled Justification paragraph for the following:\n\n",
+              "Patient: ", Global.MPC_PatientName, "\n",
+              "Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
+              "Comorbidities: ", Global.MPC_SecondaryDiagnoses, "\n",
+              "Discipline: ", Topic.SNJDiscipline, "\n",
+              "Service Type: ", Topic.SNJServiceType, "\n",
+              "PLOF: ", Global.MPC_PLOF, "\n\n",
+              "Current Functional Status: ", Topic.SNJFunctionalStatus, "\n",
+              "Specific Skill Required: ", Topic.SNJSkillRequired, "\n",
+              "Risk Without Services: ", Topic.SNJRiskWithout, "\n",
+              "Evidence of Progress: ", Topic.SNJProgressEvidence, "\n",
+              "Complexity Factors: ", Topic.SNJComplexityFactors, "\n\n",
+              "REQUIREMENTS:\n",
+              "1. If service type is Maintenance, invoke Jimmo v. Sebelius (2013) -- patient need not improve, must only prevent decline.\n",
+              "2. State specifically why a non-licensed individual cannot safely provide this care.\n",
+              "3. Reference the functional complexity factors that require clinical judgment.\n",
+              "4. Include one sentence on risk to patient safety if skilled services are discontinued.\n",
+              "5. Use precise clinical terminology. Avoid vague phrases like 'patient tolerated well' or 'patient cooperative.'\n",
+              "6. Maximum 150 words. Dense, defensible, audit-ready.\n",
+              "7. Do NOT include preamble -- output the justification paragraph only."
+            )
       dialog: pcca_agent.action.TheraDoc-PTGenerateNote
       output:
         binding:
@@ -174,18 +175,18 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_snjOutput
       activity: |-
-        ### âš–ï¸ Skilled Justification Statement â€” Platinum Build
+        ###  Skilled Justification Statement  Platinum Build
 
         {Topic.SNJOutput}
 
         ---
-        **ðŸ“‹ Usage Instructions**:
+        ** Usage Instructions**:
         - Copy this paragraph into the "Skilled Justification" section of your note.
-        - Review for accuracy â€” you must be able to defend every claim clinically.
+        - Review for accuracy  you must be able to defend every claim clinically.
         - To revise, say "rebuild skilled justification."
 
-        **âš ï¸ Grounding**: Jimmo v. Sebelius (2013) | CMS Medicare Benefit Policy Manual Ch. 15 | Pacific Coast POSTette Standards
-        **âš ï¸ Disclaimer**: AI-generated. Final clinical defensibility is the treating therapist's responsibility.
+        ** Grounding**: Jimmo v. Sebelius (2013) | CMS Medicare Benefit Policy Manual Ch. 15 | Pacific Coast POSTette Standards
+        ** Disclaimer**: AI-generated. Final clinical defensibility is the treating therapist's responsibility.
 
     - kind: Question
       id: question_sendToEHR
@@ -213,4 +214,7 @@ outputType:
     SNJ_Output:
       displayName: SNJ_Output
       type: String
+
+
+
 

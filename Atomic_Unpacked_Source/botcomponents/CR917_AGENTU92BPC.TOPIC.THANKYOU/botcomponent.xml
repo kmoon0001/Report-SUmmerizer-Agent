@@ -1,0 +1,11 @@
+<botcomponent schemaname="CR917_AGENTU92BPC.TOPIC.THANKYOU">
+  <componenttype>9</componenttype>
+  <description>This topic triggers when the user says thank you.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>ThankYou</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -42,7 +42,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_VJc0kw
-              activity: Thank you for using TheraDoc. Your documentation efforts support excellent patient care. Have a productive clinical day â goodbye!
+              activity: Thank you for using TheraDoc. Your documentation efforts support excellent patient care. Have a productive clinical day  goodbye!
             - kind: BeginDialog
               id: dn94DC
               dialog: pcca_agent.topic.EndofConversation
@@ -55,6 +55,8 @@ beginDialog:
             - kind: BeginDialog
               id: begin_welcome_start
               dialog: pcca_agent.topic.WelcomeStart
+
+
 
 
 

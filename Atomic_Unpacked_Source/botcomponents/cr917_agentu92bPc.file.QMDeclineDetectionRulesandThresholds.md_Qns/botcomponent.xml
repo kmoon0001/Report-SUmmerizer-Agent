@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.QMDeclineDetectionRulesandThresholds.md_Qns">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in QM Decline Detection Rules and Thresholds.md</description>
+  <filedata mimetype="application/octet-stream">QM%20Decline%20Detection%20Rules%20and%20Thresholds.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>QM Decline Detection Rules and Thresholds.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

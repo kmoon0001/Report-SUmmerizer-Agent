@@ -35,3 +35,4 @@ beginDialog:
         - kind: SendActivity
           id: sendMessage_lk2CyQ
           activity: Ok. Let's carry on.
+

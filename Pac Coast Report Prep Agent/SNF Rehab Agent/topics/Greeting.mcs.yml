@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Greeting
   description: Elite clinical intelligence module specialized in [Greeting]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -26,4 +26,5 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: cancelAllDialogs_01At22
+
 

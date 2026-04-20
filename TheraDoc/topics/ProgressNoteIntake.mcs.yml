@@ -1,4 +1,4 @@
-Ôªø# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -217,26 +217,26 @@ beginDialog:
             - kind: SetTextVariable
               id: setTextVariable_goalBarHigh
               variable: Topic.goalProgressBar
-              value: ="√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À"
+              value: =""
         - id: conditionItem_goalBarMedium
           condition: =Topic.goalProgressPercent >= 50
           actions:
             - kind: SetTextVariable
               id: setTextVariable_goalBarMedium
               variable: Topic.goalProgressBar
-              value: ="√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚À√¢‚‚√¢‚‚√¢‚‚√¢‚‚"
+              value: =""
         - id: conditionItem_goalBarLow
           condition: =Topic.goalProgressPercent >= 25
           actions:
             - kind: SetTextVariable
               id: setTextVariable_goalBarLow
               variable: Topic.goalProgressBar
-              value: ="√¢‚À√¢‚À√¢‚À√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚"
+              value: =""
       elseActions:
         - kind: SetTextVariable
           id: setTextVariable_goalBarVeryLow
           variable: Topic.goalProgressBar
-          value: ="√¢‚À√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚√¢‚‚"
+          value: =""
 
     - kind: Question
       id: question_pB7H6z
@@ -271,6 +271,8 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
+
 
 
 

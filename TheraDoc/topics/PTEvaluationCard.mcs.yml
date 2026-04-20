@@ -1,4 +1,4 @@
-ï»¿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -93,7 +93,7 @@ beginDialog:
             {
               "type": "Input.Text",
               "id": "painBaseline",
-              "label": "Pain Details Ã¢â¬â Location, Quality, Aggravating Factors",
+              "label": "Pain Details  Location, Quality, Aggravating Factors",
               "isMultiline": true,
               "placeholder": "Right hip, aching with weight-bearing..."
             },
@@ -174,7 +174,7 @@ beginDialog:
             {
               "type": "Input.Text",
               "id": "functionalMobilityBaseline",
-              "label": "Functional Mobility Baseline Ã¢â¬â Section GG",
+              "label": "Functional Mobility Baseline  Section GG",
               "isMultiline": true
             },
             {
@@ -291,6 +291,8 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
+
 
 
 

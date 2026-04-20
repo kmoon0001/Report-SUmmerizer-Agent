@@ -1,0 +1,17 @@
+mcs.metadata:
+  componentName: SNF - Clinical Intake Handoff Router
+kind: TaskDialog
+modelDisplayName: Route Clinical Intake and Handoff Data
+modelDescription: Routes clinical intake and handoff data between therapy disciplines and compliance systems. Parses admission assessments, identifies required therapy evaluations, and routes documentation to appropriate providers.
+outputs:
+  - propertyName: normalization_status
+
+  - propertyName: normalized_document_type
+
+  - propertyName: normalized_text
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: db104008-d226-f111-8341-000d3a5b88c6
+
+outputMode: All

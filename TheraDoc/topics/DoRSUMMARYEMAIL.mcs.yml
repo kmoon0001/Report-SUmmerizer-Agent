@@ -14,7 +14,7 @@ beginDialog:
   actions:
     - kind: SendActivity
       id: send_init
-      activity: "🚀 **Initiating Platinum Standard SBAR Dispatch...**"
+      activity: " **Initiating Platinum Standard SBAR Dispatch...**"
 
     - kind: SetVariable
       id: set_sbar_content
@@ -44,8 +44,10 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: send_success
-              activity: "✅ SBAR Briefing successfully dispatched to {Global.DorEmailAddress}."
+              activity: " SBAR Briefing successfully dispatched to {Global.DorEmailAddress}."
       elseActions:
         - kind: SendActivity
           id: send_error
-          activity: "⚠️ SBAR Dispatch failed. Please verify the Power Automate connection status."
+          activity: " SBAR Dispatch failed. Please verify the Power Automate connection status."
+
+

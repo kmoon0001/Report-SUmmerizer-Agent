@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.QMDriverTaxonomyandRootCauseLibrary.md_3IJ">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in QM Driver Taxonomy and Root Cause Library.md</description>
+  <filedata mimetype="application/octet-stream">QM%20Driver%20Taxonomy%20and%20Root%20Cause%20Library.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>QM Driver Taxonomy and Root Cause Library.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

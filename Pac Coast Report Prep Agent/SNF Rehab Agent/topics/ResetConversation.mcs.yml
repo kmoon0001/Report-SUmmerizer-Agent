@@ -16,3 +16,4 @@ beginDialog:
 
     - kind: CancelAllDialogs
       id: cancelAllDialogs_12Gt21
+

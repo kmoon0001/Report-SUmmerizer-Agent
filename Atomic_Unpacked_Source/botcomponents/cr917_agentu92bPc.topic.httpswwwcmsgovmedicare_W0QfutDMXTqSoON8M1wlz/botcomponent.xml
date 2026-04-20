@@ -1,0 +1,11 @@
+<botcomponent schemaname="cr917_agentu92bPc.topic.httpswwwcmsgovmedicare_W0QfutDMXTqSoON8M1wlz">
+  <componenttype>16</componenttype>
+  <description>This knowledge source searches information on the web found in https://www.cms.gov/medicare website</description>
+  <iscustomizable>0</iscustomizable>
+  <name>CMS Medicare General</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

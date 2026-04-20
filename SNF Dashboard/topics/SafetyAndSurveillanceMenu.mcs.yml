@@ -42,7 +42,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ�¡ï¸ SAFETY & SURVEILLANCE MENU"
+                      text: " SAFETY & SURVEILLANCE MENU"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -109,6 +109,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

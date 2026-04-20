@@ -1,4 +1,4 @@
-ï»¿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -371,12 +371,14 @@ beginDialog:
     # Send confirmation with disclaimer
     - kind: SendActivity
       id: send_confirmation
-      activity: "Ã¢Åâ¦ Session note generated. Ã¢Å¡Â Ã¯Â¸Â DRAFT ONLY Ã¢â¬â Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
+      activity: " Session note generated.  DRAFT ONLY  Review and edit before entering into the EHR.\n\n{Topic.generatednote}"
 
     # Offer audit option
     - kind: BeginDialog
       id: audit_option
       dialog: pcca_agent.topic.AuditExistingNote
+
+
 
 
 

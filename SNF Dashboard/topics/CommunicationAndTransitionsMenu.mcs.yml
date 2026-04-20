@@ -42,7 +42,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ¤ COMMUNICATION & TRANSITIONS MENU"
+                      text: " COMMUNICATION & TRANSITIONS MENU"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -100,6 +100,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

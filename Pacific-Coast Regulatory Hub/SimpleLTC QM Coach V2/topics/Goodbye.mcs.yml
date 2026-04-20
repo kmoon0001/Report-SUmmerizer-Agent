@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Goodbye
   description: Elite clinical intelligence module specialized in [Goodbye]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -40,5 +40,6 @@ beginDialog:
             - kind: SendActivity
               id: sendMessage_LdLhmf
               activity: Go ahead. I'm listening.
+
 
 

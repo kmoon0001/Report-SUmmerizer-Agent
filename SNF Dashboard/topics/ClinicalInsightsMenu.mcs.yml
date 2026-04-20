@@ -42,7 +42,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ©º CLINICAL INSIGHTS MENU"
+                      text: " CLINICAL INSIGHTS MENU"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -127,6 +127,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

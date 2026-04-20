@@ -1,4 +1,4 @@
-ï»¿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -56,7 +56,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_vIkRlN
-              activity: Understood Ã¢â¬â generating your SLP Discharge Note. Please provide the following details.
+              activity: Understood  generating your SLP Discharge Note. Please provide the following details.
 
         - id: conditionItem_6mR6sA
           condition: =Topic.therapyDiscipline = 'pcca_agent.entity.Discipline'.iNfx28
@@ -64,7 +64,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_almObs
-              activity: Understood Ã¢â¬â generating your OT Discharge Note. Please provide the following details.
+              activity: Understood  generating your OT Discharge Note. Please provide the following details.
 
         - id: conditionItem_4EpbHC
           condition: =Topic.therapyDiscipline = 'pcca_agent.entity.Discipline'.dxugsW
@@ -72,7 +72,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_kw4FOB
-              activity: Understood Ã¢â¬â generating your PT Discharge Note. Please provide the following details.
+              activity: Understood  generating your PT Discharge Note. Please provide the following details.
 
     # Discharge reason - structured for phone with quick buttons
     - kind: Question
@@ -347,6 +347,8 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
+
 
 
 

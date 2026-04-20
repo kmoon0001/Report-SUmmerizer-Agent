@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: End of Conversation
   description: Elite clinical intelligence module specialized in [EndofConversation]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     This system topic is only triggered by a redirect action,
@@ -78,5 +78,6 @@ beginDialog:
             - kind: SendActivity
               id: GrVHEW
               activity: Go ahead. I'm listening.
+
 
 

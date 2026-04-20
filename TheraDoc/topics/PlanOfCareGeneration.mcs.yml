@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -105,7 +105,7 @@ beginDialog:
       input:
         binding:
           text: '=Concatenate("Workflow: Plan of Care Generation", "\nSource: ", Text(Topic.SourceChoice), "\nDiscipline: ", Text(Topic.DisciplineChoice), "\nGoal Direction: ", Text(Topic.GoalDirectionChoice), "\nFrequency Direction: ", Text(Topic.FrequencyChoice), "\nPlan Details: ", Topic.PlanDetailText)'
-      output:
+        output:
         binding:
           generatednote: Topic.GeneratedNote
       flowId: 58fc66ed-762f-f111-88b4-000d3a37eba2
@@ -121,6 +121,8 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -51,7 +51,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_contextLoaded
-              activity: "âœ… Patient context detected: **{Global.MPC_PatientName}** â€” using active Master Patient Context."
+              activity: " Patient context detected: **{Global.MPC_PatientName}**  using active Master Patient Context."
       elseActions:
         - kind: Question
           id: question_patientNameFallback
@@ -62,7 +62,7 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_intro
       activity: |-
-        âš–ï¸ **Cross-Discipline Conflict Auditor**
+        **Cross-Discipline Conflict Auditor**
         I will compare PT, OT, and SLP documentation for **{Global.MPC_PatientName}** to detect any functional score discrepancies that could trigger a Medicare denial.
 
         Please enter the most recent documented values for each active discipline.
@@ -225,7 +225,7 @@ beginDialog:
     # --- STEP 5: XAI Conflict Analysis ---
     - kind: SendActivity
       id: sendActivity_analyzing
-      activity: "ðŸ” Running 7-Layer Cross-Discipline Conflict Analysis..."
+      activity: " Running 7-Layer Cross-Discipline Conflict Analysis..."
 
     - kind: BeginDialog
       id: beginDialog_conflictAnalysis
@@ -251,13 +251,13 @@ beginDialog:
             "- Swallowing Status: ", If(Topic.SLPActive, Topic.SLPSwallowing, "Not Active"), "\n\n",
             "AUDIT INSTRUCTIONS:\n",
             "Perform a 7-Layer forensic conflict analysis:\n",
-            "LAYER 1: TRANSFER LEVEL CONFLICT â€” Does PT and OT agree on assist level for transfers?\n",
-            "LAYER 2: COGNITION vs FUNCTION CONFLICT â€” Does SLP cognition status conflict with PT/OT independence levels?\n",
-            "LAYER 3: SECTION GG CROSS-DISCIPLINE ALIGNMENT â€” Do PT and OT Section GG scores align with expected functional trajectory?\n",
-            "LAYER 4: DIET SAFETY vs ACTIVITY LEVEL â€” Is the patient's diet level consistent with their active participation in PT/OT?\n",
-            "LAYER 5: MEDICAL NECESSITY CONSISTENCY â€” Do all disciplines agree that skilled care is medically necessary?\n",
-            "LAYER 6: AUDIT RISK SCORE â€” Rate the overall cross-discipline conflict risk 0-100%.\n",
-            "LAYER 7: IDT RESOLUTION PLAN â€” Provide 3 specific talking points for the next IDT meeting to resolve each conflict.\n",
+            "LAYER 1: TRANSFER LEVEL CONFLICT  Does PT and OT agree on assist level for transfers?\n",
+            "LAYER 2: COGNITION vs FUNCTION CONFLICT  Does SLP cognition status conflict with PT/OT independence levels?\n",
+            "LAYER 3: SECTION GG CROSS-DISCIPLINE ALIGNMENT  Do PT and OT Section GG scores align with expected functional trajectory?\n",
+            "LAYER 4: DIET SAFETY vs ACTIVITY LEVEL  Is the patient's diet level consistent with their active participation in PT/OT?\n",
+            "LAYER 5: MEDICAL NECESSITY CONSISTENCY  Do all disciplines agree that skilled care is medically necessary?\n",
+            "LAYER 6: AUDIT RISK SCORE  Rate the overall cross-discipline conflict risk 0-100%.\n",
+            "LAYER 7: IDT RESOLUTION PLAN  Provide 3 specific talking points for the next IDT meeting to resolve each conflict.\n",
             "Format each layer clearly. Flag HIGH RISK items in CAPS. Ground findings in CMS MDS 3.0 and Chapter 15."
           )
       dialog: pcca_agent.action.TheraDoc-AuditNote
@@ -269,15 +269,15 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_conflictReport
       activity: |-
-        ### âš–ï¸ Cross-Discipline Conflict Audit Report
+        ###  Cross-Discipline Conflict Audit Report
         **Patient**: {Global.MPC_PatientName}
 
         {Topic.ConflictAuditResult}
 
         ---
-        **âš™ï¸ XAI Engine**: Platinum 7-Layer Cross-Discipline Analysis
-        **ðŸ“‹ Next Action**: Bring this report to your next IDT meeting.
-        **âš ï¸ Disclaimer**: AI-generated clinical comparison. Therapist determination is required before any documentation change.
+        ** XAI Engine**: Platinum 7-Layer Cross-Discipline Analysis
+        ** Next Action**: Bring this report to your next IDT meeting.
+        ** Disclaimer**: AI-generated clinical comparison. Therapist determination is required before any documentation change.
 
     - kind: Question
       id: question_generateIDTSummary
@@ -296,7 +296,7 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_idtSummary
               activity: |-
-                **ðŸ“‹ IDT Conflict Resolution Summary**
+                ** IDT Conflict Resolution Summary**
                 **Patient**: {Global.MPC_PatientName}
                 **Date**: {Text(Now())}
                 **Disciplines Reviewed**: PT ({Topic.PTActive}) | OT ({Topic.OTActive}) | SLP ({Topic.SLPActive})
@@ -308,7 +308,7 @@ beginDialog:
                 2. SLP to confirm cognitive status aligns with OT's reported independence levels.
                 3. Document IDT consensus in next progress note.
 
-                *Prepared by Pacific Coast Therapy Hub â€” AI-Assisted IDT Support Tool*
+                *Prepared by Pacific Coast Therapy Hub  AI-Assisted IDT Support Tool*
 
 inputType: {}
 outputType:
@@ -316,4 +316,6 @@ outputType:
     ConflictAuditResult:
       displayName: ConflictAuditResult
       type: String
+
+
 

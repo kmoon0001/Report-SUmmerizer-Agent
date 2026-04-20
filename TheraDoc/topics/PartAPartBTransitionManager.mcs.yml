@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -48,7 +48,7 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_intro
       activity: |-
-        ðŸ”„ **Medicare Part A â†’ Part B Transition Manager**
+        **Medicare Part A to Part B Transition Manager**
         I will guide you through the transition process to ensure documentation compliance, proper notice issuance, and continuity of care.
 
     - kind: ConditionGroup
@@ -59,7 +59,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_contextLoaded
-              activity: "âœ… Managing transition for: **{Global.MPC_PatientName}**"
+              activity: " Managing transition for: **{Global.MPC_PatientName}**"
       elseActions:
         - kind: Question
           id: question_name
@@ -89,7 +89,7 @@ beginDialog:
             - id: PatientChoice
               displayName: Resident/family request to end Part A
             - id: GoalsMet
-              displayName: All therapy goals achieved â€” discharge eligible
+              displayName: All therapy goals achieved  discharge eligible
             - id: PlannerDecision
               displayName: Insurance/managed care plan decision
 
@@ -123,37 +123,38 @@ beginDialog:
 
     - kind: SendActivity
       id: sendActivity_checklistHeader
-      activity: "ðŸ“‹ **Transition Compliance Checklist** â€” Generating required actions..."
+      activity: " **Transition Compliance Checklist**  Generating required actions..."
 
     - kind: BeginDialog
       id: beginDialog_transitionPlan
       input:
         binding:
-          text: =Concatenate(
-            "### MEDICARE PART A TO PART B TRANSITION PLAN ###\n\n",
-            "Patient: ", Global.MPC_PatientName, "\n",
-            "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
-            "Benefit Days Used: ", Text(Topic.TransBenefitDaysUsed), " of 100\n",
-            "Transition Reason: ", Topic.TransReason, "\n",
-            "Therapy Continuing Under Part B: ", Text(Topic.TransContinuingTherapy), "\n",
-            "Active Disciplines: ", Topic.TransActiveDisciplines, "\n\n",
-            "GENERATE THE FOLLOWING:\n\n",
-            "1. TIMELINE SUMMARY: Calculate remaining Part A days, coinsurance trigger day, and recommended transition date.\n\n",
-            "2. NOTICE REQUIREMENTS:\n",
-            "   - Is a NOMNC (Notice of Medicare Non-Coverage) required? If yes, when must it be issued?\n",
-            "   - Is a DENC (Detailed Explanation of Non-Coverage) required?\n",
-            "   - When does the Fast Appeal deadline occur?\n\n",
-            "3. DOCUMENTATION CHANGES: What documentation format changes are required?\n",
-            "   - Part A: Therapy minutes, daily treatment notes, 30-day progress notes\n",
-            "   - Part B: Outpatient therapy notes, 30-day functional re-assessments, AT modifier requirements\n\n",
-            "4. PART B ELIGIBILITY CHECK: What criteria must be met for Part B coverage?\n",
-            "   - Physician order requirements\n",
-            "   - Maintenance therapy standard (Jimmo v. Sebelius)\n",
-            "   - Functional improvement expectation\n\n",
-            "5. CONSOLIDATED BILLING WARNING: Flag any services that remain under SNF consolidated billing after transition.\n\n",
-            "6. TRANSITION SUMMARY LETTER: Draft a brief, plain-language summary for the resident/family.\n\n",
-            "Ground all guidance in CMS Medicare Benefit Policy Manual Chapter 15 and SNF Conditions of Participation."
-          )
+          text: |-
+            =Concatenate(
+              "### MEDICARE PART A TO PART B TRANSITION PLAN ###\n\n",
+              "Patient: ", Global.MPC_PatientName, "\n",
+              "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
+              "Benefit Days Used: ", Text(Topic.TransBenefitDaysUsed), " of 100\n",
+              "Transition Reason: ", Topic.TransReason, "\n",
+              "Therapy Continuing Under Part B: ", Text(Topic.TransContinuingTherapy), "\n",
+              "Active Disciplines: ", Topic.TransActiveDisciplines, "\n\n",
+              "GENERATE THE FOLLOWING:\n\n",
+              "1. TIMELINE SUMMARY: Calculate remaining Part A days, coinsurance trigger day, and recommended transition date.\n\n",
+              "2. NOTICE REQUIREMENTS:\n",
+              "   - Is a NOMNC (Notice of Medicare Non-Coverage) required? If yes, when must it be issued?\n",
+              "   - Is a DENC (Detailed Explanation of Non-Coverage) required?\n",
+              "   - When does the Fast Appeal deadline occur?\n\n",
+              "3. DOCUMENTATION CHANGES: What documentation format changes are required?\n",
+              "   - Part A: Therapy minutes, daily treatment notes, 30-day progress notes\n",
+              "   - Part B: Outpatient therapy notes, 30-day functional re-assessments, AT modifier requirements\n\n",
+              "4. PART B ELIGIBILITY CHECK: What criteria must be met for Part B coverage?\n",
+              "   - Physician order requirements\n",
+              "   - Maintenance therapy standard (Jimmo v. Sebelius)\n",
+              "   - Functional improvement expectation\n\n",
+              "5. CONSOLIDATED BILLING WARNING: Flag any services that remain under SNF consolidated billing after transition.\n\n",
+              "6. TRANSITION SUMMARY LETTER: Draft a brief, plain-language summary for the resident/family.\n\n",
+              "Ground all guidance in CMS Medicare Benefit Policy Manual Chapter 15 and SNF Conditions of Participation."
+            )
       dialog: pcca_agent.action.TheraDoc-PTGenerateNote
       output:
         binding:
@@ -162,13 +163,13 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_transitionOutput
       activity: |-
-        ### ðŸ”„ Part A â†’ Part B Transition Plan
+        ###  Part A  Part B Transition Plan
 
         {Topic.TransOutput}
 
         ---
-        **ðŸ“‹ Next Steps**: Route this to your Business Office, Social Worker, and MDS Coordinator.
-        **âš ï¸ Disclaimer**: AI-generated guidance. Verify with your facility's billing compliance officer.
+        ** Next Steps**: Route this to your Business Office, Social Worker, and MDS Coordinator.
+        ** Disclaimer**: AI-generated guidance. Verify with your facility's billing compliance officer.
 
 inputType: {}
 outputType:
@@ -176,5 +177,7 @@ outputType:
     Trans_Output:
       displayName: Trans_Output
       type: String
+
+
 
 

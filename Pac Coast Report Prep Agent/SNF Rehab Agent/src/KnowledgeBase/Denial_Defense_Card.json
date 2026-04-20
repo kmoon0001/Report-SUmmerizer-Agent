@@ -1,0 +1,45 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "backgroundImage": {
+    "url": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1000"
+  },
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "DENIAL DEFENSE | PROACTIVE AUDIT",
+      "color": "Accent",
+      "weight": "Bolder",
+      "size": "Small"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Note Audit: Denial Risk Scorecard",
+      "weight": "Bolder",
+      "size": "ExtraLarge"
+    },
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        { "type": "TextBlock", "text": "🚩 RISK LEVEL: **${denialRiskLevel}**", "weight": "Bolder", "color": "${riskColor}" },
+        { "type": "TextBlock", "text": "Primary Trigger: ${topRedFlag}", "wrap": true }
+      ]
+    },
+    {
+      "type": "Input.Text",
+      "id": "justificationEdit",
+      "label": "Recommended Skilled Adjustment:",
+      "isMultiline": true,
+      "value": "${suggestedJustification}"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "🛡️ Fix & Sign Note",
+      "style": "positive"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: COACHING CORNER
   description: Elite clinical intelligence module specialized in [COACHINGCORNER]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -109,7 +109,7 @@ beginDialog:
             - kind: SearchAndSummarizeContent
               id: eIWTjc
               userInput: "=Concatenate(\"Category: \", Text(Topic.CoachingCategory), \". Specific need: \", Topic.SpecificCoachingNeed, \". Provide a clinical coaching script and actionable steps using the SimpleLTC protocols and CMS standards.\")"
-              additionalInstructions: "You are a Senior Clinical Coach. Generate a structured, regulatory-aligned coaching script. Include: 1) Root cause framing, 2) Coaching talking points for the clinician, 3) RACI-aligned action steps, 4) Documentation guidance. Reference CMS Ch.15, Jimmo standards, and ONE Clinical protocols where applicable."
+            additionalInstructions: "You are a Senior Clinical Coach. Generate a structured, regulatory-aligned coaching script. Include: 1) Root cause framing, 2) Coaching talking points for the clinician, 3) RACI-aligned action steps, 4) Documentation guidance. Reference CMS Ch.15, Jimmo standards, and ONE Clinical protocols where applicable."
 
             - kind: SendActivity
               id: sendActivity_coachingResults
@@ -133,5 +133,6 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 

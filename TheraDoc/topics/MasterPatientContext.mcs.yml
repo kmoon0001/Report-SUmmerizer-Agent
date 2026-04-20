@@ -49,11 +49,11 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_contextExists
               activity: |-
-                **📋 Active Patient Context Detected**
+                ** Active Patient Context Detected**
                 Name: **{Global.MPC_PatientName}**
                 Diagnosis: {Global.MPC_PrimaryDiagnosis}
                 Active Disciplines: {Global.MPC_ActiveDisciplines}
-                Cert Period: {Global.MPC_CertPeriodStart} → {Global.MPC_CertPeriodEnd}
+                Cert Period: {Global.MPC_CertPeriodStart}  {Global.MPC_CertPeriodEnd}
 
             - kind: Question
               id: question_keepOrReset
@@ -77,14 +77,14 @@ beginDialog:
                   actions:
                     - kind: SendActivity
                       id: sendActivity_contextKept
-                      activity: "✅ Patient context retained. You may proceed with documentation."
+                      activity: " Patient context retained. You may proceed with documentation."
                     - kind: EndDialog
                       id: endDialog_keep
 
       elseActions:
         - kind: SendActivity
           id: sendActivity_welcome
-          activity: "🔍 **Pacific Coast Patient Memory Engine** — Let's load your patient context once so all documentation flows auto-populate."
+          activity: " **Pacific Coast Patient Memory Engine**  Let's load your patient context once so all documentation flows auto-populate."
 
     # --- STEP 2: Core Patient Identification ---
     - kind: Question
@@ -100,7 +100,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
       variable: Global.MPC_PatientAlias
-      prompt: Enter a de-identified alias or room number for this session (e.g., "Rm 204" — do NOT use MRN).
+      prompt: Enter a de-identified alias or room number for this session (e.g., "Rm 204"  do NOT use MRN).
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -147,7 +147,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
       variable: Global.MPC_PLOF
-      prompt: Describe the patient's Prior Level of Function (PLOF) — functional status before this illness or injury. Include ambulation, ADLs, and cognitive status.
+      prompt: Describe the patient's Prior Level of Function (PLOF)  functional status before this illness or injury. Include ambulation, ADLs, and cognitive status.
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -222,7 +222,7 @@ beginDialog:
             cardContent: '={
               type: "AdaptiveCard",
               body: [
-                { type: "TextBlock", size: "Medium", weight: "Bolder", text: "✅ Patient Context Loaded — Pacific Coast Therapy Hub" },
+                { type: "TextBlock", size: "Medium", weight: "Bolder", text: " Patient Context Loaded  Pacific Coast Therapy Hub" },
                 { type: "FactSet", facts: [
                   { title: "Patient Name", value: Text(Global.MPC_PatientName) },
                   { title: "Alias/Room", value: Text(Global.MPC_PatientAlias) },
@@ -232,8 +232,8 @@ beginDialog:
                   { title: "Comorbidities", value: Text(Global.MPC_SecondaryDiagnoses) },
                   { title: "PLOF", value: Text(Global.MPC_PLOF) },
                   { title: "Active Disciplines", value: Text(Global.MPC_ActiveDisciplines) },
-                  { title: "Cert Period", value: Concatenate(Text(Global.MPC_CertPeriodStart), " → ", Text(Global.MPC_CertPeriodEnd)) },
-                  { title: "Rehab Potential", value: Text(Global.MPC_RehabPotential) }
+                  { title: "Cert Period", value: Concatenate(Text(Global.MPC_CertPeriodStart), "  ", Text(Global.MPC_CertPeriodEnd)) },
+                { title: "Rehab Potential", value: Text(Global.MPC_RehabPotential) }
                 ]}
               ],
               "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -243,11 +243,11 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_readyMessage
       activity: |-
-        ✅ **Patient context is now active across all documentation flows.**
+        **Patient context is now active across all documentation flows.**
 
         All PT, OT, and SLP documentation for **{Global.MPC_PatientName}** will now auto-populate with this baseline. You will only need to enter new clinical observations for each session.
 
-        ⚠️ *This context will persist for the duration of this session. Say "load new patient" to switch patients.*
+         *This context will persist for the duration of this session. Say "load new patient" to switch patients.*
 
 inputType: {}
 outputType:
@@ -261,3 +261,5 @@ outputType:
     MPC_ActiveDisciplines:
       displayName: MPC_ActiveDisciplines
       type: String
+
+

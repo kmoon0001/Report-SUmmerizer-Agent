@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Escalate
   description: Elite clinical intelligence module specialized in [Escalate]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
     This system topic is triggered when the user indicates they would like to speak to a representative.
@@ -68,5 +68,6 @@ beginDialog:
         - For urgent clinical concerns, contact the facility Director of Nursing or Administrator directly
 
         Is there anything else I can help with before you go?
+
 
 

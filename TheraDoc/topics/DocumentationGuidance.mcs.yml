@@ -1,4 +1,4 @@
-ï»¿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -25,22 +25,22 @@ beginDialog:
       activity: |-
         Here are SNF therapy documentation standards to guide your clinical notes:
 
-        **Cueing Levels** Ã¢â¬â Document the level of verbal or tactile cues provided:
-        Ã¢â¬Â¢ Independent (I): No cues needed
-        Ã¢â¬Â¢ Supervision (S): Stand-by, no hands-on
-        Ã¢â¬Â¢ Modified Independent (ModI): Uses device/compensation, no assist
-        Ã¢â¬Â¢ Contact Guard Assist (CGA): Therapist hand contact, no force
-        Ã¢â¬Â¢ Minimal Assist (MinA): Patient performs 75%+ of task
-        Ã¢â¬Â¢ Moderate Assist (ModA): Patient performs 50Ã¢â¬â74% of task
-        Ã¢â¬Â¢ Maximum Assist (MaxA): Patient performs 25Ã¢â¬â49% of task
-        Ã¢â¬Â¢ Total Assist (TA): Patient performs less than 25%
+        **Cueing Levels**  Document the level of verbal or tactile cues provided:
+         Independent (I): No cues needed
+         Supervision (S): Stand-by, no hands-on
+         Modified Independent (ModI): Uses device/compensation, no assist
+         Contact Guard Assist (CGA): Therapist hand contact, no force
+         Minimal Assist (MinA): Patient performs 75%+ of task
+         Moderate Assist (ModA): Patient performs 5074% of task
+         Maximum Assist (MaxA): Patient performs 2549% of task
+         Total Assist (TA): Patient performs less than 25%
 
-        **Skilled Language Requirements** Ã¢â¬â Every note must include:
-        Ã¢â¬Â¢ Clinical reason skilled therapy is required (not maintenance)
-        Ã¢â¬Â¢ Patient response to treatment and measurable progress
-        Ã¢â¬Â¢ Functional goals with objective baselines and targets
-        Ã¢â¬Â¢ Safety considerations or precautions addressed
-        Ã¢â¬Â¢ Plan and frequency of continued treatment
+        **Skilled Language Requirements**  Every note must include:
+         Clinical reason skilled therapy is required (not maintenance)
+         Patient response to treatment and measurable progress
+         Functional goals with objective baselines and targets
+         Safety considerations or precautions addressed
+         Plan and frequency of continued treatment
 
         **What to avoid:** Unskilled language (e.g., "patient tolerated well"), non-measurable progress, missing assist levels, or absent functional connection.
 
@@ -48,6 +48,8 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
+
 
 
 

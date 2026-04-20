@@ -1,102 +1,26 @@
+# Microsoft Learn Platinum Standard OnError
+# Unified Swarm Audit & Recovery
 mcs.metadata:
   componentName: On Error
-  description: |-
-    Platinum Error Handler for Pacific-Coast Regulatory Hub. Emits a structured JSON error
-    envelope {status, reason, next_agent}, logs a HIPAA-compliant telemetry entry, and
-    escalates unresolved errors to SNF-Agent-Command-Center for human review.
 kind: AdaptiveDialog
-startBehavior: UseLatestPublishedContentAndCancelOtherTopics
 beginDialog:
   kind: OnError
   id: main
   actions:
-    # --- Step 1: Capture error metadata ---
-    - kind: SetVariable
-      id: setVariable_timestamp
-      variable: init:Topic.CurrentTime
-      value: =Text(Now(), DateTimeFormat.UTC)
+    - kind: InvokeAction
+      id: invoke_auditLogOnError
+      action: pcca_agent.action.CrossAgentAuditLog
+      input:
+        AuditMissionType: ="ErrorEscalation"
+        AuditTimestampIn: Text(Now(), DateTimeFormat.UTC)
 
-    - kind: SetVariable
-      id: setVariable_errorCode
-      variable: init:Topic.ErrorCode
-      value: =System.Error.Code
+    - kind: SendActivity
+      id: sendMessage_error
+      activity: |-
+        **SimpleLTC QM Coach V2 - System Error**
+        An unexpected error occurred.
+        Reference ID: {System.Conversation.Id}
+        Error Code: {System.Error.Code}
 
-    - kind: SetVariable
-      id: setVariable_errorMessage
-      variable: init:Topic.ErrorMessage
-      value: =System.Error.Message
-
-    # --- Step 2: Structured JSON error envelope (swarm contract) ---
-    - kind: SetVariable
-      id: setVariable_errorEnvelope
-      variable: init:Topic.ErrorEnvelope
-      value: =Concatenate(
-        "{",
-          "\"status\":\"error\"",
-          ",\"reason\":\"", Topic.ErrorMessage, "\"",
-          ",\"agent\":\"Regulatory-Hub\"",
-          ",\"conversation_id\":\"", System.Conversation.Id, "\"",
-          ",\"timestamp_utc\":\"", Topic.CurrentTime, "\"",
-          ",\"next_agent\":\"SNF-Agent-Command-Center\"",
-        "}"
-      )
-
-    # --- Step 3: Telemetry log (preserves original telemetry) ---
-    - kind: LogCustomTelemetryEvent
-      id: logTelemetry_onError
-      eventName: OnErrorLog
-      properties: "={ErrorMessage: Topic.ErrorMessage, ErrorCode: Topic.ErrorCode, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id, Agent: \"Regulatory-Hub\", NextAgent: \"SNF-Agent-Command-Center\"}"
-
-    # --- Step 4: User-facing message (test vs production) ---
-    - kind: ConditionGroup
-      id: condition_testVsProd
-      conditions:
-        - id: conditionItem_testMode
-          condition: =System.Conversation.InTestMode = true
-          actions:
-            - kind: SendActivity
-              id: sendMessage_verboseError
-              activity: |-
-                ⚠️ **[DEBUG] Regulatory Hub OnError**
-                Error Message: {Topic.ErrorMessage}
-                Error Code: {Topic.ErrorCode}
-                Conversation Id: {System.Conversation.Id}
-                Time (UTC): {Topic.CurrentTime}
-                Error Envelope: {Topic.ErrorEnvelope}
-
-      elseActions:
-        - kind: SendActivity
-          id: sendMessage_safeError
-          activity:
-            text:
-              - |-
-                ⚠️ **Regulatory Hub encountered an error** and paused to protect data integrity.
-
-                No QM data was submitted or modified. Reference ID: {System.Conversation.Id} | Time: {Topic.CurrentTime}
-
-                Please try again or select **Escalate** to open a compliance support ticket.
-            speak:
-              - An error has occurred. Please try again or escalate to a supervisor.
-
-    # --- Step 5: Retry or escalate for human review ---
-    - kind: Question
-      id: question_retryOrEscalate
-      alwaysPrompt: true
-      variable: Topic.RetryOrEscalate
-      prompt: Would you like to retry the last QM action?
-      entity: BooleanPrebuiltEntity
-
-    - kind: ConditionGroup
-      id: conditionGroup_retryOrEscalate
-      conditions:
-        - id: conditionItem_retry
-          condition: =Topic.RetryOrEscalate = true
-          actions:
-            - kind: CancelAllDialogs
-              id: cancelDialogs_retryClean
-
-      elseActions:
-        # Fallback escalation — creates human-review ticket via Escalate topic
-        - kind: BeginDialog
-          id: beginDialog_escalate
-          dialog: cr917_agentu92bPc.topic.Escalate
+    - kind: CancelAllDialogs
+      id: cancel_all

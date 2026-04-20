@@ -1,0 +1,16 @@
+{
+  "SwarmMetadata": {
+    "FleetID": "ENSIGN-PLATINUM-01",
+    "ActiveSessionID": "${Global.SessionID}",
+    "LastSpecialist": "${Global.LastWorker}"
+  },
+  "ClinicalState": {
+    "PatientBaseline": "${Global.PatientBaseline}",
+    "LastAuditRisk": "${Global.AuditRiskScore}",
+    "CurrentMission": "${Global.UserIntent}"
+  },
+  "SecurityState": {
+    "PHIGuardActive": true,
+    "AdversarialFirewallStatus": "GREEN"
+  }
+}

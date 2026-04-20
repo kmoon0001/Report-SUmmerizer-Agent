@@ -44,7 +44,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ� FILE & IMAGE PROCESSING"
+                      text: " FILE & IMAGE PROCESSING"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -102,6 +102,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

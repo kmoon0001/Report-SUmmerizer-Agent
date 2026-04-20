@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(C:\\\\Users\\\\kevin\\\\AppData\\\\Local\\\\Microsoft\\\\PowerAppsCLI\\\\pac.cmd *)",
+      "Bash(npx playwright *)",
+      "Bash(npx -y @playwright/mcp*)",
+      "Bash(az *)",
+      "Bash(gh *)",
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(mkdir *)",
+      "Bash(which *)",
+      "Bash(where *)",
+      "Bash(jq *)",
+      "Bash(powershell *)",
+      "mcp__playwright_*",
+      "mcp__pac-cli_*",
+      "mcp__filesystem_*",
+      "mcp__learn-docs_*",
+      "Bash(C:/Users/kevin/AppData/Local/Microsoft/PowerAppsCLI/pac.cmd auth *)",
+      "Bash(C:/Users/kevin/AppData/Local/Microsoft/PowerAppsCLI/pac.cmd env *)",
+      "Bash(C:/Users/kevin/AppData/Local/Microsoft/PowerAppsCLI/pac.cmd solution *)",
+      "Bash(C:/Users/kevin/AppData/Local/Microsoft/PowerAppsCLI/pac.cmd copilot *)",
+      "Bash(cmd /c \"npx -y @playwright/mcp@latest --help\")",
+      "Bash(taskkill /F /IM chrome.exe)",
+      "Bash(cmd /c \"taskkill /F /IM chrome.exe\")"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

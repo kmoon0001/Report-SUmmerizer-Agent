@@ -1,0 +1,11 @@
+<botcomponent schemaname="CR917_AGENTU92BPC.TOPIC.SEARCH">
+  <componenttype>9</componenttype>
+  <description>Create generative answers from knowledge sources.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>Search</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

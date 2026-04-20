@@ -43,7 +43,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "√∞≈∏‚‚ RECOVERY MENU"
+                      text: " RECOVERY MENU"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -108,6 +108,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

@@ -44,7 +44,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "ðŸ�¹ï¸ COMMAND CENTER DASHBOARD"
+                      text: " COMMAND CENTER DASHBOARD"
                       weight: Bolder
                       size: Large
                     - type: TextBlock
@@ -55,21 +55,21 @@ beginDialog:
       entity:
         kind: DynamicClosedListEntity
         items:
-          - DisplayName: ðŸ©º Clinical Insights
+          - DisplayName:  Clinical Insights
             Value: ClinicalInsights
-          - DisplayName: ðŸ�¡ï¸ Safety and Surveillance
+          - DisplayName:  Safety and Surveillance
             Value: SafetySurveillance
-          - DisplayName: ðŸ�� Quality and Operations
+          - DisplayName:  Quality and Operations
             Value: QualityOperations
-          - DisplayName: ðŸ¤ Transitions and Family
+          - DisplayName:  Transitions and Family
             Value: CommunicationTransitions
-          - DisplayName: ðŸ�� Files and Images
+          - DisplayName:  Files and Images
             Value: FilesImages
-          - DisplayName: ðŸš¨ Urgent Clinical Concern
+          - DisplayName:  Urgent Clinical Concern
             Value: Urgent
-          - DisplayName: ðŸš� Executive Quick Actions
+          - DisplayName:  Executive Quick Actions
             Value: ExecutiveQuickActions
-          - DisplayName: â� Help and Quick Start
+          - DisplayName:  Help and Quick Start
             Value: Help
     - kind: ConditionGroup
       id: condition_main_route
@@ -137,6 +137,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

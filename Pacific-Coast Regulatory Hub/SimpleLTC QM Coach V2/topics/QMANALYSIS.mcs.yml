@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: QM ANALYSIS
   description: Elite clinical intelligence module specialized in [QMANALYSIS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -425,7 +425,7 @@ beginDialog:
     - kind: SearchAndSummarizeContent
       id: 7C1At8
       userInput: "=Concatenate(\"Facility: \", Global.SelectedFacility, \". QM Domain: \", Text(Global.QMDomain), \". Lookback: \", Text(Global.LookbackPeriod), \". Data: \", Global.TopicQMAnalysisResulttext)"
-      additionalInstructions: "You are a clinical coach and Senior QM Analyst. Review the Quality Measures data provided and deliver: 1) Trend assessment (Improving/Stable/Worsening), 2) Concern Level (High/Moderate/Low) with clinical justification, 3) Top 3-5 root cause drivers (Clinical, Process, or Documentation gaps), 4) Regulatory mapping to CMS Ch.15 and Jimmo standard, 5) Immediate 7-day quick wins. Reference ONE Clinical protocols where applicable. Do NOT include PHI or resident identifiers."
+    additionalInstructions: "You are a clinical coach and Senior QM Analyst. Review the Quality Measures data provided and deliver: 1) Trend assessment (Improving/Stable/Worsening), 2) Concern Level (High/Moderate/Low) with clinical justification, 3) Top 3-5 root cause drivers (Clinical, Process, or Documentation gaps), 4) Regulatory mapping to CMS Ch.15 and Jimmo standard, 5) Immediate 7-day quick wins. Reference ONE Clinical protocols where applicable. Do NOT include PHI or resident identifiers."
     - kind: SetVariable
       id: setVariable_FumPr4
       variable: Global.TopicQMAnalysisResulttext
@@ -453,6 +453,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

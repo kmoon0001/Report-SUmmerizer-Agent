@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.MedicarePartBMaintenanceTherapyGuidelinesJimmoStandard.md_vTQ">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in Medicare Part B &amp; Maintenance Therapy Guidelines (Jimmo Standard).md</description>
+  <filedata mimetype="application/octet-stream">Medicare%20Part%20B%20%26%20Maintenance%20Therapy%20Guidelines%20(Jimmo%20Standard).md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>Medicare Part B &amp; Maintenance Therapy Guidelines (Jimmo Standard).md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

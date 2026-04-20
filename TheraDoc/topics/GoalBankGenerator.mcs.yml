@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -12,7 +12,7 @@
 # 6. **APTA/AOTA/ASHA GROUND**: All clinical decisions grounded in APTA, AOTA, ASHA authoritative standards.
 # Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: GLOBAL_CMS_COMPLIANCE.md + POSTette Goal-Setting Standards.
-# **Patterns**: PLATINUM_PROMPT_PATTERNS.md â€” few-shot goal generation.
+# **Patterns**: PLATINUM_PROMPT_PATTERNS.md  few-shot goal generation.
 # **Self-Correction**: Goals must be SMART: Specific, Measurable, Achievable, Relevant, Time-bound.
 
 mcs.metadata:
@@ -55,7 +55,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_contextLoaded
-              activity: "âœ… Generating goals for: **{Global.MPC_PatientName}** | Diagnosis: **{Global.MPC_PrimaryDiagnosis}**"
+              activity: " Generating goals for: **{Global.MPC_PatientName}** | Diagnosis: **{Global.MPC_PrimaryDiagnosis}**"
       elseActions:
         - kind: Question
           id: question_name
@@ -149,31 +149,32 @@ beginDialog:
       id: beginDialog_goalGeneration
       input:
         binding:
-          text: =Concatenate(
-            "### PLATINUM GOAL BANK GENERATOR ###\n\n",
-            "Generate Medicare-defensible, SMART therapy goals for:\n\n",
-            "Patient: ", Global.MPC_PatientName, "\n",
-            "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
-            "Comorbidities: ", Global.MPC_SecondaryDiagnoses, "\n",
-            "PLOF: ", Global.MPC_PLOF, "\n",
-            "Rehab Potential: ", Global.MPC_RehabPotential, "\n",
-            "Discipline(s): ", Topic.GoalDiscipline, "\n",
-            "Current Functional Status at Admit: ", Topic.GoalCurrentStatus, "\n",
-            "Target Discharge Level: ", Topic.GoalTargetLevel, "\n",
-            "Timeframe: ", Topic.GoalTimeframe, "\n",
-            "Number of Goals: ", Topic.GoalCount, "\n\n",
-            "REQUIREMENTS:\n",
-            "1. All goals must be SMART: Specific, Measurable, Achievable, Relevant, Time-Bound.\n",
-            "2. Each goal must include: Subject, behavior, conditions, performance criterion, and timeframe.\n",
-            "3. Format: 'Patient will [verb] [specific task] with [assist level/device] in [condition] within [timeframe] to [functional purpose].'\n",
-            "4. Generate Short-Term Goals (STG) for the first period AND Long-Term Goals (LTG) for discharge.\n",
-            "5. For PT: Include mobility, transfers, gait, balance goals. Reference Section GG where applicable.\n",
-            "6. For OT: Include ADL goals (dressing, bathing, grooming, feeding). Reference Section GG self-care.\n",
-            "7. For SLP: Include communication, swallowing, cognitive-communication goals. Reference IDDSI diet levels.\n",
-            "8. Goals must support Medicare medical necessity â€” each goal should link back to the primary diagnosis.\n",
-            "9. Do NOT use vague language like 'improve,' 'increase,' or 'maximize' without a measurable endpoint.\n",
-            "10. Output format: numbered list, clearly labeled STG and LTG sections."
-          )
+          text: |-
+            =Concatenate(
+              "### PLATINUM GOAL BANK GENERATOR ###\n\n",
+              "Generate Medicare-defensible, SMART therapy goals for:\n\n",
+              "Patient: ", Global.MPC_PatientName, "\n",
+              "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n",
+              "Comorbidities: ", Global.MPC_SecondaryDiagnoses, "\n",
+              "PLOF: ", Global.MPC_PLOF, "\n",
+              "Rehab Potential: ", Global.MPC_RehabPotential, "\n",
+              "Discipline(s): ", Topic.GoalDiscipline, "\n",
+              "Current Functional Status at Admit: ", Topic.GoalCurrentStatus, "\n",
+              "Target Discharge Level: ", Topic.GoalTargetLevel, "\n",
+              "Timeframe: ", Topic.GoalTimeframe, "\n",
+              "Number of Goals: ", Topic.GoalCount, "\n\n",
+              "REQUIREMENTS:\n",
+              "1. All goals must be SMART: Specific, Measurable, Achievable, Relevant, Time-Bound.\n",
+              "2. Each goal must include: Subject, behavior, conditions, performance criterion, and timeframe.\n",
+              "3. Format: 'Patient will [verb] [specific task] with [assist level/device] in [condition] within [timeframe] to [functional purpose].'\n",
+              "4. Generate Short-Term Goals (STG) for the first period AND Long-Term Goals (LTG) for discharge.\n",
+              "5. For PT: Include mobility, transfers, gait, balance goals. Reference Section GG where applicable.\n",
+              "6. For OT: Include ADL goals (dressing, bathing, grooming, feeding). Reference Section GG self-care.\n",
+              "7. For SLP: Include communication, swallowing, cognitive-communication goals. Reference IDDSI diet levels.\n",
+              "8. Goals must support Medicare medical necessity  each goal should link back to the primary diagnosis.\n",
+              "9. Do NOT use vague language like 'improve,' 'increase,' or 'maximize' without a measurable endpoint.\n",
+              "10. Output format: numbered list, clearly labeled STG and LTG sections."
+            )
       dialog: pcca_agent.action.TheraDoc-PTGenerateNote
       output:
         binding:
@@ -182,14 +183,14 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_goalOutput
       activity: |-
-        ### ðŸŽ¯ Generated Goal Bank â€” Platinum Standard
+        ###  Generated Goal Bank  Platinum Standard
 
         {Topic.GoalOutput}
 
         ---
-        **ðŸ“‹ Usage**: Copy goals into your Evaluation or Plan of Care. Update at each progress note.
-        **âš™ï¸ Standard**: SMART goals | CMS Ch. 15 | Section GG benchmarks | POSTette Goal Standards
-        **âš ï¸ Disclaimer**: AI-generated. Therapist must verify clinical accuracy and appropriateness.
+        ** Usage**: Copy goals into your Evaluation or Plan of Care. Update at each progress note.
+        ** Standard**: SMART goals | CMS Ch. 15 | Section GG benchmarks | POSTette Goal Standards
+        ** Disclaimer**: AI-generated. Therapist must verify clinical accuracy and appropriateness.
 
     - kind: Question
       id: question_regenerate
@@ -213,5 +214,7 @@ outputType:
     Goal_Output:
       displayName: Goal_Output
       type: String
+
+
 
 

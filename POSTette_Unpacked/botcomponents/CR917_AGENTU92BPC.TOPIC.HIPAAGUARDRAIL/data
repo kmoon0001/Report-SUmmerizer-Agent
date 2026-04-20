@@ -1,0 +1,66 @@
+mcs.metadata:
+  componentName: HIPAA Guardrail
+  description: Enforces HIPAA compliance by screening user queries for protected health information (PHI). Intercepts and redirects requests that involve patient-identifiable data, ensuring all interactions remain compliant with healthcare privacy regulations.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - hipaa guardrail
+      - hipaa compliance check
+      - is this hipaa compliant
+      - protect patient data
+      - secure health information
+      - hipaa privacy rules
+      - ensure hipaa standards
+      - health data security
+      - check for hipaa violations
+      - review hipaa guidelines
+
+  actions:
+    - kind: SendActivity
+      id: SendActivity_kdE6I0
+      activity: Welcome. I support healthcare workflow questions and quality-measure trends. Do not type personal or protected health information into free text. Resident-specific review is only allowed through the approved secure export workflow, and I will still use minimum necessary details. How can I help you today?
+
+    - kind: Question
+      id: Question_Kzkh2v
+      variable: Topic.GeneralHealthcareQuestion
+      prompt: What general healthcare question can I assist you with?
+      entity:
+        kind: StringPrebuiltEntity
+        sensitivityLevel: None
+
+    - kind: ConditionGroup
+      id: ConditionGroup_iO3CCA
+      conditions:
+        - id: ConditionItem_9wcBwd
+          condition: =true
+          actions:
+            - kind: SendActivity
+              id: SendActivity_YPfxTE
+              activity: It looks like you may be sharing personal or protected health information in free text. To protect privacy, please avoid typing names, dates of birth, medical record numbers, or other identifiers into chat. If resident-specific support is needed, use the approved secure export workflow instead.
+
+            - kind: SetVariable
+              id: setVariable_phiDetected
+              variable: Global.PHIDetected
+              value: =true
+
+            - kind: SendActivity
+              id: sendActivity_phiRedirect
+              activity: If you need to discuss specific resident information, use your organization's approved secure export workflow or secure clinical systems. Otherwise, please rephrase your question without identifying information.
+
+      elseActions:
+        - kind: SendActivity
+          id: SendActivity_5MJX7k
+          activity: Thank you for your question. I can provide general information here, but do not include identifiers in free text. If you need resident-specific support, use the approved secure workflow and keep clinician oversight in place.
+
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+
+
+
+
+

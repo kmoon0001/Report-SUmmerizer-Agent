@@ -32,7 +32,7 @@ beginDialog:
                 - type: Container
                   items:
                     - type: TextBlock
-                      text: "=Concatenate(\"√∞≈∏‚‚π Welcome back, \", If(IsBlank(System.User.DisplayName), \"Colleague\", System.User.DisplayName))"
+                      text: "=Concatenate(\" Welcome back, \", If(IsBlank(System.User.DisplayName), \"Colleague\", System.User.DisplayName))"
                       weight: Bolder
                       size: ExtraLarge
                     - type: TextBlock
@@ -53,20 +53,21 @@ beginDialog:
                   spacing: Medium
               actions:
                 - type: Action.Submit
-                  title: "√∞≈∏≈°‚¨ Quick Actions"
+                  title: " Quick Actions"
                   data:
                     action: "open_executive_shortcuts"
                 - type: Action.Submit
-                  title: "√¢‚ Help & Roles"
+                  title: " Help & Roles"
                   data:
                     action: "open_help"
               $schema: "http://adaptivecards.io/schemas/adaptive-card.json"
         speak:
           - =If(IsBlank(System.User.DisplayName), Concatenate("Hello, I'm ", System.Bot.Name, ". Choose a task to get started."), Concatenate("Hello, ", System.User.DisplayName, ". I'm ", System.Bot.Name, ". Choose a task to get started."))
 
-    - kind: BeginDialog
+      - kind: BeginDialog
       id: begin_welcome
       dialog: snf_ai_dashboard.topic.WelcomeStart
+
 
 
 

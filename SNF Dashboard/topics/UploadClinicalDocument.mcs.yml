@@ -108,7 +108,7 @@ beginDialog:
                       bleed: true
                       items:
                         - type: TextBlock
-                          text: "√∞≈∏‚‚ SECURE DOCUMENT TRIAGE DROP"
+                          text: " SECURE DOCUMENT TRIAGE DROP"
                           weight: Bolder
                           size: Large
                           color: Good
@@ -128,6 +128,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

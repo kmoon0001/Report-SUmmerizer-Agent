@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: Resident Outlier Analysis
   description: Elite clinical intelligence module specialized in [RESIDENTOUTLIERANALYSIS]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -120,6 +120,7 @@ beginDialog:
 
 inputType: {}
 outputType: {}
+
 
 
 

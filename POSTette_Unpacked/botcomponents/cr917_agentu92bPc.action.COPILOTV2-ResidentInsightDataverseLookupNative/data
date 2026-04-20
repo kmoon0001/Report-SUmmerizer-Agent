@@ -1,0 +1,12 @@
+mcs.metadata:
+  componentName: INTERNAL_ResidentInsightDataverseLookupFlow
+kind: TaskDialog
+modelDescription: Retrieves de-identified resident-level quality measure data and clinical insights from Dataverse, enabling resident outlier analysis and individualized care planning support.
+outputs:
+  - propertyName: resident_data_text
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 88ce03b7-6b25-f111-8341-000d3a33801d
+
+outputMode: All

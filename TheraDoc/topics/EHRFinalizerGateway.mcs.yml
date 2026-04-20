@@ -1,4 +1,4 @@
-﻿# Microsoft Learn Platinum Standard Instructions:
+# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -14,7 +14,7 @@ mcs.metadata:
   componentName: EHRFinalizerGateway
   description: >
     Platinum Last-Mile EHR Finalizer. After note generation, provides the
-    clinician a structured finalization checkpoint â€” Review, Approve, and
+    clinician a structured finalization checkpoint  Review, Approve, and
     flag for EHR sync. Implements a Power Automate-ready handoff package
     for downstream EHR integration (PointClickCare, MatrixCare, etc.).
 kind: AdaptiveDialog
@@ -52,7 +52,7 @@ beginDialog:
           actions:
             - kind: SendActivity
               id: sendActivity_noContext
-              activity: "âš ï¸ **No active patient context detected.** Please run 'Load Patient Context' before using the EHR Finalizer."
+              activity: " **No active patient context detected.** Please run 'Load Patient Context' before using the EHR Finalizer."
             - kind: EndDialog
               id: endDialog_noContext
 
@@ -65,7 +65,7 @@ beginDialog:
       prompt: |-
         Please paste the final generated note below for your review checkpoint.
 
-        âš ï¸ *Do NOT include actual MRN or SSN. Use the de-identified alias loaded in the Patient Context.*
+         *Do NOT include actual MRN or SSN. Use the de-identified alias loaded in the Patient Context.*
       entity:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
@@ -123,14 +123,14 @@ beginDialog:
     # --- STEP 3: Clinical Review Checkpoint ---
     - kind: SendActivity
       id: sendActivity_checklistHeader
-      activity: "ðŸ“‹ **EHR Submission Review Checklist** â€” Please verify the following before final approval:"
+      activity: " **EHR Submission Review Checklist**  Please verify the following before final approval:"
 
     - kind: Question
       id: question_checklist_goals
       interruptionPolicy:
         allowInterruption: true
       variable: Topic.ChecklistGoals
-      prompt: "âœ… Have you verified that all active goals are referenced in the note?"
+      prompt: " Have you verified that all active goals are referenced in the note?"
       entity: BooleanPrebuiltEntity
 
     - kind: Question
@@ -138,7 +138,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
       variable: Topic.ChecklistSkilled
-      prompt: "âœ… Does the note contain a clear skilled justification statement (Jimmo/Medicare standard)?"
+      prompt: " Does the note contain a clear skilled justification statement (Jimmo/Medicare standard)?"
       entity: BooleanPrebuiltEntity
 
     - kind: Question
@@ -146,7 +146,7 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
       variable: Topic.ChecklistMeasures
-      prompt: "âœ… Are all standardized test scores and functional measures documented with change-over-time comparison?"
+      prompt: " Are all standardized test scores and functional measures documented with change-over-time comparison?"
       entity: BooleanPrebuiltEntity
 
     - kind: Question
@@ -154,10 +154,10 @@ beginDialog:
       interruptionPolicy:
         allowInterruption: true
       variable: Topic.ChecklistPHI
-      prompt: "âœ… Have you confirmed this note does NOT contain raw MRN, SSN, or full DOB (HIPAA Safe Harbor)?"
+      prompt: " Have you confirmed this note does NOT contain raw MRN, SSN, or full DOB (HIPAA Safe Harbor)?"
       entity: BooleanPrebuiltEntity
 
-    # --- STEP 4: Guard â€” Fail if any checklist item is false ---
+    # --- STEP 4: Guard  Fail if any checklist item is false ---
     - kind: ConditionGroup
       id: conditionGroup_checklistGuard
       conditions:
@@ -167,11 +167,11 @@ beginDialog:
             - kind: SendActivity
               id: sendActivity_checklistFail
               activity: |-
-                â›” **EHR Submission Blocked** â€” One or more checklist items failed.
+                **EHR Submission Blocked**  One or more checklist items failed.
 
                 Please revise the note to address the deficiencies, then return to finalize.
                 
-                ðŸ’¡ *Tip: Use the **Audit Existing Note** tool to receive specific remediation guidance.*
+                 *Tip: Use the **Audit Existing Note** tool to receive specific remediation guidance.*
             - kind: EndDialog
               id: endDialog_checklistFail
 
@@ -201,39 +201,47 @@ beginDialog:
                     cardContent: '={
                       type: "AdaptiveCard",
                       body: [
-                        { type: "TextBlock", size: "Large", weight: "Bolder", text: "âœ… EHR FINALIZATION PACKAGE READY" },
+                        { type: "TextBlock", size: "Large", weight: "Bolder", text: " EHR FINALIZATION PACKAGE READY" },
                         { type: "FactSet", facts: [
                           { title: "Patient", value: Text(Global.MPC_PatientName) },
                           { title: "Alias/Room", value: Text(Global.MPC_PatientAlias) },
                           { title: "Discipline", value: Text(Topic.EHRDiscipline) },
                           { title: "Document Type", value: Text(Topic.EHRDocumentType) },
                           { title: "Therapist Signature", value: Text(Topic.EHRTherapistName) },
-                          { title: "Cert Period", value: Concatenate(Text(Global.MPC_CertPeriodStart), " â†’ ", Text(Global.MPC_CertPeriodEnd)) },
-                          { title: "Approval Status", value: "APPROVED âœ…" },
+                          { title: "Cert Period", value: Concatenate(Text(Global.MPC_CertPeriodStart), "  ", Text(Global.MPC_CertPeriodEnd)) },
+                          { title: "Approval Status", value: "APPROVED " },
                           { title: "Approval Timestamp", value: Text(Now(), DateTimeFormat.UTC) }
                         ]},
-                        { type: "TextBlock", text: "âš¡ This package is ready for Power Automate EHR Sync Flow. Trigger: pcca_flow.EHRDocumentSubmit", isSubtle: true }
+                        { type: "TextBlock", text: " This package is ready for Power Automate EHR Sync Flow. Trigger: pcca_flow.EHRDocumentSubmit", isSubtle: true }
                       ],
                       "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
                       version: "1.5"
                     }'
 
+            - kind: InvokeAction
+              id: invoke_auditLogOnSuccess
+              action: pcca_agent.action.TheraDoc-CrossAgentAuditLog
+              input:
+                AuditMissionType: ="NoteFinalization"
+                AuditTimestampIn: Text(Now(), DateTimeFormat.UTC)
+                AuditOutputHash: Topic.FinalNoteText
+
             - kind: SendActivity
               id: sendActivity_ehrSuccess
               activity: |-
-                ðŸš€ **EHR Finalization Package Generated.**
+                **EHR Finalization Package Generated.**
 
                 **Next Steps:**
                 1. Copy this note into your EHR system (PointClickCare / MatrixCare / Epic).
                 2. Paste under the correct resident, date, and discipline module.
                 3. Attach your credentials and submit.
 
-                *âš ï¸ AI-generated content. Final clinical accuracy and signature responsibility rests with the treating therapist.*
+                * AI-generated content. Final clinical accuracy and signature responsibility rests with the treating therapist.*
 
       elseActions:
         - kind: SendActivity
           id: sendActivity_approvalDenied
-          activity: "ðŸ” Note submission cancelled. Please revise and return when ready. Use **Audit Existing Note** for guidance."
+          activity: " Note submission cancelled. Please revise and return when ready. Use **Audit Existing Note** for guidance."
 
 inputType:
   properties:
@@ -248,4 +256,6 @@ outputType:
     EHR_DocumentType:
       displayName: EHR_DocumentType
       type: String
+
+
 

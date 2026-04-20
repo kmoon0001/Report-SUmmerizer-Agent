@@ -1,0 +1,19 @@
+mcs.metadata:
+  componentName: SNF - Quality Measure Decline Detection And Reporting
+kind: TaskDialog
+modelDisplayName: Detect and Report Quality Measure Declines
+modelDescription: Analyzes therapy quality measure data to detect performance declines, care gaps, and compliance risks. Identifies trending quality issues and generates actionable reports for facility teams.
+outputs:
+  - propertyName: confirmationmessage
+
+  - propertyName: facility_submission_status
+
+  - propertyName: facility_data_text
+
+  - propertyName: declining_metrics_text
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 0b930a15-2516-f111-8341-0022480b6bd9
+
+outputMode: All

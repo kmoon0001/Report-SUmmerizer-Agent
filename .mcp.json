@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--headless",
+        "--output-dir",
+        "D:\\my agents copilot studio\\.playwright-mcp",
+        "--user-data-dir",
+        "D:\\my agents copilot studio\\.playwright-mcp\\profile",
+        "--save-session",
+        "--timeout-navigation",
+        "90000",
+        "--timeout-action",
+        "10000"
+      ]
+    },
+    "pac-cli": {
+      "type": "stdio",
+      "command": "C:\\Users\\kevin\\AppData\\Local\\Microsoft\\PowerAppsCLI\\pac.cmd",
+      "args": ["copilot", "mcp", "--run"]
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@modelcontextprotocol/server-filesystem", "D:\\my agents copilot studio"]
+    },
+    "learn-docs": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    }
+  }
+}

@@ -100,10 +100,10 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_xasWpa
       activity: |-
-        ### ‚Ô∏ Platinum Forensic Audit Result (7-Layer XAI)
+        ###  Platinum Forensic Audit Result (7-Layer XAI)
         {Topic.auditresult}
         
-        **‚Ô∏ Logic Weights**: 
+        ** Logic Weights**: 
         - Grounding Path: `CMS_CHAP_15_REHAB`
         - Decision Logic: `HEURISTIC_CLINICAL_NECESSITY`
         - Verification: `PLATINUM_FIREWALL_v2`
@@ -125,3 +125,5 @@ outputType:
       type:
         kind: String
         sensitivityLevel: None
+
+

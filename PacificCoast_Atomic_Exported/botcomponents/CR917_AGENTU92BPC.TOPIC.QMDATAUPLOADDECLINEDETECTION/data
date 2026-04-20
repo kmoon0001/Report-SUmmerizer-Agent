@@ -1,0 +1,72 @@
+mcs.metadata:
+  componentName: QM Data Upload & Decline Detection
+  description: Collects facility and file inputs, captures analysis scope, and stages data for decline detection and predicted-vs-actual QM review workflows.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_GmVw74
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.selectedFacility
+      prompt: Which facility does this upload belong to?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_7pwjHM
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.uploadedQmFile
+      prompt: Please upload the SimpleLTC export file now (CSV preferred, PDF accepted).
+      entity: FilePrebuiltEntity
+
+    - kind: Question
+      id: question_wHOmOj
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.analysisScope
+      prompt: "What analysis scope do you want: worsening-QM detection, predicted-vs-actual comparison, or both?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Worsening-QM detection
+              displayName: Worsening-QM detection
+
+            - id: Predicted-vs-actual comparison
+              displayName: Predicted-vs-actual comparison
+
+            - id: Both
+              displayName: Both
+
+        displayName: EmbeddedEntity-KmLK0u
+
+    - kind: ConditionGroup
+      id: conditionGroup_USVVUR
+      conditions:
+        - id: conditionItem_FP3tlL
+          condition: =true
+
+        - id: conditionItem_GDBiZg
+          condition: =true
+
+    - kind: SendActivity
+      id: flowPlaceholder
+      activity: "[Action placeholder] This workflow step requires a Power Automate flow that is not yet configured in this environment."
+
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+
+
+
+
+

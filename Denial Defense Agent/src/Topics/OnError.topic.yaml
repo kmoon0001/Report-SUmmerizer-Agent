@@ -4,12 +4,50 @@
 
 mcs.metadata:
   componentName: OnError
-  description: Platinum Error Recovery Hub. Intercepts forensic audit errors and provides graceful fallback to clinical supervision.
+  description: Platinum Error Recovery Hub. Intercepts forensic audit errors, emits structured JSON for Command Center, and provides graceful fallback.
 kind: AdaptiveDialog
 beginDialog:
   kind: OnError
   id: main
   actions:
+    # --- Step 1: Capture error metadata ---
+    - kind: SetVariable
+      id: setVariable_timestamp
+      variable: init:Topic.CurrentTime
+      value: =Text(Now(), DateTimeFormat.UTC)
+
+    - kind: SetVariable
+      id: setVariable_errorCode
+      variable: init:Topic.ErrorCode
+      value: =System.Error.Code
+
+    - kind: SetVariable
+      id: setVariable_errorMessage
+      variable: init:Topic.ErrorMessage
+      value: =System.Error.Message
+
+    # --- Step 2: Structured JSON error envelope (swarm contract) ---
+    - kind: SetVariable
+      id: setVariable_errorEnvelope
+      variable: init:Topic.ErrorEnvelope
+      value: =Concatenate(
+        "{",
+          "\"status\":\"error\"",
+          ",\"reason\":\"", Topic.ErrorMessage, "\"",
+          ",\"agent\":\"Denial-Defense\"",
+          ",\"conversation_id\":\"", System.Conversation.Id, "\"",
+          ",\"timestamp_utc\":\"", Topic.CurrentTime, "\"",
+          ",\"next_agent\":\"SNF-Agent-Command-Center\"",
+        "}"
+      )
+
+    # --- Step 3: Telemetry log ---
+    - kind: LogCustomTelemetryEvent
+      id: logTelemetry_onError
+      eventName: OnErrorLog
+      properties: "={ErrorMessage: Topic.ErrorMessage, ErrorCode: Topic.ErrorCode, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id, Agent: \"Denial-Defense\", NextAgent: \"SNF-Agent-Command-Center\"}"
+
+    # --- Step 4: User-facing message ---
     - kind: SendActivity
       id: send_error
       activity: |-
@@ -18,7 +56,29 @@ beginDialog:
 
         **Safety Guardrail**: We have paused the automated rebuttal generation to prevent inaccurate regulatory citations.
         **Action**: Please manually paste the clinical note again or contact compliance support.
+        
+        Reference ID: {System.Conversation.Id} | Time: {Topic.CurrentTime}
 
-    - kind: BeginDialog
-      id: recover
-      dialog: pcca_agent.topic.DenialDefenseWorker
+    # --- Step 5: Escalate or retry ---
+    - kind: Question
+      id: question_retryOrEscalate
+      alwaysPrompt: true
+      variable: Topic.RetryOrEscalate
+      prompt: Would you like to retry the forensic audit?
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_retryOrEscalate
+      conditions:
+        - id: conditionItem_retry
+          condition: =Topic.RetryOrEscalate = true
+          actions:
+            - kind: BeginDialog
+              id: recover
+              dialog: pcca_agent.topic.DenialDefenseWorker
+      elseActions:
+        - kind: SendActivity
+          id: send_escalation
+          activity: "Routing to SNF-Agent-Command-Center for human escalation via {Topic.ErrorEnvelope}"
+        - kind: CancelAllDialogs
+          id: cancelDialogs_escalate

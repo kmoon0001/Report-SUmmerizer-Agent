@@ -1,4 +1,4 @@
-﻿mcs.metadata:
+mcs.metadata:
   componentName: DoR SUMMARY EMAIL
   description: Elite clinical intelligence module specialized in [DoRSUMMARYEMAIL]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
 kind: AdaptiveDialog
@@ -269,6 +269,17 @@ beginDialog:
                 
                 **RECOMMENDATION:** Proposed interventions and root cause analysis priorities for therapy leadership review.
 
+            - kind: InvokeFlowAction
+              id: invokeFlow_sendDorEmail
+              action: QMCoach-DoRSendEmail-e589f8c3-533c-f111-88b3-7ced8d6e69f5
+              input:
+                binding:
+                  sbarsummary: ="SITUATION: Updated Quality Measure risks identified for " & Global.SelectedFacility & "<br/>BACKGROUND: Based on the latest SimpleLTC clinical data and protocol grounding.<br/>ASSESSMENT: [AI-Generated Analysis of QM Trends and Outliers]<br/>RECOMMENDATION: Proposed interventions and root cause analysis priorities for therapy leadership review."
+                  facilityname: =Global.SelectedFacility
+              output:
+                binding:
+                  dispatchstatus: Topic.EmailDispatchStatus
+
 
 inputType:
   properties:
@@ -293,5 +304,6 @@ outputType:
     QMDomain:
       displayName: QMDomain
       type: String
+
 
 

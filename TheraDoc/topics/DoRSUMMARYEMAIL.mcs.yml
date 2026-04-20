@@ -1,0 +1,51 @@
+mcs.metadata:
+  componentName: DoRSUMMARYEMAIL
+  description: Platinum Standard SBAR Dispatch Topic. Formats clinical intelligence results into a structured SBAR briefing and dispatches via the QMCoach-DoRSendEmail enterprise flow.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - send sbar briefing
+      - email dor summary
+      - dispatch clinical report
+      - summarize for leadership
+  actions:
+    - kind: SendActivity
+      id: send_init
+      activity: "🚀 **Initiating Platinum Standard SBAR Dispatch...**"
+
+    - kind: SetVariable
+      id: set_sbar_content
+      variable: Topic.SBAR_Payload
+      value: |
+        ="**S**ituation: " & Global.CurrentSituation & "
+        **B**ackground: " & Global.ClinicalBackground & "
+        **A**ssessment: " & Global.AI_Assessment_Summary & "
+        **R**ecommendation: " & Global.Clinical_Recommendation
+
+    - kind: InvokeFlowAction
+      id: invoke_sbar_dispatch
+      input:
+        binding:
+          email_recipient: =Global.DorEmailAddress
+          sbar_content: =Topic.SBAR_Payload
+      action: QMCoach-DoRSendEmail-e589f8c3-533c-f111-88b3-7ced8d6e69f5
+      output:
+        binding:
+          status: Topic.DispatchStatus
+
+    - kind: ConditionGroup
+      id: handle_dispatch_result
+      conditions:
+        - id: dispatch_success
+          condition: =Topic.DispatchStatus = "Success"
+          actions:
+            - kind: SendActivity
+              id: send_success
+              activity: "✅ SBAR Briefing successfully dispatched to {Global.DorEmailAddress}."
+      elseActions:
+        - kind: SendActivity
+          id: send_error
+          activity: "⚠️ SBAR Dispatch failed. Please verify the Power Automate connection status."

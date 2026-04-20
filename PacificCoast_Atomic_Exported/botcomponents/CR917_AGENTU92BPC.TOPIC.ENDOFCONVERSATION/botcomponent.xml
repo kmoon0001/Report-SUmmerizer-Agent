@@ -1,0 +1,12 @@
+<botcomponent schemaname="CR917_AGENTU92BPC.TOPIC.ENDOFCONVERSATION">
+  <componenttype>9</componenttype>
+  <description>This system topic is only triggered by a redirect action,
+and guides the user through rating their conversation with the agent.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>EndofConversation</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

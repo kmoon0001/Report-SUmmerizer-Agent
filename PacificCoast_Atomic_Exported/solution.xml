@@ -1,0 +1,101 @@
+<ImportExportXml version="9.2.26033.174" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26033.174" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26033.00174">
+  <SolutionManifest>
+    <UniqueName>PacificCoast_Atomic</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Pacific Coast Compliance Atomic" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.1</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EnsignServices</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="EnsignServices" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="EnsignServices" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>ens</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>23556</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="29" displayName="SNF - Quality Measure Decline Detection And Reporting" solution="Active" id="{0b930a15-2516-f111-8341-0022480b6bd9}" />
+        <Dependent type="botcomponent_workflow" displayName="botcomponentid.schemaname=CR917_AGENTU92BPC.TOPIC.FACILITYQMANALYSIS,workflowid.workflowid=0b930a15-2516-f111-8341-0022480b6bd9" id.botcomponentid.schemaname="CR917_AGENTU92BPC.TOPIC.FACILITYQMANALYSIS" id.workflowid.workflowid="0b930a15-2516-f111-8341-0022480b6bd9" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="SNF - Quality Measure Decline Detection And Reporting" solution="Active" id="{0b930a15-2516-f111-8341-0022480b6bd9}" />
+        <Dependent type="botcomponent_workflow" displayName="botcomponentid.schemaname=CR917_AGENTU92BPC.TOPIC.QMDATAUPLOADDECLINEDETECTION,workflowid.workflowid=0b930a15-2516-f111-8341-0022480b6bd9" id.botcomponentid.schemaname="CR917_AGENTU92BPC.TOPIC.QMDATAUPLOADDECLINEDETECTION" id.workflowid.workflowid="0b930a15-2516-f111-8341-0022480b6bd9" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="COPILOT V2 - Resident Insight Dataverse Lookup" solution="Active" id="{88ce03b7-6b25-f111-8341-000d3a33801d}" />
+        <Dependent type="botcomponent_workflow" displayName="botcomponentid.schemaname=CR917_AGENTU92BPC.TOPIC.RESIDENTOUTLIERANALYSIS,workflowid.workflowid=88ce03b7-6b25-f111-8341-000d3a33801d" id.botcomponentid.schemaname="CR917_AGENTU92BPC.TOPIC.RESIDENTOUTLIERANALYSIS" id.workflowid.workflowid="88ce03b7-6b25-f111-8341-000d3a33801d" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="29" displayName="SNF - Quality Measure Email Generator" solution="Active" id="{fcf035ad-af0c-f111-8406-0022480b6bd9}" />
+        <Dependent type="botcomponent_workflow" displayName="botcomponentid.schemaname=CR917_AGENTU92BPC.TOPIC.QMACTIONPLAN,workflowid.workflowid=fcf035ad-af0c-f111-8406-0022480b6bd9" id.botcomponentid.schemaname="CR917_AGENTU92BPC.TOPIC.QMACTIONPLAN" id.workflowid.workflowid="fcf035ad-af0c-f111-8406-0022480b6bd9" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

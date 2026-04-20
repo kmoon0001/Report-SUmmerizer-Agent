@@ -1,0 +1,109 @@
+mcs.metadata:
+  componentName: Facility QM Analysis
+kind: AdaptiveDialog
+modelDescription: Collects facility-level QM analysis context, including measure focus and analysis objective, so downstream workflows can generate trend, benchmark, and risk insights.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: Question
+      id: question_kRoz7l
+      interruptionPolicy:
+        allowInterruption: true
+      variable: init:Topic.selectedFacility
+      prompt: Which facility should we analyze at the QM performance level?
+      entity: StringPrebuiltEntity
+
+    - kind: AdaptiveCardPrompt
+      id: adaptiveCardPrompt_qmMeasureFocus
+      card: |-
+        ={
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.5",
+          body: [
+            {
+              type: "TextBlock",
+              text: "QM Measure Focus",
+              wrap: true,
+              weight: "Bolder",
+              size: "Medium",
+              style: "heading"
+            },
+            {
+              type: "TextBlock",
+              text: "Which quality measure or domain should be the focus of this analysis?",
+              wrap: true,
+              spacing: "Small"
+            }
+          ],
+          actions: [
+            { type: "Action.Submit", title: "⚠️ Falls", data: { qmMeasureFocus: "Falls" }, tooltip: "Falls with major injury" },
+            { type: "Action.Submit", title: "📉 ADL Decline", data: { qmMeasureFocus: "ADL Decline" }, tooltip: "Mobility and ADL function decline" },
+            { type: "Action.Submit", title: "🩹 Pressure Ulcers", data: { qmMeasureFocus: "Pressure Ulcers" }, tooltip: "New or worsened pressure injuries" },
+            { type: "Action.Submit", title: "💊 Antipsychotic Use", data: { qmMeasureFocus: "Antipsychotic Use" }, tooltip: "Antipsychotic medication rates" },
+            { type: "Action.Submit", title: "😣 Pain", data: { qmMeasureFocus: "Pain" }, tooltip: "Moderate to severe pain rates" },
+            { type: "Action.Submit", title: "📋 All QMs (Full Review)", data: { qmMeasureFocus: "All QMs" }, tooltip: "Comprehensive review of all quality measures" }
+          ]
+        }
+      outputType:
+        properties:
+          qmMeasureFocus: String
+
+      variable: init:Topic.qmMeasureFocus
+      prompt: Which QM measure or metric should be the focus?
+      entity: StringPrebuiltEntity
+
+    - kind: Question
+      id: question_rmNzwr
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.analysisGoal
+      prompt: "What analysis outcome do you need first: trend, benchmark, risk flag, or summary?"
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          items:
+            - id: Trend
+              displayName: Trend
+
+            - id: Benchmark
+              displayName: Benchmark
+
+            - id: Risk flag
+              displayName: Risk flag
+
+            - id: Summary
+              displayName: Summary
+
+        displayName: EmbeddedEntity-BgDsI7
+
+    - kind: ConditionGroup
+      id: conditionGroup_FuNS1n
+      conditions:
+        - id: conditionItem_H7t5ex
+          condition: =true
+
+        - id: conditionItem_9tNZ7x
+          condition: =true
+
+        - id: conditionItem_Lcfoz3
+          condition: =true
+    - kind: SendActivity
+      id: flowPlaceholder
+      activity: "[Action placeholder] This workflow step requires a Power Automate flow that is not yet configured in this environment."
+
+inputType: {}
+outputType:
+  properties:
+    ProcessingStatus: String
+    Output: String
+
+
+
+
+
+

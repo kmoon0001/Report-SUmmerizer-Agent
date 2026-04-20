@@ -1,0 +1,12 @@
+<botcomponent schemaname="cr917_agentu92bPc.file.QMTargetBenchmarksCMSNationalandInternal.md_wgk">
+  <componenttype>14</componenttype>
+  <description>This knowledge source searches information contained in QM Target Benchmarks CMS National and Internal.md</description>
+  <filedata mimetype="application/octet-stream">QM%20Target%20Benchmarks%20CMS%20National%20and%20Internal.md</filedata>
+  <iscustomizable>0</iscustomizable>
+  <name>QM Target Benchmarks CMS National and Internal.md</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

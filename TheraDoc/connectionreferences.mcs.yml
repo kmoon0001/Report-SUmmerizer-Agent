@@ -1,4 +1,19 @@
 connectionReferences:
   - connectionReferenceLogicalName: new_sharedcommondataserviceforapps_af899
     connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+    # suggested: columnLevelSecurity:
+    #   profile: theradoc_phi_restricted
+    #   agentRole: theradoc_clinician
+    #   restrictedColumns:
+    #     - pcca_patientname
+    #     - pcca_dateofbirth
+    #     - pcca_mrn
+    #     - pcca_ssn
+    #   policy: ReadWrite_SameSession_Only
+    #   auditAllWrites: true
+    #   auditFields:
+    #     - agentName: TheraDoc
+    #     - timestampField: pcca_lastupdated
+    #     - recordIdField: pcca_recordid
+    #     - operationTypeField: pcca_operationtype
 

@@ -12,6 +12,64 @@ It refines the global workspace rules for this repo and should not contradict th
 - Type: Microsoft Copilot Studio agent for SNF therapy documentation (PT/OT/ST)
 - Primary runtime schema: `pcca_agent`
 
+## Handoff Contract (Cross-Agent JSON Schema)
+
+TheraDoc is a **Worker Agent**. When it dispatches work to or receives work from the
+SNF-Agent-Command-Center, ONLY the following fields are exchanged. Raw PHI text MUST
+NOT appear in any cross-agent payload.
+
+### Inbound (what TheraDoc accepts from the Command Center)
+
+```json
+{
+  "patient_id":     "{{PATIENT_ID}}",
+  "record_id":      "{{RECORD_ID}}",
+  "document_type":  "DailyNote | Evaluation | Recertification | Discharge | ProgressNote",
+  "current_stage":  "Intake | Draft | Audit | Finalize | Complete",
+  "user_intent":    "GenerateNote | ReviseNote | AuditNote | ParseBrainDump | NursingHandoff"
+}
+```
+
+### Outbound (what TheraDoc returns to the Command Center)
+
+```json
+{
+  "patient_id":     "{{PATIENT_ID}}",
+  "record_id":      "{{RECORD_ID}}",
+  "document_type":  "DailyNote | Evaluation | Recertification | Discharge | ProgressNote",
+  "current_stage":  "Draft | Audit | Finalize | Complete | Error",
+  "status":         "success | error",
+  "reason":         "Human-readable outcome or error description",
+  "next_agent":     "SNF-Agent-Command-Center"
+}
+```
+
+### Hard Rules
+
+- Topics that make cross-agent calls MUST first invoke the `CommandCenter-CrossAgentAuditLog` flow to record the handoff.
+- `FinalNoteText` or any raw clinical narrative MUST be stored in Dataverse and referenced
+  via `record_id` before handoff — never concatenated inline in a cross-agent payload.
+- Every Dataverse write action MUST logCustomTelemetry to the `cr917_snf_telemetry_logs` table with:
+  `{agent: "TheraDoc", timestamp: utcNow(), record_id, operation_type}`.
+
+## Platinum Orchestration & Security Rules (v2.0)
+
+1. **HIPAA Guardrails (PHI Scrubbing)**
+   - Do not pass raw strings (name, DOB, MRN, SSN) into Dataverse trace logs or cross-agent contexts.
+   - You MUST utilize the `TheraDoc-PHIScrubAction-8843b42d-4c3c-f111-88b3-7ced8d6e69f5` Power Automate flow to safely redact inputs before cross-agent routing.
+
+2. **Column-Level Security (CLS)**
+   - The `connectionreferences.mcs.yml` file restricts `new_sharedcommondataserviceforapps_af899` access to the `theradoc_phi_restricted` profile and `theradoc_clinician` role. Do not alter these bindings without compliance authorization.
+
+3. **Context Efficiency (RecordID Focus)**
+   - Instead of bloating prompt windows with concatenated documents, use pointer-based logic (`record_id`). The SwarmCommandRouter manages contexts optimally if agents operate strictly on these deterministic identifiers.
+
+4. **Self-Healing Error Topology**
+   - The `OnError` topic MUST return a structured JSON packet: `{"status":"error", "agent":"TheraDoc", "reason":"[...]", "next_agent":"SNF-Agent-Command-Center"}` instead of conversational filler.
+
+5. **Fleet Fallback Escalation Ticket**
+   - If clinical oversight is required and the agent fails gracefully, it must trigger an action that results in a service ticket generated for the `clinical-leadership` distribution list.
+
 ## Real Production Path
 
 Use this order for all production-impacting work:

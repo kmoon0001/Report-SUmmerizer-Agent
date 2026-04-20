@@ -1,0 +1,88 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365": {
+        "api": { "name": "shared_office365" },
+        "connection": { "connectionReferenceLogicalName": "pcca_Outlook" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Platinum Fix: Creates a fallback escalation ticket to clinical leadership when Swarm AI fails. Notifies via Teams or Email.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Error JSON Payload",
+                  "title": "ErrorDetails",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "description": "Conversation ID",
+                  "title": "ConversationId",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": ["text", "text_1"]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Send_Email_Notification": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "To": "clinical-leadership@ensignai.local",
+              "Subject": "@concat('âš ï¸ AI Swarm Escalation Alert - ', triggerBody()?['text_1'])",
+              "Body": "@concat('An unrecoverable clinical discrepancy occurred. <br/><b>Details:</b><br/>', triggerBody()?['text'])",
+              "Importance": "High"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "SendEmailV2",
+              "connectionName": "shared_office365"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ticketid": {
+                  "title": "TicketID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              }
+            },
+            "statusCode": 200,
+            "body": {
+              "ticketid": "@concat('INC-', utcNow('yyyyMMddHHmmss'))"
+            }
+          },
+          "runAfter": { "Send_Email_Notification": ["SUCCEEDED"] }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

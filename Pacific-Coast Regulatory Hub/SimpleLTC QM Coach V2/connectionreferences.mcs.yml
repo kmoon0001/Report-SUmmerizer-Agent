@@ -3,8 +3,24 @@ connectionReferences:
     connectorId: /providers/Microsoft.PowerApps/apis/shared_approvals
   - connectionReferenceLogicalName: new_sharedcommondataserviceforapps_a3ae0
     connectorId: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+    # suggested: columnLevelSecurity:
+    #   profile: cr917_phi_restricted
+    #   agentRole: cr917_qmcoach_clinician
+    #   restrictedColumns:
+    #     - cr917_residentname
+    #     - cr917_dateofbirth
+    #     - cr917_mrn
+    #   policy: ReadWrite_SameSession_Only
+    #   auditAllWrites: true
+    #   auditTable: cr917_snf_telemetry_logs
+    #   auditFields:
+    #     - agentName: Regulatory-Hub
+    #     - timestampField: cr917_lastupdated
+    #     - recordIdField: cr917_recordid
+    #     - operationTypeField: cr917_operationtype
   - connectionReferenceLogicalName: new_sharedpowerbi_f3867
     connectorId: /providers/Microsoft.PowerApps/apis/shared_powerbi
   - connectionReferenceLogicalName: pcca_Outlook
     connectorId: /providers/Microsoft.PowerApps/apis/shared_office365
+
 

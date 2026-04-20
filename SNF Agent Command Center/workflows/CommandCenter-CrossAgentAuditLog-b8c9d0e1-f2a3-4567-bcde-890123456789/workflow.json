@@ -57,9 +57,44 @@
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
+                },
+                "text_5": {
+                  "description": "Unique RunID for tracking cross-agent spans",
+                  "title": "RunID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_6": {
+                  "description": "Hash of the inbound state/prompt",
+                  "title": "InputHash",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_7": {
+                  "description": "Hash of the outbound generated artifact",
+                  "title": "OutputHash",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_8": {
+                  "description": "Timestamp when AI task initiated",
+                  "title": "TimestampIn",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_9": {
+                  "description": "Timestamp when AI task completed",
+                  "title": "TimestampOut",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
                 }
               },
-              "required": ["text", "text_1", "text_2"]
+              "required": ["text", "text_1", "text_2", "text_5"]
             }
           },
           "metadata": {
@@ -91,6 +126,11 @@
               "item/pcca_missiontype": "@triggerBody()?['text_2']",
               "item/pcca_userrole": "@{if(empty(triggerBody()?['text_3']), 'Unknown', triggerBody()?['text_3'])}",
               "item/pcca_facilitycontext": "@{if(empty(triggerBody()?['text_4']), 'Not Set', triggerBody()?['text_4'])}",
+              "item/pcca_runid": "@triggerBody()?['text_5']",
+              "item/pcca_inputhash": "@triggerBody()?['text_6']",
+              "item/pcca_outputhash": "@triggerBody()?['text_7']",
+              "item/pcca_timestampin": "@triggerBody()?['text_8']",
+              "item/pcca_timestampout": "@triggerBody()?['text_9']",
               "item/pcca_routingtimestamp": "@utcNow()",
               "item/pcca_complianceflag": "Microsoft Learn Power Platform Governance — Agent-to-Agent Routing Audit Trail",
               "item/pcca_hipaaretention": "7 Years per CMS Documentation Standards"

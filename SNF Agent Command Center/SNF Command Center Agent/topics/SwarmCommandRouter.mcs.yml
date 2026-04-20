@@ -1,0 +1,165 @@
+mcs.metadata:
+  componentName: SwarmCommandRouter
+  description: Primary orchestration topic for the SNF Agent Command Center. Implements cross-agent handoff using the strict JSON schema, max-hop limit enforcement, parallel dispatch paths where applicable, and mandatory Dataverse audit logging.
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - route this request
+      - command center routing
+      - send to agent
+      - cross agent handoff
+      - transfer context
+
+  actions:
+    # --- 1. Enforce Max-Hop Limit ---
+    - kind: ConditionGroup
+      id: conditionGroup_hopCheck
+      conditions:
+        - id: conditionItem_hopLimitExceeded
+          condition: =Value(Topic.HopCounter) >= 3
+          actions:
+            - kind: SendActivity
+              id: sendActivity_hopLimit
+              activity: |
+                ⚠️ **Orchestration Error: Max-Hop Limit Exceeded**
+                The request has bounced between agents more than 3 times (Max Hop: 3). Halting execution to prevent infinite loops.
+            - kind: LogCustomTelemetryEvent
+              id: log_hopLimit
+              eventName: MaxHopLimitError
+              properties: "={ConversationId: System.Conversation.Id, HopCount: Topic.HopCounter, LastAgent: Global.ActiveAgent}"
+            - kind: BeginDialog
+              id: beginDialog_escalate
+              dialog: snf_ai_dashboard.topic.Escalate
+            - kind: CancelAllDialogs
+              id: cancel_infiniteLoop
+
+    # --- 2. Increment Hop Count ---
+    - kind: SetVariable
+      id: setVariable_incrementHop
+      variable: Topic.HopCounter
+      value: =If(IsBlank(Topic.HopCounter), 1, Value(Topic.HopCounter) + 1)
+
+    # --- 3. Parse Inbound JSON Schema and Clean Payload (Platinum Fix) ---
+    # Expects Topic.InboundPayload (JSON string)
+    - kind: InvokeFlowAction
+      id: invokeFlow_phiScrub
+      input:
+        binding:
+          text: =Topic.InboundPayload
+      action: TheraDoc-PHIScrubAction-8843b42d-4c3c-f111-88b3-7ced8d6e69f5
+      output:
+        binding:
+          scrubbedtext: Topic.ScrubbedInboundPayload
+
+    - kind: ParseValue
+      id: parse_inboundPayload
+      valueType:
+        kind: Record
+        properties:
+          patient_id: String
+          record_id: String
+          document_type: String
+          current_stage: String
+          user_intent: String
+          status: String
+          reason: String
+          next_agent: String
+      value: =Topic.ScrubbedInboundPayload
+      variable: Topic.ParsedPayload
+
+    # --- 4. Cross-Agent Dataverse Audit Log (Pre-Dispatch) ---
+    - kind: InvokeFlowAction
+      id: invokeFlow_auditLog
+      input:
+        binding:
+          text: =Topic.ParsedPayload.next_agent
+          text_1: ="SNF-Agent-Command-Center"
+          text_2: =Topic.ParsedPayload.user_intent
+          text_3: ="SwarmRouter"
+          text_4: ="Not Set"
+          text_5: =System.Conversation.Id
+          text_6: ="N/A"
+          text_7: ="N/A"
+          text_8: =Text(Now(), DateTimeFormat.UTC)
+          text_9: =Blank()
+      action: CommandCenter-CrossAgentAuditLog-b8c9d0e1-f2a3-4567-bcde-890123456789
+      output:
+        binding:
+          sessionid: Topic.AuditSessionID
+
+    # --- 4.5 Orchestrator Parallel Dispatch (Platinum Fix) ---
+    - kind: InvokeFlowAction
+      id: invokeFlow_parallelDispatch
+      input:
+        binding:
+          recordid: =Topic.ParsedPayload.record_id
+      action: CommandCenter-SwarmRouter-4872b1e4-513c-f111-88b3-7ced8d6e69f5
+      output:
+        binding:
+          parallelstatus: Topic.ParallelDispatchStatus
+
+    # --- 5. Handoff Routing Logic ---
+    - kind: ConditionGroup
+      id: conditionGroup_routeAgent
+      conditions:
+        - id: conditionItem_theraDoc
+          condition: =Topic.ParsedPayload.next_agent = "TheraDoc"
+          actions:
+            - kind: SendActivity
+              id: send_theraDoc
+              activity: |
+                🔄 *Routing to TheraDoc Hub...* (Record: {Topic.ParsedPayload.record_id})
+            - kind: LogCustomTelemetryEvent
+              id: log_routeTheraDoc
+              eventName: RouteToTheraDoc
+            # Implementation would transfer to TheraDoc bot component here
+
+        - id: conditionItem_regulatoryHub
+          condition: =Topic.ParsedPayload.next_agent = "Regulatory-Hub"
+          actions:
+            - kind: SendActivity
+              id: send_regulatoryHub
+              activity: |
+                🔄 *Routing to Regulatory Hub...* (Record: {Topic.ParsedPayload.record_id})
+            - kind: LogCustomTelemetryEvent
+              id: log_routeRegHub
+              eventName: RouteToRegulatoryHub
+            # Implementation would transfer to Regulatory Hub component here
+
+        - id: conditionItem_denialDefense
+          condition: =Topic.ParsedPayload.next_agent = "Denial-Defense"
+          actions:
+            - kind: SendActivity
+              id: send_denialDefense
+              activity: |
+                🔄 *Routing to Denial Defense Hub...* (Record: {Topic.ParsedPayload.record_id})
+            - kind: LogCustomTelemetryEvent
+              id: log_routeDenialDefense
+              eventName: RouteToDenialDefense
+            # Implementation would transfer to Denial Defense component here
+
+        - id: conditionItem_synthesisLab
+          condition: =Topic.ParsedPayload.next_agent = "Clinical-Synthesis-Lab"
+          actions:
+            - kind: SendActivity
+              id: send_synthesisLab
+              activity: |
+                🔄 *Routing to Clinical Synthesis Lab...* (Record: {Topic.ParsedPayload.record_id})
+            - kind: LogCustomTelemetryEvent
+              id: log_routeCSL
+              eventName: RouteToCSL
+            # Parallel Dispatch Example placeholder
+            # Implementation would transfer to Synthesis Lab component here
+
+      elseActions:
+        - kind: SendActivity
+          id: send_unknownAgent
+          activity: |
+            ⚠️ **Unknown Destination Agent**: {Topic.ParsedPayload.next_agent}. 
+            Falling back to default dashboard.
+        - kind: BeginDialog
+          id: routeDashboard
+          dialog: snf_ai_dashboard.topic.SNFRoutingStatusCheck

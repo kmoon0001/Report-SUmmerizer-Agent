@@ -1,0 +1,39 @@
+mcs.metadata:
+  componentName: Reset Conversation
+  description: |
+    Topic workflow for Reset Conversation within Pacific Coast Compliance Analyzer.
+    Guides structured user input and consistent compliance-oriented responses.
+startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+beginDialog:
+  kind: OnSystemRedirect
+  id: main
+  actions:
+    - kind: SendActivity
+      id: sendMessage_OPsT1O
+      activity: What can I help you with?
+
+    - kind: ClearAllVariables
+      id: clearAllVariables_73bTFR
+      variables: ConversationScopedVariables
+
+    - kind: CancelAllDialogs
+      id: cancelAllDialogs_12Gt21
+
+
+
+
+
+
+
+
+
+
+
+
+
+outputType:
+  properties:
+    ProcessingStatus: String
+
+inputType: {}
+

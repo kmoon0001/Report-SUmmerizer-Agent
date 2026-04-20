@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "fa468658-bf91-4cbb-85c4-43c6d5c6da91"
+          },
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_Copilot": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "3512bac7-b68f-4201-8141-9a98626a07d8"
+          },
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "statusCode": 200,
+            "body": {},
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

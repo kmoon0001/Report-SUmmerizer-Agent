@@ -851,7 +851,53 @@ Run this loop after every major feature, major bugfix, orchestration change, or 
 - At the start of the next task, use the compressed snapshot as the primary working memory baseline.
 - If current files, run logs, or tenant state conflict with the snapshot, resolve the conflict first and refresh the snapshot.
 
-### Non-Negotiable Rule
-
 - Never rely on long chat history as the primary memory source for major work.
 - Use `AGENT.md` + current repo state + compressed project snapshots as the authoritative memory loop.
+
+## Handoff Contract (Cross-Agent JSON Schema)
+
+SNF Dashboard is a **Worker Agent**. When dispatching work to or receiving from the
+SNF-Agent-Command-Center, ONLY the following fields are exchanged. Raw PHI text MUST
+NOT appear in any cross-agent payload.
+
+### Inbound (what SNF-Dashboard accepts from the Command Center)
+
+```json
+{
+  "patient_id":     "{{PATIENT_ID}}",
+  "record_id":      "{{RECORD_ID}}",
+  "document_type":  "KPIReport | QMSummary | ShiftReport | FacilitySnapshot",
+  "current_stage":  "Intake | Analysis | Review | Complete",
+  "user_intent":    "ViewQMDashboard | GenerateShiftReport | EscalateClinical | ReviewFacilityKPI"
+}
+```
+
+### Outbound (what SNF-Dashboard returns to the Command Center)
+
+```json
+{
+  "patient_id":     "{{PATIENT_ID}}",
+  "record_id":      "{{RECORD_ID}}",
+  "document_type":  "KPIReport | QMSummary | ShiftReport | FacilitySnapshot",
+  "current_stage":  "Analysis | Review | Complete | Error",
+  "status":         "success | error",
+  "reason":         "Human-readable outcome or error description",
+  "next_agent":     "SNF-Agent-Command-Center"
+}
+```
+
+### Hard Rules
+
+- Topics that make cross-agent calls MUST pass only the fields above.
+- Aggregate metric arrays and QM scores MUST be stored in Dataverse and referenced
+  via `record_id` before cross-agent handoff — never emitted as raw JSON blobs.
+- Every Dataverse write action MUST logCustomTelemetry with:
+  `{agent: "SNF-Dashboard", timestamp: utcNow(), record_id, operation_type}`.
+
+
+## Platinum Orchestration & Security Rules (v2.0)
+1. **HIPAA Guardrails (PHI Scrubbing)**: Do not pass raw strings (name, DOB, MRN). Use ecord_id pointers. Ensure cross-agent triggers utilize TheraDoc-PHIScrubAction patterns.
+2. **Column-Level Security (CLS)**: The connectionreferences.mcs.yml enforces Dataverse restricted profiles (_phi_restricted).
+3. **Context Efficiency**: Bloated prompt windows are avoided by keeping payloads focused on the ecord_id and standardized JSON keys.
+4. **Self-Healing Error Topology**: All OnError topics return {"status":"error", "reason":"...", "next_agent":"SNF-Agent-Command-Center"}.
+5. **Fleet Fallback Escalation Ticket**: Graceful failures that hit Max-Hop limits (>3) or unrecoverable exceptions escalate to human oversight via Fleet-FallbackEscalationTicket flow.

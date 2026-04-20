@@ -1,0 +1,88 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_office365": {
+        "api": { "name": "shared_office365" },
+        "connection": { "connectionReferenceLogicalName": "pcca_Outlook_QM_Hub" },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Microsoft Learn Standard: HITL approved automated DOR wrap-up email dispatch.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sbarsummary": {
+                  "description": "SBAR Clinical Summary from QM Agent",
+                  "title": "SBAR_Summary",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "facilityname": {
+                  "description": "Selected Facility",
+                  "title": "Facility_Name",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": ["sbarsummary", "facilityname"]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Send_Email_to_DOR": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "To": "kmoon@ensignservices.net",
+              "Subject": "@concat('QM Clinical Strategy Briefing (SBAR) - ', triggerBody()?['facilityname'])",
+              "Body": "@triggerBody()?['sbarsummary']",
+              "Importance": "Normal"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "SendEmailV2",
+              "connectionName": "shared_office365"
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dispatchstatus": {
+                  "title": "DispatchStatus",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              }
+            },
+            "statusCode": 200,
+            "body": {
+              "dispatchstatus": "@concat('SBAR Email successfully dispatched to DoR for ', triggerBody()?['facilityname'])"
+            }
+          },
+          "runAfter": { "Send_Email_to_DOR": ["SUCCEEDED"] }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

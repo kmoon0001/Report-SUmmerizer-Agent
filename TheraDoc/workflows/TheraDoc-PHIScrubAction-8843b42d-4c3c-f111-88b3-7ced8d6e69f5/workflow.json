@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Platinum Fix: Sanitizes input payload for PHI (MRN, SSN, DOB) before cross-agent handoff or Dataverse logging.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Input Clinical Payload",
+                  "title": "RawPayload",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": ["text"]
+            }
+          }
+        }
+      },
+      "actions": {
+        "ScrubData": {
+          "type": "Compose",
+          "inputs": "@{replace(replace(replace(triggerBody()?['text'], regex('[0-9]{3}-[0-9]{2}-[0-9]{4}'), '[SSN_REDACTED]'), regex('[A-Za-z0-9]{8,15}'), '[MRN_REDACTED]'), regex('[0-9]{2}/[0-9]{2}/[0-9]{4}'), '[DOB_REDACTED]')}",
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scrubbedtext": {
+                  "title": "ScrubbedPayload",
+                  "description": "HIPAA compliant payload safely scrubbed of raw identifiers.",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              }
+            },
+            "statusCode": 200,
+            "body": {
+              "scrubbedtext": "@outputs('ScrubData')"
+            }
+          },
+          "runAfter": { "ScrubData": ["SUCCEEDED"] }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

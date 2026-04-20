@@ -1,0 +1,139 @@
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26033.174" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26033.00174">
+  <Entities></Entities>
+  <Roles></Roles>
+  <Workflows>
+    <Workflow WorkflowId="{8843b42d-4c3c-f111-88b3-7ced8d6e69f5}" Name="TheraDoc-PHIScrubAction">
+      <JsonFileName>/Workflows/TheraDoc-PHIScrubAction-8843B42D-4C3C-F111-88B3-7CED8D6E69F5.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="TheraDoc-PHIScrubAction" />
+      </LocalizedNames>
+    </Workflow>
+    <Workflow WorkflowId="{4872b1e4-513c-f111-88b3-7ced8d6e69f5}" Name="CommandCenter-SwarmRouter">
+      <JsonFileName>/Workflows/CommandCenter-SwarmRouter-4872B1E4-513C-F111-88B3-7CED8D6E69F5.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="CommandCenter-SwarmRouter" />
+      </LocalizedNames>
+    </Workflow>
+    <Workflow WorkflowId="{5e5ac7c8-523c-f111-88b3-7ced8d6e69f5}" Name="Fleet-FallbackEscalationTicket">
+      <JsonFileName>/Workflows/Fleet-FallbackEscalationTicket-5E5AC7C8-523C-F111-88B3-7CED8D6E69F5.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="Fleet-FallbackEscalationTicket" />
+      </LocalizedNames>
+    </Workflow>
+    <Workflow WorkflowId="{e589f8c3-533c-f111-88b3-7ced8d6e69f5}" Name="QMCoach-DoRSendEmail">
+      <JsonFileName>/Workflows/QMCoach-DoRSendEmail-E589F8C3-533C-F111-88B3-7CED8D6E69F5.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="QMCoach-DoRSendEmail" />
+      </LocalizedNames>
+    </Workflow>
+  </Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <connectionreferences>
+    <connectionreference connectionreferencelogicalname="cr917_sharedofficeaiagent_11962">
+      <connectionreferencedisplayname>OfficeAi Agent PlatinumSwarmFlows-11962</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_officeaiagent</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="cr917_sharedofficeaiagent_cc30b">
+      <connectionreferencedisplayname>OfficeAi Agent PlatinumSwarmFlows-cc30b</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_officeaiagent</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+  </connectionreferences>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

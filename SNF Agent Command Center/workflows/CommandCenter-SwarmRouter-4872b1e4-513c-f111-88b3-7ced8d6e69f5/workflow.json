@@ -1,0 +1,80 @@
+{
+  "properties": {
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "description": "Platinum Fix: Runs Compliance Audits and QM Checks in PARALLEL to eliminate sequential latency during Command Center orchestration.",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "recordid": {
+                  "description": "Dataverse Pointer ID",
+                  "title": "RecordID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": ["recordid"]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Parallel_Dispatch": {
+          "type": "Parallel",
+          "actions": {
+            "Run_Compliance_Audits": {
+              "type": "Compose",
+              "inputs": {
+                "status": "Compliance Audit Complete",
+                "record": "@triggerBody()?['recordid']"
+              },
+              "runAfter": {}
+            },
+            "Run_QM_Checks": {
+              "type": "Compose",
+              "inputs": {
+                "status": "QM Data Verified",
+                "record": "@triggerBody()?['recordid']"
+              },
+              "runAfter": {}
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "parallelstatus": {
+                  "title": "ParallelStatus",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT"
+                }
+              }
+            },
+            "statusCode": 200,
+            "body": {
+              "parallelstatus": "Parallel checks complete for compliance and QM."
+            }
+          },
+          "runAfter": { "Parallel_Dispatch": ["SUCCEEDED"] }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

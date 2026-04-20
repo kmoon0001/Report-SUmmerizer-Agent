@@ -1,0 +1,11 @@
+<botcomponent schemaname="CR917_AGENTU92BPC.TOPIC.ONERROR">
+  <componenttype>9</componenttype>
+  <description>This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.</description>
+  <iscustomizable>0</iscustomizable>
+  <name>OnError</name>
+  <parentbotid>
+    <schemaname>cr917_agentu92bPc</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

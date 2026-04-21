@@ -165,56 +165,7 @@ beginDialog:
           id: sendActivity_EKjGkP
           activity: "I'm sorry, I didn't recognize that document type. Please choose from: Daily Note, Progress Note, Evaluation Note, Discharge Note, or Recertification Note."
 
-    - kind: Question
-      id: Question_ctGpzW
-      variable: Topic.discipline
-      prompt: Which therapy discipline do you need documentation for?
-      entity:
-        kind: EmbeddedEntity
-        definition:
-          kind: ClosedListEntity
-          optionSetName: GenerateNoteOrchestration_DisciplineOptions
-          items:
-            - id: PT
-              displayName: PT (Physical Therapy)
 
-            - id: OT
-              displayName: OT (Occupational Therapy)
-
-            - id: ST
-              displayName: ST (Speech Therapy)
-
-    - kind: Question
-      id: Question_PRS9Yk
-      variable: Topic.noteType
-      prompt: Which note type do you need?
-      entity:
-        kind: EmbeddedEntity
-        definition:
-          kind: ClosedListEntity
-          optionSetName: GenerateNoteOrchestration_NoteTypeOptions
-          items:
-            - id: DailyNote
-              displayName: Daily Note
-
-            - id: ProgressNote
-              displayName: Progress Note
-
-            - id: EvaluationAssessment
-              displayName: Evaluation/Assessment
-
-            - id: Recertification
-              displayName: Recertification
-
-            - id: DischargeSummary
-              displayName: Discharge Summary
-
-            - id: NursingHandoff
-              displayName: Nursing Handoff
-
-    - kind: SendActivity
-      id: SendActivity_X5eRQO
-      activity: Got it! Routing you to the right workflow for {Topic.discipline} {Topic.noteType}. Please follow the prompts.
 
 inputType: {}
 outputType: {}

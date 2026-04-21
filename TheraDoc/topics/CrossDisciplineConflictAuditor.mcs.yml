@@ -231,35 +231,9 @@ beginDialog:
       id: beginDialog_conflictAnalysis
       input:
         binding:
-          text: =Concatenate(
-            "### CROSS-DISCIPLINE CONFLICT AUDIT REQUEST ###\n",
-            "Patient: ", Global.MPC_PatientName, "\n",
-            "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n\n",
-            "PT SCORES:\n",
-            "- Bed Mobility: ", If(Topic.PTActive, Topic.PTBedMobility, "Not Active"), "\n",
-            "- Transfers: ", If(Topic.PTActive, Topic.PTTransfers, "Not Active"), "\n",
-            "- Gait: ", If(Topic.PTActive, Topic.PTGait, "Not Active"), "\n",
-            "- Section GG Mobility: ", If(Topic.PTActive, Topic.PTSectionGG, "Not Active"), "\n\n",
-            "OT SCORES:\n",
-            "- Dressing: ", If(Topic.OTActive, Topic.OTDressing, "Not Active"), "\n",
-            "- Bathing: ", If(Topic.OTActive, Topic.OTBathing, "Not Active"), "\n",
-            "- Transfers: ", If(Topic.OTActive, Topic.OTTransfers, "Not Active"), "\n",
-            "- Section GG Self-Care: ", If(Topic.OTActive, Topic.OTSectionGG, "Not Active"), "\n\n",
-            "SLP SCORES:\n",
-            "- Cognition: ", If(Topic.SLPActive, Topic.SLPCognition, "Not Active"), "\n",
-            "- Diet Level (IDDSI): ", If(Topic.SLPActive, Topic.SLPDietLevel, "Not Active"), "\n",
-            "- Swallowing Status: ", If(Topic.SLPActive, Topic.SLPSwallowing, "Not Active"), "\n\n",
-            "AUDIT INSTRUCTIONS:\n",
-            "Perform a 7-Layer forensic conflict analysis:\n",
-            "LAYER 1: TRANSFER LEVEL CONFLICT  Does PT and OT agree on assist level for transfers?\n",
-            "LAYER 2: COGNITION vs FUNCTION CONFLICT  Does SLP cognition status conflict with PT/OT independence levels?\n",
-            "LAYER 3: SECTION GG CROSS-DISCIPLINE ALIGNMENT  Do PT and OT Section GG scores align with expected functional trajectory?\n",
-            "LAYER 4: DIET SAFETY vs ACTIVITY LEVEL  Is the patient's diet level consistent with their active participation in PT/OT?\n",
-            "LAYER 5: MEDICAL NECESSITY CONSISTENCY  Do all disciplines agree that skilled care is medically necessary?\n",
-            "LAYER 6: AUDIT RISK SCORE  Rate the overall cross-discipline conflict risk 0-100%.\n",
-            "LAYER 7: IDT RESOLUTION PLAN  Provide 3 specific talking points for the next IDT meeting to resolve each conflict.\n",
-            "Format each layer clearly. Flag HIGH RISK items in CAPS. Ground findings in CMS MDS 3.0 and Chapter 15."
-          )
+          text: |-
+            =Concatenate("### CROSS-DISCIPLINE CONFLICT AUDIT REQUEST ###\n", "Patient: ", Global.MPC_PatientName, "\n", "Primary Diagnosis: ", Global.MPC_PrimaryDiagnosis, "\n\n", "PT SCORES:\n", "- Bed Mobility: ", If(Topic.PTActive, Topic.PTBedMobility, "Not Active"), "\n", "- Transfers: ", If(Topic.PTActive, Topic.PTTransfers, "Not Active"), "\n", "- Gait: ", If(Topic.PTActive, Topic.PTGait, "Not Active"), "\n", "- Section GG Mobility: ", If(Topic.PTActive, Topic.PTSectionGG, "Not Active"), "\n\n", "OT SCORES:\n", "- Dressing: ", If(Topic.OTActive, Topic.OTDressing, "Not Active"), "\n", "- Bathing: ", If(Topic.OTActive, Topic.OTBathing, "Not Active"), "\n", "- Transfers: ", If(Topic.OTActive, Topic.OTTransfers, "Not Active"), "\n", "- Section GG Self-Care: ", If(Topic.OTActive, Topic.OTSectionGG, "Not Active"), "\n\n", "SLP SCORES:\n", "- Cognition: ", If(Topic.SLPActive, Topic.SLPCognition, "Not Active"), "\n", "- Diet Level (IDDSI): ", If(Topic.SLPActive, Topic.SLPDietLevel, "Not Active"), "\n", "- Swallowing Status: ", If(Topic.SLPActive, Topic.SLPSwallowing, "Not Active"), "\n\n", "AUDIT INSTRUCTIONS:\n", "Perform a 7-Layer forensic conflict analysis:\n", "LAYER 1: TRANSFER LEVEL CONFLICT  Does PT and OT agree on assist level for transfers?\n", "LAYER 2: COGNITION vs FUNCTION CONFLICT  Does SLP cognition status conflict with PT/OT independence levels?\n", "LAYER 3: SECTION GG CROSS-DISCIPLINE ALIGNMENT  Do PT and OT Section GG scores align with expected functional trajectory?\n", "LAYER 4: DIET SAFETY vs ACTIVITY LEVEL  Is the patient's diet level consistent with their active participation in PT/OT?\n", "LAYER 5: MEDICAL NECESSITY CONSISTENCY  Do all disciplines agree that skilled care is medically necessary?\n", "LAYER 6: AUDIT RISK SCORE  Rate the overall cross-discipline conflict risk 0-100%.\n", "LAYER 7: IDT RESOLUTION PLAN  Provide 3 specific talking points for the next IDT meeting to resolve each conflict.\n", "Format each layer clearly. Flag HIGH RISK items in CAPS. Ground findings in CMS MDS 3.0 and Chapter 15.")
+
       dialog: pcca_agent.action.TheraDoc-AuditNote
       output:
         binding:

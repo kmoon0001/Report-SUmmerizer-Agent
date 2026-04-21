@@ -2,7 +2,7 @@ mcs.metadata:
   componentName: TheraDoc - CrossAgent Audit Log
 kind: TaskDialog
 modelDisplayName: TheraDoc - CrossAgent Audit Log
-modeldescription: Records TheraDoc handoffs to the Command Center audit trail. Aligns with Microsoft Learn "Ironclad" auditing standards.
+modeldescription: Records TheraDoc handoffs to the Command Center audit trail. Aligns with Microsoft Learn "Ironclad" auditing standards (lowercase snake_case telemetry).
 outputs:
   - propertyName: sessionid
   - propertyName: auditstatus
@@ -12,16 +12,16 @@ action:
   flowId: b8c9d0e1-f2a3-4567-bcde-890123456789
   inputs:
     binding:
-      text: ="TheraDoc"
-      text_1: ="SNF-Agent-Command-Center"
-      text_2: Topic.AuditMissionType
-      text_3: Topic.AuditUserRole
-      text_4: Topic.AuditFacilityContext
-      text_5: System.Conversation.Id
-      text_6: Topic.AuditInputHash
-      text_7: Topic.AuditOutputHash
-      text_8: Topic.AuditTimestampIn
-      text_9: Topic.AuditTimestampOut
+      source_agent: ="TheraDoc"
+      destination_agent: ="SNF-Agent-Command-Center"
+      mission_type: Topic.AuditMissionType
+      user_role: Topic.AuditUserRole
+      facility_context: Topic.AuditFacilityContext
+      run_id: System.Conversation.Id
+      input_hash: Topic.AuditInputHash
+      output_hash: Topic.AuditOutputHash
+      timestamp_in: Topic.AuditTimestampIn
+      timestamp_out: Topic.AuditTimestampOut
   inputMode: Prompt
 
 outputMode: All

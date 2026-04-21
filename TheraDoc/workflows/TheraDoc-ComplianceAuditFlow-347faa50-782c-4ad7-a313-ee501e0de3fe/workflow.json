@@ -75,10 +75,10 @@
           "inputs": {
             "parameters": {
               "entityName": "cr917_snftelemetrylogs",
-              "item/pcca_AgentID": "TheraDoc",
-              "item/pcca_Operation": "ComplianceAudit",
-              "item/pcca_Latencyms": 0,
-              "item/pcca_ErrorCode": "0"
+              "item/pcca_agent_id": "TheraDoc",
+              "item/pcca_operation": "ComplianceAudit",
+              "item/pcca_latency_ms": 0,
+              "item/pcca_error_code": "0"
             },
             "host": {
               "apiId": "providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",

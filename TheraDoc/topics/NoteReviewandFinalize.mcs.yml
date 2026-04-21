@@ -16,50 +16,59 @@ beginDialog:
     - confirm final version of notes
     - look at my draft notes
   actions:
-  - kind: SetVariable
-    id: setVariable_Sw8qzw
-    variable: Global.GeneratedNote
-    value: '""'
-  - kind: SendActivity
-    id: sendActivity_qST4U2
-    activity: 'Here is your generated note:
+    - kind: InvokeAction
+      id: invoke_auditLogAtStart
+      action: pcca_agent.action.TheraDoc-CrossAgentAuditLog
+      input:
+        AuditMissionType: ="NoteReviewAndFinalize"
+        AuditTimestampIn: Text(Now(), DateTimeFormat.UTC)
 
-      {Global.GeneratedNote}'
-  - kind: Question
-    id: Question_y1pJiK
-    variable: Topic.NoteApproval
-    prompt: Does this note look good?
-    entity:
-      kind: EmbeddedEntity
-      definition:
-        kind: ClosedListEntity
-        optionSetName: NoteApprovalOptions
-        items:
-        - id: finalize
-          displayName: Finalize note
-        - id: revise
-          displayName: Revise note
-  - kind: ConditionGroup
-    id: ConditionGroup_5r7qUy
-    conditions:
-    - id: ConditionItem_ab4zXy
-      condition: =Topic.NoteApproval = NoteApprovalOptions.finalize
-      actions:
-      - kind: SendActivity
-        id: SendActivity_ygi2nc
-        activity: Success! The note is finalized and ready to copy and use.
-    elseActions:
+
+    - kind: SetVariable
+      id: setVariable_Sw8qzw
+      variable: Global.GeneratedNote
+      value: '""'
+    - kind: SendActivity
+      id: sendActivity_qST4U2
+      activity: 'Here is your generated note:
+
+        {Global.GeneratedNote}'
     - kind: Question
-      id: Question_HbqAYM
-      variable: Topic.NoteRevisionDetails
-      prompt: What specific changes do you need?
-      entity: StringPrebuiltEntity
-    - kind: SendActivity
-      id: SendActivity_01yfXp
-      activity: Please describe your changes. The note will be regenerated.
-    - kind: SendActivity
-      id: SendActivity_TyWjMV
-      activity: Redirecting to end topic so the calling topic can handle regeneration.
+      id: Question_y1pJiK
+      variable: Topic.NoteApproval
+      prompt: Does this note look good?
+      entity:
+        kind: EmbeddedEntity
+        definition:
+          kind: ClosedListEntity
+          optionSetName: NoteApprovalOptions
+          items:
+          - id: finalize
+            displayName: Finalize note
+          - id: revise
+            displayName: Revise note
+    - kind: ConditionGroup
+      id: ConditionGroup_5r7qUy
+      conditions:
+      - id: ConditionItem_ab4zXy
+        condition: =Topic.NoteApproval = NoteApprovalOptions.finalize
+        actions:
+        - kind: SendActivity
+          id: SendActivity_ygi2nc
+          activity: Success! The note is finalized and ready to copy and use.
+      elseActions:
+      - kind: Question
+        id: Question_HbqAYM
+        variable: Topic.NoteRevisionDetails
+        prompt: What specific changes do you need?
+        entity: StringPrebuiltEntity
+      - kind: SendActivity
+        id: sendActivity_01yfXp
+        activity: Please describe your changes. The note will be regenerated.
+      - kind: SendActivity
+        id: sendActivity_TyWjMV
+        activity: Redirecting to end topic so the calling topic can handle regeneration.
+
 inputType: {}
 outputType: {}
 

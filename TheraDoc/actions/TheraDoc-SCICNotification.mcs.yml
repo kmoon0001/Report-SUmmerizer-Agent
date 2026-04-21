@@ -4,7 +4,8 @@ kind: TaskDialog
 modelDisplayName: TheraDoc-SCICNotification
 modeldescription: Elite clinical intelligence module specialized in [TheraDoc-SCICNotification]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards.
 outputs:
-  - propertyName: result
+  - propertyName: notificationstatus
+  - propertyName: scictrackingid
 action:
   kind: InvokeFlowTaskAction
   flowId: d4e5f6a7-b8c9-0123-defa-456789012345

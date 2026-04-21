@@ -9,10 +9,11 @@ beginDialog:
   actions:
     - kind: InvokeAction
       id: invoke_auditLogOnError
-      action: pcca_agent.action.CrossAgentAuditLog
+      action: pcca_agent.action.TheraDoc-CrossAgentAuditLog
       input:
         AuditMissionType: ="ErrorEscalation"
         AuditTimestampIn: Text(Now(), DateTimeFormat.UTC)
+
 
     - kind: SendActivity
       id: sendMessage_error

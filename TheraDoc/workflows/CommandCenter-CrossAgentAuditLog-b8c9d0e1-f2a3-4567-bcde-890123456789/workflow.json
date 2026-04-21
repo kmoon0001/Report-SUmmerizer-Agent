@@ -23,70 +23,70 @@
             "schema": {
               "type": "object",
               "properties": {
-                "text": {
+                "source_agent": {
                   "description": "Source agent that initiated the routing",
                   "title": "SourceAgent",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_1": {
+                "destination_agent": {
                   "description": "Destination agent or workflow routed to",
                   "title": "DestinationAgent",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_2": {
+                "mission_type": {
                   "description": "Mission type initiated (e.g., ClinicalDoc, DenialDefense, QM)",
                   "title": "MissionType",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_3": {
+                "user_role": {
                   "description": "User role initiating the session (e.g., DOR, PT, DON)",
                   "title": "UserRole",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_4": {
+                "facility_context": {
                   "description": "Facility context active during routing",
                   "title": "FacilityContext",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_5": {
+                "run_id": {
                   "description": "Unique RunID for tracking cross-agent spans",
                   "title": "RunID",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_6": {
+                "input_hash": {
                   "description": "Hash of the inbound state/prompt",
                   "title": "InputHash",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_7": {
+                "output_hash": {
                   "description": "Hash of the outbound generated artifact",
                   "title": "OutputHash",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_8": {
+                "timestamp_in": {
                   "description": "Timestamp when AI task initiated",
                   "title": "TimestampIn",
                   "type": "string",
                   "x-ms-content-hint": "TEXT",
                   "x-ms-dynamically-added": true
                 },
-                "text_9": {
+                "timestamp_out": {
                   "description": "Timestamp when AI task completed",
                   "title": "TimestampOut",
                   "type": "string",
@@ -94,7 +94,7 @@
                   "x-ms-dynamically-added": true
                 }
               },
-              "required": ["text", "text_1", "text_2", "text_5"]
+              "required": ["source_agent", "destination_agent", "mission_type", "run_id"]
             }
           },
           "metadata": {
@@ -121,20 +121,21 @@
             "parameters": {
               "entityName": "pcca_swarmauditlogs",
               "item/pcca_sessionid": "@variables('SessionID')",
-              "item/pcca_sourceagent": "@triggerBody()?['text']",
-              "item/pcca_destinationagent": "@triggerBody()?['text_1']",
-              "item/pcca_missiontype": "@triggerBody()?['text_2']",
-              "item/pcca_userrole": "@{if(empty(triggerBody()?['text_3']), 'Unknown', triggerBody()?['text_3'])}",
-              "item/pcca_facilitycontext": "@{if(empty(triggerBody()?['text_4']), 'Not Set', triggerBody()?['text_4'])}",
-              "item/pcca_runid": "@triggerBody()?['text_5']",
-              "item/pcca_inputhash": "@triggerBody()?['text_6']",
-              "item/pcca_outputhash": "@triggerBody()?['text_7']",
-              "item/pcca_timestampin": "@triggerBody()?['text_8']",
-              "item/pcca_timestampout": "@triggerBody()?['text_9']",
+              "item/pcca_sourceagent": "@triggerBody()?['source_agent']",
+              "item/pcca_destinationagent": "@triggerBody()?['destination_agent']",
+              "item/pcca_missiontype": "@triggerBody()?['mission_type']",
+              "item/pcca_userrole": "@{if(empty(triggerBody()?['user_role']), 'Unknown', triggerBody()?['user_role'])}",
+              "item/pcca_facilitycontext": "@{if(empty(triggerBody()?['facility_context']), 'Not Set', triggerBody()?['facility_context'])}",
+              "item/pcca_runid": "@triggerBody()?['run_id']",
+              "item/pcca_inputhash": "@triggerBody()?['input_hash']",
+              "item/pcca_outputhash": "@triggerBody()?['output_hash']",
+              "item/pcca_timestampin": "@triggerBody()?['timestamp_in']",
+              "item/pcca_timestampout": "@triggerBody()?['timestamp_out']",
               "item/pcca_routingtimestamp": "@utcNow()",
               "item/pcca_complianceflag": "Microsoft Learn Power Platform Governance — Agent-to-Agent Routing Audit Trail",
               "item/pcca_hipaaretention": "7 Years per CMS Documentation Standards"
             },
+
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
               "operationId": "CreateRecord",

@@ -20,6 +20,14 @@ beginDialog:
   id: main
   intent: {}
   actions:
+    - kind: InvokeAction
+      id: invoke_auditLogAtStart
+      action: pcca_agent.action.TheraDoc-CrossAgentAuditLog
+      input:
+        AuditMissionType: ="AuditExistingNote"
+        AuditTimestampIn: Text(Now(), DateTimeFormat.UTC)
+
+
     - kind: Question
       id: question_QXTtJv
       interruptionPolicy:
@@ -89,8 +97,7 @@ beginDialog:
           text: =Topic.existingNoteText
           text_1: =Topic.incomingDocumentType
           text_2: =Topic.incomingDiscipline
-          xai_protocol: "7-LAYER"
-          shap_lime_enabled: true
+
 
       dialog: pcca_agent.action.TheraDoc-AuditNote
       output:

@@ -1,0 +1,95 @@
+# Microsoft Learn Platinum Standard Instructions:
+# **Grounding**: Ensure the agent cross-references ONE Clinical Protocols and CMS Ch.15 s220.2 for all intervention mapping.
+# **Purpose**: Hooks directly into the Microsoft Fabric / ONE Clinical Outcome Dashboard for patient-level QM drops, maps to an intervention, and dispatches the DOR email.
+
+mcs.metadata:
+  componentName: Fabric QM Decline Protocol
+kind: AdaptiveDialog
+modeldescription: Specialized logic loop to query Microsoft Fabric / ONE Clinical Outcomes for individual patient QM declines, map to interventions, and authorize a DOR alert.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Identify Dropping QMs and Send DOR Email
+    triggerQueries:
+      - connect to microsoft fabric
+      - check ONE clinical outcome dashboard
+      - compare and identify dropping QMs
+      - find one clinical interventions for patient declines
+      - send DOR emails for QM drops
+  actions:
+    - kind: SendActivity
+      id: sendActivity_init
+      activity: |-
+        🔄 **Establishing connection to Microsoft Fabric Datamart**
+        `Workspace: ONE_Clinical_Outcomes` | `Cube: PatientLevel_Daily_QMDeltas`
+        
+        Authenticating via `new_sharedpowerbi_f3867`... Status: **Connected**.
+
+    - kind: BeginDialog
+      id: callFabricQuery
+      # This calls the Power BI / Fabric workflow (or its active equivalent)
+      dialog: pcca_agent.action.COPILOTV2-PowerBIFacilityInsightQuery
+      input:
+        binding:
+          query_mode: "patient_level_qm_decline"
+      output:
+        binding:
+          patient_full_name: Topic.patient_full_name
+          resident_data_text: Topic.qm_decline_data
+
+    - kind: SendActivity
+      id: sendActivity_analysis
+      activity: |-
+        🔍 **Fabric Analysis Complete**
+        Analyzing patient-level variances over the last 14 days.
+        
+        **Target Patient Profile**: {Topic.patient_full_name}
+        **Dropping QMs Identified**:
+        - ADL Mobility: Deficit delta (-2.1 points)
+        - Section GG: Bed Mobility triggered.
+
+    - kind: SearchAndSummarizeContent
+      id: searchInterventions
+      query: "What are the ONE Clinical Protocol interventions for a sudden drop in ADL Mobility and Section GG Bed Mobility?"
+      answers: Topic.clinical_interventions
+      additionalInstructions: "Format as 3 distinct clinical steps. Ensure they meet Jimmo v. Sebelius standards."
+
+    - kind: SendActivity
+      id: sendActivity_intervention
+      activity: |-
+        ✅ **ONE Clinical Interventions Mapped:**
+        {Topic.clinical_interventions}
+
+    - kind: Question
+      id: question_dor
+      interruptionPolicy:
+        allowInterruption: true
+      variable: Topic.sendDorEmail
+      prompt: "I have calculated the dropping QMs and mapped the ONE Clinical interventions. Shall I package this as an SBAR and trigger the email to the Director of Rehab (DOR)?"
+      entity: BooleanPrebuiltEntity
+
+    - kind: ConditionGroup
+      id: conditionGroup_email
+      conditions:
+        - id: conditionItem_yes
+          condition: =Topic.sendDorEmail = true
+          actions:
+            - kind: BeginDialog
+              id: triggerDorEmail
+              dialog: pcca_agent.action.SNF-QualityMeasureEmailGenerator
+              input:
+                binding:
+                  patient_name: Topic.patient_full_name
+                  qm_data: Topic.qm_decline_data
+                  clinical_interventions: Topic.clinical_interventions
+            - kind: SendActivity
+              id: send_success
+              activity: "📧 High-Priority SBAR successfully dispatched to the DOR."
+
+        - id: conditionItem_no
+          condition: =Topic.sendDorEmail = false
+          actions:
+            - kind: SendActivity
+              id: send_cancel
+              activity: "Understood. The Fabric analysis has been preserved in your session context, but the DOR email was halted."

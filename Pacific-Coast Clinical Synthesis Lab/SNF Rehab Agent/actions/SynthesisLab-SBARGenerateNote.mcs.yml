@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: SynthesisLab-SBARGenerateNote
+kind: TaskDialog
+modelDisplayName: SynthesisLab-SBARGenerateNote
+modeldescription: Elite clinical Synthesis Lab module specialized in [SynthesisLab-SBARGenerateNote].
+outputs:
+  - propertyName: result
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 11111111-2222-3333-4444-555555555555
+  inputs:
+    binding:
+      text: Topic.requestText
+  inputMode: Prompt
+outputMode: All

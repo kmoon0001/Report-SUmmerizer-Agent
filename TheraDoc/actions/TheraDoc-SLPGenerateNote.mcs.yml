@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: TheraDoc-SLPGenerateNote
+kind: TaskDialog
+modelDisplayName: TheraDoc-SLPGenerateNote
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-SLPGenerateNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards.
+outputs:
+  - propertyName: result
+action:
+  kind: InvokeFlowTaskAction
+  flowId: b2c3d4e5-f6a7-8901-bcde-f23456789012
+  inputs:
+    binding:
+      text: Topic.requestText
+  inputMode: Prompt
+outputMode: All

@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: TheraDoc-EHRDocumentSubmit
+kind: TaskDialog
+modelDisplayName: TheraDoc-EHRDocumentSubmit
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-EHRDocumentSubmit]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards.
+outputs:
+  - propertyName: result
+action:
+  kind: InvokeFlowTaskAction
+  flowId: c3d4e5f6-a7b8-9012-cdef-345678901234
+  inputs:
+    binding:
+      text: Topic.requestText
+  inputMode: Prompt
+outputMode: All

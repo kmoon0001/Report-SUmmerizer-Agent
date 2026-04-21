@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: TheraDoc-OTGenerateNote
+kind: TaskDialog
+modelDisplayName: TheraDoc-OTGenerateNote
+modeldescription: Elite clinical intelligence module specialized in [TheraDoc-OTGenerateNote]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards.
+outputs:
+  - propertyName: result
+action:
+  kind: InvokeFlowTaskAction
+  flowId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+  inputs:
+    binding:
+      text: Topic.requestText
+  inputMode: Prompt
+outputMode: All

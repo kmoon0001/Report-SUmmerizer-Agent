@@ -1,0 +1,15 @@
+mcs.metadata:
+  componentName: SynthesisLab-EmailSBARReport
+kind: TaskDialog
+modelDisplayName: SynthesisLab-EmailSBARReport
+modeldescription: Elite clinical Synthesis Lab module specialized in [SynthesisLab-EmailSBARReport].
+outputs:
+  - propertyName: result
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 66666666-7777-8888-9999-000000000000
+  inputs:
+    binding:
+      text: Topic.requestText
+  inputMode: Prompt
+outputMode: All

@@ -1,0 +1,71 @@
+mcs.metadata:
+  componentName: COPILOTV2-PowerBIFacilityInsightQuery
+kind: AutomatedFlowAction
+modelDisplayName: COPILOT V2 - Power BI Facility Insight Query
+modeldescription: "Queries a configured Power BI semantic model for resident-level QM data and returns a constrained payload for Copilot Studio analysis."
+flowId: "868e2c74-ed27-f111-8341-000d3a3363af"
+inputs:
+  facility_hint:
+    type: String
+  quarter_hint:
+    type: String
+  resident_reporting_period:
+    type: String
+  payer_hint:
+    type: String
+  query_mode:
+    type: String
+  requested_run_id:
+    type: String
+
+outputs:
+  facility_submission_status:
+    type: String
+  facility_data_text:
+    type: String
+  power_bi_data_source:
+    type: String
+  resident_submission_status:
+    type: String
+  resident_data_text:
+    type: String
+  last_refresh_utc:
+    type: String
+  semantic_model_name:
+    type: String
+  rls_mode:
+    type: String
+  facility:
+    type: String
+  patient_full_name:
+    type: String
+  patient_id:
+    type: String
+  adl_score:
+    type: String
+  braden:
+    type: String
+  bims:
+    type: String
+  falls_risk:
+    type: String
+  total_falls:
+    type: String
+  total_injuries:
+    type: String
+  new_skin_injury:
+    type: String
+  total_behaviors:
+    type: String
+  antipsychotic:
+    type: String
+  had_fall_30_days:
+    type: String
+  had_injury_30_days:
+    type: String
+  had_skin_injury_30_days:
+    type: String
+  had_behavior_30_days:
+    type: String
+  had_antipsychotic_30_days:
+    type: String

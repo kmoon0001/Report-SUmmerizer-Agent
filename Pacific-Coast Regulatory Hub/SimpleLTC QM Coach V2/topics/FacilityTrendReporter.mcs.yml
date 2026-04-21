@@ -130,11 +130,9 @@ beginDialog:
         kind: StringPrebuiltEntity
         sensitivityLevel: None
 
-    - kind: BeginDialog
-      id: beginDialog_trendAnalysis
-      input:
-        binding:
-          text: =Concatenate(
+    - kind: SearchAndSummarizeContent
+      id: generate_trendAnalysis
+      query: =Concatenate(
             "### LONGITUDINAL QM TREND ANALYSIS  PLATINUM STANDARD ###\n\n",
             "Facility: ", Topic.TrendFacility, "\n",
             "Periods Analyzed: ", Topic.TrendPeriodCount, "\n",
@@ -156,10 +154,7 @@ beginDialog:
             "   - 30/60/90 day milestones\n",
             "Ground analysis in CMS Five-Star Quality Rating System, QAPI requirements (42 CFR 483.75), and SimpleLTC benchmark methodology."
           )
-      dialog: pcca_agent.action.TheraDoc-AuditNote
-      output:
-        binding:
-          auditresult: Topic.TrendOutput
+      answers: Topic.TrendOutput
 
     - kind: SendActivity
       id: sendActivity_trendOutput

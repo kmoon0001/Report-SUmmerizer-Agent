@@ -1,0 +1,131 @@
+/**
+ * OT Advanced Clinical Reasoning & Case Management Tests
+ */
+
+import { describe, it, expect } from "vitest";
+import {
+  getOTClinicalCaseById,
+  getAllOTClinicalCases,
+  getOTClinicalCasesByCategory,
+  searchOTClinicalCases,
+  getOTClinicalCasesByEvidenceLevel,
+  getRedFlags,
+  validateClinicalReasoning,
+} from "../../data/ot-advanced-clinical-reasoning";
+
+describe("OT Advanced Clinical Reasoning & Case Management", () => {
+  it("should have 5 clinical cases", () => {
+    expect(getAllOTClinicalCases().length).toBe(5);
+  });
+
+  it("should return case by ID", () => {
+    const caseData = getOTClinicalCaseById("ot-cr-001");
+    expect(caseData?.name).toContain("Stroke");
+  });
+
+  it("should return undefined for invalid ID", () => {
+    expect(getOTClinicalCaseById("invalid")).toBeUndefined();
+  });
+
+  it("should filter by category", () => {
+    const cases = getOTClinicalCasesByCategory("Neurological");
+    expect(cases.length).toBeGreaterThan(0);
+  });
+
+  it("should search cases", () => {
+    const results = searchOTClinicalCases("Stroke");
+    expect(results.length).toBeGreaterThan(0);
+  });
+
+  it("should filter by evidence level", () => {
+    const cases = getOTClinicalCasesByEvidenceLevel(1);
+    expect(cases.length).toBeGreaterThan(0);
+  });
+
+  it("should return red flags", () => {
+    const flags = getRedFlags();
+    expect(Array.isArray(flags)).toBe(true);
+    expect(flags.length).toBeGreaterThan(0);
+  });
+
+  it("should validate clinical reasoning", () => {
+    const result = validateClinicalReasoning(
+      "ot-cr-001",
+      "Post-stroke motor recovery",
+    );
+    expect(result.valid).toBe(true);
+  });
+
+  it("should reject invalid reasoning", () => {
+    const result = validateClinicalReasoning("ot-cr-001", "Invalid reasoning");
+    expect(result.valid).toBe(false);
+  });
+
+  it("should have consistent data", () => {
+    const all = getAllOTClinicalCases();
+    all.forEach((c) => {
+      expect(getOTClinicalCaseById(c.id)).toEqual(c);
+    });
+  });
+
+  it("should handle errors gracefully", () => {
+    expect(() => {
+      getOTClinicalCaseById(null as any);
+      getAllOTClinicalCases();
+      getOTClinicalCasesByCategory("test");
+      searchOTClinicalCases("test");
+      getOTClinicalCasesByEvidenceLevel(1);
+      getRedFlags();
+      validateClinicalReasoning("test", "test");
+    }).not.toThrow();
+  });
+
+  it("should have all required properties", () => {
+    const all = getAllOTClinicalCases();
+    all.forEach((c) => {
+      expect(c.id).toBeDefined();
+      expect(c.name).toBeDefined();
+      expect(c.category).toBeDefined();
+      expect(c.description).toBeDefined();
+      expect(c.patientProfile).toBeDefined();
+      expect(c.clinicalPresentation).toBeDefined();
+      expect(c.assessmentStrategy).toBeDefined();
+      expect(c.differentialDiagnosis).toBeDefined();
+      expect(c.interventionPlan).toBeDefined();
+      expect(c.expectedOutcomes).toBeDefined();
+      expect(c.redFlags).toBeDefined();
+      expect(c.evidenceLevel).toBeDefined();
+      expect(c.source).toBeDefined();
+      expect(c.citation).toBeDefined();
+      expect(c.lastUpdated).toBeDefined();
+    });
+  });
+
+  it("should have valid evidence levels", () => {
+    const all = getAllOTClinicalCases();
+    all.forEach((c) => {
+      expect([1, 2, 3]).toContain(c.evidenceLevel);
+    });
+  });
+
+  it("should have non-empty arrays", () => {
+    const all = getAllOTClinicalCases();
+    all.forEach((c) => {
+      expect(c.patientProfile.length).toBeGreaterThan(0);
+      expect(c.clinicalPresentation.length).toBeGreaterThan(0);
+      expect(c.assessmentStrategy.length).toBeGreaterThan(0);
+      expect(c.differentialDiagnosis.length).toBeGreaterThan(0);
+      expect(c.interventionPlan.length).toBeGreaterThan(0);
+      expect(c.expectedOutcomes.length).toBeGreaterThan(0);
+      expect(c.redFlags.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("should have valid dates", () => {
+    const all = getAllOTClinicalCases();
+    all.forEach((c) => {
+      expect(c.lastUpdated instanceof Date).toBe(true);
+      expect(c.lastUpdated.getFullYear()).toBeGreaterThanOrEqual(2024);
+    });
+  });
+});

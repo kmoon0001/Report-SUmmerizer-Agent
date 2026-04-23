@@ -1,0 +1,43 @@
+# Slp Guidelines Adult Neuro Med
+
+- Verb Network Strengthening Treatment (VNeST)
+- Assess for concomitant apraxia of speech
+- McNeill Dysphagia Therapy Program (MDTP)
+- Expiratory Muscle Strength Training (EMST)
+- Effortful swallow and Mendehlson maneuver
+- Unstable medical status for oral intake
+- Monitor hydration and nutritional status
+- Assess cognitive status for safety
+- Metacognitive strategy training for executive function
+- Errorless learning and Spaced Retrieval for memory
+- Environmental modification and external aids
+- Monitor for fatigue and sensory overload
+- Rate control and pacing techniques
+- Breath support and coordination training
+- Speaker and listener communication strategies
+- Lee Silverman Voice Treatment (LSVT LOUD) for PD-related
+- Distinguish from aphasia and apraxia
+- Ensure functional impact of therapy
+- Memory books and visual aids
+- Monitor for sudden shifts in status (UTI, delirium)
+- Head and Neck Cancer (SLP Role)
+- Prophylactic swallowing exercises during CRT
+- Diet advancement based on fibrosis levels
+- Respiratory Muscle Strength Training (RMST)
+- Airway obstruction above the trach
+- Focus on quality of life and pleasure feeding
+- Advanced directives and ethical decision support
+- Family and caregiver education on disease progression
+- Patient autonomy and choice paramount
+- Ethical considerations of feeding tubes
+- Monitor for changing goals of care
+- Lee Silverman Voice Treatment (LSVT LOUD)
+- Expiratory Muscle Strength Training (EMST)
+- Targeting vocal intensity and sensory calibration
+- Compensatory rate and articulation strategies
+- Severe cognitive impairment for intensive protocol
+- Total vocal fold paralysis (bilateral)
+- Risk of rapid regression without maintenance
+- Visual scanning training for neglect
+- Inferencing and ambiguity resolution tasks
+- Monitor for left neglect (safety risk)

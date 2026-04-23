@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "generatedOn": "2026-04-23",
+  "lists": [
+    {
+      "name": "SLP_Patients",
+      "description": "Patient master record for SLP portal MVP.",
+      "recommendedIndexedColumns": ["PatientId", "Status", "PrimaryDiagnosis", "StartOfCare"],
+      "columns": [
+        { "name": "Title", "type": "Single line of text", "required": true, "notes": "Display label, usually patient pseudonym." },
+        { "name": "PatientId", "type": "Single line of text", "required": true, "enforceUniqueValues": true, "notes": "System UUID or external key." },
+        { "name": "DOB", "type": "Date and Time", "required": true, "notes": "Date only." },
+        { "name": "StartOfCare", "type": "Date and Time", "required": true, "notes": "Date only." },
+        { "name": "PrimaryDiagnosis", "type": "Single line of text", "required": true },
+        { "name": "Status", "type": "Choice", "required": true, "choices": ["Active", "Discharged"], "defaultValue": "Active" },
+        { "name": "GoalsJson", "type": "Multiple lines of text", "required": false, "notes": "Temporary normalized payload for MVP transition." },
+        { "name": "Discipline", "type": "Choice", "required": true, "choices": ["SLP", "PT", "OT"], "defaultValue": "SLP" },
+        { "name": "CreatedByUPN", "type": "Single line of text", "required": false },
+        { "name": "SourceSystem", "type": "Choice", "required": true, "choices": ["SLP-Portal", "PowerApps"], "defaultValue": "PowerApps" }
+      ]
+    },
+    {
+      "name": "SLP_SessionNotes",
+      "description": "Daily/progress/recert/discharge documentation.",
+      "recommendedIndexedColumns": ["PatientId", "NoteType", "NoteDate", "ReviewStatus"],
+      "columns": [
+        { "name": "Title", "type": "Single line of text", "required": true, "notes": "Human-readable note title." },
+        { "name": "NoteId", "type": "Single line of text", "required": true, "enforceUniqueValues": true },
+        { "name": "PatientId", "type": "Single line of text", "required": true, "notes": "Join key to SLP_Patients.PatientId." },
+        { "name": "NoteDate", "type": "Date and Time", "required": true, "notes": "Date only for clinical reporting." },
+        { "name": "NoteType", "type": "Choice", "required": true, "choices": ["Daily", "Progress", "Recertification", "Discharge"] },
+        { "name": "SessionNumber", "type": "Number", "required": false, "minimum": 0 },
+        { "name": "ContentJson", "type": "Multiple lines of text", "required": true, "notes": "Structured note payload." },
+        { "name": "PlainTextSummary", "type": "Multiple lines of text", "required": false },
+        { "name": "ReviewStatus", "type": "Choice", "required": true, "choices": ["Pending", "Approved", "Rejected"], "defaultValue": "Pending" },
+        { "name": "ReviewerUPN", "type": "Single line of text", "required": false },
+        { "name": "ReviewDate", "type": "Date and Time", "required": false, "notes": "Date and time." },
+        { "name": "ReviewComments", "type": "Multiple lines of text", "required": false },
+        { "name": "PHIFlag", "type": "Yes/No", "required": true, "defaultValue": true },
+        { "name": "AIGenerated", "type": "Yes/No", "required": true, "defaultValue": false }
+      ]
+    },
+    {
+      "name": "SLP_Goals",
+      "description": "Goal library by patient episode.",
+      "recommendedIndexedColumns": ["PatientId", "GoalStatus", "TargetDate", "Discipline"],
+      "columns": [
+        { "name": "Title", "type": "Single line of text", "required": true, "notes": "Goal short title." },
+        { "name": "GoalId", "type": "Single line of text", "required": true, "enforceUniqueValues": true },
+        { "name": "PatientId", "type": "Single line of text", "required": true },
+        { "name": "GoalText", "type": "Multiple lines of text", "required": true },
+        { "name": "GoalStatus", "type": "Choice", "required": true, "choices": ["Open", "OnTrack", "AtRisk", "Achieved", "Discontinued"], "defaultValue": "Open" },
+        { "name": "BaselineMeasure", "type": "Single line of text", "required": false },
+        { "name": "TargetMeasure", "type": "Single line of text", "required": false },
+        { "name": "TargetDate", "type": "Date and Time", "required": false, "notes": "Date only." },
+        { "name": "Discipline", "type": "Choice", "required": true, "choices": ["SLP", "PT", "OT"], "defaultValue": "SLP" },
+        { "name": "Priority", "type": "Choice", "required": true, "choices": ["Low", "Medium", "High"], "defaultValue": "Medium" }
+      ]
+    },
+    {
+      "name": "SLP_ReviewQueue",
+      "description": "Supervisor workflow queue and escalation tracking.",
+      "recommendedIndexedColumns": ["QueueStatus", "PatientId", "AssignedReviewerUPN", "DueDate"],
+      "columns": [
+        { "name": "Title", "type": "Single line of text", "required": true, "notes": "Queue item label." },
+        { "name": "QueueId", "type": "Single line of text", "required": true, "enforceUniqueValues": true },
+        { "name": "PatientId", "type": "Single line of text", "required": true },
+        { "name": "RelatedNoteId", "type": "Single line of text", "required": true },
+        { "name": "QueueStatus", "type": "Choice", "required": true, "choices": ["New", "InReview", "Approved", "Rejected", "Escalated"], "defaultValue": "New" },
+        { "name": "AssignedReviewerUPN", "type": "Single line of text", "required": false },
+        { "name": "DueDate", "type": "Date and Time", "required": false, "notes": "Date and time." },
+        { "name": "EscalationLevel", "type": "Choice", "required": true, "choices": ["None", "Level1", "Level2"], "defaultValue": "None" },
+        { "name": "WorkflowCorrelationId", "type": "Single line of text", "required": false, "notes": "Power Automate run correlation." },
+        { "name": "AuditTrailJson", "type": "Multiple lines of text", "required": false }
+      ]
+    }
+  ]
+}

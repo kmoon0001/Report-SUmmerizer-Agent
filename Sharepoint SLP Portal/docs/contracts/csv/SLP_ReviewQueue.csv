@@ -1,0 +1,11 @@
+﻿"ListName","ColumnName","Type","Required","EnforceUniqueValues","DefaultValue","Choices","Notes"
+"SLP_ReviewQueue","Title","Single line of text","True",,,"","Queue item label."
+"SLP_ReviewQueue","QueueId","Single line of text","True","True",,"",
+"SLP_ReviewQueue","PatientId","Single line of text","True",,,"",
+"SLP_ReviewQueue","RelatedNoteId","Single line of text","True",,,"",
+"SLP_ReviewQueue","QueueStatus","Choice","True",,"New","New|InReview|Approved|Rejected|Escalated",
+"SLP_ReviewQueue","AssignedReviewerUPN","Single line of text","False",,,"",
+"SLP_ReviewQueue","DueDate","Date and Time","False",,,"","Date and time."
+"SLP_ReviewQueue","EscalationLevel","Choice","True",,"None","None|Level1|Level2",
+"SLP_ReviewQueue","WorkflowCorrelationId","Single line of text","False",,,"","Power Automate run correlation."
+"SLP_ReviewQueue","AuditTrailJson","Multiple lines of text","False",,,"",

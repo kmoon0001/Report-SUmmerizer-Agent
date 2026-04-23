@@ -1,0 +1,82 @@
+import { test, expect } from '@playwright/test';
+
+test.describe.skip('Portal Verification', () => {
+  test('Portal loads without interruption', async ({ page }) => {
+    // Navigate to the portal
+    await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });
+    
+    // Wait for page to fully load
+    await page.waitForLoadState('domcontentloaded');
+    
+    // Check that we don't have a white screen
+    const body = await page.locator('body');
+    const bodyContent = await body.innerHTML();
+    
+    expect(bodyContent.length).toBeGreaterThan(100);
+    expect(bodyContent).not.toMatch(/^<body><\/body>$/);
+    
+    // Check for error boundary text (if error occurred)
+    const errorText = await page.locator('text=Portal Interrupted').isVisible().catch(() => false);
+    expect(errorText).toBe(false);
+    
+    // Check for main app content
+    const hasContent = await page.locator('[data-testid="app-root"], main, [role="main"]').isVisible().catch(() => false);
+    
+    // If no main content, check for any visible text
+    if (!hasContent) {
+      const visibleText = await page.locator('body').textContent();
+      expect(visibleText).toBeTruthy();
+      expect(visibleText?.length).toBeGreaterThan(10);
+    }
+    
+    // Check console for errors
+    const errors: string[] = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        errors.push(msg.text());
+      }
+    });
+    
+    // Wait a bit for any errors to appear
+    await page.waitForTimeout(2000);
+    
+    // Check for critical errors
+    const criticalErrors = errors.filter(e => 
+      e.includes('Cannot convert object to primitive value') ||
+      e.includes('Uncaught') ||
+      e.includes('TypeError')
+    );
+    
+    expect(criticalErrors.length).toBe(0);
+  });
+
+  test('Portal displays main UI elements', async ({ page }) => {
+    await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });
+    
+    // Wait for any React app to render
+    await page.waitForTimeout(3000);
+    
+    // Check that page has content
+    const pageContent = await page.content();
+    expect(pageContent.length).toBeGreaterThan(500);
+    
+    // Check for common UI elements
+    const hasButtons = pageContent.includes('<button') || pageContent.includes('button');
+    const hasText = pageContent.includes('Portal') || pageContent.includes('Clinical') || pageContent.includes('Therapy');
+    
+    expect(hasButtons || hasText).toBe(true);
+  });
+
+  test('Portal does not show error boundary', async ({ page }) => {
+    await page.goto('http://localhost:3000', { waitUntil: 'networkidle' });
+    
+    // Check for error boundary UI
+    const errorBoundary = await page.locator('text=Portal Interrupted').isVisible().catch(() => false);
+    const runtimeError = await page.locator('text=Runtime Trace').isVisible().catch(() => false);
+    const correlationId = await page.locator('text=Correlation ID').isVisible().catch(() => false);
+    
+    expect(errorBoundary).toBe(false);
+    expect(runtimeError).toBe(false);
+    expect(correlationId).toBe(false);
+  });
+});

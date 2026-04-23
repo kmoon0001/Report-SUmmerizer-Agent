@@ -1,0 +1,11 @@
+﻿"ListName","ColumnName","Type","Required","EnforceUniqueValues","DefaultValue","Choices","Notes"
+"SLP_Goals","Title","Single line of text","True",,,"","Goal short title."
+"SLP_Goals","GoalId","Single line of text","True","True",,"",
+"SLP_Goals","PatientId","Single line of text","True",,,"",
+"SLP_Goals","GoalText","Multiple lines of text","True",,,"",
+"SLP_Goals","GoalStatus","Choice","True",,"Open","Open|OnTrack|AtRisk|Achieved|Discontinued",
+"SLP_Goals","BaselineMeasure","Single line of text","False",,,"",
+"SLP_Goals","TargetMeasure","Single line of text","False",,,"",
+"SLP_Goals","TargetDate","Date and Time","False",,,"","Date only."
+"SLP_Goals","Discipline","Choice","True",,"SLP","SLP|PT|OT",
+"SLP_Goals","Priority","Choice","True",,"Medium","Low|Medium|High",

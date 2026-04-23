@@ -1,0 +1,49 @@
+# Slp Guidelines Pediatric Voice
+
+- Cycles Approach for phonological patterns
+- Complexity Approach for phonetic inventories
+- Maximal Oppositions and Multiple Oppositions
+- Metaphon therapy and auditory bombardment
+- Acute hearing loss without amplification
+- Monitor for middle ear infections affecting hearing
+- Assess impact on phonological awareness and literacy
+- Consider dialectal variations and cultural influence
+- Perspective taking and theory of mind tasks
+- Severe aggressive behaviors requiring behavioral specialist first
+- Differentiate from Autism Spectrum Disorder (ASD)
+- Monitor for social anxiety and isolation
+- Environmental barriers to social participation
+- Medical instability affecting primary needs
+- Assess for global developmental delay
+- Monitor hearing status closely (OAEs/ABRs)
+- Ensure cultural relevance of play/interaction models
+- Childhood Apraxia of Speech (CAS)
+- Dynamic Temporal and Tactile Cueing (DTTC)
+- Rapid Syllable Transition Training (ReST)
+- Intensive frequency of therapy (3-5 sessions/week)
+- Focus on motor planning over sound placement
+- Inconsistency of sounds alone (not indicate CAS)
+- Differentiate from Dysarthria and SSD
+- Risk of severe frustration and communication breakdown
+- AAC integration for functional needs
+- Monitor for bullying and social avoidance
+- Assess familial history and persistence risk
+- Vocal hygiene and behavioral modification
+- Vocal cord surgery recovery period (relative)
+- ENT clearance REQUIRED before initiating therapy
+- Assess impact of Reflux (LPR) and hydration
+- Monitor for muscle tension patterns (MTD)
+- Paradoxical Vocal Fold Motion (PVFM/VCD)
+- Respiratory retraining and diaphragmatic breathing
+- Biofeedback via ultrasound or endoscope
+- Ensure clear airway during rescue maneuvers
+- Risk of device abandonment without partner support
+- Monitor for changing needs in degenerative conditions
+- Hybrid models of care (Virtual + In-person)
+- Severe behavioral instability for remote model
+- Maintain privacy and security compliance
+- Ensure therapist licensing in patient location
+- Cultural and Linguistic Diversity (CLD)
+- Distinguish between language difference and disorder
+- Assess proficiency in L1 and L2
+- Monitor for cultural biases in test stimuli

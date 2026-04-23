@@ -1,0 +1,11 @@
+﻿"ListName","ColumnName","Type","Required","EnforceUniqueValues","DefaultValue","Choices","Notes"
+"SLP_Patients","Title","Single line of text","True",,,"","Display label, usually patient pseudonym."
+"SLP_Patients","PatientId","Single line of text","True","True",,"","System UUID or external key."
+"SLP_Patients","DOB","Date and Time","True",,,"","Date only."
+"SLP_Patients","StartOfCare","Date and Time","True",,,"","Date only."
+"SLP_Patients","PrimaryDiagnosis","Single line of text","True",,,"",
+"SLP_Patients","Status","Choice","True",,"Active","Active|Discharged",
+"SLP_Patients","GoalsJson","Multiple lines of text","False",,,"","Temporary normalized payload for MVP transition."
+"SLP_Patients","Discipline","Choice","True",,"SLP","SLP|PT|OT",
+"SLP_Patients","CreatedByUPN","Single line of text","False",,,"",
+"SLP_Patients","SourceSystem","Choice","True",,"PowerApps","SLP-Portal|PowerApps",

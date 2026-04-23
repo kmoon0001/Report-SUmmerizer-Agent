@@ -1,0 +1,15 @@
+﻿"ListName","ColumnName","Type","Required","EnforceUniqueValues","DefaultValue","Choices","Notes"
+"SLP_SessionNotes","Title","Single line of text","True",,,"","Human-readable note title."
+"SLP_SessionNotes","NoteId","Single line of text","True","True",,"",
+"SLP_SessionNotes","PatientId","Single line of text","True",,,"","Join key to SLP_Patients.PatientId."
+"SLP_SessionNotes","NoteDate","Date and Time","True",,,"","Date only for clinical reporting."
+"SLP_SessionNotes","NoteType","Choice","True",,,"Daily|Progress|Recertification|Discharge",
+"SLP_SessionNotes","SessionNumber","Number","False",,,"",
+"SLP_SessionNotes","ContentJson","Multiple lines of text","True",,,"","Structured note payload."
+"SLP_SessionNotes","PlainTextSummary","Multiple lines of text","False",,,"",
+"SLP_SessionNotes","ReviewStatus","Choice","True",,"Pending","Pending|Approved|Rejected",
+"SLP_SessionNotes","ReviewerUPN","Single line of text","False",,,"",
+"SLP_SessionNotes","ReviewDate","Date and Time","False",,,"","Date and time."
+"SLP_SessionNotes","ReviewComments","Multiple lines of text","False",,,"",
+"SLP_SessionNotes","PHIFlag","Yes/No","True",,"True","",
+"SLP_SessionNotes","AIGenerated","Yes/No","True",,"False","",

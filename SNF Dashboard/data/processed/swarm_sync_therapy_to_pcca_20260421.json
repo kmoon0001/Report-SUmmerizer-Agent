@@ -1,0 +1,110 @@
+﻿[
+    {
+        "Name":  "SNF Command Center Agent",
+        "Schema":  "snf_command_center_agent_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 16 components for copilot \u0027SNF Command Center Agent (Therapy Sync 2026-04-21)\u0027 with id f49430d2-e5e9-48fd-af0f-5f853a96c4af. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027SNF Command Center Agent (Therapy Sync 2026-04-21)\u0027 (f49430d2-e5e9-48fd-af0f-5f853a96c4af): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Compliance_Auditor",
+        "Schema":  "compliance_auditor_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 32 components for copilot \u0027Compliance_Auditor (Therapy Sync 2026-04-21)\u0027 with id 1a1615b7-de50-4e51-8e3a-5deded3c0a77. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Compliance_Auditor (Therapy Sync 2026-04-21)\u0027 (1a1615b7-de50-4e51-8e3a-5deded3c0a77): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Synthesis_Orchestrator",
+        "Schema":  "synthesis_orchestrator_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 13 components for copilot \u0027Synthesis_Orchestrator (Therapy Sync 2026-04-21)\u0027 with id 8a226e18-3d67-4995-915e-6e86d3b2c0d7. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Synthesis_Orchestrator (Therapy Sync 2026-04-21)\u0027 (8a226e18-3d67-4995-915e-6e86d3b2c0d7): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Trend_Analyzer",
+        "Schema":  "trend_analyzer_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Trend_Analyzer (Therapy Sync 2026-04-21)\u0027 with id d54be637-8d65-4883-ae9e-844567d9becd. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/d54be637-8d65-4883-ae9e-844567d9becd"
+    },
+    {
+        "Name":  "Rules_Engine_Medicare_Ch15",
+        "Schema":  "rules_engine_medicare_ch15_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 25 components for copilot \u0027Rules_Engine_Medicare_Ch15 (Therapy Sync 2026-04-21)\u0027 with id 83250a40-12a6-4cd3-b8f3-130c78d2d0be. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Rules_Engine_Medicare_Ch15 (Therapy Sync 2026-04-21)\u0027 (83250a40-12a6-4cd3-b8f3-130c78d2d0be): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Consensus_Engine",
+        "Schema":  "consensus_engine_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Consensus_Engine (Therapy Sync 2026-04-21)\u0027 with id 171ceea3-b819-4d19-913b-506bc5df249a. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: HTTP Status:BadRequest, ServiceRequestId: ea0a09ee-1321-49f7-80e5-1cd7064ea0ac [0x800608ad:ExportKeyAttributeInvalidPrefix] Export key attribute schemaname for component bot must start with a valid customization prefix.\n\n"
+    },
+    {
+        "Name":  "Escalation_Router",
+        "Schema":  "escalation_router_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Escalation_Router (Therapy Sync 2026-04-21)\u0027 with id 21f04d91-28cb-4dbd-9db3-e14624ecad6f. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Escalation_Router (Therapy Sync 2026-04-21)\u0027 (21f04d91-28cb-4dbd-9db3-e14624ecad6f): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Regulatory_Validator",
+        "Schema":  "regulatory_validator_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Regulatory_Validator (Therapy Sync 2026-04-21)\u0027 with id e06993e7-92c2-4817-9e45-35e4d8eff86d. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Regulatory_Validator (Therapy Sync 2026-04-21)\u0027 (e06993e7-92c2-4817-9e45-35e4d8eff86d): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Prior_Auth_Validator",
+        "Schema":  "prior_auth_validator_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Prior_Auth_Validator (Therapy Sync 2026-04-21)\u0027 with id 30dc7347-ad88-4f34-a3d3-273904545a96. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Prior_Auth_Validator (Therapy Sync 2026-04-21)\u0027 (30dc7347-ad88-4f34-a3d3-273904545a96): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Interdisciplinary_Coordinator",
+        "Schema":  "interdisciplinary_coordinator_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot \u0027Interdisciplinary_Coordinator (Therapy Sync 2026-04-21)\u0027 with id 4e5d201c-b09c-4bff-93bb-95d6bd705a5c. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Interdisciplinary_Coordinator (Therapy Sync 2026-04-21)\u0027 (4e5d201c-b09c-4bff-93bb-95d6bd705a5c): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "PT_Specialist",
+        "Schema":  "pt_specialist_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 27 components for copilot \u0027PT_Specialist (Therapy Sync 2026-04-21)\u0027 with id 94c30850-2e2c-4fc1-869f-25e6f78d399a. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/94c30850-2e2c-4fc1-869f-25e6f78d399a"
+    },
+    {
+        "Name":  "OT_Specialist",
+        "Schema":  "ot_specialist_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 36 components for copilot \u0027OT_Specialist (Therapy Sync 2026-04-21)\u0027 with id d00a2a35-2a38-4081-9400-a25f67ed286f. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/d00a2a35-2a38-4081-9400-a25f67ed286f"
+    },
+    {
+        "Name":  "SLP_Specialist",
+        "Schema":  "slp_specialist_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 28 components for copilot \u0027SLP_Specialist (Therapy Sync 2026-04-21)\u0027 with id 3bb283a1-8cf2-47fc-8c0f-663b15ec669c. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/3bb283a1-8cf2-47fc-8c0f-663b15ec669c"
+    },
+    {
+        "Name":  "Report_Generator",
+        "Schema":  "report_generator_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 11 components for copilot \u0027Report_Generator (Therapy Sync 2026-04-21)\u0027 with id 9e264bfb-8247-4831-b8ec-b26c40ad795e. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/9e264bfb-8247-4831-b8ec-b26c40ad795e"
+    },
+    {
+        "Name":  "Risk_Assessment_Agent",
+        "Schema":  "risk_assessment_agent_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 13 components for copilot \u0027Risk_Assessment_Agent (Therapy Sync 2026-04-21)\u0027 with id 953dd170-b8af-4ce8-83db-4a2c3bfbebc8. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Risk_Assessment_Agent (Therapy Sync 2026-04-21)\u0027 (953dd170-b8af-4ce8-83db-4a2c3bfbebc8): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Documentation_Processor",
+        "Schema":  "documentation_processor_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 24 components for copilot \u0027Documentation_Processor (Therapy Sync 2026-04-21)\u0027 with id 66cde272-55e8-461c-98dd-8ba1f11ee847. Primary language: 0, supported languages: \nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: Bot \u0027Documentation_Processor (Therapy Sync 2026-04-21)\u0027 (66cde272-55e8-461c-98dd-8ba1f11ee847): Bot name length greater than 42 characters\n\n"
+    },
+    {
+        "Name":  "Fact_Checker",
+        "Schema":  "fact_checker_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 13 components for copilot \u0027Fact_Checker (Therapy Sync 2026-04-21)\u0027 with id 081f1e05-90f5-48b2-928f-392270709b5e. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/081f1e05-90f5-48b2-928f-392270709b5e"
+    },
+    {
+        "Name":  "Coaching_Agent",
+        "Schema":  "coaching_agent_sync_20260421",
+        "Status":  "created",
+        "Details":  "Connected as 123713644@ensignservices.net\n\nLoaded 28 components for copilot \u0027Coaching_Agent (Therapy Sync 2026-04-21)\u0027 with id 9f4784fa-4a01-4167-b682-ef7e037430ec. Primary language: 0, supported languages: \n\nCopilot created successfully: https://web.powerva.microsoft.com/environments/077422cf-d088-e3d7-917e-5c9a9b64710c/bots/9f4784fa-4a01-4167-b682-ef7e037430ec"
+    }
+]

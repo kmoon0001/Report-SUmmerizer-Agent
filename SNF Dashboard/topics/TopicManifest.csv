@@ -13,6 +13,7 @@ QualityAndOperationsMenu.mcs.yml,Quality And Operations Menu,Menu,Quality and op
 CommunicationAndTransitionsMenu.mcs.yml,Communication And Transitions Menu,Menu,Communication and transition leaf topics,Routes into family discharge ACP and hospice topics. Variable renamed to TransitionsMenuChoice.
 HelpAndQuickStart.mcs.yml,Help And Quick Start,System,snf_ai_dashboard.topic.WelcomeStart,"8 roles now covered: Nursing, Therapy, Executive, Quality, Operations, CNA, Activities, Maintenance."
 ExecutiveQuickActions.mcs.yml,Executive Quick Actions,System,Button-only executive shortcut routing,"Fixed: removed duplicate TopPriorityResidents choice. Fixed: HandoffQueue now routes to HandoffQueueReview (not EscalateUrgentClinicalConcern). 7 distinct shortcuts."
+FacilityContextSwitcher.mcs.yml,Facility Context Switcher,System,Active-facility context switch with button-only choices,Switches selected facility context using a closed list and preserves session continuity.
 AmbiguousRequestDisambiguation.mcs.yml,Ambiguous Request Disambiguation,System,Clarifying route selection,Recovers broad user requests into the right area when Fallback FallbackCount threshold is exceeded.
 ErrorTimeoutRecovery.mcs.yml,Error Timeout Recovery,System,Recovery routing plus urgent escalation,Recovery path for retry menu urgent escalation or reset.
 HandoffQueueReview.mcs.yml,Handoff Queue Review,System,Structured intake and manual queue review,NEW topic. Collects queue scope shift window and priority tier for manual handoff queue review.

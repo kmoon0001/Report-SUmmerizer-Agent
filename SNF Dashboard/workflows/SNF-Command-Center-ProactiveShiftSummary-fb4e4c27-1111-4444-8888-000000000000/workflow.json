@@ -2,14 +2,8 @@
   "properties": {
     "definition": {
       "parameters": {
-        "clinicalTeamsGroupId": {
-          "type": "string",
-          "defaultValue": ""
-        },
-        "nursingStationChannelId": {
-          "type": "string",
-          "defaultValue": ""
-        }
+        "clinicalTeamsGroupId": { "type": "string", "defaultValue": "" },
+        "nursingStationChannelId": { "type": "string", "defaultValue": "" }
       },
       "triggers": {
         "Recurrence": {
@@ -21,6 +15,16 @@
               "weekDays": ["Friday"],
               "hours": ["16"],
               "minutes": ["0"]
+            }
+          }
+        },
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {}
             }
           }
         }
@@ -47,12 +51,30 @@
                 "channelId": "@{parameters('nursingStationChannelId')}"
               },
               "message": {
-                "content": "<div style='background-color:#EFEFEF; padding:15px;'><h2>📈 FRIDAY DOR PULSE</h2><p><b>Generated:</b> @{utcNow()}</p><p><b>Summary:</b> Weekly compliance and revenue-at-risk snapshot prepared for DOR review.</p><p><b>Next Step:</b> Confirm high-risk items and assign owners for next week.</p></div>",
+                "content": "<div style='background-color:#EFEFEF; padding:15px;'><h2>FRIDAY DOR PULSE</h2><p><b>Generated:</b> @{utcNow()}</p><p><b>Summary:</b> Weekly compliance and revenue-at-risk snapshot prepared for DOR review.</p><p><b>Next Step:</b> Confirm high-risk items and assign owners for next week.</p></div>",
                 "contentType": "html"
               }
             }
           },
           "runAfter": { "RetrieveShiftKPIs": ["Succeeded"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string" },
+                "summary": { "type": "string" }
+              }
+            },
+            "body": {
+              "status": "ShiftSummarySent",
+              "summary": "Friday shift summary posted to Teams."
+            }
+          },
+          "runAfter": { "PostShiftKickoffToTeams": ["Succeeded", "Failed"] }
         }
       }
     }

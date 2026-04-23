@@ -47,6 +47,14 @@ SNF Command Center is a live, AI-powered operating system for skilled nursing fa
 - Treat the Copilot Studio extension as the owner of the workspace snapshot. Use the repo for authored files and the live tenant for validation.
 - Do not paste tokens, PATs, client secrets, or access keys into chat, source files, docs, or manifests. Use environment variables, secure prompts, or platform credential stores.
 - Keep `topics`, `actions`, `workflows`, and their manifests synchronized so Preview/Get/Apply does not fail on local referential integrity issues.
+- Prove live action wiring explicitly before sign-off:
+  - run `scripts/Test-CopilotLiveWiring.ps1 -EnvironmentId <envId> -BotId <botId>`
+  - treat any `MissingFlows`, `InactiveFlows`, `EmptyDefinitions`, or findings as release blockers
+  - do not treat "flow activated" alone as sufficient evidence that action `flowId` bindings are real
+- Prove swarm agent population explicitly before sign-off when doing cross-environment clone/import work:
+  - run `scripts/Test-PccaSwarmPopulationGate.ps1 -EnvironmentId <envId>`
+  - require `Fail = 0` and investigate every `Warn` before declaring the import complete
+  - treat unexpected drops in `DialogComponent`, `KnowledgeSourceComponent`, `FileKnowledgeSourceComponent`, or `instructions` counts as release blockers
 - Prefer quoted string values for closed-list menu `Value` fields in topic YAML.
 - When a topic question uses `DynamicClosedListEntity`, compare the selected option with `Text(Topic.ChoiceVariable)` in conditions. Do not use `Topic.ChoiceVariable.Value` and do not compare `Topic.ChoiceVariable` directly to a string.
 - Prefer built-in entities first, then closed lists or option sets, then custom or regex-style recognition only when the built-in patterns cannot safely represent the input.
@@ -136,6 +144,9 @@ The implementation is not completely best practice when any of the following is 
 8. Run `Copilot Studio: Preview changes`.
 9. Run `Copilot Studio: Apply changes` only after preview is clean.
 10. Publish and verify live status.
+11. Run:
+    - `scripts/Test-CopilotLiveWiring.ps1 -EnvironmentId <envId> -BotId <botId>`
+    Require `WiredActions == TotalActions` and `Findings == 0` before declaring import/sync complete.
 
 This is the required path forward for new projects and existing projects. Do not replace it with a faster but less reliable sequence.
 
@@ -172,6 +183,7 @@ This is the required path forward for new projects and existing projects. Do not
   - the active project path must stay free of unfinished bind points
   - the starter bundle may contain starter-state content, but it should use explicit starter-state labels instead of raw placeholder language
 - If a backend action is not live-validated in Copilot Studio, keep the live topic in structured-intake and manual-review mode rather than leaving an unvalidated backend on the active path.
+- Do not accept `pac copilot publish` plus flow activation as sufficient proof. Require the live wiring proof gate to confirm each action `flowId` exists, is active, and has non-empty runtime definition in the target environment.
 - After any bulk text replacement, spot-check:
   - action YAML descriptions
   - workflow response bodies
@@ -901,3 +913,97 @@ NOT appear in any cross-agent payload.
 3. **Context Efficiency**: Bloated prompt windows are avoided by keeping payloads focused on the ecord_id and standardized JSON keys.
 4. **Self-Healing Error Topology**: All OnError topics return {"status":"error", "reason":"...", "next_agent":"SNF-Agent-Command-Center"}.
 5. **Fleet Fallback Escalation Ticket**: Graceful failures that hit Max-Hop limits (>3) or unrecoverable exceptions escalate to human oversight via Fleet-FallbackEscalationTicket flow.
+
+## Live Studio Sync & Recovery (Personalized — SNF Dashboard)
+
+### Current State (as of 2026-04-21)
+
+- **Environment**: Therapy AI Agents Dev (`orgbd048f00.crm.dynamics.com`)
+- **Environment ID**: `a944fdf0-0d2e-e14d-8a73-0f5ffae23315`
+- **Agent ID**: `b5d87f73-c34f-4eca-9405-29f8f7e62d71`
+- **Sync Status**: BROKEN — `conn.json` exists but `botdefinition.json` and `changetoken.txt` are missing
+- **Cache**: `filechangetrack.json` is `{}` (empty). Extension has never completed a full sync in this workspace.
+
+### Diagnosis
+
+The VS Code Copilot Studio extension requires `botdefinition.json` to diff local vs. remote state.
+Without it, Preview/Get/Apply cannot function. This agent has a valid `conn.json` pointing to the
+correct environment but the cache was never fully built — likely an interrupted initial clone or
+a previous cache reset that was not followed by `Get changes`.
+
+### Path 1: Extension Recovery (Primary — per Microsoft Learn)
+
+Per [Synchronize your changes](https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-synchronization)
+and [Clone your agent](https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-clone-agent):
+
+1. **Validate the repo first** (catch YAML parse errors, merge markers, broken references):
+   ```
+   powershell -ExecutionPolicy Bypass -File "d:\my agents copilot studio\SNF Dashboard\scripts\Validate-SnfAiDashboardProject.ps1"
+   ```
+
+2. **Reset the cache** (keep `conn.json`, clear stale tracking):
+   ```
+   powershell -ExecutionPolicy Bypass -File "d:\my agents copilot studio\SNF Dashboard\scripts\Reset-CopilotStudioWorkspaceCache.ps1"
+   ```
+
+3. **Rebuild via extension** (manual steps in VS Code):
+   - `Ctrl+Shift+P` > `Copilot Studio: Open Agent`
+   - Select environment: **Therapy AI Agents Dev**
+   - Select agent: **SNF AI Dashboard**
+   - Wait for `.mcs/botdefinition.json` to rebuild (10-30 seconds)
+   - `Ctrl+Shift+P` > `Copilot Studio: Get Changes`
+   - `Ctrl+Shift+P` > `Copilot Studio: Preview Changes`
+   - If preview is clean: `Ctrl+Shift+P` > `Copilot Studio: Apply Changes`
+
+4. **Publish and verify**:
+   ```
+   pac copilot publish --environment https://orgbd048f00.crm.dynamics.com/ --bot b5d87f73-c34f-4eca-9405-29f8f7e62d71
+   pac copilot list --environment https://orgbd048f00.crm.dynamics.com/
+   ```
+
+5. **Post-sync validation**:
+   ```
+   powershell -ExecutionPolicy Bypass -File "d:\my agents copilot studio\SNF Dashboard\scripts\Invoke-SnfAiDashboardPreflight.ps1" -RequireConnection
+   ```
+
+**Success criteria**: `.mcs/botdefinition.json` exists, `Get/Preview/Apply` cycle completes, `pac copilot list` shows the agent.
+
+### Path 2: Solution Transport (Fallback — proven with TheraDoc)
+
+Use this if Path 1 fails after 2 attempts (Apply grays out, HTTP errors, or cache rebuild fails):
+
+1. **Export current live state as backup**:
+   ```
+   pac solution export --environment https://orgbd048f00.crm.dynamics.com/ --name "SNFDashboardBackup" --path ./artifacts/SNFDashboard_backup.zip
+   ```
+
+2. **Pack the local repo into a solution**:
+   ```
+   pac solution pack --zipfile ./artifacts/SNFDashboard_transport.zip --folder . --processCanvasApps
+   ```
+
+3. **Import to tenant**:
+   ```
+   pac solution import --environment https://orgbd048f00.crm.dynamics.com/ --path ./artifacts/SNFDashboard_transport.zip --publish-changes --max-async-wait-time 120
+   ```
+
+4. **Verify**:
+   ```
+   pac copilot list --environment https://orgbd048f00.crm.dynamics.com/
+   ```
+
+5. **Reattach workspace** (gives a fresh cache):
+   - `Ctrl+Shift+P` > `Copilot Studio: Clone Agent`
+   - Select **Therapy AI Agents Dev** > **SNF AI Dashboard**
+   - Clone to a clean folder, then move contents back or adopt the new workspace
+
+6. **Alternative reattach** (if the agent is already cloned):
+   - `Ctrl+Shift+P` > `Copilot Studio: Reattach Agent`
+   - Select the correct environment and agent
+
+### What NOT To Do
+
+- Do not copy `botdefinition.json` from TheraDoc or another agent
+- Do not manually create `changetoken.txt` — the extension owns these files
+- Do not skip publish/verify after a successful Apply
+- Do not normalize manual `.mcs` cache hacks as the default recovery path

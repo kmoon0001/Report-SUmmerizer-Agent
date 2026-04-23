@@ -48,6 +48,15 @@
     }
   },
   "spec": {
-    "connectors": []
+    "connectors": [],
+    "knowledgeSources": {
+      "publicSites": [
+        {
+          "name": "https://www.cms.gov/",
+          "description": "This knowledge source searches information on the web found in https://www.cms.gov/ website",
+          "site": "https://www.cms.gov/"
+        }
+      ]
+    }
   }
 }

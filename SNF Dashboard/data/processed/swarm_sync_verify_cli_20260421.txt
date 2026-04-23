@@ -1,0 +1,43 @@
+Connected as 123713644@ensignservices.net
+Connected to... PCCA Package
+Name                                       Copilot ID                           Component State Is Managed Solution ID                          Status Code State Code
+SNF AI Dashboard Repack 2026-04-21         240fceb1-1ac3-4e61-b812-979e2f5a855f Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Trend_Analyzer (Therapy Sync 2026-04-21)   d54be637-8d65-4883-ae9e-844567d9becd Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SimpleLTC QM Coach V2 Hardened             cfbf6064-e234-4b3b-ba4c-676e7c54d398 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SLP_Specialist (Therapy Sync 2026-04-21)   3bb283a1-8cf2-47fc-8c0f-663b15ec669c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SLP_Specialist                             7a6233df-f709-4fb6-b087-571f5788da44 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+POSTette_Compliance_Agent                  46fc71c2-cd94-49fd-ac9a-54e18c03834b Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Fact_Checker (Therapy Sync 2026-04-21)     081f1e05-90f5-48b2-928f-392270709b5e Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Rules_Engine_Medicare_Ch15                 7b42e788-4528-4468-b674-27f694a78e0b Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+PT_Specialist (Therapy Sync 2026-04-21)    94c30850-2e2c-4fc1-869f-25e6f78d399a Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Interdisciplinary_Coordinator              39c344c9-f7d0-4f95-b89c-1fde4f335c84 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Fact_Checker                               e2e4156f-2fc5-42e2-9141-1c5c137bb1a6 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Consensus_Engine                           bf7eb4d3-542d-f111-88b4-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Coaching_Agent (Therapy Sync 2026-04-21)   9f4784fa-4a01-4167-b682-ef7e037430ec Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Consensus_Engine_20260331160136     01f0217c-a6ca-4679-95e1-b9d198abea68 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+OT_Specialist (Therapy Sync 2026-04-21)    d00a2a35-2a38-4081-9400-a25f67ed286f Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Prior_Auth_Validator_03311601       70ca611b-f929-4ad0-8cb8-83110308094a Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Trend_Analyzer                             54c2cfbc-ee3b-420b-b061-612dd3cfa4b5 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+OT_Specialist                              c3d3c86e-fa34-4ff3-9536-4a282cc5e758 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SimpleLTC QM Coach V2                      ee5ef79d-073d-f111-88b5-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+PT_Specialist                              d85bea59-ae4c-4677-ada5-e9c03d40447d Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Report_Generator (Therapy Sync 2026-04-21) 9e264bfb-8247-4831-b8ec-b26c40ad795e Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Pacific Coast Compliance Analyzer          2c8431f9-2519-4e6e-920e-8353c9c97acf Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Coaching_Agent                             f65c703a-163d-4bc0-b0de-7ee3de59fbc5 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Regulatory_Validator                       ff14d6b9-e8df-4836-a9b0-555e5378916b Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Escalation_Router_03311601          4fccb2ca-0f4a-4499-8dba-1bff9314c14c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Report_Generator                           c190bff4-7f10-41c6-be49-eef495d57ded Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Synthesis_Orchestrator                     5cddcf7e-5add-453b-a62b-b15763e721b0 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+AgentTheraDoc Hardened                     09b002b6-ec3c-f111-88b5-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Documentation_Processor                    d58b9417-e5dd-40d1-96f9-f5cbad65d299 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Risk_Assessment_Agent                      f49bc1a2-74ad-497e-8ad2-b996662b670c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Escalation_Router                          fbf8f1f5-542d-f111-88b4-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Interdisciplinary_Coordin_03311601  c2d61348-6784-4582-803c-c50b0c42335c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Trend_Analyzer_03311601             27e4219d-4060-49cf-be62-11355eef02b7 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Prior_Auth_Validator                       b1c4cb94-3a53-4c65-9ed9-f3c5f146c472 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+Compliance_Auditor                         e197217f-dad3-47b8-80aa-d0b6fe25e64a Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SNF Rehab Agent                            60a37e9b-0e3d-f111-88b5-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SNF Command Center Agent                   76183e60-0e3d-f111-88b5-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+SNF Operations Assistant                   a5d65b19-4c3d-f111-88b5-000d3a5b0d6c Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+BROKEN_Regulatory_Validator_20260331160134 38491c7f-0724-4ef2-adc4-005a00919f96 Published       False      fd140aae-4df4-11dd-bd17-0019b9312238 Active      Provisioned
+

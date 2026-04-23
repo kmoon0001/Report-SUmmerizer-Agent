@@ -1,8 +1,9 @@
-# Microsoft Learn Platinum Standard OnError
+﻿# Microsoft Learn Platinum Standard OnError
 # Unified Swarm Audit & Recovery
 mcs.metadata:
   componentName: On Error
 kind: AdaptiveDialog
+modelDescription: Use this topic to handle OnError requests in SNF Command Center.
 beginDialog:
   kind: OnError
   id: main

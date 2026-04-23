@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -iname \"*sync*\" -name \"*.md\" -type f)",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\\\\\\\\\" -type f -name \"conn.json\")",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -iname \"*recovery*\" -name \"*.md\" -type f)",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -iname \"*runbook*\" -name \"*.md\" -type f)",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -iname \"*troubleshoot*\" -name \"*.md\" -type f)",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -type d -name \".mcs\")",
+      "Bash(find \"d:\\\\\\\\my agents copilot studio\" -path \"*/.mcs/conn.json\" -type f)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "playwright",
+    "pac-cli",
+    "filesystem",
+    "learn-docs"
+  ]
+}

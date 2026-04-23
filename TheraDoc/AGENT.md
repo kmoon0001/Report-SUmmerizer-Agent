@@ -280,3 +280,60 @@ Work is complete only when:
 - Live tenant checks were executed, or an explicit validation gap is documented.
 - Active user paths are automation-first and button-first where feasible.
 - No unresolved runtime risks are hidden behind assumptions.
+
+## Live Studio Sync & Recovery (Personalized — TheraDoc)
+
+### Current State (as of 2026-04-21)
+
+- **Environment**: PCCA Package (`pccapackage.crm.dynamics.com`)
+- **Environment ID**: `077422cf-d088-e3d7-917e-5c9a9b64710c`
+- **Agent ID**: `09b002b6-ec3c-f111-88b5-000d3a5b0d6c`
+- **Sync Status**: HEALTHY — full cache present (`conn.json` + `botdefinition.json` + `filechangetrack.json`)
+- **Cache**: `botdefinition.json` (2.3 MB, Apr 13). `filechangetrack.json` is `{}` (clean, no pending changes).
+- **Note**: `changetoken.txt` has been reset/rolled back; multiple `.bak` backups exist from Apr 3-13.
+
+### What Worked (Solution Transport — April 13, 2026)
+
+TheraDoc is the reference success case for the fleet. When the VS Code extension sync path was
+stuck (Apply grayed out, cache corruption, HTTP errors after 15+ recovery attempts), solution
+transport via `pac CLI` was the path that succeeded:
+
+1. Export live state backup: `pac solution export`
+2. Pack local repo: `pac solution pack`
+3. Import to tenant: `pac solution import --publish-changes`
+4. Verify: `pac copilot list`
+5. Reattach workspace: `Copilot Studio: Clone Agent` (fresh cache)
+
+This is now the proven fallback for any agent in the fleet that gets stuck.
+
+### Ongoing Maintenance Path (Extension-First)
+
+Per [Synchronize your changes](https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-synchronization):
+
+Since TheraDoc is healthy, use the standard extension path for ongoing work:
+
+1. **Start of session**: `Copilot Studio: Preview Changes` to check for remote drift
+2. **Get remote changes**: `Copilot Studio: Get Changes`
+3. **Local edits**: edit topics/actions/workflows in repo
+4. **Before apply**: run `powershell -ExecutionPolicy Bypass -File scripts\copilot-preflight.ps1`
+5. **Apply**: `Copilot Studio: Apply Changes`
+6. **Publish**:
+   ```
+   pac copilot publish --environment https://pccapackage.crm.dynamics.com/ --bot 09b002b6-ec3c-f111-88b5-000d3a5b0d6c
+   ```
+7. **Verify**:
+   ```
+   pac copilot list --environment https://pccapackage.crm.dynamics.com/
+   powershell -ExecutionPolicy Bypass -File scripts\copilot-sync-check.ps1
+   ```
+
+### If Extension Breaks Again
+
+1. Run the auto-recovery path documented in the "Copilot Studio Extension Stuck FAQ" section above.
+2. If auto-recovery fails after 2 attempts, use solution transport (the proven fallback).
+3. After solution transport, reattach with `Copilot Studio: Clone Agent` or `Copilot Studio: Reattach Agent`.
+
+### Fleet Reference
+
+TheraDoc scripts (`copilot-preflight.ps1`, `copilot-sync-check.ps1`, `reattach-and-sync.ps1`) are
+the template for other agents. When building recovery scripts for other agents, adapt these.

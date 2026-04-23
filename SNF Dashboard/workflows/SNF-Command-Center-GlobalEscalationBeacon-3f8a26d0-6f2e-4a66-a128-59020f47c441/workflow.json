@@ -2,14 +2,8 @@
   "properties": {
     "definition": {
       "parameters": {
-        "clinicalTeamsGroupId": {
-          "type": "string",
-          "defaultValue": ""
-        },
-        "clinicalChannelId": {
-          "type": "string",
-          "defaultValue": ""
-        }
+        "clinicalTeamsGroupId": { "type": "string", "defaultValue": "" },
+        "clinicalChannelId": { "type": "string", "defaultValue": "" }
       },
       "triggers": {
         "manual": {
@@ -57,15 +51,23 @@
               "type": "object",
               "properties": {
                 "status": { "type": "string" },
-                "escalated": { "type": "boolean" },
                 "summary": { "type": "string" },
+                "confidence": { "type": "string" },
+                "requireshumanreview": { "type": "boolean" },
+                "datasource": { "type": "string" },
+                "warnings": { "type": "string" },
+                "escalated": { "type": "boolean" },
                 "nextstep": { "type": "string" }
               }
             },
             "body": {
               "status": "EscalationBeaconSent",
-              "escalated": true,
               "summary": "Escalation beacon delivered to the configured clinical channel.",
+              "confidence": "1.0",
+              "requireshumanreview": true,
+              "datasource": "teams-escalation-flow",
+              "warnings": "",
+              "escalated": true,
               "nextstep": "A human supervisor should acknowledge and triage within policy SLA."
             }
           },

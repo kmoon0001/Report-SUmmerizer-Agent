@@ -62,6 +62,25 @@ function Get-ActionOutputNames([string]$content) {
   return $names
 }
 
+function Get-NestedValue {
+  param(
+    [Parameter(Mandatory = $true)]
+    $Object,
+    [Parameter(Mandatory = $true)]
+    [string[]]$Path
+  )
+
+  $current = $Object
+  foreach ($segment in $Path) {
+    if ($null -eq $current) { return $null }
+    if (-not ($current -is [psobject])) { return $null }
+    $property = $current.PSObject.Properties[$segment]
+    if ($null -eq $property) { return $null }
+    $current = $property.Value
+  }
+  return $current
+}
+
 function Get-DynamicClosedListVariables([string]$content) {
   $matches = [regex]::Matches(
     $content,
@@ -110,15 +129,29 @@ foreach ($folder in $workflowFolders) {
     continue
   }
 
-  $definition = $workflowObject.properties.definition
-  if ($definition.triggers.manual.kind -ne "Skills") {
-    Add-Error "Workflow manual trigger is not Skills kind: $($folder.Name)"
+  $definition = Get-NestedValue -Object $workflowObject -Path @("properties", "definition")
+  if ($null -eq $definition) {
+    Add-Error "Workflow missing properties.definition object: $($folder.Name)"
+    continue
   }
-  if (-not $definition.actions.Respond_to_the_agent) {
+
+  $manualTrigger = Get-NestedValue -Object $definition -Path @("triggers", "manual")
+  if ($null -eq $manualTrigger) {
+    Add-Error "Workflow missing manual trigger: $($folder.Name)"
+  } else {
+    $manualTriggerKind = Get-NestedValue -Object $manualTrigger -Path @("kind")
+    if ($manualTriggerKind -ne "Skills") {
+      Add-Error "Workflow manual trigger is not Skills kind: $($folder.Name)"
+    }
+  }
+
+  $respondAction = Get-NestedValue -Object $definition -Path @("actions", "Respond_to_the_agent")
+  if ($null -eq $respondAction) {
     Add-Error "Workflow missing Respond_to_the_agent action: $($folder.Name)"
     continue
   }
-  if ($definition.actions.Respond_to_the_agent.kind -ne "Skills") {
+  $respondActionKind = Get-NestedValue -Object $respondAction -Path @("kind")
+  if ($respondActionKind -ne "Skills") {
     Add-Error "Workflow response action is not Skills kind: $($folder.Name)"
   }
 }
@@ -162,9 +195,25 @@ foreach ($actionPath in $actionFiles.Values) {
   if ($null -eq $workflowObject) {
     continue
   }
-  $responseInputs = $workflowObject.properties.definition.actions.Respond_to_the_agent.inputs
-  $schemaProperties = @($responseInputs.schema.properties.PSObject.Properties.Name)
-  $bodyProperties = @($responseInputs.body.PSObject.Properties.Name)
+  $responseInputs = Get-NestedValue -Object $workflowObject -Path @("properties", "definition", "actions", "Respond_to_the_agent", "inputs")
+  if ($null -eq $responseInputs) {
+    Add-Error "Workflow response inputs missing for action flowId '$flowId': $actionFileName"
+    continue
+  }
+
+  $schemaPropertiesNode = Get-NestedValue -Object $responseInputs -Path @("schema", "properties")
+  if ($null -eq $schemaPropertiesNode) {
+    Add-Error "Workflow response schema properties missing for action flowId '$flowId': $actionFileName"
+    continue
+  }
+  $bodyNode = Get-NestedValue -Object $responseInputs -Path @("body")
+  if ($null -eq $bodyNode) {
+    Add-Error "Workflow response body missing for action flowId '$flowId': $actionFileName"
+    continue
+  }
+
+  $schemaProperties = @($schemaPropertiesNode.PSObject.Properties.Name)
+  $bodyProperties = @($bodyNode.PSObject.Properties.Name)
   foreach ($outputName in $outputNames) {
     if ($schemaProperties -notcontains $outputName) {
       Add-Error "Workflow response schema missing action output '$outputName': $actionFileName"

@@ -10,7 +10,7 @@
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
-      "description": "Pacific Coast Command Center — Cross-Agent Audit Log Flow. Records every cross-agent routing event from the Swarm Command Router to a Dataverse compliance audit trail. Ensures full traceability of all AI-assisted clinical decisions per Microsoft Learn Power Platform governance and HIPAA audit trail requirements.",
+      "description": "Pacific Coast Command Center Cross-Agent Audit Log Flow.",
       "parameters": {
         "$authentication": { "defaultValue": {}, "type": "SecureObject" },
         "$connections": { "defaultValue": {}, "type": "Object" }
@@ -23,83 +23,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "text": {
-                  "description": "Source agent that initiated the routing",
-                  "title": "SourceAgent",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_1": {
-                  "description": "Destination agent or workflow routed to",
-                  "title": "DestinationAgent",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_2": {
-                  "description": "Mission type initiated (e.g., ClinicalDoc, DenialDefense, QM)",
-                  "title": "MissionType",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_3": {
-                  "description": "User role initiating the session (e.g., DOR, PT, DON)",
-                  "title": "UserRole",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_4": {
-                  "description": "Facility context active during routing",
-                  "title": "FacilityContext",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_5": {
-                  "description": "Unique RunID for tracking cross-agent spans",
-                  "title": "RunID",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_6": {
-                  "description": "Hash of the inbound state/prompt",
-                  "title": "InputHash",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_7": {
-                  "description": "Hash of the outbound generated artifact",
-                  "title": "OutputHash",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_8": {
-                  "description": "Timestamp when AI task initiated",
-                  "title": "TimestampIn",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "text_9": {
-                  "description": "Timestamp when AI task completed",
-                  "title": "TimestampOut",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                }
+                "text": { "type": "string" },
+                "text_1": { "type": "string" },
+                "text_2": { "type": "string" },
+                "text_3": { "type": "string" },
+                "text_4": { "type": "string" },
+                "text_5": { "type": "string" },
+                "text_6": { "type": "string" },
+                "text_7": { "type": "string" },
+                "text_8": { "type": "string" },
+                "text_9": { "type": "string" }
               },
               "required": ["text", "text_1", "text_2", "text_5"]
             }
-          },
-          "metadata": {
-            "operationMetadataId": "audit-log-trigger-001",
-            "flowSystemMetadata": { "flowKind": "Stateless" }
           }
         }
       },
@@ -107,11 +43,13 @@
         "Initialize_Session_ID": {
           "type": "InitializeVariable",
           "inputs": {
-            "variables": [{
-              "name": "SessionID",
-              "type": "string",
-              "value": "@{concat('PCCA-ROUTE-', utcNow('yyyyMMddHHmmss'), '-', substring(guid(), 0, 8))}"
-            }]
+            "variables": [
+              {
+                "name": "SessionID",
+                "type": "string",
+                "value": "@{concat('PCCA-ROUTE-', utcNow('yyyyMMddHHmmss'), '-', substring(guid(), 0, 8))}"
+              }
+            ]
           },
           "runAfter": {}
         },
@@ -131,9 +69,7 @@
               "item/pcca_outputhash": "@triggerBody()?['text_7']",
               "item/pcca_timestampin": "@triggerBody()?['text_8']",
               "item/pcca_timestampout": "@triggerBody()?['text_9']",
-              "item/pcca_routingtimestamp": "@utcNow()",
-              "item/pcca_complianceflag": "Microsoft Learn Power Platform Governance — Agent-to-Agent Routing Audit Trail",
-              "item/pcca_hipaaretention": "7 Years per CMS Documentation Standards"
+              "item/pcca_routingtimestamp": "@utcNow()"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -141,7 +77,7 @@
               "connectionName": "shared_commondataserviceforapps"
             }
           },
-          "runAfter": { "Initialize_Session_ID": ["SUCCEEDED"] }
+          "runAfter": { "Initialize_Session_ID": ["Succeeded"] }
         },
         "Respond_to_the_agent": {
           "type": "Response",
@@ -150,31 +86,29 @@
             "schema": {
               "type": "object",
               "properties": {
-                "sessionid": {
-                  "title": "SessionID",
-                  "description": "Unique cross-agent routing session ID for audit trail",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                },
-                "auditstatus": {
-                  "title": "AuditStatus",
-                  "description": "Audit log confirmation",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
-                }
-              },
-              "additionalProperties": {}
+                "status": { "type": "string" },
+                "summary": { "type": "string" },
+                "confidence": { "type": "string" },
+                "requireshumanreview": { "type": "boolean" },
+                "datasource": { "type": "string" },
+                "warnings": { "type": "string" },
+                "sessionid": { "type": "string" },
+                "auditstatus": { "type": "string" }
+              }
             },
             "statusCode": 200,
             "body": {
+              "status": "Logged",
+              "summary": "Cross-agent audit event logged.",
+              "confidence": "1.0",
+              "requireshumanreview": false,
+              "datasource": "dataverse-audit-log",
+              "warnings": "",
               "sessionid": "@variables('SessionID')",
-              "auditstatus": "@{concat('Routing event logged. Session: ', variables('SessionID'), ' | ', triggerBody()?['text'], ' → ', triggerBody()?['text_1'], ' | Timestamp: ', utcNow())}"
+              "auditstatus": "@{concat('Routing event logged. Session: ', variables('SessionID'))}"
             }
           },
-          "runAfter": { "Log_Routing_Event_To_Dataverse": ["SUCCEEDED"] },
-          "metadata": { "operationMetadataId": "audit-log-response-001" }
+          "runAfter": { "Log_Routing_Event_To_Dataverse": ["Succeeded"] }
         }
       },
       "outputs": {}

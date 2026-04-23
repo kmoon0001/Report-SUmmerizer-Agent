@@ -1,0 +1,762 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Updated Plan of Care POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Updated Plan of Care POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.UpdatedPlanofCarePOSTette.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              Escalating to a representative is not currently configured for this agent, however this is where the agent could provide information about how to get in touch with someone another way.
+
+              Is there anything else I can help you with?
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Plan of Care POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Plan of Care POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.PlanofCarePOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Therapy Learning Network.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Medicare Therapy Learning Network.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareTherapyLearningNetwork.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Treatment Encounter Note POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Treatment Encounter Note POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.TreatmentEncounterNotePOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Discharge Summary POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Discharge Summary POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.DischargeSummaryPOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Progress Report POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Progress Report POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.ProgressReportPOSTette.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Program Integrity Manual Ch3.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Medicare Program Integrity Manual Ch3.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareProgramIntegrityManualCh3.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}. Please note that some responses are generated by AI and may require verification for accuracy. How may I help you today?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: QM Intake
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.QMIntake
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - start qm intake
+            - begin quality management intake
+            - open qm intake form
+            - submit qm intake request
+            - quality management intake process
+            - qm case submission
+            - file a qm report
+            - initiate qm intake procedure
+            - report for quality management review
+
+        actions:
+          - kind: Question
+            id: Question_1ez7ZQ
+            variable: Topic.FacilityName
+            prompt: Please provide the facility name.
+            entity: StringPrebuiltEntity
+
+          - kind: Question
+            id: Question_mbIWWJ
+            variable: Topic.LookbackPeriod
+            prompt: Select the lookback period.
+            entity:
+              kind: EmbeddedEntity
+              definition:
+                kind: ClosedListEntity
+                optionSetName: LookbackPeriodOptions
+                items:
+                  - id: 30days
+                    displayName: 30 days
+
+                  - id: 60days
+                    displayName: 60 days
+
+                  - id: 90days
+                    displayName: 90 days
+
+          - kind: Question
+            id: Question_i8Zy1L
+            variable: Topic.QMDomain
+            prompt: Please specify the QM domain.
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: ConditionGroup_dgf1RK
+            conditions:
+              - id: ConditionItem_DHa9nY
+                condition: false
+                actions:
+                  - kind: SendActivity
+                    id: SendActivity_JjV3Ce
+                    activity: |-
+                      Summary of collected inputs:
+                      - Facility Name: {Topic.FacilityName}
+                      - Lookback Period: {Topic.LookbackPeriod}
+                      - QM Domain: {Topic.QMDomain}
+
+                      Ready to proceed to QM Analysis.
+
+            elseActions:
+              - kind: SendActivity
+                id: SendActivity_TE9LGA
+                activity: "Some required information is missing. Please ensure you provide Facility Name, Lookback Period, and QM Domain. Note: Do not include any resident identifiers. Only Facility Name is allowed as PHI."
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 2025 Part B MSCA Audit Worksheet.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in 2025 Part B MSCA Audit Worksheet.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.2025PartBMSCAAuditWorksheet.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Claims Processing Manual Ch 5.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Medicare Claims Processing Manual Ch 5.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareClaimsProcessingManualCh5.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Establishing and Modifying Goals POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Establishing and Modifying Goals POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.EstablishingandModifyingGoalsPOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Noridian LCD.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Noridian LCD.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.NoridianLCD.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 8. Rehab Screen Consultation Overview  POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in 8. Rehab Screen Consultation Overview  POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.8.RehabScreenConsultationOverviewPOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medical Tx  Diagnosis SelectionPOSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Medical Tx  Diagnosis SelectionPOSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicalTxDiagnosisSelectionPOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Secondary Payer Manual - therapy.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Medicare Secondary Payer Manual - therapy.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareSecondaryPayerManualtherapy.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Ch 15 Medicare Benefits Policy Manual.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Ch 15 Medicare Benefits Policy Manual.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.Ch15MedicareBenefitsPolicyManual.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Rehab Evaluation POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Rehab Evaluation POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.RehabEvaluationPOSTette.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Understanding Justification of Skilled Services POSTette.pdf
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information contained in Understanding Justification of Skilled Services POSTette.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.UnderstandingJustificationofSkilledServicesPOSTette.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.ncbi.nlm.nih.gov/
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This knowledge source searches information on the web found in https://www.ncbi.nlm.nih.gov/ website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.ncbi.nlm.nih.gov
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.ncbi.nlm.nih.gov/
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: bd3a84bd-e89d-471e-bf98-cf5b9623873f
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login

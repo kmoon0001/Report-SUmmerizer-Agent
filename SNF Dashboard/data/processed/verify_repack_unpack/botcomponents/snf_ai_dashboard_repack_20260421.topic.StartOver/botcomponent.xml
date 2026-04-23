@@ -1,0 +1,10 @@
+<botcomponent schemaname="snf_ai_dashboard_repack_20260421.topic.StartOver">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Start Over</name>
+  <parentbotid>
+    <schemaname>snf_ai_dashboard_repack_20260421</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

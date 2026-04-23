@@ -1,0 +1,952 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Neurologic Outcome Measure CPG.pdf
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in Neurologic Outcome Measure CPG.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.NeurologicOutcomeMeasureCPG.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT Evaluation Quality Audit
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.PTEvaluationQualityAudit
+    dialog:
+      modelDescription: "Ensure the initial assessment is legally compliant and justifies the need for therapy. This topic handles requests to audit PT evaluations, check new evaluations, and determine if an evaluation is skilled. Trigger phrases include: Audit PT evaluation, Check new eval, Is this evaluation skilled?"
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_JlQkUi
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: Topic.varEvalNote
+            prompt: Please paste the full Physical Therapy Evaluation text here.
+            entity:
+              kind: StringPrebuiltEntity
+              sensitivityLevel: None
+
+          - kind: SendActivity
+            id: sendActivity_HB4wBk
+            activity: Reviewing evaluation for licensure compliance and Section GG alignment...
+
+          - kind: SearchAndSummarizeContent
+            id: 7tY5pH
+            userInput: =Topic.varEvalNote
+            additionalInstructions: Analyze the provided PT documentation as a backend connected agent. Return exactly one valid JSON object using the PT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.settings.copilots_header_91c3a.BotSettingsComponent.Feedback
+    settings:
+      kind: NoFeedbackCollection
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Ch 15 Medicare Benefits Policy Manual.pdf
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in Ch 15 Medicare Benefits Policy Manual.pdf
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.Ch15MedicareBenefitsPolicyManual.pdf
+    metadata: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Daily Note Audit
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.DailyNoteAudit
+    dialog:
+      modelDescription: "Prevent unskilled denials by ensuring daily notes show active clinical decision-making. This topic handles requests to check daily notes, audit progress notes, and determine if a note is skilled. Trigger phrases include: Check daily note, Audit progress note, Is this note skilled?"
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: MGebzF
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided PT documentation as a backend connected agent. Return exactly one valid JSON object using the PT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Strong PT Documentation Patterns.txt
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in Strong PT Documentation Patterns.txt
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.StrongPTDocumentationPatterns.txt
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: GG Self-Care and Mobility Activities Decision Tree.pdf
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in GG Self-Care and Mobility Activities Decision Tree.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.GGSelfCareandMobilityActivitiesDecisionTree.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: aota-apta-asha-consensus-statement.pdf
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in aota-apta-asha-consensus-statement.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.aotaaptaashaconsensusstatement.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze PT Recertification Note
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzePTRecertificationNote
+    dialog:
+      modelDescription: "This topic replaces the manual tool for auditing PT recertification notes (Medicare cert/recert). Trigger phrases include: Review recert note, Audit recertification, PT recert documentation check, Analyze cert note, Validate recertification."
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search_AnalyzePTRecertificationNote
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided PT documentation as a backend connected agent. Return exactly one valid JSON object using the PT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Analyze PT Recertification Note
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT INSURANCE DENIAL RISK PROMPT
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.PTINSURANCEDENIALRISKPROMPT
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: ManualTaskInput
+          propertyName: DenialRisk
+          value: "{{conversation.lastUserMessage.text}}"
+
+      modelDisplayName: PT INSURANCE DENIAL RISK PROMPT
+      modelDescription: PT INSURANCE DENIAL RISK PROMPT
+      action:
+        kind: InvokeAIBuilderModelTaskAction
+        aIModelId: 9f201fb9-667e-48f5-9e1f-b5ec46b06eae
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fall Risk Assessment
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.FallRiskAssessment
+    dialog:
+      modelDescription: Review and assess patient fall risk documentation including TUG (Timed Up and Go) score, Berg Balance Scale, and mobility assessment. Provide PT-specific risk analysis with recommendations.
+      beginDialog:
+        kind: OnActivity
+        id: main
+        type: Message
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: BPj2jQ
+            latencyMessageSettings:
+              allowLatencyMessage: true
+              latencyMessage: One moment while I analyze the documentation against CMS Chapter 15 and Section GG guidelines. This may take a few seconds...
+
+            userInput: =System.Activity.Text
+            additionalInstructions: |-
+              Act as a Senior SNF Clinical Auditor. Evaluate the provided documentation against [CMS Chapter 15](https://copilotstudio.microsoft.com/environments/Default-03cc92c3-986c-4cf4-ae27-1478cf99d17f/bots/a6aa67e3-f3fc-f011-8406-000d3a37eba2/knowledge/1a0a40ac-b3be-4cf9-8014-003abddeb7ae/details) and [Fall Prevention CPGs](https://copilotstudio.microsoft.com/environments/Default-03cc92c3-986c-4cf4-ae27-1478cf99d17f/bots/a6aa67e3-f3fc-f011-8406-000d3a37eba2/knowledge/a17e74df-1c03-4191-bb86-8c7973b528ed/details).
+              1. **Objective Check**: Confirm if a standardized test (TUG, BBS, Tinetti) is present with a numerical score.
+              2. **Clinical Interpretation**: Check if the therapist interpreted the score (e.g., 'Score of 15s indicates high fall risk').
+              3. **Plan Alignment**: Ensure the plan of care includes specific skilled balance interventions (e.g., 'neuromuscular re-education for center of gravity control').
+              4. **Licensing**: If the note is signed by a Student or PTA without a supervising PT signature on the assessment, flag this immediately.
+            fileSearchDataSource:
+              searchFilesMode:
+                kind: SearchSpecificFiles
+                files:
+                  - template-content.file.GGSelfCareandMobilityActivitiesDecisionTree.pdf
+                  - template-content.file.GeriatricsSocietyClinicalPracticeGuidelineforPreventionofFallsinOlderPerson.pd
+                  - template-content.file.NeurologicOutcomeMeasureCPG.pdf
+                  - template-content.file.Ch15MedicareBenefitsPolicyManual.pdf
+                  - template-content.file.StrongPTDocumentationPatterns.txt
+                  - template-content.file.aotaaptaashaconsensusstatement.pdf
+
+            knowledgeSources:
+              kind: SearchSpecificKnowledgeSources
+              knowledgeSources:
+                - template-content.knowledge.httpswww.cms.govoutreachandeducationmedicarelearningnetworkmln
+                - template-content.knowledge.httpswww.apta.orgpatientcareclinicalpractice
+
+            applyModelKnowledgeSetting: false
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT CAREGIVER COMPETENCY PROMPT
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.PTCAREGIVERCOMPETENCYPROMPT
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: ManualTaskInput
+          propertyName: CaregiverText
+          value: "{{conversation.lastUserMessage.text}}"
+
+      modelDisplayName: PT CAREGIVER COMPETENCY PROMPT
+      modelDescription: PT CAREGIVER COMPETENCY PROMPT
+      action:
+        kind: InvokeAIBuilderModelTaskAction
+        aIModelId: ed48f7e3-55cb-4d7b-b71b-e1d9953074c0
+
+      outputMode: All
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      modelDescription: "Handles escalation requests when PT documentation specialist reaches limitations per VA HFMEA/AHRQ patient safety protocols. Triggers include: technical/EHR issues, clinical questions beyond agent scope, requests for PT/DPT supervisor review, or PHI/sensitive data concerns. Uses structured SBAR communication framework."
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              **ESCALATION PROTOCOL (AHRQ SBAR Framework)**
+
+              I cannot provide a complete response for this request. Here's the structured escalation per clinical safety protocols:
+
+              **SITUATION:**
+              I am the PT documentation specialist and have reached the limits of my configured assistance. This requires escalation to appropriate resources.
+
+              **BACKGROUND:**
+              - Request type: [EHR/technical issue | Clinical question beyond my scope | PT/DPT professional review needed | PHI/sensitive data concern]
+              - What I was able to determine: [State any partial findings or clarifications]
+              - Limitation encountered: [Missing information | System access issue | Scope boundary | Content filter]
+
+              **ASSESSMENT:**
+              Based on VA HFMEA and AHRQ patient safety escalation guidelines:
+              - If EHR connector failure or technical error: Contact IT Help Desk immediately
+              - If clinical PT question requiring professional judgment: Consult licensed PT/DPT supervisor  
+              - If scope/ethics question: Reference APTA guidelines or APTA Practice Portal
+              - If PHI concern: Follow facility HIPAA protocols for de-identification
+
+              **RECOMMENDATION:**
+              **For EHR/Technical Issues:**
+              • Contact IT Help Desk or EHR support team
+              • Document error codes and workflow steps where failure occurred
+              • Include timestamp and specific module/screen
+
+              **For Clinical PT Questions:**
+              • Consult facility's licensed PT/DPT supervisor
+              • Review APTA Practice Guidelines: https://www.apta.org
+              • Reference CMS Chapter 15 guidelines for therapy documentation
+              • Review facility-specific PT protocols
+
+              **For Mobility/Gait Assessment Questions:**
+              • Use standardized tools: Timed Up & Go, Berg Balance, 6-Minute Walk Test, goniometry, MMT
+              • Consult interdisciplinary team (OT, nursing, physician)
+              • Reference CPT codes 97161-97163 for evaluation levels
+
+              **For Professional/Ethics Questions:**
+              • APTA Code of Ethics and practice standards
+              • State licensing board for scope of practice questions
+
+              Can I help you document this issue or identify the specific type of escalation needed?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT Discharge Readiness & Justification
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.PTDischargeReadinessJustification
+    dialog:
+      modelDescription: "Justify the end of skilled services and ensure a safe transition of care. This topic handles requests to audit discharge notes, determine if patient is ready for discharge, and justify ending therapy. Trigger phrases include: Audit discharge note, Is patient ready for discharge?, Justify ending therapy"
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: Question
+            id: question_kLFUvY
+            interruptionPolicy:
+              allowInterruption: true
+
+            variable: init:Topic.varDischargeNote
+            prompt: Please paste the Discharge Summary or final Progress Note here.
+            entity: StringPrebuiltEntity
+
+          - kind: SendActivity
+            id: sendActivity_lw94pb
+            activity: Comparing current status to baseline and checking discharge justification...
+
+          - kind: SearchAndSummarizeContent
+            id: 9gi8t3
+            userInput: =Topic.varDischargeNote
+            additionalInstructions: Analyze the provided PT documentation as a backend connected agent. Return exactly one valid JSON object using the PT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze Daily Therapy Note
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzeDailyTherapyNote
+    dialog:
+      modelDescription: "This topic replaces the manual tool for auditing day-to-day skilled interventions. Trigger phrases include: Audit daily note, Check progress note, Is this note skilled?, Verify therapy documentation."
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: fzfUVX
+            userInput: =System.Activity.Text
+            additionalInstructions: |-
+              You are a PT compliance auditor. Analyze the daily therapy note provided by the user according to CMS Medicare Benefit Policy Manual Chapter 15 standards.
+
+              Evaluate these aspects:
+              1. SKILLED SERVICE DOCUMENTATION:
+              - Clear documentation of skilled PT intervention
+              - Specific techniques, modalities, or therapeutic exercises described
+              - Evidence of clinical decision-making and professional judgment
+              - Distinction between skilled and non-skilled services
+
+              2. PATIENT RESPONSE & PROGRESS:
+              - Objective documentation of patient's response to treatment
+              - Measurable changes in function, ROM, strength, gait, balance, or pain
+              - Evidence of progress toward goals (or lack thereof with clinical reasoning)
+              - Documentation of any setbacks or complications
+
+              3. MEDICAL NECESSITY & REASONABLENESS:
+              - Treatment directly relates to patient's condition and goals
+              - Frequency and duration are appropriate for condition
+              - Services are reasonable and necessary under Medicare guidelines
+              - Evidence supporting continued need for skilled PT services
+
+              4. FUNCTIONAL OUTCOMES:
+              - Clear connection between treatment and functional improvement
+              - Documentation of ADL/IADL impact or mobility changes
+              - Goal-oriented documentation
+              - Discharge planning considerations when appropriate
+
+              Provide your audit findings in a structured format with specific examples from the note. Flag any compliance concerns or documentation gaps that could result in denial.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information on the web found in https://www.cms.gov/outreach-and-education/medicare-learning-network-mln website
+    shareContext: {}
+    category: Authoritative
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.cms.govoutreachandeducationmedicarelearningnetworkmln
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: PT DOCUMENATION STANDARDS PROMPT
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.PTDOCUMENATIONSTANDARDSPROMPT
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: ManualTaskInput
+          propertyName: DocumentationStandards
+          value: "{{conversation.lastUserMessage.text}}"
+
+      modelDisplayName: PT DOCUMENATION STANDARDS PROMPT
+      modelDescription: PT DOCUMENATION STANDARDS PROMPT
+      action:
+        kind: InvokeAIBuilderModelTaskAction
+        aIModelId: 08a6d787-e9b9-4929-8ffd-3953c81a863c
+
+      outputMode: All
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Geriatrics Society Clinical Practice Guideline for Prevention of Falls in Older Person.pdf
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This knowledge source searches information contained in Geriatrics Society Clinical Practice Guideline for Prevention of Falls in Older Person.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.GeriatricsSocietyClinicalPracticeGuidelineforPreventionofFallsinOlderPerson.pd
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}. Please note that some responses are generated by AI and may require verification for accuracy. How may I help you today?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Clinical Inquiry
+    parentBotId: 4ac7d9ec-8855-4820-a949-9736ebdc48ec
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ClinicalInquiry
+    dialog:
+      modelDescription: You are a Senior PT Clinical Consultant. Use uploaded knowledge to answer questions on gait, balance, and PT standards. Always cite APTA or CMS. If unknown, state the info is not in the provided evidence.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: nWxpSI
+            latencyMessageSettings:
+              allowLatencyMessage: true
+              latencyMessage: Consulting APTA guidelines and Medicare Benefit Policy Manual for PT clinical standards...
+
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided PT clinical inquiry as a backend connected agent. Return exactly one valid JSON object using the PT_Specialist schema. Do not ask follow-up questions or emit narrative. If the information is not in the provided evidence, return a JSON error object instead of guessing.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: Clinical Inquiry
+
+aIModelDefinitions:
+  - managedProperties:
+      isCustomizable: true
+
+    id: 08a6d787-e9b9-4929-8ffd-3953c81a863c
+    name: PT CLINICAL DOCUMENATION STANDARDS PROMPT
+
+  - managedProperties:
+      isCustomizable: true
+
+    id: 98df933d-27e0-436e-ba8b-623d3f4d132d
+    name: Custom prompt 02/10/2026, 08:54:38 AM
+
+  - managedProperties:
+      isCustomizable: true
+
+    id: 9f201fb9-667e-48f5-9e1f-b5ec46b06eae
+    name: PT INSURANCE DENIAL RISK PROMPT
+
+  - managedProperties:
+      isCustomizable: true
+
+    id: ed48f7e3-55cb-4d7b-b71b-e1d9953074c0
+    name: PT CAREGIVER COMPETENCY PROMPT

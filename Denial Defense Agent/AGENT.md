@@ -90,3 +90,133 @@ MUST NOT appear in any cross-agent payload — store in Dataverse first and pass
 3. **Context Efficiency**: Bloated prompt windows are avoided by keeping payloads focused on the ecord_id and standardized JSON keys.
 4. **Self-Healing Error Topology**: All OnError topics return {"status":"error", "reason":"...", "next_agent":"SNF-Agent-Command-Center"}.
 5. **Fleet Fallback Escalation Ticket**: Graceful failures that hit Max-Hop limits (>3) or unrecoverable exceptions escalate to human oversight via Fleet-FallbackEscalationTicket flow.
+
+## Live Studio Sync & Recovery (Personalized — Denial Defense Agent)
+
+### Current State (as of 2026-04-21)
+
+- **Environment**: Not bound — no `.mcs` directory exists
+- **Agent ID**: Unknown — no `conn.json`, no documented GUID
+- **Sync Status**: NEVER SYNCED — no cache, no scripts, no prior connection artifacts
+- **Scripts**: None — this agent has the least recovery tooling in the fleet
+
+### Diagnosis
+
+This is a clean-slate agent. It has comprehensive AGENT.md documentation (handoff contracts,
+XAI governance, clinical audit rules) but has never been connected to a live Copilot Studio
+environment from this workspace. Before any sync can happen, the agent must be either:
+(a) discovered in an existing environment, or (b) created as a new agent in Copilot Studio.
+
+### Step 1: Determine If the Agent Exists Live
+
+Check all known environments for a Denial Defense agent:
+
+```
+pac copilot list --environment https://org3353a370.crm.dynamics.com/
+pac copilot list --environment https://orgbd048f00.crm.dynamics.com/
+pac copilot list --environment https://pccapackage.crm.dynamics.com/
+```
+
+Look for an agent matching "Denial Defense" in any environment output. Record the GUID and environment.
+
+### Step 2A: If the Agent Exists — Clone It
+
+Per [Clone your agent](https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-clone-agent):
+
+1. **Set PAC auth**:
+   ```
+   pac auth list
+   pac auth select --index <n>
+   ```
+
+2. **Clone** (in VS Code):
+   - `Ctrl+Shift+P` > `Copilot Studio: Clone Agent`
+   - Select the environment where the agent was found
+   - Select the Denial Defense agent
+   - Clone to a temporary folder
+
+3. **Merge with existing repo**:
+   - Copy `.mcs` folder from clone into `Denial Defense Agent/`
+   - Compare cloned files with repo files; resolve differences
+   - Keep repo versions where they have more complete contracts/hardening
+
+4. **Sync and publish**:
+   - `Copilot Studio: Get Changes`
+   - `Copilot Studio: Preview Changes`
+   - `Copilot Studio: Apply Changes`
+   - Publish:
+     ```
+     pac copilot publish --environment <env-url> --bot <agent-guid>
+     pac copilot list --environment <env-url>
+     ```
+
+### Step 2B: If the Agent Does NOT Exist — Create It
+
+If no Denial Defense agent exists in any environment, create one:
+
+1. **In Copilot Studio web UI** (`https://copilotstudio.microsoft.com`):
+   - Navigate to the target environment
+   - Create a new agent named "Denial Defense Agent"
+   - Add initial instructions from the AGENT.md mission and XAI governance rules
+   - Save and publish
+
+2. **Clone to local** (in VS Code):
+   - `Ctrl+Shift+P` > `Copilot Studio: Clone Agent`
+   - Select the newly created agent
+   - Clone to a temporary folder
+
+3. **Merge with existing repo**:
+   - Copy `.mcs` folder into `Denial Defense Agent/`
+   - Apply the repo topic/action files on top of the blank agent
+   - `Copilot Studio: Apply Changes` to push repo content to live
+
+4. **Publish and verify**:
+   ```
+   pac copilot publish --environment <env-url> --bot <new-agent-guid>
+   pac copilot list --environment <env-url>
+   ```
+
+### Post-Sync: Update AGENT.md
+
+Once connected, add the environment binding section:
+
+```markdown
+## Environment Binding
+- **Environment**: <name> (`<url>`)
+- **Environment ID**: `<guid>`
+- **Agent ID**: `<guid>`
+- **Schema Prefix**: `cr917_`
+```
+
+### Post-Sync: Create Recovery Scripts
+
+This agent has no scripts. After first successful sync, create at minimum:
+- `scripts/copilot-preflight.ps1` — adapted from TheraDoc's version
+- `scripts/copilot-sync-check.ps1` — adapted from TheraDoc's version
+
+### What NOT To Do
+
+- Do not create `.mcs/conn.json` manually
+- Do not assume the agent exists — verify first
+- Do not apply repo content to a live agent without first running `Get Changes` to understand current live state
+
+## Discovery Results (2026-04-21)
+
+Searched all 3 environments for a Denial Defense agent:
+- `orgbd048f00.crm.dynamics.com` (Therapy AI Agents Dev): **NOT FOUND**
+- `pccapackage.crm.dynamics.com` (PCCA Package): **NOT FOUND**
+- `org3353a370.crm.dynamics.com` (Production): Not checked (no PAC auth profile)
+
+**Action required**: Create a new Denial Defense Agent in Copilot Studio.
+
+Recommended creation environment: **Therapy AI Agents Dev** (`orgbd048f00.crm.dynamics.com`)
+- This is where the SNF Dashboard and Command Center live
+- Consistent with the hub-and-spoke deployment topology
+
+Steps:
+1. Go to https://copilotstudio.microsoft.com
+2. Select environment: Therapy AI Agents Dev
+3. Create new agent: "Denial Defense Agent"
+4. Add initial instructions from AGENT.md (XAI governance, handoff contract)
+5. Save and publish
+6. Clone to this workspace via VS Code extension

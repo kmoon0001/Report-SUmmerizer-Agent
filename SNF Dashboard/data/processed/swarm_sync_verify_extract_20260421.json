@@ -1,0 +1,110 @@
+[
+  {
+    "Name": "SNF Command Center Agent",
+    "Schema": "snf_command_center_agent_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'snf_command_center_agent_sync_20260421'\n"
+  },
+  {
+    "Name": "Compliance_Auditor",
+    "Schema": "compliance_auditor_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'compliance_auditor_sync_20260421'\n"
+  },
+  {
+    "Name": "Synthesis_Orchestrator",
+    "Schema": "synthesis_orchestrator_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'synthesis_orchestrator_sync_20260421'\n"
+  },
+  {
+    "Name": "Trend_Analyzer",
+    "Schema": "trend_analyzer_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 14 components for copilot 'Trend_Analyzer (Therapy Sync 2026-04-21)' with id d54be637-8d65-4883-ae9e-844567d9becd. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\trend_analyzer_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "Rules_Engine_Medicare_Ch15",
+    "Schema": "rules_engine_medicare_ch15_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'rules_engine_medicare_ch15_sync_20260421'\n"
+  },
+  {
+    "Name": "Consensus_Engine",
+    "Schema": "consensus_engine_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'consensus_engine_sync_20260421'\n"
+  },
+  {
+    "Name": "Escalation_Router",
+    "Schema": "escalation_router_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'escalation_router_sync_20260421'\n"
+  },
+  {
+    "Name": "Regulatory_Validator",
+    "Schema": "regulatory_validator_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'regulatory_validator_sync_20260421'\n"
+  },
+  {
+    "Name": "Prior_Auth_Validator",
+    "Schema": "prior_auth_validator_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'prior_auth_validator_sync_20260421'\n"
+  },
+  {
+    "Name": "Interdisciplinary_Coordinator",
+    "Schema": "interdisciplinary_coordinator_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'interdisciplinary_coordinator_sync_20260421'\n"
+  },
+  {
+    "Name": "PT_Specialist",
+    "Schema": "pt_specialist_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 27 components for copilot 'PT_Specialist (Therapy Sync 2026-04-21)' with id 94c30850-2e2c-4fc1-869f-25e6f78d399a. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\pt_specialist_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "OT_Specialist",
+    "Schema": "ot_specialist_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 36 components for copilot 'OT_Specialist (Therapy Sync 2026-04-21)' with id d00a2a35-2a38-4081-9400-a25f67ed286f. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\ot_specialist_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "SLP_Specialist",
+    "Schema": "slp_specialist_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 28 components for copilot 'SLP_Specialist (Therapy Sync 2026-04-21)' with id 3bb283a1-8cf2-47fc-8c0f-663b15ec669c. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\slp_specialist_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "Report_Generator",
+    "Schema": "report_generator_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 11 components for copilot 'Report_Generator (Therapy Sync 2026-04-21)' with id 9e264bfb-8247-4831-b8ec-b26c40ad795e. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\report_generator_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "Risk_Assessment_Agent",
+    "Schema": "risk_assessment_agent_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'risk_assessment_agent_sync_20260421'\n"
+  },
+  {
+    "Name": "Documentation_Processor",
+    "Schema": "documentation_processor_sync_20260421",
+    "ExtractOk": false,
+    "Details": "Connected as 123713644@ensignservices.net\nMicrosoft PowerPlatform CLI\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\nOnline documentation: https://aka.ms/PowerPlatformCLI\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\n\nError: No bots were found using search pattern 'documentation_processor_sync_20260421'\n"
+  },
+  {
+    "Name": "Fact_Checker",
+    "Schema": "fact_checker_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 13 components for copilot 'Fact_Checker (Therapy Sync 2026-04-21)' with id 081f1e05-90f5-48b2-928f-392270709b5e. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\fact_checker_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  },
+  {
+    "Name": "Coaching_Agent",
+    "Schema": "coaching_agent_sync_20260421",
+    "ExtractOk": true,
+    "Details": "Connected as 123713644@ensignservices.net\n\nLoaded 28 components for copilot 'Coaching_Agent (Therapy Sync 2026-04-21)' with id 9f4784fa-4a01-4167-b682-ef7e037430ec. Primary language: English, supported languages: \n\n -> D:\\my agents copilot studio\\SNF Dashboard\\data\\processed\\swarm_verify_templates\\coaching_agent_sync_20260421.yml\n\n -> D:\\my agents copilot studio\\SNF Dashboard\\kickStartTemplate-1.0.0.json"
+  }
+]

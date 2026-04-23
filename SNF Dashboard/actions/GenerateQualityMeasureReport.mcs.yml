@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Generate Quality Measure Report
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Generate Quality Measure Report
-modeldescription: Elite clinical intelligence module specialized in [GenerateQualityMeasureReport]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute GenerateQualityMeasureReport for SNF Command Center workflows.
 inputs:
   - propertyName: measuregroup
     required: false

@@ -1,0 +1,62 @@
+﻿{
+    "created":  [
+                    {
+                        "Name":  "SNF Command Center Agent",
+                        "Display":  "SNF Cmd Center (TS0421)",
+                        "Schema":  "new_swarmfix01_0421"
+                    },
+                    {
+                        "Name":  "Compliance_Auditor",
+                        "Display":  "Compliance_Auditor (TS0421)",
+                        "Schema":  "new_swarmfix02_0421"
+                    },
+                    {
+                        "Name":  "Synthesis_Orchestrator",
+                        "Display":  "Synthesis_Orch (TS0421)",
+                        "Schema":  "new_swarmfix03_0421"
+                    },
+                    {
+                        "Name":  "Rules_Engine_Medicare_Ch15",
+                        "Display":  "Rules_Engine_MCR_Ch15(TS0421)",
+                        "Schema":  "new_swarmfix04_0421"
+                    },
+                    {
+                        "Name":  "Consensus_Engine",
+                        "Display":  "Consensus_Engine (TS0421)",
+                        "Schema":  "new_swarmfix05_0421"
+                    },
+                    {
+                        "Name":  "Escalation_Router",
+                        "Display":  "Escalation_Router (TS0421)",
+                        "Schema":  "new_swarmfix06_0421"
+                    },
+                    {
+                        "Name":  "Regulatory_Validator",
+                        "Display":  "Regulatory_Validator(TS0421)",
+                        "Schema":  "new_swarmfix07_0421"
+                    },
+                    {
+                        "Name":  "Prior_Auth_Validator",
+                        "Display":  "Prior_Auth_Validator(TS0421)",
+                        "Schema":  "new_swarmfix08_0421"
+                    },
+                    {
+                        "Name":  "Interdisciplinary_Coordinator",
+                        "Display":  "Interdisciplinary_Coord(TS0421)",
+                        "Schema":  "new_swarmfix09_0421"
+                    },
+                    {
+                        "Name":  "Risk_Assessment_Agent",
+                        "Display":  "Risk_Assessment_Agent(TS0421)",
+                        "Schema":  "new_swarmfix10_0421"
+                    },
+                    {
+                        "Name":  "Documentation_Processor",
+                        "Display":  "Documentation_Processor(TS0421)",
+                        "Schema":  "new_swarmfix11_0421"
+                    }
+                ],
+    "failed":  [
+
+               ]
+}

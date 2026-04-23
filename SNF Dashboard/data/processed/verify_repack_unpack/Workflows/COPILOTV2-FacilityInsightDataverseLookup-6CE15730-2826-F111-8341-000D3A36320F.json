@@ -1,0 +1,130 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_a3ae0"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "facility_hint": {
+                  "title": "facility_hint",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "quarter_hint": {
+                  "title": "quarter_hint",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "requested_run_id": {
+                  "title": "requested_run_id",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_rows": {
+          "runAfter": {},
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "tasks",
+              "$top": 10,
+              "$orderby": "createdon desc",
+              "$select": "subject,description,body",
+              "$filter": "contains(subject,'Facility insight submission')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps",
+              "connectionReferenceName": "shared_commondataserviceforapps"
+            }
+          }
+        },
+        "Filter_rows_for_request": {
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "type": "Query",
+          "inputs": {
+            "from": "@body('List_rows')?['value']",
+            "where": "@and(if(empty(triggerBody()?['quarter_hint']), true, or(contains(coalesce(item()?['subject'], ''), triggerBody()?['quarter_hint']), contains(coalesce(item()?['description'], ''), triggerBody()?['quarter_hint']))), if(empty(triggerBody()?['facility_hint']), true, or(contains(coalesce(item()?['description'], ''), triggerBody()?['facility_hint']), contains(coalesce(item()?['body'], ''), triggerBody()?['facility_hint']))))"
+          }
+        },
+        "Respond_to_the_agent": {
+          "runAfter": {
+            "Filter_rows_for_request": [
+              "Succeeded"
+            ]
+          },
+          "type": "Response",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "facility_submission_status": {
+                  "title": "facility_submission_status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "facility_data_text": {
+                  "title": "facility_data_text",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              }
+            },
+            "statusCode": 200,
+            "body": {
+              "facility_submission_status": "@if(greater(length(body('Filter_rows_for_request')), 0), 'found', 'not_found')",
+              "facility_data_text": "@if(greater(length(body('Filter_rows_for_request')), 0), coalesce(first(body('Filter_rows_for_request'))?['description'], first(body('Filter_rows_for_request'))?['body'], ''), '')"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Process Clinical Image Review
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Process Clinical Image Review
-modeldescription: Elite clinical intelligence module specialized in [ProcessClinicalImageReview]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute ProcessClinicalImageReview for SNF Command Center workflows.
 inputs:
   - propertyName: imagetype
     required: false

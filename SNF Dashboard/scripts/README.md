@@ -188,8 +188,10 @@ Recommended use:
 - run `Test-PowerBiExecutivePackage.ps1` after packaging to confirm model tables and source-package row counts still align
 - run `Test-ExecutiveCommandCenterReportBundle.ps1` after bundle generation to confirm the HTML/report bundle still reconciles to the current processed outputs
 - run `Invoke-SnfAiDashboardPreflight.ps1` before preview/apply
+- `Invoke-SnfAiDashboardPreflight.ps1` now hard-fails when `.mcs/conn.json` environment, Dataverse endpoint, active PAC profile, and agent ID do not align
 - run `Set-PlaywrightMcpMode.ps1 -Mode Headless|Headed` to switch Playwright MCP execution mode in `.vscode/mcp.json`
 - run `Invoke-PowerAutomateFlowAudit.ps1` to inventory and sanity-check key resident/facility insight flows in the current environment
+- run `Test-CopilotLiveWiring.ps1 -EnvironmentId <envId> -BotId <botId>` as the proof gate that action `flowId` bindings are truly wired in the live target environment (exists + active + non-empty runtime definition)
 - run `Invoke-PowerAutomateHardeningChecklist.ps1` after the flow audit to generate prioritized corrective/preventative flow hardening actions and untitled-flow cleanup targets
 - run `Test-PowerAutomateFlowNamingStandard.ps1` as a release gate so untitled/nonstandard flow names are caught before go-live
 - run `Bootstrap-Environment.ps1` to create a local `.env` from `.env.example`

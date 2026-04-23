@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Export Care Summary
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Export Care Summary
-modeldescription: Elite clinical intelligence module specialized in [ExportCareSummary]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute ExportCareSummary for SNF Command Center workflows.
 inputs:
   - propertyName: patientid
     required: false

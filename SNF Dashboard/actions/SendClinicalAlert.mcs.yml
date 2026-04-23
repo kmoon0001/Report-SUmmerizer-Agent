@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Send Clinical Alert
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Send Clinical Alert
-modeldescription: Elite clinical intelligence module specialized in [SendClinicalAlert]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute SendClinicalAlert for SNF Command Center workflows.
 inputs:
   - propertyName: severity
     required: false

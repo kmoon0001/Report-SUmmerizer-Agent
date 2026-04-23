@@ -249,3 +249,119 @@ After every major job:
 3. **Context Efficiency**: Bloated prompt windows are avoided by keeping payloads focused on the ecord_id and standardized JSON keys.
 4. **Self-Healing Error Topology**: All OnError topics return {"status":"error", "reason":"...", "next_agent":"SNF-Agent-Command-Center"}.
 5. **Fleet Fallback Escalation Ticket**: Graceful failures that hit Max-Hop limits (>3) or unrecoverable exceptions escalate to human oversight via Fleet-FallbackEscalationTicket flow.
+
+## Live Studio Sync & Recovery (Personalized — Clinical Synthesis Lab)
+
+### Current State (as of 2026-04-21)
+
+- **Environment**: PCCA Package (`pccapackage.crm.dynamics.com` per conn.json env ID `077422cf-d088-e3d7-917e-5c9a9b64710c`)
+- **AGENT.md documents**: `org3353a370.crm.dynamics.com` / env `fd140aae-4df4-11dd-bd17-0019b9312238`
+- **Agent ID**: `c030a53a-4839-f111-88b4-000d3a37eba2` (Therapy_Report_Prep_Assistant)
+- **Sync Status**: PARTIAL — `conn.json` exists (older schema using `botId`/`tenantId` format) but `botdefinition.json`, `changetoken.txt`, and `filechangetrack.json` are all missing
+- **Cache**: Incomplete. The extension started a connection but never downloaded the full bot definition.
+
+### Diagnosis
+
+The `conn.json` uses the older short format (`botId`, `environmentId`, `tenantId`) instead of the
+newer full format (with `DataverseEndpoint`, `AccountInfo`, `SolutionVersions`, etc.). This suggests
+the initial clone/attach was done with an older version of the extension or was interrupted.
+
+The `botdefinition.json` is missing, which means the extension cannot diff local vs. remote.
+Additionally, `conn.json` points to environment `077422cf` (pccapackage) while the AGENT.md
+documents environment `fd140aae` (org3353a370). This discrepancy must be resolved.
+
+### Environment Discrepancy Resolution
+
+Before syncing, confirm which environment actually hosts this agent:
+
+```
+pac copilot list --environment https://pccapackage.crm.dynamics.com/
+pac copilot list --environment https://org3353a370.crm.dynamics.com/
+```
+
+Look for agent ID `c030a53a-4839-f111-88b4-000d3a37eba2` in the output. Whichever environment
+lists it is the correct target. Update `conn.json` or the AGENT.md environment binding accordingly.
+
+### Path 1: Fresh Clone (Recommended — cleanest path for partial sync)
+
+Per [Clone your agent](https://learn.microsoft.com/microsoft-copilot-studio/visual-studio-code-extension-clone-agent),
+when the cache is incomplete the cleanest recovery is a fresh clone:
+
+1. **Back up current `.mcs/conn.json`** (for reference):
+   ```
+   copy ".mcs\conn.json" ".mcs\conn.json.bak"
+   ```
+
+2. **Delete the incomplete `.mcs` folder**:
+   ```
+   rmdir /s /q .mcs
+   ```
+
+3. **Clone the agent fresh** (in VS Code):
+   - `Ctrl+Shift+P` > `Copilot Studio: Clone Agent`
+   - Select the correct environment (confirmed from the resolution step above)
+   - Select **Therapy Report Prep Assistant** (agent ID `c030a53a-...`)
+   - Clone to a temporary folder
+
+4. **Adopt the new `.mcs` cache**:
+   - Copy the `.mcs` folder from the fresh clone into this workspace
+   - Or adopt the fresh clone as the new workspace and port repo files over
+
+5. **Verify sync**:
+   - `Copilot Studio: Get Changes`
+   - `Copilot Studio: Preview Changes`
+   - Resolve any conflicts between local repo files and live agent state
+   - `Copilot Studio: Apply Changes`
+
+6. **Publish and verify**:
+   ```
+   pac copilot publish --environment <confirmed-env-url> --bot c030a53a-4839-f111-88b4-000d3a37eba2
+   pac copilot list --environment <confirmed-env-url>
+   ```
+
+### Path 2: Solution Transport (Fallback)
+
+If the clone path fails or the agent is not discoverable in the extension:
+
+1. **Export backup**:
+   ```
+   pac solution export --environment <confirmed-env-url> --name "ClinicalSynthLabBackup" --path ./artifacts/CSL_backup.zip
+   ```
+
+2. **Pack and import**:
+   ```
+   pac solution pack --zipfile ./artifacts/CSL_transport.zip --folder . --processCanvasApps
+   pac solution import --environment <confirmed-env-url> --path ./artifacts/CSL_transport.zip --publish-changes --max-async-wait-time 120
+   ```
+
+3. **Verify and reattach**:
+   ```
+   pac copilot list --environment <confirmed-env-url>
+   ```
+   Then: `Copilot Studio: Clone Agent` for a fresh workspace cache.
+
+### What NOT To Do
+
+- Do not assume the old `conn.json` environment is correct without verifying
+- Do not manually create `botdefinition.json` or `changetoken.txt`
+- Do not use the older `conn.json` format as a template — let the extension generate the new format
+
+## Discovered Live Agent Binding (2026-04-21)
+
+Discovered via `pac copilot list`:
+
+The original GUID `c030a53a-4839-f111-88b4-000d3a37eba2` was NOT found in either environment.
+This agent may have been deleted or recreated under a different ID.
+
+**Best candidate in pccapackage**:
+- **Live Agent Name**: `SNF Rehab Agent`
+- **Agent GUID**: `60a37e9b-0e3d-f111-88b5-000d3a5b0d6c`
+- **Environment**: PCCA Package (`pccapackage.crm.dynamics.com`)
+- **Rationale**: AGENT.md names this as `Therapy_Report_Prep_Assistant` doing SBAR synthesis for rehab.
+
+Also found: `Pacific Coast Case Historian` (`946aefde-cb3a-f111-88b3-6045bd05af7a`) in orgbd048f00.
+
+**Action required**: Confirm which live agent maps to this repo before cloning.
+- If `SNF Rehab Agent` is correct: clone from pccapackage with GUID `60a37e9b`
+- If `Pacific Coast Case Historian` is correct: clone from orgbd048f00 with GUID `946aefde`
+- Current conn.json points to env `077422cf` (pccapackage) — aligns with SNF Rehab Agent

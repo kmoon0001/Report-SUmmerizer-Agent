@@ -1,110 +1,116 @@
 {
-    "properties": {
-        "state": "Started",
-        "definition": {
-            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-            "contentVersion": "1.0.0.0",
-            "parameters": {
-                "$connections": {
-                    "defaultValue": {},
-                    "type": "Object"
-                },
-                "$authentication": {
-                    "defaultValue": {},
-                    "type": "SecureObject"
-                }
-            },
-            "triggers": {
-                "manual": {
-                    "type": "Request",
-                    "kind": "Http",
-                    "inputs": {
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "filetype": { "type": "string" },
-                                "intendeduse": { "type": "string" },
-                                "is_minimum_necessary": { "type": "string" },
-                                "file_content": { "type": "string", "format": "byte" }
-                            }
-                        }
-                    }
-                }
-            },
-            "actions": {
-                "Initialize_Triage_Tracking_ID": {
-                    "type": "InitializeVariable",
-                    "inputs": {
-                        "variables": [
-                            {
-                                "name": "TrackingID",
-                                "type": "string",
-                                "value": "@{guid()}"
-                            }
-                        ]
-                    }
-                },
-                "Log_File_Intake_To_Dataverse": {
-                    "type": "OpenApiConnection",
-                    "inputs": {
-                        "host": {
-                            "connectionName": "shared_commondataserviceforapps",
-                            "operationId": "CreateRecord",
-                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
-                        "parameters": {
-                            "entityName": "cr123_clinicaldocuments",
-                            "item/cr123_trackingid": "@variables('TrackingID')",
-                            "item/cr123_filetype": "@triggerBody()?['filetype']",
-                            "item/cr123_intendeduse": "@triggerBody()?['intendeduse']",
-                            "item/cr123_status": "Pending Triage"
-                        }
-                    },
-                    "runAfter": {
-                        "Initialize_Triage_Tracking_ID": [
-                            "Succeeded"
-                        ]
-                    }
-                },
-                "Upload_File_To_Secure_SharePoint": {
-                    "type": "OpenApiConnection",
-                    "inputs": {
-                        "host": {
-                            "connectionName": "shared_sharepointonline",
-                            "operationId": "CreateFile",
-                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
-                        },
-                        "parameters": {
-                            "dataset": "https://tenant.sharepoint.com/sites/SNFCommandCenter",
-                            "folderPath": "/Shared Documents/Secure Clinical Intake",
-                            "name": "@{variables('TrackingID')}_@{triggerBody()?['filetype']}.pdf",
-                            "body": "@triggerBody()?['file_content']"
-                        }
-                    },
-                    "runAfter": {
-                        "Log_File_Intake_To_Dataverse": [
-                            "Succeeded"
-                        ]
-                    }
-                },
-                "Respond_to_the_agent": {
-                    "type": "Response",
-                    "kind": "Http",
-                    "inputs": {
-                        "statusCode": 200,
-                        "body": {
-                            "trackingid": "@variables('TrackingID')",
-                            "status": "Securely uploaded to SharePoint and queued for triage.",
-                            "nextstep": "Awaiting Command Center review."
-                        }
-                    },
-                    "runAfter": {
-                        "Upload_File_To_Secure_SharePoint": [
-                            "Succeeded"
-                        ]
-                    }
-                }
+  "properties": {
+    "state": "Started",
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": { "defaultValue": {}, "type": "Object" },
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "filetype": { "type": "string" },
+                "intendeduse": { "type": "string" },
+                "is_minimum_necessary": { "type": "string" },
+                "file_content": { "type": "string", "format": "byte" }
+              }
             }
+          }
         }
+      },
+      "actions": {
+        "Initialize_Triage_Tracking_ID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              { "name": "TrackingID", "type": "string", "value": "@{guid()}" }
+            ]
+          }
+        },
+        "Log_File_Intake_To_Dataverse": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cr123_clinicaldocuments",
+              "item/cr123_trackingid": "@variables('TrackingID')",
+              "item/cr123_filetype": "@triggerBody()?['filetype']",
+              "item/cr123_intendeduse": "@triggerBody()?['intendeduse']",
+              "item/cr123_status": "Pending Triage"
+            }
+          },
+          "runAfter": { "Initialize_Triage_Tracking_ID": ["Succeeded"] }
+        },
+        "Upload_File_To_Secure_SharePoint": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline",
+              "operationId": "CreateFile",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://tenant.sharepoint.com/sites/SNFCommandCenter",
+              "folderPath": "/Shared Documents/Secure Clinical Intake",
+              "name": "@{variables('TrackingID')}_@{triggerBody()?['filetype']}.pdf",
+              "body": "@triggerBody()?['file_content']"
+            }
+          },
+          "runAfter": { "Log_File_Intake_To_Dataverse": ["Succeeded"] }
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "statusCode": 200,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "string" },
+                "summary": { "type": "string" },
+                "confidence": { "type": "string" },
+                "requireshumanreview": { "type": "boolean" },
+                "datasource": { "type": "string" },
+                "warnings": { "type": "string" },
+                "citations": { "type": "string" },
+                "groundedness_status": { "type": "string" },
+                "verification_status": { "type": "string" },
+                "uncertainty_reason": { "type": "string" },
+                "extractedsignal": { "type": "string" },
+                "recommendedroute": { "type": "string" },
+                "nextstep": { "type": "string" }
+              }
+            },
+            "body": {
+              "status": "QueuedForReview",
+              "summary": "Clinical file securely uploaded and queued for triage.",
+              "confidence": "0.80",
+              "requireshumanreview": true,
+              "datasource": "sharepoint-dataverse-intake",
+              "warnings": "",
+              "citations": "[]",
+              "groundedness_status": "NeedsVerification",
+              "verification_status": "NeedsReview",
+              "uncertainty_reason": "Automated extraction pending human clinical validation.",
+              "extractedsignal": "",
+              "recommendedroute": "CommandCenterManualReview",
+              "nextstep": "Awaiting Command Center review."
+            }
+          },
+          "runAfter": { "Upload_File_To_Secure_SharePoint": ["Succeeded"] }
+        }
+      }
     }
+  }
 }

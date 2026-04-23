@@ -1,0 +1,303 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_powerbi": {
+        "api": {
+          "name": "shared_powerbi"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedpowerbi_f3867"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "facility_hint": {
+                  "title": "facility_hint",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "quarter_hint": {
+                  "title": "quarter_hint",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "resident_reporting_period": {
+                  "title": "resident_reporting_period",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "payer_hint": {
+                  "title": "payer_hint",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "query_mode": {
+                  "title": "query_mode",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "requested_run_id": {
+                  "title": "requested_run_id",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "VirtualAgent",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "facility_submission_status": {
+                  "title": "facility_submission_status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "facility_data_text": {
+                  "title": "facility_data_text",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "power_bi_data_source": {
+                  "title": "power_bi_data_source",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "resident_submission_status": {
+                  "title": "resident_submission_status",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "resident_data_text": {
+                  "title": "resident_data_text",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "last_refresh_utc": {
+                  "title": "last_refresh_utc",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "semantic_model_name": {
+                  "title": "semantic_model_name",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "rls_mode": {
+                  "title": "rls_mode",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "facility": {
+                  "title": "Facility",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "patient_full_name": {
+                  "title": "Patient Full Name",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "patient_id": {
+                  "title": "Patient ID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "adl_score": {
+                  "title": "adl_score",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "braden": {
+                  "title": "braden",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "bims": {
+                  "title": "bims",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "falls_risk": {
+                  "title": "falls_risk",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "total_falls": {
+                  "title": "total_falls",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "total_injuries": {
+                  "title": "total_injuries",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "new_skin_injury": {
+                  "title": "new_skin_injury",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "total_behaviors": {
+                  "title": "total_behaviors",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "antipsychotic": {
+                  "title": "antipsychotic",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "had_fall_30_days": {
+                  "title": "had_fall_30_days",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "had_injury_30_days": {
+                  "title": "had_injury_30_days",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "had_skin_injury_30_days": {
+                  "title": "had_skin_injury_30_days",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "had_behavior_30_days": {
+                  "title": "had_behavior_30_days",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "had_antipsychotic_30_days": {
+                  "title": "had_antipsychotic_30_days",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "outputs('run_a_query_against_a_dataset_1')['body']['firsttablerows'][0]['outlier_score']": {
+                  "title": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['outlier_score']",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "facility_submission_status": "if(and(equals(outputs('Run_a_query_against_a_dataset_1')?['statusCode'], 200), greater(length(outputs('Run_a_query_against_a_dataset_1')?['body']?['firstTableRows']), 0)), 'success', 'failure')",
+              "facility_data_text": "if(empty(outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord']), 'No facility data found', concat('Facility: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/FacilityName']))",
+              "power_bi_data_source": "@{concat('Power BI/', coalesce(triggerBody()?['query_mode'], 'resident_outliers'))}",
+              "resident_submission_status": "if(empty(outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord']), 'Pending', 'Complete')",
+              "resident_data_text": "if(empty(outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord']), 'No resident data found', concat('Patient: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/Patient_Patient_Full_Name'], ' | ID: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/Patient_Patient_ID'], ' | ADL: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/adl_score'], ' | BIMS: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/bims'], ' | Falls: ', outputs('Run_a_query_against_a_dataset_1')?['body/firstRecord/total_falls']))",
+              "last_refresh_utc": "@{utcNow()}",
+              "semantic_model_name": "SM_Restricted",
+              "rls_mode": "connector",
+              "facility": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['Facility']",
+              "patient_full_name": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['Patient Full Name']",
+              "patient_id": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['Patient ID']",
+              "adl_score": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['adl_score']",
+              "braden": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['braden']",
+              "bims": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['bims']",
+              "falls_risk": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['falls_risk']",
+              "total_falls": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['total_falls']",
+              "total_injuries": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['total_injuries']",
+              "new_skin_injury": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['new_skin_injury']",
+              "total_behaviors": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['total_behaviors']",
+              "antipsychotic": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['antipsychotic']",
+              "had_fall_30_days": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['had_fall_30_days']",
+              "had_injury_30_days": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['had_injury_30_days']",
+              "had_skin_injury_30_days": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['had_skin_injury_30_days']",
+              "had_behavior_30_days": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['had_behavior_30_days']",
+              "had_antipsychotic_30_days": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['had_antipsychotic_30_days']",
+              "outputs('run_a_query_against_a_dataset_1')['body']['firsttablerows'][0]['outlier_score']": "outputs('Run_a_query_against_a_dataset_1')['body']['firstTableRows'][0]['outlier_score']"
+            }
+          },
+          "runAfter": {
+            "Run_a_query_against_a_dataset_1": [
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "Run_a_query_against_a_dataset_1": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "groupid": "me",
+              "datasetid": "327a2c21-f64b-4dab-8ee5-edc31f9123cd",
+              "specification/query": "test queryEVALUATE     TOPN(     25,     ADDCOLUMNS(     SUMMARIZECOLUMNS(     'Entity'[Facility],     'Patient'[Patient Full Name],     'Patient'[Patient ID],     FILTER('Patient', 'Patient'[is_active] = TRUE()),     \"adl_score\", MAX('fact_therapy_outcomes'[adl_score]),     \"braden\", MAX('fact_therapy_outcomes'[braden]),     \"bims\", MAX('fact_therapy_outcomes'[bims]),     \"falls_risk\", MAX('fact_therapy_outcomes'[falls_risk]),     \"total_falls\", MAX('fact_therapy_outcomes'[total_falls]),     \"total_injuries\", MAX('fact_therapy_outcomes'[total_injuries]),     \"new_skin_injury\", MAX('fact_therapy_outcomes'[new_skin_injury]),     \"total_behaviors\", MAX('fact_therapy_outcomes'[total_behaviors]),     \"antipsychotic\", MAX('fact_therapy_outcomes'[antipsychotic]),     \"had_fall_30_days\", MAX('fact_therapy_outcomes'[had_fall_30_days]),     \"had_injury_30_days\", MAX('fact_therapy_outcomes'[had_injury_30_days]),     \"had_skin_injury_30_days\", MAX('fact_therapy_outcomes'[had_skin_injury_30_days]),     \"had_behavior_30_days\", MAX('fact_therapy_outcomes'[had_behavior_30_days]),     \"had_antipsychotic_30_days\", MAX('fact_therapy_outcomes'[had_antipsychotic_30_days])     ),     \"outlier_score\",     COALESCE([had_fall_30_days], 0) * 10 +     COALESCE([had_injury_30_days], 0) * 12 +     COALESCE([had_skin_injury_30_days], 0) * 9 +     COALESCE([had_behavior_30_days], 0) * 6 +     COALESCE([had_antipsychotic_30_days], 0) * 6 +     COALESCE([total_falls], 0) * 4 +     COALESCE([total_injuries], 0) * 5 +     COALESCE([new_skin_injury], 0) * 5 +     COALESCE([total_behaviors], 0) * 3 +     COALESCE([antipsychotic], 0) * 3     ),     [outlier_score], DESC,     [total_falls], DESC,     [total_injuries], DESC,     'Patient'[Patient Full Name], ASC     )",
+              "specification/serializerSettings/includeNulls": false
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerbi",
+              "operationId": "ExecuteDatasetQuery",
+              "connectionName": "shared_powerbi"
+            }
+          },
+          "runAfter": {}
+        }
+      },
+      "description": "Queries a configured Power BI semantic model for resident-level QM data and returns a constrained payload for Copilot Studio analysis."
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

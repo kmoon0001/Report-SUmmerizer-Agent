@@ -1,11 +1,17 @@
-mcs.metadata:
+﻿mcs.metadata:
   componentName: SNF Dashboard - CrossAgent Audit Log
 kind: TaskDialog
 modelDisplayName: TheraDoc - CrossAgent Audit Log
-modeldescription: Records TheraDoc handoffs to the Command Center audit trail. Aligns with Microsoft Learn "Ironclad" auditing standards.
+modelDescription: Use this action to execute CrossAgentAuditLog for SNF Command Center workflows.
 outputs:
   - propertyName: sessionid
   - propertyName: auditstatus
+  - propertyName: status
+  - propertyName: summary
+  - propertyName: confidence
+  - propertyName: requireshumanreview
+  - propertyName: datasource
+  - propertyName: warnings
 
 action:
   kind: InvokeFlowTaskAction
@@ -25,3 +31,4 @@ action:
   inputMode: Prompt
 
 outputMode: All
+

@@ -1,0 +1,10 @@
+<bot schemaname="snf_ai_dashboard_repack_20260421">
+  <authenticationmode>2</authenticationmode>
+  <authenticationtrigger>1</authenticationtrigger>
+  <iscustomizable>0</iscustomizable>
+  <language>1033</language>
+  <name>SNF AI Dashboard Repack 2026-04-21</name>
+  <runtimeprovider>0</runtimeprovider>
+  <synchronizationstatus>{"lastFinishedPublishOperation":null,"contentVersion":2,"$kind":"BotSynchronizationDetails","currentSynchronizationState":{"$kind":"SynchronizationState","botRegistration":{"$kind":"BotRegistrationDetails","botRegistrationIdConsumptionTime":"2026-04-21T10:04:04Z","applicationId":"8b010ce3-6757-4c44-bcc1-caa42e974a0a","isAppAvailableInTenant":true},"provisioningStatus":"Provisioned","state":"Synchronizing"},"lastSynchronizedOnUtc":"2026-04-21T10:04:14.2708136Z"}</synchronizationstatus>
+  <template>kickStartTemplate-1.0.0</template>
+</bot>

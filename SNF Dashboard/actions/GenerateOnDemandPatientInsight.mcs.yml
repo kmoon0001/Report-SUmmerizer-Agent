@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Generate On Demand Patient Insight
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Generate On Demand Patient Insight
-modeldescription: Elite clinical intelligence module specialized in [GenerateOnDemandPatientInsight]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute GenerateOnDemandPatientInsight for SNF Command Center workflows.
 inputs:
   - propertyName: patientid
     required: false

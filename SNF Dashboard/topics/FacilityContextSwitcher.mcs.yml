@@ -1,4 +1,4 @@
-# Microsoft Learn Platinum Standard Instructions:
+﻿# Microsoft Learn Platinum Standard Instructions:
 # **Grounding**: Refer to src/KnowledgeBase/GLOBAL_CMS_COMPLIANCE.md.
 # **Patterns**: Implement src/KnowledgeBase/PLATINUM_PROMPT_PATTERNS.md for few-shot reasoning.
 # **Self-Correction**: If the output involves clinical judgment, invoke the ComplianceAuditor gate.
@@ -19,12 +19,7 @@ mcs.metadata:
     Multi-Facility Context Switcher for DORs managing multiple SNF buildings.
     Allows rapid switching of the active facility context without losing session data.
 kind: AdaptiveDialog
-modeldescription: >
-  Elite Multi-Facility Context Switcher for Pacific Coast Therapy Hub.
-  Enables Directors of Rehab (DOR) and executives managing multiple Pacific
-  Coast facilities to switch facility context in real-time. Preserves all
-  session variables while updating the active facility binding for QM analysis,
-  PDPM reporting, and compliance tracking. Supports all Pacific Coast facilities.
+modelDescription: Use this topic to handle FacilityContextSwitcher requests in SNF Command Center.
 beginDialog:
   kind: OnRecognizedIntent
   id: main
@@ -56,42 +51,36 @@ beginDialog:
       variable: Global.SelectedFacility
       prompt: Select the facility you want to work with:
       entity:
-        kind: EmbeddedEntity
-        definition:
-          kind: ClosedListEntity
-          items:
-            - id: SeaCliff
-              displayName: Sea Cliff
-            - id: PalmTerrace
-              displayName: Palm Terrace
-            - id: Victoria
-              displayName: Victoria
-            - id: StCatherine
-              displayName: St. Catherine
-            - id: StElizabeth
-              displayName: St. Elizabeth
-            - id: Mainplace
-              displayName: Mainplace
-            - id: NewOrangeHills
-              displayName: New Orange Hills
-            - id: TheHills
-              displayName: The Hills
-            - id: Other
-              displayName: Other / Not Listed
+        kind: DynamicClosedListEntity
+        items:
+          - id: SeaCliff
+            displayName: Sea Cliff
+          - id: PalmTerrace
+            displayName: Palm Terrace
+          - id: Victoria
+            displayName: Victoria
+          - id: StCatherine
+            displayName: St. Catherine
+          - id: StElizabeth
+            displayName: St. Elizabeth
+          - id: Mainplace
+            displayName: Mainplace
+          - id: NewOrangeHills
+            displayName: New Orange Hills
+          - id: TheHills
+            displayName: The Hills
+          - id: Other
+            displayName: Other / Not Listed
 
     - kind: ConditionGroup
       id: conditionGroup_otherFacility
       conditions:
         - id: conditionItem_other
-          condition: =Global.SelectedFacility = "Other"
+          condition: =Text(Global.SelectedFacility) = "Other"
           actions:
-            - kind: Question
-              id: question_otherFacility
-              variable: Global.SelectedFacility
-              prompt: Enter the facility name:
-              entity:
-                kind: StringPrebuiltEntity
-                sensitivityLevel: None
+            - kind: SendActivity
+              id: sendActivity_otherFacility
+              activity: "Other facility selection requires administrator setup. For now, select one of the listed facilities."
 
     - kind: SendActivity
       id: sendActivity_facilitySet

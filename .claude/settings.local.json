@@ -27,7 +27,12 @@
       "Bash(C:/Users/kevin/AppData/Local/Microsoft/PowerAppsCLI/pac.cmd copilot *)",
       "Bash(cmd /c \"npx -y @playwright/mcp@latest --help\")",
       "Bash(taskkill /F /IM chrome.exe)",
-      "Bash(cmd /c \"taskkill /F /IM chrome.exe\")"
+      "Bash(cmd /c \"taskkill /F /IM chrome.exe\")",
+      "mcp__learn-docs__microsoft_docs_search",
+      "mcp__learn-docs__microsoft_docs_fetch",
+      "Bash(\"C:\\\\Users\\\\kevin\\\\AppData\\\\Local\\\\Microsoft\\\\PowerAppsCLI\\\\pac.cmd\" auth *)",
+      "Bash(\"C:\\\\Users\\\\kevin\\\\AppData\\\\Local\\\\Microsoft\\\\PowerAppsCLI\\\\pac.cmd\" copilot *)",
+      "Bash(grep -iE \"venv|slp|sharepoint|portal|requirements|\\\\.py$|pip|__pycache__|\\\\.env\")"
     ]
   },
   "enableAllProjectMcpServers": true

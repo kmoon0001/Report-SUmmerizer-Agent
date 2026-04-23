@@ -1,0 +1,25 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Greeting
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Good afternoon
+      - Good morning
+      - Hello
+      - Hey
+      - Hi
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_abmysR
+      activity:
+        text:
+          - Welcome to the Pacific Coast AI Dashboard. How can I help you today?
+        speak:
+          - Welcome to the Pacific Coast AI Dashboard. How can I help today?
+
+    - kind: CancelAllDialogs
+      id: cancelAllDialogs_01At22

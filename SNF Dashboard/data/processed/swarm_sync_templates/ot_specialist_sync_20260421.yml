@@ -1,0 +1,1004 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.cms.gov/outreach-and-education/medicare-learning-network-mln website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.cms.govoutreachandeducationmedicarelearningnetworkmln
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze OT Evaluation
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzeOTEvaluation
+    dialog:
+      modelDescription: This topic audits OT evaluation notes for comprehensive assessment documentation, skilled need justification, and compliance with CMS guidelines.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search_AnalyzeOTEvaluation
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OT Clinical Documentation Standards
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OTClinicalDocumentationStandards
+    dialog:
+      modelDescription: This topic outlines occupational therapy clinical documentation standards including evaluation components, functional assessment documentation, treatment plan requirements, progress note standards, goal specificity, outcome measures integration, and regulatory compliance (CMS, OIG). It ensures all OT documentation meets SNF and Medicare requirements.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SendActivity
+            id: sendActivity_ET5mhI
+            activity: |
+              Please submit the documentation section you need reviewed for compliance standards.
+
+              Analyze OT clinical documentation for PLATINUM standard compliance. Validate:
+              OT  clinical documenation standards 
+              -
+               FIM (Functional Independence Measure) Motor/Cognitive baselines documented
+              - Standardized outcome measures present (NHPT, Jamar, MoCA, MMSE)
+              - CPT code alignment (97166/97167/97168 complexity)
+              - Insurance-specific denials and red flags
+              - Caregiver competency documentation
+              Return: Compliance score (0-100), missing elements, and remediation actions.
+              Input: /clinical_note
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: CFR-2022-title42-vol3-sec424-24.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in CFR-2022-title42-vol3-sec424-24.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.CFR2022title42vol3sec42424.pdf
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.ninds.nih.gov/health-information/patient-caregiver-education
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.ninds.nih.gov/health-information/patient-caregiver-education website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.ninds.nih.govhealthinformationpatientcaregivereducation
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.ninds.nih.gov/health-information/patient-caregiver-education
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.cdc.gov/
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.cdc.gov/ website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.cdc.gov
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.cdc.gov/
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.aota.org/occupational-therapy-services/standards-and-competencies
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.aota.org/occupational-therapy-services/standards-and-competencies website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.aota.orgoccupationaltherapyservicesstandardsandcompetencies
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.aota.org/occupational-therapy-services/standards-and-competencies
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.aota.org/practice/scope-of-practice
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.aota.org/practice/scope-of-practice website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.aota.orgpracticescopeofpractice
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.aota.org/practice/scope-of-practice
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Insurance Denial Risk Prompt
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.InsuranceDenialRiskPrompt
+    dialog:
+      modelDescription: This prompt helps identify documentation elements that pose insurance denial risks, including missing skilled nursing justification, inadequate functional limitation documentation, lack of medical necessity, insufficient specificity in goals, and absence of frequency justification. It guides OT specialists to strengthen documentation to prevent claim denials and ensure Medicare coverage.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: ot_denial_audit
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or denial-risk gaps.
+            fileSearchDataSource:
+              searchFilesMode:
+                kind: SearchSpecificFiles
+                files:
+                  - template-content.file.2025PartBMSCAAuditWorksheet.pdf
+                  - template-content.file.aotaaptaashaconsensusstatement.pdf
+                  - template-content.file.CFR2022title42vol3sec42424.pdf
+                  - template-content.file.Ch15MedicareBenefitsPolicyManual.pdf
+                  - template-content.file.MedicareClaimsProcessingManualCh5.pdf
+                  - template-content.file.MedicareProgramIntegrityManualCh3.pdf
+                  - template-content.file.MedicareSecondaryPayerManualtherapy.pdf
+                  - template-content.file.MedicareTherapyLearningNetwork.pdf
+                  - template-content.file.StrongOTDocumentationPatterns.txt
+
+            knowledgeSources:
+              kind: SearchSpecificKnowledgeSources
+              knowledgeSources:
+                - template-content.knowledge.httpswww.aota.orgpracticedocumentation
+                - template-content.knowledge.httpswww.cms.govoutreachandeducationmedicarelearningnetworkmln
+
+            applyModelKnowledgeSetting: false
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Therapy Learning Network.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Medicare Therapy Learning Network.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareTherapyLearningNetwork.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.aota.org/practice/functional-cognition
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.aota.org/practice/functional-cognition website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.aota.orgpracticefunctionalcognition
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.aota.org/practice/functional-cognition
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: aota-apta-asha-consensus-statement.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in aota-apta-asha-consensus-statement.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.aotaaptaashaconsensusstatement.pdf
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: 2025 Part B MSCA Audit Worksheet.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in 2025 Part B MSCA Audit Worksheet.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.2025PartBMSCAAuditWorksheet.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.aota.org/practice/home-modifications
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.aota.org/practice/home-modifications website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.aota.orgpracticehomemodifications
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.aota.org/practice/home-modifications
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze OT Discharge
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzeOTDischarge
+    dialog:
+      modelDescription: This topic audits OT discharge notes for discharge summary completeness, discharge disposition accuracy, carryover instructions clarity, equipment and supplies recommendations, and community reintegration safety. It verifies compliance with facility discharge documentation standards and ensures proper handoff to community providers.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search_AnalyzeOTDischarge
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Program Integrity Manual Ch3.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Medicare Program Integrity Manual Ch3.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareProgramIntegrityManualCh3.pdf
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.aota.org/practice/otpf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.aota.org/practice/otpf website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.aota.orgpracticeotpf
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.aota.org/practice/otpf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Claims Processing Manual Ch 5.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Medicare Claims Processing Manual Ch 5.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareClaimsProcessingManualCh5.pdf
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.settings.copilots_header_8c921.BotSettingsComponent.Feedback
+    settings:
+      kind: NoFeedbackCollection
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Hello, I'm {System.Bot.Name}. How can I help?
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}. Please note that some responses are generated by AI and may require verification for accuracy. How may I help you today?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OT General Knowledge
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OTGeneralKnowledge
+    dialog:
+      modelDescription: This topic provides general occupational therapy knowledge resources including functional anatomy, ADL assessment and training methods, adaptive equipment guidance, energy conservation techniques, occupational performance domains, and fall prevention strategies. It serves as a reference knowledge base for OT specialists in SNF settings.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: ot_general_audit
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT clinical inquiry as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If the information is not in the provided evidence, return a JSON error object instead of guessing.
+
+      inputType: {}
+      outputType: {}
+      mcs.metadata:
+        componentName: OT General Knowledge
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Strong OT Documentation Patterns.txt
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Strong OT Documentation Patterns.txt
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.StrongOTDocumentationPatterns.txt
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: OT Caregiver Competency Prompt
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OTCaregiverCompetencyPrompt
+    dialog:
+      modelDescription: This prompt assesses caregiver readiness and competency in implementing OT recommendations, including supervision requirements, training needs, safety awareness, equipment operation, ADL assistance techniques, behavioral management strategies, and communication with therapy team. It ensures caregivers can safely carry forward OT interventions.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: otc_competency_audit
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT caregiver competency text as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing competency evidence or documentation gaps.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              **ESCALATION PROTOCOL (AHRQ SBAR Framework)**
+
+              I cannot provide a complete response for this request. Here's the structured escalation per clinical safety protocols:
+
+              **SITUATION:**
+              I am the OT documentation specialist and have reached the limits of my configured assistance. This requires escalation to appropriate resources.
+
+              **BACKGROUND:**
+              - Request type: [EHR/technical issue | Clinical question beyond my scope | OTR/L professional review needed | PHI/sensitive data concern]
+              - What I was able to determine: [State any partial findings or clarifications]
+              - Limitation encountered: [Missing information | System access issue | Scope boundary | Content filter]
+
+              **ASSESSMENT:**
+              Based on VA HFMEA and AHRQ patient safety escalation guidelines:
+              - If EHR connector failure or technical error: Contact IT Help Desk immediately
+              - If clinical OT question requiring professional judgment: Consult licensed OTR/L supervisor  
+              - If scope/ethics question: Reference AOTA guidelines or AOTA Practice Portal
+              - If PHI concern: Follow facility HIPAA protocols for de-identification
+
+              **RECOMMENDATION:**
+              **For EHR/Technical Issues:**
+              • Contact IT Help Desk or EHR support team
+              • Document error codes and workflow steps where failure occurred
+              • Include timestamp and specific module/screen
+
+              **For Clinical OT Questions:**
+              • Consult facility's licensed OTR/L supervisor
+              • Review AOTA Practice Guidelines: https://www.aota.org
+              • Reference CMS Chapter 15 guidelines for therapy documentation
+              • Review facility-specific OT protocols
+
+              **For ADL/IADL Assessment Questions:**
+              • Use standardized tools: FIM, Kohlman Evaluation, AMPS, COPM
+              • Consult interdisciplinary team (PT, nursing, case management)
+              • Reference CPT codes 97165-97167 for evaluation levels
+
+              **For Professional/Ethics Questions:**
+              • AOTA Code of Ethics and practice standards
+              • State licensing board for scope of practice questions
+
+              Can I help you document this issue or identify the specific type of escalation needed?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze OT Recertification Note
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzeOTRecertificationNote
+    dialog:
+      modelDescription: This topic audits OT recertification notes for CMS compliance, skilled need justification, and documentation accuracy per Medicare guidelines.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search_AnalyzeOTRecertificationNote
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Medicare Secondary Payer Manual - therapy.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Medicare Secondary Payer Manual - therapy.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.MedicareSecondaryPayerManualtherapy.pdf
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login
+
+  - kind: FileAttachmentComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Ch 15 Medicare Benefits Policy Manual.pdf
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information contained in Ch 15 Medicare Benefits Policy Manual.pdf
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.file.Ch15MedicareBenefitsPolicyManual.pdf
+
+  - kind: KnowledgeSourceComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: https://www.bu.edu/shield/am-pac/
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    description: This knowledge source searches information on the web found in https://www.bu.edu/shield/am-pac/ website
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.knowledge.httpswww.bu.edushieldampac
+    configuration:
+      source:
+        kind: PublicSiteSearchSource
+        site: https://www.bu.edu/shield/am-pac/
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Analyze OT Daily Note
+    parentBotId: afcd341a-48bd-4356-94ee-056a9bd2a078
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.AnalyzeOTDailyNote
+    dialog:
+      modelDescription: This topic audits OT daily therapy notes for CMS compliance, clinical necessity documentation, and skilled need justification per Medicare guidelines.
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent: {}
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search_AnalyzeOTDailyNote
+            userInput: =System.Activity.Text
+            additionalInstructions: Analyze the provided OT documentation as a backend connected agent. Return exactly one valid JSON object using the OT_Specialist schema. Do not ask follow-up questions or emit narrative. If evidence is incomplete, return a JSON error object that lists missing documentation elements or fields.
+
+      inputType: {}
+      outputType: {}

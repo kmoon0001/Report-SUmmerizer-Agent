@@ -1,0 +1,62 @@
+﻿{
+    "created":  [
+
+                ],
+    "failed":  [
+                   {
+                       "Name":  "SNF Command Center Agent",
+                       "Schema":  "swarmfix01_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 16 components for copilot \u0027SNF Command Center Agent (Therapy Sync 2026-04-21)\u0027 with id 7c79289c-eb87-4591-8e20-a9321a22ca9c. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: HTTP Status:BadRequest, ServiceRequestId: 7a2435d8-ddd6-4444-b18a-a4933e047688 [0x800608ad:ExportKeyAttributeInvalidPrefix] Export key attribute connectionreferencelogicalname for component connectionreference must start with a valid customization prefix.\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Compliance_Auditor",
+                       "Schema":  "swarmfix02_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 32 components for copilot \u0027Compliance_Auditor (Therapy Sync 2026-04-21)\u0027 with id 9747a738-4bec-4e44-a938-e305e1179929. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Compliance_Auditor (Therapy Sync 2026-04-21)\u0027 (9747a738-4bec-4e44-a938-e305e1179929): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Synthesis_Orchestrator",
+                       "Schema":  "swarmfix03_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 13 components for copilot \u0027Synthesis_Orchestrator (Therapy Sync 2026-04-21)\u0027 with id bbe6b51b-8eb3-4633-8554-85eaccf4b557. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Synthesis_Orchestrator (Therapy Sync 2026-04-21)\u0027 (bbe6b51b-8eb3-4633-8554-85eaccf4b557): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Rules_Engine_Medicare_Ch15",
+                       "Schema":  "swarmfix04_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 25 components for copilot \u0027Rules_Engine_Medicare_Ch15 (Therapy Sync 2026-04-21)\u0027 with id 70b832c5-64af-4884-b5a3-729b01860d06. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Rules_Engine_Medicare_Ch15 (Therapy Sync 2026-04-21)\u0027 (70b832c5-64af-4884-b5a3-729b01860d06): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Consensus_Engine",
+                       "Schema":  "swarmfix05_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 14 components for copilot \u0027Consensus_Engine (Therapy Sync 2026-04-21)\u0027 with id c00c848b-e1fc-4b01-873c-c8c650c8517c. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: HTTP Status:BadRequest, ServiceRequestId: 5a149946-3d30-4874-8e1d-4fb806dfc5ba [0x800608ad:ExportKeyAttributeInvalidPrefix] Export key attribute schemaname for component bot must start with a valid customization prefix.\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Escalation_Router",
+                       "Schema":  "swarmfix06_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 14 components for copilot \u0027Escalation_Router (Therapy Sync 2026-04-21)\u0027 with id b0e461a2-b90b-4fff-b0e9-f770ad64e166. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Escalation_Router (Therapy Sync 2026-04-21)\u0027 (b0e461a2-b90b-4fff-b0e9-f770ad64e166): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Regulatory_Validator",
+                       "Schema":  "swarmfix07_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 14 components for copilot \u0027Regulatory_Validator (Therapy Sync 2026-04-21)\u0027 with id 2780c20a-619a-4273-8d0d-a66d73d47e27. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Regulatory_Validator (Therapy Sync 2026-04-21)\u0027 (2780c20a-619a-4273-8d0d-a66d73d47e27): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Prior_Auth_Validator",
+                       "Schema":  "swarmfix08_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 14 components for copilot \u0027Prior_Auth_Validator (Therapy Sync 2026-04-21)\u0027 with id aabd6ed5-dcc6-4ac5-ae13-143908b99bc1. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Prior_Auth_Validator (Therapy Sync 2026-04-21)\u0027 (aabd6ed5-dcc6-4ac5-ae13-143908b99bc1): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Interdisciplinary_Coordinator",
+                       "Schema":  "swarmfix09_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 14 components for copilot \u0027Interdisciplinary_Coordinator (Therapy Sync 2026-04-21)\u0027 with id 2bfe066b-7860-40e4-b145-6aebe8aeda7e. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Interdisciplinary_Coordinator (Therapy Sync 2026-04-21)\u0027 (2bfe066b-7860-40e4-b145-6aebe8aeda7e): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Risk_Assessment_Agent",
+                       "Schema":  "swarmfix10_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 13 components for copilot \u0027Risk_Assessment_Agent (Therapy Sync 2026-04-21)\u0027 with id 3183a314-9575-49be-b29c-02861d730cd7. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Risk_Assessment_Agent (Therapy Sync 2026-04-21)\u0027 (3183a314-9575-49be-b29c-02861d730cd7): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   },
+                   {
+                       "Name":  "Documentation_Processor",
+                       "Schema":  "swarmfix11_20260421",
+                       "Output":  "Connected as 123713644@ensignservices.net\r\n\r\nLoaded 24 components for copilot \u0027Documentation_Processor (Therapy Sync 2026-04-21)\u0027 with id ccc31eea-b163-4f03-8907-662fc853a781. Primary language: 0, supported languages: \r\nMicrosoft PowerPlatform CLI\r\nVersion: 2.6.3+gfc7e1f3 (.NET Framework 4.8.9325.0)\r\nOnline documentation: https://aka.ms/PowerPlatformCLI\r\nFeedback, Suggestions, Issues: https://github.com/microsoft/powerplatform-build-tools/discussions\r\n\r\nError: Bot \u0027Documentation_Processor (Therapy Sync 2026-04-21)\u0027 (ccc31eea-b163-4f03-8907-662fc853a781): Bot name length greater than 42 characters\r\n\r\n\r\n"
+                   }
+               ]
+}

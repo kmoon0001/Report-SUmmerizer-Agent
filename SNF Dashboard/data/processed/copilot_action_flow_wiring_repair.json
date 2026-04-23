@@ -1,0 +1,264 @@
+﻿{
+    "GeneratedAt":  "2026-04-21 02:04:26",
+    "EnvironmentIds":  [
+                           "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                           "077422cf-d088-e3d7-917e-5c9a9b64710c"
+                       ],
+    "Results":  [
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GenerateOnDemandPatientInsight.mcs.yml",
+                        "FlowId":  "c147cf4b-777b-43b5-8d4a-e00e0c233b49",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GenerateOnDemandPatientInsight.mcs.yml",
+                        "FlowId":  "c147cf4b-777b-43b5-8d4a-e00e0c233b49",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "SendClinicalAlert.mcs.yml",
+                        "FlowId":  "18c14215-a5d0-4570-be82-3047d5fd0b22",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "SendClinicalAlert.mcs.yml",
+                        "FlowId":  "18c14215-a5d0-4570-be82-3047d5fd0b22",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GenerateQualityMeasureReport.mcs.yml",
+                        "FlowId":  "c2ed03e7-6fe4-44b3-a219-25d20cc36548",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GenerateQualityMeasureReport.mcs.yml",
+                        "FlowId":  "c2ed03e7-6fe4-44b3-a219-25d20cc36548",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ExportCareSummary.mcs.yml",
+                        "FlowId":  "ae053d82-b043-4b7d-92bb-902dba031aa7",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ExportCareSummary.mcs.yml",
+                        "FlowId":  "ae053d82-b043-4b7d-92bb-902dba031aa7",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalFileIntake.mcs.yml",
+                        "FlowId":  "bc1d9296-6ea5-4112-8e67-3a901196252c",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalFileIntake.mcs.yml",
+                        "FlowId":  "bc1d9296-6ea5-4112-8e67-3a901196252c",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalImageReview.mcs.yml",
+                        "FlowId":  "5e616864-234a-44c7-adb6-748cf1f146df",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalImageReview.mcs.yml",
+                        "FlowId":  "5e616864-234a-44c7-adb6-748cf1f146df",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GlobalEscalationBeacon.mcs.yml",
+                        "FlowId":  "3f8a26d0-6f2e-4a66-a128-59020f47c441",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "a944fdf0-0d2e-e14d-8a73-0f5ffae23315",
+                        "EnvironmentUrl":  "https://orgbd048f00.crm.dynamics.com",
+                        "ActionFile":  "GlobalEscalationBeacon.mcs.yml",
+                        "FlowId":  "3f8a26d0-6f2e-4a66-a128-59020f47c441",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GenerateOnDemandPatientInsight.mcs.yml",
+                        "FlowId":  "c147cf4b-777b-43b5-8d4a-e00e0c233b49",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GenerateOnDemandPatientInsight.mcs.yml",
+                        "FlowId":  "c147cf4b-777b-43b5-8d4a-e00e0c233b49",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "SendClinicalAlert.mcs.yml",
+                        "FlowId":  "18c14215-a5d0-4570-be82-3047d5fd0b22",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "SendClinicalAlert.mcs.yml",
+                        "FlowId":  "18c14215-a5d0-4570-be82-3047d5fd0b22",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GenerateQualityMeasureReport.mcs.yml",
+                        "FlowId":  "c2ed03e7-6fe4-44b3-a219-25d20cc36548",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GenerateQualityMeasureReport.mcs.yml",
+                        "FlowId":  "c2ed03e7-6fe4-44b3-a219-25d20cc36548",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ExportCareSummary.mcs.yml",
+                        "FlowId":  "ae053d82-b043-4b7d-92bb-902dba031aa7",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ExportCareSummary.mcs.yml",
+                        "FlowId":  "ae053d82-b043-4b7d-92bb-902dba031aa7",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalFileIntake.mcs.yml",
+                        "FlowId":  "bc1d9296-6ea5-4112-8e67-3a901196252c",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalFileIntake.mcs.yml",
+                        "FlowId":  "bc1d9296-6ea5-4112-8e67-3a901196252c",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalImageReview.mcs.yml",
+                        "FlowId":  "5e616864-234a-44c7-adb6-748cf1f146df",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "ProcessClinicalImageReview.mcs.yml",
+                        "FlowId":  "5e616864-234a-44c7-adb6-748cf1f146df",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GlobalEscalationBeacon.mcs.yml",
+                        "FlowId":  "3f8a26d0-6f2e-4a66-a128-59020f47c441",
+                        "Step":  "UpdateFlowClientData",
+                        "Status":  "PASS",
+                        "Details":  "Updated workflow clientdata from local export."
+                    },
+                    {
+                        "EnvironmentId":  "077422cf-d088-e3d7-917e-5c9a9b64710c",
+                        "EnvironmentUrl":  "https://pccapackage.crm.dynamics.com",
+                        "ActionFile":  "GlobalEscalationBeacon.mcs.yml",
+                        "FlowId":  "3f8a26d0-6f2e-4a66-a128-59020f47c441",
+                        "Step":  "ActivateFlow",
+                        "Status":  "PASS",
+                        "Details":  "Flow is activated."
+                    }
+                ],
+    "Failures":  [
+
+                 ]
+}

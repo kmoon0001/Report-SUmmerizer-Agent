@@ -2,7 +2,7 @@
   componentName: SNF Command Center - Process Clinical File Intake
 kind: TaskDialog
 modelDisplayName: SNF Command Center - Process Clinical File Intake
-modeldescription: Elite clinical intelligence module specialized in [ProcessClinicalFileIntake]. Executes high-precision data analysis grounded in CMS Chapter 15 and Pacific Coast Services Ironclad Standards. Optimized for Dynamic Chaining.
+modelDescription: Use this action to execute ProcessClinicalFileIntake for SNF Command Center workflows.
 inputs:
   - propertyName: documenttype
     required: false

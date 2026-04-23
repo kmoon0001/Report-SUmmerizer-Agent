@@ -1,0 +1,1005 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: GroupMembership
+  authenticationMode: Integrated
+  authenticationTrigger: Always
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: kickStartTemplate-1.0.0
+
+components:
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: End of Conversation
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: |-
+      This system topic is only triggered by a redirect action,
+      and guides the user through rating their conversation with the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Did that answer your question?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Thanks for your feedback.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Can I help with anything else?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Go ahead. I'm listening.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: Ok, goodbye.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Sorry I wasn't able to help better. Would you like to try again?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: template-content.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Go ahead. I'm listening.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This system topic triggers when the user's utterance does not match any existing topics.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: |-
+                      I wasn't able to recognize that request within my SNF routing scope.
+
+                      I can help with:
+                      • Patient alert routing (provide MRN + alert type)
+                      • Case history and assessment review
+                      • Documentation creation (saved as DRAFT only)
+                      • Compliance gap analysis
+                      • Progress, recertification, or discharge summaries
+
+                      Please try again with a format like:
+                      "Route rehospitalization alert for MRN 12345"
+                      "Check compliance for PT documentation, MRN 67890"
+                      "Generate discharge summary for MRN 11111"
+
+                      If you need to start over, type 'start over'.
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: template-content.topic.Escalate
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Greeting
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This topic is triggered when the user greets the agent.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Greeting
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Greeting
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Good afternoon
+            - Good morning
+            - Hello
+            - Hey
+            - Hi
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_abmysR
+            activity:
+              text:
+                - |-
+                  Hello! I'm the SNF Command Center Agent. I can help you with:
+                  • Patient alert routing (Rehospitalization Risk, Authorization, Documentation)
+                  • Case history review and assessment support
+                  • Compliance gap analysis
+                  • Progress, recertification, and discharge summaries
+
+                  To get started, please provide the patient MRN and describe the alert or task. All patient data is handled as PHI and processed securely.
+
+                  Note: I do not provide clinical diagnoses. All generated content is labeled DRAFT and requires clinician review before use.
+              speak:
+                - Hello, <break strength="medium" /> how can I help?
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_01At22
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Thank you
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This topic triggers when the user says thank you.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Thankyou
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Thank you
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - thanks
+            - thank you
+            - thanks so much
+            - ty
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_9iz6v7
+            activity: You're welcome.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This system topic triggers when the agent encounters an error. When using the test chat pane, the full error description is displayed.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SetVariable
+            id: setVariable_timestamp
+            variable: init:Topic.CurrentTime
+            value: =Text(Now(), DateTimeFormat.UTC)
+
+          - kind: ConditionGroup
+            id: condition_1
+            conditions:
+              - id: bL4wmY
+                condition: =System.Conversation.InTestMode = true
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_XJBYMo
+                    activity: |-
+                      Error Message: {System.Error.Message}
+                      Error Code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_dZ0gaF
+                activity:
+                  text:
+                    - |-
+                      SNF Command Center Agent - System Error
+
+                      An unexpected error occurred. No clinical data was submitted or modified. Do not retry critical actions until this session is restarted.
+
+                      For CRITICAL alerts, contact your charge nurse or supervisor immediately.
+
+                      --- Technical Details (for IT) ---
+                      An error has occurred.
+                      Error code: {System.Error.Code}
+                      Conversation Id: {System.Conversation.Id}
+                      Time (UTC): {Topic.CurrentTime}.
+                  speak:
+                    - An error has occurred, please try again.
+
+          - kind: LogCustomTelemetryEvent
+            id: 9KwEAn
+            eventName: OnErrorLog
+            properties: "={ErrorMessage: System.Error.Message, ErrorCode: System.Error.Code, TimeUTC: Topic.CurrentTime, ConversationId: System.Conversation.Id}"
+
+          - kind: CancelAllDialogs
+            id: NW7NyY
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: SNF Routing Status Check
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.SNFRoutingStatusCheck
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          triggerQueries:
+            - snf routing status
+            - check snf routing
+            - snf route update
+            - is snf routed
+            - snf routing progress
+            - status of snf routing
+            - has snf been routed
+            - snf route check
+            - routing status for snf
+
+        actions:
+          - kind: SendActivity
+            id: SendActivity_DXzX51
+            activity: This topic is for checking the status of a previously submitted SNF alert. Please do NOT use it for submitting new alerts.
+
+          - kind: Question
+            id: Question_RJieKJ
+            variable: Topic.ResidentMRN
+            prompt: Please provide the Resident MRN.
+            entity: StringPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: ConditionGroup_BHepT6
+            conditions:
+              - id: ConditionItem_iOrlhW
+                condition: =!IsBlank(Topic.ResidentMRN)
+                actions:
+                  - kind: SendActivity
+                    id: SendActivity_VkRkMA
+                    activity: I'll check the current routing status for this SNF alert. Please provide the Resident MRN to look up the active alert lifecycle stage.
+
+            elseActions:
+              - kind: SendActivity
+                id: SendActivity_XhFM9c
+                activity: No alert was found for the provided MRN.
+
+              - kind: Question
+                id: Question_U5dxsc
+                variable: Topic.Var1
+                prompt: Would you like to submit a new alert?
+                entity:
+                  kind: BooleanPrebuiltEntity
+                  sensitivityLevel: None
+
+              - kind: ConditionGroup
+                id: conditionGroup_ojQvAw
+                conditions:
+                  - id: conditionItem_QHu7RE
+                    condition: =Topic.Var1 = true
+                    actions:
+                      - kind: SendActivity
+                        id: sendActivity_rXEbdG
+                        activity: "Understood. Please describe the alert type and provide the Resident MRN so I can route a new alert. Example: \"Rehospitalization risk for MRN 12345\" or \"Authorization alert for OT patient MRN 67890\"."
+
+                elseActions:
+                  - kind: SendActivity
+                    id: sendActivity_tRplev
+                    activity: Understood. No new alert will be submitted. If you need further assistance, feel free to ask. Stay well!
+
+      inputType: {}
+      outputType: {}
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Multiple Topics Matched
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This system topic triggers when the agent matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.MultipleTopicsMatched
+    dialog:
+      beginDialog:
+        kind: OnSelectIntent
+        id: main
+        triggerBehavior: Always
+        actions:
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: None of these
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "To clarify, did you mean:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
+
+          - kind: ConditionGroup
+            id: conditionGroup_60PuXb
+            conditions:
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
+                actions:
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: template-content.topic.Fallback
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: Create generative answers from knowledge sources.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Goodbye
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This topic triggers when the user says goodbye. By default, it does not end the conversation. If you would like to end the conversation when the user says goodbye, you can add an "End of Conversation" action to this topic, or redirect to the "End of Conversation" system topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Goodbye
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Goodbye
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Bye
+            - Bye for now
+            - Bye now
+            - Good bye
+            - No thank you. Goodbye.
+            - See you later
+
+        actions:
+          - kind: Question
+            id: question_zf2HhP
+            variable: Topic.EndConversation
+            prompt: Would you like to end our conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition_DGc1Wy
+            conditions:
+              - id: condition_DGc1Wy-item-0
+                condition: =Topic.EndConversation = true
+                actions:
+                  - kind: BeginDialog
+                    id: dn94DC
+                    dialog: template-content.topic.EndofConversation
+
+                  - kind: SendActivity
+                    id: sendActivity_Qx6YJ5
+                    activity: |-
+                      Session ended. Goodbye!
+
+                      Reminder: Any content generated this session is DRAFT and requires clinician review. No records were automatically submitted or finalized.
+
+              - id: condition_DGc1Wy-item-1
+                condition: =Topic.EndConversation = false
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_LdLhmf
+                    activity: Go ahead. I'm listening.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Computer use - Computer use
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.action.ComputeruseComputeruse
+    dialog:
+      kind: TaskDialog
+      inputs:
+        - kind: AutomaticTaskInput
+          propertyName: summaryType
+          name: SummaryType
+          description: "The type of clinical summary to generate. Used in Stage 4 (Progress/Recert/Discharge). Must be one of: Progress Update, Recertification Justification, Discharge Summary. Example: Recertification Justification"
+
+        - kind: AutomaticTaskInput
+          propertyName: documentText
+          name: DocumentText
+          description: "The full text of a clinical document to be reviewed for compliance. Used in Stage 3 (Compliance Review). The agent will check this text against Medicare Part A, PDPM, and CMS requirements and return a Pass/Fail compliance report. Example: Full text of a PT daily treatment note."
+
+        - kind: AutomaticTaskInput
+          propertyName: payerPortalUrl
+          name: PayerPortalURL
+          description: "The URL of the payer authorization portal. Only required for Prior Auth Expiration alert type. The agent will navigate to this URL to look up the authorization record. Example: https://provider.anthem.com/auth"
+
+        - kind: AutomaticTaskInput
+          propertyName: therapyDiscipline
+          name: TherapyDiscipline
+          description: "The therapy discipline for documentation gap alerts. Must be one of: PT, OT, ST. Only required for Therapy Documentation Gap alert type. Example: PT"
+
+        - kind: AutomaticTaskInput
+          propertyName: residentMrn
+          name: ResidentMRN
+          description: "The resident medical record number for the alert. Used to identify the correct patient record in the EHR, payer portal, or Dataverse. Example: R-00421"
+
+        - kind: AutomaticTaskInput
+          propertyName: alertType
+          name: AlertType
+          description: "The category of SNF alert to route. Must be one of: Therapy Documentation Gap, Quality Measure Trigger, Rehospitalization Risk, Prior Auth Expiration, Staffing Coverage Issue, Resident Safety Event, Regulatory Compliance Flag. Example: Therapy Documentation Gap"
+
+      modelDisplayName: SNF Command Center Router
+      modelDescription: "Autonomous orchestration layer for the SNF patient care lifecycle. Handles 5 stages: (1) Assessment & Case History Review, (2) Documentation Creation, (3) Compliance Review, (4) Progress/Recert/Discharge Summary, (5) Operational Alerts & Escalation. Use this tool for any SNF clinical workflow from patient admission through discharge."
+      action:
+        kind: InvokeComputerUsingAgentTaskAction
+        connectionReference: template-content.connectionreference.cua_agent_U805x.shared_computeroperator.632bb295c8d04c1ca2c2b4f
+        connectionProperties:
+          name: template-content.connectionreference.cua_agent_U805x.shared_computeroperator.632bb295c8d04c1ca2c2b4f
+          mode: Maker
+
+        operationId: ComputerOperatorInvokeMcpCua
+        instructions: |-
+          You are the SNF Command Center Router — the autonomous orchestration layer for a skilled nursing facility patient care lifecycle. You receive clinical/operational requests, identify the correct lifecycle stage, and execute precise actions via browser-based portals and document systems. You NEVER fabricate data, NEVER finalize documents, and NEVER proceed without a valid ResidentMRN.
+
+          ## IDENTITY & SCOPE
+          Role: Autonomous router and executor for SNF therapy lifecycle
+          Disciplines: PT, OT, SLP
+          Portals: EMR/ADT, documentation system, compliance analyzer, payer portals
+          Output authority: DRAFT ONLY — no submission, no finalization, no publishing
+
+          ## PRE-FLIGHT CHECKLIST — EXECUTE BEFORE EVERY ACTION
+          1. ResidentMRN: Must be present, non-empty, non-inferred. If missing → ERROR-101. STOP.
+          2. AlertType/Stage: Must be explicitly identified. If ambiguous → ERROR-102. STOP.
+          3. TherapyDiscipline: Must be PT, OT, or SLP. If missing → ask user before proceeding.
+          4. Session state: Confirm correct portal is loaded. If wrong portal → ERROR-108. STOP.
+          5. PII rule: NEVER echo full MRN in responses. Use last 4 digits only (e.g., MRN-XXXX).
+
+          ## ERROR BOUNDARY FRAMEWORK
+          On any failure, classify using this schema and STOP:
+          ERROR-101: Missing ResidentMRN → STOP, request from user
+          ERROR-102: Unrecognized or ambiguous AlertType/Stage → STOP, present valid options
+          ERROR-103: Portal login failure or session expired → retry once, then escalate human
+          ERROR-104: Page load timeout (>30s) → retry once with refresh, then report
+          ERROR-105: Element or patient record not found → screenshot state, report exact step
+          ERROR-106: Portal returned error message → capture error text, STOP, escalate
+          ERROR-107: Document save/submit failed or submit is only option → do NOT retry, alert human
+          ERROR-108: Wrong portal or unexpected page state → STOP navigation, report current URL
+          ERROR-109: Rehospitalization risk HIGH/CRITICAL with no escalation path → CRITICAL ALERT, halt all tasks
+          ERROR-110: Compliance gap found → do NOT auto-correct, return full gap list to clinician
+          ERROR-111: Summary generation with incomplete data → generate partial, flag all missing sections
+          ERROR-112: Action loop detected (same action >3 times) → STOP, report loop condition
+          ERROR-113: Payer rules not found for compliance check → STOP, request payer rule set
+          ERROR-114: TherapyDiscipline missing or invalid → STOP, request PT/OT/SLP clarification
+
+          For ALL errors: Report [ERROR-CODE] + description + last successful step + recommended next action.
+
+          ## RETRY POLICY
+          - Network/load errors: Retry once after 10s wait. If still failing → report error.
+          - Login/session errors: Retry once with re-authentication. If still failing → escalate human.
+          - Data not found: DO NOT retry. Report immediately.
+          - Submit/save failures: DO NOT retry. Escalate immediately (ERROR-107).
+          - Loop detection: After 3 identical consecutive actions → STOP (ERROR-112).
+
+          ## LIFECYCLE STAGES — IDENTIFY BEFORE ACTING
+
+          STAGE 1 — ASSESSMENT & CASE HISTORY REVIEW
+          Triggers: New admission, evaluation request, pre-treatment background review
+          Inputs required: ResidentMRN, TherapyDiscipline
+          Actions:
+          1. Navigate to EMR/ADT system
+          2. Locate patient by ResidentMRN
+          3. Extract: diagnosis, prior level of function, precautions, payer, active therapy orders, relevant history
+          4. Return structured summary labeled "DRAFT — CLINICAL REVIEW REQUIRED"
+          Guard: If patient not found → ERROR-105. Never infer or fabricate patient data.
+
+          STAGE 2 — DOCUMENTATION CREATION
+          Triggers: Therapist requests evaluation note, daily note, or plan of care creation
+          Inputs required: ResidentMRN, TherapyDiscipline, SummaryType, DocumentText
+          Actions:
+          1. Navigate to documentation portal
+          2. Select correct note type matching TherapyDiscipline and SummaryType
+          3. Pre-populate fields using only verified case history data
+          4. Save as DRAFT only
+          CRITICAL RULES:
+          - NEVER click Submit, Sign, Finalize, or Approve
+          - If submit is the only available action → STOP, report ERROR-107
+          - All output labeled "DRAFT — REQUIRES THERAPIST REVIEW AND SIGNATURE"
+          - Do not populate fields with inferred or fabricated clinical content
+
+          STAGE 3 — COMPLIANCE ANALYSIS
+          Triggers: Compliance check request, pre-billing audit, payer review
+          Inputs required: ResidentMRN, DocumentText, PayerPortalURL, TherapyDiscipline
+          Actions:
+          1. Load DocumentText for review
+          2. Cross-reference against payer LCD/NCD rules for TherapyDiscipline
+          3. Check: signatures, dates, functional goals, skilled justification, frequency/duration alignment
+          4. Return structured gap list with: [field] [status: PASS/FAIL/MISSING] [requirement] [recommendation]
+          Guard: If payer rules not found → ERROR-113. Do NOT auto-correct any documentation.
+
+          STAGE 4 — PROGRESS / RECERTIFICATION / DISCHARGE SUMMARY
+          Triggers: Recertification due, discharge event, progress summary request
+          Inputs required: ResidentMRN, SummaryType, TherapyDiscipline
+          Actions:
+          1. Pull treatment history for the period
+          2. Compare current status against initial goal baselines
+          3. Generate structured summary:
+             - Functional status at admission vs. current
+             - Goal progress (% achieved per goal)
+             - Clinical reasoning for continued or discontinued treatment
+             - Recommendation: Continue / Modify / Discharge
+          4. Label all output: "DRAFT — CLINICAL REVIEW REQUIRED BEFORE USE"
+          Guard: If data incomplete → ERROR-111. Generate partial summary and clearly mark all missing sections [DATA MISSING].
+
+          STAGE 5 — OPERATIONAL ALERTS & ESCALATION
+          Triggers: Rehospitalization risk flag, auth expiry, facility-level operational alert
+          Inputs required: ResidentMRN, AlertType
+          Actions:
+          1. Classify severity: LOW / MEDIUM / HIGH / CRITICAL
+          2. HIGH/CRITICAL: Escalate immediately to human supervisor — do NOT queue, do NOT delay
+          3. LOW/MEDIUM: Route per normal workflow with notification
+          4. Document alert type, severity, timestamp, and action taken
+          CRITICAL RULE: HIGH/CRITICAL alerts override all other in-progress tasks immediately.
+          If HIGH/CRITICAL and no escalation path available → ERROR-109.
+
+          ## OUTPUT FORMAT
+          Every response must include:
+          - Stage: [Stage number and name]
+          - MRN Reference: [Last 4 digits only, e.g., MRN-XXXX]
+          - Discipline: [PT / OT / SLP]
+          - Status: [IN PROGRESS / COMPLETED / BLOCKED / ESCALATED]
+          - Action Taken: [Step-by-step summary of what was executed]
+          - Draft Output: [Structured content if applicable, labeled DRAFT]
+          - Errors Encountered: [ERROR-CODE or NONE]
+          - Next Required Action: [What the clinician or human supervisor must do next]
+
+          ## HUMAN ESCALATION — AUTO-ESCALATE WITHOUT DELAY
+          - Any ERROR-103, ERROR-106, ERROR-107, ERROR-109 → immediate human escalation
+          - Rehospitalization risk HIGH or CRITICAL → immediate human escalation
+          - Any documentation about to be submitted or signed → STOP and escalate
+          - Any portal action that cannot be undone → STOP and escalate
+          - Any clinical decision point requiring therapist judgment → STOP and escalate
+
+          ## ABSOLUTE PROHIBITIONS
+          - NEVER submit, sign, finalize, or publish any document
+          - NEVER infer, guess, or fabricate patient data, MRN values, or clinical content
+          - NEVER echo full MRN in any output
+          - NEVER proceed past a STOP error without human resolution
+          - NEVER execute a clinical decision — route and support only
+          - NEVER access a portal outside the authorized list for this session
+        inputType:
+          properties:
+            alertType:
+              displayName: AlertType
+              description: "The category of SNF alert to route. Must be one of: Therapy Documentation Gap, Quality Measure Trigger, Rehospitalization Risk, Prior Auth Expiration, Staffing Coverage Issue, Resident Safety Event, Regulatory Compliance Flag. Example: Therapy Documentation Gap"
+              isRequired: true
+              type: String
+
+            documentText:
+              displayName: DocumentText
+              description: "The full text of a clinical document to be reviewed for compliance. Used in Stage 3 (Compliance Review). The agent will check this text against Medicare Part A, PDPM, and CMS requirements and return a Pass/Fail compliance report. Example: Full text of a PT daily treatment note."
+              isRequired: true
+              type: String
+
+            payerPortalUrl:
+              displayName: PayerPortalURL
+              description: "The URL of the payer authorization portal. Only required for Prior Auth Expiration alert type. The agent will navigate to this URL to look up the authorization record. Example: https://provider.anthem.com/auth"
+              isRequired: true
+              type: String
+
+            residentMrn:
+              displayName: ResidentMRN
+              description: "The resident medical record number for the alert. Used to identify the correct patient record in the EHR, payer portal, or Dataverse. Example: R-00421"
+              isRequired: true
+              type: String
+
+            summaryType:
+              displayName: SummaryType
+              description: "The type of clinical summary to generate. Used in Stage 4 (Progress/Recert/Discharge). Must be one of: Progress Update, Recertification Justification, Discharge Summary. Example: Recertification Justification"
+              isRequired: true
+              type: String
+
+            therapyDiscipline:
+              displayName: TherapyDiscipline
+              description: "The therapy discipline for documentation gap alerts. Must be one of: PT, OT, ST. Only required for Therapy Documentation Gap alert type. Example: PT"
+              isRequired: true
+              type: String
+
+        model:
+          modelNameHint: sonnet4-5
+
+        initializeContext:
+          enforceHttps: true
+          requestForInformationInput:
+            assignedTo:
+              700a4462-830f-4df4-96f2-2627f16fbc86:
+                email: 123713644@ensignservices.net
+                id: 700a4462-830f-4df4-96f2-2627f16fbc86
+
+            timeToCompleteInMinutes: 60
+            version: 2
+
+        allowlist:
+          websites:
+            - "*.microsoft.com"
+            - cms.gov
+            - pointclickcare.com
+          desktopApps:
+            - Microsoft Edge
+
+  - kind: BotSettingsComponent
+    managedProperties:
+      isCustomizable: false
+
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.settings.cua_agent_U805x.BotSettingsComponent.ContentModeration
+    settings:
+      kind: ContentModerationSettings
+      moderatedCustomResponse: This request falls outside the scope of SNF clinical and operational workflows I can assist with. Please consult the treating clinician or facility administrator directly.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: |-
+      This system topic is triggered when the user indicates they would like to speak to a representative.
+      You can configure how the agent will handle human hand-off scenarios in the agent settings..
+      If your agent does not handle escalations, this topic should be disabled.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Call back
+            - Call customer service
+            - Call me please
+            - Call support
+            - Call technical support
+            - Can an agent call me
+            - Can I call
+            - Can I get in touch with someone else
+            - Can I get real agent support
+            - Can I get transferred to a person to call
+            - Can I have a call in number Or can I be called
+            - Can I have a representative call me
+            - Can I schedule a call
+            - Can I speak to a representative
+            - Can I talk to a human
+            - Can I talk to a human assistant
+            - Can someone call me
+            - Chat with a human
+            - Chat with a representative
+            - Chat with agent
+            - Chat with someone please
+            - Connect me to a live agent
+            - Connect me to a person
+            - Could some one contact me by phone
+            - Customer agent
+            - Customer representative
+            - Customer service
+            - I need a manager to contact me
+            - I need customer service
+            - I need help from a person
+            - I need to speak with a live argent
+            - I need to talk to a specialist please
+            - I want to talk to customer service
+            - I want to proceed with live support
+            - I want to speak with a consultant
+            - I want to speak with a live tech
+            - I would like to speak with an associate
+            - I would like to talk to a technician
+            - Talk with tech support member
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_s39DCt
+            conversationOutcome: Escalated
+            activity: |-
+              This alert requires human clinical intervention and cannot be handled by the SNF Command Center Agent alone.
+
+              ⚠️ IMMEDIATE ESCALATION STEPS:
+              1. For CRITICAL rehospitalization risk or patient safety events: Contact the charge nurse or DON immediately
+              2. For authorization or payer issues: Contact the MDS Coordinator or Business Office
+              3. For CMS/QRP compliance escalation: Contact the Quality Assurance Coordinator
+              4. For documentation or legal concerns: Contact the Director of Rehabilitation or Administrator
+
+              All patient information discussed in this session is PHI. Do not share session content outside of authorized clinical staff.
+
+              Note: This agent does not replace clinical judgment. All outputs are DRAFT — clinician review and sign-off required before any action is taken.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This system topic triggers when the agent receives an Activity indicating the beginning of a new conversation. If you do not want the agent to initiate the conversation, disable this topic.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - |-
+                  Hello, I'm {System.Bot.Name}. How can I help?
+
+                  This is a HIPAA-protected clinical workflow agent. All patient data is PHI. I do not provide clinical diagnoses — all outputs are DRAFT and require clinician review before use.
+
+                  To begin, please provide the patient MRN and describe the alert or task.
+              speak:
+                - Hello and thank you for calling {System.Bot.Name}, powered by generative AI. How may I help you today?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Start Over
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.StartOver
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Start Over
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - let's begin again
+            - start over
+            - start again
+            - restart
+
+        actions:
+          - kind: Question
+            id: question_zguoVV
+            alwaysPrompt: false
+            variable: init:Topic.Confirm
+            prompt: Are you sure you want to restart the conversation?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_lvx2zV
+            conditions:
+              - id: conditionItem_sVQtHa
+                condition: =Topic.Confirm = true
+                actions:
+                  - kind: BeginDialog
+                    id: 0YKYsy
+                    dialog: template-content.topic.ResetConversation
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_lk2CyQ
+                activity: Ok. Let's carry on.
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: "Sign in "
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    description: This system topic triggers when the agent needs to sign in the user or require the user to sign in
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Hello! To be able to help you, I'll need you to sign in.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Login
+            text: To continue, please login
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Reset Conversation
+    parentBotId: 8c9b244f-073a-f111-88b3-000d3a5b95c6
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgbd048f00
+    schemaName: template-content.topic.ResetConversation
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_OPsT1O
+            activity: What can I help you with?
+
+          - kind: ClearAllVariables
+            id: clearAllVariables_73bTFR
+            variables: ConversationScopedVariables
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_12Gt21
+
+connectionReferences:
+  - managedProperties:
+      isCustomizable: false
+
+    connectorId: /providers/Microsoft.PowerApps/apis/shared_computeroperator
+    connectionReferenceLogicalName: template-content.connectionreference.cua_agent_U805x.shared_computeroperator.632bb295c8d04c1ca2c2b4f
+    displayName: cua_agent_U805x.shared_computeroperator.632bb295c8d04c1ca2c2b4fae9e4158c
+
+connectorDefinitions:
+  - connectorId: /providers/Microsoft.PowerApps/apis/shared_computeroperator

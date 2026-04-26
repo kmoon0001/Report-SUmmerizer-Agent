@@ -320,3 +320,21 @@ Validation result: PASS
 - 21 SharePoint-hosted images checked on the live homepage
 - no image ratio delta exceeded the validation threshold
 - no stretched/cropped image rendering detected
+
+## Proportional Image Scale-Down
+
+Date: 2026-04-25
+
+Completed:
+
+- kept proportional image scaling with `height:auto`
+- reduced hero images to `max-width:520px`
+- reduced module/card images to `max-width:260px`
+- centered images on a neutral background so they fit the SharePoint page rhythm
+
+Validation result: PASS
+
+- 21 SharePoint-hosted images checked on the live homepage
+- hero image rendered at 520px wide
+- module images rendered at 260px wide
+- no stretched image ratios detected

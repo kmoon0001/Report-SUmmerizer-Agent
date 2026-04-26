@@ -227,3 +227,51 @@ Validation outcome:
 - `15` external authoritative links checked with `0` failures
 - `16/16` homepage migration images loaded
 - `0` visual QA failures across sampled desktop/mobile pages
+
+## Expanded Safe Local Reference Migration
+
+After the functional resource-panel publish, the bridge was extended again to move additional safe local content into SharePoint pages while preserving the non-PHI and source-review boundary.
+
+Local content migrated as static SharePoint-readable reference panels:
+
+- `SLP-IDDSI.aspx`: IDDSI level quick framework, with official IDDSI framework/testing links
+- `SLP-Aphasia.aspx`: SFA, VNeST, PACE, and aphasia profile orientation scaffolds
+- `SLP-Voice.aspx`: voice pathology and CAPE-V dimension reference snapshot
+- `SLP-Treatment-Ideas.aspx`: generalized reusable activity templates
+- `SLP-Handout-Reference.aspx`: handout category catalog, patient-education source links, and language/support dimensions
+- `SLP-Medicare-Compliance.aspx`: Medicare reference framing from the local knowledge base
+- `SLP-Goal-Bank.aspx`: generalized goal-pattern catalog with patient-specific details removed
+
+Safety decisions:
+
+- local patient-like goal examples were converted into non-identifying goal patterns rather than published verbatim
+- treatment activities were kept as reusable planning templates, not patient-specific instructions
+- IDDSI and Medicare content is framed as reference support with official authority links, not final diet orders, coverage decisions, or facility policy
+- the static SharePoint bridge still does not enable forms, AI chat, uploads, calculators, or durable generated artifacts
+
+Validation before live publish:
+
+- `node scripts/sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs --offline`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass after replacing a stale IDDSI PDF URL with the current official IDDSI testing-methods page
+
+Live publish result:
+
+- `46` pages updated and published with SharePoint `200` publish responses
+- homepage retained as `SitePages/SLP-Portal.aspx`
+- QuickLaunch navigation retained
+
+Validation after live publish:
+
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Final validation outcome:
+
+- `46` live SharePoint pages validated
+- `49` internal SharePoint links checked with `0` failures
+- `22` external authoritative links checked with `0` failures
+- `16/16` homepage migration images loaded
+- `0` visual QA failures across sampled desktop/mobile pages

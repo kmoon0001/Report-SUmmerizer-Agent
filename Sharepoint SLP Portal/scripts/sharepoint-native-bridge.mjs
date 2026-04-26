@@ -55,6 +55,105 @@ const sourceLinks = {
   cmsManual: 'https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/downloads/bp102c15.pdf'
 };
 
+const localReferencePanels = {
+  'SLP-IDDSI.aspx': {
+    eyebrow: 'Migrated from local IDDSI module',
+    title: 'IDDSI quick framework',
+    summary: 'Static, non-PHI snapshot of the local IDDSI reference data. Use the linked IDDSI resources and facility policy for final diet orders and testing procedures.',
+    items: [
+      { title: 'Level 0 Thin', detail: 'Flows like water. IDDSI Flow Test: less than 1 mL remains after 10 seconds.', meta: 'Drink' },
+      { title: 'Level 1 Slightly Thick', detail: 'Thicker than water and requires a little more effort to drink.', meta: 'Drink' },
+      { title: 'Level 2 Mildly Thick', detail: 'Sippable and pours quickly from a spoon, but slower than thin drinks.', meta: 'Drink' },
+      { title: 'Level 3 Moderately Thick / Liquidized', detail: 'Drips slowly in dollops through fork prongs. Flow Test: more than 8 mL remains.', meta: 'Drink/Food' },
+      { title: 'Level 4 Extremely Thick / Pureed', detail: 'Holds shape on spoon and falls off in a single spoonful when tilted.', meta: 'Drink/Food' },
+      { title: 'Level 5 Minced and Moist', detail: 'Soft and moist with small visible lumps; adult particle size reference: 4 mm.', meta: 'Food' },
+      { title: 'Level 6 Soft and Bite-Sized', detail: 'Soft, moist, bite-sized pieces; adult size reference: 15 mm.', meta: 'Food' },
+      { title: 'Level 7 Regular / Easy to Chew', detail: 'Normal textures or easy-to-chew foods as clinically appropriate.', meta: 'Food' }
+    ],
+    links: ['https://iddsi.org/framework/', 'https://www.iddsi.org/standards/testing-methods']
+  },
+  'SLP-Aphasia.aspx': {
+    eyebrow: 'Migrated from local AphasiaTools',
+    title: 'Aphasia therapy scaffolds',
+    summary: 'Generalized, non-PHI therapy structures from the local portal for clinician reference and planning.',
+    items: [
+      { title: 'Semantic Feature Analysis', detail: 'Use group, use, action, properties, location, and association prompts to support word retrieval.', meta: 'Naming' },
+      { title: 'VNeST sample verbs', detail: 'Measure, drive, write, clean, and teach are local starter verbs for agent-patient-location expansion.', meta: 'Verb network' },
+      { title: 'PACE scoring frame', detail: 'Message success can be described from independent to no attempt without storing patient performance in SharePoint.', meta: 'Communication' },
+      { title: 'Aphasia profile orientation', detail: 'Broca, Wernicke, global, anomic, and conduction profiles appear as reference terms only.', meta: 'Reference' }
+    ],
+    links: [sourceLinks.ashaAphasia, 'https://www.asha.org/Practice-Portal/Clinical-Topics/Aphasia/#collapse_7']
+  },
+  'SLP-Voice.aspx': {
+    eyebrow: 'Migrated from local Voice module',
+    title: 'Voice reference snapshot',
+    summary: 'Local static reference entries for voice module orientation. Use ASHA and provider/facility pathways for clinical decisions and referrals.',
+    items: [
+      { title: 'Vocal Fold Nodules', detail: 'Bilateral, symmetric calloused-like growths; local module notes voice therapy as primary and surgery as rare.', meta: 'Pathology' },
+      { title: 'Vocal Fold Polyps', detail: 'Unilateral fluid-filled lesions; local module notes surgery plus voice therapy.', meta: 'Pathology' },
+      { title: 'Vocal Fold Paralysis', detail: 'Lack of movement in one or both folds due to nerve damage.', meta: 'Pathology' },
+      { title: 'Muscle Tension Dysphonia', detail: 'Excessive laryngeal muscle tension without structural pathology.', meta: 'Pathology' },
+      { title: 'CAPE-V dimensions', detail: 'Overall severity, roughness, breathiness, strain, pitch, and loudness.', meta: 'Assessment' }
+    ],
+    links: ['https://www.asha.org/practice-portal/clinical-topics/voice-disorders/']
+  },
+  'SLP-Treatment-Ideas.aspx': {
+    eyebrow: 'Migrated from local TreatmentIdeas',
+    title: 'Reusable activity templates',
+    summary: 'Non-PHI activity ideas from the local portal. Adapt during care, but keep resident-specific setup, performance, and carryover in the approved charting environment.',
+    items: [
+      { title: 'Semantic Feature Analysis', detail: 'Naming support using semantic features, picture cards, and clinician-guided prompts.', meta: 'Aphasia' },
+      { title: 'Effortful Swallow', detail: 'Local activity template for swallow effort practice with clinician feedback and appropriate consistency selection.', meta: 'Dysphagia' },
+      { title: 'Spaced Retrieval Training', detail: 'Recall practice at increasing intervals using a functional target selected outside SharePoint.', meta: 'Cognition' },
+      { title: 'LSVT LOUD-style practice', detail: 'High-effort loudness practice with sustained phonation, pitch glides, and functional phrases.', meta: 'Voice' },
+      { title: 'AAC Modeling', detail: 'Partner points to symbols while speaking and models core words in context.', meta: 'AAC' },
+      { title: 'Barrier Games', detail: 'Communication partner describes a scene or structure while the listener requests clarification.', meta: 'Language' }
+    ],
+    links: [sourceLinks.ashaPortal]
+  },
+  'SLP-Handout-Reference.aspx': {
+    eyebrow: 'Migrated from local HandoutMaker',
+    title: 'Handout category catalog',
+    summary: 'Static handout categories and non-PHI planning dimensions. Generated handouts remain SPFx/session-only until production controls are live.',
+    items: [
+      { title: 'Therapy Protocol', detail: 'Customized therapy activities and rationale.', meta: 'Template' },
+      { title: 'Exercise Guide', detail: 'Step-by-step instructions for specific exercises.', meta: 'Template' },
+      { title: 'Compensatory Strategies', detail: 'Safe swallowing and communication strategy education.', meta: 'Template' },
+      { title: 'Aspiration Precautions', detail: 'Safety guidelines for eating and drinking.', meta: 'Template' },
+      { title: 'Caregiver Education', detail: 'Education materials for caregivers and family.', meta: 'Template' },
+      { title: 'Home Program', detail: 'Daily routine planning outside patient-identifying storage.', meta: 'Template' },
+      { title: 'Clinical Protocol', detail: 'Technical guides and protocols for SLPs.', meta: 'Template' }
+    ],
+    links: ['https://www.asha.org/Practice-Portal/Templates/', 'https://medlineplus.gov/', 'https://www.nidcd.nih.gov/health']
+  },
+  'SLP-Medicare-Compliance.aspx': {
+    eyebrow: 'Migrated from local Medicare knowledge base',
+    title: 'Medicare reference frame',
+    summary: 'Non-PHI summary of local Medicare reference framing. Verify against CMS, Medicare.gov, MAC guidance, and facility compliance policy.',
+    items: [
+      { title: 'Reasonable and necessary', detail: 'Local reference frames Part B SLP around reasonable and necessary outpatient rehabilitation services.', meta: 'Coverage' },
+      { title: 'Plan of care', detail: 'Local reference flags written plan of care establishment and review requirements.', meta: 'Documentation' },
+      { title: 'Skilled service', detail: 'Documentation should support why the skills of an SLP are required.', meta: 'Medical necessity' },
+      { title: 'Progress and recertification', detail: 'Local reference highlights progress reporting and recertification timing as compliance checkpoints.', meta: 'Workflow' },
+      { title: 'Maintenance coverage', detail: 'Jimmo framing: coverage is based on skilled need, not an improvement-only standard.', meta: 'Maintenance' }
+    ],
+    links: [sourceLinks.medicareSlp, sourceLinks.cmsManual, sourceLinks.cmsBilling]
+  },
+  'SLP-Goal-Bank.aspx': {
+    eyebrow: 'Migrated from local GoalGenerator and goal bank',
+    title: 'Generalized goal-pattern catalog',
+    summary: 'Goal examples are converted into non-identifying patterns. Final goals must be individualized and documented in approved clinical systems.',
+    items: [
+      { title: 'Swallowing pattern', detail: 'Tolerate a clinically appropriate consistency with specified strategy use, cueing level, accuracy, and timeframe.', meta: 'SMART pattern' },
+      { title: 'Expressive language pattern', detail: 'Produce functional phrases or name functional objects with defined cueing and opportunity criteria.', meta: 'SMART pattern' },
+      { title: 'Memory pattern', detail: 'Use an external aid or spaced retrieval to recall functional information with defined support level.', meta: 'SMART pattern' },
+      { title: 'Motor speech pattern', detail: 'Use pacing or intelligibility strategies during structured functional communication tasks.', meta: 'SMART pattern' },
+      { title: 'Voice pattern', detail: 'Use vocal hygiene, easy onset, or loudness strategies during structured communication tasks.', meta: 'SMART pattern' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  }
+};
+
 const imageAssets = [
   { key: 'pacific-coast-logo', source: 'C:/Users/kevin/Desktop/Images/2025 Logo.png', fileName: 'pacific-coast-2025-logo.png' },
   { key: 'background', source: 'public/slp portal background.jpg', fileName: 'slp-portal-background.jpg' },
@@ -3764,6 +3863,47 @@ function renderKnowledgeSnapshotPanel(page) {
   `;
 }
 
+function renderLocalReferencePanel(page) {
+  const panel = localReferencePanels[page.fileName];
+  if (!panel) {
+    return '';
+  }
+
+  return `
+    <section style="margin:0 0 24px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:10px;background:#ffffff;padding:16px;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 12px 0;">
+          <div>
+            <div style="font-size:11px;font-weight:900;text-transform:uppercase;color:#0f6cbd;margin:0 0 6px 0;">${htmlEscape(panel.eyebrow)}</div>
+            <h2 style="margin:0 0 6px 0;font-size:23px;line-height:1.2;color:#0f172a;">${htmlEscape(panel.title)}</h2>
+            <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;max-width:880px;">${htmlEscape(panel.summary)}</p>
+          </div>
+          <span style="display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#eef6ff;color:#0f6cbd;font-size:11px;font-weight:800;text-transform:uppercase;">Local content</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:10px;">
+          ${panel.items.map((item) => `
+            <div style="border:1px solid #e2e8f0;border-radius:8px;background:#f8fbfd;padding:13px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 7px 0;">
+                <h3 style="margin:0;font-size:15px;line-height:1.3;color:#0f172a;">${htmlEscape(item.title)}</h3>
+                <span style="display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;background:#ffffff;color:#155e75;font-size:10px;font-weight:900;text-transform:uppercase;white-space:nowrap;">${htmlEscape(item.meta)}</span>
+              </div>
+              <p style="margin:0;color:#475569;font-size:12px;line-height:1.55;">${htmlEscape(item.detail)}</p>
+            </div>
+          `).join('')}
+        </div>
+        ${panel.links?.length ? `
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0 0;">
+            ${panel.links.map((href) => {
+              const meta = getLinkMeta(href);
+              return `<a href="${htmlEscape(href)}" style="display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#0f172a;color:#ffffff;text-decoration:none;font-size:12px;font-weight:800;">${htmlEscape(meta.label)}</a>`;
+            }).join('')}
+          </div>
+        ` : ''}
+      </div>
+    </section>
+  `;
+}
+
 function renderRelatedPageCards(currentFileName, isHome) {
   const currentItem = pages.find((item) => item.fileName === currentFileName);
   const currentGroup = currentItem ? getPortalGroupKey(currentItem) : null;
@@ -3942,6 +4082,7 @@ function renderPageHtml(page) {
   const bridgeFunctionPanel = renderBridgeFunctionPanel(page);
   const liveResourcePanel = renderLiveResourcePanel(page);
   const knowledgeSnapshotPanel = renderKnowledgeSnapshotPanel(page);
+  const localReferencePanel = renderLocalReferencePanel(page);
   const relatedCards = isHome ? '' : renderRelatedPageCards(page.fileName, isHome);
   const referenceCards = renderReferenceCards(page.links);
   const hero = isHome ? `
@@ -4007,6 +4148,7 @@ function renderPageHtml(page) {
       ${homepageOnly}
       ${knowledgeSnapshotPanel}
       ${sectionCards}
+      ${localReferencePanel}
       ${featureCards}
       ${templateGroups}
       ${relatedCards}

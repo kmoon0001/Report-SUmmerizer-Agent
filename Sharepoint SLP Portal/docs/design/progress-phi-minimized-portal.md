@@ -84,9 +84,12 @@ Intentional exclusions from the safe bridge:
 Key files:
 - [scripts/sharepoint-native-bridge.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/sharepoint-native-bridge.mjs:1>)
 - [scripts/validate-sharepoint-native-bridge.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/validate-sharepoint-native-bridge.mjs:1>)
+- [scripts/sharepoint-bridge-qa.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/sharepoint-bridge-qa.mjs:1>)
 - [scripts/build-clinical-knowledge-index.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/build-clinical-knowledge-index.mjs:1>)
 - [scripts/publish-source-index-list.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/publish-source-index-list.mjs:1>)
 - [docs/runlogs/sharepoint-native-bridge-20260425.md](</d:/my agents copilot studio/Sharepoint SLP Portal/docs/runlogs/sharepoint-native-bridge-20260425.md:1>)
+- [docs/runlogs/sharepoint-bridge-final-hardening-20260426.md](</d:/my agents copilot studio/Sharepoint SLP Portal/docs/runlogs/sharepoint-bridge-final-hardening-20260426.md:1>)
+- [docs/checklists/spfx-app-catalog-deployment-checklist.md](</d:/my agents copilot studio/Sharepoint SLP Portal/docs/checklists/spfx-app-catalog-deployment-checklist.md:1>)
 
 ### 00. SharePoint-Native Bridge Plan
 

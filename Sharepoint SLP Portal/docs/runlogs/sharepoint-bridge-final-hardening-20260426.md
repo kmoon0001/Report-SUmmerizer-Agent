@@ -46,6 +46,7 @@ npm run sharepoint:bridge:dry-run
 npm run sharepoint:bridge:validate
 npm run sharepoint:bridge:qa
 npm run sharepoint:bridge:qa:offline
+npm run sharepoint:bridge:visual-qa
 ```
 
 The QA command now:
@@ -73,6 +74,33 @@ live pages: 46
 live failed pages: 0
 homepage images loaded: 46/46
 ```
+
+## Visual QA
+
+Added:
+
+```text
+scripts/sharepoint-bridge-visual-qa.mjs
+```
+
+The visual QA command checks representative pages at desktop and mobile viewport sizes and writes screenshots plus JSON/Markdown reports under:
+
+```text
+output/sharepoint-native-bridge/visual-qa/
+```
+
+Sample pages:
+
+- `SLP-Portal.aspx`
+- `SLP-Dysphagia.aspx`
+- `SLP-Documentation-Studio.aspx`
+- `SLP-Clinical-Pathways.aspx`
+- `SLP-Clinical-Library.aspx`
+- `SLP-Knowledge-Source-Index.aspx`
+- `SLP-SPFx-Production-Handoff.aspx`
+- `SLP-Help-Support.aspx`
+
+Note: visual QA reports SharePoint chrome form-field counts, but does not fail on them. The strict live validator checks the actual SharePoint page content fields for no generated `<form>`, `<input>`, or `<textarea>` elements.
 
 ## SPFx Package Readiness
 

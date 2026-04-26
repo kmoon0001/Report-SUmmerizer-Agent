@@ -32,6 +32,7 @@
     "sharepoint:bridge:validate": "node ./scripts/validate-sharepoint-native-bridge.mjs",
     "sharepoint:bridge:qa": "node ./scripts/sharepoint-bridge-qa.mjs",
     "sharepoint:bridge:qa:offline": "node ./scripts/sharepoint-bridge-qa.mjs --offline",
+    "sharepoint:bridge:visual-qa": "node ./scripts/sharepoint-bridge-visual-qa.mjs",
     "publish:sharepoint": "powershell -ExecutionPolicy Bypass -File ./scripts/Publish-SharePointPortal.ps1",
     "migration:checklist:status": "powershell -ExecutionPolicy Bypass -File ./scripts/Get-ChecklistStatus.ps1",
     "migration:checklist:run": "powershell -ExecutionPolicy Bypass -File ./scripts/Run-MigrationChecklist.ps1",

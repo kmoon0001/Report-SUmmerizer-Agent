@@ -329,3 +329,50 @@ Final outcome:
 - `22` external authoritative links checked with `0` failures
 - `16/16` homepage migration images loaded
 - `0` visual QA failures across sampled desktop/mobile pages
+
+## Microsoft Learn Hardening and Remaining Safe SLP Lift
+
+This pass focused on one more safe content lift plus visible standards hardening.
+
+Additional safe local content migrated:
+
+- `SLP-Dysphagia.aspx`: advanced dysphagia rehab snapshot from the local advanced dysphagia reference set
+- `SLP-Aphasia.aspx`: deeper protocol references for script training and melodic cueing / MIT
+- `SLP-Motor-Speech.aspx`: motor-speech treatment stack for DTTC, integral stimulation, pacing/rate, and referral awareness
+- `SLP-Outcome-Measures.aspx`: SLP-specific routing for adult neuro, cognition, voice, swallowing, and pediatric measure fit
+- `SLP-Clinical-Safety.aspx`: escalation anchors for delirium, fatigue, oral-intake instability, hydration/nutrition watch, and goals-of-care boundaries
+
+Microsoft Learn hardening added:
+
+- shared standards strip on the live pages for:
+  - SharePoint information architecture
+  - reviewed-source governance flow
+  - modern-page image/performance discipline
+  - the actual SPFx production path
+- authoritative external links now explicitly use new-tab plus `noopener noreferrer`
+
+Safety decisions:
+
+- all additions remain non-PHI and read-only
+- no patient-specific forms, notes, calculators, or score persistence were introduced
+- advanced dysphagia and motor-speech content stays at reference-orientation depth and does not claim to replace instrumental review, certification requirements, or facility policy
+
+Validation and build outcome:
+
+- `node scripts/sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs --offline`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- `node node_modules/vite/bin/vite.js build`: pass after fixing one JSX parse bug and restoring missing `pt` / `ot` subspecialty data files required by the existing app build
+- live publish completed successfully
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Final validated live state for this pass:
+
+- `46` live SharePoint pages validated
+- `49` internal SharePoint links checked with `0` failures
+- `26` external authoritative links checked with `0` failures
+- `16/16` homepage migration images loaded
+- `0` sampled visual QA failures

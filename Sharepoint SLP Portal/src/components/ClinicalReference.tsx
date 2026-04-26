@@ -136,12 +136,14 @@ export function ClinicalReference() {
                 
                 {expandedSection === 'cranial-nerves' && (
                   <div className="mt-4 pl-6 text-sm text-gray-600 space-y-3">
-                    <div className="grid grid-cols-12 gap-4 font-medium text-gray-900 border-b pb-2">
-                      <div className="col-span-2">CN</div>
-                      <div className="col-span-3">Name</div>
-                      <div className="col-span-3">Motor Function</div>
-                      <div className="col-span-4">Sensory Function</div>
-                    </div>
+                    <div className="grid grid-cols-12 gap-8 items-start">
+                      <div className="col-span-8 space-y-3">
+                        <div className="grid grid-cols-12 gap-4 font-medium text-gray-900 border-b pb-2">
+                          <div className="col-span-2">CN</div>
+                          <div className="col-span-3">Name</div>
+                          <div className="col-span-3">Motor Function</div>
+                          <div className="col-span-4">Sensory Function</div>
+                        </div>
                     <div className="grid grid-cols-12 gap-4 border-b pb-2">
                       <div className="col-span-2 font-medium">V</div>
                       <div className="col-span-3">Trigeminal</div>
@@ -172,11 +174,17 @@ export function ClinicalReference() {
                       <div className="col-span-3">Sternocleidomastoid, trapezius (head/shoulder movement)</div>
                       <div className="col-span-4">-</div>
                     </div>
-                    <div className="grid grid-cols-12 gap-4">
-                      <div className="col-span-2 font-medium">XII</div>
-                      <div className="col-span-3">Hypoglossal</div>
-                      <div className="col-span-3">Intrinsic and extrinsic tongue muscles (except palatoglossus)</div>
-                      <div className="col-span-4">-</div>
+                        <div className="grid grid-cols-12 gap-4">
+                          <div className="col-span-2 font-medium">XII</div>
+                          <div className="col-span-3">Hypoglossal</div>
+                          <div className="col-span-3">Intrinsic and extrinsic tongue muscles (except palatoglossus)</div>
+                          <div className="col-span-4">-</div>
+                        </div>
+                      </div>
+                      <div className="col-span-4 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                        <img src="/assets/clinical/cranial_nerves.png" alt="Cranial Nerves for SLP" className="w-full h-auto rounded-lg" />
+                        <p className="text-[10px] text-gray-400 mt-2 text-center uppercase font-bold tracking-widest">Clinical Illustration: CN V, VII, IX, X, XII</p>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -197,31 +205,136 @@ export function ClinicalReference() {
                 
                 {expandedSection === 'iddsi' && (
                   <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Drinks (Levels 0-4)</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-1">
-                        <li><span className="font-medium text-gray-900">0 Thin:</span> Flows like water.</li>
-                        <li><span className="font-medium text-gray-900">1 Slightly Thick:</span> Thicker than water but flows through a straw.</li>
-                        <li><span className="font-medium text-gray-900">2 Mildly Thick:</span> Nectar-thick. Pours quickly from a spoon but leaves a coating.</li>
-                        <li><span className="font-medium text-gray-900">3 Moderately Thick:</span> Honey-thick. Pours slowly from a spoon.</li>
-                        <li><span className="font-medium text-gray-900">4 Extremely Thick:</span> Pudding-thick. Holds shape on a spoon.</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Foods (Levels 3-7)</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-1">
-                        <li><span className="font-medium text-gray-900">3 Liquidised:</span> Cannot be eaten with a fork. Smooth, no lumps.</li>
-                        <li><span className="font-medium text-gray-900">4 Puréed:</span> Does not require chewing. Smooth, no lumps.</li>
-                        <li><span className="font-medium text-gray-900">5 Minced & Moist:</span> Minimal chewing required. Lumps 4mm (adults).</li>
-                        <li><span className="font-medium text-gray-900">6 Soft & Bite-Sized:</span> Chewing required. Pieces 1.5cm x 1.5cm (adults).</li>
-                        <li><span className="font-medium text-gray-900">7 Regular:</span> Normal everyday foods.</li>
-                      </ul>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Drinks (Levels 0-4)</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-1">
+                            <li><span className="font-medium text-gray-900">0 Thin:</span> Flows like water.</li>
+                            <li><span className="font-medium text-gray-900">1 Slightly Thick:</span> Thicker than water but flows through a straw.</li>
+                            <li><span className="font-medium text-gray-900">2 Mildly Thick:</span> Nectar-thick. Pours quickly from a spoon but leaves a coating.</li>
+                            <li><span className="font-medium text-gray-900">3 Moderately Thick:</span> Honey-thick. Pours slowly from a spoon.</li>
+                            <li><span className="font-medium text-gray-900">4 Extremely Thick:</span> Pudding-thick. Holds shape on a spoon.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Foods (Levels 3-7)</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-1">
+                            <li><span className="font-medium text-gray-900">3 Liquidised:</span> Cannot be eaten with a fork. Smooth, no lumps.</li>
+                            <li><span className="font-medium text-gray-900">4 Puréed:</span> Does not require chewing. Smooth, no lumps.</li>
+                            <li><span className="font-medium text-gray-900">5 Minced & Moist:</span> Minimal chewing required. Lumps 4mm (adults).</li>
+                            <li><span className="font-medium text-gray-900">6 Soft & Bite-Sized:</span> Chewing required. Pieces 1.5cm x 1.5cm (adults).</li>
+                            <li><span className="font-medium text-gray-900">7 Regular:</span> Normal everyday foods.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                        <img src="/assets/clinical/iddsi_pyramid.png" alt="IDDSI Pyramid" className="w-full h-auto rounded-xl" />
+                        <p className="text-[10px] text-gray-400 mt-3 text-center uppercase font-bold tracking-widest">IDDSI Framework Pyramid</p>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Aphasia Treatment Strategies */}
+              {/* Stroke/CVA Clinical Signs */}
+              <div className="p-4">
+                <button 
+                  onClick={() => toggleSection('stroke-ref')}
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-900 hover:text-indigo-600 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Brain className="w-4 h-4 text-gray-400" />
+                    Stroke/CVA Clinical Signs (By Territory)
+                  </span>
+                  {expandedSection === 'stroke-ref' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+                
+                {expandedSection === 'stroke-ref' && (
+                  <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                      <div className="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                          <h4 className="font-bold text-slate-900 mb-2">Middle Cerebral Artery (MCA)</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><span className="font-semibold text-slate-800">Left MCA:</span> Broca's Aphasia, Wernicke's Aphasia, Global Aphasia, Apraxia of Speech, Right face/arm weakness.</li>
+                            <li><span className="font-semibold text-slate-800">Right MCA:</span> Left-sided neglect, Flat affect (Aprosodia), Impaired prosody, Cognitive-communication deficits, Left face/arm weakness.</li>
+                          </ul>
+                        </div>
+                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                          <h4 className="font-bold text-slate-900 mb-2">Anterior Cerebral Artery (ACA)</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><span className="font-semibold text-slate-800">Presentation:</span> Contralateral leg weakness {'>'} arm.</li>
+                            <li><span className="font-semibold text-slate-800">SLP Impact:</span> Abulia (lack of initiative), Mutism, Transcortical Motor Aphasia.</li>
+                          </ul>
+                        </div>
+                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                          <h4 className="font-bold text-slate-900 mb-2">Posterior Cerebral Artery (PCA)</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><span className="font-semibold text-slate-800">Presentation:</span> Visual field cuts (Hemianopia), Memory loss.</li>
+                            <li><span className="font-semibold text-slate-800">SLP Impact:</span> Alexia without Agraphia, Visual Agnosia, Cognitive-Communication deficits.</li>
+                          </ul>
+                        </div>
+                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                          <h4 className="font-bold text-slate-900 mb-2">Brainstem/Cerebellar</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><span className="font-semibold text-slate-800">Brainstem:</span> Severe Dysphagia, Dysarthria (often flaccid), Cranial Nerve palsies.</li>
+                            <li><span className="font-semibold text-slate-800">Cerebellum:</span> Ataxic Dysarthria, Coordination/Balance issues.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="md:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                        <img src="/assets/clinical/mri_brain.png" alt="Stroke Anatomy" className="w-full h-auto rounded-lg mb-3" />
+                        <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest text-center">Neuroanatomy: Vascular Map</p>
+                        <button 
+                          onClick={() => setActiveTab('norms')} // Or just stay
+                          className="w-full mt-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-all"
+                        >
+                          View 3D Stroke Simulator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* Cognitive Screening Norms */}
+              <div className="p-4">
+                <button 
+                  onClick={() => toggleSection('cog-norms')}
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-900 hover:text-indigo-600 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <ClipboardList className="w-4 h-4 text-gray-400" />
+                    Cognitive Screening Norms (MoCA & SLUMS)
+                  </span>
+                  {expandedSection === 'cog-norms' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+                
+                {expandedSection === 'cog-norms' && (
+                  <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">MoCA (Montreal Cognitive Assessment)</h4>
+                        <div className="space-y-2">
+                          <p><span className="font-semibold">Normal:</span> 26 - 30</p>
+                          <p><span className="font-semibold">Mild Cognitive Impairment:</span> 18 - 25</p>
+                          <p><span className="font-semibold">Dementia (Moderate/Severe):</span> 10 - 17</p>
+                          <p className="text-[10px] text-slate-500 italic mt-2">*Add 1 point for education ≤ 12 years.</p>
+                        </div>
+                      </div>
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">SLUMS (St. Louis University Mental Status)</h4>
+                        <div className="space-y-2 text-[11px]">
+                          <p className="font-bold border-b pb-1">High School Education:</p>
+                          <p>Normal: 27-30 | MNCD: 21-26 | Dementia: 1-20</p>
+                          <p className="font-bold border-b pb-1 mt-2">Less than High School:</p>
+                          <p>Normal: 25-30 | MNCD: 20-24 | Dementia: 1-19</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               <div className="p-4">
                 <button 
                   onClick={() => toggleSection('aphasia-strategies')}
@@ -440,32 +553,40 @@ export function ClinicalReference() {
                 
                 {expandedSection === 'trach-vent' && (
                   <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Speaking Valves (e.g., Passy Muir Valve)</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-2">
-                        <li><span className="font-medium text-gray-900">Function:</span> One-way valve that allows air in through the tracheostomy tube but closes on exhalation, forcing air up through the vocal folds for phonation.</li>
-                        <li><span className="font-medium text-gray-900">Prerequisites:</span> Cuff MUST be completely deflated (or cuffless tube). Patient must be able to tolerate cuff deflation and manage secretions.</li>
-                        <li><span className="font-medium text-gray-900">Benefits:</span> Restores voice, improves swallowing (restores subglottic pressure), improves olfaction, assists with secretion management, facilitates decannulation.</li>
-                        <li><span className="font-medium text-gray-900">Contraindications:</span> Severe airway obstruction above the tube, severe aspiration risk, inability to tolerate cuff deflation, thick/copious secretions.</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Ventilator Settings (Basic Overview)</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-2">
-                        <li><span className="font-medium text-gray-900">Mode:</span> How the ventilator delivers breaths (e.g., Assist-Control (AC), Synchronized Intermittent Mandatory Ventilation (SIMV), Pressure Support Ventilation (PSV)).</li>
-                        <li><span className="font-medium text-gray-900">Tidal Volume (Vt):</span> The volume of air delivered with each breath.</li>
-                        <li><span className="font-medium text-gray-900">Respiratory Rate (RR):</span> The number of breaths delivered per minute.</li>
-                        <li><span className="font-medium text-gray-900">Fraction of Inspired Oxygen (FiO2):</span> The percentage of oxygen in the delivered air (room air is 21%).</li>
-                        <li><span className="font-medium text-gray-900">Positive End-Expiratory Pressure (PEEP):</span> Pressure maintained in the airways at the end of exhalation to keep alveoli open.</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Swallowing with a Tracheostomy</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-2">
-                        <li><span className="font-medium text-gray-900">Impact of Tracheostomy:</span> Can tether the larynx (reducing elevation), decrease subglottic pressure, and desensitize the larynx.</li>
-                        <li><span className="font-medium text-gray-900">Cuff Status:</span> An inflated cuff does NOT prevent aspiration (material can pool above it and eventually leak down). It is generally recommended to evaluate swallowing with the cuff deflated (if medically appropriate) to assess true laryngeal function and allow for speaking valve use.</li>
-                        <li><span className="font-medium text-gray-900">Evan's Blue Dye Test (MEBDT):</span> A screening tool where food/liquid is dyed blue/green, and tracheal secretions are monitored for dye. High false-negative rate; instrumental assessment (FEES/MBSS) is preferred.</li>
-                      </ul>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                      <div className="lg:col-span-7 space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Speaking Valves (e.g., Passy Muir Valve)</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-2">
+                            <li><span className="font-medium text-gray-900">Function:</span> One-way valve that allows air in through the tracheostomy tube but closes on exhalation, forcing air up through the vocal folds for phonation.</li>
+                            <li><span className="font-medium text-gray-900">Prerequisites:</span> Cuff MUST be completely deflated (or cuffless tube). Patient must be able to tolerate cuff deflation and manage secretions.</li>
+                            <li><span className="font-medium text-gray-900">Benefits:</span> Restores voice, improves swallowing (restores subglottic pressure), improves olfaction, assists with secretion management, facilitates decannulation.</li>
+                            <li><span className="font-medium text-gray-900">Contraindications:</span> Severe airway obstruction above the tube, severe aspiration risk, inability to tolerate cuff deflation, thick/copious secretions.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Ventilator Settings (Basic Overview)</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-2">
+                            <li><span className="font-medium text-gray-900">Mode:</span> How the ventilator delivers breaths (e.g., Assist-Control (AC), Synchronized Intermittent Mandatory Ventilation (SIMV), Pressure Support Ventilation (PSV)).</li>
+                            <li><span className="font-medium text-gray-900">Tidal Volume (Vt):</span> The volume of air delivered with each breath.</li>
+                            <li><span className="font-medium text-gray-900">Respiratory Rate (RR):</span> The number of breaths delivered per minute.</li>
+                            <li><span className="font-medium text-gray-900">Fraction of Inspired Oxygen (FiO2):</span> The percentage of oxygen in the delivered air (room air is 21%).</li>
+                            <li><span className="font-medium text-gray-900">Positive End-Expiratory Pressure (PEEP):</span> Pressure maintained in the airways at the end of exhalation to keep alveoli open.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Swallowing with a Tracheostomy</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-2">
+                            <li><span className="font-medium text-gray-900">Impact of Tracheostomy:</span> Can tether the larynx (reducing elevation), decrease subglottic pressure, and desensitize the larynx.</li>
+                            <li><span className="font-medium text-gray-900">Cuff Status:</span> An inflated cuff does NOT prevent aspiration (material can pool above it and eventually leak down). It is generally recommended to evaluate swallowing with the cuff deflated (if medically appropriate) to assess true laryngeal function and allow for speaking valve use.</li>
+                            <li><span className="font-medium text-gray-900">Evan's Blue Dye Test (MEBDT):</span> A screening tool where food/liquid is dyed blue/green, and tracheal secretions are monitored for dye. High false-negative rate; instrumental assessment (FEES/MBSS) is preferred.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="lg:col-span-5 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                        <img src="/assets/clinical/trach_valve.png" alt="Tracheostomy Speaking Valve Diagram" className="w-full h-auto rounded-xl" />
+                        <p className="text-[10px] text-gray-400 mt-3 text-center uppercase font-bold tracking-widest">Speaking Valve & Airway Mechanism</p>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -709,26 +830,114 @@ export function ClinicalReference() {
                 
                 {expandedSection === 'peds-feeding' && (
                   <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Developmental Progression</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-2">
-                        <li><span className="font-medium text-gray-900">0-4 Months:</span> Breast/bottle feeding. Suck-swallow-breathe coordination. Rooting and suckling reflexes active.</li>
-                        <li><span className="font-medium text-gray-900">4-6 Months:</span> Introduction of smooth purees (spoon feeding). Phasic bite reflex diminishes. Gag reflex moves posteriorly.</li>
-                        <li><span className="font-medium text-gray-900">6-9 Months:</span> Introduction of thicker purees and meltable solids. Munching pattern emerges. Cup drinking begins (with assistance).</li>
-                        <li><span className="font-medium text-gray-900">9-12 Months:</span> Introduction of soft, mashed table foods. Rotary chewing begins to emerge. Finger feeding.</li>
-                        <li><span className="font-medium text-gray-900">12-18 Months:</span> Coarsely chopped table foods. Rotary chewing established. Independent cup drinking.</li>
-                        <li><span className="font-medium text-gray-900">18-24 Months:</span> Most table foods. Efficient chewing. Straw drinking.</li>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Developmental Progression</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-2">
+                            <li><span className="font-medium text-gray-900">0-4 Months:</span> Breast/bottle feeding. Suck-swallow-breathe coordination. Rooting and suckling reflexes active.</li>
+                            <li><span className="font-medium text-gray-900">4-6 Months:</span> Introduction of smooth purees (spoon feeding). Phasic bite reflex diminishes. Gag reflex moves posteriorly.</li>
+                            <li><span className="font-medium text-gray-900">6-9 Months:</span> Introduction of thicker purees and meltable solids. Munching pattern emerges. Cup drinking begins (with assistance).</li>
+                            <li><span className="font-medium text-gray-900">9-12 Months:</span> Introduction of soft, mashed table foods. Rotary chewing begins to emerge. Finger feeding.</li>
+                            <li><span className="font-medium text-gray-900">12-18 Months:</span> Coarsely chopped table foods. Rotary chewing established. Independent cup drinking.</li>
+                            <li><span className="font-medium text-gray-900">18-24 Months:</span> Most table foods. Efficient chewing. Straw drinking.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">Red Flags for Referral</h4>
+                          <ul className="list-disc pl-5 mt-1 space-y-1 text-red-700">
+                            <li>Coughing, choking, or color changes during feeding.</li>
+                            <li>Frequent respiratory illnesses or pneumonia.</li>
+                            <li>Difficulty transitioning to solid foods or limited variety of accepted foods.</li>
+                            <li>Poor weight gain or weight loss.</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                        <img src="/assets/clinical/peds_feeding.png" alt="Pediatric Feeding Development" className="w-full h-auto rounded-xl" />
+                        <p className="text-[10px] text-gray-400 mt-3 text-center uppercase font-bold tracking-widest">Feeding Anatomy & Milestones</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Play-Based Assessment (Westby Play Scale) */}
+              <div className="p-4">
+                <button 
+                  onClick={() => toggleSection('play-assessment')}
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-900 hover:text-indigo-600 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-gray-400" />
+                    Play-Based Assessment (Westby Play Scale)
+                  </span>
+                  {expandedSection === 'play-assessment' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+                
+                {expandedSection === 'play-assessment' && (
+                  <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage I (9-12 mo)</h4>
+                        <p>Functional play with objects (e.g., throwing, banging). No true symbolic play yet.</p>
+                      </div>
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage II (13-17 mo)</h4>
+                        <p>Exploration of toys; looking for hidden objects. Single-scheme symbolic play (e.g., pretending to sleep).</p>
+                      </div>
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage III (17-19 mo)</h4>
+                        <p>Autosymbolic play (e.g., pretends to drink from empty cup). Tool use emerges.</p>
+                      </div>
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage IV (19-22 mo)</h4>
+                        <p>Extends symbolism to others (e.g., feeds doll). Combines two toys in play.</p>
+                      </div>
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage V (24 mo)</h4>
+                        <p>Represents daily experiences. Limited sequences (e.g., stirs pot, then feeds spouse).</p>
+                      </div>
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <h4 className="font-bold text-slate-900 mb-2">Stage VI (30-36 mo)</h4>
+                        <p>Symbolic play with less realistic toys. Emergence of role play and multi-scheme sequences.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Fluency & Stuttering (Children) */}
+              <div className="p-4">
+                <button 
+                  onClick={() => toggleSection('peds-fluency')}
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-900 hover:text-indigo-600 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-gray-400" />
+                    Fluency & Stuttering (Children)
+                  </span>
+                  {expandedSection === 'peds-fluency' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </button>
+                
+                {expandedSection === 'peds-fluency' && (
+                  <div className="mt-4 pl-6 text-sm text-gray-600 space-y-4">
+                    <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                      <h4 className="font-bold text-amber-900 mb-2 uppercase text-xs tracking-widest">Normal Disfluency (2-5 yrs)</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Whole word repetitions (e.g., "I, I want juice")</li>
+                        <li>Phrase repetitions (e.g., "Can I, can I go?")</li>
+                        <li>Interjections (e.g., "um", "uh")</li>
+                        <li>Revisions (e.g., "I want - no, I need the ball")</li>
                       </ul>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Red Flags for Referral</h4>
-                      <ul className="list-disc pl-5 mt-1 space-y-1 text-red-700">
-                        <li>Coughing, choking, or color changes during feeding.</li>
-                        <li>Frequent respiratory illnesses or pneumonia.</li>
-                        <li>Poor weight gain or failure to thrive.</li>
-                        <li>Arching, crying, or refusing to eat.</li>
-                        <li>Lengthy feeding times (&gt;30 minutes).</li>
-                        <li>Gurgly/wet vocal quality during or after meals.</li>
+                    <div className="bg-red-50 p-4 rounded-xl border border-red-200">
+                      <h4 className="font-bold text-red-900 mb-2 uppercase text-xs tracking-widest">Stuttering Behaviors</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Part-word repetitions (e.g., "b-b-b-ball")</li>
+                        <li>Prolongations (e.g., "ssssss-un")</li>
+                        <li>Blocks (silent stops in speech)</li>
+                        <li>Secondary behaviors (eye contact loss, facial tension, body movements)</li>
                       </ul>
                     </div>
                   </div>

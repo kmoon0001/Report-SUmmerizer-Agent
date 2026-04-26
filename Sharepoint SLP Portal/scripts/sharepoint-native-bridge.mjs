@@ -75,12 +75,34 @@ const sourceLinks = {
   ashaPortal: 'https://www.asha.org/practice-portal/',
   ashaAac: 'https://www.asha.org/Practice-Portal/Professional-Issues/Augmentative-and-Alternative-Communication/',
   ashaAphasia: 'https://www.asha.org/practice-portal/clinical-topics/aphasia/',
+  ashaAdultDysphagia: 'https://www.asha.org/practice-portal/clinical-topics/adult-dysphagia/',
+  ashaAdultDysphagiaTreatment: 'https://www.asha.org/practice-portal/clinical-topics/adult-dysphagia/',
+  ashaAdultDysarthria: 'https://www.asha.org/practice-portal/clinical-topics/dysarthria-in-adults/',
+  ashaApraxia: 'https://www.asha.org/practice-portal/clinical-topics/acquired-apraxia-of-speech/',
+  ashaTrachVent: 'https://www.asha.org/practice-portal/professional-issues/tracheostomy-and-ventilator-dependence/',
   medicareSlp: 'https://www.medicare.gov/coverage/speech-language-pathology-services',
   cmsBilling: 'https://www.cms.gov/medicare-coverage-database/view/article.aspx?articleid=52866',
-  cmsManual: 'https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/downloads/bp102c15.pdf'
+  cmsManual: 'https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/downloads/bp102c15.pdf',
+  msLearnIa: 'https://learn.microsoft.com/en-us/sharepoint/information-architecture-principles',
+  msLearnImage: 'https://learn.microsoft.com/en-us/microsoft-365/enterprise/modern-image-optimization?view=o365-worldwide',
+  msLearnSpfx: 'https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/single-part-app-pages'
 };
 
 const localReferencePanels = {
+  'SLP-Dysphagia.aspx': {
+    eyebrow: 'Migrated from local advanced dysphagia and pathway modules',
+    title: 'Advanced dysphagia rehab snapshot',
+    summary: 'Non-PHI summary of the local advanced dysphagia reference set. Use instrumental findings, facility policy, and clinician judgment for final treatment selection.',
+    items: [
+      { title: 'High-intensity rehab threshold', detail: 'Local advanced rehab content frames chronic dysphagia intervention around neuroplastic overload rather than low-repetition maintenance-only exercise.', meta: 'Rehab model' },
+      { title: 'Instrumental-first safety check', detail: 'Local guidance consistently routes high-effort maneuvers through FEES or VFSS confirmation before implementation.', meta: 'Safety' },
+      { title: 'EMST 5x5x5 pattern', detail: 'The local advanced track uses five reps, five sets, five days per week as the standardized EMST starter structure when clinically appropriate.', meta: 'Protocol' },
+      { title: 'MDTP boundary', detail: 'Local data treats MDTP as a formal, certification-dependent bolus-practice program rather than a generic bedside exercise list.', meta: 'Certification' },
+      { title: 'IDDSI kitchen audit', detail: 'Objective flow testing remains part of the local skilled-service framing for consistency verification and survey readiness.', meta: 'Operations' },
+      { title: 'Goals-of-care routing', detail: 'Advanced dysphagia planning in the local portal separates rehabilitation, compensation, and comfort-focused care discussions.', meta: 'Clinical judgment' }
+    ],
+    links: [sourceLinks.ashaAdultDysphagia, sourceLinks.ashaAdultDysphagiaTreatment, 'https://iddsi.org/framework/']
+  },
   'SLP-IDDSI.aspx': {
     eyebrow: 'Migrated from local IDDSI module',
     title: 'IDDSI quick framework',
@@ -104,10 +126,26 @@ const localReferencePanels = {
     items: [
       { title: 'Semantic Feature Analysis', detail: 'Use group, use, action, properties, location, and association prompts to support word retrieval.', meta: 'Naming' },
       { title: 'VNeST sample verbs', detail: 'Measure, drive, write, clean, and teach are local starter verbs for agent-patient-location expansion.', meta: 'Verb network' },
+      { title: 'Script training', detail: 'The local protocol set includes repeated practice of personally relevant scripts while keeping resident-specific script text out of SharePoint.', meta: 'Functional language' },
+      { title: 'Melodic cueing / MIT', detail: 'The local aphasia protocol notes melodic and rhythmic cueing for severe non-fluent output patterns.', meta: 'Cueing' },
       { title: 'PACE scoring frame', detail: 'Message success can be described from independent to no attempt without storing patient performance in SharePoint.', meta: 'Communication' },
       { title: 'Aphasia profile orientation', detail: 'Broca, Wernicke, global, anomic, and conduction profiles appear as reference terms only.', meta: 'Reference' }
     ],
-    links: [sourceLinks.ashaAphasia, 'https://www.asha.org/Practice-Portal/Clinical-Topics/Aphasia/#collapse_7']
+    links: [sourceLinks.ashaAphasia, sourceLinks.ashaPortal]
+  },
+  'SLP-Motor-Speech.aspx': {
+    eyebrow: 'Migrated from local motor speech treatment set',
+    title: 'Motor speech treatment stack',
+    summary: 'Static orientation panel for adult motor-speech treatment patterns from the local portal. Resident-specific cueing plans remain outside SharePoint.',
+    items: [
+      { title: 'Dynamic Temporal and Tactile Cueing', detail: 'The local module positions DTTC as a structured cueing hierarchy for apraxia-style motor planning breakdowns.', meta: 'Apraxia' },
+      { title: 'Integral stimulation frame', detail: 'Watch me, listen, say it with me, then fade cues is retained as the local starter logic for high-cue practice.', meta: 'Cue hierarchy' },
+      { title: 'LSVT LOUD carryover', detail: 'Parkinson-related loudness training is framed around vocal intensity, calibration, and daily functional phrase carryover.', meta: 'Parkinson-related' },
+      { title: 'Rate and pacing supports', detail: 'The local treatment set keeps pacing boards, chunking, and strategic pausing as skilled intelligibility supports.', meta: 'Dysarthria' },
+      { title: 'Differential diagnosis reminder', detail: 'Local guidance emphasizes distinguishing dysarthria and apraxia from aphasia before treatment selection.', meta: 'Clinical reasoning' },
+      { title: 'Structural referral awareness', detail: 'Palatal lift or medical referral considerations appear as specialty routing, not as a SharePoint build-your-own plan.', meta: 'Referral' }
+    ],
+    links: [sourceLinks.ashaAdultDysarthria, sourceLinks.ashaApraxia, 'https://www.asha.org/practice-portal/clinical-topics/voice-disorders/']
   },
   'SLP-Voice.aspx': {
     eyebrow: 'Migrated from local Voice module',
@@ -222,11 +260,12 @@ const localReferencePanels = {
     title: 'Outcome measure orientation',
     summary: 'Static orientation panel for measure fit and interpretation support. Do not store patient trends or scores on SharePoint bridge pages.',
     items: [
-      { title: 'Functional Independence Measure', detail: 'Shared local library frames FIM as a broad functional independence measure used across rehab contexts.', meta: 'Shared' },
-      { title: 'Barthel Index', detail: 'Local library includes broad ADL independence interpretation bands for stroke, rehab, and geriatric use.', meta: 'Shared' },
-      { title: 'Katz ADL', detail: 'Local library uses Katz as a quick independence frame for basic ADLs.', meta: 'Shared' },
-      { title: 'SF-36 and EQ-5D', detail: 'Local library includes quality-of-life tools as high-level context, not a SharePoint trend store.', meta: 'QoL' },
-      { title: 'SLP-specific outcome fit', detail: 'Adult neuro, pediatric, voice/swallowing, cognition, and functional communication remain the page’s primary routing domains.', meta: 'SLP' }
+      { title: 'Adult neuro language measures', detail: 'The local library routes aphasia and language work toward WAB-R, BDAE-3, CADL-3, ALFA, and naming-oriented measures depending on the functional question.', meta: 'Adult neuro' },
+      { title: 'Cognitive screening fit', detail: 'MoCA, SLUMS, BCAT, and CLQT-style tools appear in the local reference set as screeners, not as standalone treatment outcomes.', meta: 'Cognition' },
+      { title: 'Voice measures', detail: 'CAPE-V, VHI-10, and RSI remain the local anchor tools for perceptual voice description and self-reported impact.', meta: 'Voice' },
+      { title: 'Swallowing measures', detail: 'EAT-10, MASA, GUSS, FOIS, and DIGEST are the primary local routing tools for swallow symptom burden, bedside risk, intake, and instrumental grading.', meta: 'Swallowing' },
+      { title: 'Pediatric language measures', detail: 'PLS-5, CELF-5, pragmatic-language tools, and caregiver interview scales remain in the local pediatric reference track.', meta: 'Pediatric' },
+      { title: 'Shared functional context', detail: 'Broad rehab tools such as FIM, Barthel, Katz, SF-36, and EQ-5D stay in the bridge only as high-level context, not as a SharePoint trend store.', meta: 'Shared' }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
   },
@@ -266,6 +305,20 @@ const localReferencePanels = {
       { title: 'Boundary', detail: 'Patient outcomes and resident-level quality data remain outside the SharePoint bridge.', meta: 'Safety' }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  },
+  'SLP-Clinical-Safety.aspx': {
+    eyebrow: 'Migrated from local adult neuro-med and trach/vent guidance',
+    title: 'Clinical safety escalation anchors',
+    summary: 'Static, non-PHI safety themes from the local portal. Use the medical record, provider communication, and facility escalation policy for resident-specific action.',
+    items: [
+      { title: 'Oral intake instability', detail: 'Local guidance treats unstable respiratory status, airway obstruction risk, and sudden status change as immediate reasons to reassess oral intake assumptions.', meta: 'Escalation' },
+      { title: 'Delirium and medical drift', detail: 'UTI, delirium, dehydration, medication effects, and sudden cognition shifts are recurring local red-flag themes before blaming communication performance alone.', meta: 'Medical context' },
+      { title: 'Fatigue and overload', detail: 'The local adult neuro guidance repeatedly flags cognitive fatigue, sensory overload, and reduced endurance as treatment-limiting variables.', meta: 'Tolerance' },
+      { title: 'Hydration and nutrition watch', detail: 'Swallowing and adult neuro references keep hydration, weight loss, and nutritional compromise visible as skilled-service risk indicators.', meta: 'Monitoring' },
+      { title: 'Goals-of-care boundary', detail: 'Pleasure feeding, maintenance therapy, and advanced-disease support stay tied to autonomy, ethics, and interdisciplinary planning rather than one-size-fits-all rehab language.', meta: 'Ethics' },
+      { title: 'Caregiver and team carryover', detail: 'The local safety model repeatedly routes communication, mealtime, and airway precautions through nursing and caregiver education.', meta: 'Interdisciplinary' }
+    ],
+    links: [sourceLinks.cmsManual, sourceLinks.medicareSlp, sourceLinks.ashaTrachVent]
   }
 };
 
@@ -3434,6 +3487,14 @@ function getLinkMeta(href) {
   }
 }
 
+function anchorAttrs(href, label) {
+  const safeLabel = label ? ` aria-label="${htmlEscape(label)}"` : '';
+  if (/^https?:\/\//i.test(href)) {
+    return `${safeLabel} target="_blank" rel="noopener noreferrer"`;
+  }
+  return safeLabel;
+}
+
 function renderActionPills(actions = []) {
   return actions.map((action) => `
     <a href="${htmlEscape(action.href)}" style="display:inline-flex;align-items:center;gap:8px;margin:0 10px 10px 0;padding:11px 16px;border-radius:999px;background:${htmlEscape(action.tone || '#0f6cbd')};border:1px solid rgba(255,255,255,0.24);color:#ffffff;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.01em;box-shadow:0 10px 24px rgba(15,108,189,0.16);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;">${htmlEscape(action.label)}</a>
@@ -3838,7 +3899,7 @@ function renderReferenceCards(links = []) {
   const cards = links.map((href) => {
     const meta = getLinkMeta(href);
     return `
-      <a href="${htmlEscape(href)}" style="display:block;border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;text-decoration:none;box-shadow:0 12px 24px rgba(15,23,42,0.05);">
+      <a href="${htmlEscape(href)}"${anchorAttrs(href, `${meta.label} reference`)} style="display:block;border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;text-decoration:none;box-shadow:0 12px 24px rgba(15,23,42,0.05);">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px 0;">
           <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;">${htmlEscape(meta.domain)}</span>
           <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#f8fafc;color:#475569;font-size:11px;font-weight:800;text-transform:uppercase;">Open</span>
@@ -4010,7 +4071,7 @@ function renderLocalReferencePanel(page) {
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0 0;">
             ${panel.links.map((href) => {
               const meta = getLinkMeta(href);
-              return `<a href="${htmlEscape(href)}" style="display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#0f172a;color:#ffffff;text-decoration:none;font-size:12px;font-weight:800;">${htmlEscape(meta.label)}</a>`;
+              return `<a href="${htmlEscape(href)}"${anchorAttrs(href, `${meta.label} supporting reference`)} style="display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#0f172a;color:#ffffff;text-decoration:none;font-size:12px;font-weight:800;">${htmlEscape(meta.label)}</a>`;
             }).join('')}
           </div>
         ` : ''}
@@ -4079,6 +4140,68 @@ function renderUtilityBands(isHome) {
         </div>
       ` : ''}
     </div>
+  `;
+}
+
+function renderStandardsStrip(page, isHome) {
+  const items = [
+    {
+      eyebrow: 'Findability',
+      title: 'Task-first information architecture',
+      text: 'Page groupings and labels follow clinician tasks first, matching Microsoft guidance on navigation clarity and reduced cognitive load.',
+      href: sourceLinks.msLearnIa,
+      action: 'Microsoft Learn IA',
+      tone: '#0f6cbd'
+    },
+    {
+      eyebrow: 'Governance',
+      title: 'Reviewed non-PHI source model',
+      text: 'Bridge pages point back to the source index and library review path before new material is promoted into clinician-facing content.',
+      href: '/sites/PacificCoast_SLP/SitePages/SLP-Knowledge-Source-Index.aspx',
+      action: 'Open source index',
+      tone: '#155e75'
+    },
+    {
+      eyebrow: 'Performance',
+      title: 'Web-optimized images and payloads',
+      text: 'Images remain proportional and the bridge stays compact to align with Microsoft guidance for modern page performance and image optimization.',
+      href: sourceLinks.msLearnImage,
+      action: 'Image guidance',
+      tone: '#0f766e'
+    },
+    {
+      eyebrow: 'Production',
+      title: isHome ? 'SPFx app-page production route' : 'Interactive workflows stay on SPFx',
+      text: isHome
+        ? 'The bridge carries dense reference content now, while the patient-adjacent application path remains the SPFx Single Part App Page.'
+        : 'This module stays read-only/reference-first on SharePoint pages; interactive or patient-adjacent workflows remain on the SPFx production path.',
+      href: '/sites/PacificCoast_SLP/SitePages/SLP-SPFx-Production-Handoff.aspx',
+      action: 'Open SPFx handoff',
+      tone: '#0f172a'
+    }
+  ];
+
+  return `
+    <section style="margin:0 0 22px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 12px 0;">
+        <div>
+          <h2 style="margin:0 0 5px 0;font-size:24px;line-height:1.2;color:#0f172a;">Microsoft Learn alignment</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.55;">Operational standards for information architecture, governance, performance, and the real production path.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
+        ${items.map((item) => `
+          <div style="border:1px solid #dbe5ee;border-radius:10px;padding:15px 16px;background:#ffffff;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px 0;">
+              <span style="display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#eef6ff;color:${htmlEscape(item.tone)};font-size:10px;font-weight:900;text-transform:uppercase;">${htmlEscape(item.eyebrow)}</span>
+            </div>
+            <h3 style="margin:0 0 8px 0;font-size:17px;line-height:1.25;color:#0f172a;">${htmlEscape(item.title)}</h3>
+            <p style="margin:0 0 12px 0;color:#64748b;font-size:13px;line-height:1.6;">${htmlEscape(item.text)}</p>
+            <a href="${htmlEscape(item.href)}"${anchorAttrs(item.href, item.action)} style="display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;background:${htmlEscape(item.tone)};color:#ffffff;text-decoration:none;font-size:12px;font-weight:800;">${htmlEscape(item.action)}</a>
+          </div>
+        `).join('')}
+      </div>
+    </section>
   `;
 }
 
@@ -4196,6 +4319,7 @@ function renderPageHtml(page) {
   const templateGroups = renderTemplateGroups(page.templateGroups);
   const bridgeFunctionPanel = renderBridgeFunctionPanel(page);
   const liveResourcePanel = renderLiveResourcePanel(page);
+  const standardsStrip = renderStandardsStrip(page, isHome);
   const knowledgeSnapshotPanel = renderKnowledgeSnapshotPanel(page);
   const localReferencePanel = renderLocalReferencePanel(page);
   const relatedCards = isHome ? '' : renderRelatedPageCards(page.fileName, isHome);
@@ -4249,6 +4373,7 @@ function renderPageHtml(page) {
     <div style="max-width:1500px;margin:0 auto;padding:4px 0 24px 0;color:#0f172a;">
       ${hero}
       ${renderUtilityBands(isHome)}
+      ${standardsStrip}
       ${bridgeFunctionPanel}
       ${liveResourcePanel}
       <div style="border:1px solid #f7d78c;border-radius:26px;background:linear-gradient(135deg,#fffdf3 0%,#fffbeb 100%);padding:18px 20px;margin:0 0 24px 0;box-shadow:0 18px 36px rgba(146,64,14,0.05);">

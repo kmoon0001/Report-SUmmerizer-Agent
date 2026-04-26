@@ -1,15 +1,3 @@
-import { 
-  ClipboardList, 
-  Activity, 
-  BookOpen, 
-  Brain, 
-  MessageSquare, 
-  Mic, 
-  Users, 
-  Stethoscope,
-  Scale,
-  Heart
-} from 'lucide-react';
 import { SubspecialtyData } from './subspecialty-data';
 
 export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
@@ -18,35 +6,33 @@ export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
     title: 'Gait, Balance & Fall Prevention',
     overview: {
       whatItIs: 'Physical therapy management of mobility and fall risk focusing on community-dwelling older adults (APTA 2025 CPG).',
-      whyItHappens: 'Multifactorial etiologies including age-related sarcopenia, sensory processing changes (vestibular/visual), neurological disorders, and pharmacological side effects.',
+      whyItHappens: 'Multifactorial etiologies including age-related sarcopenia, sensory processing changes, neurological disorders, and pharmacological side effects.',
       deficits: [
-        'Reduced postural stability (Static/Dynamic)',
+        'Reduced postural stability',
         'Impaired anticipatory postural adjustments',
-        'Reduced gait speed (< 1.0 m/s)',
+        'Reduced gait speed',
         'Decreased lower extremity power',
-        'Impaired sensory integration (CTSIB-M)'
+        'Impaired sensory integration'
       ],
       symptoms: [
-        'Recent history of falls or "near falls"',
+        'Recent history of falls or near falls',
         'Fear of falling leading to activity restriction',
-        'Unsteady gait / wide base of support',
+        'Unsteady gait or wide base of support',
         'Difficulty with stair navigation',
-        'Dizziness / orthostatic hypotension'
+        'Dizziness or orthostatic hypotension'
       ],
-      clinicalPearl: 'The "Timed Up and Go" (TUG) is a screener, but the "Five Times Sit to Stand" (5TSTS) is a powerful predictor of lower extremity power and fall risk. A gait speed of < 0.6 m/s is highly predictive of future falls and hospitalization.',
+      clinicalPearl: 'Timed Up and Go is a useful screener, but gait speed and Five Times Sit to Stand often reveal the real mobility and fall-risk story.',
       bestPractices: [
-        'Utilize the 2025 APTA Fall Risk Management Algorithm for all adults 65+.',
-        'Always perform a multifactorial assessment including vision and medication review.',
-        'Exercise must be "Progressive" and "Challenging" to be effective; low-intensity walking is insufficient for fall prevention.',
-        'Supervised individual PT is superior to unsupervised home programs for high-risk patients.',
-        'Address environmental hazards (throw rugs, lighting) during home safety evaluations.',
-        'Set functional goals that focus on "Community Participation" (e.g., walking to the mailbox safely).'
+        'Use a multifactorial fall-risk assessment rather than a single test in isolation.',
+        'Exercise must be progressive and challenging to change fall risk.',
+        'Address environmental hazards and medication effects alongside mobility work.',
+        'Tie goals to community participation and ADL safety.'
       ]
     },
     types: [
-      { name: 'Mechanical / Orthopedic', description: 'Gait changes due to joint pain, range of motion, or structural issues.' },
-      { name: 'Neurological / Sensory', description: 'Impairments in balance due to CNS/PNS pathology or vestibular processing.' },
-      { name: 'Fear-Based / Psychosocial', description: 'Activity restriction and unsteady movement secondary to a fear of falling.' }
+      { name: 'Mechanical / Orthopedic', description: 'Gait changes due to joint pain, range of motion limits, or structural issues.' },
+      { name: 'Neurological / Sensory', description: 'Balance or gait change related to central, peripheral, vestibular, or visual processing problems.' },
+      { name: 'Fear-Based / Psychosocial', description: 'Movement restriction and instability influenced by fear of falling.' }
     ],
     assessments: [
       {
@@ -56,26 +42,20 @@ export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
         population: 'Older adults',
         time: '< 2 mins',
         cost: 'Free',
-        instructions: '1. Patient starts seated in a chair. 2. On "Go", they stand up, walk 3 meters, turn, walk back, and sit down. 3. Time the effort. 4. > 12 seconds indicates increased fall risk.',
+        instructions: 'Patient stands from a chair, walks 3 meters, turns, returns, and sits. Time the full sequence.',
         tags: ['Screening', 'Mobility'],
-        tips: [
-          'Allow 1 practice trial.',
-          'Instruct the patient to walk at a "comfortable but safe" pace.'
-        ]
+        tips: ['Allow one practice trial.', 'Use a comfortable but safe walking pace.']
       },
       {
         name: 'Berg Balance Scale',
         acronym: 'BBS',
         description: '14-item objective measure of static and dynamic balance.',
-        population: 'Stroke, Geriatrics',
+        population: 'Stroke, geriatrics',
         time: '15-20 mins',
         cost: 'Free',
         tags: ['Comprehensive', 'Outcome Measure'],
-        whatItIs: 'Gold-standard assessment of functional balance during sitting, standing, and changing positions.',
-        tips: [
-          'Score 0-56. < 45 indicates high fall risk.',
-          'The items "standing on one leg" and "reaching forward" are high-discriminators.'
-        ]
+        whatItIs: 'Functional balance assessment during sitting, standing, transfers, and reaching.',
+        tips: ['Scores under 45 indicate elevated fall risk.', 'Single-leg and reach tasks often discriminate higher-risk patients.']
       },
       {
         name: 'Gait Speed (10-Meter Walk Test)',
@@ -85,53 +65,45 @@ export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
         time: '5 mins',
         cost: 'Free',
         tags: ['Vital Sign', 'Functional'],
-        whatItIs: 'The "6th Vital Sign." Measures meters per second (m/s).',
-        tips: [
-          'Ensure a 2-meter "buffer" zone for acceleration and deceleration.',
-          '< 0.8 m/s suggests a limited community ambulator.'
-        ]
+        whatItIs: 'The 10MWT provides walking speed in meters per second.',
+        tips: ['Use acceleration and deceleration buffer zones.', 'Limited community mobility is suggested below 0.8 m/s.']
       }
     ],
     treatments: [
       {
         name: 'Perturbation-Based Balance Training',
-        description: 'Specific training to improve reactive postural adjustments.',
+        description: 'Training to improve reactive postural adjustments.',
         evidenceLevel: 'High',
-        candidates: 'History of falls, frequent trips.',
-        instructions: 'Provide unexpected external perturbations (nudges/tugs) while the patient is standing or walking. Focus on "Catching" themselves safely.',
+        candidates: 'History of falls, frequent trips',
+        instructions: 'Use graded external perturbations during standing or walking with appropriate guarding or harness support.',
         tags: ['Reactive', 'Rehabilitative'],
-        tips: [
-          'Use a safety harness for high-risk patients.',
-          'Gradually increase the force of perturbations.'
-        ]
+        tips: ['Increase force gradually.', 'Use strong guarding for high-risk patients.']
       },
       {
-        name: 'High-Intensity Resistance Training (HIRT)',
-        description: 'Progressive loading of lower extremity muscles (Squats, Lunges, Calf raises).',
+        name: 'High-Intensity Resistance Training',
+        acronym: 'HIRT',
+        description: 'Progressive loading of lower-extremity musculature for strength and power.',
         evidenceLevel: 'High',
-        candidates: 'Sarcopenia, generalized weakness.',
-        instructions: 'Load at 70-80% of 1RM (1 Rep Max). Perform 2-3 sets of 8-12 reps. Focus on power and eccentric control.',
-        tags: ['Strength', 'Metabolic'],
-        tips: [
-          'Focus on functional movements relevant to ADLs (Sit-to-stand).',
-          'Avoid "air exercises" without resistance.'
-        ]
+        candidates: 'Sarcopenia, generalized weakness',
+        instructions: 'Use progressive resistance with functional lower-extremity patterns such as sit-to-stand, squats, and step-ups.',
+        tags: ['Strength', 'Functional'],
+        tips: ['Avoid non-progressive “air exercise” programs.', 'Tie loading to ADLs and transfer performance.']
       }
     ],
     resources: [
       {
-        title: 'APTA Geriatrics: Falls Prevention',
-        description: '2025 Clinical Practice Guidelines.',
+        title: 'APTA Geriatrics',
+        description: 'Falls prevention and mobility guidance.',
         type: 'Guide',
         url: 'https://www.aptageriatrics.org/'
       }
     ],
     visuals: [
       {
-        title: 'Fall Risk Management Algorithm',
+        title: 'Fall risk management workflow',
         type: 'image',
         thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-        description: 'Flowchart for clinical decision making based on 2025 CPG.'
+        description: 'Reference image used for fall-prevention workflow orientation.'
       }
     ]
   },
@@ -139,12 +111,12 @@ export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
     id: 'pelvic-health',
     title: 'Pelvic Health Rehabilitation',
     overview: {
-      whatItIs: 'Pelvic health physical therapy involves the evaluation and treatment of the pelvic floor muscle group and related structures addressing bladder, bowel, sexual function, and pelvic pain.',
-      whyItHappens: 'Common etiologies include Pregnancy/Postpartum changes, Menopause, Prostatic surgery, Chronic Pelvis Pain Syndrome (CPPS), and Neurogenic conditions.',
+      whatItIs: 'Pelvic health physical therapy addresses bladder, bowel, sexual function, prolapse, and pelvic pain through evaluation and treatment of the pelvic floor and related systems.',
+      whyItHappens: 'Common etiologies include pregnancy or postpartum change, menopause, surgery, chronic pelvic pain syndromes, and neurogenic conditions.',
       deficits: [
-        'Pelvic Floor Muscle (PFM) weakness',
-        'PFM overactivity',
-        'Impaired PFM coordination',
+        'Pelvic floor weakness',
+        'Pelvic floor overactivity',
+        'Impaired coordination',
         'Reduced pelvic organ support'
       ],
       symptoms: [
@@ -153,32 +125,37 @@ export const PT_SUBSPECIALTY_DATA: Record<string, SubspecialtyData> = {
         'Pelvic organ prolapse',
         'Chronic pelvic pain'
       ],
-      clinicalPearl: 'The pelvic floor is part of the "deep core" canister. Breathing patterns often contribute significantly to symptoms.',
+      clinicalPearl: 'Breathing mechanics and the deep-core system often drive symptoms as much as pelvic-floor strength alone.',
       bestPractices: [
-        'Obtain informed consent.',
-        'Screen for compensations.',
-        'Integrate diaphragmatic breathing.'
+        'Obtain informed consent for internal or sensitive examination procedures.',
+        'Screen for substitution patterns and abdominal bracing.',
+        'Integrate diaphragmatic breathing and pressure management.'
       ]
     },
+    types: [
+      { name: 'Underactive', description: 'Weakness or poor recruitment limiting support and continence.' },
+      { name: 'Overactive', description: 'High tone or poor relaxation contributing to pain, urgency, or obstruction.' }
+    ],
     assessments: [
       {
         name: 'Modified Oxford Scale',
-        description: '0-5 MMT for pelvic floor.',
+        description: 'Manual muscle testing scale for pelvic-floor strength.',
         population: 'Adults',
         time: '5 mins',
         cost: 'Free',
         tags: ['Strength'],
-        instructions: 'Digital palpation to grade strength and lift.'
+        instructions: 'Use digital palpation to grade lift and squeeze if trained and appropriate.'
       }
     ],
     treatments: [
       {
-        name: 'PFMT',
-        description: 'Pelvic floor muscle training.',
+        name: 'Pelvic Floor Muscle Training',
+        acronym: 'PFMT',
+        description: 'Progressive pelvic-floor training for continence and support.',
         evidenceLevel: 'High',
-        candidates: 'Stress/Urge UI.',
-        tags: ['Rehabilitative'],
-        instructions: 'Progressive resistive exercise for the pelvic floor.'
+        candidates: 'Stress or urge urinary incontinence',
+        instructions: 'Use progressive dosage with coordination, relaxation, and functional carryover.',
+        tags: ['Rehabilitative']
       }
     ],
     resources: [],

@@ -90,6 +90,10 @@ Refined live homepage result after the second polish pass:
 - removed redundant homepage-wide related-page duplication
 - kept image-led presentation for core clinical modules
 - shifted workflow, knowledge, and governance groups toward denser corporate tile patterns
+- added another safe local-coverage pass for advanced dysphagia rehab, aphasia protocol depth, motor-speech treatment patterns, clinical safety anchors, and SLP-specific outcome-measure fit
+- added Microsoft Learn-aligned standards cards for information architecture, reviewed-source governance, image/performance discipline, and the SPFx production route
+- hardened authoritative external-reference anchors with explicit new-tab/noopener behavior for safer modern-page navigation
+- repaired local build blockers uncovered during the hardening pass by fixing a JSX parse issue and restoring missing `pt` / `ot` subspecialty data files required by the existing data graph
 
 Generalized workflow expansion now live:
 - `SLP-Note-Template-Studio.aspx`

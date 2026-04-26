@@ -191,6 +191,9 @@ After each major chunk:
 Completed:
 - shell refactor
 - SPFx production shell PHI-minimized repair: patient/session/goal/review list reads and writebacks removed from `spfx-shell`; durable reads now limited to non-PHI knowledge/source libraries through `SPHttpClient`; SPFx package validation passed and produced `spfx-shell/sharepoint/solution/spfx-shell.sppkg`
+- SharePoint-native safe bridge completion: all safe local reference, support, library, community-launch, compliance, and workflow-boundary surfaces are now represented in the live SharePoint bridge; homepage remains set to `SLP-Portal.aspx`
+- Generalized workflow and operational hub expansion: current SharePoint-native validation passes on `46` pages with `46` loaded images; new pages include note templates, goal/intervention studio, Copilot playbooks, handout/therapy templates, curated visual aids, and SPFx production handoff
+- Non-PHI knowledge indexing and list seeding completed for `SLP_Source_Index`
 - Documentation Studio session-only PHI boundary
 - Handout Studio session-only PHI boundary plus sanitized persistence
 - Therapy Studio session-only PHI boundary plus sensitive-session auto-save lock
@@ -199,6 +202,7 @@ Completed:
 Next recommended chunk:
 - deploy the validated SPFx package through the tenant/app-catalog path and verify the Pacific Coast SLP SharePoint page
 - then continue Tier 2 PHI-boundary audit in the standalone source modules if more source parity work is needed
+- keep the SharePoint-native bridge limited to non-PHI read-only/reference behavior until the SPFx path is live
 
 ## Resume Strategy
 

@@ -41,6 +41,18 @@ const expectedPages = [
   'SLP-Trajectory-Analytics.aspx',
   'SLP-Clinical-Safety.aspx',
   'SLP-Life-Wellness.aspx',
+  'SLP-Clinical-Library.aspx',
+  'SLP-Video-Library.aspx',
+  'SLP-Community-Networking.aspx',
+  'SLP-Help-Support.aspx',
+  'SLP-Therapy-Studio.aspx',
+  'SLP-Compliance-Center.aspx',
+  'SLP-Note-Template-Studio.aspx',
+  'SLP-Goal-and-Intervention-Studio.aspx',
+  'SLP-Clinical-Copilot-Playbooks.aspx',
+  'SLP-Handout-Therapy-Templates.aspx',
+  'SLP-Curated-Visual-Aids.aspx',
+  'SLP-SPFx-Production-Handoff.aspx',
   'SLP-Knowledge-Source-Index.aspx'
 ];
 
@@ -65,8 +77,11 @@ function evaluatePageFields(fileName, title, canvas, wiki) {
     exists: true,
     hasNoFormFields: !/<input|<textarea|<form/i.test(text),
     hasGuardrails: text.includes('No patient tracker') && text.includes('Do not paste patient-specific'),
-    hasAuthoritativeLinks: /asha\.org|cms\.gov|medicare\.gov/.test(text),
+    hasAuthoritativeLinks: /asha\.org|cms\.gov|medicare\.gov|learn\.microsoft\.com/.test(text),
     hasSpfxPending: /SPFx pending|SPFx-pending/.test(text),
+    hasWorkflowSurfaces: text.includes('Generalized workflow surfaces'),
+    hasTemplateShells: text.includes('Template-mode workflow shells'),
+    hasNoUndefinedText: !/undefined|null/.test(text),
     hasImages: /<img /i.test(text),
     hasCanvas: Boolean(canvas),
     hasWiki: Boolean(wiki)
@@ -170,7 +185,7 @@ const report = {
   navNodes: rest.navNodes,
   pass: rest.web.WelcomePage === 'SitePages/SLP-Portal.aspx'
     && rest.blocked.length === 0
-    && pageChecks.every((check) => check.exists && check.hasNoFormFields && check.hasGuardrails && check.hasAuthoritativeLinks && check.hasSpfxPending && check.hasImages && check.hasCanvas && check.hasWiki)
+    && pageChecks.every((check) => check.exists && check.hasNoFormFields && check.hasGuardrails && check.hasAuthoritativeLinks && check.hasSpfxPending && check.hasWorkflowSurfaces && check.hasTemplateShells && check.hasNoUndefinedText && check.hasImages && check.hasCanvas && check.hasWiki)
     && dom.hasTitle
     && dom.hasLaunchActions
     && dom.hasServiceMap

@@ -36,6 +36,58 @@ Microsoft Learn and official Microsoft guidance used for this path:
 
 ## Completed Work
 
+### 00A. Safe SharePoint-Native Bridge Completion
+
+The SharePoint-native bridge now covers the full safe local scope while the SPFx production deployment path remains blocked by App Catalog permissions.
+
+Completed outcomes:
+- migrated all safe local reference, support, library, community-launch, compliance, and workflow-boundary surfaces into SharePoint modern pages
+- kept the portal on the SharePoint-first path using Microsoft Learn guidance for information architecture, modern pages, and future SPFx continuation
+- preserved the no-form guardrail across all bridge pages so the bridge does not become a patient-entry surface
+- kept clinical content anchored to authoritative references such as ASHA, CMS, Medicare.gov, and reviewed SharePoint knowledge sources
+- created and seeded the non-PHI `SLP_Source_Index` list for reviewable source metadata
+- validated the live bridge end to end against the Pacific Coast SharePoint site
+
+Current bridge totals:
+- `46` validated SharePoint pages
+- `46` homepage images loaded successfully
+- homepage remains `SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- `359` non-PHI source index records seeded into `SLP_Source_Index`
+- `0` low-depth bridge pages remaining after the safe depth pass
+- every bridge page now has generalized workflow cards and template-mode workflow shells
+
+Generalized workflow expansion now live:
+- `SLP-Note-Template-Studio.aspx`
+- `SLP-Goal-and-Intervention-Studio.aspx`
+- `SLP-Clinical-Copilot-Playbooks.aspx`
+- `SLP-Handout-Therapy-Templates.aspx`
+- `SLP-Curated-Visual-Aids.aspx`
+- `SLP-SPFx-Production-Handoff.aspx`
+- richer generalized template-mode coverage on clinical exams, AAC boards, clinical reference, and Medicare audit/candidacy pages
+- operational hub coverage on document library guide, clinical library, video library, and quality/evidence pages
+- richer core clinical module coverage on dysphagia, aphasia, cognitive-communication, motor speech, voice, AAC, and Medicare/compliance pages
+- non-PHI workflow shells for treatment planning, strategy selection, AAC feature matching, partner coaching, skilled-service framing, and medical-necessity review
+- richer clinical safety/reference coverage on IDDSI, instrumentals, trach/vent, anatomy/neuro, and meds/labs/imaging pages
+- non-PHI workflow shells for dining carryover, instrumental referral, speaking-valve planning, anatomy teaching, medical-context review, and escalation awareness
+- richer daily-use workflow coverage on documentation, goal bank, treatment ideas, quick reference, coding reference, and clinical pathways pages
+- non-PHI workflow shells for daily notes, progress/recertification reports, SMART goals, treatment planning, carryover, coding review, compliance cross-checks, and red-flag routing
+- richer internal/support coverage on Ensign resources, staff learning, handout references, clinician wellness, community/networking, help/support, therapy studio, compliance center, and knowledge source index pages
+- validation now fails on missing workflow cards, missing template shells, rendered `undefined`/`null`, forms, missing guardrails, missing authoritative links, missing SPFx-pending boundary text, missing images, or missing SharePoint page content fields
+
+Intentional exclusions from the safe bridge:
+- patient tracker and resident profiles
+- session notes, patient-specific goals, and durable documentation workflows
+- external live feeds mirrored into SharePoint pages
+- asset-gallery persistence for user-created/generated assets without stronger sanitization/session controls
+
+Key files:
+- [scripts/sharepoint-native-bridge.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/sharepoint-native-bridge.mjs:1>)
+- [scripts/validate-sharepoint-native-bridge.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/validate-sharepoint-native-bridge.mjs:1>)
+- [scripts/build-clinical-knowledge-index.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/build-clinical-knowledge-index.mjs:1>)
+- [scripts/publish-source-index-list.mjs](</d:/my agents copilot studio/Sharepoint SLP Portal/scripts/publish-source-index-list.mjs:1>)
+- [docs/runlogs/sharepoint-native-bridge-20260425.md](</d:/my agents copilot studio/Sharepoint SLP Portal/docs/runlogs/sharepoint-native-bridge-20260425.md:1>)
+
 ### 00. SharePoint-Native Bridge Plan
 
 A temporary SharePoint-native bridge has been planned and generated locally while SPFx deployment is blocked by App Catalog permissions.
@@ -249,18 +301,19 @@ Current remaining technical risk:
 ## Recommended Next Chunk
 
 Next highest-value chunk:
-- Chunk 9: PHI boundary audit for remaining Tier 2 components:
-  - `GoalGenerator.tsx` — verify no durable PHI in saved goals
-  - `MedicareDocChecker.tsx` — verify note input is session-only
-  - `AIAssistant.tsx` — verify chat history is not durably stored with PHI
-  - `DocumentationAssistant.tsx` — verify drafts are session-only
-  - `CaseBrainstorm.tsx` — verify brainstorm content is not durably patient-linked
-  - `ThreeWayEval.tsx` — verify eval results are session-only
-  - `ClinicalExams.tsx` — verify exam data handling
+- Chunk 9A: deploy the SPFx production shell when App Catalog or site catalog permissions are available and verify the Single Part App Page path end to end.
+- Chunk 9B: continue Tier 2 PHI-boundary audit for remaining source modules whose SharePoint bridge pages are intentionally read-only or SPFx-pending:
+  - `GoalGenerator.tsx`
+  - `MedicareDocChecker.tsx`
+  - `AIAssistant.tsx`
+  - `DocumentationAssistant.tsx`
+  - `CaseBrainstorm.tsx`
+  - `ThreeWayEval.tsx`
+  - `ClinicalExams.tsx`
 
 Why:
-- All AI provider work is now complete in `ai-service.ts`
-- The remaining risk is in components that may persist session content without going through the shared PHI boundary
+- the safe SharePoint-native migration is complete for the current bridge boundary
+- the remaining gap is productionizing the full-page SPFx path and tightening session-only behavior in PHI-adjacent interactive modules
 
 ## Resume Notes
 

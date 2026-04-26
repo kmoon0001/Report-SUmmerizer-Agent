@@ -594,3 +594,256 @@ Validation result: PASS
 - logo natural dimensions: 500 x 500
 - logo rendered dimensions: 308 x 308
 - logo aspect ratio delta: 0
+
+## Safe Migration Completion Pass
+
+Date: 2026-04-26
+
+Completed:
+
+- added six final SharePoint-native bridge pages for the remaining safe local surfaces:
+  - `SLP-Clinical-Library.aspx`
+  - `SLP-Video-Library.aspx`
+  - `SLP-Community-Networking.aspx`
+  - `SLP-Help-Support.aspx`
+  - `SLP-Therapy-Studio.aspx`
+  - `SLP-Compliance-Center.aspx`
+- tightened existing bridge coverage for documentation workflows:
+  - `SLP-Documentation-Studio.aspx` now explicitly maps `DocumentationStudio`, `DocumentationAssistant`, and `ThreeWayEval`
+- added Quick Launch entries:
+  - `SLP Clinical Library`
+  - `SLP Video Library`
+  - `SLP Support`
+
+Safe-scope determination:
+
+- all remaining local reference, support, library, community-launch, compliance, and workflow-boundary surfaces judged safe for SharePoint-native migration are now represented
+- `AssetGallery` remains intentionally outside the safe bridge because generated assets can include user-created content and do not fit the non-PHI SharePoint-native boundary without stronger sanitization/session guarantees
+- external live-feed behavior remains intentionally excluded from SharePoint-native pages
+
+Validation result: PASS
+
+- 40 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 40 homepage images loaded
+- no bridge page contains patient-entry forms or durable workflow input surfaces
+
+## Generalized Workflow Lift Pass
+
+Date: 2026-04-26
+
+Completed:
+
+- added four generalized workflow pages:
+  - `SLP-Note-Template-Studio.aspx`
+  - `SLP-Goal-and-Intervention-Studio.aspx`
+  - `SLP-Clinical-Copilot-Playbooks.aspx`
+  - `SLP-Handout-Therapy-Templates.aspx`
+- added one safe curated-asset equivalent page:
+  - `SLP-Curated-Visual-Aids.aspx`
+- added Quick Launch entries:
+  - `SLP Note Templates`
+  - `SLP Goal Studio`
+  - `SLP Copilot Playbooks`
+  - `SLP Handout Templates`
+  - `SLP Visual Aids`
+- upgraded additional bridge pages from boundary-only to generalized template-mode support:
+  - `SLP-Clinical-Exams.aspx`
+  - `SLP-AAC-Boards.aspx`
+  - `SLP-Clinical-Reference.aspx`
+  - `SLP-Medicare-Audit-Candidacy.aspx`
+
+Generalized-safe mapping outcomes:
+
+- documentation, goal, handout, case-support, exam, Medicare audit, and visual-aid workflows now have copy-ready non-PHI scaffolds
+- resident-specific drafting, uploads, scoring, transcripts, and generated assets still remain outside durable SharePoint storage
+- the bridge stays aligned to Microsoft Learn SharePoint/SPFx guidance and the PHI-minimized portal boundary
+
+Validation result: PASS
+
+- 45 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 45 homepage images loaded
+- no bridge page contains patient-entry forms or durable workflow input surfaces
+
+## Operational Knowledge Hub And SPFx Handoff Pass
+
+Date: 2026-04-26
+
+Completed:
+
+- upgraded operational hub depth on:
+  - `SLP-Document-Library-Guide.aspx`
+  - `SLP-Clinical-Library.aspx`
+  - `SLP-Video-Library.aspx`
+  - `SLP-Quality-Evidence.aspx`
+- added production handoff page:
+  - `SLP-SPFx-Production-Handoff.aspx`
+- added Quick Launch entry:
+  - `SPFx Handoff`
+- added local production handoff map:
+  - `docs/design/spfx-production-handoff-map.md`
+- updated validation to treat Microsoft Learn links as authoritative platform references.
+
+Operational outcomes:
+
+- source and library pages now explain upload triage, source ownership, review states, Copilot readiness, and source-to-page promotion
+- video/media page now frames media review, staff-learning playlists, and patient-recording boundaries
+- quality/evidence page now frames evidence review, quality-measure shells, and practice-promotion governance
+- SPFx handoff page now documents the production path for the remaining session-only interactive layer
+
+Validation result: PASS
+
+- 46 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 46 homepage images loaded
+- no bridge page contains patient-entry forms or durable workflow input surfaces
+
+## Core Clinical Module Depth Pass
+
+Date: 2026-04-26
+
+Completed after explicit user approval to overwrite the live SharePoint Site Pages:
+
+- upgraded core clinical bridge depth on:
+  - `SLP-Dysphagia.aspx`
+  - `SLP-Aphasia.aspx`
+  - `SLP-Cognitive-Communication.aspx`
+  - `SLP-Motor-Speech.aspx`
+  - `SLP-Voice.aspx`
+  - `SLP-AAC.aspx`
+  - `SLP-Medicare-Compliance.aspx`
+- added generalized workflow sections to each page
+- added module cards for clinical reasoning, coordination, education, cueing, AAC access, and compliance framing
+- added copy-ready non-PHI template shells for treatment planning, strategy selection, partner coaching, skilled-service framing, and medical-necessity review
+
+Clinical boundary outcomes:
+
+- core modules are now closer to the local SPFx portal shape without adding patient-entry surfaces
+- pages still store no resident names, scores, language samples, voice recordings, diagnosis lists, or encounter-specific documentation
+- interactive decision support remains explicitly SPFx pending
+- clinical and compliance anchors remain tied to ASHA, CMS, Medicare.gov, and Microsoft Learn platform guidance
+
+Validation result: PASS
+
+- 46 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 46 homepage images loaded
+- every page passed no-form, guardrail, authoritative-link, SPFx-pending, CanvasContent1, and WikiField checks
+
+## Final Safe Depth And Renderer Hardening Pass
+
+Date: 2026-04-26
+
+Completed after user approval to finish the safe SharePoint-native migration:
+
+- upgraded the final low-depth bridge pages:
+  - `SLP-Ensign-Corner.aspx`
+  - `SLP-Staff-Learning.aspx`
+  - `SLP-Handout-Reference.aspx`
+  - `SLP-Life-Wellness.aspx`
+  - `SLP-Community-Networking.aspx`
+  - `SLP-Help-Support.aspx`
+  - `SLP-Therapy-Studio.aspx`
+  - `SLP-Compliance-Center.aspx`
+  - `SLP-Knowledge-Source-Index.aspx`
+- repaired the page renderer to support both card content shapes used during migration:
+  - `description` or `text` on feature cards
+  - nested line templates or simple string-list template shells
+- hardened live validation so future bridge changes fail if any page lacks:
+  - generalized workflow card coverage
+  - template-mode workflow shells
+  - no-form guardrails
+  - authoritative links
+  - SPFx-pending boundary text
+  - rendered text without `undefined` or `null`
+  - SharePoint image, CanvasContent1, and WikiField content
+
+Final safe bridge state:
+
+- every one of the 46 SharePoint-native bridge pages now has module cards and template/workflow coverage
+- the bridge remains non-PHI and does not add form fields, patient trackers, resident profiles, durable session notes, patient-specific goals, or resident-linked workflow storage
+- remaining local features that need patient-specific interaction, custom generation, live feeds, uploads, scoring, transcripts, recordings, or persistent user artifacts remain SPFx pending by design
+
+Strict validation result: PASS
+
+- 46 expected pages exist
+- 0 failed page checks
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 46 homepage images loaded
+- every page passed no-form, guardrail, authoritative-link, SPFx-pending, workflow-surface, template-shell, no-undefined-text, image, CanvasContent1, and WikiField checks
+
+## Daily-Use Workflow Depth Pass
+
+Date: 2026-04-26
+
+Completed after explicit user approval to overwrite the live SharePoint Site Pages:
+
+- upgraded daily-use bridge depth on:
+  - `SLP-Documentation-Studio.aspx`
+  - `SLP-Goal-Bank.aspx`
+  - `SLP-Treatment-Ideas.aspx`
+  - `SLP-Quick-Reference.aspx`
+  - `SLP-Coding-Reference.aspx`
+  - `SLP-Clinical-Pathways.aspx`
+- added copy-ready non-PHI template shells for:
+  - daily notes
+  - progress and recertification reports
+  - SMART goals
+  - intervention rationale
+  - treatment activity planning
+  - carryover planning
+  - quick-reference use
+  - red-flag routing
+  - coding review
+  - compliance cross-checks
+  - clinical pathway reasoning
+
+Operational outcomes:
+
+- the most frequently used local workflows now have usable SharePoint-native scaffolds while patient-specific drafting remains outside the bridge
+- final goals, notes, billing decisions, claims, patient responses, and clinical findings remain in approved clinical systems
+- interactive branching, search/filter behavior, goal generation, and patient-specific recommendations remain SPFx pending
+
+Validation result: PASS
+
+- 46 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 46 homepage images loaded
+- every page passed no-form, guardrail, authoritative-link, SPFx-pending, CanvasContent1, and WikiField checks
+
+## Clinical Safety Reference Depth Pass
+
+Date: 2026-04-26
+
+Completed after explicit user approval to overwrite the live SharePoint Site Pages:
+
+- upgraded clinical safety/reference bridge depth on:
+  - `SLP-IDDSI.aspx`
+  - `SLP-Instrumentals.aspx`
+  - `SLP-Trach-Vent.aspx`
+  - `SLP-Anatomy-Neuro.aspx`
+  - `SLP-Meds-Labs-Imaging.aspx`
+- added module cards for texture orientation, instrumental readiness, airway coordination, anatomy teaching, and medical-context review
+- added copy-ready non-PHI template shells for IDDSI review, dining carryover, instrumental referral, results integration, trach/vent review, speaking-valve planning, anatomy teaching, clinical reasoning, medical context, and escalation awareness
+
+Clinical boundary outcomes:
+
+- high-risk clinical reference pages now provide more usable SharePoint-native workflow structure without becoming patient data entry surfaces
+- medication lists, lab values, imaging reports, vitals, ventilator settings, food trials, diet orders, and instrumental results remain outside durable SharePoint page content
+- live patient data remains restricted to the EHR/source medical record and approved facility workflows
+- interactive testing, planners, image exploration, and searchable clinical data remain SPFx pending
+
+Validation result: PASS
+
+- 46 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 46 homepage images loaded
+- every page passed no-form, guardrail, authoritative-link, SPFx-pending, CanvasContent1, and WikiField checks

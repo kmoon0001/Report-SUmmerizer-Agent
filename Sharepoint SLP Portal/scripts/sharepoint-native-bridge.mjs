@@ -91,8 +91,48 @@ const pages = [
       {
         heading: 'Workflow modules',
         bullets: [
-          'Documentation Studio, Therapy Studio, Goal Generator, and Three-Way Eval remain SPFx-pending interactive modules.',
-          'This bridge provides navigation and authoritative reference links only.'
+          'Documentation Studio, Therapy Studio, Goal Generator, and Three-Way Eval now have generalized non-PHI template-mode surfaces in the bridge.',
+          'Resident-specific authoring and interactive workflow capture remain SPFx pending.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Documentation workflows',
+        description: 'Daily note, progress, recertification, discharge, and evaluation shells built for copy-ready non-PHI drafting.',
+        chips: ['Templates', 'Compliance', 'Non-PHI']
+      },
+      {
+        title: 'Goals and treatment design',
+        description: 'SMART-goal scaffolds, intervention language, and reusable therapy planning without resident-linked persistence.',
+        chips: ['Goals', 'Treatment', 'Reusable']
+      },
+      {
+        title: 'Clinical reasoning support',
+        description: 'Exam scaffolds, case playbooks, Medicare logic, and differential-support prompts anchored to reviewed sources.',
+        chips: ['Reasoning', 'Reference', 'Clinician-led']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Primary workflow paths',
+        items: [
+          {
+            title: 'Template-mode drafting',
+            lines: [
+              'Start in Note Templates for documentation structure.',
+              'Use Goal Studio for SMART goals and intervention rationale.',
+              'Complete resident-specific versions only in the approved charting system.'
+            ]
+          },
+          {
+            title: 'Reference and review',
+            lines: [
+              'Use the clinical modules, Medicare pages, and knowledge index to anchor decisions to reviewed references.',
+              'Use Copilot Playbooks and Clinical Reference pages for generalized reasoning support.',
+              'Use the source index and library guides before promoting new content.'
+            ]
+          }
         ]
       }
     ],
@@ -111,6 +151,48 @@ const pages = [
           'Interactive decision support remains SPFx pending.',
           'Use this page as a reference launch point, not as a documentation workspace.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use the cards below to organize swallowing review, treatment planning, and instrumental coordination without entering resident identifiers.',
+          'Keep diet levels, exam findings, and clinical decisions in the approved medical record; this page only provides reference structure.',
+          'When SPFx is available, this module can restore guided decision support with session-only data handling.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Swallow Clinical Reasoning',
+        text: 'Frame bedside swallow observations, risk factors, oral/pharyngeal phase questions, and follow-up needs as a non-PHI checklist.'
+      },
+      {
+        title: 'Instrumental Coordination',
+        text: 'Bridge VFSS/FEES readiness, referral questions, and interdisciplinary coordination while keeping report interpretation in source systems.'
+      },
+      {
+        title: 'Diet and IDDSI Planning',
+        text: 'Connect swallowing safety, texture/liquid considerations, staff education, and dining carryover to the separate IDDSI resources.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Swallow Review Shell',
+        items: [
+          'Clinical question: What swallowing function or safety question is being reviewed?',
+          'Risk lens: airway protection, nutrition/hydration, oral care, positioning, cognition, pulmonary status.',
+          'Information sources: bedside findings, instrumental results if available, interdisciplinary reports, current orders.',
+          'Plan direction: skilled strategy training, exercise/protocol focus, diet coordination, referral/escalation need.'
+        ]
+      },
+      {
+        title: 'Treatment Planning Shell',
+        items: [
+          'Target impairment or functional limitation without naming a resident.',
+          'Skilled SLP action: cueing, exercise, strategy training, compensatory approach, caregiver/staff education.',
+          'Safety guardrail: stop criteria, aspiration-risk escalation, oral intake precautions, team communication point.',
+          'Carryover plan: dining room, medication pass, oral care, family/staff reinforcement, next review interval.'
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.medicareSlp, sourceLinks.cmsManual]
@@ -127,6 +209,48 @@ const pages = [
           'Mapped from the local AphasiaTools module.',
           'ASHA notes that aphasia screening identifies need for further assessment and should be culturally and linguistically responsive.',
           'Use this page for vetted references; do not enter patient language samples here.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page for non-PHI aphasia therapy planning, partner communication structure, and AAC coordination.',
+          'Do not store personal narratives, names, language samples, or resident-specific communication boards on the page.',
+          'SPFx can later restore interactive language-task generation with session-only handling and approved storage boundaries.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Language Profile Planning',
+        text: 'Organize expressive, receptive, reading, writing, discourse, and functional participation questions before formal documentation.'
+      },
+      {
+        title: 'Partner Communication',
+        text: 'Plan supported conversation strategies, communication ramps, cueing approaches, and caregiver/staff training targets.'
+      },
+      {
+        title: 'AAC Bridge',
+        text: 'Route communication access needs into the AAC Hub while keeping custom vocabulary and personal content out of SharePoint pages.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Communication Support Shell',
+        items: [
+          'Communication goal area: comprehension, expression, reading/writing, conversation repair, participation.',
+          'Support strategy: yes/no supports, written keywords, visual choices, slowed rate, partner confirmation.',
+          'Training target: staff, caregiver, group activity, therapy session, dining or care-routine carryover.',
+          'Escalation or referral: hearing/vision access, AAC need, neuro/medical change, interpreter or cultural-linguistic support.'
+        ]
+      },
+      {
+        title: 'Therapy Task Shell',
+        items: [
+          'Task type: naming, semantic feature analysis, script practice, comprehension, reading/writing, discourse.',
+          'Cueing level: independent, written/visual cue, phonemic/semantic cue, model, errorless learning support.',
+          'Functional context: conversation, room needs, safety call-light use, schedule, family interaction.',
+          'Progress lens: accuracy, independence, cueing reduction, strategy carryover, participation quality.'
         ]
       }
     ],
@@ -145,6 +269,48 @@ const pages = [
           'Interactive task customization remains SPFx pending.',
           'No resident-specific cognition data belongs on this SharePoint page.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use the module as a functional-cognition planning surface for general task design and strategy selection.',
+          'Keep scores, behavior examples, safety incidents, and individualized caregiver notes in approved clinical systems only.',
+          'Future SPFx work can restore guided task difficulty and carryover tracking using session-only data.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Functional Cognition Profile',
+        text: 'Frame attention, memory, executive function, orientation, problem solving, and safety awareness around daily tasks.'
+      },
+      {
+        title: 'Strategy Training',
+        text: 'Map spaced retrieval, external aids, environmental supports, routines, and caregiver cueing to non-PHI workflows.'
+      },
+      {
+        title: 'Task Progression',
+        text: 'Organize activity difficulty, cueing level, distractor load, and carryover setting without storing patient performance.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Functional Cognition Shell',
+        items: [
+          'Target domain: attention, memory, executive function, orientation, problem solving, safety awareness.',
+          'Functional task: medication routine, schedule use, call-light safety, meal participation, room navigation, activity follow-through.',
+          'Skilled cueing: verbal, visual, written, environmental setup, errorless learning, spaced retrieval.',
+          'Carryover condition: staff prompt, family support, environmental aid, interdisciplinary handoff, next-session progression.'
+        ]
+      },
+      {
+        title: 'Strategy Plan Shell',
+        items: [
+          'Strategy selected and rationale.',
+          'Practice condition: quiet room, simulated routine, real-world routine, group context, caregiver training.',
+          'Independence measure: cueing level, consistency, safety, initiation, completion, self-monitoring.',
+          'Generalization plan: where the strategy should transfer and what support is required.'
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.medicareSlp, sourceLinks.cmsBilling]
@@ -161,6 +327,48 @@ const pages = [
           'Mapped from the local MotorSpeechModule.',
           'Cueing tools and interactive supports remain SPFx pending.',
           'Keep patient-specific performance notes in approved clinical systems only.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page to structure non-PHI dysarthria or motor-speech planning by subsystem, cueing approach, and communication context.',
+          'Do not store speech samples, personal scripts, recordings, or resident-specific intelligibility data here.',
+          'Future SPFx can restore interactive cueing and home-program builders with the same PHI boundary.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Subsystem Profile',
+        text: 'Organize respiration, phonation, resonance, articulation, prosody, rate, and intelligibility observations.'
+      },
+      {
+        title: 'Cueing Hierarchy',
+        text: 'Plan external pacing, over-articulation, breath support, loudness, rate control, and multimodal supports.'
+      },
+      {
+        title: 'Functional Communication',
+        text: 'Connect motor-speech therapy to dining, care routines, phone use, family conversation, and group participation.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Motor Speech Review Shell',
+        items: [
+          'Clinical focus: dysarthria type, apraxia features, intelligibility, rate, respiratory-phonatory support.',
+          'Subsystem question: respiration, phonation, articulation, resonance, prosody, endurance.',
+          'Context: structured word/phrase, conversation, care request, group setting, phone/technology use.',
+          'Plan direction: cueing hierarchy, strategy training, partner education, referral/escalation.'
+        ]
+      },
+      {
+        title: 'Cueing Plan Shell',
+        items: [
+          'Cue type: model, visual, tactile, pacing, metronome, written keyword, breath cue, loudness cue.',
+          'Complexity: sound, word, phrase, sentence, conversation, real-world routine.',
+          'Success lens: clarity, consistency, cue reduction, listener understanding, fatigue management.',
+          'Carryover: staff/caregiver prompt, room sign, personal strategy card, group practice.'
         ]
       }
     ],
@@ -179,6 +387,48 @@ const pages = [
           'Interactive therapy-program generation remains SPFx pending.',
           'This page stores no voice samples, recordings, or patient identifiers.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page for non-PHI voice care planning, hygiene education structure, and referral-aware therapy organization.',
+          'Do not store recordings, acoustic measures, laryngeal images, diagnoses, or patient-specific voice history here.',
+          'Future SPFx can restore interactive therapy-program guidance while keeping clinical data session-only.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Voice Care Orientation',
+        text: 'Organize vocal hygiene, hydration, reflux/irritant education, respiratory support, and communication-demand review.'
+      },
+      {
+        title: 'Therapy Program Planning',
+        text: 'Frame resonant voice, respiratory-phonatory coordination, pacing, conservation, and carryover without storing patient data.'
+      },
+      {
+        title: 'Referral Awareness',
+        text: 'Keep medical red flags, ENT coordination, and instrumentation needs visible as clinical escalation reminders.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Voice Care Shell',
+        items: [
+          'Clinical question: voice quality, endurance, loudness, pitch, discomfort, fatigue, or participation limitation.',
+          'Education focus: hydration, irritants, reflux precautions, vocal load, amplification, rest/conservation.',
+          'Medical coordination: ENT/laryngology status, red flags, respiratory factors, medication considerations.',
+          'Carryover context: conversation, dining room, phone, group activity, family/staff communication.'
+        ]
+      },
+      {
+        title: 'Voice Treatment Plan Shell',
+        items: [
+          'Approach: resonant voice, flow phonation, respiratory support, easy onset, pacing, vocal function exercises.',
+          'Cueing: tactile, visual, model, biofeedback outside SharePoint, written strategy card.',
+          'Dose and context: structured drill, functional phrase, conversation, real-world carryover.',
+          'Safety guardrail: stop with pain, acute change, respiratory compromise, or medical red flag.'
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.medicareSlp]
@@ -195,6 +445,48 @@ const pages = [
           'Mapped from the local AACModule.',
           'ASHA describes AAC as support that supplements or compensates for speech-language production or comprehension impairments.',
           'Communication-board generation and customization remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page to plan access, feature matching, partner training, and general communication contexts without personal vocabulary.',
+          'Do not store resident names, photos, custom boards, personal messages, or medical identifiers on this bridge page.',
+          'Future SPFx can restore board-building with export controls and session-only customization.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Access and Feature Matching',
+        text: 'Organize direct selection, switch/scanning, visual field, motor access, language level, and symbol/text needs.'
+      },
+      {
+        title: 'Partner Training',
+        text: 'Plan wait time, modeling, aided language input, confirmation strategies, repair routines, and staff carryover.'
+      },
+      {
+        title: 'Context Boards',
+        text: 'Map general communication needs across care routines, dining, pain/symptom reporting, activities, and family interaction.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'AAC Feature-Matching Shell',
+        items: [
+          'Communication need: basic wants/needs, medical/safety, social connection, participation, repair.',
+          'Access mode: touch, eye gaze, partner-assisted scanning, switch, low-tech board, speech-generating device.',
+          'Representation: objects, photos, symbols, text, written keywords, multimodal supports.',
+          'Implementation support: partner modeling, placement, mounting, vocabulary organization, training need.'
+        ]
+      },
+      {
+        title: 'Partner Coaching Shell',
+        items: [
+          'Partner behavior: model without testing, wait, offer choices, confirm message, repair breakdowns.',
+          'Routine: morning care, dining, therapy session, recreation, medical visit, family call.',
+          'Success lens: initiation, response reliability, message variety, reduced frustration, participation.',
+          'Next step: adjust access, vocabulary, partner supports, environmental setup, team handoff.'
         ]
       }
     ],
@@ -213,6 +505,48 @@ const pages = [
           'Documentation must support medical necessity and the skilled nature of treatment.',
           'Diagnosis alone is not enough to establish whether skilled therapy is needed.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page to structure non-PHI medical-necessity reasoning, skilled-service language, and audit-readiness checks.',
+          'Do not paste resident notes, diagnosis lists, payer details, or encounter-specific documentation into SharePoint.',
+          'Future SPFx can restore guided documentation checks with session-only handling and approved clinical-system handoff.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Skilled Need Framing',
+        text: 'Connect medical necessity, complexity, clinical judgment, safety risk, and skilled SLP intervention requirements.'
+      },
+      {
+        title: 'Documentation Support',
+        text: 'Organize evaluation, progress, recertification, and daily-note language around objective, measurable, skilled care.'
+      },
+      {
+        title: 'Audit-Ready Logic',
+        text: 'Review improvement, maintenance, caregiver training, discharge planning, and denial-risk questions without PHI.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Skilled Service Shell',
+        items: [
+          'Skilled reason: why SLP judgment, analysis, modification, or training is required.',
+          'Functional impact: swallowing, communication, cognition, voice, participation, safety, caregiver burden.',
+          'Intervention: assessment, treatment, cueing, education, compensatory strategy, restorative exercise, team coordination.',
+          'Evidence: measurable change, cueing level, tolerance, safety outcome, carryover, medical complexity.'
+        ]
+      },
+      {
+        title: 'Medical Necessity Shell',
+        items: [
+          'Clinical condition category without patient identifiers.',
+          'Reason services cannot be safely/effectively performed by unskilled personnel alone.',
+          'Expected benefit: improvement, maintenance, prevention of decline, caregiver/staff training, safe discharge support.',
+          'Review checkpoint: plan frequency, progress marker, barrier, modification, discharge or continuation rationale.'
+        ]
       }
     ],
     links: [sourceLinks.medicareSlp, sourceLinks.cmsBilling, sourceLinks.cmsManual]
@@ -221,14 +555,59 @@ const pages = [
     fileName: 'SLP-Documentation-Studio.aspx',
     title: 'SLP Documentation Studio',
     imageKey: 'documentation',
-    summary: 'SPFx-pending workflow page for documentation drafting and compliance framing.',
+    summary: 'Generalized non-PHI documentation workspace for compliant draft structure, evaluation framing, and Medicare-ready language.',
     sections: [
       {
         heading: 'Bridge status',
         bullets: [
-          'Mapped from the local DocumentationStudio module.',
-          'This SharePoint-native bridge intentionally does not include note entry, AI drafting, or generated documentation persistence.',
-          'Use approved clinical documentation systems for patient-specific content.'
+          'Mapped from the local DocumentationStudio, DocumentationAssistant, and ThreeWayEval modules.',
+          'This SharePoint-native bridge now supports generalized template mode, but still does not persist patient-specific note entry, AI drafting sessions, or evaluation forms.',
+          'Use approved clinical documentation systems for patient-specific content and final chart completion.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use non-PHI draft frameworks for daily notes, progress reports, recertifications, discharge summaries, and evaluation write-ups.',
+          'Keep identifiers, diagnosis-specific history, and resident-level treatment response out of SharePoint page content.',
+          'Move the finished patient-specific version into the approved clinical record system.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Daily note draft mode',
+        description: 'Structured daily note language for skilled intervention, response, and plan without resident identifiers.',
+        chips: ['Non-PHI', 'Copy-ready', 'Chart elsewhere']
+      },
+      {
+        title: 'Progress and recert framing',
+        description: 'Medicare-oriented progress, recertification, and discharge frameworks with skilled rationale language.',
+        chips: ['CMS aligned', 'Template mode', 'No durable PHI']
+      },
+      {
+        title: 'Evaluation shell',
+        description: 'Generic evaluation and three-way summary structure for findings, clinical reasoning, and next-step planning.',
+        chips: ['Eval structure', 'Manual completion', 'Session-safe']
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Daily Note Shell',
+        items: [
+          'Skilled intervention: describe the SLP action, cueing, analysis, modification, training, or clinical judgment.',
+          'Response: describe functional response, independence/cueing level, safety, tolerance, or strategy carryover without identifiers.',
+          'Clinical reasoning: explain why skilled SLP remains required and how the plan was advanced or modified.',
+          'Plan: next focus, interdisciplinary communication, caregiver/staff education, safety follow-up, or discharge progression.'
+        ]
+      },
+      {
+        title: 'Progress or Recert Shell',
+        items: [
+          'Reporting period focus: summarize target areas without resident identifiers.',
+          'Objective trend: improvement, maintenance, decline prevention, cueing change, safety, participation, or functional carryover.',
+          'Medical necessity: skilled need, complexity, barriers, risk, and why unskilled care is insufficient.',
+          'Forward plan: goals, frequency/duration rationale, discharge criteria, caregiver/staff training, or modification need.'
         ]
       }
     ],
@@ -254,6 +633,40 @@ const pages = [
           'Use approved facility policy and treating clinician judgment for diet orders.',
           'Keep patient-specific diet recommendations in approved clinical systems only.',
           'Use the SPFx production app for any interactive testing workflow once deployed.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Texture Orientation',
+        text: 'Use IDDSI levels as a shared vocabulary for texture/liquid discussion, staff education, and interdisciplinary consistency.'
+      },
+      {
+        title: 'Testing Workflow Boundary',
+        text: 'Keep flow-test, fork-drip, spoon-tilt, and food-trial details in approved workflows; this bridge only frames the process.'
+      },
+      {
+        title: 'Dining Carryover',
+        text: 'Connect diet-texture education to meal setup, positioning, cueing, supervision, oral care, and staff handoff routines.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'IDDSI Review Shell',
+        items: [
+          'Clinical purpose: texture consistency education, diet communication, meal-safety review, or interdisciplinary alignment.',
+          'Reference area: liquid flow, puree/soft texture, transitional foods, regular diet, mixed consistency, adaptive setup.',
+          'Team coordination: nursing, dietary, therapy, physician/NP, family/caregiver education, facility policy.',
+          'Safety boundary: final diet recommendations and orders remain in approved clinical systems.'
+        ]
+      },
+      {
+        title: 'Dining Carryover Shell',
+        items: [
+          'Routine: dining room, room tray, medication pass, snack, hydration round, family meal.',
+          'Support need: setup, positioning, pacing, bolus-size cueing, supervision level, oral care follow-up.',
+          'Education target: staff consistency, patient/caregiver instruction without identifiers, kitchen/dietary communication.',
+          'Review trigger: coughing/change in status, intake concern, diet tolerance issue, instrumental follow-up need.'
         ]
       }
     ],
@@ -283,6 +696,40 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'VFSS/MBSS Readiness',
+        text: 'Frame referral questions, positioning needs, oral/pharyngeal phase questions, and interdisciplinary coordination.'
+      },
+      {
+        title: 'FEES Readiness',
+        text: 'Organize endoscopic swallowing questions, secretion/airway observations, tolerance considerations, and referral pathways.'
+      },
+      {
+        title: 'Imaging Reference Bridge',
+        text: 'Connect chest imaging and neuroimaging references to clinical reasoning without storing reports or patient findings.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Instrumental Referral Shell',
+        items: [
+          'Clinical question: aspiration risk, residue pattern, strategy effectiveness, diet-level question, airway/secretion concern.',
+          'Instrumental fit: VFSS/MBSS, FEES, or medical/imaging follow-up based on facility process and clinician judgment.',
+          'Preparation needs: positioning, transport, cognition/participation, oxygen/airway considerations, diet/bolus questions.',
+          'Communication plan: physician/NP order, nursing coordination, dietary impact, family/caregiver education as appropriate.'
+        ]
+      },
+      {
+        title: 'Results Integration Shell',
+        items: [
+          'Source result location: approved report or EHR, not this SharePoint page.',
+          'Clinical implication: strategy, diet, treatment focus, referral, monitoring, staff education.',
+          'Skilled action: interpretation, patient/staff training, treatment modification, safety escalation.',
+          'Follow-up trigger: change in status, poor tolerance, new pulmonary concern, diet advancement/readiness question.'
+        ]
+      }
+    ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
   },
   {
@@ -305,6 +752,40 @@ const pages = [
           'Use interdisciplinary facility protocols for airway and speaking-valve decisions.',
           'Do not document patient-specific respiratory status, ventilator settings, or assessment results on this SharePoint page.',
           'Keep patient-specific clinical information in approved systems only.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Airway Coordination',
+        text: 'Frame SLP collaboration with nursing, respiratory therapy, providers, and facility protocols for trach/vent care.'
+      },
+      {
+        title: 'Speaking-Valve Readiness',
+        text: 'Organize readiness concepts, contraindication awareness, tolerance monitoring, and escalation pathways without patient data.'
+      },
+      {
+        title: 'Swallow/Communication Bridge',
+        text: 'Connect airway status, secretion management, communication access, swallowing assessment, and staff education.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Trach/Vent Review Shell',
+        items: [
+          'Clinical purpose: communication access, swallow safety, speaking-valve readiness, secretion/airway coordination.',
+          'Team roles: SLP, respiratory therapy, nursing, provider, dietitian, caregiver education as allowed.',
+          'Protocol checkpoint: facility policy, medical order, oxygen/vent status, airway stability, emergency plan.',
+          'Documentation boundary: patient-specific settings, vitals, tolerance, and decisions remain in approved systems.'
+        ]
+      },
+      {
+        title: 'Speaking-Valve Planning Shell',
+        items: [
+          'Readiness concept: cuff status, airway patency, secretion management, alertness, respiratory stability, team clearance.',
+          'Observation lens: tolerance, voice/communication access, coughing, work of breathing, oxygenation per policy.',
+          'Skilled SLP action: communication assessment, swallow coordination, education, strategy modification, referral/escalation.',
+          'Stop/escalate reminder: respiratory distress, intolerance, acute change, protocol concern, provider/RT direction.'
         ]
       }
     ],
@@ -335,13 +816,47 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Neuroanatomy Orientation',
+        text: 'Use brain and cranial-nerve references to support reasoning across dysphagia, aphasia, cognition, motor speech, and voice.'
+      },
+      {
+        title: 'Head and Neck Reference',
+        text: 'Connect pharyngeal, laryngeal, and vocal-fold anatomy to swallowing, airway, resonance, phonation, and voice education.'
+      },
+      {
+        title: 'Image-Led Teaching',
+        text: 'Use local non-PHI reference assets for staff learning and clinician orientation while interactive 3D remains SPFx pending.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Anatomy Teaching Shell',
+        items: [
+          'Topic: cranial nerves, brain region, larynx, pharynx, vocal folds, airway, swallow musculature.',
+          'Clinical tie-in: swallowing, speech, language, cognition, voice, respiration, safety.',
+          'Teaching audience: clinician onboarding, staff education, caregiver education using non-PHI language.',
+          'Boundary: no patient imaging, reports, diagnosis discussion, or case-specific interpretation on this page.'
+        ]
+      },
+      {
+        title: 'Clinical Reasoning Bridge',
+        items: [
+          'Symptom cluster: communication, cognition, swallowing, voice, motor speech, airway.',
+          'Anatomy lens: relevant structure, nerve pathway, system interaction, compensatory pathway.',
+          'Reference action: review image asset, consult clinical source, coordinate with provider or interdisciplinary team.',
+          'SPFx pending: 3D exploration, clickable labeling, and guided anatomy quizzes.'
+        ]
+      }
+    ],
     links: [sourceLinks.ashaPortal]
   },
   {
     fileName: 'SLP-Goal-Bank.aspx',
     title: 'SLP Goal Bank Reference',
     imageKey: 'cognitive',
-    summary: 'Read-only bridge page for local goal-bank categories and examples, with patient-specific drafting kept out of SharePoint.',
+    summary: 'Goal-bank and intervention reference page with generalized, non-resident SMART-goal structure and skilled-language support.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -354,9 +869,46 @@ const pages = [
       {
         heading: 'Safe use boundary',
         bullets: [
-          'Use goal examples as structure references only.',
+          'Use goal examples as generalized structure references and reusable template shells.',
           'Do not paste patient names, identifiers, dates of birth, facility IDs, or patient-specific status into this SharePoint page.',
           'Final goals belong in approved clinical documentation systems.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'SMART goal builder',
+        description: 'Goal structure for specificity, measurement, skilled relevance, and time framing without identifiers.',
+        chips: ['SMART', 'Reusable', 'Non-PHI']
+      },
+      {
+        title: 'Maintenance-language support',
+        description: 'Generic language for preventing decline and supporting skilled maintenance framing where clinically appropriate.',
+        chips: ['Maintenance', 'CMS aware', 'Template']
+      },
+      {
+        title: 'Intervention rationale bank',
+        description: 'Reusable skilled-intervention and cueing rationale language tied to deficits and functional outcomes.',
+        chips: ['Skilled language', 'Copy-ready', 'Reference']
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'SMART Goal Shell',
+        items: [
+          'Functional target: swallowing safety, communication participation, cognitive routine, voice use, intelligibility, AAC access.',
+          'Measurable behavior: accuracy, independence, cueing level, frequency, duration, consistency, strategy use.',
+          'Condition: task, setting, support level, communication partner, diet context, environmental aid.',
+          'Clinical purpose: safety, participation, medical necessity, discharge readiness, maintenance, caregiver/staff carryover.'
+        ]
+      },
+      {
+        title: 'Intervention Rationale Shell',
+        items: [
+          'Skilled method: analysis, cueing hierarchy, compensatory strategy, restorative exercise, caregiver/staff education.',
+          'Why skilled: complexity, safety risk, medical status, need for adaptation, response monitoring, interdisciplinary coordination.',
+          'Progress marker: reduced cueing, increased consistency, improved safety, improved participation, maintained function.',
+          'Charting boundary: final patient-specific wording belongs only in approved clinical documentation systems.'
         ]
       }
     ],
@@ -385,6 +937,40 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Treatment Idea Index',
+        text: 'Organize activity concepts by dysphagia, aphasia, cognition, voice, motor speech, AAC, and functional participation.'
+      },
+      {
+        title: 'Complexity Progression',
+        text: 'Frame activity grading by cueing level, environmental support, distractor load, partner support, and carryover setting.'
+      },
+      {
+        title: 'Skilled Rationale',
+        text: 'Keep each activity tied to skilled analysis, modification, safety monitoring, education, or functional transfer.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Activity Planning Shell',
+        items: [
+          'Clinical area: swallowing, cognition, language, motor speech, voice, AAC, staff/caregiver training.',
+          'Activity type: drill, functional routine, strategy practice, education, carryover, group participation.',
+          'Grading variable: cueing level, complexity, time pressure, distractors, partner support, environmental setup.',
+          'Skilled purpose: safety, independence, generalization, participation, maintenance, discharge readiness.'
+        ]
+      },
+      {
+        title: 'Carryover Shell',
+        items: [
+          'Context: dining, room routine, group activity, family call, nursing care, therapy gym, discharge setting.',
+          'Support: written aid, visual cue, partner model, environmental modification, staff prompt, AAC support.',
+          'Success lens: initiation, accuracy, safety, independence, consistency, reduced cueing, participation quality.',
+          'Documentation boundary: do not store patient responses or progress notes on this page.'
+        ]
+      }
+    ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
   },
   {
@@ -407,6 +993,40 @@ const pages = [
           'Use for orientation and recall support only.',
           'Follow facility policies, payer requirements, and clinician judgment.',
           'Do not enter patient-specific assessment results or clinical notes here.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Bedside Recall',
+        text: 'Keep core dysphagia, dysarthria, aphasia, cognition, and assessment reminders available as non-PHI reference prompts.'
+      },
+      {
+        title: 'Escalation Prompts',
+        text: 'Surface red-flag and referral reminders while routing live clinical decisions through facility policy and source systems.'
+      },
+      {
+        title: 'SPFx Search Pending',
+        text: 'The local app search/filter experience remains queued for SPFx; this page provides static launch structure for now.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Quick Reference Use Shell',
+        items: [
+          'Question type: assessment reminder, treatment idea, red flag, cueing option, documentation language, source link.',
+          'Clinical area: swallowing, language, cognition, motor speech, voice, AAC, trach/vent, Medicare.',
+          'Action: review reference, open module page, consult authoritative source, coordinate with interdisciplinary team.',
+          'Boundary: no assessment results, patient details, clinical examples, or case notes on this page.'
+        ]
+      },
+      {
+        title: 'Red-Flag Reminder Shell',
+        items: [
+          'Concern category: airway, neurologic change, acute medical status, nutrition/hydration, communication access, safety.',
+          'Immediate path: follow facility policy, notify appropriate licensed team member, document in approved system.',
+          'SLP role: screen, educate, adapt treatment, coordinate, refer, reassess as allowed by scope and setting.',
+          'SPFx pending: searchable quick-reference and contextual module launch.'
         ]
       }
     ],
@@ -435,6 +1055,40 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Coding Orientation',
+        text: 'Use coding groups as orientation to evaluation, treatment, AAC, and related SLP billing categories.'
+      },
+      {
+        title: 'Payer Checkpoint',
+        text: 'Keep final code selection tied to current payer rules, facility billing workflows, and approved documentation systems.'
+      },
+      {
+        title: 'Audit Linkage',
+        text: 'Connect coding review to skilled-service support, medical necessity, documentation adequacy, and compliance pages.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Coding Review Shell',
+        items: [
+          'Service category: evaluation, treatment, AAC, instrumental, caregiver/staff training, group/concurrent as allowed.',
+          'Support needed: medical necessity, skilled intervention, time/service requirements, payer/facility rule check.',
+          'Documentation tie: service rendered, skilled reason, response, plan, and source record location.',
+          'Boundary: no dates of service, claim details, diagnosis lists, identifiers, or patient-specific billing data here.'
+        ]
+      },
+      {
+        title: 'Compliance Cross-Check Shell',
+        items: [
+          'Question: does documentation support the billed/skilled service?',
+          'Evidence: clinician analysis, modification, cueing, safety monitoring, education, measurable response.',
+          'Risk: unsupported code, unclear medical necessity, missing skilled language, payer-specific requirement.',
+          'Next step: consult facility billing/compliance workflow and official payer guidance.'
+        ]
+      }
+    ],
     links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.medicareSlp]
   },
   {
@@ -457,6 +1111,40 @@ const pages = [
           'Use pathways as an orientation and clinical reasoning scaffold only.',
           'Do not enter patient symptoms, medications, imaging results, lab values, or diagnosis details into this SharePoint page.',
           'Escalate red flags through facility clinical protocols and approved documentation systems.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Pathway Orientation',
+        text: 'Map common SLP clinical categories to symptoms, assessment options, treatment choices, strategies, and escalation prompts.'
+      },
+      {
+        title: 'Reasoning Scaffold',
+        text: 'Use generalized branching logic to think through clinical questions without entering resident-specific findings.'
+      },
+      {
+        title: 'Red-Flag Routing',
+        text: 'Keep urgent medical or safety concerns routed to facility protocols, licensed providers, and approved documentation.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Clinical Pathway Shell',
+        items: [
+          'Starting concern: swallowing, cognition, language, motor speech, voice, AAC, trach/vent, safety.',
+          'Screening lens: function, safety, participation, medical context, environment, caregiver/staff support.',
+          'Assessment direction: standardized tool, informal probe, instrumental referral, interdisciplinary consult, source review.',
+          'Treatment direction: strategy, exercise/protocol, education, environmental support, communication access, discharge planning.'
+        ]
+      },
+      {
+        title: 'Red-Flag Pathway Shell',
+        items: [
+          'Red flag category: acute neurologic change, respiratory compromise, aspiration concern, medical instability, unsafe intake.',
+          'Immediate action: follow facility escalation protocol and notify appropriate licensed team members.',
+          'SLP boundary: pause/modify treatment, coordinate, document in approved system, reassess when clinically appropriate.',
+          'SPFx pending: interactive pathway branching with no durable PHI storage.'
         ]
       }
     ],
@@ -485,6 +1173,40 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Internal Resource Routing',
+        text: 'Organize evaluation, documentation, clinical, billing, compliance, infographic, and program-development resources.'
+      },
+      {
+        title: 'Program Development',
+        text: 'Frame non-PHI ideas for service growth, staff education, clinical quality, and interdisciplinary collaboration.'
+      },
+      {
+        title: 'Governed Reference Use',
+        text: 'Keep internal guidance tied to official Ensign, facility, payer, regulatory, and authoritative clinical sources.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Resource Promotion Shell',
+        items: [
+          'Resource category: evaluation, documentation, clinical, billing, compliance, infographic, program development.',
+          'Owner or reviewer: identify who validates accuracy and currency before promotion.',
+          'Use case: clinician reference, staff learning, quality improvement, onboarding, interdisciplinary education.',
+          'Boundary: no patient examples, facility-sensitive notes, or unverifiable policy claims on the page.'
+        ]
+      },
+      {
+        title: 'Program Idea Shell',
+        items: [
+          'Program focus: dysphagia, communication, cognition, AAC, staff training, documentation quality, wellness.',
+          'Audience: SLP team, nursing, dietary, family/caregiver education, interdisciplinary leadership.',
+          'Evidence/source tie: authoritative reference, internal policy, reviewed source document, outcome measure.',
+          'Next step: source review, pilot plan, governance approval, SharePoint page update, SPFx enhancement.'
+        ]
+      }
+    ],
     links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.medicareSlp]
   },
   {
@@ -510,13 +1232,47 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Learning Domains',
+        text: 'Organize cranial nerves, swallowing, aphasia, cognition, voice, motor speech, AAC, and assessment review topics.'
+      },
+      {
+        title: 'Quiz Mode Pending',
+        text: 'Keep interactive quiz scoring and staff tracking in SPFx or official learning systems, not SharePoint page content.'
+      },
+      {
+        title: 'Onboarding Support',
+        text: 'Use topic cards and source links for self-study, new-clinician orientation, and non-PHI in-service planning.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Learning Module Shell',
+        items: [
+          'Topic: swallowing, aphasia, cognition, voice, motor speech, AAC, cranial nerves, Medicare, safety.',
+          'Learning goal: recall, clinical reasoning, documentation quality, interdisciplinary communication, safety escalation.',
+          'Source tie: ASHA, CMS, Medicare.gov, Microsoft Learn for platform workflow, or reviewed internal resource.',
+          'Boundary: no tracked scores, staff performance notes, patient examples, or identifiable clinical scenarios.'
+        ]
+      },
+      {
+        title: 'In-Service Planning Shell',
+        items: [
+          'Audience: SLP team, nursing, dietary, caregivers/families, interdisciplinary staff.',
+          'Format: quick huddle, handout, slide review, case-neutral scenario, source walkthrough, competency in official system.',
+          'Takeaway: safety behavior, documentation habit, referral trigger, carryover strategy, communication support.',
+          'Follow-up: official training record, policy review, source update, SPFx quiz build-out.'
+        ]
+      }
+    ],
     links: [sourceLinks.ashaPortal]
   },
   {
     fileName: 'SLP-Document-Library-Guide.aspx',
     title: 'SLP Document Library Guide',
     imageKey: 'documentation',
-    summary: 'Read-only bridge page for local document-guide categories and the SharePoint source PDF library.',
+    summary: 'Operational guide for source libraries, metadata, review states, upload boundaries, and SharePoint document governance.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -533,6 +1289,54 @@ const pages = [
           'Do not upload patient handouts containing identifiers to the public/shared source PDF library.',
           'Use approved clinical systems for individualized handouts and documentation.'
         ]
+      },
+      {
+        heading: 'Operational library model',
+        bullets: [
+          'Use the source PDF library for reviewed or review-pending non-PHI reference files.',
+          'Use SLP_Source_Index for metadata, review status, clinical area, audience, and Copilot readiness.',
+          'Use page links and knowledge-index routing instead of adding every document directly to navigation.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Upload triage',
+        description: 'Classify each source as reviewed SLP content, adjacent rehab review, metadata-only, or hold before promotion.',
+        chips: ['Metadata', 'Review', 'Non-PHI']
+      },
+      {
+        title: 'Source ownership',
+        description: 'Track who owns review, what clinical area the source supports, and whether it is ready for Copilot grounding.',
+        chips: ['Ownership', 'Copilot readiness', 'Governance']
+      },
+      {
+        title: 'Findability model',
+        description: 'Route users by task and clinical domain instead of exposing raw folders as the primary experience.',
+        chips: ['IA', 'Findability', 'SharePoint']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Document governance shells',
+        items: [
+          {
+            title: 'New source triage shell',
+            lines: [
+              'Confirm the file contains no patient identifiers, screenshots, notes, scores, or resident-specific examples.',
+              'Assign clinical area, discipline, document type, audience, review status, and Copilot readiness.',
+              'Promote only reviewed non-PHI material to pages or Copilot knowledge.'
+            ]
+          },
+          {
+            title: 'Review decision shell',
+            lines: [
+              'Approved: reviewed, non-PHI, clinically relevant, source-attributed.',
+              'Needs review: adjacent rehab, unclear source quality, or metadata-only record.',
+              'Hold: any PHI pattern, patient-specific artifact, or unsupported clinical claim.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
@@ -541,7 +1345,7 @@ const pages = [
     fileName: 'SLP-Clinical-Calculators.aspx',
     title: 'SLP Clinical Calculators',
     imageKey: 'cognitive',
-    summary: 'Read-only bridge page for local calculator coverage, scoring references, and SPFx-pending interactive scoring workflows.',
+    summary: 'Calculator orientation page with generalized scoring-playbook guidance, interpretation guardrails, and measure-selection support.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -558,6 +1362,55 @@ const pages = [
           'Use official test materials, licensing requirements, and approved clinical systems for scored assessments.',
           'Use calculated results as clinician-support information, not a substitute for clinical judgment or payer documentation requirements.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use measure-selection and interpretation playbooks without storing patient scoring data.',
+          'Keep this page focused on when to use a tool, how to frame interpretation, and how to escalate to full documentation elsewhere.',
+          'Patient-specific scoring and date tracking remain outside the SharePoint bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Measure-selection guide',
+        description: 'Broad routing for cognition, aphasia, dysphagia, functional communication, and voice-related tools.',
+        chips: ['Selection', 'Reference', 'Non-PHI']
+      },
+      {
+        title: 'Interpretation guardrails',
+        description: 'General prompts for what a score means, what it does not mean, and when to seek more assessment.',
+        chips: ['Interpretation', 'Guardrails', 'Clinician-led']
+      },
+      {
+        title: 'Documentation crosswalk',
+        description: 'How scored tools connect to functional documentation without putting the scores on SharePoint.',
+        chips: ['Crosswalk', 'Compliance', 'Safe']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Calculator playbook shells',
+        items: [
+          {
+            title: 'Measure-selection shell',
+            lines: [
+              'Clinical question: [screen / characterize / monitor / justify treatment / support discharge planning].',
+              'Domain: [cognition / language / swallowing / voice / functional communication].',
+              'Tool fit: Choose the measure that best matches the broad decision need and setting constraints.',
+              'Record all patient-specific scores and details in the approved record system.'
+            ]
+          },
+          {
+            title: 'Interpretation shell',
+            lines: [
+              'Score meaning should be considered alongside functional presentation, clinician judgment, and tool limitations.',
+              'Use the result to support next-step decisions, not as a stand-alone conclusion.',
+              'If the tool suggests elevated risk or uncertainty, move to fuller assessment or interdisciplinary escalation.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
@@ -566,7 +1419,7 @@ const pages = [
     fileName: 'SLP-Clinical-Exams.aspx',
     title: 'SLP Clinical Exams and Cranial Nerves',
     imageKey: 'aac',
-    summary: 'Read-only bridge page for cranial nerve exam orientation, oral mechanism observations, and dysphagia/communication exam references.',
+    summary: 'Clinical exam orientation page with generalized cranial-nerve, oral-mech, and bedside-exam report scaffolds that stay non-PHI.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -583,9 +1436,58 @@ const pages = [
           'Document patient-specific exam results only in approved clinical documentation systems.',
           'Use facility policy and clinician judgment for referrals, instrumental recommendations, and medical escalation.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use exam frameworks and broad abnormality categories without patient names, scores, or verbatim exam write-ups.',
+          'Copy report shells into the approved charting system for patient-specific completion.',
+          'Do not store exam findings, scores, or bedside observations in SharePoint.'
+        ]
       }
     ],
-    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+    featureCards: [
+      {
+        title: 'CN exam scaffold',
+        description: 'Generic structure for procedure, observation, interpretation, and follow-up recommendations.',
+        chips: ['Cranial nerves', 'Template', 'Non-PHI']
+      },
+      {
+        title: 'Oral-mech shell',
+        description: 'Reusable write-up format for lips, tongue, palate, dentition, and related swallow/speech significance.',
+        chips: ['Oral mech', 'Copy-ready', 'Reference']
+      },
+      {
+        title: 'Bedside caution prompts',
+        description: 'Generalized escalation prompts for instrumental consideration, airway concern, and interdisciplinary coordination.',
+        chips: ['Escalation', 'Safety', 'Clinician-led']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Exam report shells',
+        items: [
+          {
+            title: 'Cranial nerve summary shell',
+            lines: [
+              'Exam focus: [CN set or functional swallow/speech concern].',
+              'Observation summary: Broad abnormalities or intact findings should be charted in the clinical record, not on this SharePoint page.',
+              'Clinical significance: Findings may affect airway protection, bolus control, articulation, resonance, or communication efficiency.',
+              'Recommended next step: [monitor / treat / educate / seek instrumental / coordinate with team] as clinically indicated.'
+            ]
+          },
+          {
+            title: 'Oral-mech summary shell',
+            lines: [
+              'Structures reviewed: [lips / tongue / palate / dentition / jaw / laryngeal support].',
+              'Functional impact: Document broad impact on containment, mastication, propulsion, resonance, or speech intelligibility.',
+              'Plan: Complete resident-specific findings and recommendations in the approved record system.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
   },
   {
     fileName: 'SLP-Meds-Labs-Imaging.aspx',
@@ -610,13 +1512,47 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Medication Impact Lens',
+        text: 'Support general awareness of medication classes that may affect alertness, swallowing, cognition, xerostomia, or voice.'
+      },
+      {
+        title: 'Labs/Vitals Context',
+        text: 'Frame how medical status can influence therapy readiness, participation, fatigue, hydration, and escalation needs.'
+      },
+      {
+        title: 'Imaging Awareness',
+        text: 'Connect chest and neuroimaging orientation to clinical questions while keeping reports and findings in source systems.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Medical Context Review Shell',
+        items: [
+          'Clinical question: participation, swallow safety, cognition, communication, respiratory status, fatigue, alertness.',
+          'Context category: medications, labs, vitals, imaging, pulmonary status, neurologic status.',
+          'SLP action: screen for impact, coordinate with nursing/provider, adjust session demands, document skilled reasoning in EHR.',
+          'Boundary: do not copy medication lists, lab values, imaging findings, or vital signs into SharePoint.'
+        ]
+      },
+      {
+        title: 'Escalation Awareness Shell',
+        items: [
+          'Trigger category: acute change, abnormal vital/lab concern, respiratory change, neuro change, medication side effect concern.',
+          'Immediate action: follow facility policy, notify licensed provider/nursing, hold or modify therapy if indicated.',
+          'Clinical implication: reassess readiness, swallow safety, communication support, cognition, fatigue, treatment tolerance.',
+          'Documentation location: approved clinical record and incident/escalation workflows only.'
+        ]
+      }
+    ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.medicareSlp]
   },
   {
     fileName: 'SLP-Outcome-Measures.aspx',
     title: 'SLP Outcome Measures',
     imageKey: 'documentation',
-    summary: 'Read-only bridge page for outcome-measure orientation, interpretation boundaries, and crosswalk to clinical calculators.',
+    summary: 'Outcome-measure page with generalized selection, interpretation, and reporting-playbook support without storing patient trends.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -633,6 +1569,54 @@ const pages = [
           'Do not store patient scores or progress trends in SharePoint-native bridge pages.',
           'When using a standardized tool, follow tool instructions, licensing, normative guidance, and facility documentation policy.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page to choose measures, frame their role, and connect them to documentation language.',
+          'Keep patient-specific outcomes, dates, and progress trends out of the SharePoint bridge.',
+          'Use the bridge for structure and interpretation support only.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Measure fit',
+        description: 'Broad guidance for matching outcome tools to setting, domain, and functional decision point.',
+        chips: ['Measure fit', 'Reference', 'Safe']
+      },
+      {
+        title: 'Reporting frame',
+        description: 'How outcome measures support treatment planning, reassessment, recertification, and discharge logic.',
+        chips: ['Reporting', 'Planning', 'Non-PHI']
+      },
+      {
+        title: 'Trend boundary',
+        description: 'Clear separation between generalized trend interpretation and resident-specific trajectory storage.',
+        chips: ['Boundary', 'Interpretation', 'Governance']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Outcome-measure playbook shells',
+        items: [
+          {
+            title: 'Measure role shell',
+            lines: [
+              'Why this measure is being used: [baseline / monitor / discharge / recertification / quality support].',
+              'What it informs: [severity estimate / functional impact / treatment direction / progress review].',
+              'Where resident-specific results belong: approved clinical documentation and reporting systems.'
+            ]
+          },
+          {
+            title: 'Outcome-reporting shell',
+            lines: [
+              'Measure findings should be summarized with functional interpretation, not score alone.',
+              'Use the tool to support clinical reasoning, treatment updates, and discharge planning.',
+              'Avoid storing patient-level trend tables on SharePoint bridge pages.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
@@ -641,7 +1625,7 @@ const pages = [
     fileName: 'SLP-Handout-Reference.aspx',
     title: 'SLP Handout Reference',
     imageKey: 'documentation',
-    summary: 'Read-only bridge page for handout categories, source requirements, and the session-only/sanitized handout boundary.',
+    summary: 'Handout and carryover reference page for generalized education content, caregiver teaching frameworks, and sanitized handout drafting.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -658,6 +1642,51 @@ const pages = [
           'Saved handout libraries may persist only non-PHI or sanitized handouts.',
           'Do not upload individualized handouts containing patient identifiers into shared SharePoint source libraries.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Create topic-based education material for swallowing safety, communication support, cognition strategies, and caregiver coaching.',
+          'Use broad clinical categories or task goals instead of patient identifiers.',
+          'Export or copy only generalized content from SharePoint; complete any patient-specific instructions in the approved record system.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Education handout shells',
+        description: 'Copy-ready topic outlines for swallow safety, aspiration precautions, communication strategies, and home carryover.',
+        chips: ['Education', 'Sanitized', 'Printable later']
+      },
+      {
+        title: 'Caregiver teaching points',
+        description: 'Generic caregiver language for setup, cueing, pacing, supervision, and red-flag escalation.',
+        chips: ['Caregiver', 'Reusable', 'Non-PHI']
+      },
+      {
+        title: 'Language and modality planning',
+        description: 'Support for bilingual delivery, literacy level, and modality selection without tying content to a resident record.',
+        chips: ['Access', 'Template', 'Reference']
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'General Handout Shell',
+        items: [
+          'Topic: swallowing safety, communication support, cognition strategy, voice care, AAC support, caregiver coaching.',
+          'Audience: patient-facing general education, caregiver, nursing, dietary, family, interdisciplinary team.',
+          'Content blocks: what it is, why it matters, what to do, when to call for help, where to find facility guidance.',
+          'Boundary: remove names, dates, room numbers, diagnosis-specific history, and individualized instructions before sharing.'
+        ]
+      },
+      {
+        title: 'Caregiver Teaching Shell',
+        items: [
+          'Routine: meals, communication repair, memory aid use, voice conservation, AAC modeling, safety follow-through.',
+          'Teaching points: setup, cueing, pacing, confirmation, supervision, environmental support, escalation trigger.',
+          'Plain-language check: short sentences, clear verbs, accessible reading level, culturally responsive wording.',
+          'Finalization: patient-specific changes only inside approved clinical systems or approved individualized handout workflows.'
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.medicareSlp]
@@ -666,7 +1695,7 @@ const pages = [
     fileName: 'SLP-AAC-Boards.aspx',
     title: 'SLP AAC Boards Reference',
     imageKey: 'aac',
-    summary: 'Read-only bridge page for AAC board categories, partner-training concepts, and SPFx-pending printable board creation.',
+    summary: 'AAC board and partner-support page with generalized category sets, setup guidance, and printable-board planning boundaries.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -683,6 +1712,55 @@ const pages = [
           'Patient-specific board customization belongs in approved clinical workflows until SPFx session-only handling is active.',
           'Do not store resident-specific communication needs, photos, or identifiers in SharePoint-native pages.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use category, access type, partner role, and context instead of resident-specific vocabulary lists.',
+          'Persist only reusable board structures and partner-training checklists.',
+          'Complete any resident-specific board layout outside the SharePoint bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Core board categories',
+        description: 'Reusable board groupings for basic needs, feelings, activities, food, and medical interactions.',
+        chips: ['AAC', 'Reusable', 'Reference']
+      },
+      {
+        title: 'Partner-training prompts',
+        description: 'Generic setup, modeling, wait time, confirmation, and repair strategies for communication partners.',
+        chips: ['Partner training', 'Copy-ready', 'Non-PHI']
+      },
+      {
+        title: 'Board planning boundary',
+        description: 'Guidance for when a board stays generic versus when a resident-specific board needs session-only or external handling.',
+        chips: ['Planning', 'Boundary', 'Safe']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'AAC planning shells',
+        items: [
+          {
+            title: 'Board setup shell',
+            lines: [
+              'Communication context: [mealtime / pain / ADL / social / therapy].',
+              'Access format: [pointing / partner assisted / visual scanning / other broad method].',
+              'Core vocabulary set: [needs / yes-no / feelings / activity / medical basics].',
+              'Partner support: model use, confirm selections, allow response time, and monitor breakdowns.'
+            ]
+          },
+          {
+            title: 'Partner-training shell',
+            lines: [
+              'Teach communication partner to present the board consistently.',
+              'Use broad coaching language for modeling, cueing, repair, and encouraging initiation.',
+              'Complete any resident-specific vocabulary or personalization outside this SharePoint page.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaAac, sourceLinks.ashaPortal]
@@ -691,7 +1769,7 @@ const pages = [
     fileName: 'SLP-Quality-Evidence.aspx',
     title: 'SLP Quality and Evidence Registry',
     imageKey: 'brain',
-    summary: 'Read-only bridge page for evidence levels, quality-measure orientation, and review workflow for clinical reference sources.',
+    summary: 'Evidence and quality governance hub for source review, practice recommendations, applicability, and non-PHI quality-measure framing.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -708,6 +1786,56 @@ const pages = [
           'Do not represent unreviewed local entries as final clinical policy.',
           'Patient outcomes and quality reporting data are not stored in this SharePoint-native bridge.'
         ]
+      },
+      {
+        heading: 'Evidence operating model',
+        bullets: [
+          'Separate source strength, clinical applicability, precautions, and implementation notes.',
+          'Use evidence summaries to guide reference pages and generalized workflow templates.',
+          'Keep patient-level quality data and outcomes reporting outside the SharePoint bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Evidence review',
+        description: 'Track topic, citation, evidence level, key findings, recommendations, precautions, and applicability.',
+        chips: ['Evidence', 'Review', 'Source linked']
+      },
+      {
+        title: 'Quality framing',
+        description: 'Define measure type, numerator/denominator logic, benchmark framing, and reporting frequency without patient data.',
+        chips: ['Quality', 'Non-PHI', 'Framework']
+      },
+      {
+        title: 'Practice promotion',
+        description: 'Move reviewed evidence into modules, templates, staff learning, or Copilot-ready sources with attribution.',
+        chips: ['Promotion', 'Governance', 'Attribution']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Evidence governance shells',
+        items: [
+          {
+            title: 'Evidence summary shell',
+            lines: [
+              'Topic and clinical question.',
+              'Source citation and evidence level.',
+              'Key finding, recommendation, precautions, and applicability to SNF/LTC SLP practice.',
+              'Promotion decision: page content, template support, staff learning, or hold.'
+            ]
+          },
+          {
+            title: 'Quality measure shell',
+            lines: [
+              'Measure purpose and domain.',
+              'Numerator/denominator logic in generalized terms only.',
+              'Data source and reporting cadence without resident-level data.',
+              'Governance owner and review cycle.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
@@ -716,7 +1844,7 @@ const pages = [
     fileName: 'SLP-Clinical-Reference.aspx',
     title: 'SLP Clinical Reference and Differential Support',
     imageKey: 'brain',
-    summary: 'Read-only bridge page for norms, pediatric norms, differential diagnosis orientation, and treatment-plan support boundaries.',
+    summary: 'Clinical reference and differential-support page with generalized reasoning scaffolds, norms orientation, and treatment-planning guardrails.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -733,6 +1861,55 @@ const pages = [
           'Use this page as an orientation point for reviewed reference material and future SPFx workflow mapping.',
           'Differential diagnosis and treatment planning must remain clinician-led and documented in approved systems.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use broad impairment clusters, red flags, and assessment questions instead of patient symptom narratives.',
+          'Apply the reasoning scaffolds as a checklist or discussion aid, not as an automated diagnosis tool.',
+          'Move resident-specific impressions and treatment plans into the approved charting system.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Differential checklist',
+        description: 'Broad question sets for distinguishing dysphagia, language, cognition, voice, motor-speech, and AAC support needs.',
+        chips: ['Differential', 'Checklist', 'Clinician-led']
+      },
+      {
+        title: 'Norms orientation',
+        description: 'Reference structure for where norms, developmental expectations, and adult benchmarks fit in decision making.',
+        chips: ['Norms', 'Reference', 'Non-PHI']
+      },
+      {
+        title: 'Treatment-planning guardrails',
+        description: 'Generic prompts for matching deficits, safety risks, and functional goals to treatment pathways.',
+        chips: ['Planning', 'Guardrails', 'Copy-ready']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Clinical reasoning shells',
+        items: [
+          {
+            title: 'Differential support shell',
+            lines: [
+              'Primary concern cluster: [swallowing / language / cognition / speech / voice / AAC].',
+              'Key red flags: [broad findings category].',
+              'Assessment next steps: [screen / formal assessment / instrumental / interdisciplinary consult].',
+              'Rule-out / rule-in logic should be completed by the treating clinician in the approved record.'
+            ]
+          },
+          {
+            title: 'Treatment-planning shell',
+            lines: [
+              'Broad functional target: [safety / efficiency / participation / communication independence / decline prevention].',
+              'Recommended pathway: [restorative / compensatory / education / environmental support / AAC / instrumental follow-up].',
+              'Resident-specific plan details do not belong on this SharePoint page.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
@@ -741,7 +1918,7 @@ const pages = [
     fileName: 'SLP-Medicare-Audit-Candidacy.aspx',
     title: 'SLP Medicare Audit and Candidacy Boundary',
     imageKey: 'medicare',
-    summary: 'Read-only bridge page for Medicare audit, candidacy, Section K, and Part B tracker workflow boundaries.',
+    summary: 'Medicare audit and candidacy page with generalized compliance playbooks, checklist logic, and non-PHI Part B framing.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -758,6 +1935,56 @@ const pages = [
           'Use CMS and Medicare references for coverage and documentation framing.',
           'Use approved clinical documentation and billing review systems for resident-specific audit activity.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use broad candidacy logic, skilled-need prompts, and audit checklist shells without patient identifiers or chart text.',
+          'Keep this page focused on logic and structure, not resident-level billing decisions.',
+          'Complete any case-specific audit or coverage analysis outside the SharePoint bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Candidacy checklist',
+        description: 'Broad logic for skilled need, functional impact, improvement or maintenance rationale, and documentation sufficiency.',
+        chips: ['Candidacy', 'CMS aware', 'Non-PHI']
+      },
+      {
+        title: 'Audit playbook',
+        description: 'Generalized checklist for medical necessity, skilled language, treatment link, and plan-of-care support.',
+        chips: ['Audit', 'Checklist', 'Copy-ready']
+      },
+      {
+        title: 'Section K / Part B framing',
+        description: 'Reference prompts for swallowing-support documentation and outpatient/SNF justification boundaries.',
+        chips: ['Section K', 'Part B', 'Reference']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Compliance playbook shells',
+        items: [
+          {
+            title: 'Candidacy review shell',
+            lines: [
+              'Functional concern: [broad communication/swallowing/cognition impact].',
+              'Skilled need: Why clinician analysis, progression, or maintenance support is required.',
+              'Coverage logic: Link broad functional need to medically necessary skilled service under reviewed CMS/Medicare criteria.',
+              'Case-specific support should be completed in the approved record and billing workflow.'
+            ]
+          },
+          {
+            title: 'Audit checklist shell',
+            lines: [
+              'Confirm documentation shows medical necessity and skilled intervention.',
+              'Confirm treatment targets tie to functional communication, swallowing, cognition, voice, or AAC outcomes.',
+              'Confirm plan-of-care language, progress language, and recommendation language are consistent and supportable.',
+              'Do not paste resident-specific note text into this SharePoint page.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.medicareSlp, sourceLinks.cmsBilling, sourceLinks.cmsManual]
@@ -766,7 +1993,7 @@ const pages = [
     fileName: 'SLP-Trajectory-Analytics.aspx',
     title: 'SLP Trajectory Analytics Boundary',
     imageKey: 'cognitive',
-    summary: 'Read-only bridge page for clinical trajectory concepts, scoring trend boundaries, and SPFx-pending analytics workflows.',
+    summary: 'Trajectory and trend-interpretation page with generalized progress-review logic, MDC/SEM framing, and analytics guardrails.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -783,6 +2010,53 @@ const pages = [
           'Use this page only to document the future analytics workflow and the interpretation cautions.',
           'Any production analytics must use the PHI-minimized/session-boundary design and approved clinical systems.'
         ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use broad progress-review logic and trend-interpretation prompts without storing actual resident timelines.',
+          'Frame how to think about change, plateau, decline, and measurement error before applying it in the charting environment.',
+          'Keep resident-level analytics and predictive workflows outside the SharePoint bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Trend review logic',
+        description: 'Broad prompts for interpreting improvement, stability, mixed response, and decline.',
+        chips: ['Trend', 'Interpretation', 'Non-PHI']
+      },
+      {
+        title: 'Measurement caution',
+        description: 'Generic MDC/SEM and context-of-care reminders for how much change is meaningful.',
+        chips: ['MDC/SEM', 'Caution', 'Reference']
+      },
+      {
+        title: 'Analytics boundary',
+        description: 'Clear separation between safe generalized trend thinking and resident-specific analytics storage.',
+        chips: ['Boundary', 'Governance', 'Safe']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Progress-review shells',
+        items: [
+          {
+            title: 'Trend interpretation shell',
+            lines: [
+              'Review question: Is function broadly improving, stable, mixed, or declining?',
+              'Interpret change in the context of measurement limits, treatment intensity, and functional relevance.',
+              'Resident-specific data, dates, and measures belong in the approved record system.'
+            ]
+          },
+          {
+            title: 'Plateau or decline shell',
+            lines: [
+              'Check whether plateau reflects expected recovery stage, measurement noise, need for a new approach, or maintenance focus.',
+              'Escalate to reassessment, instrumental review, interdisciplinary coordination, or plan revision when clinically indicated.'
+            ]
+          }
+        ]
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
@@ -791,7 +2065,7 @@ const pages = [
     fileName: 'SLP-Clinical-Safety.aspx',
     title: 'SLP Clinical Safety and Safe Mode',
     imageKey: 'brain',
-    summary: 'Read-only bridge page for clinical safety status, safe-mode concepts, and PHI-minimized system behavior.',
+    summary: 'Clinical safety page with generalized safety checks, escalation logic, and PHI-minimized operating rules for the portal.',
     sections: [
       {
         heading: 'Local module mapping',
@@ -807,6 +2081,53 @@ const pages = [
           'Every SharePoint-native page remains non-PHI and read-only.',
           'Sensitive input belongs in session-only workflows when unavoidable.',
           'Durable storage is limited to sanitized or non-PHI reference metadata and reviewed source content.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Use this page as a reusable safety checklist for documentation, uploads, visual assets, and AI-assisted workflows.',
+          'Escalate to approved systems or session-only handling whenever a workflow crosses into resident-specific content.',
+          'Treat this page as the governing safe-mode reference for the bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'PHI boundary checklist',
+        description: 'Simple rules for what can stay in SharePoint and what must move to session-only or external systems.',
+        chips: ['PHI boundary', 'Governance', 'Always on']
+      },
+      {
+        title: 'Workflow escalation rules',
+        description: 'Broad triggers for when documentation, analytics, uploads, or AI support must leave the bridge surface.',
+        chips: ['Escalation', 'Safety', 'Clinician workflow']
+      },
+      {
+        title: 'Safe-mode operating model',
+        description: 'The durable reference model for non-PHI pages, sanitized content, and reviewed source promotion.',
+        chips: ['Safe mode', 'Operating model', 'Reference']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Safety playbook shells',
+        items: [
+          {
+            title: 'SharePoint-safe check',
+            lines: [
+              'Is the content generic, sanitized, and reusable beyond one resident encounter?',
+              'Does it avoid identifiers, pasted note text, resident photos, scores, and resident-specific histories?',
+              'If not, keep it out of durable SharePoint storage.'
+            ]
+          },
+          {
+            title: 'Escalation shell',
+            lines: [
+              'Move to session-only or approved clinical systems when the task requires patient identity, uploads, scoring, note drafting, or resident-linked outputs.',
+              'When uncertain, default to the higher-safety workflow and keep the bridge non-PHI.'
+            ]
+          }
         ]
       }
     ],
@@ -835,7 +2156,870 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Self-Care Orientation',
+        text: 'Route clinicians to general self-care, stress-management, ergonomics, and professional support resources.'
+      },
+      {
+        title: 'Workload Reflection',
+        text: 'Provide non-tracked prompts for workload, burnout prevention, boundaries, peer support, and sustainable practice.'
+      },
+      {
+        title: 'Official Support Path',
+        text: 'Keep HR, EAP, training, and compliance records in official systems rather than SharePoint page content.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Wellness Resource Shell',
+        items: [
+          'Resource area: self-care, ergonomics, burnout prevention, stress management, peer support, professional development.',
+          'Use case: personal reference, team huddle topic, onboarding resource, leadership discussion, in-service idea.',
+          'Source tie: ASHA, official workplace resource, HR/EAP program, approved facility training material.',
+          'Boundary: no staff health details, performance data, identifiable notes, or tracked wellness responses.'
+        ]
+      },
+      {
+        title: 'Team Support Shell',
+        items: [
+          'Theme: workload clarity, role boundaries, communication norms, documentation burden, professional growth.',
+          'Action: share resource, route to official support, schedule team discussion, update workflow aid, escalate system barrier.',
+          'Governance: keep formal HR, accommodation, medical, or performance matters in approved confidential channels.',
+          'SPFx pending: optional non-tracked checklist views and resource filtering.'
+        ]
+      }
+    ],
     links: ['https://www.asha.org/practice/self-care/', 'https://www.asha.org/practice/ergonomics/', sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Clinical-Library.aspx',
+    title: 'SLP Clinical Library and PDFs',
+    imageKey: 'documentation',
+    summary: 'Operational clinical library hub for reviewed PDFs, source routing, clinical-area browsing, and safe document workflows.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalLibrary.tsx and src/components/PDFLibrary.tsx.',
+          'Local workflows include PDF upload, document browsing, chat/summarize support, external assessment resources, preview, print, and download.',
+          'Upload, document chat, summarization, delete, preview state, and persistent custom-document workflows remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe library boundary',
+        bullets: [
+          'Use SharePoint source libraries for reviewed non-PHI documents and references.',
+          'Do not upload patient-specific PDFs, notes, evals, or handouts into shared bridge libraries.',
+          'Use the SLP_Source_Index list and Knowledge Source Index page to govern what becomes reviewed portal content.'
+        ]
+      },
+      {
+        heading: 'Library operating model',
+        bullets: [
+          'Browse by clinical area, document type, and review status before using search-only discovery.',
+          'Treat source PDFs as reference inputs; keep summaries and promoted claims tied back to source records.',
+          'Use reviewed sources for Copilot Studio grounding only after PHI review and owner approval.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Clinical-area browsing',
+        description: 'Route sources into dysphagia, aphasia, cognition, motor speech, voice, AAC, Medicare, and safety groupings.',
+        chips: ['Browse', 'Clinical area', 'Findability']
+      },
+      {
+        title: 'Review pipeline',
+        description: 'Move records from metadata-only or candidate status to reviewed page content or Copilot-ready grounding.',
+        chips: ['Review', 'Promotion', 'Copilot']
+      },
+      {
+        title: 'Document support boundary',
+        description: 'Keep chat, summarization, upload, preview, and delete workflows SPFx-session-only until production controls are live.',
+        chips: ['Boundary', 'SPFx later', 'Safe']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Library workflow shells',
+        items: [
+          {
+            title: 'Source-to-page promotion shell',
+            lines: [
+              'Confirm source is reviewed, non-PHI, and clinically appropriate.',
+              'Extract only generalized reference points with source attribution.',
+              'Add or update the target module page, then link back to the source record.'
+            ]
+          },
+          {
+            title: 'Copilot readiness shell',
+            lines: [
+              'Confirm source ownership and review status.',
+              'Confirm no PHI and no resident-specific examples.',
+              'Confirm grounding purpose: reference support only, not final clinical judgment.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, '/sites/PacificCoast_SLP/SLP_Portal_Source_PDFs/Forms/AllItems.aspx', '/sites/PacificCoast_SLP/Lists/SLP_Source_Index/AllItems.aspx']
+  },
+  {
+    fileName: 'SLP-Video-Library.aspx',
+    title: 'SLP Video Library',
+    imageKey: 'vocal-folds',
+    summary: 'Curated media hub for authoritative videos, staff-learning media, anatomy demonstrations, and non-PHI visual teaching assets.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/VideoLibrary.tsx.',
+          'Local content includes authoritative videos for swallow mechanism and vocal fold vibration plus thumbnail-based media browsing.',
+          'Interactive media modal state and expanded playback workflow remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Media boundary',
+        bullets: [
+          'Use authoritative public or enterprise-approved media only.',
+          'Do not upload or persist patient recordings, FEES/VFSS clips, or identifiable media into this bridge surface.',
+          'Use facility-approved clinical systems for any patient-linked imaging or recorded data.'
+        ]
+      },
+      {
+        heading: 'Media operating model',
+        bullets: [
+          'Use media as general education and staff-training support, not patient-record evidence.',
+          'Keep thumbnails, descriptions, and links source-attributed and reviewed.',
+          'Use the video library together with Staff Learning and Curated Visual Aids for training workflows.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Teaching media',
+        description: 'Reviewed videos for anatomy, swallow physiology, communication supports, and clinical orientation.',
+        chips: ['Teaching', 'Curated', 'Reference']
+      },
+      {
+        title: 'Staff-learning playlists',
+        description: 'Group videos by clinical workflow, onboarding need, safety topic, or policy review.',
+        chips: ['Training', 'Playlist', 'Findability']
+      },
+      {
+        title: 'Media safety boundary',
+        description: 'No patient recordings, patient clips, or identifiable imaging in this durable bridge surface.',
+        chips: ['No PHI', 'Media safety', 'Governance']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Media review shells',
+        items: [
+          {
+            title: 'Media intake shell',
+            lines: [
+              'Confirm source is authoritative, enterprise-approved, or internally approved.',
+              'Confirm the clip contains no patient identifiers or resident-linked clinical data.',
+              'Assign audience, clinical area, use case, and review owner.'
+            ]
+          },
+          {
+            title: 'Training playlist shell',
+            lines: [
+              'Learning goal: [onboarding / safety / anatomy / treatment strategy / documentation support].',
+              'Audience: [SLP / nursing / interdisciplinary / caregiver education].',
+              'Follow-up action: link to the related module, source page, or staff-learning item.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Community-Networking.aspx',
+    title: 'SLP Community and Networking',
+    imageKey: 'voice',
+    summary: 'Read-only bridge page for SLP community links, networking/event orientation, and external collaboration boundaries.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/SLPChat.tsx, src/components/WhatsAppFeed.tsx, and src/components/NetworkingEvents.tsx.',
+          'Local surfaces include WhatsApp group access, live feed concepts, and networking-opportunity cards.',
+          'Live message feeds, event API fetches, and community-post ingestion remain outside the SharePoint-native bridge.'
+        ]
+      },
+      {
+        heading: 'External platform boundary',
+        bullets: [
+          'External community tools may carry privacy, moderation, and retention considerations outside SharePoint governance.',
+          'Do not post patient identifiers or case details into external chats or community feeds.',
+          'Use this page as a launch point only, not as a place to mirror or store chat content.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Community Launch Point',
+        text: 'Point clinicians toward vetted communities, professional groups, event opportunities, and peer-learning resources.'
+      },
+      {
+        title: 'Privacy Boundary',
+        text: 'Reinforce that external chats and feeds must never include patient identifiers, case details, or confidential facility data.'
+      },
+      {
+        title: 'Event Routing',
+        text: 'Use SharePoint as a non-PHI index for events and networking opportunities while live feeds remain outside the bridge.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Community Resource Shell',
+        items: [
+          'Resource type: professional group, learning event, discussion community, mentorship, conference, webinar.',
+          'Audience: SLP team, new clinicians, specialty interest group, interdisciplinary learning.',
+          'Governance check: privacy expectations, moderation, retention, organizational approval, source credibility.',
+          'Boundary: do not mirror chat content, case discussions, patient information, or confidential internal details.'
+        ]
+      },
+      {
+        title: 'Event Listing Shell',
+        items: [
+          'Event focus: dysphagia, aphasia, cognition, AAC, Medicare, documentation, leadership, wellness.',
+          'Details to keep: title, organizer, date range, registration link, learning objective, source credibility.',
+          'Details to avoid: attendee personal notes, patient examples, internal staffing details, credentials/passwords.',
+          'SPFx pending: event feed ingestion only after privacy, moderation, and source controls are approved.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Help-Support.aspx',
+    title: 'SLP Help and NetHealth Support',
+    imageKey: 'brain',
+    summary: 'Read-only bridge page for user guidance, technical support, NetHealth help, compliance orientation, and feature-governance boundaries.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/HelpSupport.tsx and src/components/NetHealthHelp.tsx.',
+          'Local support areas include user guide, tech support, compliance info, resource upload, feature toggles, NetHealth workflow help, navigation help, troubleshooting, and document library support.',
+          'Interactive support forms, uploads, feature toggles, and document-viewer states remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Support boundary',
+        bullets: [
+          'Use SharePoint help pages for guidance, process, and controlled resource links.',
+          'Do not submit patient data, screenshots with PHI, or resident-specific workflow issues into shared support surfaces.',
+          'Direct production incidents and EHR-specific troubleshooting into approved support channels.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Help Routing',
+        text: 'Organize navigation help, NetHealth workflow support, document-library guidance, compliance reminders, and feature status.'
+      },
+      {
+        title: 'Incident Boundary',
+        text: 'Route production incidents, EHR issues, and PHI-bearing screenshots into approved support channels only.'
+      },
+      {
+        title: 'SPFx Feature Queue',
+        text: 'Make pending interactive support forms, uploads, feature toggles, and document-viewer states visible without enabling unsafe storage.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Support Request Shell',
+        items: [
+          'Issue category: navigation, SharePoint page, document library, source index, SPFx package, NetHealth workflow, access/permissions.',
+          'Safe details: page name, general workflow step, browser/device type, non-PHI screenshot if approved by policy.',
+          'Avoid: patient names, MRNs, DOBs, room numbers, chart screenshots, notes, evals, billing claims, credentials.',
+          'Route: approved IT/support channel, facility workflow owner, compliance contact, or SPFx backlog.'
+        ]
+      },
+      {
+        title: 'Troubleshooting Shell',
+        items: [
+          'Check: page URL, browser refresh, permissions, library/list access, navigation link, source index filter.',
+          'Document: reproducible non-PHI steps, expected behavior, actual behavior, timestamp, affected page/module.',
+          'Escalate: authentication, access denied, missing page, failed image, broken source link, App Catalog/SPFx issue.',
+          'Boundary: do not store credentials, auth codes, PHI screenshots, or patient-specific workflow examples.'
+        ]
+      }
+    ],
+    links: [sourceLinks.cmsManual, sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Therapy-Studio.aspx',
+    title: 'SLP Therapy Studio Boundary',
+    imageKey: 'aphasia',
+    summary: 'Therapy-builder and activity-design page for generalized reusable tasks, cueing hierarchies, and non-persistent session planning.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/TherapyStudio.tsx.',
+          'Local workflows include aphasia and cognition tasks, apraxia groups, role-play, game/activity generation, voice/mic support, and asset auto-save behavior.',
+          'Activity generation, role-play transcripts, mic input, AI prompting, and saved session artifacts remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Session-only boundary',
+        bullets: [
+          'Sensitive therapy prompts and patient-linked activity context must remain session-only.',
+          'Only non-PHI or sanitized generic activity references belong in SharePoint durable storage.',
+          'Use the bridge as orientation and reusable template support, not as the therapy authoring surface for resident-specific sessions.'
+        ]
+      },
+      {
+        heading: 'Generalized workflow mode',
+        bullets: [
+          'Build reusable activities by domain, cueing level, target behavior, and stimulus type instead of patient identity.',
+          'Persist only reusable non-PHI tasks, prompts, boards, and treatment shells.',
+          'Do not save patient performance, transcripts, or outcome data in SharePoint.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Reusable task builder',
+        description: 'Generic aphasia, cognition, apraxia, and motor-speech activity shells that can be adapted during treatment.',
+        chips: ['Reusable', 'No resident linkage', 'SPFx later']
+      },
+      {
+        title: 'Cueing hierarchy packs',
+        description: 'Prompt ladders and stimulus progressions for clinician use without storing patient response data.',
+        chips: ['Cueing', 'Reference', 'Template']
+      },
+      {
+        title: 'Session-plan scaffolds',
+        description: 'Short treatment-plan structures for setup, skilled intervention, carryover, and progression planning.',
+        chips: ['Planning', 'Copy-ready', 'Non-PHI']
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Reusable Therapy Task Shell',
+        items: [
+          'Domain: aphasia, cognition, motor speech, apraxia, voice, AAC, swallowing education, caregiver/staff training.',
+          'Stimulus type: words, phrases, scenarios, visual choices, scripts, routines, category lists, problem-solving prompts.',
+          'Grading: cueing level, complexity, distractors, partner support, time pressure, environmental context.',
+          'Boundary: do not store patient performance, transcripts, recordings, personal scripts, or resident-linked activity history.'
+        ]
+      },
+      {
+        title: 'Session Plan Shell',
+        items: [
+          'Setup: target behavior, materials, environment, safety considerations, communication supports.',
+          'Skilled intervention: instruction, model, cueing hierarchy, feedback, modification, strategy training.',
+          'Carryover: staff/caregiver prompt, written aid, daily routine, interdisciplinary handoff, next-session progression.',
+          'SPFx pending: activity generation, role-play, mic input, AI prompting, and safe export controls.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Compliance-Center.aspx',
+    title: 'SLP Compliance Center',
+    imageKey: 'medicare',
+    summary: 'Read-only bridge page for Jimmo, Medicare Part B, Section K, and documentation compliance orientation.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ComplianceCenter.tsx.',
+          'Local tabs include Jimmo v. Sebelius, Medicare Part B in LTC, Section K, and documentation compliance framing.',
+          'Patient-view mode and interactive compliance review remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Compliance boundary',
+        bullets: [
+          'Use this page for policy framing, not resident-specific coverage determinations.',
+          'Coverage decisions and documentation review must remain tied to authoritative sources and licensed clinical judgment.',
+          'Do not persist resident-specific compliance analyses in SharePoint-native bridge content.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Medicare Part B Frame',
+        text: 'Keep coverage, skilled need, plan-of-care, and documentation concepts linked to official Medicare and CMS references.'
+      },
+      {
+        title: 'Maintenance and Jimmo',
+        text: 'Use general maintenance framing to support skilled need reasoning without creating resident-specific determinations.'
+      },
+      {
+        title: 'Section K Awareness',
+        text: 'Bridge swallowing/nutrition documentation awareness to facility workflows without duplicating MDS or EHR content.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Compliance Review Shell',
+        items: [
+          'Topic: Medicare Part B, Jimmo/maintenance, Section K, documentation sufficiency, skilled need, audit readiness.',
+          'Authoritative source: Medicare.gov, CMS manual/article, facility policy, payer guidance, reviewed internal resource.',
+          'General question: what rule, risk, or documentation behavior needs clarification?',
+          'Boundary: no resident coverage decisions, chart excerpts, claim details, diagnosis lists, or patient-specific analysis.'
+        ]
+      },
+      {
+        title: 'Documentation Sufficiency Shell',
+        items: [
+          'Required support: medical necessity, skilled service, objective response, plan rationale, frequency/duration, discharge criteria.',
+          'Risk marker: generic language, missing skilled action, unclear response, unsupported maintenance, payer mismatch.',
+          'Corrective action: improve template, educate clinicians, review source, update SharePoint guidance, route to compliance.',
+          'Final review: approved clinical documentation and compliance channels only.'
+        ]
+      }
+    ],
+    links: [sourceLinks.medicareSlp, sourceLinks.cmsBilling, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Note-Template-Studio.aspx',
+    title: 'SLP Note Template Studio',
+    imageKey: 'documentation',
+    summary: 'Copy-ready non-PHI documentation frameworks for daily notes, progress reports, recertifications, discharges, and evaluation summaries.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from DocumentationStudio, DocumentationAssistant, ThreeWayEval, and the generalized-safe portion of MedicareDocChecker.',
+          'This page replaces patient-bound note generation with generalized note architecture and skilled-language templates.',
+          'No note entered here should contain resident identifiers, pasted chart text, or diagnosis-specific history tied to a person.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use broad clinical categories such as swallowing, language, cognition, voice, motor speech, or AAC instead of resident identity.',
+          'Copy templates out for final patient-specific completion only inside the approved charting system.',
+          'Do not use SharePoint as a note repository.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Daily note',
+        description: 'Skilled intervention, response, and plan language without patient identifiers.',
+        chips: ['Daily note', 'Non-PHI', 'Copy-ready']
+      },
+      {
+        title: 'Progress / recert',
+        description: 'Status update and continued-need structure aligned to skilled treatment justification.',
+        chips: ['Progress', 'Recert', 'CMS aware']
+      },
+      {
+        title: 'Discharge / eval',
+        description: 'Outcome, recommendations, and next-step framing for generalized summaries and evaluation write-ups.',
+        chips: ['Discharge', 'Evaluation', 'Template']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Copy-ready note frameworks',
+        items: [
+          {
+            title: 'Daily note shell',
+            lines: [
+              'Visit focus: [clinical domain] and [functional target].',
+              'Skilled intervention: SLP provided [assessment/treatment/cueing/education] using [approach or strategy].',
+              'Response to intervention: Patient response language belongs in the charting system, not this SharePoint page.',
+              'Clinical rationale: Continued skilled SLP services remain indicated for [functional communication/swallowing/cognitive-linguistic/voice/AAC need].',
+              'Plan: Continue per plan of care with next-session emphasis on [target area].'
+            ]
+          },
+          {
+            title: 'Progress or recert shell',
+            lines: [
+              'Current status: [broad area] shows [improved/stable/mixed] performance relative to start-of-care expectations.',
+              'Skilled need: Ongoing services require clinician analysis, cueing adjustment, and plan-of-care modification.',
+              'Functional value: Intervention supports safety, communication participation, carryover, or decline prevention.',
+              'Plan-of-care update: Continue, revise, or taper based on current skilled need and functional goals.'
+            ]
+          },
+          {
+            title: 'Evaluation summary shell',
+            lines: [
+              'Reason for referral: [broad concern category].',
+              'Assessment framework: Screening/exam/results should be completed in the approved clinical record system.',
+              'Clinical impression: Findings are consistent with [broad impairment area] requiring skilled SLP assessment and treatment planning.',
+              'Recommendations: [further assessment / treatment frequency / education / instrumental coordination] as clinically indicated.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-Goal-and-Intervention-Studio.aspx',
+    title: 'SLP Goal and Intervention Studio',
+    imageKey: 'cognitive',
+    summary: 'Generalized SMART-goal, skilled-language, and intervention-planning workspace built from the local Goal Generator and treatment modules.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from GoalGenerator, Goal Bank, Treatment Ideas, and the reusable-safe portion of TherapyStudio.',
+          'This page preserves goal architecture and intervention planning while removing resident-linked persistence.',
+          'Save templates only; complete resident-specific wording in the approved charting system.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use deficit category, task demand, cueing level, and functional target instead of a resident name or resident history.',
+          'Do not store patient baseline, exact performance data, or patient-specific measurable results here.',
+          'Use maintenance-language carefully and only where clinically justified.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'SMART goal shells',
+        description: 'Specific, measurable, skilled, and time-bound goal frameworks that remain non-PHI until finalized elsewhere.',
+        chips: ['SMART', 'Reusable', 'Non-PHI']
+      },
+      {
+        title: 'Skilled intervention language',
+        description: 'Copy-ready phrasing for cueing, strategy training, education, and progression rationales.',
+        chips: ['Skilled need', 'Copy-ready', 'Reference']
+      },
+      {
+        title: 'Session-plan scaffold',
+        description: 'Short plan builder for target behavior, task hierarchy, supports, and carryover planning.',
+        chips: ['Planning', 'Template', 'Generalized']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Goal and intervention frameworks',
+        items: [
+          {
+            title: 'SMART goal shell',
+            lines: [
+              'Patient identifier and exact diagnosis stay out of this SharePoint page.',
+              'Within [timeframe], the patient will improve [functional target] during [task/context] with [cueing level] in order to support [functional outcome].',
+              'Skilled rationale: Goal requires clinician analysis, cueing adjustment, and treatment progression beyond routine exercise.'
+            ]
+          },
+          {
+            title: 'Maintenance-focused shell',
+            lines: [
+              'Within [timeframe], the patient will maintain [broad function or safety behavior] using [strategy/support] to reduce risk of decline.',
+              'Skilled rationale: Ongoing clinician monitoring and modification are required to preserve safety, participation, or functional efficiency.'
+            ]
+          },
+          {
+            title: 'Intervention-plan shell',
+            lines: [
+              'Target behavior: [swallowing / expression / comprehension / memory / speech / voice / AAC].',
+              'Primary technique: [cueing hierarchy / strategy training / drill / compensatory support / caregiver education].',
+              'Progression rule: Increase complexity, reduce cueing, or shift context when broad success criteria are met in the clinical record.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Clinical-Copilot-Playbooks.aspx',
+    title: 'SLP Clinical Copilot Playbooks',
+    imageKey: 'brain',
+    summary: 'Generalized clinical-reasoning, case-brainstorm, and evidence-check workflows derived from the local AI Assistant and Case Brainstorm modules.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from AIAssistant, CaseBrainstorm, ClinicalReference, and generalized-safe reasoning support patterns.',
+          'This page preserves how to ask, structure, and verify clinical-support questions without saving PHI-bearing conversations.',
+          'Use this page for question framing, evidence routing, and escalation logic only.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Do not paste patient histories, verbatim notes, or identifying case details into SharePoint pages.',
+          'Use broad scenario labels and de-identified functional concerns when drafting a question or case prompt.',
+          'Clinical judgment remains with the treating clinician; this is support, not diagnosis.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Case brainstorm',
+        description: 'De-identified case-conference question framing for dysphagia, cognition, communication, voice, and AAC.',
+        chips: ['Case review', 'De-identified', 'Reference']
+      },
+      {
+        title: 'Evidence check',
+        description: 'Question templates that route clinicians back to ASHA, CMS, Medicare, and reviewed local references.',
+        chips: ['Evidence', 'Source-first', 'Safe']
+      },
+      {
+        title: 'Escalation logic',
+        description: 'Generic prompts for when to seek more assessment, instrumental input, interdisciplinary review, or policy confirmation.',
+        chips: ['Escalation', 'Clinical support', 'Non-PHI']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Clinical question playbooks',
+        items: [
+          {
+            title: 'Consult question shell',
+            lines: [
+              'Clinical topic: [domain].',
+              'Functional concern: [broad impact on safety, intake, communication, cognition, or participation].',
+              'What has been tried: [broad strategy class, not patient-specific note text].',
+              'Question for support: What evidence-based next steps, precautions, or assessment considerations should be reviewed?'
+            ]
+          },
+          {
+            title: 'Case-conference shell',
+            lines: [
+              'Reason for discussion: [broad impairment area and decision point].',
+              'Key decision options: [assessment / treatment / education / instrumentals / coordination].',
+              'Needed references: [ASHA / CMS / Medicare / local reviewed policy / facility workflow].',
+              'Escalation triggers: [safety risk / change in function / uncertain candidacy / need for interdisciplinary review].'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Handout-Therapy-Templates.aspx',
+    title: 'SLP Handout and Therapy Templates',
+    imageKey: 'aphasia',
+    summary: 'Generalized therapy-task and education-template page for reusable activities, carryover supports, and sanitized caregiver materials.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from HandoutMaker, TherapyStudio, selected AAC supports, and the admin-curated-safe portion of visual aid workflows.',
+          'This page preserves reusable education and therapy planning content while leaving patient-specific customization outside SharePoint.',
+          'Admin-curated images and boards are acceptable; user-generated resident-linked assets are not persisted here.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use topic-based therapy plans, cueing supports, and caregiver teaching language only.',
+          'Do not save patient names, personalized home programs, or patient-specific performance summaries in SharePoint.',
+          'Any resident-specific version should be completed outside the bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Therapy activity shells',
+        description: 'Reusable activity structures for aphasia, cognition, motor speech, voice, AAC, and swallowing support.',
+        chips: ['Reusable', 'Task-based', 'Generalized']
+      },
+      {
+        title: 'Carryover handouts',
+        description: 'Topic-based caregiver and patient education frameworks that stay sanitized and non-PHI.',
+        chips: ['Carryover', 'Education', 'Sanitized']
+      },
+      {
+        title: 'Curated visual aids',
+        description: 'Admin-curated boards, diagrams, and prompt cards instead of user-generated patient-linked asset storage.',
+        chips: ['Curated', 'Visual aids', 'Safe storage']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Reusable therapy and education frameworks',
+        items: [
+          {
+            title: 'Therapy activity shell',
+            lines: [
+              'Target area: [domain].',
+              'Task format: [drill / strategy / sorting / naming / sequencing / carryover / roleplay].',
+              'Cueing hierarchy: [max / mod / min / independent] with progression rules handled in the clinical record.',
+              'Carryover prompt: Provide a broad home-practice or caregiver-support instruction without identifiers.'
+            ]
+          },
+          {
+            title: 'Education handout shell',
+            lines: [
+              'Topic: [swallow safety / communication strategies / cognition support / voice hygiene / AAC setup].',
+              'Why it matters: Explain the broad functional risk or benefit.',
+              'How to help: Provide generic caregiver or self-management supports.',
+              'When to alert the clinician: List broad red flags and escalation points.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-Curated-Visual-Aids.aspx',
+    title: 'SLP Curated Visual Aids',
+    imageKey: 'aphasia',
+    summary: 'Admin-curated visual aid library for reusable diagrams, boards, prompt cards, and training assets derived from the safe portion of the local asset gallery.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from AssetGallery and the non-persistent visual-support surfaces across HandoutMaker, TherapyStudio, AAC workflows, and anatomy/clinical reference modules.',
+          'This page substitutes curated and approved visual references for the local generated-asset browser.',
+          'User-generated resident-linked assets remain outside the SharePoint-native bridge.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Only admin-curated or sanitized generic visuals belong in this durable SharePoint surface.',
+          'Do not upload resident photos, patient-labeled screenshots, patient-specific boards, or generated assets containing identifiers.',
+          'Resident-specific visual supports should be created in session or completed outside the bridge.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Clinical diagrams',
+        description: 'Reusable anatomy, swallow, airway, cranial-nerve, and communication-support visuals for clinician reference.',
+        chips: ['Clinical', 'Curated', 'Reference']
+      },
+      {
+        title: 'Prompt cards and boards',
+        description: 'Generic visual supports for cueing, partner training, AAC basics, and therapy setup.',
+        chips: ['Prompt cards', 'Reusable', 'Non-PHI']
+      },
+      {
+        title: 'Governed asset storage',
+        description: 'A safe durable home for approved visuals while user-generated resident-linked media stays out of SharePoint.',
+        chips: ['Governance', 'Safe storage', 'Admin curated']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'Visual aid planning shells',
+        items: [
+          {
+            title: 'Curated visual request shell',
+            lines: [
+              'Asset type: [diagram / board / prompt card / training sheet / reference image].',
+              'Clinical use: [education / cueing / orientation / staff training / patient-facing generic support].',
+              'Audience: [clinician / caregiver / staff / general patient education].',
+              'Approval rule: Only add the asset if it is sanitized, generic, and safe for shared durable storage.'
+            ]
+          },
+          {
+            title: 'Visual governance shell',
+            lines: [
+              'Check that the visual contains no names, room numbers, dates, screenshots with PHI, or patient photos.',
+              'Check that the visual is clinically useful beyond one resident encounter.',
+              'Store only approved and reusable assets in SharePoint.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-SPFx-Production-Handoff.aspx',
+    title: 'SLP SPFx Production Handoff',
+    imageKey: 'brain',
+    summary: 'Production handoff page for moving from the SharePoint-native bridge to the full SPFx app experience when catalog deployment is available.',
+    sections: [
+      {
+        heading: 'Production path',
+        bullets: [
+          'Use SharePoint Framework as the production app shell and expose it as a Single Part App Page when App Catalog or site catalog deployment is available.',
+          'Keep durable SharePoint storage limited to non-PHI references, source metadata, reviewed files, and sanitized reusable assets.',
+          'Keep resident-specific drafting, scoring, uploads, chat, analytics, and generated assets session-only or inside approved clinical systems.'
+        ]
+      },
+      {
+        heading: 'Interactive modules to port next',
+        bullets: [
+          'Documentation Studio: session-only note drafting with sanitized copy/export controls.',
+          'Therapy Studio: builder/play interaction with no resident-linked durable state.',
+          'Clinical calculators, exams, and outcome tools: in-session scoring and interpretation without SharePoint persistence.',
+          'Medicare document review: transient upload/analyze flow with no durable patient-file retention in the bridge.'
+        ]
+      },
+      {
+        heading: 'Deployment prerequisites',
+        bullets: [
+          'App Catalog or site collection app catalog upload path must be available.',
+          'SPFx package must validate, bundle, package, deploy, and load on the Pacific Coast SLP site.',
+          'Any new Graph or Entra permissions must be documented, least-privilege, and approved before use.'
+        ]
+      }
+    ],
+    featureCards: [
+      {
+        title: 'Single full-page app',
+        description: 'Use SPFx Single Part App Pages for the closest local-portal experience with a locked full-page layout.',
+        chips: ['SPFx', 'Full page', 'Microsoft Learn']
+      },
+      {
+        title: 'Session-only workflows',
+        description: 'Bring back interactivity while keeping patient-specific data out of durable SharePoint lists and pages.',
+        chips: ['Session-only', 'No durable PHI', 'Interactive']
+      },
+      {
+        title: 'Non-PHI content services',
+        description: 'Continue using SharePoint pages, lists, and libraries for source metadata, reviewed knowledge, and reusable references.',
+        chips: ['SharePoint data', 'Reviewed sources', 'Governance']
+      }
+    ],
+    templateGroups: [
+      {
+        heading: 'SPFx handoff checklist',
+        items: [
+          {
+            title: 'Build and package',
+            lines: [
+              'Run SPFx build validation and production bundle/package steps.',
+              'Confirm package metadata and supported host settings match the full-page app path.',
+              'Confirm no patient/session/goal/review list dependency has been reintroduced.'
+            ]
+          },
+          {
+            title: 'Deploy and verify',
+            lines: [
+              'Upload and deploy the SPFx package through the approved catalog path.',
+              'Create or update the Single Part App Page on the Pacific Coast SLP site.',
+              'Validate page load, navigation, source-library reads, session-only guards, and no durable PHI writes.'
+            ]
+          },
+          {
+            title: 'Promote modules',
+            lines: [
+              'Port generalized bridge pages into richer SPFx screens first.',
+              'Then add session-only interactivity for documentation, calculators, therapy, handouts, and Medicare review.',
+              'Keep SharePoint-native pages as fallback reference hubs and governance pages.'
+            ]
+          }
+        ]
+      }
+    ],
+    links: [
+      'https://learn.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview',
+      'https://learn.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/single-part-app-pages',
+      'https://learn.microsoft.com/en-us/sharepoint/dev/spfx/connect-to-sharepoint',
+      'https://learn.microsoft.com/en-us/graph/permissions-overview'
+    ]
   },
   {
     fileName: 'SLP-Knowledge-Source-Index.aspx',
@@ -901,6 +3085,40 @@ const pages = [
         ]
       }
     ],
+    featureCards: [
+      {
+        title: 'Source Triage',
+        text: 'Classify local and SharePoint sources by clinical area, document type, discipline, audience, review state, and promotion path.'
+      },
+      {
+        title: 'Review Workflow',
+        text: 'Move candidate records through owner review before page promotion, Copilot grounding, or library publication.'
+      },
+      {
+        title: 'Copilot Readiness',
+        text: 'Prepare only reviewed, non-PHI, authoritative sources for Copilot Studio grounding and future SPFx-assisted discovery.'
+      }
+    ],
+    templateGroups: [
+      {
+        title: 'Source Review Shell',
+        items: [
+          'Source identity: title, library/path, source kind, owner, clinical area, discipline, audience, document type.',
+          'Review state: candidate, reviewed, adjacent rehab review, metadata-only, hold/manual review, retired.',
+          'Promotion decision: SharePoint page content, source-library reference, Copilot knowledge, archive, or exclude.',
+          'Boundary: no patient lists, session notes, resident goals, chart examples, or PHI-bearing documents.'
+        ]
+      },
+      {
+        title: 'Copilot Grounding Shell',
+        items: [
+          'Grounding source: reviewed SharePoint page, reviewed source file, approved public reference, approved enterprise reference.',
+          'Readiness checks: non-PHI, current, source-owned, clinically scoped, authoritative, retrievable, version controlled.',
+          'Use case: answer support, source navigation, clinician onboarding, documentation framework, compliance reference.',
+          'Governance: periodic review, owner confirmation, retired-source handling, prompt/response monitoring in approved systems.'
+        ]
+      }
+    ],
     links: [
       'https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-add-sharepoint',
       'https://learn.microsoft.com/en-us/sharepoint/information-architecture-principles',
@@ -931,6 +3149,15 @@ const navLinks = [
   { title: 'SLP Clinical Reference', fileName: 'SLP-Clinical-Reference.aspx' },
   { title: 'SLP Medicare Audit', fileName: 'SLP-Medicare-Audit-Candidacy.aspx' },
   { title: 'SLP Clinical Safety', fileName: 'SLP-Clinical-Safety.aspx' },
+  { title: 'SLP Clinical Library', fileName: 'SLP-Clinical-Library.aspx' },
+  { title: 'SLP Video Library', fileName: 'SLP-Video-Library.aspx' },
+  { title: 'SLP Note Templates', fileName: 'SLP-Note-Template-Studio.aspx' },
+  { title: 'SLP Goal Studio', fileName: 'SLP-Goal-and-Intervention-Studio.aspx' },
+  { title: 'SLP Copilot Playbooks', fileName: 'SLP-Clinical-Copilot-Playbooks.aspx' },
+  { title: 'SLP Handout Templates', fileName: 'SLP-Handout-Therapy-Templates.aspx' },
+  { title: 'SLP Visual Aids', fileName: 'SLP-Curated-Visual-Aids.aspx' },
+  { title: 'SPFx Handoff', fileName: 'SLP-SPFx-Production-Handoff.aspx' },
+  { title: 'SLP Support', fileName: 'SLP-Help-Support.aspx' },
   { title: 'SLP Knowledge Index', fileName: 'SLP-Knowledge-Source-Index.aspx' }
 ];
 
@@ -953,6 +3180,37 @@ function htmlEscape(value) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
+}
+
+function renderFeatureCards(cards = []) {
+  if (!cards.length) return '';
+  const content = cards.map((card) => `
+    <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.06);">
+      <h3 style="margin:0 0 8px 0;">${htmlEscape(card.title)}</h3>
+      <p style="margin:0 0 10px 0;color:#374151;">${htmlEscape(card.description || card.text || '')}</p>
+      <p style="margin:0;">${(card.chips || []).map((chip) => `<span style="display:inline-block;margin:0 6px 6px 0;padding:3px 8px;border-radius:999px;background:#eef6ff;color:#0f4761;font-size:12px;font-weight:700;">${htmlEscape(chip)}</span>`).join('')}</p>
+    </div>
+  `).join('');
+  return `<h2>Generalized workflow surfaces</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 18px 0;">${content}</div>`;
+}
+
+function renderTemplateGroups(groups = []) {
+  if (!groups.length) return '';
+  return `<h2>Template-mode workflow shells</h2>${groups.map((group) => `
+    <h2>${htmlEscape(group.heading || group.title || 'Workflow template')}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 0 18px 0;">
+      ${(group.items || []).map((item) => typeof item === 'string' ? `
+        <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#fbfdff;">
+          <p style="margin:0;">${htmlEscape(item)}</p>
+        </div>
+      ` : `
+        <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#fbfdff;">
+          <h3 style="margin:0 0 10px 0;">${htmlEscape(item.title)}</h3>
+          <ol style="margin:0;padding-left:18px;">${(item.lines || []).map((line) => `<li style="margin:0 0 8px 0;">${htmlEscape(line)}</li>`).join('')}</ol>
+        </div>
+      `).join('')}
+    </div>
+  `).join('')}`;
 }
 
 function renderPageHtml(page) {
@@ -1007,7 +3265,11 @@ function renderPageHtml(page) {
       </div>
       <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
         <h3 style="margin-top:0;">Documentation and Medicare</h3>
-        <p>Medicare coverage anchors, skilled-service language, documentation boundaries, and SPFx-pending draft workflows.</p>
+        <p>Medicare coverage anchors, skilled-service language, documentation boundaries, and generalized non-PHI draft workflows.</p>
+      </div>
+      <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
+        <h3 style="margin-top:0;">Template-Mode Workflows</h3>
+        <p>Copy-ready note, goal, handout, case-reasoning, and therapy-template surfaces that stay generalized until finalized in the chart.</p>
       </div>
     </div>
     <h2>Portal map</h2>
@@ -1015,7 +3277,7 @@ function renderPageHtml(page) {
     <h2>Daily-use workflow</h2>
     <ol>
       <li>Start with the relevant clinical module or Medicare/compliance reference.</li>
-      <li>Use authoritative references for clinical framing and documentation requirements.</li>
+      <li>Use authoritative references and generalized template-mode pages for clinical framing and documentation requirements.</li>
       <li>Keep patient-specific work in approved clinical systems until the SPFx app is deployed.</li>
       <li>Return to the SPFx production package for interactive tools when App Catalog deployment is available.</li>
     </ol>
@@ -1025,6 +3287,8 @@ function renderPageHtml(page) {
     <h2>${htmlEscape(section.heading)}</h2>
     <ul>${section.bullets.map((item) => `<li>${htmlEscape(item)}</li>`).join('')}</ul>
   `).join('');
+  const featureCards = renderFeatureCards(page.featureCards);
+  const templateGroups = renderTemplateGroups(page.templateGroups);
 
   const links = page.links.map((href) => `<li><a href="${htmlEscape(href)}">${htmlEscape(href)}</a></li>`).join('');
   const hero = isHome ? `
@@ -1072,6 +3336,8 @@ function renderPageHtml(page) {
     </div>
     ${homepageOnly}
     ${sections}
+    ${featureCards}
+    ${templateGroups}
     <h2>Related SLP pages</h2>
     <ul>${relatedLinks}</ul>
     <h2>Authoritative references</h2>

@@ -28,7 +28,20 @@ const expectedPages = [
   'SLP-Clinical-Pathways.aspx',
   'SLP-Ensign-Corner.aspx',
   'SLP-Staff-Learning.aspx',
-  'SLP-Document-Library-Guide.aspx'
+  'SLP-Document-Library-Guide.aspx',
+  'SLP-Clinical-Calculators.aspx',
+  'SLP-Clinical-Exams.aspx',
+  'SLP-Meds-Labs-Imaging.aspx',
+  'SLP-Outcome-Measures.aspx',
+  'SLP-Handout-Reference.aspx',
+  'SLP-AAC-Boards.aspx',
+  'SLP-Quality-Evidence.aspx',
+  'SLP-Clinical-Reference.aspx',
+  'SLP-Medicare-Audit-Candidacy.aspx',
+  'SLP-Trajectory-Analytics.aspx',
+  'SLP-Clinical-Safety.aspx',
+  'SLP-Life-Wellness.aspx',
+  'SLP-Knowledge-Source-Index.aspx'
 ];
 
 const blockedNavigationTitles = [

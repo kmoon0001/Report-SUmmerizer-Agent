@@ -338,3 +338,259 @@ Validation result: PASS
 - hero image rendered at 520px wide
 - module images rendered at 260px wide
 - no stretched image ratios detected
+
+## Clinical Knowledge Bridge Prep
+
+Date: 2026-04-26
+
+Completed locally, not yet published to SharePoint:
+
+- added clinical knowledge index builder:
+  - `scripts/build-clinical-knowledge-index.mjs`
+- added package script:
+  - `npm run sharepoint:clinical-index`
+- added design/runbook:
+  - `docs/design/clinical-knowledge-bridge-plan.md`
+- added SharePoint-native preview page:
+  - `SLP-Knowledge-Source-Index.aspx`
+- added Quick Launch preview entry:
+  - `SLP Knowledge Index`
+
+Index command:
+
+```bat
+node scripts/build-clinical-knowledge-index.mjs --sharepoint
+```
+
+Index outputs:
+
+```text
+output/sharepoint-native-bridge/clinical-knowledge-index-preview.json
+output/sharepoint-native-bridge/clinical-knowledge-index-preview.md
+```
+
+Latest index summary:
+
+- 359 total indexed records
+- 177 local knowledge-base files
+- 182 SharePoint source-library metadata records
+- 24 candidate SLP/cross-discipline local records
+- 151 adjacent PT/OT rehab records requiring review before SLP promotion
+- 182 SharePoint source-library records marked metadata-only until file review
+- 2 local records held for manual review because the pattern scan found `medical record`
+
+Safety boundary:
+
+- patient/session/goal/review SharePoint lists are intentionally skipped
+- no patient tracker was added
+- no patient-specific documentation workflow was added
+- no SharePoint list data was created, edited, or deleted in this pass
+
+Bridge preview generation result:
+
+```text
+Dry run complete. Wrote 22 page previews to output/sharepoint-native-bridge
+```
+
+Publish result:
+
+- published all 22 SharePoint-native bridge pages
+- created `SLP-Knowledge-Source-Index.aspx`
+- added Quick Launch entry `SLP Knowledge Index`
+- kept homepage set to `SitePages/SLP-Portal.aspx`
+- updated `SLP-Knowledge-Source-Index.aspx` with the latest clinical index counts and candidate/held review lists
+
+Validation result: PASS
+
+- 22 expected pages exist
+- homepage is still `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- every page has guardrails, authoritative links, images, and an SPFx-pending boundary
+- no page contains `<form>`, `<input>`, or `<textarea>`
+- live homepage loaded 22 SharePoint-hosted images with non-zero dimensions
+
+## Source Index List Creation
+
+Date: 2026-04-26
+
+Completed after user approval:
+
+- created/reused SharePoint list:
+  - `SLP_Source_Index`
+- added non-PHI metadata columns:
+  - `Source Key`
+  - `Source URL`
+  - `File Name`
+  - `Source Kind`
+  - `Source Library`
+  - `Clinical Area`
+  - `Discipline`
+  - `Document Type`
+  - `Audience`
+  - `Review Status`
+  - `PHI Reviewed`
+  - `Copilot Readiness`
+  - `Last Indexed`
+  - `Notes`
+- added publisher script:
+  - `scripts/publish-source-index-list.mjs`
+- added package script:
+  - `npm run sharepoint:publish-source-index`
+- updated `SLP-Knowledge-Source-Index.aspx` with a link to the live source index list
+
+Safety boundary:
+
+- metadata only
+- no patient names
+- no MRNs
+- no DOBs
+- no room numbers
+- no session notes
+- no evaluations
+- no treatment records
+- no resident-specific goals
+- no patient/session/goal/review lists were indexed
+
+Verification result: PASS
+
+- list title: `SLP_Source_Index`
+- default view: `/sites/PacificCoast_SLP/Lists/SLP_Source_Index/AllItems.aspx`
+- item count: 359
+- review status counts:
+  - `candidate`: 24
+  - `adjacent-rehab-review`: 151
+  - `source-metadata-only`: 182
+  - `hold`: 2
+- Copilot readiness counts:
+  - `eligible-after-review`: 24
+  - `review-required`: 151
+  - `metadata-only`: 182
+  - `blocked`: 2
+
+Bridge validation after list/page update: PASS
+
+- 22 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked navigation remains absent
+- 22 SharePoint-hosted homepage images loaded
+
+## Pacific Coast Logo Homepage Refresh
+
+Date: 2026-04-26
+
+Completed after user approval:
+
+- uploaded provided logo asset:
+  - `C:/Users/kevin/Desktop/Images/2025 Logo.png`
+  - SharePoint asset: `/sites/PacificCoast_SLP/SiteAssets/SLP-Portal-Migration/pacific-coast-2025-logo.png`
+- redesigned the main homepage hero around the Pacific Coast logo
+- kept proportional logo rendering with:
+  - `width:100%`
+  - `max-width:440px`
+  - `height:auto`
+- retained the clinical operations framing, non-PHI badges, and launch actions
+- republished all bridge pages so navigation and shared content remain synchronized
+
+Validation result: PASS
+
+- 22 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked navigation remains absent
+- 22 homepage images loaded
+- logo natural dimensions: 500 x 500
+- logo rendered dimensions: 440 x 440
+- logo aspect ratio delta: 0
+
+## Expanded Safe Module Migration Pass
+
+Date: 2026-04-26
+
+Completed:
+
+- added seven additional SharePoint-native bridge pages:
+  - `SLP-Clinical-Calculators.aspx`
+  - `SLP-Clinical-Exams.aspx`
+  - `SLP-Meds-Labs-Imaging.aspx`
+  - `SLP-Outcome-Measures.aspx`
+  - `SLP-Handout-Reference.aspx`
+  - `SLP-AAC-Boards.aspx`
+  - `SLP-Quality-Evidence.aspx`
+- mapped additional local modules:
+  - `src/components/ClinicalCalculators.tsx`
+  - `src/components/ClinicalExams.tsx`
+  - `src/components/ClinicalMeds.tsx`
+  - `src/components/HandoutMaker.tsx`
+  - `src/components/AACBoardCreator.tsx`
+  - `src/shared/data/outcome-measures-library.ts`
+  - `src/shared/data/clinical-evidence-registry.ts`
+  - `src/shared/data/quality-measures-framework.ts`
+- added Quick Launch entries:
+  - `SLP Calculators`
+  - `SLP Clinical Exams`
+  - `SLP Meds/Labs`
+  - `SLP Outcomes`
+
+Migration boundaries:
+
+- interactive calculators remain SPFx pending
+- AI interpretation remains SPFx pending
+- patient-specific scores, meds, labs, imaging, vitals, handouts, AAC boards, outcomes, and quality data are not stored in SharePoint-native pages
+- all added pages are static/read-only reference pages
+- no forms, inputs, textareas, patient tracker, resident lists, or patient-specific workflow storage were added
+
+Validation result: PASS
+
+- 29 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 29 homepage images loaded
+- all added pages have guardrails, authoritative links, images, and SPFx-pending boundaries
+
+## Final Current Safe Migration Sweep and Logo Scale Reduction
+
+Date: 2026-04-26
+
+Completed:
+
+- added five additional SharePoint-native bridge pages:
+  - `SLP-Clinical-Reference.aspx`
+  - `SLP-Medicare-Audit-Candidacy.aspx`
+  - `SLP-Trajectory-Analytics.aspx`
+  - `SLP-Clinical-Safety.aspx`
+  - `SLP-Life-Wellness.aspx`
+- mapped additional local modules:
+  - `src/components/ClinicalReference.tsx`
+  - `src/components/MedicareDocChecker.tsx`
+  - `src/components/MedicareHelper.tsx`
+  - `src/components/medicare/MedicarePartBTracker.tsx`
+  - `src/components/analytics/ClinicalTrajectoryPredictor.tsx`
+  - `src/components/ClinicalSafetyStatusBar.tsx`
+  - `src/components/SLPLife.tsx`
+- added Quick Launch entries:
+  - `SLP Clinical Reference`
+  - `SLP Medicare Audit`
+  - `SLP Clinical Safety`
+- reduced the homepage Pacific Coast logo by 30%:
+  - previous max width: 440px
+  - new max width: 308px
+
+Migration boundaries:
+
+- differential diagnosis input remains SPFx pending
+- treatment-plan generation remains SPFx pending
+- Medicare document upload/audit remains SPFx pending
+- Part B tracker form entry remains SPFx pending
+- trajectory score entry and trend analytics remain SPFx pending
+- live clinical safety telemetry remains SPFx pending
+- clinician wellness checklists remain SPFx pending
+- no patient-specific clinical data or staff wellness data was stored
+
+Validation result: PASS
+
+- 34 expected pages exist
+- homepage remains `SitePages/SLP-Portal.aspx`
+- blocked/sample/PHI-era navigation remains absent
+- all 34 homepage images loaded
+- logo natural dimensions: 500 x 500
+- logo rendered dimensions: 308 x 308
+- logo aspect ratio delta: 0

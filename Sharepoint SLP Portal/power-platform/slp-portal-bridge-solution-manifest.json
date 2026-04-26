@@ -1,0 +1,76 @@
+{
+  "solution": {
+    "displayName": "Pacific Coast SLP Portal Bridge",
+    "uniqueName": "pacificcoast_slp_portal_bridge",
+    "publisher": {
+      "displayName": "Pacific Coast SLP",
+      "uniqueName": "pacificcoastslp",
+      "prefix": "pcslp"
+    },
+    "targetSite": "https://ensignservices.sharepoint.com/sites/PacificCoast_SLP",
+    "dataBoundary": "Non-PHI only. No patient tracker, no patient notes, no resident lists, no durable patient-specific goal/session/review data.",
+    "components": [
+      {
+        "type": "canvasApp",
+        "name": "SLP Portal Companion",
+        "purpose": "Launch SharePoint SLP bridge pages, browse non-PHI references, and expose read-only local module content.",
+        "initialScreens": [
+          "Home",
+          "Source PDFs",
+          "Quick Reference",
+          "Coding Reference",
+          "Clinical Pathways",
+          "IDDSI",
+          "Instrumentals",
+          "Trach Vent",
+          "Anatomy Neuro"
+        ],
+        "blockedCapabilities": [
+          "patient entry",
+          "session note entry",
+          "goal drafting with identifiers",
+          "review queue",
+          "PHI persistence"
+        ]
+      },
+      {
+        "type": "cloudFlow",
+        "name": "SLP Portal Health Check",
+        "purpose": "Validate expected SharePoint pages, libraries, homepage, and navigation without reading patient content.",
+        "connectors": [
+          "SharePoint"
+        ],
+        "writesData": false
+      },
+      {
+        "type": "cloudFlow",
+        "name": "SLP Source PDF Index Refresh",
+        "purpose": "Build or refresh non-PHI metadata for source PDFs.",
+        "connectors": [
+          "SharePoint"
+        ],
+        "writesData": "metadata-only"
+      },
+      {
+        "type": "copilotStudioAgent",
+        "name": "SLP Portal Reference Assistant",
+        "purpose": "Answer reference questions grounded in non-PHI SharePoint pages and source PDFs.",
+        "blockedCapabilities": [
+          "patient note drafting",
+          "patient triage",
+          "clinical decision automation",
+          "PHI export"
+        ]
+      }
+    ],
+    "requiredValidation": [
+      "scripts/check-sharepoint-auth.mjs",
+      "scripts/validate-sharepoint-native-bridge.mjs",
+      "PAC auth and environment check",
+      "Solution checker",
+      "Power Apps app checker",
+      "Power Automate flow checker",
+      "DLP policy review"
+    ]
+  }
+}

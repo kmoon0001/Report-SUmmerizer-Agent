@@ -14,6 +14,28 @@ const apply = process.argv.includes('--apply');
 const skipHome = process.argv.includes('--skip-home');
 const skipNav = process.argv.includes('--skip-nav');
 
+async function loadClinicalKnowledgeIndexPreview() {
+  try {
+    const json = JSON.parse(await readFile(path.join(OUT_DIR, 'clinical-knowledge-index-preview.json'), 'utf8'));
+    const candidateItems = (json.index || [])
+      .filter((item) => item.reviewStatus === 'candidate')
+      .slice(0, 8)
+      .map((item) => `${item.title} (${item.clinicalArea})`);
+    const holdItems = (json.index || [])
+      .filter((item) => item.reviewStatus === 'hold')
+      .map((item) => `${item.title} (${item.sourcePath || item.fileName || 'source item'})`);
+    return { summary: json.summary || {}, candidateItems, holdItems };
+  } catch {
+    return {
+      summary: {},
+      candidateItems: [],
+      holdItems: []
+    };
+  }
+}
+
+const clinicalKnowledgeIndexPreview = await loadClinicalKnowledgeIndexPreview();
+
 const sourceLinks = {
   ashaPortal: 'https://www.asha.org/practice-portal/',
   ashaAac: 'https://www.asha.org/Practice-Portal/Professional-Issues/Augmentative-and-Alternative-Communication/',
@@ -24,6 +46,7 @@ const sourceLinks = {
 };
 
 const imageAssets = [
+  { key: 'pacific-coast-logo', source: 'C:/Users/kevin/Desktop/Images/2025 Logo.png', fileName: 'pacific-coast-2025-logo.png' },
   { key: 'background', source: 'public/slp portal background.jpg', fileName: 'slp-portal-background.jpg' },
   { key: 'dysphagia', source: 'public/assets/clinical/dysphagia.png', fileName: 'dysphagia.png' },
   { key: 'aphasia', source: 'public/assets/clinical/aphasia.png', fileName: 'aphasia.png' },
@@ -51,7 +74,7 @@ const pages = [
   {
     fileName: 'SLP-Portal.aspx',
     title: 'Pacific Coast SLP Portal',
-    imageKey: 'brain',
+    imageKey: 'pacific-coast-logo',
     summary: 'PHI-minimized SharePoint launch page for the SLP portal while the SPFx package awaits App Catalog deployment.',
     sections: [
       {
@@ -513,6 +536,378 @@ const pages = [
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Clinical-Calculators.aspx',
+    title: 'SLP Clinical Calculators',
+    imageKey: 'cognitive',
+    summary: 'Read-only bridge page for local calculator coverage, scoring references, and SPFx-pending interactive scoring workflows.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalCalculators.tsx and src/utils/clinical-calculators.ts.',
+          'Local calculator coverage includes MoCA, GDS, WAB-R, respiratory-swallow phase timing, MASA, EAT-10, GUSS, FLCI, AIDS, and FDA-2 style scoring references.',
+          'This SharePoint page documents calculator availability and safe use; interactive scoring remains SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Do not enter patient scores, identifiers, dates of service, or assessment results on this SharePoint page.',
+          'Use official test materials, licensing requirements, and approved clinical systems for scored assessments.',
+          'Use calculated results as clinician-support information, not a substitute for clinical judgment or payer documentation requirements.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
+  },
+  {
+    fileName: 'SLP-Clinical-Exams.aspx',
+    title: 'SLP Clinical Exams and Cranial Nerves',
+    imageKey: 'aac',
+    summary: 'Read-only bridge page for cranial nerve exam orientation, oral mechanism observations, and dysphagia/communication exam references.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalExams.tsx.',
+          'Local reference coverage includes CN V, CN VII, CN IX/X, CN XI, and CN XII exam prompts with procedure, normal findings, abnormal findings, and clinical significance.',
+          'AI interpretation and patient-view exam workflows remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Clinical orientation',
+        bullets: [
+          'Use cranial nerve findings to support dysphagia, motor speech, resonance, voice, and oral mechanism reasoning.',
+          'Document patient-specific exam results only in approved clinical documentation systems.',
+          'Use facility policy and clinician judgment for referrals, instrumental recommendations, and medical escalation.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Meds-Labs-Imaging.aspx',
+    title: 'SLP Meds, Labs, Imaging, and Vitals',
+    imageKey: 'chest-xray',
+    summary: 'Read-only bridge page for medication impact, lab/vital context, imaging references, and clinical escalation orientation.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalMeds.tsx and src/utils/clinical-data.ts.',
+          'Local reference tabs include meds and impact, labs and values, imaging, and vitals.',
+          'Searchable clinical data and patient-context display remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Clinical safety boundary',
+        bullets: [
+          'This page does not store medication lists, lab values, imaging reports, vitals, or resident identifiers.',
+          'Use EHR/source medical records for live patient data and prescribing/medical decisions.',
+          'Escalate abnormal medical findings through facility policy and licensed provider pathways.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-Outcome-Measures.aspx',
+    title: 'SLP Outcome Measures',
+    imageKey: 'documentation',
+    summary: 'Read-only bridge page for outcome-measure orientation, interpretation boundaries, and crosswalk to clinical calculators.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from shared outcome-measure libraries and SLP outcome-measure knowledge files.',
+          'Relevant local content includes adult neuro, pediatric, voice/swallowing, cognition, functional communication, and cross-discipline rehab measures.',
+          'Outcome score entry, trend visualization, and patient trajectories remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Use boundary',
+        bullets: [
+          'Use this page to orient clinicians to measures and where they fit in care planning.',
+          'Do not store patient scores or progress trends in SharePoint-native bridge pages.',
+          'When using a standardized tool, follow tool instructions, licensing, normative guidance, and facility documentation policy.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
+  },
+  {
+    fileName: 'SLP-Handout-Reference.aspx',
+    title: 'SLP Handout Reference',
+    imageKey: 'documentation',
+    summary: 'Read-only bridge page for handout categories, source requirements, and the session-only/sanitized handout boundary.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/HandoutMaker.tsx and src/utils/handout-data.ts.',
+          'Local handout flow includes handout type, subspecialty, language, source support, image support, print, and PDF generation.',
+          'AI generation, patient-specific details, printing, and download workflows remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'PHI-minimized handout rule',
+        bullets: [
+          'Sensitive input is session-only in the production path.',
+          'Saved handout libraries may persist only non-PHI or sanitized handouts.',
+          'Do not upload individualized handouts containing patient identifiers into shared SharePoint source libraries.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-AAC-Boards.aspx',
+    title: 'SLP AAC Boards Reference',
+    imageKey: 'aac',
+    summary: 'Read-only bridge page for AAC board categories, partner-training concepts, and SPFx-pending printable board creation.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/AACBoardCreator.tsx and src/components/AACModule.tsx.',
+          'Local presets include basics, food and drink, feelings, activities, and pain/medical categories.',
+          'Custom board editing, image selection, printing, downloading, and AI-generated board suggestions remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Generic AAC supports are appropriate for shared reference and training.',
+          'Patient-specific board customization belongs in approved clinical workflows until SPFx session-only handling is active.',
+          'Do not store resident-specific communication needs, photos, or identifiers in SharePoint-native pages.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaAac, sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Quality-Evidence.aspx',
+    title: 'SLP Quality and Evidence Registry',
+    imageKey: 'brain',
+    summary: 'Read-only bridge page for evidence levels, quality-measure orientation, and review workflow for clinical reference sources.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/shared/data/clinical-evidence-registry.ts and src/shared/data/quality-measures-framework.ts.',
+          'Local evidence records include topic, evidence level, citation, key findings, recommendations, precautions, and applicability.',
+          'Local quality records include measure type, numerator, denominator, data source, benchmark framing, and reporting frequency.'
+        ]
+      },
+      {
+        heading: 'Governance boundary',
+        bullets: [
+          'Use the SLP_Source_Index list to track review status and Copilot readiness before promoting source material.',
+          'Do not represent unreviewed local entries as final clinical policy.',
+          'Patient outcomes and quality reporting data are not stored in this SharePoint-native bridge.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
+  },
+  {
+    fileName: 'SLP-Clinical-Reference.aspx',
+    title: 'SLP Clinical Reference and Differential Support',
+    imageKey: 'brain',
+    summary: 'Read-only bridge page for norms, pediatric norms, differential diagnosis orientation, and treatment-plan support boundaries.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalReference.tsx.',
+          'Local tabs include norms, pediatric norms, differential diagnosis support, and treatment-plan support.',
+          'Symptom entry, assessment-data entry, AI-generated differential diagnosis, and AI-generated treatment plans remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Do not enter patient symptoms, assessment findings, diagnosis, or treatment-plan details on this SharePoint-native page.',
+          'Use this page as an orientation point for reviewed reference material and future SPFx workflow mapping.',
+          'Differential diagnosis and treatment planning must remain clinician-led and documented in approved systems.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual, sourceLinks.cmsBilling]
+  },
+  {
+    fileName: 'SLP-Medicare-Audit-Candidacy.aspx',
+    title: 'SLP Medicare Audit and Candidacy Boundary',
+    imageKey: 'medicare',
+    summary: 'Read-only bridge page for Medicare audit, candidacy, Section K, and Part B tracker workflow boundaries.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/MedicareDocChecker.tsx, src/components/MedicareHelper.tsx, and src/components/medicare/MedicarePartBTracker.tsx.',
+          'Local workflows include document audit, candidacy review, Section K support, CPT/ICD-10 references, crosswalks, and Part B tracker concepts.',
+          'PDF upload, history text entry, tracker form fields, AI analysis, and patient-specific compliance review remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Compliance boundary',
+        bullets: [
+          'Do not upload patient documents, paste clinical histories, or enter resident-specific Medicare data into SharePoint-native bridge pages.',
+          'Use CMS and Medicare references for coverage and documentation framing.',
+          'Use approved clinical documentation and billing review systems for resident-specific audit activity.'
+        ]
+      }
+    ],
+    links: [sourceLinks.medicareSlp, sourceLinks.cmsBilling, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Trajectory-Analytics.aspx',
+    title: 'SLP Trajectory Analytics Boundary',
+    imageKey: 'cognitive',
+    summary: 'Read-only bridge page for clinical trajectory concepts, scoring trend boundaries, and SPFx-pending analytics workflows.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/analytics/ClinicalTrajectoryPredictor.tsx.',
+          'Local trajectory concepts include MoCA, WAB-R, FIM Cognitive, custom scales, linear trend views, MDC/SEM framing, and AI extraction from notes.',
+          'Score entry, date tracking, charting, note extraction, and predictive analytics remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safety boundary',
+        bullets: [
+          'Do not store patient scores, assessment dates, note excerpts, or progress trajectories on SharePoint-native pages.',
+          'Use this page only to document the future analytics workflow and the interpretation cautions.',
+          'Any production analytics must use the PHI-minimized/session-boundary design and approved clinical systems.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Clinical-Safety.aspx',
+    title: 'SLP Clinical Safety and Safe Mode',
+    imageKey: 'brain',
+    summary: 'Read-only bridge page for clinical safety status, safe-mode concepts, and PHI-minimized system behavior.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/ClinicalSafetyStatusBar.tsx and src/context/ClinicalSafetyContext.tsx.',
+          'Local status concepts include clinical safety alerts, HIPAA safe mode, online/local-model status, storage usage, and warning/critical issue display.',
+          'Live telemetry, local model status, and safety issue detection remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safety model',
+        bullets: [
+          'Every SharePoint-native page remains non-PHI and read-only.',
+          'Sensitive input belongs in session-only workflows when unavoidable.',
+          'Durable storage is limited to sanitized or non-PHI reference metadata and reviewed source content.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Life-Wellness.aspx',
+    title: 'SLP Life and Clinician Wellness',
+    imageKey: 'voice',
+    summary: 'Read-only bridge page for clinician wellness, professional support resources, and burnout-prevention orientation.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/components/SLPLife.tsx.',
+          'Local resources include ASHA self-care, ergonomics, stress management, burnout prevention, and support-network orientation.',
+          'Interactive checklist state and modals remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Use boundary',
+        bullets: [
+          'Use this page for clinician wellness orientation and professional resource links.',
+          'Do not record staff health details, performance data, or identifiable wellness notes in this bridge page.',
+          'Use official HR, employee assistance, or training systems for tracked wellness or compliance programs.'
+        ]
+      }
+    ],
+    links: ['https://www.asha.org/practice/self-care/', 'https://www.asha.org/practice/ergonomics/', sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Knowledge-Source-Index.aspx',
+    title: 'SLP Knowledge Source Index',
+    imageKey: 'brain',
+    summary: 'Controlled index and promotion path for local SLP knowledge files, SharePoint source libraries, and Copilot-ready reference material.',
+    sections: [
+      {
+        heading: 'What this page fills in',
+        bullets: [
+          'Bridges the local knowledge-base directory and SharePoint source libraries into one non-PHI review workflow.',
+          'Separates SLP-ready source candidates from adjacent PT/OT rehab material and metadata-only SharePoint source files.',
+          'Prepares clinical reference content for SharePoint pages, document-library views, Power Automate indexing, and Copilot Studio grounding.'
+        ]
+      },
+      {
+        heading: 'Knowledge source pipeline',
+        bullets: [
+          'Index local SLP knowledge files and SharePoint source-library metadata.',
+          'Classify each item by clinical area, document type, discipline, audience, and review status.',
+          'Promote only non-PHI, reviewed SLP reference content into pages or Copilot knowledge sources.',
+          'Keep source PDFs and documents in controlled SharePoint libraries with version history and clear ownership.'
+        ]
+      },
+      {
+        heading: 'Latest index snapshot',
+        bullets: [
+          `Total indexed records: ${clinicalKnowledgeIndexPreview.summary.total || 'run the clinical index to populate'}.`,
+          `Local knowledge-base records: ${clinicalKnowledgeIndexPreview.summary.bySourceKind?.['local-file'] || 0}.`,
+          `SharePoint source-library metadata records: ${clinicalKnowledgeIndexPreview.summary.bySourceKind?.['sharepoint-library-item'] || 0}.`,
+          `Candidate SLP/cross-discipline records: ${clinicalKnowledgeIndexPreview.summary.byReviewStatus?.candidate || 0}.`,
+          `Adjacent PT/OT rehab records requiring review: ${clinicalKnowledgeIndexPreview.summary.byReviewStatus?.['adjacent-rehab-review'] || 0}.`,
+          `Metadata-only SharePoint source records requiring file review: ${clinicalKnowledgeIndexPreview.summary.byReviewStatus?.['source-metadata-only'] || 0}.`,
+          `Hold/manual-review records: ${clinicalKnowledgeIndexPreview.summary.byReviewStatus?.hold || 0}.`
+        ]
+      },
+      {
+        heading: 'Reviewable SharePoint list',
+        bullets: [
+          'The SLP_Source_Index list stores non-PHI source metadata only.',
+          'Use it to filter by clinical area, discipline, document type, review status, and Copilot readiness.',
+          'The list does not store patient names, MRNs, DOBs, room numbers, session notes, evaluations, treatment records, or resident-specific goals.'
+        ]
+      },
+      {
+        heading: 'Candidate SLP records to review first',
+        bullets: clinicalKnowledgeIndexPreview.candidateItems.length
+          ? clinicalKnowledgeIndexPreview.candidateItems
+          : ['Run node scripts/build-clinical-knowledge-index.mjs --sharepoint to populate candidate records.']
+      },
+      {
+        heading: 'Held records',
+        bullets: clinicalKnowledgeIndexPreview.holdItems.length
+          ? clinicalKnowledgeIndexPreview.holdItems
+          : ['No held records were present in the latest local preview.']
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Do not index patient/session/goal/review lists as clinical knowledge.',
+          'Do not use patient identifiers, room numbers, MRNs, DOBs, or resident-specific examples in knowledge items.',
+          'Copilot Studio knowledge should be grounded only on reviewed SharePoint pages, reviewed source files, and approved public/enterprise references.'
+        ]
+      }
+    ],
+    links: [
+      'https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-add-sharepoint',
+      'https://learn.microsoft.com/en-us/sharepoint/information-architecture-principles',
+      '/sites/PacificCoast_SLP/Lists/SLP_Source_Index/AllItems.aspx',
+      sourceLinks.ashaPortal,
+      sourceLinks.cmsManual
+    ]
   }
 ];
 
@@ -528,7 +923,15 @@ const navLinks = [
   { title: 'SLP Quick Reference', fileName: 'SLP-Quick-Reference.aspx' },
   { title: 'SLP Coding', fileName: 'SLP-Coding-Reference.aspx' },
   { title: 'SLP Pathways', fileName: 'SLP-Clinical-Pathways.aspx' },
-  { title: 'Ensign SLP Corner', fileName: 'SLP-Ensign-Corner.aspx' }
+  { title: 'Ensign SLP Corner', fileName: 'SLP-Ensign-Corner.aspx' },
+  { title: 'SLP Calculators', fileName: 'SLP-Clinical-Calculators.aspx' },
+  { title: 'SLP Clinical Exams', fileName: 'SLP-Clinical-Exams.aspx' },
+  { title: 'SLP Meds/Labs', fileName: 'SLP-Meds-Labs-Imaging.aspx' },
+  { title: 'SLP Outcomes', fileName: 'SLP-Outcome-Measures.aspx' },
+  { title: 'SLP Clinical Reference', fileName: 'SLP-Clinical-Reference.aspx' },
+  { title: 'SLP Medicare Audit', fileName: 'SLP-Medicare-Audit-Candidacy.aspx' },
+  { title: 'SLP Clinical Safety', fileName: 'SLP-Clinical-Safety.aspx' },
+  { title: 'SLP Knowledge Index', fileName: 'SLP-Knowledge-Source-Index.aspx' }
 ];
 
 const navigationCleanupTitles = [
@@ -624,8 +1027,22 @@ function renderPageHtml(page) {
   `).join('');
 
   const links = page.links.map((href) => `<li><a href="${htmlEscape(href)}">${htmlEscape(href)}</a></li>`).join('');
-
-  return `
+  const hero = isHome ? `
+    <div style="border:1px solid #d0d7de;border-radius:8px;overflow:hidden;background:#ffffff;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.10);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:center;padding:24px 26px;background:#ffffff;">
+        <div style="text-align:center;">
+          <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:308px;height:auto;display:inline-block;" />
+        </div>
+        <div>
+          <p style="margin:0 0 8px 0;color:#0f6cbd;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;">SharePoint clinical reference portal</p>
+          <h1 style="margin:0 0 10px 0;font-size:34px;line-height:1.15;color:#111827;">Pacific Coast SLP Portal</h1>
+          <p style="margin:0 0 14px 0;font-size:16px;line-height:1.55;color:#374151;">PHI-minimized launch point for SLP clinical references, source documents, Medicare guidance, and reviewed knowledge workflows.</p>
+          <p style="margin:0;">${primaryLinks}</p>
+          <p style="margin:12px 0 0 0;"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#eef6ff;color:#0f4761;font-weight:700;">SharePoint-native bridge</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#f0f8f0;color:#0b6a0b;font-weight:700;">Non-PHI</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#fff4ce;color:#5c3b00;font-weight:700;">SPFx production pending</span></p>
+        </div>
+      </div>
+    </div>
+  ` : `
     <div style="border:1px solid #d0d7de;border-radius:8px;overflow:hidden;background:#ffffff;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.10);">
       <div style="background:#f6f8fa;text-align:center;padding:18px;">
         <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(page.title)} hero image" style="width:100%;max-width:520px;height:auto;display:inline-block;" />
@@ -636,6 +1053,10 @@ function renderPageHtml(page) {
     <p style="margin:12px 0 0 0;"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#eef6ff;color:#0f4761;font-weight:700;">SharePoint-native bridge</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#f0f8f0;color:#0b6a0b;font-weight:700;">Non-PHI</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#fff4ce;color:#5c3b00;font-weight:700;">SPFx production pending</span></p>
       </div>
     </div>
+  `;
+
+  return `
+    ${hero}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 18px 0;">
       <div style="border:1px solid #d0d7de;border-radius:8px;padding:14px;background:#ffffff;"><strong>Production path</strong><br />PHI-minimized SPFx full-page portal package.</div>
       <div style="border:1px solid #d0d7de;border-radius:8px;padding:14px;background:#ffffff;"><strong>Bridge purpose</strong><br />SharePoint-native reference and navigation while App Catalog deployment is pending.</div>
@@ -859,7 +1280,8 @@ async function applyToSharePoint() {
 async function uploadImageAssets(browserPage, digest) {
   const assets = [];
   for (const asset of imageAssets) {
-    const buffer = await readFile(path.join(ROOT, asset.source));
+    const sourcePath = path.isAbsolute(asset.source) ? asset.source : path.join(ROOT, asset.source);
+    const buffer = await readFile(sourcePath);
     assets.push({
       ...asset,
       bytes: Array.from(buffer)

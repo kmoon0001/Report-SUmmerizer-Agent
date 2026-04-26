@@ -3284,26 +3284,41 @@ function renderPortalMapGroups() {
         </div>
         <div style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f8fafc;color:#475569;font-size:11px;font-weight:800;text-transform:uppercase;">${group.items.length} pages</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
-        ${group.items.map((item) => {
-          const itemImage = imageUrlByKey[item.imageKey] || imageUrlByKey.background;
-          return `
-            <a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}" style="display:block;border:1px solid #dbe5ee;border-radius:24px;overflow:hidden;background:#ffffff;text-decoration:none;box-shadow:0 18px 36px rgba(15,23,42,0.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;">
-              <div style="background:radial-gradient(circle at top left,rgba(14,165,233,0.14),transparent 34%),linear-gradient(180deg,#f8fbfd 0%,#f1f5f9 100%);text-align:center;padding:18px 16px 12px 16px;">
-                <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;max-width:250px;height:auto;display:inline-block;" />
-              </div>
-              <div style="padding:18px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px 0;">
-                  <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;">${htmlEscape(group.badge)}</span>
-                  <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;">Open page</span>
+      ${group.key === 'clinical' ? `
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+          ${group.items.map((item) => {
+            const itemImage = imageUrlByKey[item.imageKey] || imageUrlByKey.background;
+            return `
+              <a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}" style="display:block;border:1px solid #dbe5ee;border-radius:24px;overflow:hidden;background:#ffffff;text-decoration:none;box-shadow:0 18px 36px rgba(15,23,42,0.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;">
+                <div style="background:radial-gradient(circle at top left,rgba(14,165,233,0.14),transparent 34%),linear-gradient(180deg,#f8fbfd 0%,#f1f5f9 100%);text-align:center;padding:18px 16px 12px 16px;">
+                  <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;max-width:250px;height:auto;display:inline-block;" />
                 </div>
-                <h3 style="margin:0 0 8px 0;font-size:19px;line-height:1.3;color:#0f172a;">${htmlEscape(item.title)}</h3>
-                <p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">${htmlEscape(item.summary)}</p>
+                <div style="padding:18px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px 0;">
+                    <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;">${htmlEscape(group.badge)}</span>
+                    <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:800;text-transform:uppercase;">Core module</span>
+                  </div>
+                  <h3 style="margin:0 0 8px 0;font-size:19px;line-height:1.3;color:#0f172a;">${htmlEscape(item.title)}</h3>
+                  <p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">${htmlEscape(item.summary)}</p>
+                </div>
+              </a>
+            `;
+          }).join('')}
+        </div>
+      ` : `
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+          ${group.items.map((item) => `
+            <a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}" style="display:block;border:1px solid #dbe5ee;border-radius:20px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 12px 24px rgba(15,23,42,0.05);border-top:4px solid ${group.key === 'workflow' ? '#0f6cbd' : group.key === 'knowledge' ? '#0891b2' : '#155e75'};">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px 0;">
+                <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:${group.key === 'workflow' ? '#eff6ff;color:#1d4ed8' : group.key === 'knowledge' ? '#ecfeff;color:#155e75' : '#f0fdf4;color:#166534'};font-size:10px;font-weight:800;text-transform:uppercase;">${htmlEscape(group.badge)}</span>
+                <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#f8fafc;color:#475569;font-size:10px;font-weight:800;text-transform:uppercase;">Open page</span>
               </div>
+              <h3 style="margin:0 0 8px 0;font-size:17px;line-height:1.35;color:#0f172a;">${htmlEscape(item.title)}</h3>
+              <p style="margin:0;color:#64748b;font-size:13px;line-height:1.65;">${htmlEscape(item.summary)}</p>
             </a>
-          `;
-        }).join('')}
-      </div>
+          `).join('')}
+        </div>
+      `}
     </section>
   `).join('');
 }
@@ -3793,25 +3808,25 @@ function renderPageHtml(page) {
   const sectionCards = renderSectionCards(page.sections);
   const featureCards = renderFeatureCards(page.featureCards);
   const templateGroups = renderTemplateGroups(page.templateGroups);
-  const relatedCards = renderRelatedPageCards(page.fileName, isHome);
+  const relatedCards = isHome ? '' : renderRelatedPageCards(page.fileName, isHome);
   const referenceCards = renderReferenceCards(page.links);
   const hero = isHome ? `
     <section style="border:1px solid #dbe5ee;border-radius:32px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 42%,#eef6ff 100%);margin:0 0 24px 0;box-shadow:0 28px 54px rgba(15,23,42,0.08);">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;align-items:center;padding:30px 32px;">
-        <div style="text-align:center;">
-          <div style="display:inline-flex;align-items:center;justify-content:center;width:min(100%,360px);padding:14px;border-radius:28px;background:#ffffff;box-shadow:0 22px 44px rgba(15,23,42,0.08);">
-            <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:210px;height:auto;display:inline-block;" />
-          </div>
-        </div>
+      <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,420px);gap:28px;align-items:center;padding:28px 32px;">
         <div>
           <p style="margin:0 0 10px 0;color:#0369a1;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;">SharePoint clinical reference portal</p>
           <h1 style="margin:0 0 12px 0;font-size:40px;line-height:1.08;color:#0f172a;">Pacific Coast SLP Portal</h1>
-          <p style="margin:0 0 16px 0;font-size:16px;line-height:1.75;color:#475569;max-width:680px;">Minimalist, dense launch point for SLP clinical references, Medicare guidance, reviewed source libraries, and non-PHI workflow scaffolds while the full SPFx experience remains on the production track. The layout is intentionally task-first so clinicians can scan, decide, and move without hunting.</p>
+          <p style="margin:0 0 16px 0;font-size:16px;line-height:1.75;color:#475569;max-width:760px;">Minimalist, dense launch point for SLP clinical references, Medicare guidance, reviewed source libraries, and non-PHI workflow scaffolds while the full SPFx experience remains on the production track. The layout is intentionally task-first so clinicians can scan, decide, and move without hunting.</p>
           <div style="margin:0 0 14px 0;">${renderActionPills(homeActions)}</div>
           <div>
             <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
             <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
             <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SPFx production pending</span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;">
+          <div style="display:inline-flex;align-items:center;justify-content:center;width:min(100%,340px);padding:18px 20px;border-radius:28px;background:#ffffff;box-shadow:0 22px 44px rgba(15,23,42,0.08);">
+            <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:210px;height:auto;display:inline-block;" />
           </div>
         </div>
       </div>

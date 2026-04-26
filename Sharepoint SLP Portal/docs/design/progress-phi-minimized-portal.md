@@ -84,6 +84,13 @@ Current live redesign result:
 - `0` failed strict validator checks
 - `0` visual QA failures in the sampled desktop/mobile pass
 
+Refined live homepage result after the second polish pass:
+
+- reduced homepage image count from `46` to `16`
+- removed redundant homepage-wide related-page duplication
+- kept image-led presentation for core clinical modules
+- shifted workflow, knowledge, and governance groups toward denser corporate tile patterns
+
 Generalized workflow expansion now live:
 - `SLP-Note-Template-Studio.aspx`
 - `SLP-Goal-and-Intervention-Studio.aspx`

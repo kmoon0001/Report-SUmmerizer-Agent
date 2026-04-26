@@ -86,6 +86,30 @@ Result:
 - `0` failed page checks
 - `0` visual QA failures across sampled desktop/mobile pages
 
+## Second polish pass
+
+After the first redesign landed, the homepage still read too much like a migration inventory and not enough like a deliberate corporate portal.
+
+Second-pass changes:
+
+- shortened the homepage by removing the duplicated homepage-wide related-pages catalog
+- rebalanced the homepage hero toward copy-first corporate presentation
+- kept image-led cards for core clinical modules only
+- converted workflow, knowledge, and governance groups to denser enterprise-style text tiles
+- reduced homepage visual noise and image count while preserving access to the same safe destinations
+
+Second-pass validation:
+
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Second-pass outcome:
+
+- homepage live image count reduced from `46` to `16`
+- live homepage remains within the non-PHI bridge boundary
+- desktop/mobile visual QA still passed with `0` failures
+
 ## Durable Outcome
 
 The redesigned SharePoint-native bridge is now live. The visible SharePoint page canvas uses a compact polished shell for SharePoint compatibility, while the richer generated HTML remains stored in the page record. The production path is still the PHI-minimized SPFx shell once App Catalog deployment is available.

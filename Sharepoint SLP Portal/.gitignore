@@ -6,3 +6,33 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local auth/session state. Never commit browser cookies or tenant sessions.
+.sharepoint-auth-state.json
+storage-state.json
+*.auth-state.json
+
+# Local automation output and test artifacts.
+output/
+playwright-report/
+test-results/
+.playwright/
+
+# SharePoint/SPFx generated packages and intermediate output.
+*.sppkg
+sharepoint/solution/*.sppkg
+spfx-shell/sharepoint/solution/*.sppkg
+spfx-shell/lib/
+spfx-shell/lib-commonjs/
+spfx-shell/temp/
+spfx-shell/dist/
+
+# Dependency/runtime caches.
+.cache/
+.vite/
+.turbo/
+
+# Python local runtime artifacts.
+.venv/
+__pycache__/
+*.pyc

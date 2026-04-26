@@ -14,6 +14,31 @@ const apply = process.argv.includes('--apply');
 const skipHome = process.argv.includes('--skip-home');
 const skipNav = process.argv.includes('--skip-nav');
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isTransientSharePointError(error) {
+  const message = String(error?.message || error);
+  return /\b(429|500|502|503|504)\b|Cannot complete this action|throttl/i.test(message);
+}
+
+async function withSharePointRetry(label, fn, { attempts = 4, baseDelayMs = 1500 } = {}) {
+  let lastError = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      if (attempt >= attempts || !isTransientSharePointError(error)) {
+        throw error;
+      }
+      await sleep(baseDelayMs * attempt);
+    }
+  }
+  throw new Error(`${label} failed: ${lastError?.message || 'unknown error'}`);
+}
+
 async function loadClinicalKnowledgeIndexPreview() {
   try {
     const json = JSON.parse(await readFile(path.join(OUT_DIR, 'clinical-knowledge-index-preview.json'), 'utf8'));
@@ -149,6 +174,96 @@ const localReferencePanels = {
       { title: 'Memory pattern', detail: 'Use an external aid or spaced retrieval to recall functional information with defined support level.', meta: 'SMART pattern' },
       { title: 'Motor speech pattern', detail: 'Use pacing or intelligibility strategies during structured functional communication tasks.', meta: 'SMART pattern' },
       { title: 'Voice pattern', detail: 'Use vocal hygiene, easy onset, or loudness strategies during structured communication tasks.', meta: 'SMART pattern' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  },
+  'SLP-Clinical-Calculators.aspx': {
+    eyebrow: 'Migrated from local calculator references',
+    title: 'Calculator interpretation snapshot',
+    summary: 'Static reference ranges from the local calculator layer. Use official test materials, licensing requirements, and approved clinical systems for scoring and reporting.',
+    items: [
+      { title: 'MoCA', detail: 'Local ranges classify 26 to 30 as normal, 18 to 25 as mild impairment, 10 to 17 as moderate, and 0 to 9 as severe.', meta: 'Cognition' },
+      { title: 'MASA', detail: 'Local ranges classify 178 to 200 as no abnormality, 168 to 177 as mild dysphagia, 139 to 167 as moderate, and 0 to 138 as severe.', meta: 'Swallowing' },
+      { title: 'EAT-10', detail: 'Local rule flags 0 to 2 as normal and 3 or more as abnormal/risk of dysphagia.', meta: 'Screen' },
+      { title: 'GUSS', detail: 'Local ranges describe slight, moderate, and severe dysphagia below a perfect score of 20.', meta: 'Screen' },
+      { title: 'WAB-R AQ', detail: 'Local ranges map approximately 93.8 and above to normal limits, then mild, moderate, severe, and very severe aphasia bands.', meta: 'Language' },
+      { title: 'AIDS and FDA-2', detail: 'Local module includes intelligibility and dysarthria reference bands for broad interpretation only.', meta: 'Motor speech' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  },
+  'SLP-Clinical-Exams.aspx': {
+    eyebrow: 'Migrated from local ClinicalExams module',
+    title: 'Cranial nerve exam anchors',
+    summary: 'Static orientation panel for bedside exam structure. Complete resident-specific findings only in approved clinical documentation systems.',
+    items: [
+      { title: 'CN V', detail: 'Jaw opening/closure, facial sensation, and masticatory support are part of the local bedside framework.', meta: 'Oral mech' },
+      { title: 'CN VII', detail: 'Facial symmetry, lip seal, and facial movement support speech and swallow observation.', meta: 'Oral mech' },
+      { title: 'CN IX/X', detail: 'Palatal movement, voice quality, resonance, cough, and airway protection questions are central local prompts.', meta: 'Pharyngeal' },
+      { title: 'CN XI', detail: 'Head and neck support can affect posture and functional exam context.', meta: 'Support' },
+      { title: 'CN XII', detail: 'Tongue range, strength, and coordination guide bolus control and articulation reasoning.', meta: 'Lingual' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  'SLP-Meds-Labs-Imaging.aspx': {
+    eyebrow: 'Migrated from local ClinicalMeds references',
+    title: 'Medical context quick scan',
+    summary: 'General awareness prompts from the local medication, lab, imaging, and vitals references. Use the EHR/source record for real values and medication decisions.',
+    items: [
+      { title: 'Medication impact', detail: 'Local examples flag sedation, xerostomia, dizziness, EPS, and reduced alertness as common therapy and swallow risks.', meta: 'Meds' },
+      { title: 'Nutrition and hydration', detail: 'Albumin, prealbumin, BUN, and sodium appear in local reference tables as context for endurance, hydration, and confusion risk.', meta: 'Labs' },
+      { title: 'Infection and bloodwork', detail: 'WBC, hemoglobin, platelets, and glucose are framed locally as readiness and escalation context.', meta: 'Labs' },
+      { title: 'Swallow imaging', detail: 'VFSS/MBSS and FEES remain the local instrumental anchors for physiology and strategy verification.', meta: 'Imaging' },
+      { title: 'Neuro and chest imaging', detail: 'CT, MRI, and chest imaging are local orientation points for lesion location, aspiration concern, and respiratory context.', meta: 'Imaging' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.medicareSlp]
+  },
+  'SLP-Outcome-Measures.aspx': {
+    eyebrow: 'Migrated from local outcome libraries',
+    title: 'Outcome measure orientation',
+    summary: 'Static orientation panel for measure fit and interpretation support. Do not store patient trends or scores on SharePoint bridge pages.',
+    items: [
+      { title: 'Functional Independence Measure', detail: 'Shared local library frames FIM as a broad functional independence measure used across rehab contexts.', meta: 'Shared' },
+      { title: 'Barthel Index', detail: 'Local library includes broad ADL independence interpretation bands for stroke, rehab, and geriatric use.', meta: 'Shared' },
+      { title: 'Katz ADL', detail: 'Local library uses Katz as a quick independence frame for basic ADLs.', meta: 'Shared' },
+      { title: 'SF-36 and EQ-5D', detail: 'Local library includes quality-of-life tools as high-level context, not a SharePoint trend store.', meta: 'QoL' },
+      { title: 'SLP-specific outcome fit', detail: 'Adult neuro, pediatric, voice/swallowing, cognition, and functional communication remain the page’s primary routing domains.', meta: 'SLP' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  },
+  'SLP-AAC-Boards.aspx': {
+    eyebrow: 'Migrated from local AAC board presets',
+    title: 'AAC board planning categories',
+    summary: 'Static category and partner-support snapshot from the local AAC board builder. Resident-specific boards remain outside the static bridge.',
+    items: [
+      { title: 'Basic needs', detail: 'Yes/no, help, pain, restroom, comfort, and other high-frequency bedside needs.', meta: 'Preset' },
+      { title: 'Food and drink', detail: 'Mealtime request categories and preference support for generalized board planning.', meta: 'Preset' },
+      { title: 'Feelings and status', detail: 'Emotion, discomfort, and condition check-in categories support quick communication.', meta: 'Preset' },
+      { title: 'Activities and routines', detail: 'Common therapy, ADL, and daily-routine categories support reusable board structures.', meta: 'Preset' },
+      { title: 'Partner modeling', detail: 'Wait time, confirmation, repair, and aided language stimulation remain the local partner-support themes.', meta: 'Training' }
+    ],
+    links: [sourceLinks.ashaAac, sourceLinks.ashaPortal]
+  },
+  'SLP-Clinical-Pathways.aspx': {
+    eyebrow: 'Migrated from local pathways data',
+    title: 'Clinical pathway examples',
+    summary: 'A few non-PHI examples from the local pathway registry to make the page more concrete without turning it into a decision engine.',
+    items: [
+      { title: 'Coughing with thin liquids', detail: 'Local pathways tie this symptom to bedside exam, Yale Swallow Protocol, and instrumental swallow assessment routing.', meta: 'Dysphagia' },
+      { title: 'Delayed AP transfer', detail: 'Local pathways emphasize oral mech exam, bedside trials, and lingual/sensory treatment planning.', meta: 'Dysphagia' },
+      { title: 'Reduced pharyngeal constriction', detail: 'Local pathways connect residue concerns to instrumental review and broad strength/strategy planning.', meta: 'Dysphagia' },
+      { title: 'Red-flag logic', detail: 'Local pathway examples consistently separate symptoms, observations, medical context, and escalation triggers.', meta: 'Structure' }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  'SLP-Quality-Evidence.aspx': {
+    eyebrow: 'Migrated from local evidence registry',
+    title: 'Evidence governance snapshot',
+    summary: 'Static sample of the local evidence/governance model. Reviewed evidence can inform pages and templates, but unreviewed entries should not be treated as policy.',
+    items: [
+      { title: 'Evidence fields', detail: 'The local registry tracks topic, evidence level, citation, key findings, recommendations, precautions, and applicability.', meta: 'Evidence' },
+      { title: 'Quality framing', detail: 'The local governance model separates measure type, benchmark logic, reporting cadence, and owner review cycle.', meta: 'Quality' },
+      { title: 'Promotion model', detail: 'Reviewed evidence can move into pages, templates, staff learning, or Copilot-ready sources with attribution.', meta: 'Governance' },
+      { title: 'Boundary', detail: 'Patient outcomes and resident-level quality data remain outside the SharePoint bridge.', meta: 'Safety' }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
   }
@@ -4342,19 +4457,19 @@ async function applyToSharePoint() {
   const digest = await getDigest(browserPage);
   const results = [];
 
-  results.push(await uploadImageAssets(browserPage, digest));
+  results.push(await withSharePointRetry('uploadImageAssets', () => uploadImageAssets(browserPage, digest)));
 
   for (const pageModel of pages) {
-    results.push(await createOrUpdatePage(browserPage, digest, pageModel));
+    results.push(await withSharePointRetry(`createOrUpdatePage:${pageModel.fileName}`, () => createOrUpdatePage(browserPage, digest, pageModel)));
   }
 
   if (!skipHome) {
-    results.push(await setHomePage(browserPage, digest));
+    results.push(await withSharePointRetry('setHomePage', () => setHomePage(browserPage, digest)));
   }
 
   if (!skipNav) {
-    results.push(await addNavigationLinks(browserPage, digest));
-    results.push(await cleanupNavigationLinks(browserPage, digest));
+    results.push(await withSharePointRetry('addNavigationLinks', () => addNavigationLinks(browserPage, digest)));
+    results.push(await withSharePointRetry('cleanupNavigationLinks', () => cleanupNavigationLinks(browserPage, digest)));
   }
 
   await browser.close();

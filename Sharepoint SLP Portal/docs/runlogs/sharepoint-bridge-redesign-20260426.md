@@ -275,3 +275,57 @@ Final validation outcome:
 - `22` external authoritative links checked with `0` failures
 - `16/16` homepage migration images loaded
 - `0` visual QA failures across sampled desktop/mobile pages
+
+## Additional Local Coverage and Hardening Pass
+
+The next pass focused on two things:
+
+- bring over another layer of safe local reference content to pages that still felt abstract
+- harden the SharePoint publish path against transient platform failures
+
+Additional local reference panels migrated:
+
+- `SLP-Clinical-Calculators.aspx`: local interpretation bands for MoCA, MASA, EAT-10, GUSS, WAB-R, AIDS, and FDA-2 framing
+- `SLP-Clinical-Exams.aspx`: cranial-nerve bedside exam anchors
+- `SLP-Meds-Labs-Imaging.aspx`: meds/labs/imaging quick-scan context from the local reference tables
+- `SLP-Outcome-Measures.aspx`: shared outcome-measure orientation for FIM, Barthel, Katz, SF-36, EQ-5D, and SLP measure-fit framing
+- `SLP-AAC-Boards.aspx`: AAC board preset categories and partner-support themes
+- `SLP-Clinical-Pathways.aspx`: concrete pathway examples from local symptom-routing data
+- `SLP-Quality-Evidence.aspx`: static evidence-governance snapshot from the local registry
+
+Hardening changes:
+
+- added transient SharePoint retry handling around:
+  - image asset upload
+  - page create/update/publish
+  - homepage set
+  - navigation add/cleanup
+- retry triggers include transient `429/500/502/503/504`, throttling language, and the SharePoint `Cannot complete this action` failure pattern
+
+Safety decisions:
+
+- calculators remain interpretation/reference only and do not accept patient scores on SharePoint
+- meds/labs/imaging remain context-only and never pull live patient data into SharePoint pages
+- pathways remain non-executable examples rather than automated decision support
+- evidence content remains governance/reference framing, not unreviewed clinical policy
+
+Validation before publish:
+
+- `node scripts/sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs --offline`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+
+Validation after publish:
+
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Final outcome:
+
+- `46` live SharePoint pages validated
+- `49` internal SharePoint links checked with `0` failures
+- `22` external authoritative links checked with `0` failures
+- `16/16` homepage migration images loaded
+- `0` visual QA failures across sampled desktop/mobile pages

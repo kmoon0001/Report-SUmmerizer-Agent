@@ -24,12 +24,22 @@ async function loadClinicalKnowledgeIndexPreview() {
     const holdItems = (json.index || [])
       .filter((item) => item.reviewStatus === 'hold')
       .map((item) => `${item.title} (${item.sourcePath || item.fileName || 'source item'})`);
-    return { summary: json.summary || {}, candidateItems, holdItems };
+    const areaSnapshot = Object.entries(json.summary?.byClinicalArea || {})
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10)
+      .map(([label, count]) => ({ label, count }));
+    const documentTypeSnapshot = Object.entries(json.summary?.byDocumentType || {})
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 8)
+      .map(([label, count]) => ({ label, count }));
+    return { summary: json.summary || {}, candidateItems, holdItems, areaSnapshot, documentTypeSnapshot };
   } catch {
     return {
       summary: {},
       candidateItems: [],
-      holdItems: []
+      holdItems: [],
+      areaSnapshot: [],
+      documentTypeSnapshot: []
     };
   }
 }
@@ -2190,7 +2200,7 @@ const pages = [
         ]
       }
     ],
-    links: ['https://www.asha.org/practice/self-care/', 'https://www.asha.org/practice/ergonomics/', sourceLinks.ashaPortal]
+    links: ['https://www.asha.org/slp/', 'https://www.asha.org/slp/healthcare/', 'https://www.asha.org/slp/healthliteracy/', sourceLinks.ashaPortal]
   },
   {
     fileName: 'SLP-Clinical-Library.aspx',
@@ -3637,6 +3647,123 @@ function renderReferenceCards(links = []) {
   `;
 }
 
+function renderLiveResourcePanel(page) {
+  const primaryReference = page.links?.[0] || sourceLinks.ashaPortal;
+  const actions = [
+    {
+      label: 'Open source index',
+      href: '/sites/PacificCoast_SLP/Lists/SLP_Source_Index/AllItems.aspx',
+      eyebrow: 'SharePoint list',
+      text: 'Filter review status, clinical area, document type, and Copilot readiness.'
+    },
+    {
+      label: 'Open source PDFs',
+      href: '/sites/PacificCoast_SLP/SLP_Portal_Source_PDFs/Forms/AllItems.aspx',
+      eyebrow: 'Document library',
+      text: 'Browse reviewed source files and supporting documents.'
+    },
+    {
+      label: 'Open clinical knowledge',
+      href: '/sites/PacificCoast_SLP/SLP_ClinicalKnowledge/Forms/AllItems.aspx',
+      eyebrow: 'Knowledge library',
+      text: 'Use curated non-PHI knowledge files after source review.'
+    },
+    {
+      label: 'Open authority source',
+      href: primaryReference,
+      eyebrow: 'Reference',
+      text: 'Jump to the primary external reference for this page.'
+    }
+  ];
+
+  return `
+    <section style="margin:0 0 22px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:10px;background:#ffffff;padding:16px;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 12px 0;">
+          <div>
+            <h2 style="margin:0 0 5px 0;font-size:22px;line-height:1.2;color:#0f172a;">Live resource actions</h2>
+            <p style="margin:0;color:#64748b;font-size:13px;line-height:1.55;">Verified links and SharePoint destinations that work in the bridge today.</p>
+          </div>
+          <span style="display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;">Link-audited</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;">
+          ${actions.map((action) => `
+            <a href="${htmlEscape(action.href)}" style="display:block;border:1px solid #dbe5ee;border-radius:8px;padding:13px 14px;background:#f8fbfd;text-decoration:none;">
+              <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#0f6cbd;margin:0 0 5px 0;">${htmlEscape(action.eyebrow)}</div>
+              <div style="font-size:15px;font-weight:900;color:#0f172a;margin:0 0 5px 0;">${htmlEscape(action.label)}</div>
+              <div style="font-size:12px;line-height:1.5;color:#64748b;">${htmlEscape(action.text)}</div>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderBridgeFunctionPanel(page) {
+  return `
+    <section style="margin:0 0 24px 0;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
+        <div style="border:1px solid #dbe5ee;border-radius:10px;padding:15px;background:#ffffff;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#166534;margin:0 0 7px 0;">Works now</div>
+          <div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Reference, navigation, source routing</div>
+          <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">This page provides live navigation, reviewed resource links, template-mode guidance, and SharePoint library/list routing.</p>
+        </div>
+        <div style="border:1px solid #dbe5ee;border-radius:10px;padding:15px;background:#ffffff;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#9a3412;margin:0 0 7px 0;">SPFx pending</div>
+          <div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Interactive local-app behavior</div>
+          <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Patient-adjacent drafting, calculators, uploads, AI chat, and generated artifacts stay out of durable SharePoint pages until the SPFx/session-only shell is live.</p>
+        </div>
+        <div style="border:1px solid #dbe5ee;border-radius:10px;padding:15px;background:#ffffff;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#155e75;margin:0 0 7px 0;">Safety model</div>
+          <div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Non-PHI and source-backed</div>
+          <p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Content is generalized for resource use and points patient-specific work back to approved clinical systems.</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderKnowledgeSnapshotPanel(page) {
+  if (page.fileName !== 'SLP-Knowledge-Source-Index.aspx' && page.fileName !== 'SLP-Portal.aspx') {
+    return '';
+  }
+
+  const areaRows = clinicalKnowledgeIndexPreview.areaSnapshot || [];
+  const typeRows = clinicalKnowledgeIndexPreview.documentTypeSnapshot || [];
+  if (!areaRows.length && !typeRows.length) {
+    return '';
+  }
+
+  const renderRows = (rows) => rows.map((item) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e2e8f0;padding:8px 0;">
+      <span style="font-size:13px;line-height:1.45;color:#334155;">${htmlEscape(item.label)}</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#0f6cbd;font-size:12px;font-weight:900;">${htmlEscape(String(item.count))}</span>
+    </div>
+  `).join('');
+
+  return `
+    <section style="margin:0 0 24px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px 0;flex-wrap:wrap;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:24px;line-height:1.2;color:#0f172a;">Local knowledge coverage</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Generated from the local non-PHI source index so SharePoint can show what exists before promotion.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+        <div style="border:1px solid #dbe5ee;border-radius:10px;background:#ffffff;padding:15px;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+          <h3 style="margin:0 0 10px 0;font-size:17px;line-height:1.25;color:#0f172a;">Clinical areas</h3>
+          ${renderRows(areaRows)}
+        </div>
+        <div style="border:1px solid #dbe5ee;border-radius:10px;background:#ffffff;padding:15px;box-shadow:0 10px 22px rgba(15,23,42,0.04);">
+          <h3 style="margin:0 0 10px 0;font-size:17px;line-height:1.25;color:#0f172a;">Document types</h3>
+          ${renderRows(typeRows)}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function renderRelatedPageCards(currentFileName, isHome) {
   const currentItem = pages.find((item) => item.fileName === currentFileName);
   const currentGroup = currentItem ? getPortalGroupKey(currentItem) : null;
@@ -3812,6 +3939,9 @@ function renderPageHtml(page) {
   const sectionCards = renderSectionCards(page.sections);
   const featureCards = renderFeatureCards(page.featureCards);
   const templateGroups = renderTemplateGroups(page.templateGroups);
+  const bridgeFunctionPanel = renderBridgeFunctionPanel(page);
+  const liveResourcePanel = renderLiveResourcePanel(page);
+  const knowledgeSnapshotPanel = renderKnowledgeSnapshotPanel(page);
   const relatedCards = isHome ? '' : renderRelatedPageCards(page.fileName, isHome);
   const referenceCards = renderReferenceCards(page.links);
   const hero = isHome ? `
@@ -3863,6 +3993,8 @@ function renderPageHtml(page) {
     <div style="max-width:1500px;margin:0 auto;padding:4px 0 24px 0;color:#0f172a;">
       ${hero}
       ${renderUtilityBands(isHome)}
+      ${bridgeFunctionPanel}
+      ${liveResourcePanel}
       <div style="border:1px solid #f7d78c;border-radius:26px;background:linear-gradient(135deg,#fffdf3 0%,#fffbeb 100%);padding:18px 20px;margin:0 0 24px 0;box-shadow:0 18px 36px rgba(146,64,14,0.05);">
         <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div>
@@ -3873,6 +4005,7 @@ function renderPageHtml(page) {
         </div>
       </div>
       ${homepageOnly}
+      ${knowledgeSnapshotPanel}
       ${sectionCards}
       ${featureCards}
       ${templateGroups}

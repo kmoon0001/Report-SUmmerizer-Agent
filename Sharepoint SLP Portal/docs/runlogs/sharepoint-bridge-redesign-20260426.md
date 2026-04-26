@@ -151,3 +151,79 @@ Third-pass outcome:
 ## Durable Outcome
 
 The redesigned SharePoint-native bridge is now live. The visible SharePoint page canvas uses a compact polished shell for SharePoint compatibility, while the richer generated HTML remains stored in the page record. The production path is still the PHI-minimized SPFx shell once App Catalog deployment is available.
+
+## Post-Publish Link and Function Assessment
+
+A link/function audit was added after reviewing whether the live bridge behaves more like the local portal and whether buttons resolve to real destinations.
+
+Findings:
+
+- internal SharePoint navigation/actions resolved successfully in browser-based authenticated checks
+- two ASHA wellness links returned a "Sorry! That Page Cannot Be Found" page despite HTTP `200`
+- the CMS Benefit Policy Manual PDF behaves as a download, not a normal page navigation
+- bridge buttons are currently functional links and launch actions, not full local-app interactive tools
+
+Local repair prepared:
+
+- replaced the broken ASHA wellness links with stable ASHA SLP, healthcare, and health-literacy resources
+- added `scripts/sharepoint-bridge-link-audit.mjs` to verify internal SharePoint links, external authoritative links, and download-style resources
+
+Validation:
+
+- `node scripts/sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs --offline`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- link audit result: `46` bridge pages, `48` internal links, `15` external links, `0` failed internal links, `0` failed external links
+
+Live note:
+
+- the ASHA replacement link content is prepared locally and needs a confirmed live republish before it appears on SharePoint
+
+## Functional Resource Panel Live Publish
+
+After user approval, the bridge was extended and republished to make the live SharePoint pages more functional and closer to the local portal while staying inside the SharePoint-native, non-PHI boundary.
+
+Implemented:
+
+- replaced broken ASHA wellness links with stable ASHA SLP, healthcare, and health-literacy resources
+- added live resource action panels to generated pages:
+  - `SLP_Source_Index`
+  - `SLP_Portal_Source_PDFs`
+  - `SLP_ClinicalKnowledge`
+  - page-specific primary authority source
+- added a "works now / SPFx pending / safety model" panel to make local-vs-live behavior explicit
+- added homepage and Knowledge Source Index coverage panels generated from the clinical knowledge index:
+  - clinical-area coverage
+  - document-type coverage
+  - review-status counts remain visible on the Knowledge Source Index page
+- added `scripts/sharepoint-bridge-link-audit.mjs` as a reusable link/function gate for internal SharePoint links and external authoritative resources
+
+Safety decisions:
+
+- did not promote all `candidate` local knowledge items directly into clinical guidance because several require clinical/source review before being treated as SLP-ready content
+- kept local knowledge items surfaced as reviewable metadata and coverage counts rather than final clinical policy
+- kept patient-adjacent drafting, calculators, uploads, AI chat, generated artifacts, and resident-specific workflows as SPFx/session-only pending
+
+Live publish result:
+
+- `46` pages updated and published with SharePoint `200` publish responses
+- homepage set to `SitePages/SLP-Portal.aspx`
+- existing QuickLaunch navigation retained
+
+Validation after live publish:
+
+- `node scripts/build-clinical-knowledge-index.mjs --sharepoint`: pass
+- `node scripts/sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs --offline`: pass
+- `node scripts/sharepoint-bridge-link-audit.mjs`: pass
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Validation outcome:
+
+- `46` live SharePoint pages validated
+- `49` internal SharePoint links checked with `0` failures
+- `15` external authoritative links checked with `0` failures
+- `16/16` homepage migration images loaded
+- `0` visual QA failures across sampled desktop/mobile pages

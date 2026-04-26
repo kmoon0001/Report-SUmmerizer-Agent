@@ -388,6 +388,131 @@ const pages = [
       }
     ],
     links: [sourceLinks.ashaPortal, sourceLinks.cmsBilling]
+  },
+  {
+    fileName: 'SLP-Coding-Reference.aspx',
+    title: 'SLP Coding Reference',
+    imageKey: 'documentation',
+    summary: 'Read-only bridge page for local CPT and coding reference categories, with billing decisions kept tied to payer rules and approved workflows.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/data/coding-data.ts.',
+          'Local coding categories include Evaluation, Treatment, AAC, and related reference groupings.',
+          'This page is a static reference bridge, not a billing engine or payer determination tool.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Confirm coding requirements against current payer guidance and facility billing workflows.',
+          'Do not store patient identifiers, dates of service, diagnoses, or billing claims on this page.',
+          'Use approved billing and clinical documentation systems for final code selection and claim support.'
+        ]
+      }
+    ],
+    links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-Clinical-Pathways.aspx',
+    title: 'SLP Clinical Pathways',
+    imageKey: 'brain',
+    summary: 'Read-only bridge page for local clinical pathway categories, symptoms, assessment options, treatment options, strategies, and red-flag orientation.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/data/pathways-data.ts and ClinicalPathways.',
+          'Local pathway categories include Dysphagia, Cognition, Aphasia, Dysarthria/Voice, and Tracheostomy.',
+          'Interactive branching, symptom selection, and patient-specific recommendations remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use pathways as an orientation and clinical reasoning scaffold only.',
+          'Do not enter patient symptoms, medications, imaging results, lab values, or diagnosis details into this SharePoint page.',
+          'Escalate red flags through facility clinical protocols and approved documentation systems.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
+  },
+  {
+    fileName: 'SLP-Ensign-Corner.aspx',
+    title: 'Ensign SLP Corner',
+    imageKey: 'cognitive',
+    summary: 'Read-only bridge page for local Ensign SLP Corner training, evaluation, documentation, clinical, billing, compliance, and program-development resources.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/data/ensign-slp-data.ts and EnsignSLPCorner.',
+          'Local content categories include Evaluation, Documentation, Clinical, Billing, Compliance, Infographics, and Program Development.',
+          'Interactive browsing and richer filtering remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use as an internal training and reference launch point.',
+          'Do not add patient-specific information or facility-sensitive notes to this SharePoint page.',
+          'Keep policy interpretation aligned with official Ensign, facility, payer, and regulatory sources.'
+        ]
+      }
+    ],
+    links: [sourceLinks.cmsBilling, sourceLinks.cmsManual, sourceLinks.medicareSlp]
+  },
+  {
+    fileName: 'SLP-Staff-Learning.aspx',
+    title: 'SLP Staff Learning',
+    imageKey: 'aphasia',
+    summary: 'Read-only bridge page for local staff learning and quiz-style reference material.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/data/quiz-data.ts.',
+          'Local question areas include cranial nerves, swallowing, aphasia, cognition, voice, motor speech, and assessments.',
+          'Interactive quiz mode and scoring remain SPFx pending.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Use as staff learning orientation only.',
+          'Do not record staff performance, patient examples, or identifiable clinical scenarios on this SharePoint page.',
+          'Use official training systems for tracked education or compliance records.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal]
+  },
+  {
+    fileName: 'SLP-Document-Library-Guide.aspx',
+    title: 'SLP Document Library Guide',
+    imageKey: 'documentation',
+    summary: 'Read-only bridge page for local document-guide categories and the SharePoint source PDF library.',
+    sections: [
+      {
+        heading: 'Local module mapping',
+        bullets: [
+          'Mapped from src/data/documents.ts, PDFLibrary, and SLP_Portal_Source_PDFs.',
+          'Local document categories include guides, best practices, and handout-style references.',
+          'This page points users toward controlled SharePoint source documents rather than duplicating patient-specific material.'
+        ]
+      },
+      {
+        heading: 'Safe use boundary',
+        bullets: [
+          'Keep source documents non-PHI and version controlled.',
+          'Do not upload patient handouts containing identifiers to the public/shared source PDF library.',
+          'Use approved clinical systems for individualized handouts and documentation.'
+        ]
+      }
+    ],
+    links: [sourceLinks.ashaPortal, sourceLinks.cmsManual]
   }
 ];
 
@@ -400,7 +525,10 @@ const navLinks = [
   { title: 'SLP IDDSI', fileName: 'SLP-IDDSI.aspx' },
   { title: 'SLP Instrumentals', fileName: 'SLP-Instrumentals.aspx' },
   { title: 'SLP Trach/Vent', fileName: 'SLP-Trach-Vent.aspx' },
-  { title: 'SLP Quick Reference', fileName: 'SLP-Quick-Reference.aspx' }
+  { title: 'SLP Quick Reference', fileName: 'SLP-Quick-Reference.aspx' },
+  { title: 'SLP Coding', fileName: 'SLP-Coding-Reference.aspx' },
+  { title: 'SLP Pathways', fileName: 'SLP-Clinical-Pathways.aspx' },
+  { title: 'Ensign SLP Corner', fileName: 'SLP-Ensign-Corner.aspx' }
 ];
 
 const navigationCleanupTitles = [
@@ -558,6 +686,42 @@ async function getDigest(browserPage) {
   return digest;
 }
 
+async function assertSharePointAuth(browserPage) {
+  const result = await browserPage.evaluate(async () => {
+    try {
+      const response = await fetch('/sites/PacificCoast_SLP/_api/web?$select=Title,Url', {
+        headers: { Accept: 'application/json;odata=nometadata' }
+      });
+      const text = await response.text();
+      let json = null;
+      try {
+        json = JSON.parse(text);
+      } catch {}
+      return {
+        ok: response.ok && Boolean(json?.Title),
+        status: response.status,
+        title: json?.Title || null,
+        text: text.slice(0, 300),
+        url: location.href
+      };
+    } catch (error) {
+      return { ok: false, error: String(error), url: location.href };
+    }
+  });
+
+  if (!result.ok) {
+    throw new Error([
+      'SharePoint authentication is not ready.',
+      `Current URL: ${result.url || 'unknown'}`,
+      `Status: ${result.status || 'unknown'}`,
+      'Run: node scripts/refresh-sharepoint-auth.mjs',
+      'Complete Microsoft login/MFA in the opened browser, then rerun this command.'
+    ].join('\n'));
+  }
+
+  return result;
+}
+
 async function createOrUpdatePage(browserPage, digest, pageModel) {
   const serverRelativeUrl = `${SITE_PAGES_ROOT}/${pageModel.fileName}`;
   const canvas = makeTextCanvas(pageModel);
@@ -663,6 +827,7 @@ async function applyToSharePoint() {
   const context = await browser.newContext({ storageState: AUTH_STATE });
   const browserPage = await context.newPage();
   await browserPage.goto(SITE_URL, { waitUntil: 'domcontentloaded' });
+  await assertSharePointAuth(browserPage);
   const digest = await getDigest(browserPage);
   const results = [];
 

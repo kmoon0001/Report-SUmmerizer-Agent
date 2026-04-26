@@ -23,7 +23,12 @@ const expectedPages = [
   'SLP-Anatomy-Neuro.aspx',
   'SLP-Goal-Bank.aspx',
   'SLP-Treatment-Ideas.aspx',
-  'SLP-Quick-Reference.aspx'
+  'SLP-Quick-Reference.aspx',
+  'SLP-Coding-Reference.aspx',
+  'SLP-Clinical-Pathways.aspx',
+  'SLP-Ensign-Corner.aspx',
+  'SLP-Staff-Learning.aspx',
+  'SLP-Document-Library-Guide.aspx'
 ];
 
 const blockedNavigationTitles = [

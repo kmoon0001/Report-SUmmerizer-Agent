@@ -262,3 +262,43 @@ Validator checks passed:
 - no page contains `<form>`, `<input>`, or `<textarea>`
 - live homepage has launch actions, service map, portal map, and guardrails
 - 16 SharePoint-hosted images loaded with non-zero dimensions
+
+## Auth Preflight and Additional Local Content Pass
+
+Date: 2026-04-25
+
+Completed:
+
+- added safe auth helper scripts:
+  - `scripts/check-sharepoint-auth.mjs`
+  - `scripts/refresh-sharepoint-auth.mjs`
+- added SharePoint auth preflight to `scripts/sharepoint-native-bridge.mjs`
+- added five additional static/read-only bridge pages from local source files:
+  - `SLP-Coding-Reference.aspx`
+  - `SLP-Clinical-Pathways.aspx`
+  - `SLP-Ensign-Corner.aspx`
+  - `SLP-Staff-Learning.aspx`
+  - `SLP-Document-Library-Guide.aspx`
+- added Quick Launch entries:
+  - `SLP Coding`
+  - `SLP Pathways`
+  - `Ensign SLP Corner`
+
+Auth design:
+
+- no passwords are stored
+- no MFA codes are stored
+- no MFA bypass is attempted
+- `refresh-sharepoint-auth.mjs` opens a visible browser for manual Microsoft login/MFA and saves the refreshed Playwright storage state
+- publisher now fails early with a clear instruction to run the refresh script if auth is not ready
+
+Validation result: PASS
+
+Validator checks passed:
+
+- 21 expected pages exist
+- homepage is still `SitePages/SLP-Portal.aspx`
+- every page has guardrails, authoritative links, images, and an SPFx-pending boundary
+- no page contains `<form>`, `<input>`, or `<textarea>`
+- blocked/sample/PHI-era navigation remains absent
+- live homepage loaded 21 SharePoint-hosted images with non-zero dimensions

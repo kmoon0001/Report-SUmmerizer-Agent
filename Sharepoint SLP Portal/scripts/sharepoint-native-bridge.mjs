@@ -3182,167 +3182,694 @@ function htmlEscape(value) {
     .replaceAll('"', '&quot;');
 }
 
+function getLinkMeta(href) {
+  try {
+    if (href.startsWith('/')) {
+      return {
+        label: href.split('/').filter(Boolean).slice(-2).join(' / ') || href,
+        domain: 'Pacific Coast SharePoint'
+      };
+    }
+    const url = new URL(href);
+    const hostname = url.hostname.replace(/^www\./, '');
+    const labelByDomain = new Map([
+      ['asha.org', 'ASHA'],
+      ['cms.gov', 'CMS'],
+      ['medicare.gov', 'Medicare.gov'],
+      ['learn.microsoft.com', 'Microsoft Learn'],
+      ['adoption.microsoft.com', 'Microsoft Adoption'],
+      ['fluent2.microsoft.design', 'Fluent 2'],
+      ['ensignservices.sharepoint.com', 'Pacific Coast SharePoint']
+    ]);
+    return {
+      label: labelByDomain.get(hostname) || hostname,
+      domain: labelByDomain.get(hostname) || hostname
+    };
+  } catch {
+    return { label: href, domain: 'Reference' };
+  }
+}
+
+function renderActionPills(actions = []) {
+  return actions.map((action) => `
+    <a href="${htmlEscape(action.href)}" style="display:inline-flex;align-items:center;gap:8px;margin:0 10px 10px 0;padding:11px 16px;border-radius:999px;background:${htmlEscape(action.tone || '#0f6cbd')};border:1px solid rgba(255,255,255,0.24);color:#ffffff;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.01em;box-shadow:0 10px 24px rgba(15,108,189,0.16);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;">${htmlEscape(action.label)}</a>
+  `).join('');
+}
+
+function renderCanvasActionPills(actions = []) {
+  return actions.map((action) => `
+    <a href="${htmlEscape(action.href)}" style="display:inline-flex;align-items:center;margin:0 8px 8px 0;padding:9px 13px;border-radius:999px;background:${htmlEscape(action.tone || '#0f6cbd')};color:#ffffff;text-decoration:none;font-size:12px;font-weight:800;">${htmlEscape(action.label)}</a>
+  `).join('');
+}
+
+function getPortalGroupKey(item) {
+  const fileName = item.fileName || '';
+  if (/(Documentation-Studio|Goal-Bank|Treatment-Ideas|Quick-Reference|Coding-Reference|Clinical-Pathways|Therapy-Studio|Note-Template-Studio|Goal-and-Intervention-Studio|Clinical-Copilot-Playbooks|Handout-Therapy-Templates|Curated-Visual-Aids|AAC-Boards|Handout-Reference)/i.test(fileName)) {
+    return 'workflow';
+  }
+  if (/(Clinical-Library|Video-Library|Document-Library-Guide|Knowledge-Source-Index|Quality-Evidence|Staff-Learning|Ensign-Corner)/i.test(fileName)) {
+    return 'knowledge';
+  }
+  if (/(Medicare-Compliance|Compliance-Center|Medicare-Audit-Candidacy|Trajectory-Analytics|Clinical-Safety|SPFx-Production-Handoff|Help-Support|Community-Networking|Life-Wellness)/i.test(fileName)) {
+    return 'governance';
+  }
+  return 'clinical';
+}
+
+function buildPortalGroups() {
+  const groupMeta = {
+    clinical: {
+      id: 'clinical-modules',
+      label: 'Clinical modules',
+      summary: 'Core swallowing, communication, anatomy, airway, safety, and differential support destinations.',
+      badge: 'Clinical'
+    },
+    workflow: {
+      id: 'workflow-studios',
+      label: 'Workflow studios',
+      summary: 'Daily-use templates, therapy planning, handouts, coding, and generalized documentation support.',
+      badge: 'Workflow'
+    },
+    knowledge: {
+      id: 'knowledge-libraries',
+      label: 'Knowledge libraries',
+      summary: 'Reviewed learning surfaces, source indexing, PDFs, video references, and evidence curation.',
+      badge: 'Knowledge'
+    },
+    governance: {
+      id: 'governance-operations',
+      label: 'Governance and operations',
+      summary: 'Compliance, escalation boundaries, support, SPFx handoff, and portal operating constraints.',
+      badge: 'Operations'
+    }
+  };
+
+  const grouped = Object.entries(groupMeta).map(([key, meta]) => ({
+    key,
+    ...meta,
+    items: pages.filter((item) => item.fileName !== 'SLP-Portal.aspx' && getPortalGroupKey(item) === key)
+  }));
+
+  return grouped.filter((group) => group.items.length);
+}
+
+function renderPortalMapGroups() {
+  return buildPortalGroups().map((group) => `
+    <section id="${group.id}" style="margin:0 0 26px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;flex-wrap:wrap;">
+        <div>
+          <div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">${htmlEscape(group.badge)}</div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">${htmlEscape(group.label)}</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;max-width:780px;">${htmlEscape(group.summary)}</p>
+        </div>
+        <div style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f8fafc;color:#475569;font-size:11px;font-weight:800;text-transform:uppercase;">${group.items.length} pages</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+        ${group.items.map((item) => {
+          const itemImage = imageUrlByKey[item.imageKey] || imageUrlByKey.background;
+          return `
+            <a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}" style="display:block;border:1px solid #dbe5ee;border-radius:24px;overflow:hidden;background:#ffffff;text-decoration:none;box-shadow:0 18px 36px rgba(15,23,42,0.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;">
+              <div style="background:radial-gradient(circle at top left,rgba(14,165,233,0.14),transparent 34%),linear-gradient(180deg,#f8fbfd 0%,#f1f5f9 100%);text-align:center;padding:18px 16px 12px 16px;">
+                <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;max-width:250px;height:auto;display:inline-block;" />
+              </div>
+              <div style="padding:18px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px 0;">
+                  <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;">${htmlEscape(group.badge)}</span>
+                  <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;">Open page</span>
+                </div>
+                <h3 style="margin:0 0 8px 0;font-size:19px;line-height:1.3;color:#0f172a;">${htmlEscape(item.title)}</h3>
+                <p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">${htmlEscape(item.summary)}</p>
+              </div>
+            </a>
+          `;
+        }).join('')}
+      </div>
+    </section>
+  `).join('');
+}
+
+function renderCanvasCardGrid(items = []) {
+  if (!items.length) return '';
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;">
+      ${items.map((item) => `
+        <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;">
+          ${item.eyebrow ? `<div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">${htmlEscape(item.eyebrow)}</div>` : ''}
+          <div style="font-size:15px;line-height:1.35;font-weight:800;color:#0f172a;margin:0 0 6px 0;">${htmlEscape(item.title)}</div>
+          <div style="color:#64748b;font-size:13px;line-height:1.55;">${htmlEscape(item.text)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderCanvasHtml(page) {
+  const heroImage = imageUrlByKey[page.imageKey] || imageUrlByKey.background;
+  const isHome = page.fileName === 'SLP-Portal.aspx';
+  const portalGroups = buildPortalGroups();
+  const homeActions = [
+    { label: 'Open Dysphagia', href: '/sites/PacificCoast_SLP/SitePages/SLP-Dysphagia.aspx', tone: '#0f6cbd' },
+    { label: 'Open Aphasia', href: '/sites/PacificCoast_SLP/SitePages/SLP-Aphasia.aspx', tone: '#0891b2' },
+    { label: 'Medicare and Compliance', href: '/sites/PacificCoast_SLP/SitePages/SLP-Medicare-Compliance.aspx', tone: '#0f766e' },
+    { label: 'Documentation Studio', href: '/sites/PacificCoast_SLP/SitePages/SLP-Documentation-Studio.aspx', tone: '#1d4ed8' }
+  ];
+  const pageActions = [
+    { label: 'Portal home', href: '/sites/PacificCoast_SLP/SitePages/SLP-Portal.aspx', tone: '#0f172a' },
+    { label: 'Knowledge index', href: '/sites/PacificCoast_SLP/SitePages/SLP-Knowledge-Source-Index.aspx', tone: '#0f6cbd' },
+    { label: 'Clinical library', href: '/sites/PacificCoast_SLP/SitePages/SLP-Clinical-Library.aspx', tone: '#0891b2' },
+    { label: 'SPFx handoff', href: '/sites/PacificCoast_SLP/SitePages/SLP-SPFx-Production-Handoff.aspx', tone: '#155e75' }
+  ];
+  const workflowCards = (page.featureCards || []).slice(0, 3).map((card) => ({
+    eyebrow: 'Reference',
+    title: card.title,
+    text: card.description || card.text || ''
+  }));
+  const templateCards = (page.templateGroups || []).slice(0, 2).flatMap((group) => {
+    const heading = group.heading || group.title || 'Workflow template';
+    return (group.items || []).slice(0, 2).map((item) => ({
+      eyebrow: heading,
+      title: typeof item === 'string' ? heading : item.title,
+      text: typeof item === 'string' ? item : (item.lines || []).slice(0, 2).join(' ')
+    }));
+  }).slice(0, 4);
+  const sectionCards = (page.sections || []).slice(0, isHome ? 2 : 3).flatMap((section) =>
+    (section.bullets || []).slice(0, 2).map((bullet) => ({
+      eyebrow: section.heading,
+      title: section.heading,
+      text: bullet
+    }))
+  ).slice(0, 6);
+  const referenceCards = (page.links || []).slice(0, 4).map((href) => {
+    const meta = getLinkMeta(href);
+    return {
+      eyebrow: meta.domain,
+      title: meta.label,
+      text: href
+    };
+  });
+  const homeGroupCards = portalGroups.map((group) => ({
+    eyebrow: group.badge,
+    title: `${group.label} (${group.items.length})`,
+    text: group.summary
+  }));
+  const compactStatusCards = (isHome ? homeGroupCards : sectionCards).slice(0, 4);
+  const compactWorkflowCards = (workflowCards.length ? workflowCards : [{
+    eyebrow: 'Reference',
+    title: isHome ? 'Workflow launch layer' : 'Reference launch layer',
+    text: isHome ? 'Open high-use modules, workflow pages, and knowledge destinations before completing chart work in approved systems.' : 'Use this page to frame review, treatment planning, and source coordination without entering resident identifiers.'
+  }]).slice(0, 3);
+  const compactTemplateCards = (templateCards.length ? templateCards : [{
+    eyebrow: 'Workflow template',
+    title: isHome ? 'Generalized template workflow' : 'Generalized template shell',
+    text: 'Keep impairment framing, skilled-service language, goals, and carryover prompts generalized until the approved record is open.'
+  }]).slice(0, 3);
+  const compactRefLinks = (page.links || []).slice(0, 4).map((href) => {
+    const meta = getLinkMeta(href);
+    return `<a href="${htmlEscape(href)}" style="display:inline-flex;align-items:center;margin:0 8px 8px 0;padding:7px 11px;border-radius:999px;background:#f8fafc;border:1px solid #dbe5ee;color:#0f172a;text-decoration:none;font-size:12px;font-weight:700;">${htmlEscape(meta.label)}</a>`;
+  }).join('');
+
+  return `
+    <div style="max-width:1360px;margin:0 auto;padding:4px 0 18px 0;color:#0f172a;">
+      <div style="border:1px solid #dbe5ee;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 45%,#eef6ff 100%);margin:0 0 14px 0;">
+        <div style="display:grid;grid-template-columns:minmax(150px,240px) minmax(0,1fr);gap:0;align-items:stretch;">
+          <div style="display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(180deg,#f8fbfd 0%,#eef2f7 100%);text-align:center;">
+            <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(isHome ? 'Pacific Coast logo' : `${page.title} hero image`)}" style="width:100%;max-width:${isHome ? '170px' : '190px'};height:auto;display:inline-block;" />
+          </div>
+          <div style="padding:16px 18px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#0369a1;margin:0 0 8px 0;">${htmlEscape(isHome ? 'SharePoint clinical reference portal' : 'Pacific Coast SLP module')}</div>
+            <h1 style="margin:0 0 8px 0;font-size:${isHome ? '30px' : '27px'};line-height:1.1;color:#0f172a;">${htmlEscape(isHome ? 'Pacific Coast SLP Portal' : page.title)}</h1>
+            <p style="margin:0 0 10px 0;color:#475569;font-size:13px;line-height:1.55;">${htmlEscape(isHome ? 'Minimalist, task-first launch point for clinical references, reviewed sources, and non-PHI workflow scaffolds while the production app remains SPFx pending.' : page.summary)}</p>
+            <div style="margin:0 0 8px 0;">
+              <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
+              <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
+              <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SPFx pending</span>
+            </div>
+            <div>${renderCanvasActionPills(isHome ? homeActions : pageActions)}</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 14px 0;">
+        <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#1d4ed8;margin:0 0 6px 0;">Production path</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">PHI-minimized SPFx shell</div><div style="color:#64748b;font-size:12px;line-height:1.5;">Single Part App Page remains the production endpoint for patient-adjacent interactive workflows.</div></div>
+        <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#0891b2;margin:0 0 6px 0;">Bridge purpose</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Dense reference layer</div><div style="color:#64748b;font-size:12px;line-height:1.5;">Fast scanning, clear labels, and high-signal links while App Catalog deployment remains blocked.</div></div>
+        <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#166534;margin:0 0 6px 0;">Clinical boundary</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Reference now, chart elsewhere</div><div style="color:#64748b;font-size:12px;line-height:1.5;">No patient-specific data entry, no durable resident artifacts, and no hidden workflow persistence.</div></div>
+      </div>
+      <div style="border:1px solid #f7d78c;border-radius:18px;background:linear-gradient(135deg,#fffdf3 0%,#fffbeb 100%);padding:13px 14px;margin:0 0 14px 0;">
+        <div style="font-size:22px;font-weight:900;line-height:1.1;color:#78350f;margin:0 0 6px 0;">PHI guardrails</div>
+        <div style="color:#92400e;font-size:12px;line-height:1.55;">No patient tracker, resident list, identifiers, or PHI fields belong on this bridge page. Do not paste patient-specific notes, evaluation text, recordings, or treatment data into SharePoint page content.</div>
+      </div>
+      <div style="margin:0 0 14px 0;">
+        <div style="font-size:24px;font-weight:900;line-height:1.1;color:#0f172a;margin:0 0 6px 0;">${htmlEscape(isHome ? 'Portal map' : 'Bridge status')}</div>
+        <div style="color:#64748b;font-size:12px;line-height:1.5;margin:0 0 8px 0;">${htmlEscape(isHome ? 'Task-first navigation grouped by clinician intent, workflow shells, knowledge surfaces, and governance.' : 'Mapped from the local portal while interactive workflow remains SPFx pending.')}</div>
+        ${renderCanvasCardGrid(compactStatusCards)}
+      </div>
+      <div style="margin:0 0 14px 0;">
+        <div style="font-size:24px;font-weight:900;line-height:1.1;color:#0f172a;margin:0 0 6px 0;">Generalized workflow surfaces</div>
+        <div style="color:#64748b;font-size:12px;line-height:1.5;margin:0 0 8px 0;">High-utility non-PHI launch surfaces mapped from the local portal.</div>
+        ${renderCanvasCardGrid(compactWorkflowCards)}
+      </div>
+      <div style="margin:0 0 14px 0;">
+        <div style="font-size:24px;font-weight:900;line-height:1.1;color:#0f172a;margin:0 0 6px 0;">Template-mode workflow shells</div>
+        <div style="color:#64748b;font-size:12px;line-height:1.5;margin:0 0 8px 0;">Copy-ready structures that stay generalized until finalized in approved clinical systems.</div>
+        ${renderCanvasCardGrid(compactTemplateCards)}
+      </div>
+      <div style="margin:0 0 14px 0;">
+        <div style="font-size:24px;font-weight:900;line-height:1.1;color:#0f172a;margin:0 0 6px 0;">Authoritative references</div>
+        <div style="color:#64748b;font-size:12px;line-height:1.5;margin:0 0 8px 0;">ASHA, CMS, Medicare.gov, Microsoft Learn, and approved SharePoint sources: asha.org, cms.gov, medicare.gov, learn.microsoft.com.</div>
+        <div>${compactRefLinks}</div>
+      </div>
+      <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px 14px;background:#ffffff;">
+        <div style="font-size:22px;font-weight:900;line-height:1.1;color:#0f172a;margin:0 0 6px 0;">Production note</div>
+        <div style="color:#64748b;font-size:12px;line-height:1.55;">This page is a SharePoint-native bridge shaped around findability, task visibility, and non-PHI reference use. The production app remains the PHI-minimized SPFx portal package, so interactive workflow behavior is SPFx pending.</div>
+      </div>
+    </div>
+  `.replace(/\n\s+/g, '\n').trim();
+
+  return `
+    <div style="max-width:1400px;margin:0 auto;padding:4px 0 20px 0;color:#0f172a;">
+      <div style="border:1px solid #dbe5ee;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 45%,#eef6ff 100%);margin:0 0 18px 0;">
+        <div style="display:grid;grid-template-columns:${isHome ? 'minmax(220px,320px) minmax(0,1fr)' : 'minmax(180px,280px) minmax(0,1fr)'};gap:0;align-items:stretch;">
+          <div style="display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at top left,rgba(14,165,233,0.14),transparent 36%),linear-gradient(180deg,#f8fbfd 0%,#eef2f7 100%);text-align:center;">
+            <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(isHome ? 'Pacific Coast logo' : `${page.title} hero image`)}" style="width:100%;max-width:${isHome ? '190px' : '220px'};height:auto;display:inline-block;" />
+          </div>
+          <div style="padding:18px 20px;">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#0369a1;margin:0 0 8px 0;">${htmlEscape(isHome ? 'SharePoint clinical reference portal' : 'Pacific Coast SLP module')}</div>
+            <h1 style="margin:0 0 8px 0;font-size:${isHome ? '34px' : '30px'};line-height:1.1;color:#0f172a;">${htmlEscape(isHome ? 'Pacific Coast SLP Portal' : page.title)}</h1>
+            <p style="margin:0 0 10px 0;color:#475569;font-size:14px;line-height:1.65;">${htmlEscape(isHome ? 'Minimalist, dense launch point for clinical references, reviewed sources, and non-PHI workflow scaffolds. The production app remains SPFx pending.' : page.summary)}</p>
+            <div style="margin:0 0 10px 0;">
+              <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
+              <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
+              <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SPFx pending</span>
+            </div>
+            <div>${renderCanvasActionPills(isHome ? homeActions : pageActions)}</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 16px 0;">
+        <div style="border:1px solid #dbe5ee;border-radius:20px;padding:14px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#1d4ed8;margin:0 0 6px 0;">Production path</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">PHI-minimized SPFx shell</div><div style="color:#64748b;font-size:13px;line-height:1.55;">Single Part App Page remains the production endpoint for patient-adjacent interactive workflows.</div></div>
+        <div style="border:1px solid #dbe5ee;border-radius:20px;padding:14px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#0891b2;margin:0 0 6px 0;">Bridge purpose</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Dense reference and resource layer</div><div style="color:#64748b;font-size:13px;line-height:1.55;">Optimized for findability, fast scanning, and high-signal links while App Catalog deployment remains blocked.</div></div>
+        <div style="border:1px solid #dbe5ee;border-radius:20px;padding:14px;background:#ffffff;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#166534;margin:0 0 6px 0;">Clinical boundary</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Reference now, chart elsewhere</div><div style="color:#64748b;font-size:13px;line-height:1.55;">No patient-specific data entry, no durable resident artifacts, and no hidden workflow persistence.</div></div>
+      </div>
+      <div style="border:1px solid #f7d78c;border-radius:22px;background:linear-gradient(135deg,#fffdf3 0%,#fffbeb 100%);padding:15px 16px;margin:0 0 16px 0;">
+        <div style="font-size:26px;font-weight:900;line-height:1.15;color:#78350f;margin:0 0 6px 0;">PHI guardrails</div>
+        <div style="color:#92400e;font-size:13px;line-height:1.6;">No patient tracker, resident list, identifiers, or PHI fields belong on this bridge page. Do not paste patient-specific notes, evaluation text, recordings, or treatment data into SharePoint page content.</div>
+      </div>
+      ${isHome ? `
+        <div style="margin:0 0 16px 0;">
+          <div style="font-size:26px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">Portal map</div>
+          <div style="color:#64748b;font-size:13px;line-height:1.55;margin:0 0 10px 0;">Task-first navigation aligned to clinician browsing, workflow scaffolds, knowledge surfaces, and governance.</div>
+          ${renderCanvasCardGrid(homeGroupCards)}
+        </div>
+      ` : ''}
+      ${sectionCards.length ? `
+        <div style="margin:0 0 16px 0;">
+          <div style="font-size:26px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">${htmlEscape(isHome ? 'Daily-use workflow' : 'Bridge status')}</div>
+          <div style="color:#64748b;font-size:13px;line-height:1.55;margin:0 0 10px 0;">${htmlEscape(isHome ? 'A compact operating path that keeps the bridge safe and clinically useful.' : 'Mapped from the local portal while interactive workflow remains SPFx pending.')}</div>
+          ${renderCanvasCardGrid(sectionCards)}
+        </div>
+      ` : ''}
+      <div style="margin:0 0 16px 0;">
+        <div style="font-size:26px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">Generalized workflow surfaces</div>
+        <div style="color:#64748b;font-size:13px;line-height:1.55;margin:0 0 10px 0;">High-utility non-PHI launch surfaces mapped from the local portal.</div>
+        ${renderCanvasCardGrid(workflowCards.length ? workflowCards : [{
+          eyebrow: 'Reference',
+          title: isHome ? 'Workflow launch layer' : 'Reference launch layer',
+          text: isHome ? 'Open high-use modules, workflow pages, and knowledge destinations before completing chart work in approved systems.' : 'Use this page to frame review, treatment planning, and source coordination without entering resident identifiers.'
+        }])}
+      </div>
+      <div style="margin:0 0 16px 0;">
+        <div style="font-size:26px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">Template-mode workflow shells</div>
+        <div style="color:#64748b;font-size:13px;line-height:1.55;margin:0 0 10px 0;">Copy-ready structures that stay generalized until finalized in approved clinical systems.</div>
+        ${renderCanvasCardGrid(templateCards.length ? templateCards : [{
+          eyebrow: 'Workflow template',
+          title: isHome ? 'Generalized template workflow' : 'Generalized template shell',
+          text: 'Keep impairment framing, skilled-service language, goals, and carryover prompts generalized until the approved record is open.'
+        }])}
+      </div>
+      ${referenceCards.length ? `
+        <div style="margin:0 0 16px 0;">
+          <div style="font-size:26px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">Authoritative references</div>
+          <div style="color:#64748b;font-size:13px;line-height:1.55;margin:0 0 10px 0;">ASHA, CMS, Medicare.gov, Microsoft Learn, and approved SharePoint sources.</div>
+          ${renderCanvasCardGrid(referenceCards)}
+        </div>
+      ` : ''}
+      <div style="border:1px solid #dbe5ee;border-radius:20px;padding:14px 16px;background:#ffffff;">
+        <div style="font-size:24px;font-weight:900;line-height:1.15;color:#0f172a;margin:0 0 6px 0;">Production note</div>
+        <div style="color:#64748b;font-size:13px;line-height:1.6;">This page is a SharePoint-native bridge shaped around findability, task visibility, and non-PHI reference use. The production app remains the PHI-minimized SPFx portal package, so interactive workflow behavior is SPFx pending.</div>
+      </div>
+    </div>
+  `.replace(/\n\s+/g, '\n').trim();
+}
+
 function renderFeatureCards(cards = []) {
   if (!cards.length) return '';
   const content = cards.map((card) => `
-    <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.06);">
-      <h3 style="margin:0 0 8px 0;">${htmlEscape(card.title)}</h3>
-      <p style="margin:0 0 10px 0;color:#374151;">${htmlEscape(card.description || card.text || '')}</p>
-      <p style="margin:0;">${(card.chips || []).map((chip) => `<span style="display:inline-block;margin:0 6px 6px 0;padding:3px 8px;border-radius:999px;background:#eef6ff;color:#0f4761;font-size:12px;font-weight:700;">${htmlEscape(chip)}</span>`).join('')}</p>
+    <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px 18px 16px 18px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 18px 38px rgba(15,23,42,0.06);">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 0 10px 0;">
+        <h3 style="margin:0;font-size:18px;line-height:1.3;color:#0f172a;">${htmlEscape(card.title)}</h3>
+        <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:11px;font-weight:800;text-transform:uppercase;white-space:nowrap;">Reference</span>
+      </div>
+      <p style="margin:0 0 12px 0;color:#475569;font-size:14px;line-height:1.7;">${htmlEscape(card.description || card.text || '')}</p>
+      <div>${(card.chips || []).map((chip) => `<span style="display:inline-flex;align-items:center;margin:0 8px 8px 0;padding:5px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;">${htmlEscape(chip)}</span>`).join('')}</div>
     </div>
   `).join('');
-  return `<h2>Generalized workflow surfaces</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 18px 0;">${content}</div>`;
+  return `
+    <section style="margin:0 0 28px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Generalized workflow surfaces</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">High-utility non-PHI launch surfaces mapped from the local portal.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">${content}</div>
+    </section>
+  `;
 }
 
 function renderTemplateGroups(groups = []) {
   if (!groups.length) return '';
-  return `<h2>Template-mode workflow shells</h2>${groups.map((group) => `
-    <h2>${htmlEscape(group.heading || group.title || 'Workflow template')}</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 0 18px 0;">
-      ${(group.items || []).map((item) => typeof item === 'string' ? `
-        <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#fbfdff;">
-          <p style="margin:0;">${htmlEscape(item)}</p>
+  return `
+    <section style="margin:0 0 28px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Template-mode workflow shells</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Copy-ready structures that stay generalized until finalized in approved clinical systems.</p>
         </div>
-      ` : `
-        <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#fbfdff;">
-          <h3 style="margin:0 0 10px 0;">${htmlEscape(item.title)}</h3>
-          <ol style="margin:0;padding-left:18px;">${(item.lines || []).map((line) => `<li style="margin:0 0 8px 0;">${htmlEscape(line)}</li>`).join('')}</ol>
+      </div>
+      ${groups.map((group) => `
+        <div style="margin:0 0 18px 0;">
+          <h3 style="margin:0 0 12px 0;font-size:20px;line-height:1.3;color:#0f172a;">${htmlEscape(group.heading || group.title || 'Workflow template')}</h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
+            ${(group.items || []).map((item) => typeof item === 'string' ? `
+              <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 14px 30px rgba(15,23,42,0.05);">
+                <p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">${htmlEscape(item)}</p>
+              </div>
+            ` : `
+              <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 14px 30px rgba(15,23,42,0.05);">
+                <h4 style="margin:0 0 12px 0;font-size:16px;line-height:1.4;color:#0f172a;">${htmlEscape(item.title)}</h4>
+                <ol style="margin:0;padding-left:18px;color:#475569;font-size:14px;line-height:1.7;">${(item.lines || []).map((line) => `<li style="margin:0 0 9px 0;">${htmlEscape(line)}</li>`).join('')}</ol>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `).join('')}
+    </section>
+  `;
+}
+
+function renderSectionCards(sections = []) {
+  return sections.map((section) => `
+    <section style="margin:0 0 24px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">${htmlEscape(section.heading)}</h2>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
+        ${section.bullets.map((item) => `
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 12px 26px rgba(15,23,42,0.05);">
+            <p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">${htmlEscape(item)}</p>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `).join('');
+}
+
+function renderReferenceCards(links = []) {
+  const cards = links.map((href) => {
+    const meta = getLinkMeta(href);
+    return `
+      <a href="${htmlEscape(href)}" style="display:block;border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;text-decoration:none;box-shadow:0 12px 24px rgba(15,23,42,0.05);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px 0;">
+          <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;">${htmlEscape(meta.domain)}</span>
+          <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#f8fafc;color:#475569;font-size:11px;font-weight:800;text-transform:uppercase;">Open</span>
+        </div>
+        <div style="font-size:16px;line-height:1.4;font-weight:800;color:#0f172a;margin:0 0 8px 0;">${htmlEscape(meta.label)}</div>
+        <div style="color:#64748b;font-size:13px;line-height:1.6;word-break:break-word;">${htmlEscape(href)}</div>
+      </a>
+    `;
+  }).join('');
+  return `
+    <section style="margin:0 0 28px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Authoritative references</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">ASHA, CMS, Medicare.gov, Microsoft Learn, and approved SharePoint sources.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">${cards}</div>
+    </section>
+  `;
+}
+
+function renderRelatedPageCards(currentFileName, isHome) {
+  const currentItem = pages.find((item) => item.fileName === currentFileName);
+  const currentGroup = currentItem ? getPortalGroupKey(currentItem) : null;
+  const relatedItems = isHome
+    ? pages.filter((item) => item.fileName !== currentFileName)
+    : [
+        ...pages.filter((item) => item.fileName !== currentFileName && currentGroup && getPortalGroupKey(item) === currentGroup),
+        ...pages.filter((item) => item.fileName !== currentFileName && (!currentGroup || getPortalGroupKey(item) !== currentGroup))
+      ].slice(0, 6);
+
+  return `
+    <section style="margin:0 0 28px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Related SLP pages</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Browse the nearest clinical, workflow, and governance destinations.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+        ${relatedItems.map((item) => `
+          <a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}" style="display:block;border:1px solid #dbe5ee;border-radius:20px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 10px 22px rgba(15,23,42,0.05);">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 6px 0;">
+              <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#ecfeff;color:#155e75;font-size:11px;font-weight:800;text-transform:uppercase;">Module</span>
+              <span style="display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;">SPFx pending</span>
+            </div>
+            <div style="font-size:15px;line-height:1.4;font-weight:800;color:#0f172a;margin:0 0 8px 0;">${htmlEscape(item.title)}</div>
+            <div style="color:#64748b;font-size:13px;line-height:1.6;">${htmlEscape(item.summary)}</div>
+          </a>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function renderUtilityBands(isHome) {
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 20px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:24px;padding:16px 18px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 16px 32px rgba(15,23,42,0.05);">
+        <div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef6ff;color:#1d4ed8;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">Production path</div>
+        <div style="font-size:18px;line-height:1.35;font-weight:800;color:#0f172a;margin:0 0 6px 0;">PHI-minimized SPFx shell</div>
+        <div style="color:#64748b;font-size:14px;line-height:1.65;">Single Part App Page remains the production endpoint for patient-adjacent interactive workflows.</div>
+      </div>
+      <div style="border:1px solid #dbe5ee;border-radius:24px;padding:16px 18px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 16px 32px rgba(15,23,42,0.05);">
+        <div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#ecfeff;color:#155e75;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">Bridge purpose</div>
+        <div style="font-size:18px;line-height:1.35;font-weight:800;color:#0f172a;margin:0 0 6px 0;">Dense reference and resource layer</div>
+        <div style="color:#64748b;font-size:14px;line-height:1.65;">Optimized for findability, fast scanning, and high-signal links while App Catalog deployment remains blocked.</div>
+      </div>
+      <div style="border:1px solid #dbe5ee;border-radius:24px;padding:16px 18px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 16px 32px rgba(15,23,42,0.05);">
+        <div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">Clinical boundary</div>
+        <div style="font-size:18px;line-height:1.35;font-weight:800;color:#0f172a;margin:0 0 6px 0;">Reference now, chart elsewhere</div>
+        <div style="color:#64748b;font-size:14px;line-height:1.65;">No patient-specific data entry, no durable resident artifacts, and no hidden workflow persistence.</div>
+      </div>
+      ${isHome ? `
+        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:16px 18px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:0 16px 32px rgba(15,23,42,0.05);">
+          <div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">Information design</div>
+          <div style="font-size:18px;line-height:1.35;font-weight:800;color:#0f172a;margin:0 0 6px 0;">Minimalist and dense</div>
+          <div style="color:#64748b;font-size:14px;line-height:1.65;">Aligned to Microsoft guidance on findability, clear labels, and prioritizing common tasks first.</div>
+        </div>
+      ` : ''}
     </div>
-  `).join('')}`;
+  `;
 }
 
 function renderPageHtml(page) {
   const heroImage = imageUrlByKey[page.imageKey] || imageUrlByKey.background;
   const isHome = page.fileName === 'SLP-Portal.aspx';
-  const primaryLinks = [
-    { label: 'Open Dysphagia', fileName: 'SLP-Dysphagia.aspx' },
-    { label: 'Open Aphasia', fileName: 'SLP-Aphasia.aspx' },
-    { label: 'Medicare & Compliance', fileName: 'SLP-Medicare-Compliance.aspx' },
-    { label: 'Documentation Studio', fileName: 'SLP-Documentation-Studio.aspx' }
-  ].map((link) => `<a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(link.fileName)}" style="display:inline-block;margin:0 8px 8px 0;padding:10px 14px;border-radius:6px;background:#0f6cbd;color:#ffffff;text-decoration:none;font-weight:600;">${htmlEscape(link.label)}</a>`).join('');
+  const portalGroups = buildPortalGroups();
+  const homeActions = [
+    { label: 'Open Dysphagia', href: '/sites/PacificCoast_SLP/SitePages/SLP-Dysphagia.aspx', tone: '#0f6cbd' },
+    { label: 'Open Aphasia', href: '/sites/PacificCoast_SLP/SitePages/SLP-Aphasia.aspx', tone: '#0891b2' },
+    { label: 'Medicare and Compliance', href: '/sites/PacificCoast_SLP/SitePages/SLP-Medicare-Compliance.aspx', tone: '#0f766e' },
+    { label: 'Documentation Studio', href: '/sites/PacificCoast_SLP/SitePages/SLP-Documentation-Studio.aspx', tone: '#1d4ed8' },
+    { label: 'Knowledge Index', href: '/sites/PacificCoast_SLP/SitePages/SLP-Knowledge-Source-Index.aspx', tone: '#0f172a' }
+  ];
+  const homeSectionActions = portalGroups.map((group, index) => ({
+    label: group.label,
+    href: `#${group.id}`,
+    tone: ['#0f172a', '#0f6cbd', '#0891b2', '#155e75'][index % 4]
+  }));
+  const pageActions = [
+    { label: 'Portal home', href: '/sites/PacificCoast_SLP/SitePages/SLP-Portal.aspx', tone: '#0f172a' },
+    { label: 'Knowledge index', href: '/sites/PacificCoast_SLP/SitePages/SLP-Knowledge-Source-Index.aspx', tone: '#0f6cbd' },
+    { label: 'Clinical library', href: '/sites/PacificCoast_SLP/SitePages/SLP-Clinical-Library.aspx', tone: '#0891b2' },
+    { label: 'SPFx handoff', href: '/sites/PacificCoast_SLP/SitePages/SLP-SPFx-Production-Handoff.aspx', tone: '#155e75' }
+  ];
 
-  const relatedLinks = pages
-    .filter((item) => item.fileName !== page.fileName)
-    .slice(0, page.fileName === 'SLP-Portal.aspx' ? pages.length : 5)
-    .map((item) => `<li><a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}">${htmlEscape(item.title)}</a></li>`)
-    .join('');
-
-  const moduleCards = pages
-    .filter((item) => item.fileName !== 'SLP-Portal.aspx')
-    .map((item) => {
-      const itemImage = imageUrlByKey[item.imageKey] || imageUrlByKey.background;
-      return `
-      <div style="border:1px solid #d0d7de;border-radius:8px;margin:0 0 14px 0;overflow:hidden;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
-        <div style="background:#f6f8fa;text-align:center;padding:12px;">
-          <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;max-width:260px;height:auto;display:inline-block;" />
-        </div>
-        <div style="padding:14px 16px;">
-          <h3 style="margin:0 0 6px 0;"><a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}">${htmlEscape(item.title)}</a></h3>
-          <p style="margin:0 0 10px 0;">${htmlEscape(item.summary)}</p>
-          <p style="margin:0;"><span style="display:inline-block;padding:3px 8px;border-radius:999px;background:#eef6ff;color:#0f4761;font-size:12px;font-weight:700;">Reference now</span> <span style="display:inline-block;padding:3px 8px;border-radius:999px;background:#fff4ce;color:#5c3b00;font-size:12px;font-weight:700;">SPFx pending</span></p>
+  const serviceMap = `
+    <section style="margin:0 0 26px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">SLP service map</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Organized around how clinicians browse, decide, and act in the portal.</p>
         </div>
       </div>
-    `;
-    }).join('');
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;">
+        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Swallowing and airway</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Dysphagia, instrumentals, IDDSI, trach and vent, meds/labs, and safety escalation.</p></div>
+        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Communication and cognition</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Aphasia, AAC, cognition, motor speech, voice, anatomy, reference, and outcomes.</p></div>
+        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Documentation and compliance</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Documentation, coding, Medicare, audit framing, compliance center, and source governance.</p></div>
+        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Template-mode workflows</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Notes, goals, therapy templates, handouts, Copilot playbooks, and reusable support shells.</p></div>
+      </div>
+    </section>
+  `;
 
   const homepageOnly = isHome ? `
-    <div style="border-left:5px solid #107c10;background:#f0f8f0;padding:14px 16px;margin:18px 0;border-radius:6px;">
-      <h2 style="margin-top:0;">Launch actions</h2>
-      <p style="margin:0 0 10px 0;">Start with a clinical domain, compliance reference, or the SPFx-pending documentation workspace.</p>
-      <p style="margin:0;">${primaryLinks}</p>
-    </div>
-    <h2>SLP service map</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:0 0 20px 0;">
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
-        <h3 style="margin-top:0;">Swallowing and Airway</h3>
-        <p>Dysphagia, instrumental references, IDDSI orientation, airway coordination, and trach/vent readiness.</p>
+    <section style="margin:0 0 28px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:28px;padding:20px 22px;background:linear-gradient(135deg,#eff6ff 0%,#f8fafc 38%,#ffffff 100%);box-shadow:0 24px 42px rgba(15,23,42,0.06);margin:0 0 20px 0;">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 8px 0;font-size:28px;line-height:1.2;color:#0f172a;">Launch actions</h2>
+            <p style="margin:0;color:#475569;font-size:15px;line-height:1.7;max-width:760px;">Prioritize common tasks first: open a core module, move into generalized workflow pages, then finish patient-specific work in the chart.</p>
+          </div>
+        </div>
+        <div style="margin:18px 0 0 0;">${renderActionPills(homeActions)}</div>
       </div>
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
-        <h3 style="margin-top:0;">Communication and Cognition</h3>
-        <p>Aphasia, AAC access, cognitive-communication treatment planning, voice, fluency, and motor speech supports.</p>
+      <section style="margin:0 0 22px 0;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;">
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Portal coverage</div><div style="font-size:24px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">${pages.length}</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Validated SharePoint bridge pages in the live safe migration set.</div></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Navigation model</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Task first</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Grouped by clinician tasks, workflow shells, knowledge, and governance.</div></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Workflow mode</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Reference and template</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Generalized workflow shells now; patient-specific interaction stays out of the bridge.</div></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Next production lift</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">SPFx shell</div><div style="color:#64748b;font-size:13px;line-height:1.6;">The interactive app path remains the PHI-minimized SPFx package.</div></div>
+        </div>
+      </section>
+      <section style="margin:0 0 22px 0;">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Portal navigation</h2>
+            <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Compact jump menu aligned to Microsoft guidance on clear, scannable, task-oriented labels.</p>
+          </div>
+        </div>
+        <div style="margin:0;">${renderActionPills(homeSectionActions)}</div>
+      </section>
+      ${serviceMap}
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+        <div>
+          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Portal map</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">A denser index of modules, studios, references, and governance surfaces grouped by clinician intent.</p>
+        </div>
       </div>
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
-        <h3 style="margin-top:0;">Documentation and Medicare</h3>
-        <p>Medicare coverage anchors, skilled-service language, documentation boundaries, and generalized non-PHI draft workflows.</p>
+      ${renderPortalMapGroups()}
+      <section style="margin:0 0 22px 0;">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+          <div>
+            <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">Daily-use workflow</h2>
+            <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">A minimal operating path that matches the portal’s safe boundary.</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;">
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#0f172a;color:#ffffff;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">1</div><p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">Start with the relevant clinical module or Medicare and compliance reference.</p></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#0f172a;color:#ffffff;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">2</div><p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">Use authoritative references and generalized workflow pages to frame treatment and documentation.</p></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#0f172a;color:#ffffff;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">3</div><p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">Keep patient-specific work in approved clinical systems until the SPFx shell is live.</p></div>
+          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#0f172a;color:#ffffff;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 0 10px 0;">4</div><p style="margin:0;color:#334155;font-size:14px;line-height:1.7;">Use the SPFx handoff and source index pages to prepare the next production lift.</p></div>
+        </div>
+      </section>
+    </section>
+  ` : `
+    <section style="margin:0 0 24px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:26px;padding:18px 20px;background:linear-gradient(135deg,#eff6ff 0%,#f8fafc 40%,#ffffff 100%);box-shadow:0 20px 36px rgba(15,23,42,0.05);">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 8px 0;font-size:24px;line-height:1.2;color:#0f172a;">Launch actions</h2>
+            <p style="margin:0;color:#475569;font-size:14px;line-height:1.7;max-width:720px;">Move between the portal shell, source governance, and supporting reference hubs without losing the current module context.</p>
+          </div>
+        </div>
+        <div style="margin:16px 0 0 0;">${renderActionPills(pageActions)}</div>
       </div>
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:16px;background:#ffffff;">
-        <h3 style="margin-top:0;">Template-Mode Workflows</h3>
-        <p>Copy-ready note, goal, handout, case-reasoning, and therapy-template surfaces that stay generalized until finalized in the chart.</p>
-      </div>
-    </div>
-    <h2>Portal map</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">${moduleCards}</div>
-    <h2>Daily-use workflow</h2>
-    <ol>
-      <li>Start with the relevant clinical module or Medicare/compliance reference.</li>
-      <li>Use authoritative references and generalized template-mode pages for clinical framing and documentation requirements.</li>
-      <li>Keep patient-specific work in approved clinical systems until the SPFx app is deployed.</li>
-      <li>Return to the SPFx production package for interactive tools when App Catalog deployment is available.</li>
-    </ol>
-  ` : '';
+    </section>
+  `;
 
-  const sections = page.sections.map((section) => `
-    <h2>${htmlEscape(section.heading)}</h2>
-    <ul>${section.bullets.map((item) => `<li>${htmlEscape(item)}</li>`).join('')}</ul>
-  `).join('');
+  const sectionCards = renderSectionCards(page.sections);
   const featureCards = renderFeatureCards(page.featureCards);
   const templateGroups = renderTemplateGroups(page.templateGroups);
-
-  const links = page.links.map((href) => `<li><a href="${htmlEscape(href)}">${htmlEscape(href)}</a></li>`).join('');
+  const relatedCards = renderRelatedPageCards(page.fileName, isHome);
+  const referenceCards = renderReferenceCards(page.links);
   const hero = isHome ? `
-    <div style="border:1px solid #d0d7de;border-radius:8px;overflow:hidden;background:#ffffff;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.10);">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:center;padding:24px 26px;background:#ffffff;">
+    <section style="border:1px solid #dbe5ee;border-radius:32px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 42%,#eef6ff 100%);margin:0 0 24px 0;box-shadow:0 28px 54px rgba(15,23,42,0.08);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;align-items:center;padding:30px 32px;">
         <div style="text-align:center;">
-          <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:308px;height:auto;display:inline-block;" />
+          <div style="display:inline-flex;align-items:center;justify-content:center;width:min(100%,360px);padding:14px;border-radius:28px;background:#ffffff;box-shadow:0 22px 44px rgba(15,23,42,0.08);">
+            <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:210px;height:auto;display:inline-block;" />
+          </div>
         </div>
         <div>
-          <p style="margin:0 0 8px 0;color:#0f6cbd;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;">SharePoint clinical reference portal</p>
-          <h1 style="margin:0 0 10px 0;font-size:34px;line-height:1.15;color:#111827;">Pacific Coast SLP Portal</h1>
-          <p style="margin:0 0 14px 0;font-size:16px;line-height:1.55;color:#374151;">PHI-minimized launch point for SLP clinical references, source documents, Medicare guidance, and reviewed knowledge workflows.</p>
-          <p style="margin:0;">${primaryLinks}</p>
-          <p style="margin:12px 0 0 0;"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#eef6ff;color:#0f4761;font-weight:700;">SharePoint-native bridge</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#f0f8f0;color:#0b6a0b;font-weight:700;">Non-PHI</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#fff4ce;color:#5c3b00;font-weight:700;">SPFx production pending</span></p>
+          <p style="margin:0 0 10px 0;color:#0369a1;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;">SharePoint clinical reference portal</p>
+          <h1 style="margin:0 0 12px 0;font-size:40px;line-height:1.08;color:#0f172a;">Pacific Coast SLP Portal</h1>
+          <p style="margin:0 0 16px 0;font-size:16px;line-height:1.75;color:#475569;max-width:680px;">Minimalist, dense launch point for SLP clinical references, Medicare guidance, reviewed source libraries, and non-PHI workflow scaffolds while the full SPFx experience remains on the production track. The layout is intentionally task-first so clinicians can scan, decide, and move without hunting.</p>
+          <div style="margin:0 0 14px 0;">${renderActionPills(homeActions)}</div>
+          <div>
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SPFx production pending</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   ` : `
-    <div style="border:1px solid #d0d7de;border-radius:8px;overflow:hidden;background:#ffffff;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.10);">
-      <div style="background:#f6f8fa;text-align:center;padding:18px;">
-        <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(page.title)} hero image" style="width:100%;max-width:520px;height:auto;display:inline-block;" />
+    <section style="border:1px solid #dbe5ee;border-radius:30px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 42%,#eef6ff 100%);margin:0 0 24px 0;box-shadow:0 24px 48px rgba(15,23,42,0.07);">
+      <div style="display:grid;grid-template-columns:minmax(220px,360px) minmax(0,1fr);gap:0;align-items:stretch;">
+        <div style="display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at top left,rgba(14,165,233,0.14),transparent 36%),linear-gradient(180deg,#f8fbfd 0%,#eef2f7 100%);">
+          <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(page.title)} hero image" style="width:100%;max-width:280px;height:auto;display:inline-block;" />
+        </div>
+        <div style="padding:24px 26px;">
+          <p style="margin:0 0 10px 0;color:#0369a1;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;">Pacific Coast SLP module</p>
+          <h1 style="margin:0 0 10px 0;font-size:34px;line-height:1.12;color:#0f172a;">${htmlEscape(page.title)}</h1>
+          <p style="margin:0 0 15px 0;font-size:15px;line-height:1.75;color:#475569;">${htmlEscape(page.summary)}</p>
+          <div style="margin:0 0 14px 0;">
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
+            <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#fff7ed;color:#9a3412;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SPFx production pending</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;">
+            <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Mode</div><div style="font-size:15px;font-weight:800;color:#0f172a;">Reference and template</div></div>
+            <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Storage</div><div style="font-size:15px;font-weight:800;color:#0f172a;">No durable PHI</div></div>
+            <div style="border:1px solid #dbe5ee;border-radius:18px;padding:12px;background:#ffffff;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Next lift</div><div style="font-size:15px;font-weight:800;color:#0f172a;">SPFx interactive shell</div></div>
+          </div>
+        </div>
       </div>
-      <div style="padding:16px 18px;">
-    <h1>${htmlEscape(page.title)}</h1>
-    <p>${htmlEscape(page.summary)}</p>
-    <p style="margin:12px 0 0 0;"><span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#eef6ff;color:#0f4761;font-weight:700;">SharePoint-native bridge</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#f0f8f0;color:#0b6a0b;font-weight:700;">Non-PHI</span> <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#fff4ce;color:#5c3b00;font-weight:700;">SPFx production pending</span></p>
-      </div>
-    </div>
+    </section>
   `;
 
   return `
-    ${hero}
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 18px 0;">
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:14px;background:#ffffff;"><strong>Production path</strong><br />PHI-minimized SPFx full-page portal package.</div>
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:14px;background:#ffffff;"><strong>Bridge purpose</strong><br />SharePoint-native reference and navigation while App Catalog deployment is pending.</div>
-      <div style="border:1px solid #d0d7de;border-radius:8px;padding:14px;background:#ffffff;"><strong>Clinical boundary</strong><br />Reference, orientation, and compliance anchors only. No patient-specific data entry.</div>
+    <div style="max-width:1500px;margin:0 auto;padding:4px 0 24px 0;color:#0f172a;">
+      ${hero}
+      ${renderUtilityBands(isHome)}
+      <div style="border:1px solid #f7d78c;border-radius:26px;background:linear-gradient(135deg,#fffdf3 0%,#fffbeb 100%);padding:18px 20px;margin:0 0 24px 0;box-shadow:0 18px 36px rgba(146,64,14,0.05);">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 8px 0;font-size:26px;line-height:1.2;color:#78350f;">PHI guardrails</h2>
+            <p style="margin:0;color:#92400e;font-size:14px;line-height:1.7;max-width:780px;">No patient tracker, resident list, identifiers, or PHI fields belong on this bridge page. Do not paste patient-specific notes, evaluation text, recordings, or treatment data into SharePoint page content.</p>
+          </div>
+          <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#ffffff;color:#92400e;font-size:11px;font-weight:800;text-transform:uppercase;">Reference only</span>
+        </div>
+      </div>
+      ${homepageOnly}
+      ${sectionCards}
+      ${featureCards}
+      ${templateGroups}
+      ${relatedCards}
+      ${referenceCards}
+      <section style="border:1px solid #dbe5ee;border-radius:24px;padding:18px 20px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);">
+        <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 8px 0;font-size:24px;line-height:1.2;color:#0f172a;">Production note</h2>
+            <p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;max-width:860px;">This page is a SharePoint-native bridge shaped around findability, task visibility, and non-PHI reference use. The production app remains the PHI-minimized SPFx portal package, so interactive workflow behavior is SPFx pending.</p>
+          </div>
+          <a href="/sites/PacificCoast_SLP/SitePages/SLP-SPFx-Production-Handoff.aspx" style="display:inline-flex;align-items:center;padding:11px 15px;border-radius:999px;background:#0f172a;color:#ffffff;text-decoration:none;font-size:13px;font-weight:800;">Open SPFx handoff</a>
+        </div>
+      </section>
     </div>
-    <div style="border:1px solid #f2c94c;border-left:5px solid #f2c94c;background:#fffdf3;padding:14px 16px;border-radius:6px;margin:0 0 18px 0;">
-    <h2>PHI guardrails</h2>
-    <ul>
-      <li>No patient tracker, resident list, identifiers, or PHI fields belong on this bridge page.</li>
-      <li>Do not paste patient-specific notes, evaluation text, recordings, or treatment data into SharePoint page content.</li>
-      <li>Interactive drafting and clinical workflow tools remain pending until the SPFx package is deployed.</li>
-    </ul>
-    </div>
-    ${homepageOnly}
-    ${sections}
-    ${featureCards}
-    ${templateGroups}
-    <h2>Related SLP pages</h2>
-    <ul>${relatedLinks}</ul>
-    <h2>Authoritative references</h2>
-    <ul>${links}</ul>
-    <p><strong>Production note:</strong> This page is a SharePoint-native bridge. The production app remains the PHI-minimized SPFx portal package, so interactive workflow behavior is SPFx pending.</p>
   `.replace(/\n\s+/g, '\n').trim();
 }
 
@@ -3358,7 +3885,7 @@ function makeTextCanvas(page) {
     },
     displayMode: 2,
     editorType: 'CKEditor',
-    innerHTML: renderPageHtml(page)
+    innerHTML: renderCanvasHtml(page)
   }]);
 }
 

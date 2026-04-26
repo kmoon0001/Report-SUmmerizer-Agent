@@ -1,6 +1,6 @@
 # SharePoint SLP Portal Progress
 
-Last updated: 2026-04-25
+Last updated: 2026-04-26
 
 ## Current Direction
 
@@ -56,6 +56,33 @@ Current bridge totals:
 - `359` non-PHI source index records seeded into `SLP_Source_Index`
 - `0` low-depth bridge pages remaining after the safe depth pass
 - every bridge page now has generalized workflow cards and template-mode workflow shells
+
+### 00B. SharePoint Bridge Redesign Pass
+
+The live SharePoint-native bridge was visually redesigned to better match the local portal tone while staying inside the same non-PHI bridge boundary.
+
+Completed outcomes:
+
+- upgraded the shared renderer to a more task-first clinical dashboard structure
+- grouped homepage navigation by clinician intent, workflow, knowledge, and governance
+- improved module card hierarchy, source labeling, action density, and homepage composition
+- resized the Pacific Coast logo on the homepage to a more proportional presentation
+- validated the redesign against Microsoft Learn, SharePoint Look Book, and Fluent 2 guidance for findability, card structure, navigation clarity, layout rhythm, and restrained motion tone
+- identified and repaired a SharePoint constraint where large single-control `CanvasContent1` payloads fail even when the same richer HTML is accepted in `WikiField`
+- shipped a compact polished SharePoint-safe canvas shell while retaining richer detailed page HTML in the page record
+
+Validation after redesign:
+
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Current live redesign result:
+
+- `46` validated SharePoint pages
+- `46/46` homepage images loaded successfully
+- `0` failed strict validator checks
+- `0` visual QA failures in the sampled desktop/mobile pass
 
 Generalized workflow expansion now live:
 - `SLP-Note-Template-Studio.aspx`

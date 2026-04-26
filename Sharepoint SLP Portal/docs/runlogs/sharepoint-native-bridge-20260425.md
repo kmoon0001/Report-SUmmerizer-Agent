@@ -302,3 +302,21 @@ Validator checks passed:
 - no page contains `<form>`, `<input>`, or `<textarea>`
 - blocked/sample/PHI-era navigation remains absent
 - live homepage loaded 21 SharePoint-hosted images with non-zero dimensions
+
+## Image Aspect Ratio Fix
+
+Date: 2026-04-25
+
+Completed:
+
+- removed forced `max-height` and `object-fit: cover` image styling from the SharePoint-native bridge generator
+- republished all bridge pages with proportional image scaling:
+  - `width:100%`
+  - `height:auto`
+- verified live rendered image dimensions against natural dimensions
+
+Validation result: PASS
+
+- 21 SharePoint-hosted images checked on the live homepage
+- no image ratio delta exceeded the validation threshold
+- no stretched/cropped image rendering detected

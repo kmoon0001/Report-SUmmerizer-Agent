@@ -574,7 +574,7 @@ function renderPageHtml(page) {
       const itemImage = imageUrlByKey[item.imageKey] || imageUrlByKey.background;
       return `
       <div style="border:1px solid #d0d7de;border-radius:8px;margin:0 0 14px 0;overflow:hidden;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
-        <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;max-height:190px;object-fit:cover;display:block;" />
+        <img src="${htmlEscape(itemImage)}" alt="${htmlEscape(item.title)} module image" style="width:100%;height:auto;display:block;" />
         <div style="padding:14px 16px;">
           <h3 style="margin:0 0 6px 0;"><a href="/sites/PacificCoast_SLP/SitePages/${htmlEscape(item.fileName)}">${htmlEscape(item.title)}</a></h3>
           <p style="margin:0 0 10px 0;">${htmlEscape(item.summary)}</p>
@@ -625,7 +625,7 @@ function renderPageHtml(page) {
 
   return `
     <div style="border:1px solid #d0d7de;border-radius:8px;overflow:hidden;background:#ffffff;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.10);">
-      <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(page.title)} hero image" style="width:100%;max-height:280px;object-fit:cover;display:block;" />
+      <img src="${htmlEscape(heroImage)}" alt="${htmlEscape(page.title)} hero image" style="width:100%;height:auto;display:block;" />
       <div style="padding:16px 18px;">
     <h1>${htmlEscape(page.title)}</h1>
     <p>${htmlEscape(page.summary)}</p>

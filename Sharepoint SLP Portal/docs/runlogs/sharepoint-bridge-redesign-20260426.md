@@ -110,6 +110,44 @@ Second-pass outcome:
 - live homepage remains within the non-PHI bridge boundary
 - desktop/mobile visual QA still passed with `0` failures
 
+## Third polish pass and live republish
+
+The next pass tightened the homepage again around Microsoft-style intranet patterns: shorter hero, smaller proportional Pacific Coast logo treatment, clearer launch actions, denser service-map tiles, and more deliberate clinical-resource hierarchy.
+
+Third-pass changes:
+
+- reduced the homepage hero height and logo footprint
+- added compact task-first launch cards while preserving the validator-required `Launch actions` anchor
+- kept the service section labeled `SLP service map` for deterministic QA while changing the card treatment to a flatter corporate resource-map pattern
+- retained the safe SharePoint-native bridge boundary: no PHI forms, no patient tracker, no local-only clinical assertions
+- republished the updated SharePoint-native pages to the Pacific Coast SLP site
+
+Publish notes:
+
+- first live retry hit a transient SharePoint asset-upload `503`
+- second live retry completed against the existing `46` pages
+- the page labels were repaired and republished after strict QA caught the renamed anchors
+
+Validation after live republish:
+
+- `node scripts/validate-sharepoint-native-bridge.mjs`: pass
+- `node scripts/sharepoint-bridge-qa.mjs`: pass
+- `node scripts/sharepoint-bridge-visual-qa.mjs`: pass
+
+Visual QA repair:
+
+- updated `scripts/sharepoint-bridge-visual-qa.mjs` to scroll through pages before evaluating image readiness
+- this accounts for SharePoint lazy-loading lower-page images before the image gate runs
+- no portal content was changed by this validator repair
+
+Third-pass outcome:
+
+- `46` SharePoint pages live and validated
+- homepage remains `SLP-Portal.aspx`
+- `16/16` homepage migration images loaded in strict DOM validation
+- `0` failed page checks
+- `0` visual QA failures across sampled desktop/mobile pages
+
 ## Durable Outcome
 
 The redesigned SharePoint-native bridge is now live. The visible SharePoint page canvas uses a compact polished shell for SharePoint compatibility, while the richer generated HTML remains stored in the page record. The production path is still the PHI-minimized SPFx shell once App Catalog deployment is available.

@@ -3724,41 +3724,45 @@ function renderPageHtml(page) {
   ];
 
   const serviceMap = `
-    <section style="margin:0 0 26px 0;">
-      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;">
+    <section style="margin:0 0 22px 0;">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px 0;flex-wrap:wrap;">
         <div>
-          <h2 style="margin:0 0 6px 0;font-size:26px;line-height:1.2;color:#0f172a;">SLP service map</h2>
-          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.6;">Organized around how clinicians browse, decide, and act in the portal.</p>
+          <h2 style="margin:0 0 5px 0;font-size:24px;line-height:1.2;color:#0f172a;">SLP service map</h2>
+          <p style="margin:0;color:#64748b;font-size:14px;line-height:1.55;">Four high-level routes for finding resources without scanning every page.</p>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;">
-        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Swallowing and airway</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Dysphagia, instrumentals, IDDSI, trach and vent, meds/labs, and safety escalation.</p></div>
-        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Communication and cognition</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Aphasia, AAC, cognition, motor speech, voice, anatomy, reference, and outcomes.</p></div>
-        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Documentation and compliance</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Documentation, coding, Medicare, audit framing, compliance center, and source governance.</p></div>
-        <div style="border:1px solid #dbe5ee;border-radius:24px;padding:18px;background:#ffffff;box-shadow:0 16px 32px rgba(15,23,42,0.05);"><h3 style="margin:0 0 8px 0;font-size:18px;color:#0f172a;">Template-mode workflows</h3><p style="margin:0;color:#64748b;font-size:14px;line-height:1.7;">Notes, goals, therapy templates, handouts, Copilot playbooks, and reusable support shells.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Dysphagia.aspx" style="display:block;border:1px solid #dbe5ee;border-left:4px solid #0f6cbd;border-radius:10px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 10px 22px rgba(15,23,42,0.04);"><h3 style="margin:0 0 7px 0;font-size:17px;color:#0f172a;">Swallowing and airway</h3><p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Dysphagia, instrumentals, IDDSI, trach and vent, meds/labs, and escalation.</p></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Aphasia.aspx" style="display:block;border:1px solid #dbe5ee;border-left:4px solid #0891b2;border-radius:10px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 10px 22px rgba(15,23,42,0.04);"><h3 style="margin:0 0 7px 0;font-size:17px;color:#0f172a;">Communication and cognition</h3><p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Aphasia, AAC, cognition, motor speech, voice, anatomy, and outcomes.</p></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Documentation-Studio.aspx" style="display:block;border:1px solid #dbe5ee;border-left:4px solid #0f766e;border-radius:10px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 10px 22px rgba(15,23,42,0.04);"><h3 style="margin:0 0 7px 0;font-size:17px;color:#0f172a;">Documentation and compliance</h3><p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Documentation, coding, Medicare, audit framing, and compliance review.</p></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Note-Template-Studio.aspx" style="display:block;border:1px solid #dbe5ee;border-left:4px solid #155e75;border-radius:10px;padding:15px 16px;background:#ffffff;text-decoration:none;box-shadow:0 10px 22px rgba(15,23,42,0.04);"><h3 style="margin:0 0 7px 0;font-size:17px;color:#0f172a;">Template-mode workflows</h3><p style="margin:0;color:#64748b;font-size:13px;line-height:1.6;">Notes, goals, therapy templates, handouts, Copilot playbooks, and support shells.</p></a>
+      </div>
+    </section>
+  `;
+
+  const taskStrip = `
+    <section style="margin:0 0 18px 0;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;">
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Quick-Reference.aspx" style="display:block;border:1px solid #dbe5ee;border-radius:10px;padding:13px 14px;background:#ffffff;text-decoration:none;box-shadow:0 8px 18px rgba(15,23,42,0.04);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#0f6cbd;margin:0 0 6px 0;">Find fast</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 5px 0;">Quick reference</div><div style="font-size:12px;line-height:1.5;color:#64748b;">Open concise guidance before moving deeper.</div></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Documentation-Studio.aspx" style="display:block;border:1px solid #dbe5ee;border-radius:10px;padding:13px 14px;background:#ffffff;text-decoration:none;box-shadow:0 8px 18px rgba(15,23,42,0.04);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#0f766e;margin:0 0 6px 0;">Frame care</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 5px 0;">Documentation</div><div style="font-size:12px;line-height:1.5;color:#64748b;">Use generalized note and recert shells.</div></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-Knowledge-Source-Index.aspx" style="display:block;border:1px solid #dbe5ee;border-radius:10px;padding:13px 14px;background:#ffffff;text-decoration:none;box-shadow:0 8px 18px rgba(15,23,42,0.04);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#0891b2;margin:0 0 6px 0;">Verify source</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 5px 0;">Knowledge index</div><div style="font-size:12px;line-height:1.5;color:#64748b;">Check reviewed non-PHI source metadata.</div></a>
+        <a href="/sites/PacificCoast_SLP/SitePages/SLP-SPFx-Production-Handoff.aspx" style="display:block;border:1px solid #dbe5ee;border-radius:10px;padding:13px 14px;background:#ffffff;text-decoration:none;box-shadow:0 8px 18px rgba(15,23,42,0.04);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#155e75;margin:0 0 6px 0;">Next lift</div><div style="font-size:16px;font-weight:900;color:#0f172a;margin:0 0 5px 0;">SPFx handoff</div><div style="font-size:12px;line-height:1.5;color:#64748b;">Track the production app path and limits.</div></a>
       </div>
     </section>
   `;
 
   const homepageOnly = isHome ? `
     <section style="margin:0 0 28px 0;">
-      <div style="border:1px solid #dbe5ee;border-radius:28px;padding:20px 22px;background:linear-gradient(135deg,#eff6ff 0%,#f8fafc 38%,#ffffff 100%);box-shadow:0 24px 42px rgba(15,23,42,0.06);margin:0 0 20px 0;">
+      <div style="border:1px solid #dbe5ee;border-radius:12px;padding:18px 20px;background:linear-gradient(135deg,#eff6ff 0%,#f8fafc 38%,#ffffff 100%);box-shadow:0 14px 30px rgba(15,23,42,0.05);margin:0 0 18px 0;">
         <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div>
-            <h2 style="margin:0 0 8px 0;font-size:28px;line-height:1.2;color:#0f172a;">Launch actions</h2>
-            <p style="margin:0;color:#475569;font-size:15px;line-height:1.7;max-width:760px;">Prioritize common tasks first: open a core module, move into generalized workflow pages, then finish patient-specific work in the chart.</p>
+            <h2 style="margin:0 0 8px 0;font-size:26px;line-height:1.2;color:#0f172a;">Launch actions</h2>
+            <p style="margin:0;color:#475569;font-size:14px;line-height:1.65;max-width:760px;">Choose the shortest path to a clinical topic, documentation scaffold, reviewed source, or production handoff.</p>
           </div>
         </div>
-        <div style="margin:18px 0 0 0;">${renderActionPills(homeActions)}</div>
+        <div style="margin:16px 0 0 0;">${renderActionPills(homeActions)}</div>
       </div>
-      <section style="margin:0 0 22px 0;">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;">
-          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Portal coverage</div><div style="font-size:24px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">${pages.length}</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Validated SharePoint bridge pages in the live safe migration set.</div></div>
-          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Navigation model</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Task first</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Grouped by clinician tasks, workflow shells, knowledge, and governance.</div></div>
-          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Workflow mode</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Reference and template</div><div style="color:#64748b;font-size:13px;line-height:1.6;">Generalized workflow shells now; patient-specific interaction stays out of the bridge.</div></div>
-          <div style="border:1px solid #dbe5ee;border-radius:22px;padding:16px;background:#ffffff;box-shadow:0 12px 24px rgba(15,23,42,0.05);"><div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748b;margin:0 0 6px 0;">Next production lift</div><div style="font-size:18px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">SPFx shell</div><div style="color:#64748b;font-size:13px;line-height:1.6;">The interactive app path remains the PHI-minimized SPFx package.</div></div>
-        </div>
-      </section>
+      ${taskStrip}
       <section style="margin:0 0 22px 0;">
         <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 14px 0;flex-wrap:wrap;">
           <div>
@@ -3811,13 +3815,12 @@ function renderPageHtml(page) {
   const relatedCards = isHome ? '' : renderRelatedPageCards(page.fileName, isHome);
   const referenceCards = renderReferenceCards(page.links);
   const hero = isHome ? `
-    <section style="border:1px solid #dbe5ee;border-radius:32px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 42%,#eef6ff 100%);margin:0 0 24px 0;box-shadow:0 28px 54px rgba(15,23,42,0.08);">
-      <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,420px);gap:28px;align-items:center;padding:28px 32px;">
+    <section style="border:1px solid #dbe5ee;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#f8fbfd 0%,#ffffff 42%,#eef6ff 100%);margin:0 0 20px 0;box-shadow:0 18px 38px rgba(15,23,42,0.06);">
+      <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,320px);gap:22px;align-items:center;padding:24px 28px;">
         <div>
           <p style="margin:0 0 10px 0;color:#0369a1;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;">SharePoint clinical reference portal</p>
-          <h1 style="margin:0 0 12px 0;font-size:40px;line-height:1.08;color:#0f172a;">Pacific Coast SLP Portal</h1>
-          <p style="margin:0 0 16px 0;font-size:16px;line-height:1.75;color:#475569;max-width:760px;">Minimalist, dense launch point for SLP clinical references, Medicare guidance, reviewed source libraries, and non-PHI workflow scaffolds while the full SPFx experience remains on the production track. The layout is intentionally task-first so clinicians can scan, decide, and move without hunting.</p>
-          <div style="margin:0 0 14px 0;">${renderActionPills(homeActions)}</div>
+          <h1 style="margin:0 0 10px 0;font-size:38px;line-height:1.08;color:#0f172a;">Pacific Coast SLP Portal</h1>
+          <p style="margin:0 0 14px 0;font-size:15px;line-height:1.7;color:#475569;max-width:760px;">Minimalist, dense launch point for SLP clinical references, Medicare guidance, reviewed source libraries, and non-PHI workflow scaffolds while the full SPFx experience remains on the production track.</p>
           <div>
             <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0c4a6e;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">SharePoint-native bridge</span>
             <span style="display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f0fdf4;color:#166534;font-size:11px;font-weight:800;text-transform:uppercase;margin:0 8px 8px 0;">Non-PHI</span>
@@ -3825,8 +3828,8 @@ function renderPageHtml(page) {
           </div>
         </div>
         <div style="display:flex;justify-content:center;">
-          <div style="display:inline-flex;align-items:center;justify-content:center;width:min(100%,340px);padding:18px 20px;border-radius:28px;background:#ffffff;box-shadow:0 22px 44px rgba(15,23,42,0.08);">
-            <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:210px;height:auto;display:inline-block;" />
+          <div style="display:inline-flex;align-items:center;justify-content:center;width:min(100%,280px);padding:14px 16px;border-radius:10px;background:#ffffff;box-shadow:0 14px 30px rgba(15,23,42,0.06);">
+            <img src="${htmlEscape(heroImage)}" alt="Pacific Coast logo" style="width:100%;max-width:175px;height:auto;display:inline-block;" />
           </div>
         </div>
       </div>

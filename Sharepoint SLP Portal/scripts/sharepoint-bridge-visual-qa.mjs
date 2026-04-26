@@ -31,6 +31,31 @@ function screenshotName(viewport, fileName) {
   return `${viewport.name}-${fileName.replace(/\.aspx$/i, '').toLowerCase()}.png`;
 }
 
+async function primeLazyImages(page) {
+  await page.evaluate(async () => {
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const step = Math.max(240, Math.floor(window.innerHeight * 0.75));
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    for (let y = 0; y <= maxScroll; y += step) {
+      window.scrollTo(0, y);
+      await sleep(180);
+    }
+
+    window.scrollTo(0, maxScroll);
+    await sleep(250);
+    window.scrollTo(0, 0);
+    await sleep(250);
+  });
+
+  await page.waitForFunction(() => {
+    const images = Array.from(document.images)
+      .filter((image) => image.src.includes('/SiteAssets/SLP-Portal-Migration/'));
+
+    return images.length > 0 && images.every((image) => image.complete && image.naturalWidth > 0);
+  }, { timeout: 15000 }).catch(() => {});
+}
+
 await mkdir(OUT_DIR, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
@@ -49,6 +74,7 @@ for (const viewport of viewports) {
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
       await page.waitForTimeout(2500);
+      await primeLazyImages(page);
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path: path.join(OUT_DIR, screenshotName(viewport, fileName)), fullPage: true });
 

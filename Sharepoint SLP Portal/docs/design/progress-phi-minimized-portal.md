@@ -336,6 +336,23 @@ Current remaining technical risk:
 - Tier 2 component PHI boundary audit not yet complete
 - `GoalGenerator`, `MedicareDocChecker`, `AIAssistant`, `DocumentationAssistant`, `CaseBrainstorm`, `ThreeWayEval`, `ClinicalExams` still need session-boundary verification
 
+## SharePoint-Native Bridge Live Polish
+
+The SharePoint-native bridge has been republished with the third homepage polish pass:
+- tighter, more proportional Pacific Coast logo and hero treatment
+- compact task-first launch actions
+- denser `SLP service map` resource cards
+- retained module destinations, non-PHI guardrails, generalized workflow shells, and SPFx-pending boundary language
+
+Validated live state:
+- `46` SharePoint pages exist and validate
+- `SLP-Portal.aspx` remains the homepage path
+- strict live DOM validation passed with `16/16` homepage images loaded
+- live bridge QA passed
+- visual QA passed after updating the validator to account for SharePoint lazy-loaded migration images
+
+Portal content can be updated through the same production bridge path by editing the local source/template data and republishing, provided updates remain non-PHI, source-backed, and do not create patient-tracking or clinical-decision persistence.
+
 ## Recommended Next Chunk
 
 Next highest-value chunk:
